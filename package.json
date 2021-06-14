@@ -1,0 +1,24 @@
+{
+  "name": "folio",
+  "description": "personal website of yucheng kuo.",
+  "authors": "YuCheng Kuo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@fontsource/sora": "^4.4.5",
+    "framer-motion": "^4.1.17",
+    "next": "10.2.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "theme-ui": "^0.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.28.0",
+    "eslint-plugin-react": "^7.24.0"
+  }
+}
