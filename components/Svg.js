@@ -31,7 +31,7 @@ const Svg = () => {
       pathOffset: 0,
       transition: {
         delay: Math.random(),
-        duration: 3.4,
+        duration: 4,
         repeat: 1,
         repeatType: "reverse",
         repeatDelay: delayTime,
