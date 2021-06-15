@@ -1,6 +1,7 @@
 import { ThemeProvider } from "theme-ui";
 import theme from "../utlis/theme";
 import "../public/font/font.css";
+import "normalize.css";
 
 function MyApp({ Component, pageProps }) {
   return (
