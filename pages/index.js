@@ -1,11 +1,34 @@
-import Layout from "../components/layout";
+/** @jsxImportSource theme-ui */
+import Layout from "../components/Layout";
+import { Container } from "theme-ui";
+import Hero from "components/Hero";
+import ProjectCard from "components/ProjectCard";
+import { getAllProjectsData } from "lib/projects";
 
-const Home = () => {
+const Home = ({ allProjectsData }) => {
   return (
     <Layout>
-      <h1>Home page</h1>
+      <Hero />
+      <Container
+        as="section"
+        variant="section"
+        sx={{ display: "flex", flexDirection: "column", gap: 11 }}
+      >
+        {allProjectsData.map((data, i) => (
+          <ProjectCard key={i} data={data} />
+        ))}
+      </Container>
     </Layout>
   );
 };
+
+export async function getStaticProps() {
+  const allProjectsData = await getAllProjectsData();
+  return {
+    props: {
+      allProjectsData,
+    },
+  };
+}
 
 export default Home;
