@@ -39,13 +39,23 @@ const img = () => (props) => {
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
-        width: `70vw`,
-        ml: `calc((100% - 70vw) / 2)`,
-        my: 6,
+        width: [`99vw`, `90vw`, `70vw`],
+        ml: [
+          `calc((100% - 99vw) / 2)`,
+          `calc((100% - 90vw) / 2)`,
+          `calc((100% - 70vw) / 2)`,
+        ],
+        my: 7,
       }}
     >
-      <Img layout="intrinsic" sizes="100%" objectFit="cover" {...props} />
-      <Text as="figcaption" variant="caps" color="altText" my={2}>
+      <Img
+        layout="intrinsic"
+        sizes="100%"
+        objectFit="cover"
+        placeholder="blur"
+        {...props}
+      />
+      <Text as="figcaption" variant="caps" color="altText" my={3}>
         {props.caps}
       </Text>
     </Flex>
