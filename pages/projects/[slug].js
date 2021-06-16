@@ -1,20 +1,41 @@
-import Layout from "components/Layout";
-import { getAllProjectsPath, getProjectData } from "lib/projects";
-import { Container } from "theme-ui";
+import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemote } from "next-mdx-remote";
 
-const ProjectTemplate = ({ projectData }) => {
+import matter from "gray-matter";
+
+import fs from "fs";
+import path from "path";
+
+import Layout from "components/Layout";
+import { Grid, Container, Themed } from "theme-ui";
+
+import { remarkSectionize } from "utlis/remark-sectionize";
+
+const ProjectTemplate = ({ mdxSource, frontMatter }) => {
   return (
     <Layout>
-      <Container>
-        <h1>{projectData.title}</h1>
-        <p>{projectData.subtitle}</p>
+      <Container as="section" variant="hero">
+        <Themed.h1>{frontMatter.title}</Themed.h1>
       </Container>
+      <Grid as="section" variant="article">
+        <Container as="article" variant="section" sx={{ gridColumn: 2 }}>
+          <MDXRemote {...mdxSource} />
+        </Container>
+      </Grid>
     </Layout>
   );
 };
 
 export async function getStaticPaths() {
-  const paths = await getAllProjectsPath();
+  const fileNames = fs.readdirSync(path.join(process.cwd(), "projects"));
+
+  const paths = fileNames.map((fileName) => {
+    return {
+      params: {
+        slug: fileName.replace(".mdx", ""),
+      },
+    };
+  });
   return {
     paths,
     fallback: false,
@@ -22,10 +43,24 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const projectData = await getProjectData(params.slug);
+  const fileContents = fs.readFileSync(
+    path.join(process.cwd(), "projects", `${params.slug}.mdx`)
+  );
+
+  const { data, content } = matter(fileContents);
+
+  const mdxSource = await serialize(content, {
+    mdxOptions: {
+      remarkPlugins: [require("remark-slug"), remarkSectionize],
+    },
+    scope: data,
+  });
+
+  // todo: og
   return {
     props: {
-      projectData,
+      mdxSource: mdxSource,
+      frontMatter: data,
     },
   };
 }
