@@ -3,7 +3,7 @@ import { Flex, NavLink, Text } from "@theme-ui/components";
 import Link from "next/link";
 
 const navItems = [
-  { label: "Projects", link: "#project" },
+  { label: "Projects", link: "/#project" },
   { label: "About", link: "/about" },
   { label: "Send mail", link: "mailto:hey@yuchengkuo.com?subject=Hi!" },
 ];
@@ -20,7 +20,7 @@ const Header = () => {
         }}
       >
         <Flex sx={{ flex: `1 1 auto`, mb: [5, 0] }}>
-          <Link href="/">
+          <Link href="/" passHref>
             <NavLink
               sx={{ "> *": { mr: 2 }, display: "flex", alignItems: "center" }}
             >
@@ -31,7 +31,7 @@ const Header = () => {
         </Flex>
         <Flex sx={{ justifyContent: "space-between", gap: 4 }}>
           {navItems.map((item, i) => (
-            <Link href={item.link} key={i}>
+            <Link href={item.link} key={i} passHref>
               <NavLink>{item.label}</NavLink>
             </Link>
           ))}
