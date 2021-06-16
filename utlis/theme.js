@@ -70,7 +70,7 @@ const theme = {
   },
   grids: {
     article: {
-      gridTemplateColumns: "auto minmax(auto, 640px) auto",
+      gridTemplateColumns: "auto minmax(auto, 720px) auto",
     },
   },
   text: {
