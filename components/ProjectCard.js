@@ -101,6 +101,7 @@ const ProjectCard = ({ data }) => {
             width={660}
             height={240}
             objectFit="cover"
+            priority
           />
         </MotionFlex>
       </MotionFlex>
