@@ -20,20 +20,21 @@ const ProjectCard = ({ data }) => {
     initial: {
       opacity: 0.7,
       filter: `blur(3px)`,
-      width: 640,
+      maxWidth: 640,
     },
     hover: {
       opacity: 1,
       filter: `blur(0px)`,
-      width: 660,
+      maxWidth: 660,
     },
   };
 
   return (
-    <Link href={`/projects/${data.slug}`}>
+    <Link href={`/projects/${data.slug}`} passHref>
       <MotionFlex
         as="a"
         sx={{
+          textDecoration: "none",
           flexDirection: ["column", "row"],
           justifyContent: "space-between",
           cursor: "pointer",
@@ -50,16 +51,17 @@ const ProjectCard = ({ data }) => {
             mr: 2,
           }}
         >
-          <motion.h4
+          <motion.h2
             sx={{
               fontSize: 3,
               fontWeight: "heading",
               lineHeight: "heading4",
+              color: "text",
               m: 0,
             }}
           >
             {data.title}
-          </motion.h4>
+          </motion.h2>
           <p sx={{ variant: "text.caps", color: "secondaryText" }}>
             {data.subtitle}
           </p>
