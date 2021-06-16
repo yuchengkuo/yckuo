@@ -1,12 +1,11 @@
-import Header from "./header";
+import Header from "./Header";
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <main>
       <Header />
-      <h1>Layout page</h1>
       {children}
-    </div>
+    </main>
   );
 };
 
