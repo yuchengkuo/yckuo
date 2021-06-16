@@ -1,4 +1,5 @@
-export default {
+import { transparentize } from "@theme-ui/color";
+const theme = {
   colors: {
     text: "#E3E3E3",
     background: "#080909",
@@ -7,6 +8,8 @@ export default {
     accent: "#FBCED3",
     gradient:
       "linear-gradient(270deg, #FBCED3 6.44%, #D6E4DC 63.07%, #FCB33D 126.63%)",
+    secondaryText: "#BDBEC1",
+    altText: "#777980",
   },
   fonts: {
     body: '"Sora","system-ui, sans-serif"',
@@ -24,9 +27,9 @@ export default {
     "5.6rem",
   ],
   fontWeights: {
-    body: 300,
-    heading: 500,
-    bold: 700,
+    body: 200,
+    heading: 400,
+    bold: 600,
   },
   lineHeights: {
     body: 2,
@@ -37,28 +40,62 @@ export default {
     heading5: 1.1418,
   },
   space: [0, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 160, 240],
-  breakpoints: [],
+  breakpoints: ["600px", "960px", "1300px"],
 
   // variant group
   layout: {
-    maxWidth: { maxWidth: 960, mx: `auto` },
-    nav: { variant: "layout.maxWidth", p: 6 },
-    hero: {},
-    section: {},
+    maxWidth: { maxWidth: 1040, mx: `auto` },
+    nav: {
+      variant: "layout.maxWidth",
+      p: [4, 6],
+    },
+    hero: {
+      variant: "layout.maxWidth",
+      height: `calc(100vh - 106px)`,
+      p: [4, 6],
+    },
+    text: {
+      maxWidth: 720,
+      mx: `auto`,
+      p: [4, 6],
+      py: 11,
+      my: 12,
+    },
+    section: {
+      variant: "layout.maxWidth",
+      px: [4, 6],
+      py: 11,
+      my: 12,
+    },
   },
   grids: {
-    article: {},
+    article: {
+      gridTemplateColumns: "auto minmax(auto, 640px) auto",
+    },
   },
   text: {
+    caps: {
+      textTransform: "uppercase",
+      fontSize: 0,
+      fontWeight: 400,
+      lineHeight: "heading5",
+    },
     heading: {
       fontFamily: "heading",
-      fontWeight: "bold",
+      fontWeight: "heading",
     },
     navLink: {
       variant: "text.heading",
-      fontWeight: 700,
       fontSize: 0,
+      fontWeight: 700,
       px: 1,
+      color: "secondaryText",
+      display: "flex",
+      alignItems: "center",
+    },
+    body: {
+      fontWeight: "body",
+      lineHeight: "body",
     },
   },
   links: {
@@ -68,9 +105,28 @@ export default {
     },
   },
   buttons: {
-    primary: {},
+    primary: {
+      fontWeight: "bold",
+      fontSize: 2,
+      lineHeight: "body",
+      color: "text",
+      backgroundColor: transparentize("altText", 0.9),
+      p: 2,
+      width: `100%`,
+      borderRadius: 5,
+      cursor: "pointer",
+      svg: {
+        verticalAlign: "-3px",
+        mr: 2,
+      },
+    },
     icon: {},
     menu: {},
+    hero: {
+      variant: "text.caps",
+      color: "altText",
+      cursor: "pointer",
+    },
   },
 
   // styles
@@ -81,8 +137,55 @@ export default {
       fontFamily: "body",
       fontWeight: "body",
     },
-  },
-  a: {
-    cursor: "pointer",
+    p: {
+      variant: "text.body",
+      fontSize: [1, 2],
+      color: "secondaryText",
+      mb: 5,
+    },
+    a: {
+      textDecoration: "underline",
+      color: "secondaryText",
+      cursor: "pointer",
+    },
+    img: {
+      borderRadius: 15,
+    },
+    li: {
+      variant: "text.body",
+      fontSize: [1, 2],
+      color: "secondaryText",
+      pl: 1,
+    },
+    ul: {
+      pl: 5,
+      listStyleType: "disc",
+    },
+    h1: {
+      variant: "text.heading",
+      fontSize: [4, 6],
+      lineHeight: "heading1",
+    },
+    h2: {
+      variant: "text.heading",
+      fontSize: [3, 5],
+      lineHeight: "heading2",
+      mb: 7,
+    },
+    h3: {
+      variant: "text.heading",
+      fontSize: 4,
+      lineHeight: "heading3",
+    },
+    h4: {
+      variant: "text.heading",
+      fontSize: 3,
+      color: "altText",
+      m: 0,
+      mb: 8,
+      ml: -16,
+    },
   },
 };
+
+export default theme;
