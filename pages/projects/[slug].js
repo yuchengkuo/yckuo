@@ -2,14 +2,20 @@ import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 
 import matter from "gray-matter";
-
+import { remarkSectionize } from "utlis/remark-sectionize";
 import fs from "fs";
 import path from "path";
 
 import Layout from "components/Layout";
 import { Grid, Container, Themed } from "theme-ui";
 
-import { remarkSectionize } from "utlis/remark-sectionize";
+import Carousel from "components/Carousel";
+import Image from "next/image";
+
+const components = {
+  Carousel,
+  Image,
+};
 
 const ProjectTemplate = ({ mdxSource, frontMatter }) => {
   return (
@@ -19,7 +25,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter }) => {
       </Container>
       <Grid as="section" variant="article">
         <Container as="article" variant="section" sx={{ gridColumn: 2 }}>
-          <MDXRemote {...mdxSource} />
+          <MDXRemote {...mdxSource} components={components} />
         </Container>
       </Grid>
     </Layout>
