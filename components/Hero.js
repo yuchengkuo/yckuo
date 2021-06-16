@@ -10,12 +10,14 @@ const Hero = () => {
   }
   return (
     <Container
+      as="section"
       variant="hero"
       sx={{
         display: "flex",
         justifyContent: ["start", null, "space-between"],
         pt: [4, 11, 12],
         flexDirection: ["column-reverse", null, "row"],
+        maxHeight: 1200,
       }}
     >
       <Box sx={{ maxWidth: 520, mx: [null, "auto", "unset"] }}>
@@ -47,10 +49,10 @@ const Hero = () => {
           sx={{
             flexDirection: ["column", "row"],
             alignItems: ["start", "unset"],
-            svg: { verticalAlign: "middle", ml: 3 },
+            svg: { verticalAlign: "-3px", ml: 3 },
           }}
         >
-          <Link href="#projects">
+          <Link href="#projects" passHref>
             <Button
               variant="hero"
               bg="background"
@@ -74,7 +76,7 @@ const Hero = () => {
               </svg>
             </Button>
           </Link>
-          <Link href="/about">
+          <Link href="/about" passHref>
             <Button variant="hero" bg="background" p={0}>
               More about me
               <svg
