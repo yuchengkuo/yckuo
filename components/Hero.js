@@ -52,7 +52,7 @@ const Hero = () => {
             svg: { verticalAlign: "-3px", ml: 3 },
           }}
         >
-          <Link href="#projects" passHref>
+          <Link href="#project" passHref>
             <Button
               variant="hero"
               bg="background"
