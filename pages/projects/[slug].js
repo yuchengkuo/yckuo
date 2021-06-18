@@ -1,3 +1,4 @@
+/** @jsxImportSource theme-ui */
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 
@@ -9,6 +10,7 @@ import path from "path";
 import Layout from "components/Layout";
 import { Grid, Container, Themed } from "theme-ui";
 
+import GoTop from "components/GoTop";
 import Carousel from "components/Carousel";
 import Image from "next/image";
 
@@ -21,12 +23,15 @@ const ProjectTemplate = ({ mdxSource, frontMatter }) => {
   return (
     <Layout>
       <Container as="section" variant="hero">
-        <Themed.h1>{frontMatter.title}</Themed.h1>
+        <Themed.h1 sx={{ maxWidth: 640, mt: 12 }}>
+          {frontMatter.title}
+        </Themed.h1>
       </Container>
       <Grid as="section" variant="article">
         <Container as="article" variant="section" sx={{ gridColumn: 2 }}>
           <MDXRemote {...mdxSource} components={components} />
         </Container>
+        <GoTop />
       </Grid>
     </Layout>
   );
