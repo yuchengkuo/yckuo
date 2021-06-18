@@ -41,7 +41,7 @@ const Header = () => {
   );
 };
 
-const LogoSvg = () => {
+export const LogoSvg = () => {
   return (
     <svg
       width="38"
