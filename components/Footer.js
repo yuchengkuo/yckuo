@@ -12,11 +12,11 @@ export default function Footer() {
         mb={8}
         sx={{
           justifyContent: "space-between",
-          flexDirection: ["column", "row"],
+          flexDirection: ["column-reverse", "row"],
           alignItems: ["center", "unset"],
         }}
       >
-        <Flex sx={{ alignItems: "center", mb: [5, 0] }}>
+        <Flex sx={{ alignItems: "center", mt: [5, 0] }}>
           <LogoSvg />
           <Text
             as="p"
