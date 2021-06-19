@@ -3,6 +3,7 @@ import { Flex } from "theme-ui";
 import Img from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { transparentize } from "@theme-ui/color";
 
 const ProjectCard = ({ data }) => {
   const MotionFlex = motion(Flex);
@@ -29,7 +30,7 @@ const ProjectCard = ({ data }) => {
     },
   };
 
-  return (
+  return data.published ? (
     <Link href={`/projects/${data.slug}`} passHref>
       <MotionFlex
         as="a"
@@ -106,6 +107,48 @@ const ProjectCard = ({ data }) => {
         </MotionFlex>
       </MotionFlex>
     </Link>
+  ) : (
+    <Flex
+      sx={{
+        flexDirection: ["column", "row"],
+        justifyContent: "space-between",
+        cursor: "not-allowed",
+      }}
+    >
+      <Flex
+        sx={{ width: 240, flexDirection: "column", overflow: "hidden", mr: 2 }}
+      >
+        <h2
+          sx={{
+            fontSize: 3,
+            fontWeight: "heading",
+            lineHeight: "heading4",
+            color: "text",
+            m: 0,
+          }}
+        >
+          {data.title}
+        </h2>
+        <p sx={{ variant: "text.caps", color: "secondaryText" }}>
+          {data.subtitle}
+        </p>
+      </Flex>
+
+      <Flex
+        sx={{
+          height: 240,
+          maxWidth: 640,
+          border: `1px solid`,
+          borderRadius: 15,
+          flexBasis: ["unset", 640],
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: transparentize("altText", 0.9),
+        }}
+      >
+        <p sx={{ fontSize: 2, fontWeight: "body", color: "altText" }}>WIP...</p>
+      </Flex>
+    </Flex>
   );
 };
 
