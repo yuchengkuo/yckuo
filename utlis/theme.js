@@ -52,6 +52,7 @@ const theme = {
     hero: {
       variant: "layout.maxWidth",
       height: `calc(100vh - 106px)`,
+      maxHeight: 800,
       p: [4, 6],
     },
     text: {
@@ -182,6 +183,9 @@ const theme = {
         backgroundColor: transparentize("primary", 0.1),
       },
     },
+    em: {
+      fontSize: 4,
+    },
     h1: {
       variant: "text.heading",
       fontSize: [4, 6],
@@ -191,13 +195,15 @@ const theme = {
       variant: "text.heading",
       fontSize: [3, 5],
       lineHeight: "heading2",
-      my: 8,
+      mt: 9,
+      mb: 5,
     },
     h3: {
       variant: "text.heading",
       fontSize: 4,
       lineHeight: "heading3",
-      my: 6,
+      mt: 8,
+      mb: 4,
     },
     h4: {
       variant: "text.heading",

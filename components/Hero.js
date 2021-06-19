@@ -17,7 +17,6 @@ const Hero = () => {
         justifyContent: ["start", null, "space-between"],
         pt: [4, 11, 12],
         flexDirection: ["column-reverse", null, "row"],
-        maxHeight: 1200,
       }}
     >
       <Box sx={{ maxWidth: 520, mx: [null, "auto", "unset"] }}>
@@ -52,30 +51,33 @@ const Hero = () => {
             svg: { verticalAlign: "-3px", ml: 3 },
           }}
         >
-          <Link href="#project" passHref>
-            <Button
-              variant="hero"
-              bg="background"
-              p={0}
-              py={1}
-              mr={8}
-              mb={[4, 0]}
+          <Button
+            variant="hero"
+            bg="background"
+            p={0}
+            py={1}
+            mr={8}
+            mb={[4, 0]}
+            onClick={() => {
+              const offsetY = document.getElementById("project").offsetTop;
+              window.scrollTo({ top: offsetY, left: 0, behavior: "smooth" });
+            }}
+          >
+            See my projects
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              See my projects
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.66669 8.66667L3.6095 7.72386L7.33335 11.4477V2H8.66669V11.4477L12.3905 7.72386L13.3334 8.66667L8.00002 14L2.66669 8.66667Z"
-                  fill="#777980"
-                />
-              </svg>
-            </Button>
-          </Link>
+              <path
+                d="M2.66669 8.66667L3.6095 7.72386L7.33335 11.4477V2H8.66669V11.4477L12.3905 7.72386L13.3334 8.66667L8.00002 14L2.66669 8.66667Z"
+                fill="#777980"
+              />
+            </svg>
+          </Button>
+
           <Link href="/about" passHref>
             <Button variant="hero" bg="background" p={0}>
               More about me
@@ -109,7 +111,7 @@ const Hero = () => {
           gridTemplate: "repeat(4, 82px) / repeat(4, 82px)",
           alignItems: "center",
           justifyContent: "center",
-          mb: [4, 11, null],
+          mb: [4, 11, 0],
           gap: [3, 4, 3],
         }}
       >
