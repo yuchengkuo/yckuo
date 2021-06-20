@@ -46,8 +46,9 @@ const img = () => (props) => {
           `calc((100% - 90vw) / 2)`,
           `calc((100% - 70vw) / 2)`,
         ],
-        my: 12,
+        my: 7,
         pointerEvents: "none",
+        div: { borderRadius: 15, backgroundColor: "secondary" },
       }}
     >
       <Img

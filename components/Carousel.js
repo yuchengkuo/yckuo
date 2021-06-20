@@ -47,7 +47,10 @@ export default function Caoursel(props) {
                   flex: `1 0 auto`,
                   flexDirection: "column",
                   alignItems: "center",
-                  ".carousel_image": { borderRadius: 15 },
+                  ".carousel_image": {
+                    borderRadius: 15,
+                    backgroundColor: "secondary",
+                  },
                 }}
               >
                 <Img
