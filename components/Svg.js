@@ -1,15 +1,15 @@
 import { motion, useAnimation, useCycle } from "framer-motion";
 import React, { useEffect, useState } from "react";
+const path = [
+  "M1 81 L21 41 L1 1 L81 1 L41 81 Z",
+  "M1 81 L1 1 L81 1 L61 41 L81 81 Z",
+  "M1 81 L41 81 L81 1 L41 1 Z",
+  "M1 81 L21 41 L1 1 L81 1 L41 81 Z",
+  "M1 81 L1 1 L81 1 L61 41 L81 81 Z",
+];
+const color = ["#FCB33D", "#BDBEC1", "#FBCED3", "#BDBEC1"];
 
 const Svg = () => {
-  const path = [
-    "M1 81 L21 41 L1 1 L81 1 L41 81 Z",
-    "M1 81 L1 1 L81 1 L61 41 L81 81 Z",
-    "M1 81 L41 81 L81 1 L41 1 Z",
-    "M1 81 L21 41 L1 1 L81 1 L41 81 Z",
-    "M1 81 L1 1 L81 1 L61 41 L81 81 Z",
-  ];
-  const color = ["#FCB33D", "#BDBEC1", "#FBCED3", "#BDBEC1"];
   const [randomInitialPath] = useState(() =>
     path.sort(() => Math.random() - 0.5)
   );
