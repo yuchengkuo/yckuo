@@ -29,7 +29,7 @@ export default function GoTop(props) {
           sx={{
             width: 56,
             height: 56,
-            right: 80,
+            right: [40, null, 80],
             bottom: 40,
             position: "fixed",
             backgroundColor: "#18191B",
