@@ -2,7 +2,7 @@
 /** @jsxImportSource theme-ui */
 import Link from "next/link";
 import Img from "next/image";
-import { Flex, Text } from "theme-ui";
+import { Text } from "theme-ui";
 import { motion } from "framer-motion";
 
 const heading = (Tag) => (props) => {
@@ -33,19 +33,21 @@ const link = () => (props) =>
 
 const img = () => (props) => {
   return (
-    <Flex
-      as="figure"
+    <motion.figure
       sx={{
+        display: "flex",
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
         width: [`99vw`, `90vw`, `70vw`],
+        m: 0,
         ml: [
           `calc((100% - 99vw) / 2)`,
           `calc((100% - 90vw) / 2)`,
           `calc((100% - 70vw) / 2)`,
         ],
-        my: 7,
+        my: 12,
+        pointerEvents: "none",
       }}
     >
       <Img
@@ -56,9 +58,9 @@ const img = () => (props) => {
         {...props}
       />
       <Text as="figcaption" variant="caps" color="altText" my={3}>
-        {props.caps}
+        {props?.caps}
       </Text>
-    </Flex>
+    </motion.figure>
   );
 };
 

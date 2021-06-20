@@ -1,67 +1,146 @@
 /** @jsxImportSource theme-ui */
-import { Grid, Flex } from "theme-ui";
+import { Flex, Text } from "theme-ui";
 import Img from "next/image";
-import { wrap } from "popmotion";
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useCallback } from "react";
+import { motion } from "framer-motion";
+import { useEmblaCarousel } from "embla-carousel/react";
+import { transparentize } from "@theme-ui/color";
 
-const variants = {
-  enter: (direction) => {
-    return {
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-    };
-  },
-  center: {
-    zIndex: 1,
-    x: 0,
-    opacity: 1,
-  },
-  exit: (direction) => {
-    return {
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-    };
-  },
-};
-
-export default function Caoursel({ src }) {
-  const [[index, direction], setIndex] = useState([0, 0]);
-  const ImageIndex = wrap(0, src.length, index);
-  const paginate = (newDirection) => {
-    setIndex([index + newDirection, newDirection]);
-  };
+export default function Caoursel(props) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ inViewThreshold: 1 });
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
   return (
-    <div sx={{ width: 640, height: 400, display: "flex" }}>
-      <AnimatePresence initial={false} custom={direction}>
-        <motion.div sx={{ display: "flex" }}>
-          <Img
-            src={src[ImageIndex].src}
-            width={640}
-            height={400}
-            sizes="100%"
-            layout="intrinsic"
-            objectFit="cover"
+    <motion.figure
+      className="embla"
+      sx={{
+        overflow: "hidden",
+        width: `99vw`,
+        ml: `calc((100% - 99vw) / 2)`,
+        my: 12,
+        px: [4, 6],
+        position: "relative",
+        cursor: "grab",
+      }}
+      whileTap={{ cursor: "grabbing" }}
+    >
+      <div ref={emblaRef} className="embla__viewport">
+        <Flex
+          className="embla__container"
+          sx={{
+            alignItems: "center",
+            gap: 360,
+          }}
+        >
+          {props.images.map((item, i) => {
+            return (
+              <Flex
+                as="figure"
+                key={i}
+                className="embla__slide"
+                sx={{
+                  position: "relative",
+                  flex: `1 0 auto`,
+                  flexDirection: "column",
+                  alignItems: "center",
+                  ".carousel_image": { borderRadius: 15 },
+                }}
+              >
+                <Img
+                  layout="intrinsic"
+                  sizes="100%"
+                  objectFit="cover"
+                  src={item.src}
+                  alt={item.alt}
+                  width={item.width}
+                  height={item.height}
+                  className="carousel_image"
+                />
+                <Text as="figcaption" variant="caps" color="altText" my={3}>
+                  {item?.caps}
+                </Text>
+              </Flex>
+            );
+          })}
+        </Flex>
+      </div>
+      <motion.button
+        className="embla__prev"
+        sx={{
+          position: "absolute",
+          left: `calc(50% - 400px - 26px)`,
+          top: `calc(50% - 26px)`,
+          width: 52,
+          height: 52,
+          borderRadius: 10,
+          border: `1px solid #fff`,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: transparentize("altText", 0.9),
+          cursor: "pointer",
+        }}
+        onClick={scrollPrev}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.97 }}
+      >
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M20 6.6665L10.6667 15.9998L20 25.3332"
+            stroke="#D6E4DC"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
-          <Img
-            src={src[ImageIndex].src}
-            width={640}
-            height={400}
-            sizes="100%"
-            layout="intrinsic"
-            objectFit="cover"
+        </svg>
+      </motion.button>
+      <motion.button
+        className="embla__next"
+        sx={{
+          position: "absolute",
+          left: `calc(50% + 400px - 26px)`,
+          top: `calc(50% - 26px)`,
+          width: 52,
+          height: 52,
+          borderRadius: 10,
+          border: `1px solid #fff`,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: transparentize("altText", 0.9),
+          cursor: "pointer",
+        }}
+        onClick={scrollNext}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.97 }}
+      >
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          sx={{ m: 0 }}
+        >
+          <path
+            d="M12 6.6665L21.3333 15.9998L12 25.3332"
+            stroke="#D6E4DC"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
-          <Img
-            src={src[ImageIndex + 1].src}
-            width={640}
-            height={400}
-            sizes="100%"
-            layout="intrinsic"
-            objectFit="cover"
-          />
-        </motion.div>
-      </AnimatePresence>
-    </div>
+        </svg>
+      </motion.button>
+    </motion.figure>
   );
 }
