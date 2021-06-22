@@ -59,14 +59,13 @@ const theme = {
       maxWidth: 720,
       mx: `auto`,
       p: [4, 6],
-      py: 11,
-      my: 12,
+      py: 10,
+      my: [10, 12],
     },
     section: {
       variant: "layout.maxWidth",
       px: [4, 6],
-      py: 11,
-      my: 12,
+      my: [10, 12],
     },
   },
   grids: {
@@ -184,7 +183,7 @@ const theme = {
       },
     },
     em: {
-      fontSize: 4,
+      fontSize: [2, 4],
     },
     h1: {
       variant: "text.heading",
@@ -197,10 +196,11 @@ const theme = {
       lineHeight: "heading2",
       mt: 9,
       mb: 5,
+      a: { color: "text" },
     },
     h3: {
       variant: "text.heading",
-      fontSize: 4,
+      fontSize: [2, 4],
       lineHeight: "heading3",
       mt: 8,
       mb: 4,
