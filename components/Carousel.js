@@ -21,7 +21,7 @@ export default function Caoursel(props) {
         overflow: "hidden",
         width: `99vw`,
         ml: `calc((100% - 99vw) / 2)`,
-        my: 12,
+        my: [11, 12],
         px: [4, 6],
         position: "relative",
         cursor: "grab",
@@ -33,7 +33,6 @@ export default function Caoursel(props) {
           className="embla__container"
           sx={{
             alignItems: "center",
-            gap: 360,
           }}
         >
           {props.images.map((item, i) => {
@@ -44,9 +43,11 @@ export default function Caoursel(props) {
                 className="embla__slide"
                 sx={{
                   position: "relative",
-                  flex: `1 0 auto`,
+                  flexBasis: [`80vw`, `auto`, null, null],
+                  flexShrink: 0,
                   flexDirection: "column",
                   alignItems: "center",
+                  mr: [4, 8, `10%`, `20%`],
                   ".carousel_image": {
                     borderRadius: 15,
                     backgroundColor: "secondary",
@@ -74,6 +75,7 @@ export default function Caoursel(props) {
       <motion.button
         className="embla__prev"
         sx={{
+          visibility: ["hidden", null, null, "visible"],
           position: "absolute",
           left: `calc(50% - 400px - 26px)`,
           top: `calc(50% - 26px)`,
@@ -110,6 +112,7 @@ export default function Caoursel(props) {
       <motion.button
         className="embla__next"
         sx={{
+          visibility: ["hidden", null, null, "visible"],
           position: "absolute",
           left: `calc(50% + 400px - 26px)`,
           top: `calc(50% - 26px)`,
