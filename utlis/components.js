@@ -46,9 +46,12 @@ const img = () => (props) => {
           `calc((100% - 90vw) / 2)`,
           `calc((100% - 70vw) / 2)`,
         ],
-        my: 7,
-        pointerEvents: "none",
-        div: { borderRadius: 15, backgroundColor: "secondary" },
+        my: 96,
+        div: {
+          borderRadius: 15,
+          backgroundColor: "secondary",
+          pointerEvents: "none",
+        },
       }}
     >
       <Img
@@ -65,11 +68,24 @@ const img = () => (props) => {
   );
 };
 
+const hr = () => () => {
+  return (
+    <hr
+      sx={{
+        background: `url("data:image/svg+xml,%3Csvg width='76' height='4' viewBox='0 0 76 4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='2' fill='%23777980'/%3E%3Ccircle cx='38' cy='2' r='2' fill='%23777980'/%3E%3Ccircle cx='74' cy='2' r='2' fill='%23777980'/%3E%3C/svg%3E%0A") no-repeat center`,
+        border: "none",
+        height: 4,
+      }}
+    />
+  );
+};
+
 const components = {
   h2: heading("h2"),
   h3: heading("h3"),
   a: link(),
   img: img(),
+  hr: hr(),
 };
 
 export default components;
