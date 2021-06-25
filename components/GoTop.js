@@ -30,7 +30,7 @@ export default function GoTop(props) {
             width: 56,
             height: 56,
             right: [40, null, 80],
-            bottom: 40,
+            bottom: 100,
             position: "fixed",
             backgroundColor: "#18191B",
             border: "none",
