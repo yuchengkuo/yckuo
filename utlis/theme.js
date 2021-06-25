@@ -58,7 +58,7 @@ const theme = {
     text: {
       maxWidth: 720,
       mx: `auto`,
-      p: [4, 6],
+      px: [4, 6],
       py: 10,
       my: [10, 12],
     },
@@ -87,7 +87,7 @@ const theme = {
     navLink: {
       variant: "text.heading",
       fontSize: 0,
-      fontWeight: 700,
+      fontWeight: 600,
       px: 1,
       color: "secondaryText",
       display: "flex",
@@ -145,6 +145,7 @@ const theme = {
     },
     a: {
       textDecoration: "underline",
+      textDecorationThickness: 1,
       color: "secondaryText",
       cursor: "pointer",
     },
