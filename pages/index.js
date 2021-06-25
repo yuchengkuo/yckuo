@@ -4,7 +4,7 @@ import { Flex, Container, Button, Themed, Text } from "theme-ui";
 import Link from "next/link";
 import Hero from "components/Hero";
 import ProjectCard from "components/ProjectCard";
-import { getAllProjectsData } from "lib/projects";
+import { getAllProjectsData } from "utlis/projects";
 
 const Home = ({ allProjectsData }) => {
   return (
