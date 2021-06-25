@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Img from "next/image";
 import { Text } from "theme-ui";
-import { motion } from "framer-motion";
+import { motion, useCycle } from "framer-motion";
 
 const heading = (Tag) => (props) => {
   if (!props.id) return <Tag {...props} />;
@@ -12,8 +12,13 @@ const heading = (Tag) => (props) => {
     <Tag {...props}>
       <Link href={`#${props.id}`} passHref>
         <motion.a
-          sx={{ textDecoration: "none", color: "secondaryText" }}
-          whileHover={{ textDecoration: "underline", letterSpacing: `0.2px` }}
+          sx={{
+            color: "secondaryText",
+            textDecoration: "none",
+          }}
+          whileHover={{
+            letterSpacing: `0.2px`,
+          }}
         >
           {props.children}
         </motion.a>
@@ -22,14 +27,23 @@ const heading = (Tag) => (props) => {
   );
 };
 
-const link = () => (props) =>
-  (
+const link = () => (props) => {
+  const [color, cycleColor] = useCycle("#D6E4DC", "#FCB33D", "#FBCED3");
+  return (
     <Link href={props.href}>
-      <motion.a {...props} whileHover={{ fontWeight: "400" }}>
+      <motion.a
+        {...props}
+        whileHover={{ color: color }}
+        onHoverEnd={() => {
+          cycleColor();
+        }}
+        transition={{ duration: 0.2 }}
+      >
         {props.children}
       </motion.a>
     </Link>
   );
+};
 
 const img = () => (props) => {
   return (
