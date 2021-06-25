@@ -6,12 +6,11 @@ import matter from "gray-matter";
 import { remarkSectionize } from "utlis/remark-sectionize";
 import fs from "fs";
 import path from "path";
-import { getAllProjectsData } from "lib/projects";
+import { getAllProjectsData } from "utlis/projects";
 import ProjectCard from "components/ProjectCard";
 
 import Layout from "components/Layout";
 import { Grid, Container, Themed, Flex } from "theme-ui";
-import { motion } from "framer-motion";
 
 import GoTop from "components/GoTop";
 import Carousel from "components/Carousel";
@@ -33,8 +32,13 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext }) => {
         <HeroSvg />
       </Container>
       <Container
+        as="section"
         variant="section"
-        sx={{ display: "flex", justifyContent: "space-between", gap: 7 }}
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: [4, 5, 7],
+        }}
       >
         {frontMatter.info?.map((item, i) => (
           <Flex
@@ -42,14 +46,15 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext }) => {
             sx={{
               flexDirection: "column",
               border: "1px solid",
+              borderColor: "secondary",
               borderRadius: 15,
-              p: 4,
-              width: `100%`,
+              p: [3, 4],
+              flex: `1 1 288px`,
             }}
           >
             <h4
               sx={{
-                fontSize: 3,
+                fontSize: [2, 3],
                 fontWeight: "heading",
                 mt: 0,
                 mb: 4,
@@ -61,7 +66,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext }) => {
             {item.content.map((text, i) => (
               <p
                 key={i}
-                sx={{ fontSize: 2, m: 0, mb: 3, color: "secondaryText" }}
+                sx={{ fontSize: [1, 2], m: 0, mb: 3, color: "secondaryText" }}
               >
                 {text}
               </p>
@@ -118,7 +123,7 @@ export async function getStaticProps({ params }) {
   const allData = await getAllProjectsData();
   const current = allData.findIndex((data) => data.slug === params.slug);
   const next = allData[current === allData.length - 1 ? 0 : current + 1];
-  const prev = allData[current === 1 ? allData.length - 1 : current - 1];
+  const prev = allData[current === 0 ? allData.length - 1 : current - 1];
 
   // todo: og
   return {
@@ -201,7 +206,7 @@ const HeroSvg = () => {
           }}
         />
       </svg> */}
-      <svg
+      {/* <svg
         width="242"
         height="361"
         viewBox="0 0 242 361"
@@ -211,8 +216,8 @@ const HeroSvg = () => {
       >
         <path d="M1 0L1 240H121H241L181 120" stroke="#D6E4DC" />
         <path d="M1 0L1 240H121H241L181 360" stroke="#D6E4DC" />
-      </svg>
-      <svg
+      </svg> */}
+      {/* <svg
         width="291"
         height="202"
         viewBox="0 0 291 202"
@@ -266,7 +271,7 @@ const HeroSvg = () => {
           animate={{ x: 61, opacity: 0 }}
           transition={{ duration: 2, repeat: Infinity }}
         />
-      </svg>
+      </svg> */}
     </>
   );
 };
