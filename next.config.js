@@ -1,9 +1,5 @@
-const withMDX = require("@next/mdx")({
-  extension: /\.mdx$/,
-  options: {
-    remarkPlugins: [],
+module.exports = {
+  images: {
+    domains: ["i.scdn.co"],
   },
-});
-module.exports = withMDX({
-  pageExtensions: ["js", "jsx", "mdx"],
-});
+};
