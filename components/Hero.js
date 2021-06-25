@@ -36,7 +36,7 @@ const Hero = () => {
           sx={{
             fontSize: [1, 2],
             lineHeight: "body",
-            color: "SecondaryText",
+            color: "secondaryText",
             mb: 4,
           }}
         >
