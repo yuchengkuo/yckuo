@@ -104,6 +104,8 @@ const theme = {
     nav: {
       variant: "text.navLink",
       cursor: "pointer",
+      transition: "all 200ms ease-out",
+      ":hover": { color: "text" },
     },
   },
   buttons: {
