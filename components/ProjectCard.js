@@ -42,6 +42,7 @@ const ProjectCard = ({ data }) => {
         }}
         initial="initial"
         whileHover="hover"
+        whileFocus="hover"
         whileTap={{ filter: `blur(3px)` }}
       >
         <MotionFlex
