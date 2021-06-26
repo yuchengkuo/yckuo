@@ -139,7 +139,6 @@ const ProjectCard = ({ data }) => {
         sx={{
           height: 240,
           maxWidth: 640,
-          border: `1px solid`,
           borderRadius: 15,
           flexBasis: ["unset", 640],
           justifyContent: "center",
