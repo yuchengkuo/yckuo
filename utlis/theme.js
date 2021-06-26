@@ -52,6 +52,7 @@ const theme = {
     hero: {
       variant: "layout.maxWidth",
       height: `calc(100vh - 106px)`,
+      minHeight: 700,
       maxHeight: 800,
       p: [4, 6],
     },
@@ -71,6 +72,7 @@ const theme = {
   grids: {
     article: {
       gridTemplateColumns: "auto minmax(auto, 720px) auto",
+      gap: 0,
     },
   },
   text: {
@@ -120,8 +122,6 @@ const theme = {
         mr: 2,
       },
     },
-    icon: {},
-    menu: {},
     hero: {
       variant: "text.caps",
       color: "altText",
