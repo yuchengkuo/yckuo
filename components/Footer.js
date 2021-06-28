@@ -1,7 +1,9 @@
 /** @jsxImportSource theme-ui */
 import { LogoSvg } from "./Header";
-import { Flex, Text } from "theme-ui";
+import { Flex, Text, NavLink } from "theme-ui";
+import Link from "next/link";
 import NowPlaying from "./NowPlaying";
+import { transparentize } from "@theme-ui/color";
 
 export default function Footer() {
   return (
@@ -22,25 +24,29 @@ export default function Footer() {
             width: `calc(100% - 80px)`,
             top: 0,
             left: 6,
-            backgroundColor: "altText",
+            backgroundColor: transparentize("altText", 0.5),
           },
         }}
       >
         <Flex sx={{ alignItems: "center", mt: 6 }}>
-          <LogoSvg />
+          <Link href="/" passHref>
+            <NavLink>
+              <LogoSvg />
+            </NavLink>
+          </Link>
           <Text
             as="p"
             ml={2}
             sx={{ fontSize: 1, fontWeight: 600, color: "secondaryText" }}
           >
-            made by yucheng kuo. &#169; 2021
+            &#169; yucheng kuo.
           </Text>
           <Text
             as="p"
             ml="auto"
             sx={{ fontSize: 1, fontWeight: 600, color: "secondaryText" }}
           >
-            TW, KHH
+            2021
           </Text>
         </Flex>
         <NowPlaying />
