@@ -129,6 +129,14 @@ const theme = {
       color: "altText",
       cursor: "pointer",
     },
+    secondary: {
+      variant: "text.caps",
+      color: "secondaryText",
+      width: `100%`,
+      cursor: "pointer",
+      p: 2,
+      backgroundColor: "transparent",
+    },
   },
 
   // styles
