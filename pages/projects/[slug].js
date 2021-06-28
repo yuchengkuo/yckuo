@@ -13,14 +13,15 @@ import Layout from "components/Layout";
 import { Grid, Container, Themed, Flex } from "theme-ui";
 
 import GoTop from "components/GoTop";
-// import SideMenu from "components/SideMenu";
+import SideMenu from "components/SideMenu";
 import Carousel from "components/Carousel";
+import getHeadings from "utlis/getHeadings";
 
 const components = {
   Carousel,
 };
 
-const ProjectTemplate = ({ mdxSource, frontMatter, upNext }) => {
+const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
   return (
     <Layout>
       <Container as="section" variant="hero" sx={{ position: "relative" }}>
@@ -76,7 +77,13 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext }) => {
         ))}
       </Container>
 
-      <Grid as="section" variant="article" sx={{ position: "relative" }}>
+      <Grid
+        id="article"
+        as="section"
+        variant="article"
+        sx={{ position: "relative" }}
+      >
+        <SideMenu ids={ids} />
         <Container
           as="article"
           variant="section"
@@ -114,7 +121,7 @@ export async function getStaticProps({ params }) {
   );
 
   const { data, content } = matter(fileContents);
-
+  const { ids } = getHeadings(content);
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [require("remark-slug"), remarkSectionize],
@@ -136,6 +143,7 @@ export async function getStaticProps({ params }) {
         next,
         prev,
       },
+      ids,
     },
   };
 }
