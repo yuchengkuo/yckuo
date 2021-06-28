@@ -16,7 +16,7 @@ export default function NowPlaying() {
         flexDirection: ["column", "row"],
       }}
     >
-      <Flex mb={[2, 0]}>
+      <Flex mb={[2, 0]} sx={{ flexShrink: 0 }}>
         <svg
           width="18"
           height="18"
@@ -53,15 +53,34 @@ export default function NowPlaying() {
         )}
       </Flex>
       {data?.isPlaying ? (
-        <Flex sx={{ flexWrap: "wrap" }}>
-          <p sx={{ fontSize: 1, fontWeight: 400, m: 0 }}>
+        <Flex
+          sx={{
+            flexDirection: ["column", "row"],
+            alignItems: ["center", "unset"],
+          }}
+        >
+          <p
+            sx={{
+              fontSize: 1,
+              fontWeight: 400,
+              m: 0,
+              mb: [2, 0],
+              whiteSpace: ["unset", "nowrap"],
+            }}
+          >
             {data.artist || data.show}&nbsp;&nbsp;-&nbsp;&nbsp;
           </p>
           <Link
             href={data.url}
             target="_blank"
             rel="noopener noreferrer"
-            sx={{ fontSize: 1, fontWeight: 400 }}
+            sx={{
+              fontSize: 1,
+              fontWeight: 400,
+              whiteSpace: ["unset", "nowrap"],
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
           >
             {data.title}
           </Link>
