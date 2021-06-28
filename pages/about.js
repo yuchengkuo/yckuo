@@ -2,10 +2,11 @@
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import Layout from "components/Layout";
-import { Container, Grid, Themed, Button } from "theme-ui";
+import { Container, Grid, Flex, Themed, Button } from "theme-ui";
 import { getLetterboxd } from "utlis/letterboxd";
 import { motion, useTransform, useViewportScroll } from "framer-motion";
 import TopAlbums from "components/TopAlbums";
+import Link from "next/link";
 
 const AboutPage = ({ mdxSource }) => {
   return (
@@ -22,7 +23,7 @@ const AboutPage = ({ mdxSource }) => {
       >
         <div
           sx={{
-            width: 540,
+            maxWidth: 540,
             height: 320,
             borderRadius: 15,
             backgroundColor: "altText",
@@ -61,7 +62,6 @@ const AboutPage = ({ mdxSource }) => {
       <Grid
         as="section"
         variant="layout.section"
-        my={[7, 9]}
         sx={{ gridTemplateColumns: `auto minmax(auto, 560px)`, gap: 0 }}
       >
         <Container
@@ -79,20 +79,84 @@ const AboutPage = ({ mdxSource }) => {
       <Container as="section" variant="text">
         <Themed.h3 sx={{ color: "text" }}>listening & watching.</Themed.h3>
         <Themed.p>lost in music and films.</Themed.p>
-        <Grid variant="article">
+        <Grid variant="article" pt={[7, 10]}>
           <TopAlbums />
         </Grid>
       </Container>
 
-      <Container as="section" variant="section" py={[7, 10]}>
+      <Container as="section" variant="text">
         <Themed.h3 sx={{ color: "text" }}>other me.</Themed.h3>
         <Themed.p>Find other digital me.</Themed.p>
-        <Grid sx={{ gridTemplateColumns: `auto auto`, gap: 6 }}>
-          <Button>Email</Button>
-          <Button>Read.CV</Button>
-          <Button>Letterboxd</Button>
-          <Button>Spotify</Button>
-        </Grid>
+        <Flex sx={{ flexDirection: ["column", "row"] }} mb={6}>
+          <Link href="mailto:hey@yuchengkuo.com?subject=Hi!" passHref>
+            <Button as="a" mr={[0, 11]} mb={[5, 0]}>
+              <svg
+                width="21"
+                height="20"
+                viewBox="0 0 21 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.83335 3.33325H17.1667C18.0834 3.33325 18.8334 4.08325 18.8334 4.99992V14.9999C18.8334 15.9166 18.0834 16.6666 17.1667 16.6666H3.83335C2.91669 16.6666 2.16669 15.9166 2.16669 14.9999V4.99992C2.16669 4.08325 2.91669 3.33325 3.83335 3.33325Z"
+                  stroke="#E3E3E3"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M18.8334 5L10.5 10.8333L2.16669 5"
+                  stroke="#E3E3E3"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Mail
+            </Button>
+          </Link>
+          <Link href="" passHref>
+            <Button as="a">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M8.90707 0.602843C7.30668 0.174018 5.66167 1.12376 5.23284 2.72416L1.60284 16.2715C1.17402 17.8719 2.12376 19.5169 3.72416 19.9457L15.0555 22.982C16.6559 23.4108 18.301 22.4611 18.7298 20.8607L22.3598 7.31331C22.7886 5.71292 21.8389 4.06791 20.2385 3.63908L8.90707 0.602843ZM7.16469 3.2418C7.30763 2.70833 7.85597 2.39175 8.38944 2.5347L19.7208 5.57093C20.2543 5.71387 20.5709 6.26221 20.4279 6.79568L16.7979 20.343C16.655 20.8765 16.1067 21.1931 15.5732 21.0501L4.2418 18.0139C3.70834 17.8709 3.39175 17.3226 3.53469 16.7891L7.16469 3.2418ZM9.77392 4.96062C9.24152 4.81375 8.69086 5.12628 8.54399 5.65868C8.39713 6.19108 8.70966 6.74173 9.24206 6.8886L16.792 8.97134C17.3244 9.11821 17.8751 8.80568 18.0219 8.27328C18.1688 7.74088 17.8563 7.19023 17.3239 7.04336L9.77392 4.96062ZM7.56076 9.09989C7.70762 8.56749 8.25828 8.25496 8.79068 8.40183L16.3406 10.4846C16.873 10.6314 17.1856 11.1821 17.0387 11.7145C16.8918 12.2469 16.3412 12.5594 15.8088 12.4126L8.25882 10.3298C7.72642 10.1829 7.41389 9.63229 7.56076 9.09989ZM7.80753 11.843C7.27513 11.6962 6.72447 12.0087 6.5776 12.5411C6.43073 13.0735 6.74327 13.6242 7.27567 13.771L11.6663 14.9822C12.1987 15.1291 12.7494 14.8166 12.8962 14.2842C13.0431 13.7518 12.7306 13.2011 12.1982 13.0542L7.80753 11.843Z"
+                  fill="#E3E3E3"
+                />
+              </svg>
+              Read.CV
+            </Button>
+          </Link>
+        </Flex>
+        <Flex sx={{}}>
+          <Link href="https://linkedin.com/in/yucheng-kuo" passHref>
+            <Button as="a" variant="secondary">
+              linkedin
+            </Button>
+          </Link>
+          <Link href="https://letterboxd.com/ethank" passHref>
+            <Button as="a" variant="secondary">
+              letterboxd
+            </Button>
+          </Link>
+          <Link href="https://open.spotify.com/user/cheng-90" passHref>
+            <Button as="a" variant="secondary">
+              spotify
+            </Button>
+          </Link>
+          <Link href="" passHref>
+            <Button as="a" variant="secondary">
+              last.fm
+            </Button>
+          </Link>
+        </Flex>
       </Container>
     </Layout>
   );
@@ -151,50 +215,62 @@ const BG = () => {
   const y3 = useTransform(scrollYProgress, [0, 0.8], [0, 480]);
 
   return (
-    <motion.div sx={{ position: "absolute", top: 80, left: 0, zIndex: -5 }}>
-      <motion.div
-        style={{ y: y1 }}
-        sx={{
-          width: 660,
-          height: 500,
-          backgroundColor: "accent",
+    <motion.div
+      sx={{
+        position: "absolute",
+        top: 80,
+        left: 0,
+        zIndex: -5,
+        div: {
           borderRadius: 60,
           filter: `blur(10px)`,
           opacity: 0.08,
           mixBlendMode: `screen`,
           position: "absolute",
+          width: [`85vw`, 560, 640],
+        },
+      }}
+    >
+      <motion.div
+        style={{ y: y1 }}
+        sx={{
+          height: 500,
+          backgroundColor: "accent",
           top: 840,
-          left: 60,
+          left: [
+            `calc(50vw - 220px)`,
+            `calc(50vw - 400px)`,
+            `calc(50vw - 480px)`,
+            `calc(50vw - 800px)`,
+          ],
         }}
       ></motion.div>
       <motion.div
         style={{ y: y2 }}
         sx={{
-          width: 640,
           height: 700,
           backgroundColor: "primary",
-          borderRadius: 60,
-          filter: `blur(10px)`,
-          opacity: 0.08,
-          mixBlendMode: `screen`,
-          position: "absolute",
           top: 1200,
-          left: 420,
+          left: [
+            `calc(50vw - 160px)`,
+            `calc(50vw - 240px)`,
+            200,
+            `calc(50vw - 400px)`,
+          ],
         }}
       ></motion.div>
       <motion.div
         style={{ y: y3 }}
         sx={{
-          width: 640,
           height: 300,
           backgroundColor: "secondary",
-          borderRadius: 60,
-          filter: `blur(10px)`,
-          opacity: 0.08,
-          mixBlendMode: `screen`,
-          position: "absolute",
           top: 1700,
-          left: 60,
+          left: [
+            `calc(50vw - 220px)`,
+            `calc(50vw - 400px)`,
+            `calc(50vw - 480px)`,
+            `calc(50vw - 800px)`,
+          ],
         }}
       ></motion.div>
     </motion.div>
