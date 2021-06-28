@@ -2,9 +2,9 @@
 import useSWR from "swr";
 import fetcher from "../utlis/fetcher";
 import { Link, Flex } from "theme-ui";
-import Lottie from "react-lottie";
+import { Lottie } from "@crello/react-lottie";
 // @ts-ignore
-import * as animationData from "../public/sound.json";
+import animationData from "../public/sound.json";
 
 export default function NowPlaying() {
   const { data } = useSWR("/api/now-playing", fetcher);
@@ -30,21 +30,27 @@ export default function NowPlaying() {
           />
         </svg>
 
-        <p
-          sx={{ fontSize: 1, fontWeight: 400, color: "altText", my: 0, mx: 2 }}
-        >
-          {data?.isPlaying ? (
-            <Lottie
-              options={{ animationData: animationData }}
-              speed={2}
-              width={18}
-              height={18}
-              style={{ marginRight: 4 }}
-            />
-          ) : (
-            `Currently Offline`
-          )}
-        </p>
+        {data?.isPlaying ? (
+          <Lottie
+            config={{ animationData: animationData, loop: true }}
+            width="18px"
+            height="18px"
+            speed={1.5}
+            style={{ marginLeft: "4px", marginRight: "4px" }}
+          />
+        ) : (
+          <p
+            sx={{
+              fontSize: 1,
+              fontWeight: 400,
+              color: "altText",
+              my: 0,
+              mx: 2,
+            }}
+          >
+            Currently Offline
+          </p>
+        )}
       </Flex>
       {data?.isPlaying ? (
         <Flex sx={{ flexWrap: "wrap" }}>
