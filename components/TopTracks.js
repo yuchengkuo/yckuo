@@ -11,15 +11,12 @@ export default function TopTracks() {
     <ul
       sx={{
         listStyleType: "none",
-        fontSize: 1,
-        fontWeight: 200,
-        color: "altText",
-        px: 5,
-        py: 2,
-        ml: -5,
+        p: 6,
         backgroundColor: transparentize("text", 0.9),
         borderRadius: 15,
+        boxShadow: `inset -0.6px 0.6px 1px #ffffff26`,
         backdropFilter: `blur(30px)`,
+        "li:last-child": { mb: 0 },
       }}
     >
       <h3
@@ -27,14 +24,14 @@ export default function TopTracks() {
           fontSize: 2,
           fontWeight: "heading",
           color: "secondaryText",
-          mb: 6,
+          mb: 8,
         }}
       >
-        top tracks 📻
+        Top tracks 📻
       </h3>
       {data.tracks.map((track, i) => (
-        <li key={i} sx={{}}>
-          <Flex sx={{ flexDirection: "column", mb: 7 }}>
+        <li key={i} sx={{ mb: 6 }}>
+          <Flex sx={{ flexDirection: "column" }}>
             <Link
               href={track.songUrl}
               target="_blank"
