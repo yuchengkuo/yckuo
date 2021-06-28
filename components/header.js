@@ -1,6 +1,7 @@
 /** @jsxImportSource theme-ui */
 import { Flex, NavLink, Text } from "@theme-ui/components";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const navItems = [
   { label: "Projects", link: "/#project" },
@@ -42,21 +43,28 @@ const Header = () => {
 };
 
 export const LogoSvg = () => {
+  const varaint = {
+    hover: {
+      stroke: `#E3E3E3`,
+    },
+  };
   return (
-    <svg
+    <motion.svg
       width="38"
       height="26"
       viewBox="0 0 38 26"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      whileHover="hover"
     >
-      <path
+      <motion.path
         d="M13 1V25M13 1H1L7 13L1 25H13M13 1H25M13 25H25M13 25L25 1M31 13.5L37 1H25M31 13.5L37 25H25M31 13.5L25 25"
         stroke="#BDBEC1"
         strokeWidth="2"
         strokeLinejoin="round"
+        variants={varaint}
       />
-    </svg>
+    </motion.svg>
   );
 };
 
