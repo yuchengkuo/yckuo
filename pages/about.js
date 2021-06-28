@@ -4,10 +4,10 @@ import { MDXRemote } from "next-mdx-remote";
 import Layout from "components/Layout";
 import { Container, Grid, Themed, Button } from "theme-ui";
 import { getLetterboxd } from "utlis/letterboxd";
-import TopTracks from "components/TopTracks";
-import RecentFilms from "components/RecentFilms";
+import { motion, useTransform, useViewportScroll } from "framer-motion";
+import TopAlbums from "components/TopAlbums";
 
-const AboutPage = ({ mdxSource, films }) => {
+const AboutPage = ({ mdxSource }) => {
   return (
     <Layout>
       <Container
@@ -22,7 +22,7 @@ const AboutPage = ({ mdxSource, films }) => {
       >
         <div
           sx={{
-            maxWidth: 540,
+            width: 540,
             height: 320,
             borderRadius: 15,
             backgroundColor: "altText",
@@ -74,18 +74,13 @@ const AboutPage = ({ mdxSource, films }) => {
           <MDXRemote {...mdxSource} />
         </Container>
       </Grid>
+      <BG />
 
-      <Container as="section" variant="section" py={[7, 10]}>
-        <Themed.h3 sx={{ color: "text" }}>listen & watch.</Themed.h3>
+      <Container as="section" variant="text">
+        <Themed.h3 sx={{ color: "text" }}>listening & watching.</Themed.h3>
         <Themed.p>lost in music and films.</Themed.p>
-        <Grid
-          sx={{
-            gridTemplateColumns: `repeat(auto-fill, minmax(300px, 1fr))`,
-            gap: 6,
-          }}
-        >
-          <TopTracks />
-          <RecentFilms films={films} />
+        <Grid variant="article">
+          <TopAlbums />
         </Grid>
       </Container>
 
@@ -108,15 +103,23 @@ export default AboutPage;
 export async function getStaticProps() {
   const aboutData = `
 
-  ### me.
+  ### about me.
 
-  Hey, my name is YuCheng Kuo, a self-taught designer, persistent thinker, and multidiplinary learner from Taiwan. I study engineering in undergrad and self-taught design and web development along the way. Currently I’m working on some solo projects to improve my skills and seeking a full-time job. I’m always curious about how things (and people) work, and sometimes think about potential improvements.
+  Hey, my name is YuCheng Kuo, a self-taught designer and engineer from Taiwan. I study engineering in undergrad and self-taught design and web development in my spare time. 
+
+  I like tech, startups, design, cars, music, films and many other things.
+  
+  Currently I’m working on some solo projects to improve my skills and seeking a full-time job. I’m always curious about how things (and people) work, and sometimes think about potential improvements.
+
+  Constantly learning, keep improving, full curiosity.
 
   ### digital.
 
   I’m constantly facinated by how the technology reshape our daily life (and it’s going fast!) and how design plays such a significant part in.
 
-  It all began with academic presentation. I was thinking about how to give the listeners a memerable sharing with effective slides. So I started to work on Later on I also learned web development with an attempt to create a more interactive  presentation.
+  I'm always fascinated by how technology reshape our daily life and how diverse the digital world is.
+
+
 
   I found user experience & product design at late 2020 and constantly learning and reading ever since. (Also fighting the distraction and feeling the highs and lows...) I’m currently working on some projects to better sharpen my skills.
 
@@ -139,3 +142,61 @@ export async function getStaticProps() {
     },
   };
 }
+
+const BG = () => {
+  const { scrollYProgress } = useViewportScroll();
+
+  const y1 = useTransform(scrollYProgress, [0, 0.8], [-80, 400]);
+  const y2 = useTransform(scrollYProgress, [0, 0.8], [0, 240]);
+  const y3 = useTransform(scrollYProgress, [0, 0.8], [0, 480]);
+
+  return (
+    <motion.div sx={{ position: "absolute", top: 80, left: 0, zIndex: -5 }}>
+      <motion.div
+        style={{ y: y1 }}
+        sx={{
+          width: 660,
+          height: 500,
+          backgroundColor: "accent",
+          borderRadius: 60,
+          filter: `blur(10px)`,
+          opacity: 0.08,
+          mixBlendMode: `screen`,
+          position: "absolute",
+          top: 840,
+          left: 60,
+        }}
+      ></motion.div>
+      <motion.div
+        style={{ y: y2 }}
+        sx={{
+          width: 640,
+          height: 700,
+          backgroundColor: "primary",
+          borderRadius: 60,
+          filter: `blur(10px)`,
+          opacity: 0.08,
+          mixBlendMode: `screen`,
+          position: "absolute",
+          top: 1200,
+          left: 420,
+        }}
+      ></motion.div>
+      <motion.div
+        style={{ y: y3 }}
+        sx={{
+          width: 640,
+          height: 300,
+          backgroundColor: "secondary",
+          borderRadius: 60,
+          filter: `blur(10px)`,
+          opacity: 0.08,
+          mixBlendMode: `screen`,
+          position: "absolute",
+          top: 1700,
+          left: 60,
+        }}
+      ></motion.div>
+    </motion.div>
+  );
+};
