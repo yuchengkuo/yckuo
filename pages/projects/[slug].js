@@ -13,6 +13,7 @@ import Layout from "components/Layout";
 import { Grid, Container, Themed, Flex } from "theme-ui";
 
 import GoTop from "components/GoTop";
+// import SideMenu from "components/SideMenu";
 import Carousel from "components/Carousel";
 
 const components = {
@@ -49,7 +50,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext }) => {
               borderColor: "secondary",
               borderRadius: 15,
               p: [3, 4],
-              flex: `1 1 288px`,
+              flex: `1 1 220px`,
             }}
           >
             <h4
@@ -74,7 +75,8 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext }) => {
           </Flex>
         ))}
       </Container>
-      <Grid as="section" variant="article">
+
+      <Grid as="section" variant="article" sx={{ position: "relative" }}>
         <Container
           as="article"
           variant="section"
