@@ -1,4 +1,5 @@
 /** @jsxImportSource theme-ui */
+import { transparentize } from "@theme-ui/color";
 import { format, parseISO } from "date-fns";
 import { Flex, Link } from "theme-ui";
 
@@ -15,11 +16,12 @@ export default function RecentFilms({ films }) {
     <ul
       sx={{
         listStyleType: "none",
-        fontSize: 1,
-        fontWeight: 200,
-        color: "altText",
-        px: 0,
-        py: 4,
+        p: 6,
+        backgroundColor: transparentize("text", 0.9),
+        borderRadius: 15,
+        boxShadow: `inset -0.6px 0.6px 1px #ffffff26`,
+        backdropFilter: `blur(30px)`,
+        "li:last-child": { mb: 0 },
       }}
     >
       <h3
@@ -27,14 +29,14 @@ export default function RecentFilms({ films }) {
           fontSize: 2,
           fontWeight: "heading",
           color: "secondaryText",
-          mb: 6,
+          mb: 8,
         }}
       >
-        recent log 📽️
+        Recent log 📽️
       </h3>
       {items.map((item, i) => (
-        <li key={i}>
-          <Flex sx={{ flexDirection: "column", mb: 7 }}>
+        <li key={i} sx={{ mb: 6 }}>
+          <Flex sx={{ flexDirection: "column" }}>
             <Flex>
               <Link
                 href={item.url}
@@ -50,13 +52,15 @@ export default function RecentFilms({ films }) {
               >
                 {item.title}
               </Link>
-              <p sx={{ fontSize: 0, m: 0, ml: "auto" }}>{item.rating}</p>
+              <p sx={{ fontSize: 0, m: 0, ml: "auto", letterSpacing: 1 }}>
+                {item.rating}
+              </p>
             </Flex>
             <Flex>
               <p sx={{ fontSize: 1, fontWeight: 300, m: 0, color: "altText" }}>
                 {item.year}
               </p>
-              <p sx={{ fontSize: 0, m: 0, ml: "auto" }}>
+              <p sx={{ fontSize: 0, m: 0, ml: "auto", color: "altText" }}>
                 {format(parseISO(item.date), "MMM dd")}
               </p>
             </Flex>
