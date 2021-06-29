@@ -36,7 +36,7 @@ export default function TopAlbums() {
                         color: "altText",
                         m: 0,
                         mt: "auto",
-                        mr: 4,
+                        mr: [2, 4],
                       }
                     : {
                         fontSize: 1,
@@ -44,7 +44,7 @@ export default function TopAlbums() {
                         color: "altText",
                         m: 0,
                         mt: "auto",
-                        mr: 4,
+                        mr: [2, 4],
                         "::before": {
                           content: "''",
                           position: "absolute",
@@ -148,7 +148,14 @@ export default function TopAlbums() {
     <div sx={{ gridColumn: 2, p: 0 }}>
       {new Array(5).fill(0).map((_, i) => (
         <Flex key={i} sx={{ mb: 10, height: 120 }}>
-          <Box sx={{ height: 120, width: 120, backgroundColor: "altText" }} />
+          <Box
+            sx={{
+              height: 120,
+              width: 120,
+              backgroundColor: "secondary",
+              borderRadius: 5,
+            }}
+          />
           <Flex sx={{ ml: 4, flexDirection: "column" }}>
             <h3
               sx={{
