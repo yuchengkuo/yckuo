@@ -34,6 +34,7 @@ export default function Caoursel(props) {
           className="embla__container"
           sx={{
             alignItems: "center",
+            ".is-selected": { opacity: 1 },
           }}
         >
           {props.images.map((item, i) => {
@@ -53,6 +54,8 @@ export default function Caoursel(props) {
                     borderRadius: 15,
                     backgroundColor: "secondary",
                   },
+                  opacity: 0.5,
+                  transition: `all 200ms ease-out`,
                 }}
               >
                 <Img
