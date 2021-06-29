@@ -5,6 +5,7 @@ import { useCallback } from "react";
 import { motion } from "framer-motion";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { transparentize } from "@theme-ui/color";
+import { loader } from "utlis/image-loader";
 
 export default function Caoursel(props) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ inViewThreshold: 1 });
@@ -55,6 +56,7 @@ export default function Caoursel(props) {
                 }}
               >
                 <Img
+                  loader={loader}
                   layout="intrinsic"
                   sizes="100%"
                   objectFit="cover"

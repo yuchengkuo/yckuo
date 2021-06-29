@@ -4,6 +4,7 @@ import Link from "next/link";
 import Img from "next/image";
 import { Text } from "theme-ui";
 import { motion, useCycle } from "framer-motion";
+import { loader } from "./image-loader";
 
 const heading = (Tag) => (props) => {
   if (!props.id) return <Tag {...props} />;
@@ -47,7 +48,7 @@ const link = () => (props) => {
 
 const img = () => (props) => {
   return (
-    <motion.figure
+    <figure
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -69,6 +70,7 @@ const img = () => (props) => {
       }}
     >
       <Img
+        loader={loader}
         layout="intrinsic"
         sizes="100%"
         objectFit="cover"
@@ -78,7 +80,7 @@ const img = () => (props) => {
       <Text as="figcaption" variant="caps" color="altText" my={3}>
         {props?.caps}
       </Text>
-    </motion.figure>
+    </figure>
   );
 };
 

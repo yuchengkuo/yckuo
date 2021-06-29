@@ -4,6 +4,7 @@ import Img from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { transparentize } from "@theme-ui/color";
+import { loader } from "utlis/image-loader";
 
 const ProjectCard = ({ data }) => {
   const MotionFlex = motion(Flex);
@@ -98,7 +99,8 @@ const ProjectCard = ({ data }) => {
           variants={ImgVariant}
         >
           <Img
-            src={`/${data.slug}.jpg`}
+            loader={loader}
+            src={`/project/${data.slug}.jpg`}
             alt="project cover image"
             width={660}
             height={240}
