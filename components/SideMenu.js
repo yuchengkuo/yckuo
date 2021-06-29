@@ -23,10 +23,10 @@ export default function SideMenu({ ids }) {
       {isShow && (
         <motion.div
           sx={{
-            display: ["none", null, "flex"],
+            display: ["none", null, null, "flex"],
             flexDirection: "column",
             position: "fixed",
-            left: `calc(50% + 640px)`,
+            right: 7,
             top: 12,
             maxWidth: 160,
             zIndex: 9,
