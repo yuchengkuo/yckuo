@@ -53,7 +53,7 @@ const theme = {
       variant: "layout.maxWidth",
       height: `calc(100vh - 106px)`,
       minHeight: 700,
-      maxHeight: 800,
+      maxHeight: 960,
       p: [4, 6],
     },
     text: {
@@ -146,6 +146,7 @@ const theme = {
       fontSize: "62.5%",
       fontFamily: "body",
       fontWeight: "body",
+      "*::selection": { backgroundColor: "transparent", color: "primary" },
     },
     p: {
       variant: "text.body",
