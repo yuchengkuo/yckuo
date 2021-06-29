@@ -29,7 +29,7 @@ export default function GoTop(props) {
           sx={{
             width: 56,
             height: 56,
-            right: [40, null, 80],
+            left: [`85vw`, null, null, `calc(50% + 650px)`],
             bottom: 100,
             position: "fixed",
             backgroundColor: "#18191B",
@@ -37,6 +37,7 @@ export default function GoTop(props) {
             borderRadius: 15,
             cursor: "pointer",
             overflow: "hidden",
+            zIndex: 5,
           }}
           initial={{ y: 28, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
