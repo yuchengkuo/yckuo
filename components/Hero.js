@@ -59,7 +59,7 @@ const Hero = () => {
             mr={8}
             mb={[4, 0]}
             onClick={() => {
-              const offsetY = document.getElementById("project").offsetTop;
+              const offsetY = document.getElementById("project").offsetTop - 20;
               window.scrollTo({ top: offsetY, left: 0, behavior: "smooth" });
             }}
           >
