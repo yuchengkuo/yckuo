@@ -17,6 +17,7 @@ export default function Caoursel(props) {
   }, [emblaApi]);
   return (
     <motion.figure
+      id="carousel"
       className="embla"
       sx={{
         overflow: "hidden",

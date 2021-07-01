@@ -1,22 +1,31 @@
 /** @jsxImportSource theme-ui */
 import { transparentize } from "@theme-ui/color";
 import { Button } from "theme-ui";
-import { motion, useViewportScroll, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import useScrollProgress from "utlis/useScrollProgress";
+import useIntersectionObserver from "utlis/useIntersectionObserver";
 
 export default function SideMenu({ ids }) {
-  const { scrollYProgress } = useViewportScroll();
-  const [isShow, setIsShow] = useState(false);
+  const [sectionElements, setSectionElements] = useState([]);
+  const [currentIndex] = useIntersectionObserver(sectionElements, {
+    offset: 100,
+  });
+  const [carouselElements, setCarouelElements] = useState([]);
+  const [carouselIndex] = useIntersectionObserver(carouselElements);
+
+  const scrollProgress = useScrollProgress();
+  const isShow =
+    scrollProgress > 0.05 && scrollProgress < 0.98 && carouselIndex === -1;
 
   useEffect(() => {
-    scrollYProgress.onChange((current) => {
-      current > 0.05
-        ? current < 0.98
-          ? setIsShow(true)
-          : setIsShow(false)
-        : setIsShow(false);
-    });
-  });
+    const sectionElements = ids.map((item) =>
+      document.querySelector(`section[id=${item.id}-section]`)
+    );
+    setSectionElements(sectionElements);
+    const carouselElements = document.querySelectorAll("#carousel");
+    setCarouelElements([...carouselElements]);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -34,8 +43,8 @@ export default function SideMenu({ ids }) {
             backgroundColor: transparentize("background", 0.6),
             borderRadius: 15,
           }}
-          initial={{ x: 20, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <h4
@@ -61,7 +70,7 @@ export default function SideMenu({ ids }) {
                   sx={{
                     fontSize: 0,
                     fontWeight: 400,
-                    color: "altText",
+                    color: i === currentIndex ? "primary" : "altText",
                     backgroundColor: "transparent",
                     lineHeight: "heading5",
                     textAlign: "start",
