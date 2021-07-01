@@ -91,6 +91,7 @@ const hr = () => () => {
         background: `url("data:image/svg+xml,%3Csvg width='76' height='4' viewBox='0 0 76 4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='2' fill='%23777980'/%3E%3Ccircle cx='38' cy='2' r='2' fill='%23777980'/%3E%3Ccircle cx='74' cy='2' r='2' fill='%23777980'/%3E%3C/svg%3E%0A") no-repeat center`,
         border: "none",
         height: 4,
+        my: 6,
       }}
     />
   );
