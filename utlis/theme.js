@@ -179,7 +179,7 @@ const theme = {
       my: 4,
     },
     blockquote: {
-      backgroundColor: transparentize("altText", 0.8),
+      backgroundColor: transparentize("text", 0.9),
       m: 0,
       px: 5,
       p: { fontWeight: 400, py: 3 },
