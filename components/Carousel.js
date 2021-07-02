@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
-import { Flex, Text } from "theme-ui";
+import { Flex, Text, useThemeUI } from "theme-ui";
 import Img from "next/image";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { transparentize } from "@theme-ui/color";
@@ -10,11 +10,31 @@ import { loader } from "utlis/image-loader";
 export default function Caoursel(props) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ inViewThreshold: 1 });
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
+    emblaApi && emblaApi.scrollPrev();
   }, [emblaApi]);
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
+    emblaApi && emblaApi.scrollNext();
   }, [emblaApi]);
+  const scrollTo = useCallback(
+    (index) => {
+      emblaApi && emblaApi.scrollTo(index);
+    },
+    [emblaApi]
+  );
+  const [snapList, setSnapList] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(-1);
+  const { theme } = useThemeUI();
+
+  useEffect(() => {
+    if (emblaApi) {
+      const lists = emblaApi.scrollSnapList();
+      setSnapList(lists);
+      setCurrentIndex(emblaApi.selectedScrollSnap());
+      emblaApi.on("select", () =>
+        setCurrentIndex(emblaApi.selectedScrollSnap())
+      );
+    }
+  }, [emblaApi, setSnapList, setCurrentIndex]);
   return (
     <motion.figure
       id="carousel"
@@ -51,10 +71,12 @@ export default function Caoursel(props) {
                   flexDirection: "column",
                   alignItems: "center",
                   mr: [4, 8, `10%`, `20%`],
+                  ":last-of-type": { mr: 0 },
                   ".carousel_image": {
                     borderRadius: 15,
                     backgroundColor: "secondary",
                   },
+                  mb: 4,
                   opacity: 0.5,
                   transition: `all 200ms ease-out`,
                 }}
@@ -88,11 +110,12 @@ export default function Caoursel(props) {
           width: 52,
           height: 52,
           borderRadius: 10,
-          border: `1px solid #fff`,
+          border: `1px solid`,
+          borderColor: "secondary",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: transparentize("altText", 0.9),
+          backgroundColor: transparentize("altText", 0.8),
           cursor: "pointer",
         }}
         onClick={scrollPrev}
@@ -125,11 +148,12 @@ export default function Caoursel(props) {
           width: 52,
           height: 52,
           borderRadius: 10,
-          border: `1px solid #fff`,
+          border: `1px solid`,
+          borderColor: "secondary",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: transparentize("altText", 0.9),
+          backgroundColor: transparentize("altText", 0.8),
           cursor: "pointer",
         }}
         onClick={scrollNext}
@@ -153,6 +177,37 @@ export default function Caoursel(props) {
           />
         </svg>
       </motion.button>
+      <Flex
+        sx={{
+          alignItems: "flex-end",
+          justifyContent: "center",
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: `100%`,
+        }}
+      >
+        {snapList.map((_, i) => (
+          <motion.button
+            layout
+            key={i}
+            sx={{
+              border: "none",
+              mr: 2,
+            }}
+            style={{
+              backgroundColor:
+                i === currentIndex
+                  ? `${theme.colors.secondary}`
+                  : `${theme.colors.darkGray}`,
+              height: i === currentIndex ? 6 : 4,
+              width: i === currentIndex ? 52 : 40,
+            }}
+            whileHover={{ cursor: "pointer" }}
+            onTap={() => scrollTo(i)}
+          />
+        ))}
+      </Flex>
     </motion.figure>
   );
 }
