@@ -10,6 +10,7 @@ const theme = {
       "linear-gradient(270deg, #FBCED3 6.44%, #D6E4DC 63.07%, #FCB33D 126.63%)",
     secondaryText: "#BDBEC1",
     altText: "#777980",
+    darkGray: transparentize("text", 0.7),
   },
   fonts: {
     body: '"Sora","system-ui, sans-serif"',
