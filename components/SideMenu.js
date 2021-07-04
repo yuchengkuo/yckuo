@@ -32,14 +32,8 @@ export default function SideMenu({ ids }) {
       {isShow && (
         <motion.div
           sx={{
-            display: ["none", null, null, "flex"],
-            flexDirection: "column",
-            position: "fixed",
-            right: 7,
-            top: 12,
-            maxWidth: 160,
-            zIndex: 9,
-            p: 2,
+            display: ["none", null, null, "unset"],
+            mt: 12,
             backgroundColor: transparentize("background", 0.6),
             borderRadius: 15,
           }}
@@ -50,7 +44,7 @@ export default function SideMenu({ ids }) {
           <h4
             sx={{ variant: "text.caps", p: 2, my: 2, color: "secondaryText" }}
           >
-            content
+            contents
           </h4>
           <ul sx={{ listStyle: "none", p: 0, m: 0 }}>
             {ids.map((item, i) => (
