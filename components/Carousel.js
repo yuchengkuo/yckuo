@@ -106,7 +106,7 @@ export default function Caoursel(props) {
           visibility: ["hidden", null, null, "visible"],
           position: "absolute",
           left: `calc(50% - 400px - 26px)`,
-          top: `calc(50% - 26px)`,
+          top: `calc(50% - 46px)`,
           width: 52,
           height: 52,
           borderRadius: 10,
@@ -144,7 +144,7 @@ export default function Caoursel(props) {
           visibility: ["hidden", null, null, "visible"],
           position: "absolute",
           left: `calc(50% + 400px - 26px)`,
-          top: `calc(50% - 26px)`,
+          top: `calc(50% - 46px)`,
           width: 52,
           height: 52,
           borderRadius: 10,
@@ -193,6 +193,7 @@ export default function Caoursel(props) {
             key={i}
             sx={{
               border: "none",
+              borderRadius: 1,
               mr: 2,
             }}
             style={{
@@ -200,8 +201,8 @@ export default function Caoursel(props) {
                 i === currentIndex
                   ? `${theme.colors.secondary}`
                   : `${theme.colors.darkGray}`,
-              height: i === currentIndex ? 6 : 4,
-              width: i === currentIndex ? 52 : 40,
+              height: 4,
+              width: i === currentIndex ? 32 : 24,
             }}
             whileHover={{ cursor: "pointer" }}
             onTap={() => scrollTo(i)}
