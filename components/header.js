@@ -11,7 +11,10 @@ const navItems = [
 
 const Header = () => {
   return (
-    <header>
+    <motion.header
+      initial={{ opacity: 0, y: -4 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
       <Flex
         as="nav"
         variant="layout.nav"
@@ -38,7 +41,7 @@ const Header = () => {
           ))}
         </Flex>
       </Flex>
-    </header>
+    </motion.header>
   );
 };
 

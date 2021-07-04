@@ -1,13 +1,10 @@
 /** @jsxImportSource theme-ui */
 import Link from "next/link";
-import { Container, Box, Grid, Flex, Button } from "theme-ui";
+import { Container, Grid, Flex, Button } from "theme-ui";
 import Svg from "./Svg";
+import { motion } from "framer-motion";
 
 const Hero = () => {
-  const num = [];
-  for (let i = 0; i < 16; i++) {
-    num.push(i);
-  }
   return (
     <Container
       as="section"
@@ -19,8 +16,12 @@ const Hero = () => {
         flexDirection: ["column-reverse", null, "row"],
       }}
     >
-      <Box sx={{ maxWidth: 520, mx: [null, "auto", "unset"] }}>
-        <h1
+      <motion.div
+        sx={{ maxWidth: 520, mx: [null, "auto", "unset"] }}
+        initial={{ opacity: 0, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <motion.h1
           sx={{
             fontSize: [4, 7],
             fontWeight: "heading",
@@ -31,7 +32,7 @@ const Hero = () => {
           }}
         >
           Hi, I&apos;m YuCheng.
-        </h1>
+        </motion.h1>
         <p
           sx={{
             fontSize: [1, 2],
@@ -79,7 +80,7 @@ const Hero = () => {
           </Button>
 
           <Link href="/about" passHref>
-            <Button variant="hero" bg="background" p={0}>
+            <Button as="a" variant="hero" bg="background" px={0} py={1}>
               More about me
               <svg
                 width="16"
@@ -104,7 +105,7 @@ const Hero = () => {
             </Button>
           </Link>
         </Flex>
-      </Box>
+      </motion.div>
 
       <Grid
         sx={{
@@ -115,7 +116,7 @@ const Hero = () => {
           gap: [3, 4, 3],
         }}
       >
-        {num.map((i) => (
+        {new Array(16).fill(0).map((i) => (
           <Svg key={i} />
         ))}
       </Grid>
