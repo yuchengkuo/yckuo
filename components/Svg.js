@@ -49,6 +49,9 @@ const Svg = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       whileHover={{ scale: 0.95, rotate: 1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.01 }}
     >
       <motion.path
         d={d}
