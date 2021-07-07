@@ -25,7 +25,7 @@ export default function useIntersectionObserver(elements, options) {
     elements.forEach((element) => {
       observer.current.observe(element);
     });
-  });
+  }, [elements, options]);
 
   return [currentIndex];
 }

@@ -25,7 +25,7 @@ export default function SideMenu({ ids }) {
     setSectionElements(sectionElements);
     const carouselElements = document.querySelectorAll("#carousel");
     setCarouelElements([...carouselElements]);
-  }, []);
+  }, [ids]);
 
   return (
     <AnimatePresence>
