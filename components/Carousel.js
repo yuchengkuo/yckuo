@@ -76,6 +76,7 @@ export default function Caoursel(props) {
                     borderRadius: 15,
                     backgroundColor: "secondary",
                   },
+                  div: { pointerEvents: "none" },
                   mb: 4,
                   opacity: 0.5,
                   transition: `all 200ms ease-out`,

@@ -163,6 +163,7 @@ const theme = {
     },
     img: {
       borderRadius: 15,
+      backgroundColor: "secondary",
     },
     li: {
       variant: "text.body",
