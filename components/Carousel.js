@@ -41,8 +41,8 @@ export default function Caoursel(props) {
       className="embla"
       sx={{
         overflow: "hidden",
-        width: `99vw`,
-        ml: `calc((100% - 99vw) / 2)`,
+        width: `98vw`,
+        ml: `calc((100% - 98vw) / 2)`,
         my: [11, 12],
         px: [4, 6],
         position: "relative",
