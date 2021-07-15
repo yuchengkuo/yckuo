@@ -1,16 +1,17 @@
 ---
 type: project
-title: Redesign the search proecess for timeable app.
+title: Redesign the searching proecess for timeable app.
 subtitle: UI, UX, Prototype
 published: true
 info:
   - title: Duration
     content:
-      - 3 months
+      - 6 weeks
   - title: Tools
     content:
       - Miro
       - Figma
+      - Framer
   - title: Platform
     content:
       - ios
@@ -18,13 +19,22 @@ info:
 
 ## Overview
 
-This project is a self-implemented practice for better experience and interface design skills, and the idea comes from personal struggle with the current product. The main goal was to redesign a more intuitive and fluent process for timetable search.
+This self-implemented project is to practice experience and interface design skills. The idea came from personal struggle with the current product. The goal was to redesign a more intuitive and simplified process for timetable searching.
 
 <img
-  src="/images/timetable-search-process-redesign/image1.png"
+  src="project/timetable-search-process-redesign/cover_ppkeoz.jpg"
   alt="Screenshots of redesign interface."
-  width={800}
-  height={600}
+  width={1200}
+  height={680}
+/>
+
+### The Process
+
+<img
+  src="project/timetable-search-process-redesign/process_fazluw.jpg"
+  alt="The process of the redesign project, which is discovery, define, design, and develop."
+  width={1200}
+  height={400}
 />
 
 ---
@@ -33,155 +43,214 @@ This project is a self-implemented practice for better experience and interface 
 
 ### Background
 
-Taiwan Railway Administration (TRA) is the train transportation in Taiwan.
+[Taiwan Railway Administration (TRA)](https://www.railway.gov.tw/tra-tip-web/tip?lang=EN_US) manages and maintains the railway service in Taiwan. Recently released (2019) fourth generation of the ticket booking system offers services like ticket booking, timetable searching, and live train info. There’re other third party apps that provide similar services, but ticket booking is exclusive to the official TRA platform.
 
-Recently released (2019) fourth generation of the ticket booking system offers common services like ticket booking, timetable searching, and live train info. There’re other third party apps provide similar
+The project covers the redesign of the mainly used service, search process for train timetable.
 
-This project covers the redesign of the mainly used service, search process for timetable.
+### The Problem
 
-### The problems
+One of the problems in the current searching process is it's tedious and time-consuming. Especially when the user need to switch between the departure and arrival stations often, or switch between different type of results. **Users will need to take multiple similar actions to obtain the search results.**
 
-The main problem of the current search process is tedious and time-consuming, especially when the user need to switch between the departure and arrival stations often.
+👉Note: From the user feedback on the [app store](https://itunes.apple.com/app/id1441617748) and [google play store](https://play.google.com/store/apps/details?id=tw.gov.tra.twtraffic), the payment process also have some problems, as well as other miscellaneous potential improvements.
 
-### The challenges
+### The Challenge
 
-- Large amount of the stations and counties. (242 stations & 19 counties)
-- The results contains 3 different show types.
-- 7 sublines apart from mainline.
+- Large amount of the stations and counties: 242 stations and 19 counties.
+- 3 different result types: timetable, station, and train.
+- 7 sublines apart from the mainline.
 
-### Current analysis
+### Current Analysis
 
-For [official TRA app](linkToApp), I throughly analyzed the current product and experience, hoping to discover the opportunities to improve the experience.
+For official TRA-E booking app, I throughly analyzed the current product and service flow, hoping to discover the opportunities to improve the overall experience.
 
-Other apps for train timetable also have similar search process.
+👉Note: Other third-party apps also share similar search process.
 
 <img
-  src="/images/timetable-search-process-redesign/current-analysis.png"
+  src="project/timetable-search-process-redesign/current-analysis_ioc37t.png"
   alt="Current timetable app analysis."
   width={1200}
-  height={2600}
+  height={2700}
 />
+
+### Map Out Current User Flow
+
+The current user flow breaks the process into 4 different flows but similar elements appears in each one, common actions are like selecting stations, set date & time, train type, etc.
+
+<img
+  src="project/timetable-search-process-redesign/original-user-flow_anjbkj.jpg"
+  alt="Original user flow from the official TRA application."
+  width={960}
+  height={960}
+/>
+
+### Assumptions
+
+1. Most of the users go for timetable search.
+2. Users tend to not manually input the information (e.g. stations, date and time...).
 
 ---
 
 ## Define
 
+<!--
+To better define the goal, I assumed a use case to demonstrate. In this use case we have a hypothetical user
+He wants to search for two timetable for
+search the timetable from Kaohsiung to Taipei
+and Taichung to Hualien
+and look up for the train stops
+
 ### Design Goal
 
+To represent the search goals, let's assign a task. The task is to search for train timetable from Taipei station to Kaohsiung, and find the
+
 The focus will be on the search process, the main goal is to reduced search time by 40%.
+let's assume the user want to search for the train timetable for tomorrow, from Taipei to Kaohsiung.
+original process approximately took \_\_\_ min to accompolish -->
 
 ### Ideation
 
-With the problems and analysis, I sketch out some ideas to visulaize possible solutions, especially avoiding the usage of long list is my top consideration.
+With the problems and analysis, I sketch out some ideas to visulaize possible solutions. Avoiding the usage of long list is my top consideration.
+
+<img
+  src="project/timetable-search-process-redesign/ideation_v7nq6g.jpg"
+  alt="Sketches of the redesigned interface"
+  width={720}
+  height={480}
+/>
 
 ### User Flow
 
-The user flow shows how the users will interact with the product and help me identify what user could encounter during the search process.
+<img
+  src="project/timetable-search-process-redesign/new-user-flow_civjou.jpg"
+  alt="Redesigned user flow combines similar actions to a more straight-forward process."
+  width={960}
+  height={960}
+/>
+
+### Detailed User Flow
+
+The main user flow is assumed to be searching for timetable, and without manually inputting the stations or trains.
 
 <img
-  src="/images/timetable-search-process-redesign/user-flow.png"
+  src="project/timetable-search-process-redesign/detailed-user-flow_uksqbc.jpg"
   alt="Current timetable app analysis."
   width={1200}
-  height={1650}
+  height={1960}
 />
 
-### Wireframe
-
-I did lots of explorations in wireframes to show how the structure and break the whole interface into components for better reusability.
+### Information Architecture
 
 <img
-  src="/images/timetable-search-process-redesign/wireframes.png"
-  alt="Wireflow of the redesign process."
-  width={1200}
-  height={920}
+  src="project/timetable-search-process-redesign/ia_huz8q7.jpg"
+  alt="Information Architecture of the redesigned app, which contains home, search tab, and saved tab, three pages."
+  width={960}
+  height={560}
 />
 
-### Wireflow
-
-Combine the usr flowchart ang the wireframe to get more sense of how the search process will look and how it will work.
+### Wireframes
 
 <img
-  src="/images/timetable-search-process-redesign/wireflow.png"
-  alt="Wireflow of the redesign process."
+  src="project/timetable-search-process-redesign/wireframes_mvczap.png"
+  alt="wireframes of the redesign process."
   width={1200}
-  height={433}
+  height={1990}
 />
 
-### Lo-fi Prototype
+### Lofi Prototypes
 
-Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus
+<img
+  src="project/timetable-search-process-redesign/lofi-prototype_vjwa4k.png"
+  alt="Low fidelity prototype of the redesigned interface."
+  width={1200}
+  height={1500}
+/>
 
 ---
 
 ## Design
 
-With how it will work in mind, I moved on to the visual design, after some attempt and exploration I find this version the most clear and simple.
+With how it will work in mind and after some explorations, I find this version the most clear and simple.
 
 ### Search Tab
 
-The search tab consists of current departure and arrival stations, date and time, train type and recent search history.
-
 <img
-  src="/images/timetable-search-process-redesign/image-search-tab.png"
+  src="project/timetable-search-process-redesign/search-tab_ukbrrg.png"
   alt="Wireflow of the redesign process."
   width={1200}
-  height={834}
+  height={880}
 />
 
 ### Search Popup
 
-The search tab consists of current departure and arrival stations, date and time, train type and recent search history.
-
 <img
-  src="/images/timetable-search-process-redesign/image-search-popup.png"
+  src="project/timetable-search-process-redesign/search-popup_gtlbz4.png"
   alt="Wireflow of the redesign process."
   width={1200}
-  height={834}
+  height={880}
 />
 
 ### Saved Tab
 
-The search tab consists of current departure and arrival stations, date and time, train type and recent search history.
-
 <img
-  src="/images/timetable-search-process-redesign/image-saved-tab.png"
+  src="project/timetable-search-process-redesign/saved-tab_zgyguf.png"
   alt="Wireflow of the redesign process."
   width={1200}
-  height={834}
+  height={880}
 />
 
 ### Result Tab
 
-The search tab consists of current departure and arrival stations, date and time, train type and recent search history.
-
 <img
-  src="/images/timetable-search-process-redesign/image-result-tab.png"
+  src="project/timetable-search-process-redesign/result-tab_zufx0z.png"
   alt="Wireflow of the redesign process."
   width={1200}
-  height={834}
+  height={880}
+/>
+
+### Visual Elements
+
+<img
+  src="project/timetable-search-process-redesign/visual-elements_xzd5oh.png"
+  alt=""
+  width={1200}
+  height={1687}
 />
 
 ---
 
 ## Develop
 
-Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus. Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risusArcu adipiscing sed accumsan, ac metus, quis nibh potenti risus. Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus.
+### Mid-fidelity Interactive Prototype
+
+I created a interactive prototype to demonstrates the redesigned search process flow and some of the interaction.
 
 <iframe
+  loading="lazy"
   style={{ border: `10px solid rgba(0, 0, 0, 0)` }}
   width="100%"
   height="1000"
-  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FujXeX3b4Sdq5iIo07SfVBN%2FTimetable-proecess%3Fpage-id%3D352%253A0%26node-id%3D352%253A382%26viewport%3D597%252C380%252C0.14511729776859283%26scaling%3Dmin-zoom"
+  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FujXeX3b4Sdq5iIo07SfVBN%2FTimetable-process%3Fpage-id%3D352%253A0%26node-id%3D352%253A382%26viewport%3D458%252C90%252C0.49571412801742554%26scaling%3Dcontain"
 ></iframe>
 
 ---
 
 ## Outcome
 
-### Test & validation
+<!-- ### Test & Validation
 
-Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus.
+For the redesigned search process, the approximate time-needed is -->
 
 ### Reflection
 
-Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus Arcu adipiscing sed accumsan, ac metus, quis nibh potenti risus.
+The project taught me the design process and what should be considered at each phase. And here're some improvements that I find.
+
+- Icons for train type app.
+- Color coding for main stations.
+- Swipe actions
+
+### Next Step
+
+Some further implementations could be done,
+
+1. Hi-fi prototype.
+2. Using the real data.
