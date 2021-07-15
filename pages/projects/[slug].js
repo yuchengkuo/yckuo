@@ -29,7 +29,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
       <NextSeo title={frontMatter.title} />
 
       <motion.section
-        sx={{ variant: "layout.hero", position: "relative" }}
+        sx={{ variant: "layout.hero" }}
         initial={{ opacity: 0, y: 4 }}
         animate={{ opacity: 1, y: 0 }}
       >
