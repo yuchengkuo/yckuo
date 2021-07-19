@@ -108,7 +108,7 @@ export default function TopAlbums() {
           </Link>
         </motion.li>
       ))}
-      <motion.li>
+      {/* <motion.li>
         <Link
           href="https://www.last.fm/user/EthanKuo"
           sx={{
@@ -142,7 +142,7 @@ export default function TopAlbums() {
             />
           </svg>
         </Link>
-      </motion.li>
+      </motion.li> */}
     </ul>
   ) : (
     <div sx={{ gridColumn: 2, p: 0 }}>
