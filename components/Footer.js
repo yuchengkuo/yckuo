@@ -39,14 +39,14 @@ export default function Footer() {
             ml={2}
             sx={{ fontSize: 1, fontWeight: 600, color: "secondaryText" }}
           >
-            &#169; yucheng kuo.
+            &#169; 2021 yucheng kuo.
           </Text>
           <Text
             as="p"
             ml="auto"
             sx={{ fontSize: 1, fontWeight: 600, color: "secondaryText" }}
           >
-            2021
+            TW
           </Text>
         </Flex>
         <NowPlaying />
