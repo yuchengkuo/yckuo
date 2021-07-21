@@ -9,7 +9,6 @@ export default function Footer() {
   return (
     <footer>
       <Flex
-        as="nav"
         variant="layout.nav"
         mb={8}
         sx={{

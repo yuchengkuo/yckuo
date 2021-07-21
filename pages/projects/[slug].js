@@ -28,7 +28,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
     <Layout>
       <NextSeo title={frontMatter.title} />
 
-      <motion.section
+      <motion.div
         sx={{ variant: "layout.hero" }}
         initial={{ opacity: 0, y: 4 }}
         animate={{ opacity: 1, y: 0 }}
@@ -39,10 +39,9 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
         <p sx={{ variant: "text.caps", color: "secondaryText" }}>
           {frontMatter.subtitle}
         </p>
-      </motion.section>
+      </motion.div>
 
       <Container
-        as="section"
         variant="section"
         sx={{
           display: "flex",
@@ -62,7 +61,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
               flex: `1 1 220px`,
             }}
           >
-            <h4
+            <h2
               sx={{
                 fontSize: [2, 3],
                 fontWeight: "heading",
@@ -72,7 +71,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
               }}
             >
               {item.title}
-            </h4>
+            </h2>
             {item.content.map((text, i) => (
               <p
                 key={i}
@@ -85,12 +84,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
         ))}
       </Container>
 
-      <Grid
-        id="article"
-        as="section"
-        variant="article"
-        sx={{ position: "relative" }}
-      >
+      <Grid id="article" variant="article" sx={{ position: "relative" }}>
         <Container
           as="article"
           variant="section"
@@ -101,6 +95,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
       </Grid>
 
       <Flex
+        as="aside"
         sx={{
           width: [120, null, 160, 240],
           height: `100vh`,
@@ -197,7 +192,7 @@ const UpNext = ({ upNext }) => {
           />
         </svg>
       </Flex>
-      <Container as="section" variant="section" py={11}>
+      <Container variant="section" py={11}>
         <Flex sx={{ flexDirection: "column" }}>
           <Themed.h2 sx={{ mb: 8 }}>Up Next</Themed.h2>
           <ProjectCard data={upNext.next} />

@@ -6,13 +6,15 @@ import { Container, Grid, Flex, Themed, Button } from "theme-ui";
 import { getLetterboxd } from "utlis/letterboxd";
 import { motion, useTransform, useViewportScroll } from "framer-motion";
 import TopAlbums from "components/TopAlbums";
+import { getTopTracks } from "utlis/spotify";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
 
 const AboutPage = ({ mdxSource }) => {
   return (
     <Layout>
+      <NextSeo title="YuCheng Kuo / About" />
       <Container
-        as="section"
         variant="maxWidth"
         px={[4, 6]}
         sx={{
@@ -21,9 +23,11 @@ const AboutPage = ({ mdxSource }) => {
           alignItems: "flex-end",
         }}
       >
-        <div
+        <motion.div
+          initial={{ y: 4, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
           sx={{
-            maxWidth: 540,
+            width: 540,
             height: 320,
             borderRadius: 15,
             backgroundColor: "altText",
@@ -60,11 +64,11 @@ const AboutPage = ({ mdxSource }) => {
       </Container>
 
       <Grid
-        as="section"
         variant="layout.section"
         sx={{ gridTemplateColumns: `auto minmax(auto, 560px)`, gap: 0 }}
       >
         <Container
+          as="article"
           sx={{
             gridColumn: 2,
             "h3 > a": { color: "text" },
@@ -76,20 +80,25 @@ const AboutPage = ({ mdxSource }) => {
       </Grid>
       <BG />
 
-      <Container as="section" variant="text">
-        <Themed.h3 sx={{ color: "text" }}>listening & watching.</Themed.h3>
-        <Themed.p>lost in music and films.</Themed.p>
+      <Container variant="text">
+        <Themed.h3 sx={{ color: "text" }}>
+          what i&apos;ve been listening to.
+        </Themed.h3>
+        <Themed.p>
+          A list of weekly top albums pulled from Last.fm and linked them to
+          Spotify.🎧
+        </Themed.p>
         <Grid variant="article" pt={[7, 10]}>
           <TopAlbums />
         </Grid>
       </Container>
 
-      <Container as="section" variant="text">
+      <Container variant="text">
         <Themed.h3 sx={{ color: "text" }}>other me.</Themed.h3>
-        <Themed.p>Find other digital me.</Themed.p>
+        <Themed.p>Meet other digital me.🗿</Themed.p>
         <Flex sx={{ flexDirection: ["column", "row"] }} mb={6}>
           <Link href="mailto:hey@yuchengkuo.com?subject=Hi!" passHref>
-            <Button as="a" mr={[0, 11]} mb={[5, 0]}>
+            <Button as="a" mr={[0, 11]} mb={[5, 0]} title="Send ✉ to yucheng">
               <svg
                 width="21"
                 height="20"
@@ -115,8 +124,8 @@ const AboutPage = ({ mdxSource }) => {
               Mail
             </Button>
           </Link>
-          <Link href="" passHref>
-            <Button as="a">
+          <Link href="https://read.cv/yuchengkuo" passHref>
+            <Button as="a" title="Read yucheng's CV">
               <svg
                 width="24"
                 height="24"
@@ -135,7 +144,7 @@ const AboutPage = ({ mdxSource }) => {
             </Button>
           </Link>
         </Flex>
-        <Flex sx={{}}>
+        <Flex sx={{ flexWrap: "wrap", "> *": { flex: `1 1 150px` } }}>
           <Link href="https://linkedin.com/in/yucheng-kuo" passHref>
             <Button as="a" variant="secondary">
               linkedin
@@ -151,9 +160,9 @@ const AboutPage = ({ mdxSource }) => {
               spotify
             </Button>
           </Link>
-          <Link href="" passHref>
+          <Link href="https://github.com/yuchengkuo" passHref>
             <Button as="a" variant="secondary">
-              last.fm
+              github
             </Button>
           </Link>
         </Flex>
@@ -165,39 +174,46 @@ const AboutPage = ({ mdxSource }) => {
 export default AboutPage;
 
 export async function getStaticProps() {
+  const films = await getLetterboxd();
+
+  const response = await getTopTracks();
+
+  const { items } = await response.json();
+
   const aboutData = `
 
   ### about me.
 
-  Hey, my name is YuCheng Kuo, a self-taught designer and engineer from Taiwan. I study engineering in undergrad and self-taught design and web development in my spare time. 
-
-  I like tech, startups, design, cars, music, films and many other things.
+  Hey, my name is YuCheng Kuo, a self-taught designer and engineer from Taiwan. I studied engineering in undergrad and self-taught design and web development in my spare time. Currently I'm working on projects, practicing skills and looking for potential work.
   
-  Currently I’m working on some solo projects to improve my skills and seeking a full-time job. I’m always curious about how things (and people) work, and sometimes think about potential improvements.
-
-  Constantly learning, keep improving, full curiosity.
-
   ### digital.
 
-  I’m constantly facinated by how the technology reshape our daily life (and it’s going fast!) and how design plays such a significant part in.
+  I'm always fascinated by how technology reshape our daily life and the diversity in the digital world. 
+  I like tech, startups, design, cars, music, films and many other things.
+  I like sharing and learning, 
+  Constantly learning, keep improving, full curiosity.
 
-  I'm always fascinated by how technology reshape our daily life and how diverse the digital world is.
+  ### quick facts.
 
-
-
-  I found user experience & product design at late 2020 and constantly learning and reading ever since. (Also fighting the distraction and feeling the highs and lows...) I’m currently working on some projects to better sharpen my skills.
+  A heavy listener, recent top track is [${items[0].name}](${
+    items[0].external_urls.spotify
+  }) by ${items[0].artists
+    .map((artist) => artist.name)
+    .join(", ")}. A film lover, recently watched [${films[0].film.title} (${
+    films[0].film.year
+  })](${films[0].uri}). And a independent thinker.💭
 
   ### about the site.
 
-  Built from scratch with [Next.js](https://nextjs.org), style with [theme-ui](https://theme-ui.com), and help of [mdx](https://mdxjs.com), [framer-motion](https://www.framer.com/motion). Typeface [Sora](https://github.com/sora-xor/sora-font), more detail can be found in the [project section](/#project).
+  Designed and developed by myself, it is built from scratch in [VS Code](https://code.visualstudio.com/), with [Next.js](https://nextjs.org), [theme-ui](https://theme-ui.com), [mdx](https://mdxjs.com), and [framer-motion](https://www.framer.com/motion), and the type is set in [Sora](https://github.com/sora-xor/sora-font).
+  
+  More detail can be found in [project section](/#project).
 
 `;
 
   const aboutSource = await serialize(aboutData, {
     mdxOptions: { remarkPlugins: [require("remark-slug")] },
   });
-
-  const films = await getLetterboxd();
 
   return {
     props: {
@@ -218,13 +234,13 @@ const BG = () => {
     <motion.div
       sx={{
         position: "absolute",
-        top: 80,
+        top: 48,
         left: 0,
         zIndex: -5,
         div: {
           borderRadius: 60,
           filter: `blur(10px)`,
-          opacity: 0.08,
+          opacity: 0.06,
           mixBlendMode: `screen`,
           position: "absolute",
           width: [`85vw`, 560, 640],

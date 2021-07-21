@@ -11,7 +11,7 @@ const Home = ({ allProjectsData }) => {
     <Layout>
       <Hero />
 
-      <Container as="section" id="project" variant="section" sx={{}}>
+      <Container id="project" variant="section" sx={{}}>
         <Text as="h3" variant="styles.h4">
           &#47;&#47; Projects
         </Text>
@@ -22,13 +22,13 @@ const Home = ({ allProjectsData }) => {
         </Flex>
       </Container>
 
-      <Container as="section" variant="text">
+      <Container variant="text">
         <Text as="h3" variant="styles.h4">
           &#47;&#47; About
         </Text>
         <Themed.p>
-          Ac nisl id semper magna at placerat tempor, quam elementum massa
-          molestie neque nunc egestas felis congue egestas commodo arcu.
+          👋 I&apos;m YuCheng, a thinker and doer who is facinated by tech,
+          design, web, automobiles, music, films and many other things.🚶‍♂️
         </Themed.p>
         <Flex sx={{ flexDirection: ["column", "row"] }}>
           <Link href="/about" passHref>
@@ -51,7 +51,7 @@ const Home = ({ allProjectsData }) => {
               More info
             </Button>
           </Link>
-          <Link href="/" passHref>
+          <Link href="https://read.cv/yuchengkuo" passHref>
             <Button as="a">
               <svg
                 width="24"
@@ -73,11 +73,13 @@ const Home = ({ allProjectsData }) => {
         </Flex>
       </Container>
 
-      <Container as="section" variant="text">
+      <Container variant="text">
         <Text as="h3" variant="styles.h4">
           &#47;&#47; Contact
         </Text>
-        <Themed.p>Let&apos;s connect (the dots!)</Themed.p>
+        <Themed.p>
+          Let&apos;s connect (the dots and create new ones ⚫⚫⚫).
+        </Themed.p>
         <Link href="mailto:hey@yuchengkuo.com?subject=Hi!" passHref>
           <Button as="a">
             <svg

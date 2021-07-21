@@ -30,7 +30,7 @@ export default function SideMenu({ ids }) {
   return (
     <AnimatePresence>
       {isShow && (
-        <motion.div
+        <motion.nav
           sx={{
             display: ["none", null, null, "unset"],
             mt: 12,
@@ -77,7 +77,7 @@ export default function SideMenu({ ids }) {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </motion.nav>
       )}
     </AnimatePresence>
   );

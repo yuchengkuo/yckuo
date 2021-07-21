@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 const Hero = () => {
   return (
     <Container
-      as="section"
       variant="hero"
       sx={{
         display: "flex",
@@ -41,8 +40,8 @@ const Hero = () => {
             mb: 4,
           }}
         >
-          A self-taught designer and engineer who&apos;s into UX, UI, react,
-          Jamstack, music, films and more cool things.
+          A self-taught designer and engineer who enjoy building things, and
+          wandering in the intersection of design and engineering.
         </p>
 
         <Flex
