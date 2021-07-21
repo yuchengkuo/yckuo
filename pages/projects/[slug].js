@@ -29,7 +29,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
       <NextSeo title={frontMatter.title} />
 
       <motion.div
-        sx={{ variant: "layout.hero" }}
+        sx={{ variant: "layout.hero", position: "relative" }}
         initial={{ opacity: 0, y: 4 }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -39,6 +39,24 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
         <p sx={{ variant: "text.caps", color: "secondaryText" }}>
           {frontMatter.subtitle}
         </p>
+        <motion.svg
+          sx={{ position: "absolute", right: 4, bottom: 4 }}
+          animate={{ y: -40 }}
+          transition={{ duration: 2, repeat: Infinity, repeatType: "mirror" }}
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M38 18L24 32L10 18"
+            stroke="#777980"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </motion.svg>
       </motion.div>
 
       <Container
@@ -84,7 +102,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
         ))}
       </Container>
 
-      <Grid id="article" variant="article" sx={{ position: "relative" }}>
+      <Grid id="article" variant="article" sx={{ gap: 0 }}>
         <Container
           as="article"
           variant="section"
@@ -103,7 +121,7 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
           top: 0,
           right: 0,
           flexDirection: "column",
-          pl: 6,
+          pl: 7,
           zIndex: 10,
         }}
       >
