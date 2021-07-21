@@ -54,14 +54,10 @@ const img = () => (props) => {
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
-        width: [`99vw`, `90vw`, `70vw`],
+        width: [`100vw`, `90vw`, `70vw`],
         m: 0,
-        ml: [
-          `calc((100% - 99vw) / 2)`,
-          `calc((100% - 90vw) / 2)`,
-          `calc((100% - 70vw) / 2)`,
-        ],
-        my: 96,
+        ml: [-4, `calc((100% - 90vw) / 2)`, `calc((100% - 70vw) / 2)`],
+        my: [40, 96],
         div: { pointerEvents: "none" },
       }}
     >
