@@ -51,13 +51,8 @@ export default function SideMenu({ ids }) {
               <li key={i}>
                 <Button
                   onClick={() => {
-                    const article =
-                      document.getElementById("article").offsetTop;
                     window.scrollTo({
-                      top:
-                        document.getElementById(item.id).offsetTop +
-                        article -
-                        50,
+                      top: document.getElementById(item.id).offsetTop - 50,
                       behavior: "smooth",
                     });
                   }}
