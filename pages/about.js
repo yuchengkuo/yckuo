@@ -2,7 +2,7 @@
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import Layout from "components/Layout";
-import { Container, Grid, Flex, Themed, Button } from "theme-ui";
+import { Container, Flex, Themed, Button } from "theme-ui";
 import { getLetterboxd } from "utlis/letterboxd";
 import { motion, useTransform, useViewportScroll } from "framer-motion";
 import TopAlbums from "components/TopAlbums";
@@ -14,86 +14,66 @@ const AboutPage = ({ mdxSource }) => {
   return (
     <Layout>
       <NextSeo title="YuCheng Kuo / About" />
+
+      <BG />
       <Container
-        variant="maxWidth"
-        px={[4, 6]}
+        variant="text"
+        as="article"
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
+          "h3 > a": { color: "text" },
+          "h3:not(:first-of-type)": { mt: [11, 13] },
+          ul: { mt: 6 },
         }}
       >
         <motion.div
           initial={{ y: 4, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           sx={{
-            width: 540,
-            height: 320,
+            width: 160,
+            height: 160,
             borderRadius: 15,
             backgroundColor: "altText",
-            alignSelf: "flex-start",
-            my: 6,
+            mb: 6,
           }}
         />
-        <svg
-          width="562"
-          height="82"
-          viewBox="0 0 562 82"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1 81L0.552786 80.7764L0.190983 81.5H1V81ZM41 81V81.5H41.309L41.4472 81.2236L41 81ZM1 1V0.5H0.190983L0.552786 1.22361L1 1ZM81 1L81.4472 1.22361L81.809 0.5H81V1ZM177 1L177.447 1.22361L177.809 0.5H177V1ZM97 1V0.5H96.5V1H97ZM157.447 40.1056L157 39.882L157.447 40.1056ZM157.447 41.8944L157 42.118L157.447 41.8944ZM177 81V81.5H177.809L177.447 80.7764L177 81ZM97 81H96.5V81.5H97V81ZM273 1L273.447 1.22361L273.809 0.5H273V1ZM233 1V0.5H232.691L232.553 0.776393L233 1ZM233 81V81.5H233.309L233.447 81.2236L233 81ZM193 81L192.553 80.7764L192.191 81.5H193V81ZM329 1V0.5H328.691L328.553 0.776393L329 1ZM369 1L369.447 1.22361L369.809 0.5H369V1ZM289 81L288.553 80.7764L288.191 81.5H289V81ZM329 81V81.5H329.309L329.447 81.2236L329 81ZM425 81V81.5H425.309L425.447 81.2236L425 81ZM385 81L384.553 80.7764L384.191 81.5H385V81ZM465 1L465.447 1.22361L465.809 0.5H465V1ZM385 1V0.5H384.191L384.553 1.22361L385 1ZM404.928 40.8569L404.481 41.0805L404.928 40.8569ZM404.928 41.1431L404.481 40.9195L404.928 41.1431ZM561 1L561.447 1.22361L561.809 0.5H561V1ZM481 1V0.5H480.5V1H481ZM541.447 40.1056L541 39.882V39.882L541.447 40.1056ZM541.447 41.8944L541 42.118V42.118L541.447 41.8944ZM561 81V81.5H561.809L561.447 80.7764L561 81ZM481 81H480.5V81.5H481V81ZM1 81.5H41V80.5H1V81.5ZM20.4812 40.9195L0.552786 80.7764L1.44721 81.2236L21.3757 41.3667L20.4812 40.9195ZM20.4812 41.0805C20.4559 41.0298 20.4559 40.9702 20.4812 40.9195L21.3757 41.3667C21.4911 41.1359 21.4911 40.8641 21.3757 40.6333L20.4812 41.0805ZM0.552786 1.22361L20.4812 41.0805L21.3757 40.6333L1.44721 0.776393L0.552786 1.22361ZM41 0.5H1V1.5H41V0.5ZM81 0.5H41V1.5H81V0.5ZM41.4472 81.2236L81.4472 1.22361L80.5528 0.776393L40.5528 80.7764L41.4472 81.2236ZM177 0.5H97V1.5H177V0.5ZM157.894 40.3292L177.447 1.22361L176.553 0.776393L157 39.882L157.894 40.3292ZM157.894 41.6708C157.683 41.2485 157.683 40.7515 157.894 40.3292L157 39.882C156.648 40.5858 156.648 41.4142 157 42.118L157.894 41.6708ZM177.447 80.7764L157.894 41.6708L157 42.118L176.553 81.2236L177.447 80.7764ZM137 81.5H177V80.5H137V81.5ZM97 81.5H137V80.5H97V81.5ZM96.5 1V81H97.5V1H96.5ZM273 0.5H233V1.5H273V0.5ZM233.447 81.2236L273.447 1.22361L272.553 0.776393L232.553 80.7764L233.447 81.2236ZM193 81.5H233V80.5H193V81.5ZM232.553 0.776393L192.553 80.7764L193.447 81.2236L233.447 1.22361L232.553 0.776393ZM329 1.5H369V0.5H329V1.5ZM289.447 81.2236L329.447 1.22361L328.553 0.776393L288.553 80.7764L289.447 81.2236ZM329 80.5H289V81.5H329V80.5ZM368.553 0.776393L328.553 80.7764L329.447 81.2236L369.447 1.22361L368.553 0.776393ZM425 80.5H385V81.5H425V80.5ZM464.553 0.776393L424.553 80.7764L425.447 81.2236L465.447 1.22361L464.553 0.776393ZM425 1.5H465V0.5H425V1.5ZM385 1.5H425V0.5H385V1.5ZM405.376 40.6333L385.447 0.776393L384.553 1.22361L404.481 41.0805L405.376 40.6333ZM405.376 41.3667C405.491 41.1359 405.491 40.8641 405.376 40.6333L404.481 41.0805C404.456 41.0298 404.456 40.9702 404.481 40.9195L405.376 41.3667ZM385.447 81.2236L405.376 41.3667L404.481 40.9195L384.553 80.7764L385.447 81.2236ZM561 0.5H481V1.5H561V0.5ZM541.894 40.3292L561.447 1.22361L560.553 0.776393L541 39.882L541.894 40.3292ZM541.894 41.6708C541.683 41.2485 541.683 40.7515 541.894 40.3292L541 39.882C540.648 40.5858 540.648 41.4142 541 42.118L541.894 41.6708ZM561.447 80.7764L541.894 41.6708L541 42.118L560.553 81.2236L561.447 80.7764ZM521 81.5H561V80.5H521V81.5ZM481 81.5H521V80.5H481V81.5ZM480.5 1V81H481.5V1H480.5Z"
-            fill="url(#paint0_linear)"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear"
-              x1="-49.3491"
-              y1="41.4939"
-              x2="616.157"
-              y2="41.4939"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#FCB33D" />
-              <stop offset="0.502367" stopColor="#D6E4DC" />
-              <stop offset="1" stopColor="#FBCED3" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </Container>
+        <div sx={{ mb: 10, maxWidth: "100%" }}>
+          <svg
+            viewBox="0 0 562 82"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 81L0.552786 80.7764L0.190983 81.5H1V81ZM41 81V81.5H41.309L41.4472 81.2236L41 81ZM1 1V0.5H0.190983L0.552786 1.22361L1 1ZM81 1L81.4472 1.22361L81.809 0.5H81V1ZM177 1L177.447 1.22361L177.809 0.5H177V1ZM97 1V0.5H96.5V1H97ZM157.447 40.1056L157 39.882L157.447 40.1056ZM157.447 41.8944L157 42.118L157.447 41.8944ZM177 81V81.5H177.809L177.447 80.7764L177 81ZM97 81H96.5V81.5H97V81ZM273 1L273.447 1.22361L273.809 0.5H273V1ZM233 1V0.5H232.691L232.553 0.776393L233 1ZM233 81V81.5H233.309L233.447 81.2236L233 81ZM193 81L192.553 80.7764L192.191 81.5H193V81ZM329 1V0.5H328.691L328.553 0.776393L329 1ZM369 1L369.447 1.22361L369.809 0.5H369V1ZM289 81L288.553 80.7764L288.191 81.5H289V81ZM329 81V81.5H329.309L329.447 81.2236L329 81ZM425 81V81.5H425.309L425.447 81.2236L425 81ZM385 81L384.553 80.7764L384.191 81.5H385V81ZM465 1L465.447 1.22361L465.809 0.5H465V1ZM385 1V0.5H384.191L384.553 1.22361L385 1ZM404.928 40.8569L404.481 41.0805L404.928 40.8569ZM404.928 41.1431L404.481 40.9195L404.928 41.1431ZM561 1L561.447 1.22361L561.809 0.5H561V1ZM481 1V0.5H480.5V1H481ZM541.447 40.1056L541 39.882V39.882L541.447 40.1056ZM541.447 41.8944L541 42.118V42.118L541.447 41.8944ZM561 81V81.5H561.809L561.447 80.7764L561 81ZM481 81H480.5V81.5H481V81ZM1 81.5H41V80.5H1V81.5ZM20.4812 40.9195L0.552786 80.7764L1.44721 81.2236L21.3757 41.3667L20.4812 40.9195ZM20.4812 41.0805C20.4559 41.0298 20.4559 40.9702 20.4812 40.9195L21.3757 41.3667C21.4911 41.1359 21.4911 40.8641 21.3757 40.6333L20.4812 41.0805ZM0.552786 1.22361L20.4812 41.0805L21.3757 40.6333L1.44721 0.776393L0.552786 1.22361ZM41 0.5H1V1.5H41V0.5ZM81 0.5H41V1.5H81V0.5ZM41.4472 81.2236L81.4472 1.22361L80.5528 0.776393L40.5528 80.7764L41.4472 81.2236ZM177 0.5H97V1.5H177V0.5ZM157.894 40.3292L177.447 1.22361L176.553 0.776393L157 39.882L157.894 40.3292ZM157.894 41.6708C157.683 41.2485 157.683 40.7515 157.894 40.3292L157 39.882C156.648 40.5858 156.648 41.4142 157 42.118L157.894 41.6708ZM177.447 80.7764L157.894 41.6708L157 42.118L176.553 81.2236L177.447 80.7764ZM137 81.5H177V80.5H137V81.5ZM97 81.5H137V80.5H97V81.5ZM96.5 1V81H97.5V1H96.5ZM273 0.5H233V1.5H273V0.5ZM233.447 81.2236L273.447 1.22361L272.553 0.776393L232.553 80.7764L233.447 81.2236ZM193 81.5H233V80.5H193V81.5ZM232.553 0.776393L192.553 80.7764L193.447 81.2236L233.447 1.22361L232.553 0.776393ZM329 1.5H369V0.5H329V1.5ZM289.447 81.2236L329.447 1.22361L328.553 0.776393L288.553 80.7764L289.447 81.2236ZM329 80.5H289V81.5H329V80.5ZM368.553 0.776393L328.553 80.7764L329.447 81.2236L369.447 1.22361L368.553 0.776393ZM425 80.5H385V81.5H425V80.5ZM464.553 0.776393L424.553 80.7764L425.447 81.2236L465.447 1.22361L464.553 0.776393ZM425 1.5H465V0.5H425V1.5ZM385 1.5H425V0.5H385V1.5ZM405.376 40.6333L385.447 0.776393L384.553 1.22361L404.481 41.0805L405.376 40.6333ZM405.376 41.3667C405.491 41.1359 405.491 40.8641 405.376 40.6333L404.481 41.0805C404.456 41.0298 404.456 40.9702 404.481 40.9195L405.376 41.3667ZM385.447 81.2236L405.376 41.3667L404.481 40.9195L384.553 80.7764L385.447 81.2236ZM561 0.5H481V1.5H561V0.5ZM541.894 40.3292L561.447 1.22361L560.553 0.776393L541 39.882L541.894 40.3292ZM541.894 41.6708C541.683 41.2485 541.683 40.7515 541.894 40.3292L541 39.882C540.648 40.5858 540.648 41.4142 541 42.118L541.894 41.6708ZM561.447 80.7764L541.894 41.6708L541 42.118L560.553 81.2236L561.447 80.7764ZM521 81.5H561V80.5H521V81.5ZM481 81.5H521V80.5H481V81.5ZM480.5 1V81H481.5V1H480.5Z"
+              fill="url(#paint0_linear)"
+            />
+            <defs>
+              <linearGradient
+                id="paint0_linear"
+                x1="-49.3491"
+                y1="41.4939"
+                x2="616.157"
+                y2="41.4939"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#FCB33D" />
+                <stop offset="0.502367" stopColor="#D6E4DC" />
+                <stop offset="1" stopColor="#FBCED3" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
 
-      <Grid
-        variant="layout.section"
-        sx={{ gridTemplateColumns: `auto minmax(auto, 560px)`, gap: 0 }}
-      >
-        <Container
-          as="article"
-          sx={{
-            gridColumn: 2,
-            "h3 > a": { color: "text" },
-            "h3:not(:first-of-type)": { mt: 12 },
-          }}
-        >
-          <MDXRemote {...mdxSource} />
-        </Container>
-      </Grid>
-      <BG />
+        <MDXRemote {...mdxSource} />
 
-      <Container variant="text">
         <Themed.h3 sx={{ color: "text" }}>
           what i&apos;ve been listening to.
         </Themed.h3>
         <Themed.p>
-          A list of weekly top albums pulled from Last.fm and linked them to
-          Spotify.🎧
+          Weekly top albums pulled from Last.fm and linked to Spotify.🎧
         </Themed.p>
-        <Grid variant="article" pt={[7, 10]}>
-          <TopAlbums />
-        </Grid>
-      </Container>
 
-      <Container variant="text">
+        <TopAlbums />
+
         <Themed.h3 sx={{ color: "text" }}>other me.</Themed.h3>
         <Themed.p>Meet other digital me.🗿</Themed.p>
         <Flex sx={{ flexDirection: ["column", "row"] }} mb={6}>
@@ -177,25 +157,20 @@ export async function getStaticProps() {
   const films = await getLetterboxd();
 
   const response = await getTopTracks();
-
   const { items } = await response.json();
 
   const aboutData = `
 
   ### about me.
 
-  Hey, my name is YuCheng Kuo, a self-taught designer and engineer from Taiwan. I studied engineering in undergrad and self-taught design and web development in my spare time. Currently I'm working on projects, practicing skills and looking for potential work.
-  
-  ### digital.
+  Hey,👋 my name is YuCheng Kuo, a self-taught designer and engineer from Taiwan. I studied engineering in undergrad and self-taught design and web development. Currently I'm working on projects, practicing skills and looking for potential work.
 
   I'm always fascinated by how technology reshape our daily life and the diversity in the digital world. 
   I like tech, startups, design, cars, music, films and many other things.
   I like sharing and learning, 
   Constantly learning, keep improving, full curiosity.
 
-  ### quick facts.
-
-  A heavy listener, recent top track is [${items[0].name}](${
+  A heavy listener, recently listened the most to [${items[0].name}](${
     items[0].external_urls.spotify
   }) by ${items[0].artists
     .map((artist) => artist.name)
@@ -205,7 +180,7 @@ export async function getStaticProps() {
 
   ### about the site.
 
-  Designed and developed by myself, it is built from scratch in [VS Code](https://code.visualstudio.com/), with [Next.js](https://nextjs.org), [theme-ui](https://theme-ui.com), [mdx](https://mdxjs.com), and [framer-motion](https://www.framer.com/motion), and the type is set in [Sora](https://github.com/sora-xor/sora-font).
+  Built from scratch in [VS Code](https://code.visualstudio.com/), with [Next.js](https://nextjs.org), [theme-ui](https://theme-ui.com), [mdx](https://mdxjs.com), and [framer-motion](https://www.framer.com/motion), and the type is set in [Sora](https://github.com/sora-xor/sora-font).
   
   More detail can be found in [project section](/#project).
 
@@ -225,70 +200,40 @@ export async function getStaticProps() {
 
 const BG = () => {
   const { scrollYProgress } = useViewportScroll();
-
-  const y1 = useTransform(scrollYProgress, [0, 0.8], [-80, 400]);
-  const y2 = useTransform(scrollYProgress, [0, 0.8], [0, 240]);
-  const y3 = useTransform(scrollYProgress, [0, 0.8], [0, 480]);
-
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 400]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 320]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 400]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, 360]);
   return (
     <motion.div
       sx={{
         position: "absolute",
-        top: 48,
-        left: 0,
+        display: ["none", "flex"],
+        flexDirection: "column",
+        maxWidth: 960,
+        top: 720,
+        left: "50vw",
+        transform: "translateX(-50%)",
         zIndex: -5,
         div: {
           borderRadius: 60,
-          filter: `blur(10px)`,
-          opacity: 0.06,
+          filter: `blur(24px)`,
+          opacity: 0.05,
           mixBlendMode: `screen`,
-          position: "absolute",
           width: [`85vw`, 560, 640],
         },
+        "div:nth-of-type(even)": { ml: 13 },
+        "div:nth-of-type(odd)": { ml: -11 },
+        "div:nth-of-type(1)": { backgroundColor: "accent", height: 560 },
+        "div:nth-of-type(2)": { backgroundColor: "primary", height: 360 },
+        "div:nth-of-type(3)": { backgroundColor: "secondary", height: 1200 },
+        "div:nth-of-type(4)": { backgroundColor: "accent", height: 400 },
       }}
     >
-      <motion.div
-        style={{ y: y1 }}
-        sx={{
-          height: 500,
-          backgroundColor: "accent",
-          top: 840,
-          left: [
-            `calc(50vw - 220px)`,
-            `calc(50vw - 400px)`,
-            `calc(50vw - 480px)`,
-            `calc(50vw - 800px)`,
-          ],
-        }}
-      ></motion.div>
-      <motion.div
-        style={{ y: y2 }}
-        sx={{
-          height: 700,
-          backgroundColor: "primary",
-          top: 1200,
-          left: [
-            `calc(50vw - 160px)`,
-            `calc(50vw - 240px)`,
-            200,
-            `calc(50vw - 400px)`,
-          ],
-        }}
-      ></motion.div>
-      <motion.div
-        style={{ y: y3 }}
-        sx={{
-          height: 300,
-          backgroundColor: "secondary",
-          top: 1700,
-          left: [
-            `calc(50vw - 220px)`,
-            `calc(50vw - 400px)`,
-            `calc(50vw - 480px)`,
-            `calc(50vw - 800px)`,
-          ],
-        }}
-      ></motion.div>
+      <motion.div style={{ y: y1 }} />
+      <motion.div style={{ y: y2 }} />
+      <motion.div style={{ y: y3 }} />
+      <motion.div style={{ y: y4 }} />
     </motion.div>
   );
 };
