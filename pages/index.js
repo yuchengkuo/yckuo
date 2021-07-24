@@ -78,7 +78,8 @@ const Home = ({ allProjectsData }) => {
           &#47;&#47; Contact
         </Text>
         <Themed.p>
-          Let&apos;s connect (the dots and create new ones ⚫⚫⚫).
+          Open to ideas and feedback. Let&apos;s connect (the dots and create
+          new ones ⚫⚫⚫).
         </Themed.p>
         <Link href="mailto:hey@yuchengkuo.com?subject=Hi!" passHref>
           <Button as="a">
