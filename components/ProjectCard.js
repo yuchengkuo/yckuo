@@ -115,7 +115,6 @@ const ProjectCard = ({ data }) => {
       sx={{
         flexDirection: ["column", "row"],
         justifyContent: "space-between",
-        cursor: "not-allowed",
       }}
     >
       <Flex
