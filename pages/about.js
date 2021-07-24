@@ -11,6 +11,8 @@ import Link from "next/link";
 import { NextSeo } from "next-seo";
 
 const AboutPage = ({ mdxSource }) => {
+  const { scrollYProgress } = useViewportScroll();
+  const offset = useTransform(scrollYProgress, [0, 0.3], [0, 40]);
   return (
     <Layout>
       <NextSeo title="YuCheng Kuo / About" />
@@ -36,8 +38,13 @@ const AboutPage = ({ mdxSource }) => {
             mb: 6,
           }}
         />
-        <div sx={{ mb: 10, maxWidth: "100%" }}>
-          <svg
+        <motion.div
+          sx={{ mb: 10, maxWidth: "100%" }}
+          initial={{ y: 4, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+        >
+          <motion.svg
+            style={{ x: offset }}
             viewBox="0 0 562 82"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -56,12 +63,12 @@ const AboutPage = ({ mdxSource }) => {
                 gradientUnits="userSpaceOnUse"
               >
                 <stop stopColor="#FCB33D" />
-                <stop offset="0.502367" stopColor="#D6E4DC" />
+                <stop offset="0.5" stopColor="#D6E4DC" />
                 <stop offset="1" stopColor="#FBCED3" />
               </linearGradient>
             </defs>
-          </svg>
-        </div>
+          </motion.svg>
+        </motion.div>
 
         <MDXRemote {...mdxSource} />
 
@@ -166,9 +173,8 @@ export async function getStaticProps() {
   Hey,👋 my name is YuCheng Kuo, a self-taught designer and engineer from Taiwan. I studied engineering in undergrad and self-taught design and web development. Currently I'm working on projects, practicing skills and looking for potential work.
 
   I'm always fascinated by how technology reshape our daily life and the diversity in the digital world. 
-  I like tech, startups, design, cars, music, films and many other things.
-  I like sharing and learning, 
-  Constantly learning, keep improving, full curiosity.
+  I believe that design and technology could empower us to become better.
+  I'm energized to explore in 
 
   A heavy listener, recently listened the most to [${items[0].name}](${
     items[0].external_urls.spotify
@@ -176,7 +182,9 @@ export async function getStaticProps() {
     .map((artist) => artist.name)
     .join(", ")}. A film lover, recently watched [${films[0].film.title} (${
     films[0].film.year
-  })](${films[0].uri}). And a independent thinker.💭
+  })](${
+    films[0].uri
+  }). An independent thinker.💭 A wanderer. A curiosity-driven learner.
 
   ### about the site.
 
