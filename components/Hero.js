@@ -40,7 +40,7 @@ const Hero = () => {
             mb: 4,
           }}
         >
-          A self-taught designer and engineer who enjoy building things, and
+          A self-taught designer and engineer who enjoy building things and
           wandering in the intersection of design and engineering.
         </p>
 
