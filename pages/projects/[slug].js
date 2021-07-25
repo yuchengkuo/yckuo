@@ -151,7 +151,6 @@ export async function getStaticPaths() {
         },
       };
     });
-  console.log(path);
   return {
     paths,
     fallback: false,
