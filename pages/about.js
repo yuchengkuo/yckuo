@@ -172,11 +172,9 @@ export async function getStaticProps() {
 
   Hey,👋 my name is YuCheng Kuo, a self-taught designer and engineer from Taiwan. I studied engineering in undergrad and self-taught design and web development. Currently I'm working on projects, practicing skills and looking for potential work.
 
-  I'm always fascinated by how technology reshape our daily life and the diversity in the digital world. 
-  I believe that design and technology could empower us to become better.
-  I'm energized to explore in 
+  I'm always fascinated by how technology reshape our daily life and the diversity in the digital world. I believe that design and technology could empower us in mnay ways. I'm energized to explore new possibilities to help building the future.
 
-  A heavy listener, recently listened the most to [${items[0].name}](${
+  I am, a heavy listener, recently listened the most to [${items[0].name}](${
     items[0].external_urls.spotify
   }) by ${items[0].artists
     .map((artist) => artist.name)
