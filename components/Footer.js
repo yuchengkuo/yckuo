@@ -14,7 +14,6 @@ export default function Footer() {
         sx={{
           justifyContent: "space-between",
           flexDirection: ["column-reverse", null],
-          alignItems: ["center", "unset"],
           position: "relative",
           ":before": {
             position: "absolute",

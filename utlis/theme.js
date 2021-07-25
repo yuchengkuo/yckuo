@@ -53,7 +53,7 @@ const theme = {
     hero: {
       variant: "layout.maxWidth",
       height: `calc(100vh - 106px)`,
-      minHeight: 700,
+      minHeight: 800,
       maxHeight: 960,
       p: [4, 6],
     },

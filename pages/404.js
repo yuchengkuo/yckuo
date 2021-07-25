@@ -19,7 +19,6 @@ const NotFoundPage = () => {
       >
         <Flex
           sx={{
-            display: "flex",
             justifyContent: ["start", null, "space-between"],
             pt: [4, 11, 11],
             flexDirection: ["column-reverse", null, "row"],
@@ -27,11 +26,16 @@ const NotFoundPage = () => {
         >
           <Box>
             <h1
-              sx={{ fontSize: 200, fontWeight: 400, color: "secondary", m: 0 }}
+              sx={{
+                fontSize: [80, 200],
+                fontWeight: 400,
+                color: "secondary",
+                m: 0,
+              }}
             >
               404
             </h1>
-            <p sx={{ fontSize: 2 }}>
+            <p sx={{ fontSize: [1, 2] }}>
               The page does not exist or has been deleted.
             </p>
           </Box>
