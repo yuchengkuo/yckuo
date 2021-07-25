@@ -137,13 +137,21 @@ const ProjectTemplate = ({ mdxSource, frontMatter, upNext, ids }) => {
 export async function getStaticPaths() {
   const fileNames = fs.readdirSync(path.join(process.cwd(), "projects"));
 
-  const paths = fileNames.map((fileName) => {
-    return {
-      params: {
-        slug: fileName.replace(".mdx", ""),
-      },
-    };
-  });
+  const paths = fileNames
+    .filter((fileName) => {
+      const { data } = matter(
+        fs.readFileSync(path.join(process.cwd(), "projects", fileName))
+      );
+      return data.published;
+    })
+    .map((fileName) => {
+      return {
+        params: {
+          slug: fileName.replace(".mdx", ""),
+        },
+      };
+    });
+  console.log(path);
   return {
     paths,
     fallback: false,
