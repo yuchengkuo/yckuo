@@ -23,6 +23,12 @@ export default class MyDocument extends Document {
                 `,
             }}
           />
+          <script
+            defer
+            data-domain="yuchengkuo.com"
+            src="https://plausible.io/js/plausible.js"
+          ></script>
+
           <link
             rel="apple-touch-icon"
             sizes="180x180"
