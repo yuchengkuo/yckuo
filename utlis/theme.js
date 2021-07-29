@@ -100,6 +100,14 @@ const theme = {
       fontWeight: "body",
       lineHeight: "body",
     },
+    sectionTitle: {
+      variant: "styles.h4",
+      "::before": {
+        content: '"//"',
+        position: "absolute",
+        transform: "translateX(-160%)",
+      },
+    },
   },
   links: {
     nav: {
@@ -225,7 +233,6 @@ const theme = {
       color: "altText",
       m: 0,
       mb: 8,
-      ml: -16,
     },
   },
 };

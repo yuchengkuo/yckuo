@@ -11,9 +11,9 @@ const Home = ({ allProjectsData }) => {
     <Layout>
       <Hero />
 
-      <Container id="project" variant="section" sx={{}}>
-        <Text as="h3" variant="styles.h4">
-          &#47;&#47; Projects
+      <Container id="project" variant="section">
+        <Text as="h3" variant="sectionTitle">
+          Projects
         </Text>
         <Flex sx={{ flexDirection: "column", gap: 11 }}>
           {allProjectsData.map((data, i) => (
@@ -23,11 +23,11 @@ const Home = ({ allProjectsData }) => {
       </Container>
 
       <Container variant="text">
-        <Text as="h3" variant="styles.h4">
-          &#47;&#47; About
+        <Text as="h3" variant="sectionTitle">
+          About
         </Text>
         <Themed.p>
-          👋 I&apos;m YuCheng, a thinker and doer who is facinated by tech,
+          👋 I&apos;m YuCheng, a thinker and doer who is fascinated by tech,
           design, web, automobiles, music, films and many other things.🚶‍♂️
         </Themed.p>
         <Flex sx={{ flexDirection: ["column", "row"] }}>
@@ -74,12 +74,11 @@ const Home = ({ allProjectsData }) => {
       </Container>
 
       <Container variant="text">
-        <Text as="h3" variant="styles.h4">
-          &#47;&#47; Contact
+        <Text as="h3" variant="sectionTitle">
+          Contact
         </Text>
         <Themed.p>
-          Open to ideas and feedback. Let&apos;s connect (the dots and create
-          new ones ⚫⚫⚫).
+          Open to ideas and feedback. Let&apos;s connect (the dots)!
         </Themed.p>
         <Link href="mailto:hey@yuchengkuo.com?subject=Hi!" passHref>
           <Button as="a">
