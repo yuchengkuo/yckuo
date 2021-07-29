@@ -10,7 +10,7 @@ const Hero = () => {
       variant="hero"
       sx={{
         display: "flex",
-        justifyContent: ["start", null, "space-between"],
+        justifyContent: ["flex-end", null, "space-between"],
         pt: [4, 11, 12],
         flexDirection: ["column-reverse", null, "row"],
       }}
