@@ -20,7 +20,7 @@ const Svg = () => {
   const [d, cycleD] = useCycle(...randomInitialPath);
   const [stroke, cycleStroke] = useCycle(...randomInitialColors);
   const [count, setCount] = useState(0);
-  const delayTime = 5 + Math.floor(Math.random() * (50 - 10));
+  const delayTime = 5 + Math.floor(Math.random() * 100);
   const pathVariant = {
     initial: {
       pathLength: 0,
