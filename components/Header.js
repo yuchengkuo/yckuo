@@ -27,7 +27,6 @@ const Header = () => {
           <Link href="/" passHref>
             <NavLink
               sx={{ "> *": { mr: 2 }, display: "flex", alignItems: "center" }}
-              data-splitbee-event="logo"
             >
               <LogoSvg />
             </NavLink>
@@ -36,7 +35,7 @@ const Header = () => {
         <Flex sx={{ justifyContent: "space-between", gap: 4 }}>
           {navItems.map((item, i) => (
             <Link href={item.link} key={i} passHref>
-              <NavLink data-splitbee-event="Link">{item.label}</NavLink>
+              <NavLink>{item.label}</NavLink>
             </Link>
           ))}
         </Flex>
