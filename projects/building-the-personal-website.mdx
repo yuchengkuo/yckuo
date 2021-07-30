@@ -1,8 +1,8 @@
 ---
 type: project
-title: Building the personal website.
+title: Building the personal website / portfolio.
 subtitle: Web design, Web development
-published: false
+published: true
 info:
   - title: Duration
     content:
@@ -24,10 +24,10 @@ info:
 
 ## Overview
 
-This project is a periodic wrap-up for my learning in interface design and web development. A project done solo, designed in Figma, coded in VS Code, and deployed with Netlify. I hope to better understand the workflow and current technology.
+This project is a periodic wrap-up for my learning in interface design and web development. A project done solo, designed in Figma, coded in VS Code, and deployed with Vercel, hoping to better understand the workflow and current technology.
 
 <img
-  src="project/building-the-personal-website/cover_j7cdiq.png"
+  src="project/building-the-personal-website/cover_vmerhw.png"
   alt="Cover photo of the personal website."
   width={1200}
   height={680}
@@ -36,51 +36,46 @@ This project is a periodic wrap-up for my learning in interface design and web d
 ### The Process
 
 <img
-  src="project/building-the-personal-website/"
-  alt=""
-  width={1200}
-  height={600}
+  src="project/building-the-personal-website/the-process_mxtesw"
+  alt="Process of the project, research, define, design, develop, and deliver."
+  width={988}
+  height={268}
 />
 
 ---
 
 ## Research
 
-### My History of Learning Web
+### My Beginning of Learning Web
 
-I started learning about web tech back in 2016, **originally I was interested in how to build a more interactive presentation to better involve the listeners.** And that's because of the findings of lacking attention from the listeners in courses or speeches. My attempt to address the problem was to think about, the presentation can be more interactive if...
+I started learning about web tech back in 2016, **originally I was interested in how to build a more interactive presentation to better involve the listeners.** And that came from the findings of lacking attention from the listeners in courses or speeches. My attempt to address the problem was to think about, the presentation can be more interactive if...
 
-- The presenter can hold the audience.
+- The presenter is experienced.
 - The presentation is visually attractive.
 - Use a more flexible presentation tool.
 
-My attention was more on the last two, to use graphic and motion so that the listeners can be more involved. (But it's still mostly about the presenter and the context ultimately.)
+My attention was more on the last two, to use graphics and motion so that the listeners can be more involved. (But it's still mostly about the presenter and the context though.)
 
 Besides, since the files are generally made offline, it requires copy & paste and has other drawbacks too. “What if the files can be accessed with a simple url?” **So I started digging presentation tools and thought about what presentation could be, which lead me into learning web tech.**
 
-The search for presentation tool got me into learning web. It's not a typical start but glad that I let my curiousity lead the way. Pulled from my dim memories, I learned HTML and CSS on [codecademy](https://www.codecademy.com/) and gradually understood what elements make up interfaces that we see on the browsers. And also tried building something simple with what I had learned.
+The search for presentation tools got me into learning web. It's not a typical start but glad that I let my curiosity lead the way. Pulled from my dim memories, I learned HTML and CSS on [codecademy](https://www.codecademy.com/) and gradually understood what elements make up interfaces that we see on the browsers. And also tried building something simple with what I had learned.
 
 ### The Questions
 
 As I progressed, there were two wonders on my mind,
 
-1. **“How this interfaces are actually built?”**
+1. **“How these interfaces are actually built?”**
 2. **“Is it possible to do it in a visual way?”**
 
 The first one was more about the **reusability and the maintainability**. Because I didn't think doing it all manually is a good and efficient idea. The second one came up during my practice, I wondered if it could be done visually with the box model concept and the tag structure.
 
-These two questions were there for some time. Later I learned that it involved with the back-end technology (like PHP) to make the website dynamic. (And that's probably my understanding.) Regarding the visual way to build websites, there're some tools with this feature. The one that interested me the most was [Webflow](https://webflow.com/). The flexibility and concept behind it are so cool to me.
+These two questions were there for some time. Later I learned that it involved back-end technology (like PHP) to make the website dynamic. (And that's probably my understanding.) Regarding the visual way to build websites, there're some tools with this feature. The one that interested me the most was [Webflow](https://webflow.com/). The flexibility and concept behind it are so cool to me.
 
-And the journey of learning web came to a pause after I started the [formula student project](/#project). Looking back, what I learned were more about front-end and the design side, and I think they became preliminary fundation of this website.🏗
-
-### Plans
-
-- Using Webflow:
-- Build from scratch:
+And the journey of learning web came to a pause after I started the [formula student project](/#project). **Looking back, what I learned was more about front-end and the design side, and I think they became preliminary foundation of this website.🏗**
 
 ### Inspirations
 
-Before getting into the next phase, I spent some time browsing through websites looking for inspirations, and to understand what current technology in modern website at the moment. There were lots of “wow, so cool!” moments during this time.😲
+Before getting into the next phase, I spent some time browsing through websites looking for inspirations, and also collecting trends and tech being used in modern websites. There were lots of “wow, so cool!” moments during this time.😲
 
 ---
 
@@ -105,7 +100,7 @@ Before getting into the next phase, I spent some time browsing through websites 
 
 <img
   src="project/building-the-personal-website/wireframes_hoixwy.png"
-  alt=""
+  alt="Low fidelity wireframes of the website, showing the structure of the design."
   width={640}
   height={1097}
 />
@@ -128,15 +123,18 @@ Two sizes are used, 960 pixels and 640 pixels. 640px is used in text wrapper sin
 ### Visual Design
 
 <img
-  src="project/building-the-personal-website/visual_design_ngpor0.png"
-  alt=""
+  src="project/building-the-personal-website/visual-design_wiwjtw.png"
+  alt="Visual elements of the website."
   width={960}
-  height={748}
+  height={909}
 />
 
-### Iterations
-
-Due to the components ecosystem, I can put the design and development both on simultaniousely
+<img
+  src="project/building-the-personal-website/screenshots_squbys.png"
+  alt="Screenshots of the website."
+  width={960}
+  height={960}
+/>
 
 ---
 
@@ -144,22 +142,21 @@ Due to the components ecosystem, I can put the design and development both on si
 
 ### Relearn Development
 
-Originally the plan was building the website on [Webflow](https://webflow.com/), since I really think it's a brilliant tool to help and build for the web (plus [Webflow University](https://university.webflow.com/) have so many resources). The main advantage with Webflow is you can quickly build up website without worrying about too much anything else.
+Originally the plan was building the website using [Webflow](https://webflow.com/). The main advantage with Webflow is you can quickly build it up without worrying about too much anything. (Plus [Webflow University](https://university.webflow.com/) has many great resources).
 
-For me, I like to switch to different topics in stagger, it can help me focus more and not have the fatigue from doing the same thing for too long. So I decided to relearn the development on the side. Plus it's a skill that I would like to add.
+I decided to relearn web development on the side for a couple of reasons. The first centainly is curiosity, it's always fulfilling to know how it works. Second, it could become one of my skills. And also it helps me focus more, since I can change over different topics staggeringly, avoiding the fatigue from doing same thing for too long.
 
-With prior knowledge of HTML and CSS, I picked up the progress and relearn JS, which is another big chapter to consume. I find it most efficient to actually see how to build and practice concurrently. With the learning of JS, it lead me to JS library [React](https://reactjs.org/), a library that makes building UI elements easier and more managable.
+With prior knowledge of HTML and CSS, I picked up the progress and relearn JS, which is another big chapter to consume. I find learning and practicing concurrently is the most efficient way to grow. And with the learning of JS, it lead me to framework [React](https://reactjs.org/), that makes building UI elements easier and more managable.
 
 ### Discover React
 
-I really like the component-based concept of React, it makes much sense to me with the questions mentioned earlier. The docs is well organized and took me several time of reading and practicing to understand the concept and acutal practice.
+I really like the component-based concept of React, it makes much sense to me with the questions mentioned earlier. It took me many times reading the docs and practicing to get clearer understanding. But there is still a long way to go!
 
 At the same time I learned about [site generators](https://jamstack.org/generators/) and Jamstack, a modern architecture that brings benifits to modern websites. I learned about it from website built with [Jekyll](https://jekyllrb.com/) and finally landed on [Gatsby](https://www.gatsbyjs.com/) and [Next.js](https://nextjs.org/).
 
 ### Centent Generation
 
-Writing all the content here is another challenge. It takes more than a good documentation, also how to organize the work and put it into words.
-But just like everything else, learn, practice, and iterate...
+Writing all the content here is another challenge. It takes more than a good documentation, and also how to organize the work and put it into words. But just like everything else, learning, practicing, and iterate...
 
 ---
 
@@ -167,7 +164,7 @@ But just like everything else, learn, practice, and iterate...
 
 ### Deploy
 
-The source is stored on Github and the website is deployed with Netlify.
+The source is hosted on Github and the website is deployed with [Vercel](https://vercel.com). The source can be found [here](https://github.com/yuchengkuo/nextfolio).
 
 ---
 
@@ -175,11 +172,11 @@ The source is stored on Github and the website is deployed with Netlify.
 
 ### Constantly Learning
 
-Can't stop learning, keep the curiousity.🏃‍♂️
+Learning is a continuous process. And curiosity is the key.🏃‍♂️
 
 ### Design & Development
 
-Through the project I learned the relation between design and development, how collaboration and conversation will play such a major role in a team.
+I learned the relation between design and development, and how collaboration and conversation will play such a major role in a team.
 
 ### Researching
 
@@ -189,15 +186,12 @@ There're tons of resources on the internet, properly make use of them for tools,
 
 ## Next Step
 
-Maintaning the site and look for feedback and suggestions,
-go fast on you own, but go far as a team.
-
-I don't know what this would lead me to, but feels fun and I'm loving it!
+The whole journey of learning and building is challenging but fun (mostly).
 
 ### Reflection
 
 Few things that I think could be improved,
 
 1. Testing of the site
-2. Documentation
-3. Start Practicing & Learn from it
+2. Documentation: Keep track of the everything related is a habit to stay oragnized and it will be easier to collect when needed.
+3. Start Practicing: Start practicing sooner and learn from the practice is another lesson for me.
