@@ -52,7 +52,11 @@ const Home = ({ allProjectsData }) => {
             </Button>
           </Link>
           <Link href="https://read.cv/yuchengkuo" passHref>
-            <Button as="a">
+            <Button
+              as="a"
+              data-splitbee-event="External Link"
+              data-splitbee-event-type="read.cv"
+            >
               <svg
                 width="24"
                 height="24"
@@ -81,7 +85,11 @@ const Home = ({ allProjectsData }) => {
           Open to ideas and feedback. Let&apos;s connect (the dots)!
         </Themed.p>
         <Link href="mailto:hey@yuchengkuo.com?subject=Hi!" passHref>
-          <Button as="a">
+          <Button
+            as="a"
+            data-splitbee-event="External Link"
+            data-splitbee-event-type="mail"
+          >
             <svg
               width="21"
               height="20"

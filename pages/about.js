@@ -52,7 +52,14 @@ const AboutPage = ({ mdxSource }) => {
         <Themed.p>Meet other digital me.🗿</Themed.p>
         <Flex sx={{ flexDirection: ["column", "row"] }} mb={6}>
           <Link href="mailto:hey@yuchengkuo.com?subject=Hi!" passHref>
-            <Button as="a" mr={[0, 11]} mb={[5, 0]} title="Send ✉ to yucheng">
+            <Button
+              as="a"
+              mr={[0, 11]}
+              mb={[5, 0]}
+              title="Send ✉ to yucheng"
+              data-splitbee-event="External Link"
+              data-splitbee-event-type="mail"
+            >
               <svg
                 width="21"
                 height="20"
@@ -79,7 +86,12 @@ const AboutPage = ({ mdxSource }) => {
             </Button>
           </Link>
           <Link href="https://read.cv/yuchengkuo" passHref>
-            <Button as="a" title="Read yucheng's CV">
+            <Button
+              as="a"
+              title="Read yucheng's CV"
+              data-splitbee-event="External Link"
+              data-splitbee-event-type="read.cv"
+            >
               <svg
                 width="24"
                 height="24"
@@ -100,22 +112,42 @@ const AboutPage = ({ mdxSource }) => {
         </Flex>
         <Flex sx={{ flexWrap: "wrap", "> *": { flex: `1 1 150px` } }}>
           <Link href="https://linkedin.com/in/yucheng-kuo" passHref>
-            <Button as="a" variant="secondary">
+            <Button
+              as="a"
+              variant="secondary"
+              data-splitbee-event="External Link"
+              data-splitbee-event-type="linkedin"
+            >
               linkedin
             </Button>
           </Link>
           <Link href="https://letterboxd.com/ethank" passHref>
-            <Button as="a" variant="secondary">
+            <Button
+              as="a"
+              variant="secondary"
+              data-splitbee-event="External Link"
+              data-splitbee-event-type="letterboxd"
+            >
               letterboxd
             </Button>
           </Link>
           <Link href="https://open.spotify.com/user/cheng-90" passHref>
-            <Button as="a" variant="secondary">
+            <Button
+              as="a"
+              variant="secondary"
+              data-splitbee-event="External Link"
+              data-splitbee-event-type="spotify"
+            >
               spotify
             </Button>
           </Link>
           <Link href="https://github.com/yuchengkuo" passHref>
-            <Button as="a" variant="secondary">
+            <Button
+              as="a"
+              variant="secondary"
+              data-splitbee-event="External Link"
+              data-splitbee-event-type="github"
+            >
               github
             </Button>
           </Link>
