@@ -5,7 +5,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <script async src="https://cdn.splitbee.io/sb.js"></script>
+          <script async data-api="/_hive" src="/bee.js"></script>
           <script
             defer
             data-domain="yuchengkuo.com"
