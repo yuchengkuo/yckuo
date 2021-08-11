@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
             async
             defer
             data-website-id="dd7cb5a4-7c1b-4cdd-9c79-03416a7e85b2"
-            src="https://analytics.yuchengkuo.com/umami.js"
+            src="https://analytics.yuchengkuo.com/track.js"
           ></script>
 
           <link
