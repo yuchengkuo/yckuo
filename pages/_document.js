@@ -11,6 +11,12 @@ export default class MyDocument extends Document {
             data-domain="yuchengkuo.com"
             src="https://plausible.io/js/plausible.js"
           ></script>
+          <script
+            async
+            defer
+            data-website-id="dd7cb5a4-7c1b-4cdd-9c79-03416a7e85b2"
+            src="https://analytics.yuchengkuo.com/umami.js"
+          ></script>
 
           <link
             rel="apple-touch-icon"
