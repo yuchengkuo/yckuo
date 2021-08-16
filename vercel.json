@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    { "source": "/projects", "destination": "/#project", "permanent": false }
+  ],
+  "github": {
+    "silent": true
+  }
+}
