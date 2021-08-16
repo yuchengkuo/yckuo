@@ -49,9 +49,12 @@ export const getTopTracks = async () => {
 export const getAlbumSearchResult = async (title, artist) => {
   const { access_token } = await getAccessToken();
 
-  const query = `?q=${title}%20artist:${artist}&type=album`;
+  const query = querystring.stringify({
+    q: `${title} artist:${artist}`,
+    type: "album",
+  });
 
-  return fetch(`${SEARCH_ENDPOINT}${query}`, {
+  return fetch(`${SEARCH_ENDPOINT}?${query}`, {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
