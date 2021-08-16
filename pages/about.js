@@ -59,6 +59,7 @@ const AboutPage = ({ mdxSource }) => {
               title="Send ✉ to yucheng"
               data-splitbee-event="External Link"
               data-splitbee-event-type="mail"
+              onClick={() => umami.trackEvent("External Link", "send mail")}
             >
               <svg
                 width="21"
@@ -91,6 +92,7 @@ const AboutPage = ({ mdxSource }) => {
               title="Read yucheng's CV"
               data-splitbee-event="External Link"
               data-splitbee-event-type="read.cv"
+              onClick={() => umami.trackEvent("External Link", "read cv")}
             >
               <svg
                 width="24"
@@ -117,6 +119,7 @@ const AboutPage = ({ mdxSource }) => {
               variant="secondary"
               data-splitbee-event="External Link"
               data-splitbee-event-type="linkedin"
+              onClick={() => umami.trackEvent("External Link", "linkedin")}
             >
               linkedin
             </Button>
@@ -127,6 +130,7 @@ const AboutPage = ({ mdxSource }) => {
               variant="secondary"
               data-splitbee-event="External Link"
               data-splitbee-event-type="letterboxd"
+              onClick={() => umami.trackEvent("External Link", "letterbox")}
             >
               letterboxd
             </Button>
@@ -137,6 +141,7 @@ const AboutPage = ({ mdxSource }) => {
               variant="secondary"
               data-splitbee-event="External Link"
               data-splitbee-event-type="spotify"
+              onClick={() => umami.trackEvent("External Link", "spotify")}
             >
               spotify
             </Button>
@@ -147,6 +152,7 @@ const AboutPage = ({ mdxSource }) => {
               variant="secondary"
               data-splitbee-event="External Link"
               data-splitbee-event-type="github"
+              onClick={() => umami.trackEvent("External Link", "github")}
             >
               github
             </Button>
@@ -196,6 +202,7 @@ export async function getStaticProps() {
   });
 
   return {
+    revalidate: 60 * 60 * 24,
     props: {
       mdxSource: aboutSource,
       films: films,
