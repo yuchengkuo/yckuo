@@ -202,7 +202,7 @@ export async function getStaticProps() {
   });
 
   return {
-    revalidate: 60 * 60 * 24,
+    revalidate: 60 * 60 * 12,
     props: {
       mdxSource: aboutSource,
       films: films,
