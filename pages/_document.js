@@ -7,11 +7,6 @@ export default class MyDocument extends Document {
         <Head>
           <script async data-api="/_hive" src="/bee.js"></script>
           <script
-            defer
-            data-domain="yuchengkuo.com"
-            src="https://plausible.io/js/plausible.js"
-          ></script>
-          <script
             async
             defer
             data-website-id="dd7cb5a4-7c1b-4cdd-9c79-03416a7e85b2"
