@@ -66,7 +66,6 @@ const img = () => (props) => {
         layout="intrinsic"
         sizes="100%"
         objectFit="cover"
-        placeholder="blur"
         {...props}
       />
       <Text as="figcaption" variant="caps" color="altText" my={3}>
