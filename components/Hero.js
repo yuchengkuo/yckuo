@@ -22,7 +22,7 @@ const Hero = () => {
       >
         <motion.h1
           sx={{
-            fontSize: [4, 7],
+            fontSize: [4, 6, 7],
             fontWeight: "heading",
             backgroundImage:
               "linear-gradient(270deg, #FBCED3 6.44%, #D6E4DC 63.07%, #FCB33D 126.63%)",

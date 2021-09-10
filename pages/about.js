@@ -8,7 +8,9 @@ import { motion, useTransform, useViewportScroll } from "framer-motion";
 import TopAlbums from "components/TopAlbums";
 import { getTopTracks } from "utlis/spotify";
 import Link from "next/link";
+import Img from "next/image";
 import { NextSeo } from "next-seo";
+import avatar from "../public/images/about-avatar.jpg";
 
 const AboutPage = ({ mdxSource }) => {
   return (
@@ -28,14 +30,16 @@ const AboutPage = ({ mdxSource }) => {
         <motion.div
           initial={{ y: 4, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          sx={{
-            width: 160,
-            height: 160,
-            borderRadius: 15,
-            backgroundColor: "altText",
-            mb: 11,
-          }}
-        />
+          sx={{ mb: [8, 11], pointerEvents: "none", width: [80, 96, 120] }}
+        >
+          <Img
+            src={avatar}
+            width={120}
+            height={120}
+            sx={{ borderRadius: 15 }}
+            placeholder="blur"
+          />
+        </motion.div>
 
         <MDXRemote {...mdxSource} />
 
