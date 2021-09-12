@@ -1,14 +1,15 @@
 export default {
-  title: "YuCheng Kuo",
+  title: "YuCheng Kuo - Designer, Engineer",
   keywords: [
-    "design",
-    "engineering",
+    "Design",
+    "Engineering",
     "UI",
     "UX",
+    "Product",
     "React",
-    "portfolio",
-    "nextjs",
-    "web",
+    "Portfolio",
+    "Nextjs",
+    "Web",
   ],
   url: "yuchengkuo.com",
   siteUrl: "yuchengkuo.com/",
@@ -17,6 +18,6 @@ export default {
     name: "YuCheng Kuo",
   },
   description:
-    "Hi I'm YuCheng Kuo, a self-taught designer and engineer from Taiwan.",
+    "Hi👋 I'm YuCheng Kuo, a self-taught designer and engineer from Taiwan.",
   image: "/static/og-image.png",
 };
