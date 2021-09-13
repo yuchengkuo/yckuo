@@ -12,11 +12,11 @@ const theme = {
     altText: "#777980",
     darkGray: transparentize("text", 0.7),
   },
-  fonts: {
-    body: '"Sora","system-ui, sans-serif"',
-    heading: '"Sora", "Avenir Next", sans-serif',
-    monospace: "Menlo, monospace",
-  },
+  // fonts: {
+  //   body: '"Sora","system-ui, sans-serif"',
+  //   heading: '"Sora", "Avenir Next", sans-serif',
+  //   monospace: "Menlo, monospace",
+  // },
   fontSizes: [
     "1.4rem",
     "1.6rem",

@@ -24,7 +24,6 @@ const AboutPage = ({ mdxSource }) => {
         sx={{
           "h3 > a": { color: "text" },
           "h3:not(:first-of-type)": { mt: [11, 13] },
-          ul: { mt: 6 },
         }}
       >
         <motion.div

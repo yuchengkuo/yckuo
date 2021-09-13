@@ -1,7 +1,8 @@
-/** @jsxImportSource theme-ui */
-import { Flex, NavLink } from "@theme-ui/components";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { layout } from "@styles/layout";
+import { link } from "@styles/link";
+import { box } from "@styles/box";
 
 const navItems = [
   { label: "Projects", link: "/#project" },
@@ -15,31 +16,44 @@ const Header = () => {
       initial={{ opacity: 0, y: -4 }}
       animate={{ opacity: 1, y: 0 }}
     >
-      <Flex
-        as="nav"
-        variant="layout.nav"
-        sx={{
-          flexDirection: ["column", "row"],
-          alignItems: ["center", "unset"],
-        }}
-      >
-        <Flex sx={{ flex: `1 1 auto`, mb: [5, 0] }}>
+      <nav className={layout({ variant: "header" })}>
+        <div
+          className={box({
+            display: "flex",
+            alignItems: "center",
+            flex: "1 1 auto",
+            mb: "$5",
+            "@bp1": { mb: 0 },
+          })}
+        >
           <Link href="/" passHref>
-            <NavLink
-              sx={{ "> *": { mr: 2 }, display: "flex", alignItems: "center" }}
+            <a
+              className={box({
+                css: {
+                  display: "flex",
+                  alignItems: "center",
+                  "$ *": { mr: "$2" },
+                },
+              })}
             >
               <LogoSvg />
-            </NavLink>
+            </a>
           </Link>
-        </Flex>
-        <Flex sx={{ justifyContent: "space-between", gap: 4 }}>
+        </div>
+        <div
+          className={box({
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "$4",
+          })}
+        >
           {navItems.map((item, i) => (
             <Link href={item.link} key={i} passHref>
-              <NavLink>{item.label}</NavLink>
+              <a className={link({ variant: "navLink" })}>{item.label}</a>
             </Link>
           ))}
-        </Flex>
-      </Flex>
+        </div>
+      </nav>
     </motion.header>
   );
 };
