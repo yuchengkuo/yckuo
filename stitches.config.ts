@@ -77,7 +77,7 @@ export const { styled, css, globalCss, theme, config } = createStitches({
     bp1: "(min-width: 560px)",
     bp2: "(min-width: 760px)",
     bp3: "(min-width: 960px)",
-    bp4: "(min-width: 1200px)",
+    bp4: "(min-width: 1300px)",
   },
   utils: {
     p: (value: Stitches.PropertyValue<"paddingTop">) => ({
