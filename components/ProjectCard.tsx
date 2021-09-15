@@ -57,22 +57,26 @@ const ProjectCard = ({ data }) => {
         >
           <motion.h2
             className={text({
-              fontSize: "$5",
-              fontWeight: 400,
-              lineHeight: "32px",
-              color: "$white",
-              mb: "$2",
+              css: {
+                fontSize: "$5",
+                fontWeight: 400,
+                lineHeight: "32px",
+                color: "$white",
+                mb: "$2",
+              },
             })}
           >
             {data.title}
           </motion.h2>
           <p
             className={text({
-              fontSize: "$2",
-              fontWeight: 400,
-              lineHeight: "16px",
-              color: "$gray2",
-              textTransform: "uppercase",
+              css: {
+                fontSize: "$2",
+                fontWeight: 400,
+                lineHeight: "16px",
+                color: "$gray2",
+                textTransform: "uppercase",
+              },
             })}
           >
             {data.subtitle}
@@ -147,22 +151,26 @@ const ProjectCard = ({ data }) => {
       >
         <h2
           className={text({
-            fontSize: "$5",
-            fontWeight: 400,
-            lineHeight: "32px",
-            color: "$white",
-            mb: "$3",
+            css: {
+              fontSize: "$5",
+              fontWeight: 400,
+              lineHeight: "32px",
+              color: "$white",
+              mb: "$3",
+            },
           })}
         >
           {data.title}
         </h2>
         <p
           className={text({
-            fontSize: "$2",
-            fontWeight: 400,
-            lineHeight: "16px",
-            color: "$gray2",
-            textTransform: "uppercase",
+            css: {
+              fontSize: "$2",
+              fontWeight: 400,
+              lineHeight: "16px",
+              color: "$gray2",
+              textTransform: "uppercase",
+            },
           })}
         >
           {data.subtitle}
@@ -184,9 +192,11 @@ const ProjectCard = ({ data }) => {
       >
         <p
           className={text({
-            fontSize: "$3",
-            fontWeight: 200,
-            color: "$gray3",
+            css: {
+              fontSize: "$3",
+              fontWeight: 200,
+              color: "$gray3",
+            },
           })}
         >
           WIP...
