@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function useIntersectionObserver(elements, options) {
+export default function useIntersectionObserver(
+  elements: Element[],
+  options?: { offset?: number; root?: Element }
+): [number] {
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const observer = useRef(null);
+  const observer = useRef<IntersectionObserver>(null);
 
   const observerCallback = (entries) => {
     setCurrentIndex(
