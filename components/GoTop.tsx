@@ -1,4 +1,6 @@
 /** @jsxImportSource theme-ui */
+import { box } from "@styles/box";
+import { button } from "@styles/button";
 import {
   AnimatePresence,
   motion,
@@ -26,19 +28,19 @@ export default function GoTop(props) {
       {isShow && (
         <motion.button
           {...props}
-          sx={{
-            width: 56,
-            height: 56,
-            position: "relative",
-            backgroundColor: "#18191B",
-            border: "none",
-            borderRadius: 15,
-            cursor: "pointer",
-            overflow: "hidden",
-            zIndex: 5,
-            mt: `auto`,
-            mb: 80,
-          }}
+          className={button({
+            css: {
+              width: 56,
+              height: 56,
+              position: "relative",
+              backgroundColor: "#18191B",
+              borderRadius: 15,
+              overflow: "hidden",
+              zIndex: 5,
+              mt: "auto",
+              mb: 80,
+            },
+          })}
           initial={{ y: 28, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 28, opacity: 0 }}
@@ -65,14 +67,14 @@ export default function GoTop(props) {
           </motion.svg>
 
           <motion.div
-            sx={{
+            className={box({
               position: "absolute",
-              width: `100%`,
+              width: "100%",
               bottom: 0,
               left: 0,
               zIndex: -1,
-              backgroundColor: "primary",
-            }}
+              backgroundColor: "$yellow",
+            })}
             style={{ height: `${height}%` }}
           />
         </motion.button>

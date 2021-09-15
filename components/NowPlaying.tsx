@@ -1,22 +1,24 @@
-/** @jsxImportSource theme-ui */
 import useSWR from "swr";
 import fetcher from "../utlis/fetcher";
-import { Link, Flex } from "theme-ui";
 import { Lottie } from "@crello/react-lottie";
 // @ts-ignore
 import animationData from "../public/sound.json";
+import { box } from "@styles/box";
+import { text } from "@styles/text";
+import { link } from "@styles/link";
 
 export default function NowPlaying() {
   const { data } = useSWR("/api/now-playing", fetcher);
 
   return (
-    <Flex
-      sx={{
+    <div
+      className={box({
+        display: "flex",
         alignItems: "center",
-        fontSize: 1,
+        fontSize: "$3",
         fontWeight: 400,
-        svg: { flexShrink: 0 },
-      }}
+        "& svg": { flexShrink: 0 },
+      })}
     >
       <svg
         width="18"
@@ -40,27 +42,32 @@ export default function NowPlaying() {
             speed={1.5}
             style={{ marginLeft: "4px", marginRight: "4px", flexShrink: 0 }}
           />
-          <Flex>
-            <p sx={{ m: 0, whiteSpace: "nowrap" }}>
+          <div className={box({ display: "flex", overflow: "hidden" })}>
+            <p className={text({ css: { whiteSpace: "nowrap" } })}>
               {data.artist || data.show}&nbsp;&nbsp;-&nbsp;&nbsp;
             </p>
-            <Link
+            <a
+              className={link({
+                underline: true,
+                css: {
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                },
+              })}
               href={data.url}
               target="_blank"
               rel="noopener noreferrer"
-              sx={{
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
             >
               {data.title}
-            </Link>
-          </Flex>
+            </a>
+          </div>
         </>
       ) : (
-        <p sx={{ color: "altText", my: 0, mx: 2 }}>Currently Offline</p>
+        <p className={text({ css: { color: "$gray3", mx: "$2" } })}>
+          Currently Offline
+        </p>
       )}
-    </Flex>
+    </div>
   );
 }
