@@ -1,7 +1,6 @@
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "theme-ui";
 import theme from "@utlis/theme";
-import components from "@utlis/components";
 // import "../public/font/font.css";
 import "normalize.css";
 import { DefaultSeo } from "@components/Seo";
@@ -12,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <DefaultSeo />
-      <ThemeProvider theme={theme} components={components}>
+      <ThemeProvider theme={theme}>
         <Component {...pageProps} />
       </ThemeProvider>
     </>
