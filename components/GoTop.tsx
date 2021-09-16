@@ -1,4 +1,3 @@
-/** @jsxImportSource theme-ui */
 import { box } from "@styles/box";
 import { button } from "@styles/button";
 import {

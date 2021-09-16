@@ -1,63 +1,77 @@
-/** @jsxImportSource theme-ui */
 import Link from "next/link";
-import { Container, Grid, Flex, Button } from "theme-ui";
 import Svg from "./Svg";
 import { motion } from "framer-motion";
+import { layout } from "@styles/layout";
+import { box } from "@styles/box";
+import { button } from "@styles/button";
+import { text } from "@styles/text";
 
 const Hero = () => {
   return (
-    <Container
-      variant="hero"
-      sx={{
-        display: "flex",
-        justifyContent: ["flex-end", null, "space-between"],
-        pt: [4, 11, 12],
-        flexDirection: ["column-reverse", null, "row"],
-      }}
+    <div
+      className={layout({
+        variant: "hero",
+        css: {
+          display: "flex",
+          flexDirection: "column-reverse",
+          justifyContent: "flex-end",
+          pt: "$4",
+          "@bp2": { pt: "$11" },
+          "@bp3": {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            pt: "$12",
+          },
+        },
+      })}
     >
       <motion.div
-        sx={{ maxWidth: 520, mx: [null, "auto", "unset"] }}
+        className={box({
+          maxWidth: 520,
+          mx: "auto",
+          "@bp3": { mx: "unset" },
+        })}
         initial={{ opacity: 0, y: 4 }}
         animate={{ opacity: 1, y: 0 }}
       >
         <motion.h1
-          sx={{
-            fontSize: [4, 6, 7],
-            fontWeight: "heading",
-            backgroundImage:
-              "linear-gradient(270deg, #FBCED3 6.44%, #D6E4DC 63.07%, #FCB33D 126.63%)",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          }}
+          className={text({
+            css: {
+              fontSize: "$8",
+              "@bp2": { fontSize: "$9" },
+              "@bp3": { fontSize: "$10" },
+              fontWeight: 400,
+              backgroundImage:
+                "linear-gradient(270deg, $pink 8%, $green 65%, $yellow 120%)",
+              backgroundClip: "text",
+              color: "transparent",
+            },
+          })}
         >
           Hi, I&apos;m YuCheng.
         </motion.h1>
-        <p
-          sx={{
-            fontSize: [1, 2],
-            lineHeight: "body",
-            color: "secondaryText",
-            mb: 4,
-          }}
-        >
+        <p className={text({ article: "p" })}>
           A self-taught designer and engineer who enjoy building things and
           wandering in the intersection of design and engineering.
         </p>
 
-        <Flex
-          sx={{
-            flexDirection: ["column", "row"],
-            alignItems: ["start", "unset"],
-            svg: { verticalAlign: "-3px", ml: 3 },
-          }}
+        <div
+          className={box({
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            "& svg": {
+              verticalAlign: "-3px",
+              ml: "$3",
+            },
+            "@bp1": { flexDirection: "row", alignItems: "unset" },
+          })}
         >
-          <Button
-            variant="hero"
-            bg="background"
-            p={0}
-            py={1}
-            mr={8}
-            mb={[4, 0]}
+          <button
+            className={button({
+              variant: "secondary",
+              css: { color: "$gray2", textAlign: "initial" },
+            })}
             onClick={() => {
               const offsetY = document.getElementById("project").offsetTop - 20;
               window.scrollTo({ top: offsetY, left: 0, behavior: "smooth" });
@@ -76,10 +90,15 @@ const Hero = () => {
                 fill="#777980"
               />
             </svg>
-          </Button>
+          </button>
 
           <Link href="/about" passHref>
-            <Button as="a" variant="hero" bg="background" px={0} py={1}>
+            <a
+              className={button({
+                variant: "secondary",
+                css: { color: "$gray2", textAlign: "initial" },
+              })}
+            >
               More about me
               <svg
                 width="16"
@@ -101,25 +120,28 @@ const Hero = () => {
                   fill="#777980"
                 />
               </svg>
-            </Button>
+            </a>
           </Link>
-        </Flex>
+        </div>
       </motion.div>
 
-      <Grid
-        sx={{
+      <div
+        className={box({
+          display: "grid",
           gridTemplate: "repeat(4, 82px) / repeat(4, 82px)",
           alignItems: "center",
           justifyContent: "center",
-          mb: [4, 11, 0],
-          gap: [3, 4, 3],
-        }}
+          mb: "$4",
+          gap: "$3",
+          "@bp1": { mb: "$11", gap: "$4" },
+          "@bp2": { gap: "$3" },
+        })}
       >
         {new Array(16).fill(0).map((i) => (
           <Svg key={i} />
         ))}
-      </Grid>
-    </Container>
+      </div>
+    </div>
   );
 };
 

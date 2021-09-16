@@ -1,18 +1,37 @@
 import { createStitches } from "@stitches/react";
 import type * as Stitches from "@stitches/react";
 
-export const { styled, css, globalCss, theme, config } = createStitches({
+export const {
+  styled,
+  css,
+  globalCss,
+  theme,
+  config,
+  createTheme,
+  getCssText,
+} = createStitches({
   theme: {
     colors: {
-      black: "rgba(8, 9, 9, 1)",
-      white: "rgba(227, 227, 227, 1)",
-      yellow: "rgba(252, 179, 61, 1)",
-      pink: "rgba(251, 206, 211, 1)",
-      green: "rgba(214, 228, 220, 1)",
-      gray1: "rgb(189, 190, 193)",
-      gray2: "rgb(119, 121, 128)",
-      gray3: "rgba(227, 227, 227, 0.3)",
-      gray4: "rgba(227, 227, 227, 0.05)",
+      black: "hsl(180, 6%, 3.5%)",
+      white: "hsl(0, 0%, 90%)",
+      yellow: "hsl(37, 97%, 60%)",
+      pink: "hsl(355, 85%, 90%)",
+      green: "hsl(146, 20%, 86%)",
+      gray1: "hsl(225, 3%, 75%)",
+      gray2: "hsl(227, 3.6%, 48%)",
+      gray3: "hsla(0, 0%, 90%, 0.3)",
+      gray4: "hsla(0, 0%, 90%, 0.05)",
+
+      gray100: "hsla(225, 5%, 10%, 1)",
+      gray200: "hsla(220, 6%, 15%, 1)",
+      gray300: "hsla(220, 6%, 20%, 1)",
+      gray400: "hsla(220, 6%, 25%, 1)",
+      gray500: "hsla(220, 6%, 40%, 1)",
+      gray600: "hsla(225, 3%, 50%, 1)",
+      gray700: "hsla(225, 0%, 70%, 1)",
+      gray800: "hsla(225, 0%, 80%, 1)",
+      gray900: "hsla(225, 0%, 85%, 1)",
+      gray1000: "hsla(225, 0%, 89%, 1)",
     },
     fonts: {
       sans: "Sora, system-ui",
@@ -26,20 +45,24 @@ export const { styled, css, globalCss, theme, config } = createStitches({
       4: "18px",
       5: "20px",
       6: "24px",
-      7: "32px",
+      7: "28px",
       8: "40px",
-      9: "64px",
+      9: "44px",
+      10: "56px",
+      11: "60px",
     },
     fontWeights: {},
     lineHeights: {
-      1: "",
-      2: "",
-      3: "",
-      4: "",
-      5: "",
-      6: "",
-      7: "",
-      8: "",
+      1: "14px",
+      2: "16px",
+      3: "24px",
+      4: "28px",
+      5: "30px",
+      7: "32px",
+      6: "48px",
+      8: "36px",
+      10: "52px",
+      11: "72px",
     },
     space: {
       1: "4px",
@@ -136,3 +159,10 @@ export const { styled, css, globalCss, theme, config } = createStitches({
 });
 
 export type CSS = Stitches.CSS<typeof config>;
+
+export const lightTheme = createTheme("light", {
+  colors: {
+    white: "hsl(180, 6%, 3.5%)",
+    black: "hsl(0, 0%, 90%)",
+  },
+});

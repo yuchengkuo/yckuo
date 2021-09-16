@@ -1,11 +1,10 @@
-/** @jsxImportSource theme-ui */
-import { Button } from "theme-ui";
 import Link from "next/link";
 import Layout from "@components/Layout";
 import Svg from "@components/Svg";
 import { layout } from "@styles/layout";
 import { text } from "@styles/text";
 import { box } from "@styles/box";
+import { button } from "@styles/button";
 
 const NotFoundPage = () => {
   const num = [];
@@ -24,11 +23,6 @@ const NotFoundPage = () => {
             "@bp1": { pt: "$11" },
             "@bp3": { justifyContent: "space-between", flexDirection: "row" },
           })}
-          sx={{
-            justifyContent: ["start", null, "space-between"],
-            pt: [4, 11, 11],
-            flexDirection: ["column-reverse", null, "row"],
-          }}
         >
           <div>
             <h1
@@ -62,13 +56,6 @@ const NotFoundPage = () => {
               "@bp1": { mb: "$11", gap: "$4" },
               "@bp2": { gap: "$3" },
             })}
-            sx={{
-              gridTemplate: "repeat(4, 82px) / repeat(4, 82px)",
-              alignItems: "center",
-              justifyContent: "center",
-              mb: [4, 11, null],
-              gap: [3, 4, 3],
-            }}
           >
             {new Array(16).fill(0).map((i) => (
               <Svg key={i} />
@@ -76,7 +63,7 @@ const NotFoundPage = () => {
           </div>
         </div>
         <Link href="/" passHref>
-          <Button as="a" sx={{ mt: 5 }}>
+          <a className={button({ variant: "primary", css: { mt: "$5" } })}>
             <svg
               width="25"
               height="24"
@@ -90,7 +77,7 @@ const NotFoundPage = () => {
               />
             </svg>{" "}
             Take me home
-          </Button>
+          </a>
         </Link>
       </div>
     </Layout>
