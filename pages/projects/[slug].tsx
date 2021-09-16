@@ -43,7 +43,7 @@ export default function ProjectTemplate({
         >
           {frontmatter.title}
         </h1>
-        <p className={text({})}>{frontmatter.subtitle}</p>
+        <p className={text({ article: "p" })}>{frontmatter.subtitle}</p>
         <motion.svg
           className={box({ position: "absolute", right: 4, bottom: 4 })}
           animate={{ y: -40 }}
@@ -124,12 +124,9 @@ export default function ProjectTemplate({
 
       <div id="article" className={layout({ variant: "article" })}>
         <article
-          className={layout({
-            variant: "section",
-            css: { gridColumn: 2, "& section": { my: "$10" } },
-          })}
+          className={box({ gridColumn: 2, p: "$4", "@bp1": { p: "$6" } })}
         >
-          <Component components={MdxComponents as any} />
+          <Component components={{ ...MdxComponents }} />
         </article>
       </div>
 

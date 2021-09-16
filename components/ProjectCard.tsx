@@ -5,8 +5,9 @@ import { loader } from "utlis/image-loader";
 import { box } from "@styles/box";
 import { link } from "@styles/link";
 import { text } from "@styles/text";
+import { Frontmatter } from "types/frontmatter";
 
-const ProjectCard = ({ data }) => {
+const ProjectCard = ({ data }: { data: Frontmatter }) => {
   const SvgVaraint = {
     initial: {
       x: `-100%`,
@@ -39,6 +40,7 @@ const ProjectCard = ({ data }) => {
             flexDirection: "column",
             justifyContent: "space-between",
             "@bp1": { flexDirection: "row" },
+            gap: "$4",
           },
         })}
         initial="initial"
@@ -52,29 +54,28 @@ const ProjectCard = ({ data }) => {
             width: 240,
             flexDirection: "column",
             overflow: "hidden",
-            mr: "$2",
           })}
         >
-          <motion.h2
+          <h2
             className={text({
               css: {
-                fontSize: "$5",
+                fontSize: "$6",
                 fontWeight: 400,
-                lineHeight: "32px",
+                lineHeight: "36px",
                 color: "$white",
                 mb: "$2",
               },
             })}
           >
             {data.title}
-          </motion.h2>
+          </h2>
           <p
             className={text({
               css: {
                 fontSize: "$2",
                 fontWeight: 400,
-                lineHeight: "16px",
-                color: "$gray2",
+                lineHeight: "24px",
+                color: "$gray600",
                 textTransform: "uppercase",
               },
             })}
@@ -152,11 +153,11 @@ const ProjectCard = ({ data }) => {
         <h2
           className={text({
             css: {
-              fontSize: "$5",
+              fontSize: "$6",
               fontWeight: 400,
-              lineHeight: "32px",
+              lineHeight: "36px",
               color: "$white",
-              mb: "$3",
+              mb: "$2",
             },
           })}
         >
@@ -167,8 +168,8 @@ const ProjectCard = ({ data }) => {
             css: {
               fontSize: "$2",
               fontWeight: 400,
-              lineHeight: "16px",
-              color: "$gray2",
+              lineHeight: "24px",
+              color: "$gray600",
               textTransform: "uppercase",
             },
           })}
