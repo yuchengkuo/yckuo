@@ -26,7 +26,7 @@ export const getAllFrontmatter = (sourcePath: string) => {
         readingTime: readingTime(content),
       } as Frontmatter;
     })
-    .sort((a, b) => (a.published ? 1 : -1 || a.slug.localeCompare(b.slug)));
+    .sort((a, b) => (b.published ? 1 : -1 || a.slug.localeCompare(b.slug)));
 };
 
 export const getMdxBySlug = async (sourcePath, slug) => {
@@ -34,6 +34,23 @@ export const getMdxBySlug = async (sourcePath, slug) => {
     path.join(ROOT, sourcePath, `${slug}.mdx`),
     "utf8"
   );
+
+  if (process.platform === "win32") {
+    process.env.ESBUILD_BINARY_PATH = path.join(
+      process.cwd(),
+      "node_modules",
+      "esbuild",
+      "esbuild.exe"
+    );
+  } else {
+    process.env.ESBUILD_BINARY_PATH = path.join(
+      process.cwd(),
+      "node_modules",
+      "esbuild",
+      "bin",
+      "esbuild"
+    );
+  }
   const { frontmatter, code } = await bundleMDX(source, {
     xdmOptions(options) {
       options.remarkPlugins = [
