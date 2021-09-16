@@ -155,7 +155,6 @@ const theme = {
       fontSize: "62.5%",
       fontFamily: "body",
       fontWeight: "body",
-      "*::selection": { backgroundColor: "transparent", color: "primary" },
     },
     p: {
       variant: "text.body",
