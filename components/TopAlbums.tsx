@@ -45,23 +45,27 @@ export default function TopAlbums() {
               <p
                 className={classNames(
                   text({
-                    fontSize: "$3",
-                    fontWeight: 300,
-                    color: "$gray2",
-                    mt: "auto",
-                    mr: "$3",
-                    "@bp1": { mr: "$4" },
+                    css: {
+                      fontSize: "$3",
+                      fontWeight: 300,
+                      color: "$gray2",
+                      mt: "auto",
+                      mr: "$3",
+                      "@bp1": { mr: "$4" },
+                    },
                   }),
                   i === 0
                     ? ""
                     : text({
-                        "&::before": {
-                          content: '""',
-                          position: "absolute",
-                          backgroundColor: "$gray3",
-                          top: -60,
-                          width: 1,
-                          height: 150,
+                        css: {
+                          "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            backgroundColor: "$gray3",
+                            top: -60,
+                            width: 1,
+                            height: 150,
+                          },
                         },
                       })
                 )}
@@ -112,20 +116,24 @@ export default function TopAlbums() {
                 </motion.svg>
                 <h3
                   className={text({
-                    fontSize: "$5",
-                    fontWeight: 200,
-                    lineHeight: 2,
-                    color: "$white",
-                    mt: "auto",
+                    css: {
+                      fontSize: "$5",
+                      fontWeight: 200,
+                      lineHeight: 2,
+                      color: "$white",
+                      mt: "auto",
+                    },
                   })}
                 >
                   {album.title}
                 </h3>
                 <p
                   className={text({
-                    fontSize: "$3",
-                    fontWeight: 300,
-                    color: "$gray2",
+                    css: {
+                      fontSize: "$3",
+                      fontWeight: 300,
+                      color: "$gray2",
+                    },
                   })}
                 >
                   {album.artist}
@@ -151,23 +159,27 @@ export default function TopAlbums() {
           <p
             className={classNames(
               text({
-                fontSize: "$3",
-                fontWeight: 300,
-                color: "$gray2",
-                mt: "auto",
-                mr: "$3",
-                "@bp1": { mr: "$4" },
+                css: {
+                  fontSize: "$3",
+                  fontWeight: 300,
+                  color: "$gray2",
+                  mt: "auto",
+                  mr: "$3",
+                  "@bp1": { mr: "$4" },
+                },
               }),
               i === 0
                 ? ""
                 : text({
-                    "&::before": {
-                      content: '""',
-                      position: "absolute",
-                      backgroundColor: "$gray3",
-                      top: -60,
-                      width: 1,
-                      height: 150,
+                    css: {
+                      "&::before": {
+                        content: '""',
+                        position: "absolute",
+                        backgroundColor: "$gray3",
+                        top: -60,
+                        width: 1,
+                        height: 150,
+                      },
                     },
                   })
             )}
@@ -193,11 +205,13 @@ export default function TopAlbums() {
           >
             <h3
               className={text({
-                fontSize: "$5",
-                fontWeight: 200,
-                lineHeight: 2,
-                color: "$white",
-                mt: "auto",
+                css: {
+                  fontSize: "$5",
+                  fontWeight: 200,
+                  lineHeight: 2,
+                  color: "$white",
+                  mt: "auto",
+                },
               })}
             >
               Loading...

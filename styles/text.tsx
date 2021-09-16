@@ -1,60 +1,119 @@
-import { CSS, css } from "stitches.config";
+import { css } from "stitches.config";
 
-const _text = css({
+export const text = css({
   boxSizing: "border-box",
   m: 0,
   p: 0,
   fontFamily: "$sans",
 
   variants: {
-    size: {
-      1: {
-        fontSize: "12px",
-        lineHeight: "12px",
-      },
-      2: {
-        fontSize: "14px",
-        lineHeight: "16px",
-      },
-      3: {
-        fontSize: "16px",
-        lineHeight: "32px",
-      },
-      4: {
-        fontSize: "18px",
-        lineHeight: "24px",
-      },
-      5: {
-        fontSize: "20px",
-        lineHeight: "40px",
-      },
-      6: {
-        fontSize: "20px",
-        lineHeight: "24px",
-      },
-      7: {
-        fontSize: "28px",
-        lineHeight: "32px",
-      },
-      8: {
-        fontSize: "40px",
-        lineHeight: "48px",
-      },
-      9: {
-        fontSize: "44px",
-        lineHeight: "52px",
+    variant: {
+      sectionTitle: {
+        fontSize: "$6",
+        fontWeight: 400,
+        lineHeight: 1.6,
+        color: "$gray2",
+        position: "relative",
+        mb: "$7",
+        "&:before": {
+          content: "//",
+          position: "absolute",
+          top: 0,
+          left: -24,
+        },
       },
     },
-    variant: {
-      heading: {
-        fontFamily: "$sans",
+    size: {
+      xs: {
+        fontSize: "$1",
+        lineHeight: "$1",
       },
+      sm: {
+        fontSize: "$2",
+        lineHeight: "$2",
+      },
+      base: {
+        fontSize: "$3",
+        lineHeight: "$3",
+      },
+      me: {
+        fontSize: "$4",
+        lineHeight: "$4",
+      },
+      lg: {
+        fontSize: "$5",
+        lineHeight: "$5",
+      },
+      xl: {
+        fontSize: "$6",
+        lineHeight: "$6",
+      },
+      "2xl": {
+        fontSize: "$7",
+        lineHeight: "$7",
+      },
+      "3xl": {
+        fontSize: "$8",
+        lineHeight: "$8",
+      },
+      "4xl": {
+        fontSize: "$9",
+        lineHeight: "$9",
+      },
+      "5xl": {
+        fontSize: "$10",
+        lineHeight: "$10",
+      },
+      "6xl": {
+        fontSize: "$11",
+        lineHeight: "$11",
+      },
+    },
+    article: {
       h1: {
-        fontSize: "64px",
-        lineHeight: "72px",
+        fontWeight: 400,
+        fontSize: "28px",
+        lineHeight: 1.1818,
+        "@bp1": { fontSize: "40px" },
+      },
+      h2: {
+        fontWeight: 400,
+        fontSize: "24px",
+        lineHeight: 1.2,
+        "@bp1": { fontSize: "32px" },
+        mt: "$10",
+        mb: "$6",
+      },
+      h3: {
+        fontWeight: 400,
+        fontSize: "20px",
+        lineHeight: 1.1428,
+        "@bp1": { fontSize: "28px" },
+        mt: "$9",
+        mb: "$5",
+      },
+      h4: {
+        fontWeight: 400,
+        fontSize: "20px",
+        lineHeight: 1.3333,
+        color: "$gray3",
+        mb: "$9",
+      },
+      p: {
+        fontSize: "16px",
+        lineHeight: 2,
+        "@bp1": { fontSize: "20px" },
+        color: "$gray1",
+        my: "$5",
+      },
+      li: {
+        fontSize: "16px",
+        lineHeight: 1.6,
+        "@bp1": { fontSize: "20px" },
+        color: "$gray1",
+        pl: "$2",
+        my: "$2",
       },
     },
   },
 });
-
-export const text = (css: CSS) => _text({ css });

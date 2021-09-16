@@ -16,11 +16,11 @@ export const MdxComponents = {
   p: (props) => <p className={text({ article: "p" })} {...props} />,
   a: ({ href = "", ...props }) => {
     if (href.startsWith("http")) {
-      return <a className={link({})} href={href} {...props} />;
+      return <a className={link({ underline: true })} href={href} {...props} />;
     }
     return (
       <Link href={href} passHref>
-        <a className={link({})} {...props} />
+        <a className={link({ underline: true })} {...props} />
       </Link>
     );
   },
@@ -47,7 +47,19 @@ export const MdxComponents = {
         className={box({ borderRadius: 15, backgroundColor: "$green" })}
         {...(props as any)}
       />
-      <figcaption className={text({})}>{props?.caps}</figcaption>
+      <figcaption
+        className={text({
+          css: {
+            fontSize: "16px",
+            fontWeight: 400,
+            textTransform: "uppercase",
+            my: "$4",
+            color: "$gray2",
+          },
+        })}
+      >
+        {props?.caps}
+      </figcaption>
     </figure>
   ),
   img: (props) => (

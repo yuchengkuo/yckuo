@@ -6,6 +6,7 @@ export const link = css({
   textDecoration: "none",
   transition: "all 200ms ease-out",
   p: 0,
+  color: "$gray1",
 
   "&:hover": {
     color: "$white",
@@ -14,14 +15,17 @@ export const link = css({
   variants: {
     variant: {
       navLink: {
+        textDecoration: "none",
         fontSize: "$2",
         fontWeight: 600,
         lineHeight: "16px",
-        color: "$gray1",
         px: "$1",
         display: "flex",
         alignItems: "center",
       },
+    },
+    underline: {
+      true: { textDecorationLine: "underline" },
     },
   },
 });

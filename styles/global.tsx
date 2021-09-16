@@ -3,10 +3,15 @@ import { globalCss } from "../stitches.config";
 export const globalStyles = globalCss({
   "@import": "../public/font/font.css",
 
+  html: {
+    backgroundColor: "$black",
+  },
+
   body: {
     backgroundColor: "$black",
     color: "$white",
     fontFamily: "$sans",
+    fontWeight: 200,
     margin: 0,
   },
 
@@ -14,5 +19,5 @@ export const globalStyles = globalCss({
 
   svg: { display: "inline-block", verticalAlign: "middle" },
 
-  "::selection": { backgroundColor: "$yellow", color: "$black" },
+  "::selection": { backgroundColor: "$black", color: "$yellow" },
 });
