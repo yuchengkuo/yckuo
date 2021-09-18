@@ -1,7 +1,7 @@
 import { globalCss } from "../stitches.config";
 
 export const globalStyles = globalCss({
-  "@import": "../public/font/font.css",
+  "@import": "/font/font.css",
 
   html: {
     backgroundColor: "$black",
