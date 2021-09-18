@@ -139,7 +139,7 @@ const Hero = () => {
           "@bp2": { gap: "$3" },
         })}
       >
-        {new Array(16).fill(0).map((i) => (
+        {new Array(16).fill(0).map((_, i) => (
           <Svg key={i} />
         ))}
       </div>
