@@ -73,6 +73,8 @@ export const LogoSvg = () => {
       xmlns="http://www.w3.org/2000/svg"
       whileHover="hover"
     >
+      <title>YuCheng Kuo</title>
+      <desc>Logo of YuCheng Kuo.</desc>
       <motion.path
         d="M13 1V25M13 1H1L7 13L1 25H13M13 1H25M13 25H25M13 25L25 1M31 13.5L37 1H25M31 13.5L37 25H25M31 13.5L25 25"
         stroke="#BDBEC1"
