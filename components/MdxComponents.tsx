@@ -9,10 +9,31 @@ import Carousel from "./Carousel";
 export const MdxComponents = {
   Carousel: Carousel,
   h1: (props) => <h1 className={text({ article: "h1" })} {...props} />,
-  h2: (props) => <h2 className={text({ article: "h2" })} {...props} />,
-  h3: (props) => <h3 className={text({ article: "h3" })} {...props} />,
+  h2: (props) => (
+    <h2 className={text({ article: "h2" })} {...props}>
+      <a
+        href={`#${props.id}`}
+        className={link({
+          css: { color: "$white", "&:hover": { letterSpacing: 0.4 } },
+        })}
+      >
+        {props.children}
+      </a>
+    </h2>
+  ),
+  h3: (props) => (
+    <h3 className={text({ article: "h3" })} {...props}>
+      <a
+        href={`#${props.id}`}
+        className={link({
+          css: { color: "$white", "&:hover": { letterSpacing: 0.4 } },
+        })}
+      >
+        {props.children}
+      </a>
+    </h3>
+  ),
   h4: (props) => <h4 className={text({ article: "h4" })} {...props} />,
-  h5: (props) => <h5 className={text({ article: "h4" })} {...props} />,
   p: (props) => <p className={text({ article: "p" })} {...props} />,
   a: ({ href = "", ...props }) => {
     if (href.startsWith("http")) {
@@ -116,5 +137,10 @@ export const MdxComponents = {
       {...props}
     />
   ),
-  em: () => <em className={text({ fontSize: "" })} />,
+  em: (props) => (
+    <em
+      className={text({ article: "p", css: { fontStyle: "italic" } })}
+      {...props}
+    />
+  ),
 };

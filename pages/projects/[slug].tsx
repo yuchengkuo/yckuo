@@ -43,7 +43,14 @@ export default function ProjectTemplate({
         >
           {frontmatter.title}
         </h1>
-        <p className={text({ article: "p" })}>{frontmatter.subtitle}</p>
+        <p
+          className={text({
+            size: 4,
+            css: { textTransform: "uppercase", color: "$gray1" },
+          })}
+        >
+          {frontmatter.subtitle}
+        </p>
         <motion.svg
           className={box({ position: "absolute", right: 4, bottom: 4 })}
           animate={{ y: -40 }}
@@ -107,11 +114,11 @@ export default function ProjectTemplate({
                 key={i}
                 className={text({
                   css: {
-                    fontSize: "$3",
+                    fontSize: "$4",
                     m: 0,
                     mb: "$3",
                     color: "$gray1",
-                    "@bp1": { fontSize: "$4" },
+                    "@bp1": { fontSize: "$5" },
                   },
                 })}
               >

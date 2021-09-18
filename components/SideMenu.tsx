@@ -68,7 +68,7 @@ export default function SideMenu({ ids }: { ids: Frontmatter["ids"] }) {
                   }}
                   className={button({
                     css: {
-                      fontSize: "$2",
+                      fontSize: "$3",
                       fontWeight: 400,
                       textAlign: "start",
                       color: i === currentIndex ? "$yellow" : "$gray2",

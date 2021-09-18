@@ -36,10 +36,12 @@ const Hero = () => {
       >
         <motion.h1
           className={text({
+            size: {
+              "@initial": 7,
+              "@bp2": 8,
+              "@bp3": 9,
+            },
             css: {
-              fontSize: "$8",
-              "@bp2": { fontSize: "$9" },
-              "@bp3": { fontSize: "$10" },
               fontWeight: 400,
               backgroundImage:
                 "linear-gradient(270deg, $pink 8%, $green 65%, $yellow 120%)",
@@ -60,7 +62,7 @@ const Hero = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "start",
-            "& svg": {
+            svg: {
               verticalAlign: "-3px",
               ml: "$3",
             },
