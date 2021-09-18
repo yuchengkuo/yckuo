@@ -12,6 +12,8 @@ export const link = css({
     color: "$white",
   },
 
+  "&:focus": {},
+
   variants: {
     variant: {
       navLink: {

@@ -5,9 +5,20 @@ export const button = css({
   display: "inline-block",
   appearance: "none",
   border: "none",
+  outline: "none",
   cursor: "pointer",
+  userSelect: "none",
   textDecoration: "none",
   textAlign: "center",
+  p: 0,
+  m: 0,
+
+  "&::before": { boxSizing: "border-box" },
+  "&::after": { boxSizing: "border-box" },
+
+  "&:hover": {},
+
+  "&:focus": {},
 
   variants: {
     variant: {
@@ -31,6 +42,7 @@ export const button = css({
         p: "$2",
         backgroundColor: "transparent",
       },
+      icon: {},
     },
   },
 });
