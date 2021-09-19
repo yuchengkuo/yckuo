@@ -1,7 +1,7 @@
 import { link } from "@styles/link";
 import { text } from "@styles/text";
 import { box } from "@styles/box";
-import { loader } from "@utlis/image-loader";
+import { loader } from "@utils/image-loader";
 import Link from "next/link";
 import Img from "next/image";
 import Carousel from "./Carousel";
@@ -65,7 +65,8 @@ export const MdxComponents = {
         objectFit="cover"
         layout="intrinsic"
         loader={loader}
-        className={box({ borderRadius: 15, backgroundColor: "$green" })}
+        className={box({ borderRadius: 15 })}
+        placeholder="blur"
         {...(props as any)}
       />
       <figcaption

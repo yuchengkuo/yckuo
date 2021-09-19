@@ -6,6 +6,7 @@ import { Frontmatter } from "types/frontmatter";
 import { bundleMDX } from "mdx-bundler";
 import { remarkSectionize } from "./remark-sectionize";
 import getHeadings from "./getHeadings";
+import { getImageBlurData } from "./getImageBlurData";
 
 const ROOT = process.cwd();
 
@@ -57,12 +58,13 @@ export const getMdxBySlug = async (sourcePath, slug) => {
         ...(options.remarkPlugins ?? []),
         require("remark-slug"),
         remarkSectionize,
+        getImageBlurData,
       ];
       return options;
     },
   });
   const { content } = matter(source);
-  const { ids } = await getHeadings(content);
+  const { ids } = getHeadings(content);
 
   return {
     frontmatter: {
