@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import fetcher from "utlis/fetcher";
+import fetcher from "@utils/fetcher";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import classNames from "classnames";

@@ -3,7 +3,7 @@ import { layout } from "@styles/layout";
 import { box } from "@styles/box";
 import { text } from "@styles/text";
 import { button } from "@styles/button";
-import { getAllFrontmatter } from "@utlis/mdx";
+import { getAllFrontmatter } from "@utils/mdx";
 import Hero from "@components/Hero";
 import Layout from "@components/Layout";
 import ProjectCard from "@components/ProjectCard";

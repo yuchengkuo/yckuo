@@ -9,7 +9,7 @@ import { MdxComponents } from "@components/MdxComponents";
 import GoTop from "@components/GoTop";
 import SideMenu from "@components/SideMenu";
 
-import { getAllFrontmatter, getMdxBySlug } from "@utlis/mdx";
+import { getAllFrontmatter, getMdxBySlug } from "@utils/mdx";
 import { box } from "@styles/box";
 import { text } from "@styles/text";
 import { layout } from "@styles/layout";

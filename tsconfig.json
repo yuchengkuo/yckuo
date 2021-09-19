@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["components/*"],
-      "@utlis/*": ["utlis/*"],
+      "@utils/*": ["utils/*"],
       "@styles/*": ["styles/*"]
     },
     "target": "es5",

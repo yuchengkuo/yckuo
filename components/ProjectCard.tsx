@@ -1,7 +1,7 @@
 import Img from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { loader } from "utlis/image-loader";
+import { loader } from "@utils/image-loader";
 import { box } from "@styles/box";
 import { link } from "@styles/link";
 import { text } from "@styles/text";

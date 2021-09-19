@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import useScrollProgress from "@utlis/useScrollProgress";
-import useIntersectionObserver from "@utlis/useIntersectionObserver";
+import useScrollProgress from "@utils/useScrollProgress";
+import useIntersectionObserver from "@utils/useIntersectionObserver";
 import { box } from "@styles/box";
 import { button } from "@styles/button";
 import { text } from "@styles/text";

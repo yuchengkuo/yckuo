@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import fetcher from "../utlis/fetcher";
+import fetcher from "@utils/fetcher";
 import { Lottie } from "@crello/react-lottie";
 // @ts-ignore
 import animationData from "../public/sound.json";
