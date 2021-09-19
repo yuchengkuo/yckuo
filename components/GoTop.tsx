@@ -15,12 +15,16 @@ export default function GoTop(props) {
   const value = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   useEffect(() => {
-    scrollY.onChange((current) => {
+    const unsubScrollY = scrollY.onChange((current) => {
       current > 200 ? setIsShow(true) : setIsShow(false);
     });
-    value.onChange((current) => {
+    const unsubValue = value.onChange((current) => {
       setHeight(current);
     });
+    return () => {
+      unsubScrollY();
+      unsubValue();
+    };
   });
   return (
     <AnimatePresence>
