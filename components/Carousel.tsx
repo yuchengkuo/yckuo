@@ -64,10 +64,29 @@ export default function Carousel(props) {
               display: "flex",
               alignItems: "center",
               "& .is-selected": { opacity: 1 },
+              figure: {
+                display: "flex",
+                position: "relative",
+                flexBasis: "80vw",
+                flexShrink: 0,
+                flexDirection: "column",
+                alignItems: "center",
+                mr: "$4",
+                mb: "$4",
+                opacity: 0.5,
+                transition: "all 200ms ease-out",
+                "&:last-of-type": { mr: 0 },
+                "& .carousel_image": { borderRadius: 15 },
+                "& div": { pointerEvents: "none" },
+                "@bp1": { flexBasis: "auto", mr: "$8" },
+                "@bp2": { flexBasis: null, mr: "10%" },
+                "@bp3": { flexBasis: null, mr: "20%" },
+              },
             })
           )}
         >
-          {props.images.map((item, i) => {
+          {props.children}
+          {/* {props.images.map((item, i) => {
             return (
               <figure
                 key={i}
@@ -119,7 +138,7 @@ export default function Carousel(props) {
                 </figcaption>
               </figure>
             );
-          })}
+          })} */}
         </div>
       </div>
       <motion.button
@@ -140,6 +159,7 @@ export default function Carousel(props) {
             justifyContent: "center",
             alignItems: "center",
             cursor: "pointer",
+            zIndex: 99,
             "@bp3": { visibility: "visible" },
           })
         )}
@@ -181,6 +201,7 @@ export default function Carousel(props) {
             justifyContent: "center",
             alignItems: "center",
             cursor: "pointer",
+            zIndex: 99,
             "@bp3": { visibility: "visible" },
           })
         )}

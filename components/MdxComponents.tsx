@@ -84,17 +84,34 @@ export const MdxComponents = {
       </figcaption>
     </figure>
   ),
-  img: (props) => (
-    <figure>
-      <Img
-        objectFit="cover"
-        layout="intrinsic"
-        loader={loader}
-        {...(props as any)}
-      />
-      <figcaption className={text({})}>{props?.caps}</figcaption>
-    </figure>
-  ),
+  CarouselImg: (props) => {
+    // console.log(props.blurDataURL ? true : props.src);
+    return (
+      <figure className="embla__slide">
+        <Img
+          objectFit="cover"
+          layout="intrinsic"
+          loader={loader}
+          placeholder={props.blurDataURL ? "blur" : "empty"}
+          className={box({ borderRadius: 15 })}
+          {...(props as any)}
+        />
+        <figcaption
+          className={text({
+            css: {
+              fontSize: "16px",
+              fontWeight: 400,
+              textTransform: "uppercase",
+              my: "$4",
+              color: "$gray2",
+            },
+          })}
+        >
+          {props?.caps}
+        </figcaption>
+      </figure>
+    );
+  },
   hr: () => (
     <hr
       className={box({

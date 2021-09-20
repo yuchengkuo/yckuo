@@ -6,11 +6,16 @@ export const getImageBlurData = () => async (tree) => {
   visit(
     tree,
     (node) => node.type === "mdxJsxFlowElement" && node.name === "Image",
-    appendAttribute
+    appendImageAttribute
   );
-  await Promise.all(promises);
+  visit(
+    tree,
+    (node) => node.type === "mdxJsxFlowElement" && node.name === "Carousel",
+    appendCarouselAttribute
+  );
 
-  function appendAttribute(node) {
+  await Promise.all(promises);
+  function appendImageAttribute(node) {
     const base64 = getBlurredData(
       node.attributes.filter((attribute) => attribute.name === "src")[0].value
     ).then((res) =>
@@ -21,5 +26,31 @@ export const getImageBlurData = () => async (tree) => {
       })
     );
     promises.push(base64);
+  }
+
+  function appendCarouselAttribute(node) {
+    const childrenPromises = node.children.map((child, i) => {
+      const base64 = getBlurredData(
+        child.attributes.filter((attribute) => attribute.name === "src")[0]
+          .value
+      )
+        .then((res) =>
+          child.attributes.push({
+            type: "mdxJsxAttribute",
+            name: "blurDataURL",
+            value: res,
+          })
+        )
+        .catch((err) => console.log(err));
+      return base64;
+    });
+    // console.log(childrenPromises);
+    Promise.all(childrenPromises).then(() =>
+      promises.push(
+        new Promise((resolve, reject) => {
+          resolve();
+        })
+      )
+    );
   }
 };
