@@ -154,13 +154,17 @@ export default function Carousel(props) {
             width: 52,
             height: 52,
             borderRadius: 10,
-            border: "1px solid $green",
+            border:
+              currentIndex !== 0 ? "1px solid $green" : "1px solid $gray3",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             cursor: "pointer",
             zIndex: 99,
             "@bp3": { visibility: "visible" },
+            path: {
+              stroke: currentIndex !== 0 ? "$green" : "$gray3",
+            },
           })
         )}
         onClick={scrollPrev}
@@ -176,7 +180,6 @@ export default function Carousel(props) {
         >
           <path
             d="M20 6.6665L10.6667 15.9998L20 25.3332"
-            stroke="#D6E4DC"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -196,13 +199,20 @@ export default function Carousel(props) {
             width: 52,
             height: 52,
             borderRadius: 10,
-            border: "1px solid $green",
+            border:
+              currentIndex !== snapList.length - 1
+                ? "1px solid $green"
+                : "1px solid $gray3",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             cursor: "pointer",
             zIndex: 99,
             "@bp3": { visibility: "visible" },
+            path: {
+              stroke:
+                currentIndex !== snapList.length - 1 ? "$green" : "$gray3",
+            },
           })
         )}
         onClick={scrollNext}
@@ -218,7 +228,6 @@ export default function Carousel(props) {
         >
           <path
             d="M12 6.6665L21.3333 15.9998L12 25.3332"
-            stroke="#D6E4DC"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
