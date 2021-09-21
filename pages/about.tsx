@@ -80,8 +80,8 @@ const AboutPage = ({ code }) => {
             display: "flex",
             flexDirection: "column",
             mb: "$6",
-            gap: "$11",
-            "@bp1": { flexDirection: "row", gap: "$5" },
+            gap: "$5",
+            "@bp1": { flexDirection: "row", gap: "$11" },
           })}
         >
           <a
@@ -197,7 +197,7 @@ export async function getStaticProps() {
 
   ### about the site.
 
-  Built from scratch in [VS Code](https://code.visualstudio.com/), with [Next.js](https://nextjs.org), [theme-ui](https://theme-ui.com), [mdx](https://mdxjs.com), and [framer-motion](https://www.framer.com/motion), and the type is set in [Sora](https://github.com/sora-xor/sora-font).
+  Built from scratch in [VS Code](https://code.visualstudio.com/), with [Next.js](https://nextjs.org), [theme-ui](https://theme-ui.com)(recently switch to [stitches](https://stitches.dev) for better DX and smaller bundle size), [mdx](https://mdxjs.com), and [framer-motion](https://www.framer.com/motion), and the type is set in [Sora](https://github.com/sora-xor/sora-font).
   
   More detail can be found in [project section](/#project).
 
