@@ -51,7 +51,9 @@ const Header = () => {
         >
           {navItems.map((item, i) => (
             <Link href={item.link} key={i} passHref>
-              <a className={link({ variant: "navLink" })}>{item.label}</a>
+              <a className={link({ variant: "navLink", focus: true })}>
+                {item.label}
+              </a>
             </Link>
           ))}
         </div>
