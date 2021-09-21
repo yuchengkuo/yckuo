@@ -45,12 +45,6 @@ export const getImageBlurData = () => async (tree) => {
       return base64;
     });
     // console.log(childrenPromises);
-    Promise.all(childrenPromises).then(() =>
-      promises.push(
-        new Promise((resolve, reject) => {
-          resolve();
-        })
-      )
-    );
+    promises.push(Promise.all(childrenPromises));
   }
 };
