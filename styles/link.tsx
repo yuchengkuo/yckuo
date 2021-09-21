@@ -29,5 +29,8 @@ export const link = css({
     underline: {
       true: { textDecorationLine: "underline" },
     },
+    focus: {
+      true: { "&:focus": { outline: "$green solid 1.6px", borderRadius: 4 } },
+    },
   },
 });
