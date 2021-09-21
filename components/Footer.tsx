@@ -15,7 +15,13 @@ export default function Footer() {
           className={box({ display: "flex", alignItems: "center", mt: "$6" })}
         >
           <Link href="/" passHref>
-            <a className={link({ variant: "navLink" })}>
+            <a
+              className={link({
+                focus: true,
+                variant: "navLink",
+                css: { py: 2 },
+              })}
+            >
               <LogoSvg />
             </a>
           </Link>

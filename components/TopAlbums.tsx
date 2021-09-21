@@ -16,6 +16,7 @@ export default function TopAlbums() {
       opacity: 1,
       rotateZ: 0,
     },
+    focus: {},
   };
 
   return data ? (
@@ -28,12 +29,14 @@ export default function TopAlbums() {
       })}
     >
       {data.albums.map((album, i) => (
-        <motion.li key={i} whileHover="hover" className={box({ mb: "$10" })}>
-          <a
-            className={link()}
+        <motion.li key={i} className={box({ mb: "$10" })}>
+          <motion.a
+            className={link({ css: { "&:focus": { outline: "none" } } })}
             href={album.spotifyUrl}
             target="_blank"
             rel="noopener noreferrer"
+            whileHover="hover"
+            whileFocus="hover"
           >
             <div
               className={box({
@@ -140,7 +143,7 @@ export default function TopAlbums() {
                 </p>
               </div>
             </div>
-          </a>
+          </motion.a>
         </motion.li>
       ))}
     </ul>

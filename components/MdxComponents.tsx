@@ -37,11 +37,17 @@ export const MdxComponents = {
   p: (props) => <p className={text({ article: "p" })} {...props} />,
   a: ({ href = "", ...props }) => {
     if (href.startsWith("http")) {
-      return <a className={link({ underline: true })} href={href} {...props} />;
+      return (
+        <a
+          className={link({ underline: true, focus: true })}
+          href={href}
+          {...props}
+        />
+      );
     }
     return (
       <Link href={href} passHref>
-        <a className={link({ underline: true })} {...props} />
+        <a className={link({ underline: true, focus: true })} {...props} />
       </Link>
     );
   },

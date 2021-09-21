@@ -28,11 +28,13 @@ const Header = () => {
         >
           <Link href="/" passHref>
             <a
-              className={box({
+              className={link({
+                focus: true,
                 css: {
                   display: "flex",
                   alignItems: "center",
                   "$ *": { mr: "$2" },
+                  p: 2,
                 },
               })}
             >

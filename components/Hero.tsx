@@ -62,6 +62,7 @@ const Hero = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "start",
+            gap: "$4",
             svg: {
               verticalAlign: "-3px",
               ml: "$3",
@@ -72,7 +73,7 @@ const Hero = () => {
           <button
             className={button({
               variant: "secondary",
-              css: { color: "$gray2", textAlign: "initial" },
+              css: { color: "$gray2", textAlign: "initial", width: "unset" },
             })}
             onClick={() => {
               const offsetY = document.getElementById("project").offsetTop - 20;
@@ -98,7 +99,7 @@ const Hero = () => {
             <a
               className={button({
                 variant: "secondary",
-                css: { color: "$gray2", textAlign: "initial" },
+                css: { color: "$gray2", textAlign: "initial", width: "unset" },
               })}
             >
               More about me

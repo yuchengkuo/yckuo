@@ -41,6 +41,7 @@ const ProjectCard = ({ data }: { data: Frontmatter }) => {
             justifyContent: "space-between",
             "@bp1": { flexDirection: "row" },
             gap: "$4",
+            "&:focus": { outline: "none" },
           },
         })}
         initial="initial"
