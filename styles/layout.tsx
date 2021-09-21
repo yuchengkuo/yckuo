@@ -52,9 +52,10 @@ export const layout = css({
         maxHeight: 960,
       },
       article: {
-        display: "grid",
+        display: "unset",
         gridTemplateColumns: "auto minmax(auto, 720px) auto",
         gap: 0,
+        "@bp1": { display: "grid" },
       },
     },
   },
