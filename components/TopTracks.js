@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import useSWR from "swr";
-import fetcher from "../utlis/fetcher";
+import fetcher from "utils/fetcher";
 import { Flex, Link } from "theme-ui";
 import { transparentize } from "@theme-ui/color";
 

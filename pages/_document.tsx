@@ -1,10 +1,15 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { getCssText } from "stitches.config";
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
+          <style
+            id="stitches"
+            dangerouslySetInnerHTML={{ __html: getCssText() }}
+          />
           <script async data-api="/_hive" src="/bee.js"></script>
           <script
             async

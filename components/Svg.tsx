@@ -1,4 +1,10 @@
-import { motion, useAnimation, useCycle } from "framer-motion";
+import {
+  domAnimation,
+  LazyMotion,
+  m,
+  useAnimation,
+  useCycle,
+} from "framer-motion";
 import React, { useEffect, useState } from "react";
 const path = [
   "M1 81 L21 41 L1 1 L81 1 L41 81 Z",
@@ -21,12 +27,8 @@ const Svg = () => {
   const [stroke, cycleStroke] = useCycle(...randomInitialColors);
   const [count, setCount] = useState(0);
   const delayTime = 5 + Math.floor(Math.random() * 100);
-  const pathVariant = {
-    initial: {
-      pathLength: 0,
-      pathOffset: 1,
-    },
-    animate: {
+  useEffect(() => {
+    controls.start({
       pathLength: 1.3,
       pathOffset: 0,
       transition: {
@@ -36,37 +38,34 @@ const Svg = () => {
         repeatType: "reverse",
         repeatDelay: delayTime,
       },
-    },
-  };
-  useEffect(() => {
-    controls.start("animate");
+    });
   });
   return (
-    <motion.svg
-      width="82"
-      height="82"
-      viewBox="0 0 82 82"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      whileHover={{ scale: 0.95, rotate: 1 }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.01 }}
-    >
-      <motion.path
-        d={d}
-        stroke={stroke}
-        // @ts-ignore
-        variants={pathVariant}
-        initial="initial"
-        animate={controls}
-        onAnimationComplete={() => {
-          cycleD();
-          cycleStroke();
-          setCount(count + 1);
-        }}
-      />
-    </motion.svg>
+    <LazyMotion features={domAnimation}>
+      <m.svg
+        width="82"
+        height="82"
+        viewBox="0 0 82 82"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        whileHover={{ scale: 0.95, rotate: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.01 }}
+      >
+        <m.path
+          d={d}
+          stroke={stroke}
+          initial={{ pathLength: 0, pathOffset: 1 }}
+          animate={controls}
+          onAnimationComplete={() => {
+            cycleD();
+            cycleStroke();
+            setCount(count + 1);
+          }}
+        />
+      </m.svg>
+    </LazyMotion>
   );
 };
 

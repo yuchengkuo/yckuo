@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function useIntersectionObserver(elements, options) {
+export default function useIntersectionObserver(
+  elements: Element[],
+  options?: { offset?: number; root?: Element }
+): [number] {
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const observer = useRef(null);
+  const observer = useRef<IntersectionObserver>(null);
 
-  const observerCallback = (entries) => {
+  const observerCallback: IntersectionObserverCallback = (entries) => {
     setCurrentIndex(
       entries.findIndex((entry) => {
         return entry.intersectionRatio > 0;
@@ -22,9 +25,9 @@ export default function useIntersectionObserver(elements, options) {
       root: (options && options.root) || null,
     });
 
-    elements.forEach((element) => {
-      observer.current.observe(element);
-    });
+    elements.forEach((element) =>
+      element ? observer.current.observe(element) : null
+    );
   }, [elements, options]);
 
   return [currentIndex];

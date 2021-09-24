@@ -1,4 +1,5 @@
-// fork from https://github.com/zaccolley/letterboxd
+// forked from https://github.com/zaccolley/letterboxd
+
 import cheerio from "cheerio";
 
 function isListItem(element) {

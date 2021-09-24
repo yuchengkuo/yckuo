@@ -1,4 +1,4 @@
-import { getNowPlaying } from "../../utlis/spotify";
+import { getNowPlaying } from "utils/spotify";
 
 export default async function handler(_, res) {
   const response = await getNowPlaying();

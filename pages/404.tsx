@@ -1,8 +1,10 @@
-/** @jsxImportSource theme-ui */
-import Layout from "components/Layout";
-import { Container, Grid, Box, Button, Flex } from "theme-ui";
 import Link from "next/link";
-import Svg from "components/Svg";
+import Layout from "@components/Layout";
+import Svg from "@components/Svg";
+import { layout } from "@styles/layout";
+import { text } from "@styles/text";
+import { box } from "@styles/box";
+import { button } from "@styles/button";
 
 const NotFoundPage = () => {
   const num = [];
@@ -11,50 +13,57 @@ const NotFoundPage = () => {
   }
   return (
     <Layout>
-      <Container
-        variant="hero"
-        sx={{
-          maxHeight: 1200,
-        }}
-      >
-        <Flex
-          sx={{
-            justifyContent: ["start", null, "space-between"],
-            pt: [4, 11, 11],
-            flexDirection: ["column-reverse", null, "row"],
-          }}
+      <div className={layout({ variant: "hero", css: { maxHeight: 1200 } })}>
+        <div
+          className={box({
+            display: "flex",
+            justifyContent: "start",
+            pt: "$4",
+            flexDirection: "column-reverse",
+            "@bp1": { pt: "$11" },
+            "@bp3": { justifyContent: "space-between", flexDirection: "row" },
+          })}
         >
-          <Box>
+          <div>
             <h1
-              sx={{
-                fontSize: [80, 200],
-                fontWeight: 400,
-                color: "secondary",
-                m: 0,
-              }}
+              className={text({
+                css: {
+                  fontSize: 80,
+                  fontWeight: 400,
+                  color: "$green",
+                  "@bp1": { fontSize: 200 },
+                },
+              })}
             >
               404
             </h1>
-            <p sx={{ fontSize: [1, 2] }}>
+            <p
+              className={text({
+                css: { fontSize: "$3", "@bp1": { fontSize: "$4" } },
+              })}
+            >
               The page does not exist or has been deleted.
             </p>
-          </Box>
-          <Grid
-            sx={{
+          </div>
+          <div
+            className={box({
+              display: "grid",
               gridTemplate: "repeat(4, 82px) / repeat(4, 82px)",
               alignItems: "center",
               justifyContent: "center",
-              mb: [4, 11, null],
-              gap: [3, 4, 3],
-            }}
+              mb: "$4",
+              gap: "$3",
+              "@bp1": { mb: "$11", gap: "$4" },
+              "@bp2": { gap: "$3" },
+            })}
           >
-            {num.map((i) => (
+            {new Array(16).fill(0).map((i) => (
               <Svg key={i} />
             ))}
-          </Grid>
-        </Flex>
+          </div>
+        </div>
         <Link href="/" passHref>
-          <Button as="a" sx={{ mt: 5 }}>
+          <a className={button({ variant: "primary", css: { mt: "$5" } })}>
             <svg
               width="25"
               height="24"
@@ -68,9 +77,9 @@ const NotFoundPage = () => {
               />
             </svg>{" "}
             Take me home
-          </Button>
+          </a>
         </Link>
-      </Container>
+      </div>
     </Layout>
   );
 };

@@ -1,5 +1,5 @@
 import { NextSeo, DefaultSeo as NextDefaultSeo, ArticleJsonLd } from "next-seo";
-import config from "utlis/config";
+import config from "@utils/config";
 
 export default function Seo({ path, title, description, image }) {
   return (

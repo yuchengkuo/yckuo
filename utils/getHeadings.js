@@ -1,8 +1,7 @@
-// @ts-nocheck
 import mdx from "@mdx-js/mdx";
 import visit from "unist-util-visit";
-const toString = require("mdast-util-to-string");
-const slugs = require("github-slugger");
+import { toString } from "mdast-util-to-string";
+import slugify from "slugify";
 
 export default function getHeadings(src) {
   const data = [];
@@ -23,7 +22,7 @@ export default function getHeadings(src) {
     (node) => node.type === "heading" && node.depth === 2,
     (node) => {
       data.push({
-        id: slugs.slug(toString(node)),
+        id: slugify(toString(node), { lower: true }),
         title: node.children[0].value,
       });
     }

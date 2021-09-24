@@ -1,5 +1,5 @@
-import { getTopAlbums } from "utlis/lastfm";
-import { getAlbumSearchResult } from "utlis/spotify";
+import { getTopAlbums } from "utils/lastfm";
+import { getAlbumSearchResult } from "@utils/spotify";
 
 export default async function handler(_, res) {
   const response = await getTopAlbums();
