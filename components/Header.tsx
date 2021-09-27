@@ -7,6 +7,7 @@ import { box } from "@styles/box";
 const navItems = [
   { label: "Projects", link: "/#project" },
   { label: "About", link: "/about" },
+  { label: "Playground", link: "/playground" },
   { label: "Send mail", link: "mailto:hey@yuchengkuo.com?subject=Hi!" },
 ];
 
