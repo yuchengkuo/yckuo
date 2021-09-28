@@ -42,7 +42,7 @@ export default class MyDocument extends Document {
             color="#fcb33d"
           />
           <meta name="msapplication-TileColor" content="#fcb33d" />
-          <meta name="theme-color" content="#ffffff" />
+          <meta name="theme-color" content="#080909" />
         </Head>
 
         <body>
