@@ -39,7 +39,7 @@ export default function GoTop(props) {
               backgroundColor: "#18191B",
               borderRadius: 15,
               overflow: "hidden",
-              zIndex: 5,
+              zIndex: 10,
               mt: "auto",
               mb: 80,
             },

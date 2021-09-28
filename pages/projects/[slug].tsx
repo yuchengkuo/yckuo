@@ -52,7 +52,12 @@ export default function ProjectTemplate({
           {frontmatter.subtitle}
         </p>
         <motion.svg
-          className={box({ position: "absolute", right: 4, bottom: 4 })}
+          className={box({
+            position: "absolute",
+            right: "$4",
+            bottom: "$4",
+            "@bp1": { right: "$6", bottom: "$6" },
+          })}
           animate={{ y: -40 }}
           transition={{ duration: 2, repeat: Infinity, repeatType: "mirror" }}
           width="48"
@@ -147,7 +152,6 @@ export default function ProjectTemplate({
           display: "flex",
           flexDirection: "column",
           pl: "$7",
-          zIndex: 10,
           "@bp2": { width: 160 },
           "@bp3": { width: 240 },
         })}
