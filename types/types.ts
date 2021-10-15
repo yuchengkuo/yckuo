@@ -12,7 +12,7 @@ export type Frontmatter = {
   ids: { id: string; title: string }[];
 };
 
-export type NowPlaying = {
+export type NowPlayingTrack = {
   isPlaying: boolean;
   title: string;
   url: string;
