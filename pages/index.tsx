@@ -8,7 +8,7 @@ import Hero from "@components/Hero";
 import Layout from "@components/Layout";
 import ProjectCard from "@components/ProjectCard";
 import { AboutIcon, MailIcon, ReadCVIcon } from "@components/Icons";
-import { Frontmatter } from "types/frontmatter";
+import { Frontmatter } from "types/types";
 
 export default function Home({ data }: { data: Frontmatter[] }) {
   return (

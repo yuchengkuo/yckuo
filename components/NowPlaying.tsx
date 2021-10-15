@@ -6,9 +6,10 @@ import animationData from "../public/sound.json";
 import { box } from "@styles/box";
 import { text } from "@styles/text";
 import { link } from "@styles/link";
+import { NowPlaying } from "types/types";
 
 export default function NowPlaying() {
-  const { data } = useSWR("/api/now-playing", fetcher);
+  const { data } = useSWR<NowPlaying>("/api/now-playing", fetcher);
 
   return (
     <div

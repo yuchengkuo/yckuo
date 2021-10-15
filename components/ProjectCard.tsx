@@ -5,7 +5,7 @@ import { loader } from "@utils/image-loader";
 import { box } from "@styles/box";
 import { link } from "@styles/link";
 import { text } from "@styles/text";
-import { Frontmatter } from "types/frontmatter";
+import { Frontmatter } from "types/types";
 
 const ProjectCard = ({ data }: { data: Frontmatter }) => {
   const SvgVaraint = {

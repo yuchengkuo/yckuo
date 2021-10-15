@@ -3,9 +3,10 @@ import useSWR from "swr";
 import fetcher from "utils/fetcher";
 import { Flex, Link } from "theme-ui";
 import { transparentize } from "@theme-ui/color";
+import { Tracks } from "types/types";
 
 export default function TopTracks() {
-  const { data } = useSWR("/api/top-tracks", fetcher);
+  const { data } = useSWR<Tracks[]>("/api/top-tracks", fetcher);
 
   return data ? (
     <ul
@@ -29,7 +30,7 @@ export default function TopTracks() {
       >
         Top tracks 📻
       </h3>
-      {data.tracks.map((track, i) => (
+      {data.map((track, i) => (
         <li key={i} sx={{ mb: 6 }}>
           <Flex sx={{ flexDirection: "column" }}>
             <Link

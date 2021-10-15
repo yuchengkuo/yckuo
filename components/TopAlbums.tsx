@@ -6,9 +6,10 @@ import classNames from "classnames";
 import { box } from "@styles/box";
 import { text } from "@styles/text";
 import { link } from "@styles/link";
+import { Albums } from "types/types";
 
 export default function TopAlbums() {
-  const { data } = useSWR("/api/top-albums", fetcher);
+  const { data } = useSWR<Albums[]>("/api/top-albums", fetcher);
   const variant = {
     hover: {
       x: 0,
@@ -28,7 +29,7 @@ export default function TopAlbums() {
         mt: "$7",
       })}
     >
-      {data.albums.map((album, i) => (
+      {data.map((album, i) => (
         <motion.li key={i} className={box({ mb: "$10" })}>
           <motion.a
             className={link({ css: { "&:focus": { outline: "none" } } })}

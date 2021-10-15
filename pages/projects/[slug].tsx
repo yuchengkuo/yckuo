@@ -14,7 +14,7 @@ import { box } from "@styles/box";
 import { text } from "@styles/text";
 import { layout } from "@styles/layout";
 
-import type { Frontmatter } from "types/frontmatter";
+import type { Frontmatter } from "types/types";
 
 export default function ProjectTemplate({
   upNext,

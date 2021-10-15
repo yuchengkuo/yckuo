@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
-import { Frontmatter } from "types/frontmatter";
+import { Frontmatter } from "types/types";
 import { bundleMDX } from "mdx-bundler";
 import { remarkSectionize } from "./remark-sectionize";
 import getHeadings from "./getHeadings";

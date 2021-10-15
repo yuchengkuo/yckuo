@@ -5,7 +5,7 @@ import useIntersectionObserver from "@utils/useIntersectionObserver";
 import { box } from "@styles/box";
 import { button } from "@styles/button";
 import { text } from "@styles/text";
-import { Frontmatter } from "types/frontmatter";
+import { Frontmatter } from "types/types";
 
 export default function SideMenu({ ids }: { ids: Frontmatter["ids"] }) {
   const [sectionElements, setSectionElements] = useState<Element[]>([]);
