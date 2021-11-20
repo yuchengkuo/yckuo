@@ -1,11 +1,8 @@
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useEmblaCarousel } from "embla-carousel/react";
 import classNames from "classnames";
-import { loader } from "@utils/image-loader";
 import { box } from "@styles/box";
-import { text } from "@styles/text";
 import { theme } from "stitches.config";
 
 export default function Carousel(props) {
