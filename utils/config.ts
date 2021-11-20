@@ -1,5 +1,5 @@
 export default {
-  title: "YuCheng Kuo - Designer, Engineer",
+  title: "YuCheng Kuo → Designer x Developer",
   keywords: [
     "Design",
     "Engineering",

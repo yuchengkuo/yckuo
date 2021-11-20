@@ -197,10 +197,7 @@ export async function getStaticProps() {
 
   ### about the site.
 
-  Built from scratch in [VS Code](https://code.visualstudio.com/), with [Next.js](https://nextjs.org), [theme-ui](https://theme-ui.com)(recently switch to [stitches](https://stitches.dev) for better DX and smaller bundle size), [mdx](https://mdxjs.com), and [framer-motion](https://www.framer.com/motion), and the type is set in [Sora](https://github.com/sora-xor/sora-font).
-  
-  More detail can be found in [project section](/#project).
-
+  Built from scratch in [VS Code](https://code.visualstudio.com/), with [Next.js](https://nextjs.org), [stitches](https://stitches.dev), [mdx](https://mdxjs.com), and [framer-motion](https://www.framer.com/motion), and the type is set in [Sora](https://github.com/sora-xor/sora-font).
 `;
 
   if (process.platform === "win32") {
