@@ -3,7 +3,7 @@ import { globalCss } from "../stitches.config";
 export const globalStyles = globalCss({
   "@font-face": {
     fontFamily: "Sora",
-    src: 'url("/font/Sora[wght].woff2") format("woff2")',
+    src: 'url("/fonts/Sora[wght].woff2") format("woff2")',
     fontDisplay: "block",
     fontStyle: "normal",
     fontWeight: "200 800",
