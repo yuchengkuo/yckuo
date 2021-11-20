@@ -1,3 +1,37 @@
+import { box } from '@styles/box';
+import { scale } from '@utils/animation';
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
+
+export const LogoIcon = (props) => {
+  return (
+    <LazyMotion features={domAnimation}>
+      <AnimatePresence>
+        <m.svg
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          variants={scale}
+          initial="0"
+          animate="1"
+          exit="0"
+          {...props}
+        >
+          <title>YuCheng Kuo</title>
+          <desc>Logo of YuCheng Kuo.</desc>
+          <path
+            d="M12 8V24M12 8H4L8 16L4 24H12M12 8H20M12 24H20M12 24L20 8M24 16.3333L28 8H20M24 16.3333L28 24H20M24 16.3333L20 24"
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+            className={box({ stroke: '$foreground' })}
+          />
+        </m.svg>
+      </AnimatePresence>
+    </LazyMotion>
+  );
+};
+
 export const AboutIcon = (props) => {
   return (
     <svg
