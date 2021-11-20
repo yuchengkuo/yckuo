@@ -1,5 +1,5 @@
 {
-  "name": "folio",
+  "name": "yckuo",
   "description": "personal website of yucheng kuo.",
   "authors": "YuCheng Kuo",
   "version": "1.0.0",
@@ -9,10 +9,12 @@
     "build": "next build",
     "start": "next start"
   },
+  "repository": {
+    "url": "https://github.com/yuchengkuo/yckuo"
+  },
   "dependencies": {
     "@crello/react-lottie": "0.0.11",
     "@stitches/react": "^1.2.1",
-    "@theme-ui/color": "^0.9.1",
     "classnames": "^2.3.1",
     "cloudinary": "^1.27.0",
     "date-fns": "^2.22.1",
@@ -28,8 +30,7 @@
     "react-dom": "17.0.2",
     "react-medium-image-zoom": "^4.3.5",
     "sharp": "^0.29.1",
-    "swr": "^0.5.6",
-    "theme-ui": "^0.9.1"
+    "swr": "^0.5.6"
   },
   "devDependencies": {
     "@mdx-js/mdx": "^1.6.22",
