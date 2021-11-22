@@ -7,7 +7,7 @@ import { domAnimation, LazyMotion, m } from 'framer-motion';
 export default function Home() {
   return (
     <LazyMotion features={domAnimation}>
-      <m.div className={box({ p: 40, height: 'calc(100vh - 208px)' })}>
+      <div className={box({ p: 40, height: 'calc(100vh - 208px)' })}>
         <m.h1
           variants={slideUp}
           initial="0"
@@ -21,7 +21,7 @@ export default function Home() {
           variants={slideUp}
           initial="0"
           animate="1"
-          transition={{ type: 'spring', damping: 20, mass: 1, delay: 0.02 }}
+          transition={{ type: 'spring', damping: 20, mass: 1, delay: 0.04 }}
           className={text({ size: 9, css: { fontFamily: '$apfel', mt: 8 } })}
         >
           Digital Designer, Engineer
@@ -37,7 +37,7 @@ export default function Home() {
             Oen.tw
           </a>
         </m.p>
-      </m.div>
+      </div>
     </LazyMotion>
   );
 }
