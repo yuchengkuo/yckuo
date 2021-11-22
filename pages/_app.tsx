@@ -13,10 +13,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   globalStyles();
   return (
     <>
-      <Cursor />
-      {/* <Menu /> */}
       <DefaultSeo />
       <ThemeProvider attribute="class" value={{ light: lightTheme.className, dark: 'dark' }}>
+        <Menu />
+        <Cursor />
         <Header />
         <Component {...pageProps} />
         <Footer />
