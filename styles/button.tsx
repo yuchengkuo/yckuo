@@ -80,7 +80,7 @@ export const button = css({
         lineHeight: 1,
         fontSize: '$3',
         fontFeatureSettings: '"ss02"',
-        color: '$gray',
+        color: '$foreground',
         transition: 'all 100ms ease-out',
         '&:hover': { color: '$primary' },
       },

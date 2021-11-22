@@ -42,7 +42,7 @@ export const { styled, css, globalCss, theme, config, createTheme, getCssText } 
 
       // segmentaic colors
       background: '$marine9',
-      foreground: '$marine1',
+      foreground: '$gray1',
       gray: '$gray7',
       primary: '$cheese5',
     },
@@ -177,8 +177,8 @@ export type CSS = Stitches.CSS<typeof config>;
 export const lightTheme = createTheme('light', {
   colors: {
     background: '$cheese1',
-    foreground: '$cheese9',
+    foreground: '$gray12',
 
-    primary: '$marine6',
+    primary: '$marine5',
   },
 });

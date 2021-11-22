@@ -83,5 +83,5 @@ export const globalStyles = globalCss({
 
   svg: { display: 'inline-block', verticalAlign: 'middle' },
 
-  '::selection': { backgroundColor: '$primary', color: '' },
+  '::selection': { backgroundColor: '$primary', color: '$background' },
 });

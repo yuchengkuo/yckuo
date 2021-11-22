@@ -4,6 +4,7 @@ export const link = css({
   boxSizing: 'border-box',
   fontFamily: '$sans',
   textDecoration: 'none',
+  lineHeight: 1,
   transition: 'all 200ms ease-out',
   p: 0,
   color: 'inherit',
@@ -17,13 +18,18 @@ export const link = css({
   variants: {
     variant: {
       navLink: {
-        textDecoration: 'none',
-        fontSize: '$2',
-        fontWeight: 600,
-        lineHeight: '16px',
-        px: '$1',
+        fontSize: '$6',
+        fontFamily: '$freak',
+        fontFeatureSettings: '"ss02"',
+        px: '$2',
+        py: '$2',
         display: 'flex',
         alignItems: 'center',
+        '&:hover': {
+          fontFeatureSettings: '"ss02"',
+          letterSpacing: 1,
+          color: '$primary',
+        },
       },
     },
     underline: {
