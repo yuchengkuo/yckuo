@@ -8,12 +8,14 @@ import Header from '@components/Header';
 import Footer from '@components/Footer';
 import Cursor from '@components/Cursor';
 import { Menu } from '@components/Menu';
+import Head from '@components/Head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   globalStyles();
   return (
     <>
       <DefaultSeo />
+      <Head />
       <ThemeProvider attribute="class" value={{ light: lightTheme.className, dark: 'dark' }}>
         <Menu />
         <Cursor />

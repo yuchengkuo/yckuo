@@ -20,21 +20,9 @@ export default class MyDocument extends Document {
             sizes="180x180"
             href="/static/favicons/apple-touch-icon.png"
           />
-          <link
-            rel="alternate icon"
-            type="image/png"
-            sizes="32x32"
-            href="/static/favicons/favicon-dark.png"
-          />
-          <link
-            rel="icon"
-            type="image/svg+xml"
-            sizes="16x16"
-            href="/static/favicons/favicon-dark.svg"
-          />
           <link rel="manifest" href="/static/favicons/site.webmanifest" />
           <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#fcb33d" />
-          <meta name="msapplication-TileColor" content="#fcb33d" />
+          <meta name="msapplication-TileColor" content="#080909" />
           <meta name="theme-color" content="#080909" />
         </Head>
 
