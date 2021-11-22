@@ -1,56 +1,29 @@
-import Link from "next/link";
-import { LogoSvg } from "./Header";
-import NowPlaying from "./NowPlaying";
-import { layout } from "@styles/layout";
-import { link } from "@styles/link";
-import { text } from "@styles/text";
-import { box } from "@styles/box";
+import { text } from '@styles/text';
+import { box } from '@styles/box';
+import { domAnimation, LazyMotion, m } from 'framer-motion';
+import { fade } from '@utils/animation';
 
 export default function Footer() {
   return (
-    <footer>
-      <div className={layout({ variant: "footer" })}>
-        <NowPlaying />
-        <div
-          className={box({ display: "flex", alignItems: "center", mt: "$6" })}
-        >
-          <Link href="/" passHref>
-            <a
-              className={link({
-                focus: true,
-                variant: "navLink",
-                css: { py: 2 },
-              })}
-            >
-              <LogoSvg />
-            </a>
-          </Link>
+    <LazyMotion features={domAnimation}>
+      <m.footer variants={fade} initial="0" animate="1">
+        <div className={box({ p: 40, display: 'flex', gap: 40 })}>
           <p
             className={text({
-              css: {
-                fontSize: "$3",
-                fontWeight: 600,
-                color: "$gray1",
-                ml: "$2",
-              },
+              css: { fontSize: '$3', fontFamily: '$freak', color: '$foreground' },
             })}
           >
-            &#169; 2021 yucheng kuo.
+            &#169; 2021 YuCheng Kuo
           </p>
           <p
             className={text({
-              css: {
-                fontSize: "$2",
-                fontWeight: 600,
-                color: "$gray1",
-                ml: "auto",
-              },
+              css: { fontSize: '$3', fontFamily: '$freak', color: '$gray' },
             })}
           >
-            TW
+            Still WIP. Come back later! :&#41;
           </p>
         </div>
-      </div>
-    </footer>
+      </m.footer>
+    </LazyMotion>
   );
 }

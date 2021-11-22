@@ -1,22 +1,27 @@
-//@ts-nocheck
-import type { AppProps } from "next/app";
-import { ThemeProvider } from "next-themes";
-import "normalize.css";
-import { DefaultSeo } from "@components/Seo";
-import { globalStyles } from "@styles/global";
-import { lightTheme } from "stitches.config";
+import type { AppProps } from 'next/app';
+import { ThemeProvider } from 'next-themes';
+import 'normalize.css';
+import { DefaultSeo } from '@components/Seo';
+import { globalStyles } from '@styles/global';
+import { lightTheme } from 'stitches.config';
+import Header from '@components/Header';
+import Footer from '@components/Footer';
+import Cursor from '@components/Cursor';
+import { Menu } from '@components/Menu';
+import Head from '@components/Head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   globalStyles();
   return (
     <>
       <DefaultSeo />
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
-        value={{ light: lightTheme.className, dark: "dark" }}
-      >
+      <Head />
+      <ThemeProvider attribute="class" value={{ light: lightTheme.className, dark: 'dark' }}>
+        <Menu />
+        <Cursor />
+        <Header />
         <Component {...pageProps} />
+        <Footer />
       </ThemeProvider>
     </>
   );

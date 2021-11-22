@@ -1,15 +1,12 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import { getCssText } from "stitches.config";
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { getCssText } from 'stitches.config';
 
 export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
         <Head>
-          <style
-            id="stitches"
-            dangerouslySetInnerHTML={{ __html: getCssText() }}
-          />
+          <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
           <script async data-api="/_hive" src="/bee.js"></script>
           <script
             async
@@ -23,25 +20,9 @@ export default class MyDocument extends Document {
             sizes="180x180"
             href="/static/favicons/apple-touch-icon.png"
           />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/static/favicons/favicon-32x32.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/static/favicons/favicon-16x16.png"
-          />
           <link rel="manifest" href="/static/favicons/site.webmanifest" />
-          <link
-            rel="mask-icon"
-            href="/static/favicons/safari-pinned-tab.svg"
-            color="#fcb33d"
-          />
-          <meta name="msapplication-TileColor" content="#fcb33d" />
+          <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#fcb33d" />
+          <meta name="msapplication-TileColor" content="#080909" />
           <meta name="theme-color" content="#080909" />
         </Head>
 
