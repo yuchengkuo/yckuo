@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: Hagrid;
+    src: url('/fonts/Hagrid-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-display: block;
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: Hagrid;
+    src: url('/fonts/Hagrid-Italic.woff2') format('woff2');
+    font-style: italic;
+    font-display: block;
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: Apfel;
+    src: url('/fonts/ApfelGrotezk-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-display: block;
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: FREAK;
+    src: url('/fonts/FREAKGrotesk-next-BOLD.woff2') format('woff2');
+    font-style: normal;
+    font-display: block;
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: Sato;
+    src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
+    font-style: normal;
+    font-display: block;
+    font-weight: 300 900;
+  }
+  @font-face {
+    font-family: Sato;
+    src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2');
+    font-style: italic;
+    font-display: block;
+    font-weight: 300 900;
+  }
+
+  html {
+    @apply bg-cheese1 text-gray11 dark:bg-marine9 dark:text-gray2;
+  }
+
+  ::selection {
+    @apply text-cheese1 bg-marine6 dark:bg-cheese5 dark:text-marine9;
+  }
+}
+
+@layer utilities {
+  .nav-settings {
+    font-feature-settings: 'ss06';
+  }
+
+  @variants dark {
+    .nav-bg-dark {
+      background-image: linear-gradient(45deg, transparent 20%, theme('colors.marine9') 20%);
+      background-size: 6px 6px;
+      background-repeat: repeat;
+    }
+    .nav-bg {
+      background-image: linear-gradient(45deg, transparent 20%, theme('colors.cheese1') 20%);
+      background-size: 6px 6px;
+      background-repeat: repeat;
+    }
+  }
+}
