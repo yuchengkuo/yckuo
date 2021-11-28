@@ -4,13 +4,13 @@ import { domAnimation, LazyMotion, m } from 'framer-motion';
 export default function Home() {
   return (
     <LazyMotion features={domAnimation}>
-      <div className="p-10 h-auto" style={{ height: 'calc(100vh - 216px)' }}>
+      <div className="px-10 phone:px-5" style={{ height: 'calc(100vh - 216px)' }}>
         <m.h1
           variants={fadeUp}
           initial="0"
           animate="1"
           transition={{ type: 'spring', damping: 20, mass: 1 }}
-          className="text-4xl font-hagrid"
+          className="font-hagrid text-3xl phone:text-xl"
         >
           YuCheng Kuo
         </m.h1>
@@ -19,7 +19,7 @@ export default function Home() {
           initial="0"
           animate="1"
           transition={{ type: 'spring', damping: 20, mass: 1, delay: 0.04 }}
-          className="text-4xl font-apfel mt-2"
+          className="font-apfel mt-1 text-4xl phone:text-2xl"
         >
           Digital Designer, Engineer
         </m.h1>
@@ -27,9 +27,12 @@ export default function Home() {
           variants={fade}
           initial="0"
           animate="1"
-          className="text-base font-freak mt-4 text-gray7"
+          className="text-base font-freak mt-4 text-gray8 dark:text-gray6"
         >
-          Currently @ <a href="https://oen.tw">Oen.tw</a>
+          Currently @{' '}
+          <a href="https://oen.tw" className="hover:bg-gray7 hover:bg-opacity-30">
+            Oen.tw
+          </a>
         </m.p>
       </div>
     </LazyMotion>

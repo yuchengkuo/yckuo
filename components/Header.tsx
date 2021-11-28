@@ -4,11 +4,11 @@ import { LogoIcon } from './Icons';
 
 const Header = () => {
   return (
-    <header className="flex items-center p-10 gap-2">
+    <header className="flex items-center p-10 gap-2 phone:px-5">
       <LazyMotion features={domAnimation}>
-        <Link href="" passHref>
+        <Link href="/" passHref>
           <m.a
-            className="box-border block w-8 h-8 hover:text-marine6"
+            className="box-border block w-8 h-8 hover:text-marine6 dark:hover:text-cheese5"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >

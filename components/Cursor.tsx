@@ -39,7 +39,7 @@ const Cursor = () => {
             exit="0"
             variants={fade}
             style={{ x: posX, y: posY, scale: size }}
-            className="fixed w-2 h-2 bg-gray1 rounded-full z-50 pointer-events-none mix-blend-difference"
+            className="fixed w-2 h-2 bg-gray6 rounded-full z-50 pointer-events-none mix-blend-difference tablet:hidden"
           ></m.div>
         </LazyMotion>
       )}

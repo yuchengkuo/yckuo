@@ -30,62 +30,73 @@ export const Menu = () => {
   });
   return (
     <>
-      <div className="fixed right-16 top-10 z-50">
-        <button
-          className="font-freak px-3 py-2 text-base"
-          onClick={() => setVisible(!isVisible)}
-          onMouseEnter={() => setVisible(true)}
-        >
-          Menu
-        </button>
-      </div>
-      <AnimatePresence>
-        {isVisible && (
-          <LazyMotion features={domAnimation}>
-            <m.div
-              className="fixed top-0 left-0 w-screen h-screen z-40 nav-bg dark:nav-bg-dark"
-              variants={fade}
-              animate="1"
-              initial="0"
-              exit="0"
-            />
-            <div className="fixed top-20 right-10 flex z-50" onMouseLeave={() => setVisible(false)}>
-              {MenuLinks.map((menuLink) => (
-                <div key={menuLink.group} className="p-6 flex-1">
-                  <m.h4
-                    className="text-gray7 font-apfel text-lg mb-3"
-                    variants={fade}
-                    transition={{ duration: 0.4 }}
-                    initial="0"
-                    animate="1"
-                    exit="0"
-                  >
-                    {menuLink.group}
-                  </m.h4>
-                  <nav>
-                    <m.ul
+      <LazyMotion features={domAnimation}>
+        <div className="fixed right-10 top-10 z-50">
+          <m.button
+            className="font-freak px-3 py-2 text-base hover:text-marine6 dark:hover:text-cheese5 bg-gray7 bg-opacity-10 rounded-md phone:text-sm"
+            onClick={() => setVisible(!isVisible)}
+            onMouseEnter={() => setVisible(true)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Menu
+          </m.button>
+        </div>
+        <AnimatePresence>
+          {isVisible && (
+            <>
+              <m.div
+                className="fixed top-0 left-0 w-screen h-screen z-40 nav-bg dark:nav-bg-dark"
+                variants={fade}
+                animate="1"
+                initial="0"
+                exit="0"
+              />
+              <div
+                className="fixed top-20 right-10 flex z-50"
+                onMouseLeave={() => setVisible(false)}
+              >
+                {MenuLinks.map((menuLink) => (
+                  <div key={menuLink.group} className="p-6 w-28">
+                    <m.h4
+                      className="text-gray7 font-apfel text-lg mb-3"
+                      variants={fade}
+                      transition={{ duration: 0.4 }}
                       initial="0"
                       animate="1"
-                      exit="2"
-                      className="list-none"
-                      transition={{ staggerChildren: 0.02 }}
+                      exit="0"
                     >
-                      {menuLink.links.map((linkItem, i) => (
-                        <m.li key={i} transition={{ duration: 0.3 }} variants={fadeUp}>
-                          <NavLink label={linkItem.label} url={linkItem.url} />
-                        </m.li>
-                      ))}
-                    </m.ul>
-                  </nav>
-                </div>
-              ))}
-            </div>
-          </LazyMotion>
-        )}
-      </AnimatePresence>
-      {!shouldReducedMotion && (
-        <div className="fixed h-screen w-screen overflow-hidden pointer-events-none">
-          <LazyMotion features={domAnimation}>
+                      {menuLink.group}
+                    </m.h4>
+                    <nav>
+                      <m.ul
+                        initial="0"
+                        animate="1"
+                        exit="2"
+                        className="list-none"
+                        transition={{ staggerChildren: 0.02 }}
+                      >
+                        {menuLink.links.map((linkItem, i) => (
+                          <m.li
+                            key={i}
+                            transition={{ duration: 0.3 }}
+                            variants={fadeUp}
+                            className="mb-1"
+                            onClick={() => setVisible(false)}
+                          >
+                            <NavLink label={linkItem.label} url={linkItem.url} />
+                          </m.li>
+                        ))}
+                      </m.ul>
+                    </nav>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </AnimatePresence>
+        {!shouldReducedMotion && (
+          <div className="fixed h-screen w-screen overflow-hidden pointer-events-none">
             <m.div
               className="absolute rounded-full bg-marine6 dark:bg-cheese5"
               style={{
@@ -101,9 +112,9 @@ export const Menu = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.2 }}
             />
-          </LazyMotion>
-        </div>
-      )}
+          </div>
+        )}
+      </LazyMotion>
     </>
   );
 };

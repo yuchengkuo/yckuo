@@ -1,30 +1,19 @@
-import { slideUp } from '@utils/animation';
 import { domAnimation, LazyMotion, m } from 'framer-motion';
 import Link from 'next/link';
 
 export const NavLink = ({ label, url, ...props }: { label: string; url: string }) => {
   return (
     <LazyMotion features={domAnimation}>
-      {url.startsWith('http') ? (
+      <Link href={url} passHref>
         <m.a
-          className="font-freak text-lg nav-settings hover:tracking-wide transition-all ease-out hover:text-cheese5 duration-200"
-          href={url}
-          rel="noopener noreferrer"
+          className="font-freak py-1 tracking-wide text-lg nav-settings hover:tracking-wider transition-all ease-out hover:text-marine6 duration-200 dark:hover:text-cheese5 inline-block"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.9 }}
           {...props}
         >
           {label}
         </m.a>
-      ) : (
-        <Link href={url} passHref>
-          <m.a
-            className="font-freak text-lg nav-settings hover:tracking-wide transition-all ease-out hover:text-cheese5 duration-200"
-            rel="noopener noreferrer"
-            {...props}
-          >
-            {label}
-          </m.a>
-        </Link>
-      )}
+      </Link>
     </LazyMotion>
   );
 };
