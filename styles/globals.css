@@ -50,6 +50,10 @@
     @apply bg-cheese1 text-gray11 dark:bg-marine9 dark:text-gray2;
   }
 
+  body {
+    @apply min-h-screen;
+  }
+
   ::selection {
     @apply text-cheese1 bg-marine6 dark:bg-cheese5 dark:text-marine9;
   }

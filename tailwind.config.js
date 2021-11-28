@@ -44,11 +44,11 @@ module.exports = {
       marine8: 'hsl(220 96% 20% / 1)',
       marine9: 'hsl(220 5% 12% / 1)',
     },
-    extend: {
-      backgroundSize: {
-        '8px': '0.25rem',
-      },
+    screens: {
+      phone: { max: '720px' },
+      tablet: { max: '1020px' },
     },
+    extend: {},
   },
   variants: {
     extend: {},
