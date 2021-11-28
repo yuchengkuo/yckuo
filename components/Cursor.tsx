@@ -1,4 +1,3 @@
-import { box } from '@styles/box';
 import { fade } from '@utils/animation';
 import {
   AnimatePresence,
@@ -40,16 +39,7 @@ const Cursor = () => {
             exit="0"
             variants={fade}
             style={{ x: posX, y: posY, scale: size }}
-            className={box({
-              position: 'fixed',
-              width: 8,
-              height: 8,
-              backgroundColor: 'white',
-              borderRadius: '50%',
-              zIndex: 99,
-              pointerEvents: 'none',
-              mixBlendMode: 'difference',
-            })}
+            className="fixed w-2 h-2 bg-gray1 rounded-full z-50 pointer-events-none mix-blend-difference"
           ></m.div>
         </LazyMotion>
       )}

@@ -25,7 +25,7 @@ export const MenuLinks = [
       },
       {
         label: 'Savee',
-        url: 'htpps://savee.it/yuchengkuo',
+        url: 'https://savee.it/yuchengkuo',
       },
     ],
   },

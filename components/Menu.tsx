@@ -1,8 +1,4 @@
-import { box } from '@styles/box';
-import { button } from '@styles/button';
-import { link } from '@styles/link';
-import { text } from '@styles/text';
-import { fade, slideUp } from '@utils/animation';
+import { fade, fadeUp } from '@utils/animation';
 import { MenuLinks } from 'data/MenuLinks';
 import {
   AnimatePresence,
@@ -13,8 +9,8 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { NavLink } from './Link';
 
 export const Menu = () => {
   const [isVisible, setVisible] = useState(false);
@@ -34,16 +30,9 @@ export const Menu = () => {
   });
   return (
     <>
-      <div
-        className={box({
-          position: 'fixed',
-          right: 60,
-          top: 40,
-          zIndex: 100,
-        })}
-      >
+      <div className="fixed right-16 top-10 z-50">
         <button
-          className={button({ variant: 'menu', css: { p: 40, mr: -40, mt: -40 } })}
+          className="font-freak px-3 py-2 text-base"
           onClick={() => setVisible(!isVisible)}
           onMouseEnter={() => setVisible(true)}
         >
@@ -54,39 +43,17 @@ export const Menu = () => {
         {isVisible && (
           <LazyMotion features={domAnimation}>
             <m.div
-              className={box({
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100vw',
-                height: '100vh',
-                zIndex: 99,
-                backgroundImage: 'linear-gradient(45deg, transparent 1.6px, $background 1.6px)',
-                backgroundSize: '6px 6px',
-              })}
+              className="fixed top-0 left-0 w-screen h-screen z-40 nav-bg dark:nav-bg-dark"
               variants={fade}
               animate="1"
               initial="0"
               exit="0"
             />
-            <div
-              className={box({
-                position: 'fixed',
-                top: 112,
-                right: 0,
-                display: 'flex',
-                justifyContent: 'flex-end',
-                zIndex: 99,
-              })}
-              onMouseLeave={() => setVisible(false)}
-            >
+            <div className="fixed top-20 right-10 flex z-50" onMouseLeave={() => setVisible(false)}>
               {MenuLinks.map((menuLink) => (
-                <div key={menuLink.group} className={box({ p: 40, flex: '1 0 20vw' })}>
+                <div key={menuLink.group} className="p-6 flex-1">
                   <m.h4
-                    className={text({
-                      size: 6,
-                      css: { color: '$gray', mb: 40, fontFamily: '$apfel' },
-                    })}
+                    className="text-gray7 font-apfel text-lg mb-3"
                     variants={fade}
                     transition={{ duration: 0.4 }}
                     initial="0"
@@ -97,33 +64,15 @@ export const Menu = () => {
                   </m.h4>
                   <nav>
                     <m.ul
-                      className={box({ listStyle: 'none', p: 0, m: 0 })}
-                      transition={{ staggerChildren: 0.02 }}
                       initial="0"
                       animate="1"
                       exit="2"
+                      className="list-none"
+                      transition={{ staggerChildren: 0.02 }}
                     >
                       {menuLink.links.map((linkItem, i) => (
-                        <m.li
-                          key={i}
-                          className={box({ mb: 16 })}
-                          variants={slideUp}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {linkItem.url.startsWith('http') ? (
-                            <a className={link({ variant: 'navLink' })} href={linkItem.url}>
-                              {linkItem.label}
-                            </a>
-                          ) : (
-                            <Link href={linkItem.url} passHref>
-                              <a
-                                className={link({ variant: 'navLink' })}
-                                onClick={() => setVisible(false)}
-                              >
-                                {linkItem.label}
-                              </a>
-                            </Link>
-                          )}
+                        <m.li key={i} transition={{ duration: 0.3 }} variants={fadeUp}>
+                          <NavLink label={linkItem.label} url={linkItem.url} />
                         </m.li>
                       ))}
                     </m.ul>
@@ -135,28 +84,20 @@ export const Menu = () => {
         )}
       </AnimatePresence>
       {!shouldReducedMotion && (
-        <div
-          className={box({
-            position: 'fixed',
-            height: '100vh',
-            width: '100vw',
-            overflow: 'hidden',
-            pointerEvents: 'none',
-          })}
-        >
+        <div className="fixed h-screen w-screen overflow-hidden pointer-events-none">
           <LazyMotion features={domAnimation}>
             <m.div
-              className={box({
-                position: 'absolute',
+              className="absolute rounded-full bg-marine6 dark:bg-cheese5"
+              style={{
+                x: posX,
+                y: posY,
                 width: '160vw',
                 height: '160vh',
-                borderRadius: '50%',
                 left: '98vw',
                 top: '-30vh',
-                backgroundColor: '$primary',
                 filter: 'blur(160px) opacity(0.8)',
-              })}
-              style={{ x: posX, y: posY }}
+                zIndex: -10,
+              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.2 }}
             />

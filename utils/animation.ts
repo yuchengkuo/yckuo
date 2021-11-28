@@ -10,10 +10,16 @@ export const fade: Variants = {
   1: { opacity: 1 },
 };
 
-export const slideUp: Variants = {
+export const fadeUp: Variants = {
   0: { y: '50%', opacity: 0 },
   1: { y: 0, opacity: 1 },
   2: { y: '-50%', opacity: 0 },
+};
+
+export const slideUp: Variants = {
+  0: { y: '100%' },
+  1: { y: 0 },
+  2: { y: '-100%' },
 };
 
 export const slideDown: Variants = {

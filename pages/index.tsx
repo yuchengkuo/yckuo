@@ -1,28 +1,25 @@
-import { box } from '@styles/box';
-import { link } from '@styles/link';
-import { text } from '@styles/text';
-import { fade, slideUp } from '@utils/animation';
+import { fade, fadeUp } from '@utils/animation';
 import { domAnimation, LazyMotion, m } from 'framer-motion';
 
 export default function Home() {
   return (
     <LazyMotion features={domAnimation}>
-      <div className={box({ p: 40, height: 'calc(100vh - 208px)' })}>
+      <div className="p-10 h-auto" style={{ height: 'calc(100vh - 216px)' }}>
         <m.h1
-          variants={slideUp}
+          variants={fadeUp}
           initial="0"
           animate="1"
           transition={{ type: 'spring', damping: 20, mass: 1 }}
-          className={text({ size: 8, css: { fontFamily: '$hagrid' } })}
+          className="text-4xl font-hagrid"
         >
           YuCheng Kuo
         </m.h1>
         <m.h1
-          variants={slideUp}
+          variants={fadeUp}
           initial="0"
           animate="1"
           transition={{ type: 'spring', damping: 20, mass: 1, delay: 0.04 }}
-          className={text({ size: 9, css: { fontFamily: '$apfel', mt: 8 } })}
+          className="text-4xl font-apfel mt-2"
         >
           Digital Designer, Engineer
         </m.h1>
@@ -30,12 +27,9 @@ export default function Home() {
           variants={fade}
           initial="0"
           animate="1"
-          className={text({ size: 3, css: { fontFamily: '$freak', mt: 16, color: '$gray' } })}
+          className="text-base font-freak mt-4 text-gray7"
         >
-          Currently @{' '}
-          <a href="https://oen.tw" className={link({ css: { fontFamily: '$freak' } })}>
-            Oen.tw
-          </a>
+          Currently @ <a href="https://oen.tw">Oen.tw</a>
         </m.p>
       </div>
     </LazyMotion>
