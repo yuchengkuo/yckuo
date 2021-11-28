@@ -33,7 +33,11 @@ export default function Home() {
           className={text({ size: 3, css: { fontFamily: '$freak', mt: 16, color: '$gray' } })}
         >
           Currently @{' '}
-          <a href="https://oen.tw" className={link({ css: { fontFamily: '$freak' } })}>
+          <a
+            href="https://oen.tw"
+            className={link({ css: { fontFamily: '$freak' } })}
+            rel="noopener noreferrer"
+          >
             Oen.tw
           </a>
         </m.p>
