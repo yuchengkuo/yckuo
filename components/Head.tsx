@@ -3,7 +3,6 @@ import NextHead from 'next/head';
 
 export default function Head() {
   const { systemTheme } = useTheme();
-  console.log(systemTheme);
   return (
     <NextHead>
       {!systemTheme || systemTheme === 'dark' ? (
