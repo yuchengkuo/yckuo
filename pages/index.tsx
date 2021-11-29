@@ -1,10 +1,11 @@
 import { fade, fadeUp } from '@utils/animation';
 import { domAnimation, LazyMotion, m } from 'framer-motion';
+import Layout from '@components/layout/Layout';
 
 export default function Home() {
   return (
     <LazyMotion features={domAnimation}>
-      <div className="px-10 phone:px-5" style={{ height: 'calc(100vh - 216px)' }}>
+      <Layout>
         <m.h1
           variants={fadeUp}
           initial="0"
@@ -34,7 +35,7 @@ export default function Home() {
             Oen.tw
           </a>
         </m.p>
-      </div>
+      </Layout>
     </LazyMotion>
   );
 }

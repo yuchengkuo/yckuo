@@ -4,16 +4,16 @@ import { DefaultSeo } from '@components/Seo';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
 import Cursor from '@components/Cursor';
-import { Menu } from '@components/Menu';
 import '../styles/globals.css';
+import Bg from '@components/Bg';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <DefaultSeo />
       <ThemeProvider attribute="class">
-        <Menu />
         <Cursor />
+        <Bg />
         <Header />
         <Component {...pageProps} />
         <Footer />
