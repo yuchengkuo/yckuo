@@ -29,6 +29,38 @@ export const LogoIcon = (props) => {
   );
 };
 
+export const LeftArrowIcon = (props) => {
+  return (
+    <LazyMotion features={domAnimation}>
+      <m.svg
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        variants={scale}
+        initial="0"
+        animate="1"
+        exit="0"
+        {...props}
+      >
+        <path
+          d="M19 12H5"
+          className="stroke-current"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M12 19L5 12L12 5"
+          className="stroke-current"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </m.svg>
+    </LazyMotion>
+  );
+};
+
 export const AboutIcon = (props) => {
   return (
     <svg
