@@ -1,6 +1,12 @@
-import { defineDocumentType, makeSource } from 'contentlayer/source-files';
+import { defineDocumentType, makeSource, ComputedFields } from 'contentlayer/source-files';
 import remarkSlug from 'remark-slug';
 import remarkSectionize from 'remark-sectionize';
+import readingTime from 'reading-time';
+
+const computedFields: ComputedFields = {
+  readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
+  slug: { type: 'string', resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx/, '') },
+};
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -9,6 +15,7 @@ export const Post = defineDocumentType(() => ({
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
   },
+  computedFields,
 }));
 
 export const Project = defineDocumentType(() => ({
@@ -20,6 +27,7 @@ export const Project = defineDocumentType(() => ({
     published: { type: 'boolean', required: true },
     info: { type: 'json', required: true },
   },
+  computedFields,
 }));
 
 export const Other = defineDocumentType(() => ({
@@ -28,6 +36,7 @@ export const Other = defineDocumentType(() => ({
   fields: {
     title: { type: 'string', required: true },
   },
+  computedFields,
 }));
 
 export default makeSource({

@@ -17,6 +17,6 @@ export default function AboutPage({ about }: InferGetStaticPropsType<typeof getS
 
 export function getStaticProps() {
   console.log(allOthers);
-  const about = allOthers.find((page) => page.title === 'About');
+  const about = allOthers.find((page) => page.slug === 'about');
   return { props: { about } };
 }
