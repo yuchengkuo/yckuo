@@ -51,7 +51,23 @@
   }
 
   body {
-    @apply min-h-screen;
+    @apply min-h-screen font-sato;
+  }
+
+  h1 {
+    @apply font-hagrid text-3xl;
+  }
+
+  h2 {
+    @apply font-apfel;
+  }
+
+  h3 {
+    @apply font-apfel;
+  }
+
+  h4 {
+    @apply font-apfel;
   }
 
   ::selection {
@@ -60,8 +76,12 @@
 }
 
 @layer utilities {
-  .nav-settings {
-    font-feature-settings: 'ss06';
+  .freak-font-settings {
+    font-feature-settings: 'ss06' on, 'ss02' off, 'ss03' off;
+  }
+
+  .body-font-settings {
+    font-feature-settings: 'ss02', 'ss03';
   }
 
   @variants dark {
