@@ -13,7 +13,6 @@
     "url": "https://github.com/yuchengkuo/yckuo"
   },
   "dependencies": {
-    "@stitches/react": "^1.2.1",
     "classnames": "^2.3.1",
     "cloudinary": "^1.27.0",
     "date-fns": "^2.22.1",
@@ -24,7 +23,6 @@
     "next-contentlayer": "^0.0.32",
     "next-seo": "^4.24.0",
     "next-themes": "0.0.15",
-    "normalize.css": "^8.0.1",
     "preact": "^10.5.15",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -42,7 +40,6 @@
     "contentlayer": "^0.0.32",
     "esbuild": "^0.12.28",
     "eslint": "^7.32.0",
-    "gray-matter": "^4.0.3",
     "postcss": "^8.4.4",
     "reading-time": "^1.5.0",
     "remark-sectionize": "../remark-sectionize",
