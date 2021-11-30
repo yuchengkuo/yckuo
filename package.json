@@ -38,6 +38,7 @@
     "autoprefixer": "^10.4.0",
     "base64-arraybuffer": "^1.0.1",
     "cheerio": "^1.0.0-rc.10",
+    "contentlayer": "^0.0.32",
     "esbuild": "^0.12.28",
     "eslint": "^7.32.0",
     "gray-matter": "^4.0.3",
