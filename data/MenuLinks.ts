@@ -3,8 +3,37 @@ export const MenuLinks = [
     group: 'Pages',
     links: [
       {
-        label: 'Home',
-        url: '/',
+        label: 'About',
+        url: '/about',
+      },
+      {
+        label: 'Now',
+        url: '/now',
+      },
+      {
+        label: 'Listening',
+        url: '/listening',
+      },
+    ],
+  },
+  {
+    group: 'Site',
+    links: [
+      {
+        label: 'Colophon',
+        url: '/colophon',
+      },
+      {
+        label: 'Source',
+        url: 'https://github.com/yuchengkuo/yckuo',
+      },
+      {
+        label: 'Archive',
+        url: '/archive',
+      },
+      {
+        label: 'Styleguide',
+        url: '/styleguide',
       },
     ],
   },
