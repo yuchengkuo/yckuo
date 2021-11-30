@@ -1,37 +1,35 @@
 import { scale } from '@utils/animation';
-import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 
 export const LogoIcon = (props) => {
   return (
-    <LazyMotion features={domAnimation}>
-      <AnimatePresence>
-        <m.svg
-          viewBox="0 0 32 32"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          variants={scale}
-          initial="0"
-          animate="1"
-          exit="0"
-          {...props}
-        >
-          <title>YuCheng Kuo</title>
-          <desc>Logo of YuCheng Kuo.</desc>
-          <path
-            d="M12 8V24M12 8H4L8 16L4 24H12M12 8H20M12 24H20M12 24L20 8M24 16.3333L28 8H20M24 16.3333L28 24H20M24 16.3333L20 24"
-            strokeWidth="1.6"
-            strokeLinejoin="round"
-            className="stroke-current"
-          />
-        </m.svg>
-      </AnimatePresence>
-    </LazyMotion>
+    <AnimatePresence>
+      <m.svg
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        variants={scale}
+        initial="0"
+        animate="1"
+        exit="0"
+        {...props}
+      >
+        <title>YuCheng Kuo</title>
+        <desc>Logo of YuCheng Kuo.</desc>
+        <path
+          d="M12 8V24M12 8H4L8 16L4 24H12M12 8H20M12 24H20M12 24L20 8M24 16.3333L28 8H20M24 16.3333L28 24H20M24 16.3333L20 24"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+          className="stroke-current"
+        />
+      </m.svg>
+    </AnimatePresence>
   );
 };
 
 export const LeftArrowIcon = (props) => {
   return (
-    <LazyMotion features={domAnimation}>
+    <AnimatePresence>
       <m.svg
         viewBox="0 0 24 24"
         fill="none"
@@ -40,6 +38,7 @@ export const LeftArrowIcon = (props) => {
         initial="0"
         animate="1"
         exit="0"
+        aria-label="go back to last page"
         {...props}
       >
         <path
@@ -57,7 +56,35 @@ export const LeftArrowIcon = (props) => {
           strokeLinejoin="round"
         />
       </m.svg>
-    </LazyMotion>
+    </AnimatePresence>
+  );
+};
+
+export const UpRightArrowIcon = () => {
+  return (
+    <m.svg
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      variants={scale}
+      initial="0"
+      animate="1"
+      exit="0"
+      aria-label="external link"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M11.8047 4.19526C12.0651 4.45561 12.0651 4.87772 11.8047 5.13807L5.13807 11.8047C4.87772 12.0651 4.45561 12.0651 4.19526 11.8047C3.93491 11.5444 3.93491 11.1223 4.19526 10.8619L10.8619 4.19526C11.1223 3.93491 11.5444 3.93491 11.8047 4.19526Z"
+        className="fill-current"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M4 4.66667C4 4.29848 4.29848 4 4.66667 4H11.3333C11.7015 4 12 4.29848 12 4.66667V11.3333C12 11.7015 11.7015 12 11.3333 12C10.9651 12 10.6667 11.7015 10.6667 11.3333V5.33333H4.66667C4.29848 5.33333 4 5.03486 4 4.66667Z"
+        className="fill-current"
+      />
+    </m.svg>
   );
 };
 

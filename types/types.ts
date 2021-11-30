@@ -28,10 +28,18 @@ export type Albums = {
   image: string;
   spotifyUrl: string;
   imageUrl: string;
+  trackNum: number;
+  releaseDate: string;
 };
 
 export type Tracks = {
   title: string;
   artists: string;
   songUrl: string;
+};
+
+export type Artists = {
+  name: string;
+  genres: string;
+  external_urls: string;
 };
