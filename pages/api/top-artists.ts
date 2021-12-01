@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const artists = items.slice(0, 5).map((item) => ({
     name: item.name,
     genres: item.genres.slice(0, 2).join(', '),
-    external_urls: item.external_urls,
+    external_urls: item.external_urls.spotify,
   }));
   return res.status(200).json(artists);
 }
