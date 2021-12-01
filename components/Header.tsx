@@ -15,7 +15,7 @@ const Header = () => {
     };
   }
   return (
-    <header className="sticky top-0 flex items-center p-10 gap-4 phone:px-5">
+    <header className="sticky top-0 flex items-center p-10 gap-4 phone:px-5 bg-marine9 bg-opacity-50 backdrop-blur-sm">
       <LazyMotion features={domAnimation}>
         <Link href={handleRouter(router.asPath).backHref} passHref>
           <m.a
@@ -26,7 +26,8 @@ const Header = () => {
             {router.asPath === '/' ? <LogoIcon /> : <LeftArrowIcon />}
           </m.a>
         </Link>
-        <p>{handleRouter(router.asPath).title}</p>
+
+        <p className="body-font-settings">{handleRouter(router.asPath).title}</p>
       </LazyMotion>
     </header>
   );
