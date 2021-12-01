@@ -60,6 +60,34 @@ export const LeftArrowIcon = (props) => {
   );
 };
 
+export const RightArrowIcon = () => {
+  return (
+    <m.svg
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      variants={scale}
+      initial="0"
+      animate="1"
+      exit="0"
+      aria-label="continue to the item"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M3.33337 10C3.33337 9.53976 3.70647 9.16666 4.16671 9.16666H15.8334C16.2936 9.16666 16.6667 9.53976 16.6667 10C16.6667 10.4602 16.2936 10.8333 15.8334 10.8333H4.16671C3.70647 10.8333 3.33337 10.4602 3.33337 10Z"
+        className="fill-current"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9.4107 3.57741C9.73614 3.25197 10.2638 3.25197 10.5892 3.57741L16.4225 9.41074C16.748 9.73618 16.748 10.2638 16.4225 10.5893L10.5892 16.4226C10.2638 16.748 9.73614 16.748 9.4107 16.4226C9.08527 16.0971 9.08527 15.5695 9.4107 15.2441L14.6548 10L9.4107 4.75592C9.08527 4.43048 9.08527 3.90285 9.4107 3.57741Z"
+        className="fill-current"
+      />
+    </m.svg>
+  );
+};
+
 export const UpRightArrowIcon = () => {
   return (
     <m.svg
@@ -73,14 +101,14 @@ export const UpRightArrowIcon = () => {
       aria-label="external link"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M11.8047 4.19526C12.0651 4.45561 12.0651 4.87772 11.8047 5.13807L5.13807 11.8047C4.87772 12.0651 4.45561 12.0651 4.19526 11.8047C3.93491 11.5444 3.93491 11.1223 4.19526 10.8619L10.8619 4.19526C11.1223 3.93491 11.5444 3.93491 11.8047 4.19526Z"
         className="fill-current"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M4 4.66667C4 4.29848 4.29848 4 4.66667 4H11.3333C11.7015 4 12 4.29848 12 4.66667V11.3333C12 11.7015 11.7015 12 11.3333 12C10.9651 12 10.6667 11.7015 10.6667 11.3333V5.33333H4.66667C4.29848 5.33333 4 5.03486 4 4.66667Z"
         className="fill-current"
       />
