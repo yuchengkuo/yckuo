@@ -1,6 +1,6 @@
 import { domAnimation, LazyMotion, m } from 'framer-motion';
 import { fade, fadeUp } from '@utils/animation';
-import { MenuLinks } from 'data/MenuLinks';
+import { routes } from 'data/routes';
 import { NavLink } from './Link';
 
 export default function Footer() {
@@ -12,11 +12,11 @@ export default function Footer() {
           <p className="font-freak text-base text-gray7">Still WIP. Come back later! :&#41;</p>
         </div>
         <div className="flex pt-10 border-t border-gray7 border-opacity-20">
-          {MenuLinks.map((menuLink) => (
-            <div key={menuLink.group} className="w-1/4">
-              <h4 className="text-gray7 font-apfel text-lg mb-3">{menuLink.group}</h4>
+          {routes.map((route) => (
+            <div key={route.group} className="w-1/4">
+              <h4 className="text-gray7 font-apfel text-lg mb-3">{route.group}</h4>
               <ul>
-                {menuLink.links.map((link) => (
+                {route.links.map((link) => (
                   <m.li
                     variants={fadeUp}
                     initial="0"
