@@ -1,5 +1,5 @@
-import { scale } from '@utils/animation';
-import { AnimatePresence, m } from 'framer-motion';
+import { scale } from '@utils/animation'
+import { AnimatePresence, m } from 'framer-motion'
 
 export const LogoIcon = (props) => {
   return (
@@ -24,8 +24,8 @@ export const LogoIcon = (props) => {
         />
       </m.svg>
     </AnimatePresence>
-  );
-};
+  )
+}
 
 export const LeftArrowIcon = (props) => {
   return (
@@ -57,8 +57,8 @@ export const LeftArrowIcon = (props) => {
         />
       </m.svg>
     </AnimatePresence>
-  );
-};
+  )
+}
 
 export const RightArrowIcon = () => {
   return (
@@ -85,8 +85,8 @@ export const RightArrowIcon = () => {
         className="fill-current"
       />
     </m.svg>
-  );
-};
+  )
+}
 
 export const UpRightArrowIcon = () => {
   return (
@@ -113,8 +113,8 @@ export const UpRightArrowIcon = () => {
         className="fill-current"
       />
     </m.svg>
-  );
-};
+  )
+}
 
 export const AboutIcon = (props) => {
   return (
@@ -134,8 +134,8 @@ export const AboutIcon = (props) => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const ReadCVIcon = (props) => {
   return (
@@ -196,8 +196,8 @@ export const ReadCVIcon = (props) => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
 export const MailIcon = (props) => {
   return (
@@ -224,5 +224,5 @@ export const MailIcon = (props) => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}

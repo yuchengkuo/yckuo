@@ -1,4 +1,4 @@
-import { fade } from '@utils/animation';
+import { fade } from '@utils/animation'
 import {
   AnimatePresence,
   domAnimation,
@@ -6,29 +6,29 @@ import {
   m,
   useReducedMotion,
   useSpring,
-} from 'framer-motion';
-import { useEffect, useState } from 'react';
+} from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 const Cursor = () => {
-  const [isVisible, setVisible] = useState(false);
-  const size = useSpring(1, { damping: 16 });
-  const posX = useSpring(0, { damping: 24, mass: 2 });
-  const posY = useSpring(0, { damping: 24, mass: 2 });
-  const shouldReducedMotion = useReducedMotion();
+  const [isVisible, setVisible] = useState(false)
+  const size = useSpring(1, { damping: 16 })
+  const posX = useSpring(0, { damping: 24, mass: 2 })
+  const posY = useSpring(0, { damping: 24, mass: 2 })
+  const shouldReducedMotion = useReducedMotion()
   useEffect(() => {
-    const body = document.querySelector('body');
+    const body = document.querySelector('body')
     body.addEventListener('mouseover', (e) => {
-      posX.set(e.clientX - 4);
-      posY.set(e.clientY - 4);
-      setVisible(true);
-    });
+      posX.set(e.clientX - 4)
+      posY.set(e.clientY - 4)
+      setVisible(true)
+    })
     body.addEventListener('mousemove', (e) => {
-      posX.set(e.clientX - 4);
-      posY.set(e.clientY - 4);
-    });
-    body.addEventListener('mouseout', () => setVisible(false));
-  });
-  if (shouldReducedMotion) return null;
+      posX.set(e.clientX - 4)
+      posY.set(e.clientY - 4)
+    })
+    body.addEventListener('mouseout', () => setVisible(false))
+  })
+  if (shouldReducedMotion) return null
   return (
     <AnimatePresence>
       {isVisible && (
@@ -44,7 +44,7 @@ const Cursor = () => {
         </LazyMotion>
       )}
     </AnimatePresence>
-  );
-};
+  )
+}
 
-export default Cursor;
+export default Cursor

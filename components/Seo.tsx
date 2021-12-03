@@ -1,5 +1,5 @@
-import { NextSeo, DefaultSeo as NextDefaultSeo, ArticleJsonLd } from "next-seo";
-import config from "@utils/config";
+import { NextSeo, DefaultSeo as NextDefaultSeo, ArticleJsonLd } from 'next-seo'
+import config from '@utils/config'
 
 export default function Seo({ path, title, description, image }) {
   return (
@@ -20,7 +20,7 @@ export default function Seo({ path, title, description, image }) {
         publisherLogo={config.image}
       />
     </>
-  );
+  )
 }
 
 export function DefaultSeo() {
@@ -31,14 +31,12 @@ export function DefaultSeo() {
       description={config.description}
       canonical={config.url}
       openGraph={{
-        type: "website",
+        type: 'website',
         title: config.title,
         url: config.url,
         description: config.description,
-        images: [
-          { url: config.image, alt: config.title, width: 1920, height: 960 },
-        ],
+        images: [{ url: config.image, alt: config.title, width: 1920, height: 960 }],
       }}
     />
-  );
+  )
 }

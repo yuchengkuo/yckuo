@@ -1,4 +1,4 @@
-import Layout from '@components/layout/Layout';
+import Layout from '@components/layout/Layout'
 
 export default function Home() {
   return (
@@ -10,5 +10,5 @@ export default function Home() {
         </a>
       </p>
     </Layout>
-  );
+  )
 }

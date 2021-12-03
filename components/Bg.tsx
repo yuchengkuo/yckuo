@@ -5,25 +5,25 @@ import {
   useReducedMotion,
   useSpring,
   useTransform,
-} from 'framer-motion';
-import { useEffect, useState } from 'react';
+} from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 export default function Bg() {
-  const [isVisible, setVisible] = useState(false);
-  const posX = useSpring(0, { damping: 50 });
-  const Y = useSpring(0, { damping: 50 });
-  const posY = useTransform(Y, [0, 1], [400, -400]);
-  const shouldReducedMotion = useReducedMotion();
+  const [isVisible, setVisible] = useState(false)
+  const posX = useSpring(0, { damping: 50 })
+  const Y = useSpring(0, { damping: 50 })
+  const posY = useTransform(Y, [0, 1], [400, -400])
+  const shouldReducedMotion = useReducedMotion()
   useEffect(() => {
-    const body = document.querySelector('body');
+    const body = document.querySelector('body')
     body.addEventListener('mousemove', (e) => {
-      posX.set((e.clientX / window.innerWidth) * -240);
-      Y.set(e.clientY / window.innerHeight);
-    });
+      posX.set((e.clientX / window.innerWidth) * -240)
+      Y.set(e.clientY / window.innerHeight)
+    })
     body.addEventListener('keydown', (e) => {
-      if (isVisible && e.key === 'Escape') setVisible(false);
-    });
-  });
+      if (isVisible && e.key === 'Escape') setVisible(false)
+    })
+  })
   return (
     <LazyMotion features={domAnimation}>
       {!shouldReducedMotion && (
@@ -46,5 +46,5 @@ export default function Bg() {
         </div>
       )}
     </LazyMotion>
-  );
+  )
 }

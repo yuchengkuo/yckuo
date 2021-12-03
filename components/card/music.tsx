@@ -1,12 +1,12 @@
-import { UpRightArrowIcon } from '@components/Icons';
-import { fade, fadeRight, scale } from '@utils/animation';
-import { m } from 'framer-motion';
-import Image from 'next/image';
-import { useState } from 'react';
-import { Albums, Artists, Tracks } from 'types/types';
+import { UpRightArrowIcon } from '@components/Icons'
+import { fade, fadeRight, scale } from '@utils/animation'
+import { m } from 'framer-motion'
+import Image from 'next/image'
+import { useState } from 'react'
+import { Albums, Artists, Tracks } from 'types/types'
 
 export const CardWithCover = ({ album, index }: { album: Albums; index: number }) => {
-  const [isVisible, setVisible] = useState(false);
+  const [isVisible, setVisible] = useState(false)
   return (
     <m.a
       href={album.spotifyUrl}
@@ -57,17 +57,17 @@ export const CardWithCover = ({ album, index }: { album: Albums; index: number }
         </m.div>
       )}
     </m.a>
-  );
-};
+  )
+}
 
 export const ListCard = ({
   track,
   artist,
   index,
 }: {
-  track?: Tracks;
-  artist?: Artists;
-  index: number;
+  track?: Tracks
+  artist?: Artists
+  index: number
 }) => {
   return (
     <m.a
@@ -89,5 +89,5 @@ export const ListCard = ({
         <UpRightArrowIcon />
       </m.div>
     </m.a>
-  );
-};
+  )
+}

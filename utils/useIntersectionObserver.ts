@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 export default function useIntersectionObserver(
   elements: Element[],
@@ -25,9 +25,7 @@ export default function useIntersectionObserver(
       root: (options && options.root) || null,
     });
 
-    elements.forEach((element) =>
-      element ? observer.current.observe(element) : null
-    );
+    elements.forEach((element) => (element ? observer.current.observe(element) : null));
   }, [elements, options]);
 
   return [currentIndex];

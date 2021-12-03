@@ -1,7 +1,7 @@
-import Layout from '@components/layout/Layout';
-import { allPosts } from '.contentlayer/data';
-import { InferGetStaticPropsType } from 'next';
-import { PostCard } from '@components/card/word';
+import Layout from '@components/layout/Layout'
+import { allPosts } from '.contentlayer/data'
+import { InferGetStaticPropsType } from 'next'
+import { PostCard } from '@components/card/word'
 
 export default function PostsPage({ allPosts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -12,9 +12,9 @@ export default function PostsPage({ allPosts }: InferGetStaticPropsType<typeof g
         ))}
       </div>
     </Layout>
-  );
+  )
 }
 
 export function getStaticProps() {
-  return { props: { allPosts } };
+  return { props: { allPosts } }
 }

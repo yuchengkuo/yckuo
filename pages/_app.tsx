@@ -5,6 +5,7 @@ import Header from '@components/Header';
 import Footer from '@components/Footer';
 import Cursor from '@components/Cursor';
 import '../styles/globals.css';
+import '../styles/prose-styles.css';
 import Bg from '@components/Bg';
 
 function MyApp({ Component, pageProps }: AppProps) {

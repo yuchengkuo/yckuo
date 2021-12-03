@@ -1,8 +1,8 @@
-import { Post } from '.contentlayer/types';
-import { RightArrowIcon } from '@components/Icons';
-import { fade, scale } from '@utils/animation';
-import { domAnimation, LazyMotion, m } from 'framer-motion';
-import Link from 'next/link';
+import { Post } from '.contentlayer/types'
+import { RightArrowIcon } from '@components/Icons'
+import { fade, scale } from '@utils/animation'
+import { domAnimation, LazyMotion, m } from 'framer-motion'
+import Link from 'next/link'
 
 export const PostCard = ({ post }: { post: Post }) => {
   return (
@@ -28,5 +28,5 @@ export const PostCard = ({ post }: { post: Post }) => {
         </m.a>
       </Link>
     </LazyMotion>
-  );
-};
+  )
+}

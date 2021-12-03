@@ -1,5 +1,5 @@
-import { domAnimation, LazyMotion, m } from 'framer-motion';
-import Link from 'next/link';
+import { domAnimation, LazyMotion, m } from 'framer-motion'
+import Link from 'next/link'
 
 export const NavLink = ({ label, url, ...props }: { label: string; url: string }) => {
   return (
@@ -17,5 +17,5 @@ export const NavLink = ({ label, url, ...props }: { label: string; url: string }
         </m.a>
       </Link>
     </LazyMotion>
-  );
-};
+  )
+}
