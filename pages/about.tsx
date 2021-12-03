@@ -1,22 +1,19 @@
-import { m } from 'framer-motion';
 import Layout from '@components/layout/Layout';
 import { allOthers } from '.contentlayer/data';
 import { InferGetStaticPropsType } from 'next';
+import { useMemo } from 'react';
+import { getMDXComponent } from 'mdx-bundler/client';
 
 export default function AboutPage({ about }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const Content = useMemo(() => getMDXComponent(about.body.code), [about.body.code]);
   return (
-    <Layout>
-      <div className="">
-        <m.h1 className="">About</m.h1>
-
-        <article dangerouslySetInnerHTML={{ __html: allOthers[0].body.html }}></article>
-      </div>
+    <Layout title="About" animateChildren>
+      <Content />
     </Layout>
   );
 }
 
 export function getStaticProps() {
-  console.log(allOthers);
   const about = allOthers.find((page) => page.slug === 'about');
   return { props: { about } };
 }

@@ -1,19 +1,19 @@
 import { CardWithCover, ListCard } from '@components/card/music';
 import Layout from '@components/layout/Layout';
+import fetcher from '@utils/fetcher';
 import { domMax, LayoutGroup, LazyMotion, m } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import useSWR from 'swr';
 import { Albums, Artists, NowPlayingTrack, Tracks } from 'types/types';
 
 export default function ListeningPage() {
-  const { data: albums } = useSWR<Albums[]>('/api/top-albums');
-  const { data: tracks } = useSWR<Tracks[]>('/api/top-tracks');
-  const { data: artists } = useSWR<Artists[]>('/api/top-artists');
-  const { data: now } = useSWR<NowPlayingTrack>('/api/now-playing');
+  const { data: albums } = useSWR<Albums[]>('/api/top-albums', fetcher);
+  const { data: tracks } = useSWR<Tracks[]>('/api/top-tracks', fetcher);
+  const { data: artists } = useSWR<Artists[]>('/api/top-artists', fetcher);
+  const { data: now } = useSWR<NowPlayingTrack>('/api/now-playing', fetcher);
   return (
-    <Layout>
+    <Layout title="Listening">
       <LazyMotion features={domMax}>
-        <h1>Listening</h1>
         <p className="font-apfel mt-4">
           {now && now.isPlaying
             ? `Currently: ${(now && now.artist) || now.show} - ${now.title}`
