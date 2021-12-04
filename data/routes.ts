@@ -38,6 +38,19 @@ export const routes = [
     ],
   },
   {
+    group: 'Words',
+    links: [
+      {
+        label: 'Posts',
+        url: '/posts',
+      },
+      {
+        label: 'Projects',
+        url: '/projects',
+      },
+    ],
+  },
+  {
     group: 'External',
     links: [
       {
@@ -58,4 +71,4 @@ export const routes = [
       },
     ],
   },
-];
+]
