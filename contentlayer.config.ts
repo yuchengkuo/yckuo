@@ -1,12 +1,12 @@
-import { defineDocumentType, makeSource, ComputedFields } from 'contentlayer/source-files';
-import remarkSlug from 'remark-slug';
-import remarkSectionize from 'remark-sectionize';
-import readingTime from 'reading-time';
+import { defineDocumentType, makeSource, ComputedFields } from 'contentlayer/source-files'
+import remarkSlug from 'remark-slug'
+import remarkSectionize from 'remark-sectionize'
+import readingTime from 'reading-time'
 
 const computedFields: ComputedFields = {
   readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
   slug: { type: 'string', resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx/, '') },
-};
+}
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -17,7 +17,7 @@ export const Post = defineDocumentType(() => ({
     date: { type: 'date', required: true },
   },
   computedFields,
-}));
+}))
 
 export const Project = defineDocumentType(() => ({
   name: 'Project',
@@ -28,9 +28,10 @@ export const Project = defineDocumentType(() => ({
     subtitle: { type: 'string', required: true },
     published: { type: 'boolean', required: true },
     info: { type: 'json', required: true },
+    year: { type: 'date', required: true },
   },
   computedFields,
-}));
+}))
 
 export const Other = defineDocumentType(() => ({
   name: 'Other',
@@ -40,10 +41,10 @@ export const Other = defineDocumentType(() => ({
     title: { type: 'string', required: true },
   },
   computedFields,
-}));
+}))
 
 export default makeSource({
   contentDirPath: 'data',
   documentTypes: [Post, Project, Other],
   mdx: { remarkPlugins: [remarkSlug, remarkSectionize] },
-});
+})
