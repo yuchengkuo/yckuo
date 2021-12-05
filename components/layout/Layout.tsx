@@ -1,5 +1,5 @@
-import { fade, fadeUp } from '@utils/animation';
-import { domAnimation, LazyMotion, m } from 'framer-motion';
+import { fade, fadeUp } from '@utils/animation'
+import { domAnimation, LazyMotion, m } from 'framer-motion'
 
 export default function Layout({
   children,
@@ -7,10 +7,10 @@ export default function Layout({
   subtitle,
   animateChildren = false,
 }: {
-  children: any;
-  title: string;
-  subtitle?: string;
-  animateChildren?: boolean;
+  children: JSX.Element | JSX.Element[]
+  title: string
+  subtitle?: string
+  animateChildren?: boolean
 }) {
   return (
     <LazyMotion features={domAnimation}>
@@ -42,5 +42,5 @@ export default function Layout({
         )}
       </main>
     </LazyMotion>
-  );
+  )
 }
