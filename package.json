@@ -41,6 +41,7 @@
     "eslint": "^7.32.0",
     "postcss": "^8.4.4",
     "reading-time": "^1.5.0",
+    "remark-directive": "^2.0.1",
     "remark-sectionize": "../remark-sectionize",
     "remark-slug": "^6.0.0",
     "slugify": "^1.6.0",
