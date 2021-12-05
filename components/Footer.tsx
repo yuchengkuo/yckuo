@@ -1,7 +1,7 @@
-import { domAnimation, LazyMotion, m } from 'framer-motion';
-import { fade, fadeUp } from '@utils/animation';
-import { routes } from 'data/routes';
-import { NavLink } from './Link';
+import { domAnimation, LazyMotion, m } from 'framer-motion'
+import { fade, fadeUp } from '@utils/animation'
+import { routes } from '@utils/config/routes'
+import { NavLink } from './Link'
 
 export default function Footer() {
   return (
@@ -33,5 +33,5 @@ export default function Footer() {
         </div>
       </m.footer>
     </LazyMotion>
-  );
+  )
 }

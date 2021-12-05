@@ -45,7 +45,7 @@ export const Other = defineDocumentType(() => ({
 }))
 
 export default makeSource({
-  contentDirPath: 'data',
+  contentDirPath: 'content',
   documentTypes: [Post, Project, Other],
   mdx: { remarkPlugins: [remarkSlug, remarkDirective, remarkSectionize] },
 })
