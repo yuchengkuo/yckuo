@@ -14,7 +14,7 @@ export const PostCard = ({ post }: { post: Post }) => {
           initial="0"
           whileInView="visible"
           whileHover="1"
-          whileTap={{ scale: 0.98 }}
+          whileTap={{ scale: 0.99 }}
         >
           <div>
             <time className="text-sm font-freak freak-font-settings text-gray8 dark:text-gray6">
