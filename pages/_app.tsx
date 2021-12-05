@@ -1,17 +1,17 @@
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from 'next-themes'
-import { DefaultSeo } from '@components/Seo'
+import SEO from '@components/Seo'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
 import Cursor from '@components/Cursor'
+import Bg from '@components/Bg'
 import '../styles/globals.css'
 import '../styles/project-styles.css'
-import Bg from '@components/Bg'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <DefaultSeo />
+      <SEO />
       <ThemeProvider attribute="class">
         <Cursor />
         <Bg />
