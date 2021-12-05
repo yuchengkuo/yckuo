@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getTopAlbums } from 'utils/lastfm'
-import { getAlbumSearchResult } from '@utils/spotify'
+import { getTopAlbums } from '@utils/api/lastfm'
+import { getAlbumSearchResult } from '@utils/api/spotify'
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const response = await getTopAlbums()

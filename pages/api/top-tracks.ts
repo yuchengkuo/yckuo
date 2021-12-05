@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getTopTracks } from 'utils/spotify'
+import { getTopTracks } from '@utils/api/spotify'
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const response = await getTopTracks()
