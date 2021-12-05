@@ -1,22 +1,22 @@
-import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { LeftArrowIcon, LogoIcon } from './Icons';
-import { fade } from '@utils/animation';
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { LeftArrowIcon, LogoIcon } from './Icons'
+import { fade } from '@utils/animation'
 
 const Header = () => {
-  const router = useRouter();
+  const router = useRouter()
   function handleRouter(path: string) {
-    const arr = path.split('/');
-    const title = arr.slice(-1)[0];
-    arr.splice(-1, 1);
+    const arr = path.split('/')
+    const title = arr.slice(-1)[0]
+    arr.splice(-1, 1)
     return {
       backHref: arr.length === 1 ? '/' : arr.join('/'),
       title: title.replace(/[a-z]/, (str) => str.toUpperCase()).replace(/-/g, ' '),
-    };
+    }
   }
   return (
-    <header className="sticky top-0 flex items-center p-10 gap-4 phone:px-5">
+    <header className="sticky top-0 z-50 flex items-center p-10 gap-4 phone:px-5">
       <LazyMotion features={domAnimation}>
         <m.button
           className="box-border block w-8 h-8 text-gray9 dark:text-gray5 hover:text-marine6 dark:hover:text-cheese5 rounded hover:bg-gray7  hover:bg-opacity-10"
@@ -34,7 +34,7 @@ const Header = () => {
         </AnimatePresence>
       </LazyMotion>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
