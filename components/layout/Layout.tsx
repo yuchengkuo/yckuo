@@ -24,15 +24,17 @@ export default function Layout({
         >
           {title}
         </m.h1>
-        <m.h1
-          variants={fadeUp}
-          initial="0"
-          animate="1"
-          transition={{ type: 'spring', damping: 20, mass: 1, delay: 0.04 }}
-          className="font-apfel mt-1 text-4xl phone:text-2xl"
-        >
-          {subtitle}
-        </m.h1>
+        {subtitle && (
+          <m.h1
+            variants={fadeUp}
+            initial="0"
+            animate="1"
+            transition={{ type: 'spring', damping: 20, mass: 1, delay: 0.04 }}
+            className="font-apfel mt-1 text-4xl phone:text-2xl"
+          >
+            {subtitle}
+          </m.h1>
+        )}
         {animateChildren ? (
           <m.div variants={fade} initial="0" animate="1" transition={{ delay: 0.04 }}>
             {children}

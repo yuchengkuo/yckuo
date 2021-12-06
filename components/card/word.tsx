@@ -18,7 +18,7 @@ export const PostCard = ({ post }: { post: Post }) => {
         >
           <div>
             <time className="text-sm font-freak freak-font-settings text-gray8 dark:text-gray6">
-              {new Date(post.date).toDateString()}
+              {new Date(post.date).toDateString().substring(4)}
             </time>
             <h2 className="text-2xl">{post.title}</h2>
           </div>
