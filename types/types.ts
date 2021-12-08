@@ -43,3 +43,9 @@ export type Artists = {
   genres: string
   external_urls: string
 }
+
+export type Stats = {
+  tracks: number
+  albums: number
+  artists: number
+}
