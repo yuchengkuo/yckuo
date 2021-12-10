@@ -14,7 +14,7 @@ export default function Layout({
 }) {
   return (
     <LazyMotion features={domAnimation}>
-      <main className="px-10 phone:px-5" style={{ minHeight: 'calc(100vh - 216px)' }}>
+      <main className="min-h-[calc(100vh-256px)]">
         <m.h1
           variants={fadeUp}
           initial="0"

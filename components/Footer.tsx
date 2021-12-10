@@ -6,7 +6,7 @@ import { NavLink } from './Link'
 export default function Footer() {
   return (
     <LazyMotion features={domAnimation}>
-      <m.footer variants={fade} initial="0" animate="1" className="p-10 phone:px-5">
+      <m.footer variants={fade} initial="0" animate="1" className="py-16">
         <div className="flex gap-10 mb-10">
           <p className="font-freak text-base text-gray9 dark:text-gray5">&#169; 2021 YuCheng Kuo</p>
           <p className="font-freak text-base text-gray7">Still WIP. Come back later! :&#41;</p>

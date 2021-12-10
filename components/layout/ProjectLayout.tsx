@@ -1,4 +1,5 @@
 import { Project } from '.contentlayer/types'
+import SideMenu from '@components/article/SideMenu'
 import { fade, fadeUp } from '@utils/animation'
 import { domAnimation, LazyMotion, m } from 'framer-motion'
 
@@ -10,7 +11,7 @@ export default function ProjectLayout({
   project: Project
 }) {
   return (
-    <main className="px-10 phone:px-5">
+    <main className="">
       <LazyMotion features={domAnimation}>
         <div className="mt-20 h-80 grid grid-cols-3 items-baseline justify-between">
           <m.h1
@@ -36,6 +37,7 @@ export default function ProjectLayout({
               </p>
             ))}
           </m.div>
+          <SideMenu />
         </div>
         <m.article variants={fade} initial="0" animate="1" className="project body-font-settings">
           {children}

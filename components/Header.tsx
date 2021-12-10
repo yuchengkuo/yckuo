@@ -16,7 +16,7 @@ const Header = () => {
     }
   }
   return (
-    <header className="sticky top-0 z-50 flex items-center p-10 gap-4 phone:px-5">
+    <header className="sticky -top-12 z-50 flex items-center gap-4 -mx-16 px-16 pt-16 pb-3 mb-6 bg-cheese1/50 dark:bg-marine9/50 backdrop-blur-[6px] phone:pt-6">
       <LazyMotion features={domAnimation}>
         <m.button
           className="box-border block w-8 h-8 text-gray9 dark:text-gray5 hover:text-marine6 dark:hover:text-cheese5 rounded hover:bg-gray7  hover:bg-opacity-10"
