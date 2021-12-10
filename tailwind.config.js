@@ -45,8 +45,8 @@ module.exports = {
       marine9: 'hsl(220 5% 12% / 1)',
     },
     screens: {
-      phone: { max: '720px' },
       tablet: { max: '1020px' },
+      phone: { max: '720px' },
     },
     extend: {},
   },
@@ -54,4 +54,4 @@ module.exports = {
     extend: {},
   },
   plugins: [require('@tailwindcss/typography')],
-};
+}
