@@ -3,11 +3,11 @@ import { allPosts } from '.contentlayer/data'
 import { InferGetStaticPropsType } from 'next'
 import { PostCard } from '@components/card/word'
 
-export default function PostsPage({ allPosts }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function PostsPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Layout title="Posts">
-      <div className="w-1/2 mt-10 flex flex-col gap-3">
-        {allPosts.map((post) => (
+      <div className="flex flex-col gap-5 w-1/2 tablet:w-full">
+        {posts.map((post) => (
           <PostCard key={post.slug} post={post} />
         ))}
       </div>
@@ -16,5 +16,6 @@ export default function PostsPage({ allPosts }: InferGetStaticPropsType<typeof g
 }
 
 export function getStaticProps() {
-  return { props: { allPosts } }
+  const posts = allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  return { props: { posts } }
 }
