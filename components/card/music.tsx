@@ -5,15 +5,27 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { Albums, Artists, Tracks } from 'types/types'
 
-export const CardWithCover = ({ album, index }: { album: Albums; index: number }) => {
+export const CardWithCover = ({
+  album,
+  index,
+  loading = false,
+}: {
+  album?: Albums
+  index?: number
+  loading?: boolean
+}) => {
   const [isVisible, setVisible] = useState(false)
+  if (loading) return <div className="bg-gray7/50 rounded w-40 h-40 animate-pulse" />
   return (
     <m.a
       href={album.spotifyUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex gap-6 p-4 -mx-4 rounded hover:bg-gray7 hover:bg-opacity-10"
+      className="flex gap-6 p-4 -mx-4 rounded hover:bg-gray7/10"
       variants={fade}
+      initial="0"
+      animate="1"
+      whileInView="1"
       transition={{ type: 'spring', damping: 20, mass: 1 }}
       whileTap={{ scale: 0.94 }}
       onHoverStart={() => setVisible(true)}
@@ -64,17 +76,20 @@ export const ListCard = ({
   track,
   artist,
   index,
+  loading = false,
 }: {
   track?: Tracks
   artist?: Artists
-  index: number
+  index?: number
+  loading?: boolean
 }) => {
+  if (loading) return <div className="bg-gray7/50 rounded h-10 mb-2 animate-pulse" />
   return (
     <m.a
       href={(track && track.songUrl) || artist.external_urls}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-baseline gap-4 p-2 -mx-2 rounded hover:bg-gray7 hover:bg-opacity-10 transition-colors ease-out"
+      className="flex items-baseline gap-4 p-2 -mx-2 rounded hover:bg-gray7/10 transition-colors ease-out"
       variants={{ 1: { y: -4 } }}
       initial="0"
       whileHover="1"
