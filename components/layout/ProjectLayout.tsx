@@ -11,7 +11,7 @@ export default function ProjectLayout({
   project: Project
 }) {
   return (
-    <main className="">
+    <main>
       <LazyMotion features={domAnimation}>
         <div className="mt-20 h-80 grid grid-cols-3 items-baseline justify-between">
           <m.h1
@@ -31,7 +31,7 @@ export default function ProjectLayout({
             {project.info.map((item) => (
               <p
                 key={item.title}
-                className="font-freak text-sm freak-font-settings text-gray9 dark:text-gray5"
+                className="font-freak text-sm freak-font-settings text-gray8 dark:text-gray6"
               >
                 {item.title + ' / ' + item.content}
               </p>
@@ -39,7 +39,7 @@ export default function ProjectLayout({
           </m.div>
           <SideMenu />
         </div>
-        <m.article variants={fade} initial="0" animate="1" className="project body-font-settings">
+        <m.article variants={fade} initial="0" animate="1" className="words two-col-layout">
           {children}
         </m.article>
       </LazyMotion>

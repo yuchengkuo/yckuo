@@ -14,7 +14,7 @@ export default function Layout({
 }) {
   return (
     <LazyMotion features={domAnimation}>
-      <main className="min-h-[calc(100vh-256px)]">
+      <main className="min-h-[calc(100vh-128px-108px)]">
         <m.h1
           variants={fadeUp}
           initial="0"
@@ -36,11 +36,17 @@ export default function Layout({
           </m.h1>
         )}
         {animateChildren ? (
-          <m.div variants={fade} initial="0" animate="1" transition={{ delay: 0.04 }}>
+          <m.div
+            variants={fade}
+            initial="0"
+            animate="1"
+            transition={{ delay: 0.04 }}
+            className="my-10"
+          >
             {children}
           </m.div>
         ) : (
-          children
+          <div className="my-10">{children}</div>
         )}
       </main>
     </LazyMotion>
