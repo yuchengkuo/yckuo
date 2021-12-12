@@ -3,11 +3,17 @@ import { useEffect, useState } from 'react'
 
 export default function useScrollProgress() {
   const [progress, setProgress] = useState(0)
-  const { scrollYProgress } = useViewportScroll()
+  const [distY, setDistY] = useState(0)
+  const { scrollY, scrollYProgress } = useViewportScroll()
 
   useEffect(() => {
-    scrollYProgress.onChange((current) => setProgress(current))
-  })
+    const unSubsProgree = scrollYProgress.onChange((current) => setProgress(current))
+    const unSubsDistance = scrollY.onChange((current) => setDistY(current))
 
-  return progress
+    return () => {
+      unSubsDistance()
+      unSubsProgree()
+    }
+  })
+  return { progress, distY }
 }

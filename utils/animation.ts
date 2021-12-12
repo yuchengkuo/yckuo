@@ -22,6 +22,12 @@ export const fadeRight: Variants = {
   2: { x: 5, opacity: 0 },
 }
 
+export const fadeLeft: Variants = {
+  0: { x: 5, opacity: 0 },
+  1: { x: 0, opacity: 1 },
+  2: { x: -5, opacity: 0 },
+}
+
 export const slideUp: Variants = {
   0: { y: '100%' },
   1: { y: 0 },
