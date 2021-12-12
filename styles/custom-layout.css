@@ -1,0 +1,19 @@
+.two-col-layout > section {
+  @apply grid grid-cols-[1fr_minmax(auto,_40ch)_1fr] items-baseline;
+}
+
+.two-col-layout > section:not(:first-of-type) {
+  @apply mt-20;
+}
+
+.two-col-layout > section > :first-child {
+  @apply mt-0;
+}
+
+.two-col-layout > section > h2 {
+  @apply col-span-1 sticky top-14;
+}
+
+.two-col-layout > section > :not(:first-child) {
+  @apply col-start-2 col-span-1;
+}

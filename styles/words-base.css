@@ -1,0 +1,57 @@
+.words {
+  @apply body-font-settings text-lg leading-8 phone:text-base;
+}
+
+.words :not(section) {
+  max-width: 40ch;
+}
+
+.words p {
+  @apply text-gray9 dark:text-gray5 mt-9 phone:mt-4;
+}
+
+.words h2 {
+  @apply text-gray11 dark:text-gray3 py-6 mt-6 phone:py-3 phone:mt-3;
+}
+
+.words h3 {
+  @apply text-gray10 dark:text-gray4 py-4 mt-4 phone:py-2 phone:mt-2;
+}
+
+.words a {
+  @apply text-marine6 dark:text-cheese5 rounded px-0.5 -mx-0.5 hover:underline hover:bg-marine6/20 dark:hover:bg-cheese5/20;
+}
+
+.words blockquote {
+  @apply italic mt-8 py-0.5 relative before:absolute before:-left-5 before:top-0 before:h-full before:w-0.5 before:rounded before:bg-gray7/50 phone:before:-left-3;
+}
+
+.words blockquote * {
+  @apply mt-0;
+}
+
+.words ul,
+.words ol {
+  @apply mt-8 phone:mt-4 phone:pl-4 text-gray9 dark:text-gray5;
+}
+
+.words ul {
+  @apply list-disc;
+}
+
+.words ol {
+  @apply list-decimal;
+}
+
+.words li {
+  @apply mb-1 marker:text-base marker:text-gray7 marker:align-middle phone:marker:text-xs;
+}
+
+.words .words-img {
+  @apply mt-10 rounded max-w-4xl;
+}
+
+.words h2 + *,
+.words h3 + * {
+  @apply mt-0;
+}

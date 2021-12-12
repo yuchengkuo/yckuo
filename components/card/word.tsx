@@ -9,7 +9,7 @@ export const PostCard = ({ post }: { post: Post }) => {
     <LazyMotion features={domAnimation}>
       <Link href={`/posts/${post.slug}`} passHref>
         <m.a
-          className="px-4 -mx-4 py-2 flex items-center rounded hover:bg-gray7 hover:bg-opacity-10 transition-colors duration-200"
+          className="px-4 -mx-4 py-2 flex items-center rounded hover:bg-gray7/10 transition-colors duration-200"
           variants={{ ...fade, visible: { opacity: 1 }, 1: { y: -4 } }}
           initial="0"
           whileInView="visible"
@@ -35,7 +35,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <Link href={`/projects/${project.slug}`} passHref>
       <m.a
-        className="p-4 -mx-4 block rounded hover:bg-gray7 hover:bg-opacity-10 transition-colors duration-200 ease-out"
+        className="p-4 -mx-4 block rounded hover:bg-gray7/10 transition-colors duration-200 ease-out"
         variants={{ ...fade, visible: { opacity: 1 }, 1: { y: -4 } }}
         initial="0"
         whileInView="visible"

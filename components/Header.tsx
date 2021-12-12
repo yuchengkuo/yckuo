@@ -16,17 +16,19 @@ const Header = () => {
     }
   }
   return (
-    <header className="sticky -top-12 z-50 flex items-center gap-4 -mx-16 px-16 pt-16 pb-3 mb-6 bg-cheese1/50 dark:bg-marine9/50 backdrop-blur-[6px] phone:pt-6">
+    <header className="flex items-center gap-4 z-50 sticky -top-12 px-16 pb-3 pt-16 tablet:px-10 phone:px-5 bg-cheese1/50 dark:bg-marine9/50 backdrop-blur-[6px]">
       <LazyMotion features={domAnimation}>
-        <m.button
-          className="box-border block w-8 h-8 text-gray9 dark:text-gray5 hover:text-marine6 dark:hover:text-cheese5 rounded hover:bg-gray7  hover:bg-opacity-10"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Link href={handleRouter(router.asPath).backHref} passHref>
-            <a>{router.asPath === '/' ? <LogoIcon /> : <LeftArrowIcon />}</a>
-          </Link>
-        </m.button>
+        <Link href={handleRouter(router.asPath).backHref} passHref>
+          <a>
+            <m.button
+              className="box-border block w-8 h-8 text-gray9 dark:text-gray5 hover:text-marine6 dark:hover:text-cheese5 rounded hover:bg-gray7/10"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              {router.asPath === '/' ? <LogoIcon /> : <LeftArrowIcon />}
+            </m.button>
+          </a>
+        </Link>
         <AnimatePresence>
           <m.p className="body-font-settings" variants={fade} initial="0" animate="1" exit="0">
             {handleRouter(router.asPath).title}

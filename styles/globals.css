@@ -54,20 +54,24 @@
     @apply min-h-screen font-sato;
   }
 
+  main {
+    @apply px-16 tablet:px-10 phone:px-5 py-6;
+  }
+
   h1 {
-    @apply font-hagrid text-3xl;
+    @apply font-hagrid font-normal text-3xl phone:text-xl;
   }
 
   h2 {
-    @apply font-apfel;
+    @apply font-apfel font-normal text-3xl phone:text-xl;
   }
 
   h3 {
-    @apply font-apfel;
+    @apply font-apfel font-normal text-2xl phone:text-lg;
   }
 
   h4 {
-    @apply font-apfel;
+    @apply font-apfel font-normal text-xl phone:text-base;
   }
 
   ::selection {
@@ -84,16 +88,17 @@
     font-feature-settings: 'ss02', 'ss03';
   }
 
-  @variants dark {
-    .nav-bg-dark {
-      background-image: linear-gradient(45deg, transparent 20%, theme('colors.marine9') 20%);
-      background-size: 6px 6px;
-      background-repeat: repeat;
-    }
-    .nav-bg {
-      background-image: linear-gradient(45deg, transparent 20%, theme('colors.cheese1') 20%);
-      background-size: 6px 6px;
-      background-repeat: repeat;
-    }
+  .nav-bg-dark {
+    background-image: linear-gradient(45deg, transparent 20%, theme('colors.marine9') 20%);
+    background-size: 6px 6px;
+    background-repeat: repeat;
+  }
+  .nav-bg {
+    background-image: linear-gradient(45deg, transparent 20%, theme('colors.cheese1') 20%);
+    background-size: 6px 6px;
+    background-repeat: repeat;
   }
 }
+
+@import url(./custom-layout.css);
+@import url(./words-base.css);
