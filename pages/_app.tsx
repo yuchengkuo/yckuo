@@ -6,7 +6,6 @@ import Footer from '@components/Footer'
 import Cursor from '@components/Cursor'
 import Bg from '@components/Bg'
 import '../styles/globals.css'
-import '../styles/project-styles.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
