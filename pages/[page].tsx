@@ -7,8 +7,8 @@ import { getMDXComponent } from 'mdx-bundler/client'
 export default function Pages({ page }: InferGetStaticPropsType<typeof getStaticProps>) {
   const Content = useMemo(() => getMDXComponent(page.body.code), [page.body.code])
   return (
-    <Layout title={page.title}>
-      <div>
+    <Layout title={page.title} animateChildren>
+      <div className="words">
         <Content />
       </div>
     </Layout>
@@ -21,5 +21,10 @@ export function getStaticProps({ params }) {
 }
 
 export function getStaticPaths() {
-  return { paths: allOthers.map((page) => ({ params: { page: page.slug } })), fallback: false }
+  return {
+    paths: allOthers
+      .filter((page) => page.slug !== 'about')
+      .map((page) => ({ params: { page: page.slug } })),
+    fallback: false,
+  }
 }

@@ -8,7 +8,9 @@ export default function AboutPage({ about }: InferGetStaticPropsType<typeof getS
   const Content = useMemo(() => getMDXComponent(about.body.code), [about.body.code])
   return (
     <Layout title="About" animateChildren>
-      <Content />
+      <div className="words">
+        <Content />
+      </div>
     </Layout>
   )
 }
