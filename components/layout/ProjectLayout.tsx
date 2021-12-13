@@ -13,7 +13,7 @@ export default function ProjectLayout({
   return (
     <main>
       <LazyMotion features={domAnimation}>
-        <div className="mt-20 h-80 grid grid-cols-3 items-baseline justify-between">
+        <div className="mt-20 min-h-[40vh] grid grid-cols-3 items-baseline justify-between">
           <m.h1
             variants={fadeUp}
             initial="0"
@@ -39,7 +39,7 @@ export default function ProjectLayout({
           </m.div>
           <SideMenu />
         </div>
-        <m.article variants={fade} initial="0" animate="1" className="words two-col-layout">
+        <m.article variants={fade} initial="0" animate="1" className="my-10 words two-col-layout">
           {children}
         </m.article>
       </LazyMotion>

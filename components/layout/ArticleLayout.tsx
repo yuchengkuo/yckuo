@@ -7,11 +7,13 @@ export default function ArticleLayout({
   title,
   date,
   readTime,
+  img,
 }: {
   children: JSX.Element | JSX.Element[]
   title: string
   date?: string
   readTime?: any
+  img?: string
 }) {
   return (
     <main>
@@ -35,10 +37,12 @@ export default function ArticleLayout({
         >
           {title}
         </m.h1>
-        <m.div variants={fade} initial="0" animate="1" className="mt-10">
-          <Image src="/images/about-avatar.jpg" width={360} height={240} />
-        </m.div>
-        <m.article variants={fade} initial="0" animate="1" className="mt-32 words">
+        {img && (
+          <m.div variants={fade} initial="0" animate="1" className="mt-10">
+            <div className="w-80 h-64 bg-gray7"></div>
+          </m.div>
+        )}
+        <m.article variants={fade} initial="0" animate="1" className="mt-10 words">
           {children}
         </m.article>
       </LazyMotion>
