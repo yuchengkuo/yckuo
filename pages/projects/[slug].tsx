@@ -8,7 +8,7 @@ import Carousel from '@components/article/Carousel'
 export default function ProjectPage({ project }: InferGetStaticPropsType<typeof getStaticProps>) {
   const Content = getMDXComponent(project.body.code)
   return (
-    <ProjectLayout project={project}>
+    <ProjectLayout key={project.slug} project={project}>
       <Content components={{ Image, Carousel, CarouselImg }} />
     </ProjectLayout>
   )

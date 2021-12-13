@@ -7,7 +7,13 @@ import { useMemo } from 'react'
 export default function PostPage({ post }: InferGetStaticPropsType<typeof getStaticProps>) {
   const Content = useMemo(() => getMDXComponent(post.body.code), [post.body.code])
   return (
-    <ArticleLayout title={post.title} date={post.date} readTime={post.readingTime}>
+    <ArticleLayout
+      key={post.slug}
+      title={post.title}
+      date={post.date}
+      readTime={post.readingTime}
+      img={post.img}
+    >
       <Content />
     </ArticleLayout>
   )

@@ -7,7 +7,7 @@ import { getMDXComponent } from 'mdx-bundler/client'
 export default function Pages({ page }: InferGetStaticPropsType<typeof getStaticProps>) {
   const Content = useMemo(() => getMDXComponent(page.body.code), [page.body.code])
   return (
-    <Layout title={page.title} animateChildren>
+    <Layout key={page.slug} title={page.title} animateChildren>
       <div className="words">
         <Content />
       </div>
