@@ -39,18 +39,26 @@ function NowPlaying() {
 function Statistic() {
   const { data: stats } = useSWR<Stats>('/api/stats', fetcher)
   return (
-    <div className="">
+    <div>
       <h2 className="text-xl">Stats</h2>
       <p className="text-sm font-freak freak-font-settings text-gray8 dark:text-gray6">
         This week's (so far) stats by Last.fm
       </p>
-      {stats && (
-        <div className="body-font-settings mt-4">
-          <p>{stats.tracks} plays</p>
-          <p>{stats.albums} albums</p>
-          <p>{stats.artists} artists</p>
-        </div>
-      )}
+      <div className="body-font-settings mt-4">
+        {stats ? (
+          <>
+            <p>{stats.tracks} plays</p>
+            <p>{stats.albums} albums</p>
+            <p>{stats.artists} artists</p>
+          </>
+        ) : (
+          <div className="animate-pulse">
+            <p>--- plays</p>
+            <p>--- albums</p>
+            <p>--- artists</p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
@@ -61,11 +69,11 @@ function TopAlbums() {
     <m.div className="mt-20">
       <h2 className="text-xl">Weekly Top Albums</h2>
       {albums ? (
-        handleArraySplit(albums, 4).map((items: Albums[]) => (
-          <div className="inline-flex flex-wrap gap-12 mt-6">
+        handleArraySplit(albums, 4).map((items: Albums[], group) => (
+          <div key={group} className="inline-flex flex-wrap gap-12 mt-6">
             <LayoutGroup>
               {items.map((album, i) => (
-                <CardWithCover key={album.title} index={i} album={album} />
+                <CardWithCover key={album.title} index={group * 4 + i} album={album} />
               ))}
             </LayoutGroup>
           </div>
@@ -91,6 +99,9 @@ function TopSongsArtists() {
     <div className="mt-20 flex gap-10">
       <div className="w-1/3">
         <h2 className="text-xl">Recent Top Songs</h2>
+        <p className="text-sm font-freak freak-font-settings text-gray8 dark:text-gray6">
+          Most played songs this month
+        </p>
         <ul className="mt-6">
           {tracks
             ? tracks.map((track, i) => <ListCard key={track.title} track={track} index={i + 1} />)
@@ -102,6 +113,9 @@ function TopSongsArtists() {
 
       <div className="w-1/3">
         <h2 className="text-xl">Recent Top Artists</h2>
+        <p className="text-sm font-freak freak-font-settings text-gray8 dark:text-gray6">
+          Favorite artists this month
+        </p>
         <ul className="mt-6">
           {artists
             ? artists.map((artist, i) => (
