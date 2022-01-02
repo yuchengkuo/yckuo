@@ -17,10 +17,10 @@ function handleArraySplit(arr: any[], size: number) {
 function NowPlaying() {
   const { data: now } = useSWR<NowPlayingTrack>('/api/now-playing', fetcher)
   return (
-    <div className="mt-20">
-      <h2 className="text-xl">Currently Playing</h2>
+    <div className="mt-16 phone:mt-8">
+      <h2>Currently Playing</h2>
       <p className="text-sm font-freak freak-font-settings text-gray8 dark:text-gray6">Spotify</p>
-      <div className="mt-4 font-apfel">
+      <div className="mt-4 phone:mt-2 font-apfel">
         {now && now.isPlaying ? (
           <div className="flex">
             <p>{(now && now.artist) || now.show}&nbsp;-&nbsp;</p>
@@ -40,11 +40,11 @@ function Statistic() {
   const { data: stats } = useSWR<Stats>('/api/stats', fetcher)
   return (
     <div>
-      <h2 className="text-xl">Stats</h2>
+      <h2>Stats</h2>
       <p className="text-sm font-freak freak-font-settings text-gray8 dark:text-gray6">
         This week's (so far) stats by Last.fm
       </p>
-      <div className="body-font-settings mt-4">
+      <div className="body-font-settings mt-4 phone:mt-2">
         {stats ? (
           <>
             <p>{stats.tracks} plays</p>
@@ -66,11 +66,11 @@ function Statistic() {
 function TopAlbums() {
   const { data: albums } = useSWR<Albums[]>('/api/top-albums', fetcher)
   return (
-    <m.div className="mt-20">
-      <h2 className="text-xl">Weekly Top Albums</h2>
+    <m.div className="mt-16 phone:mt-8">
+      <h2>Weekly Top Albums</h2>
       {albums ? (
         handleArraySplit(albums, 4).map((items: Albums[], group) => (
-          <div key={group} className="inline-flex flex-wrap gap-12 mt-6">
+          <div key={group} className="inline-flex flex-wrap gap-12 mt-6 phone:gap-4 phone:mt-3">
             <LayoutGroup>
               {items.map((album, i) => (
                 <CardWithCover key={album.title} index={group * 4 + i} album={album} />
@@ -79,7 +79,7 @@ function TopAlbums() {
           </div>
         ))
       ) : (
-        <div className="inline-grid grid-cols-4 gap-12 mt-6">
+        <div className="inline-flex flex-wrap gap-12 mt-6 phone:gap-4 phone:mt-3">
           {Array(8)
             .fill(1)
             .map((i) => (
@@ -96,13 +96,13 @@ function TopSongsArtists() {
   const { data: artists } = useSWR<Artists[]>('/api/top-artists', fetcher)
 
   return (
-    <div className="mt-20 flex gap-10">
-      <div className="w-1/3">
+    <div className="mt-16 phone:mt-8 flex gap-10 phone:flex-col">
+      <div className="max-w-[1/3]">
         <h2 className="text-xl">Recent Top Songs</h2>
         <p className="text-sm font-freak freak-font-settings text-gray8 dark:text-gray6">
           Most played songs this month
         </p>
-        <ul className="mt-6">
+        <ul className="mt-6 phone:mt-3">
           {tracks
             ? tracks.map((track, i) => <ListCard key={track.title} track={track} index={i + 1} />)
             : Array(5)
@@ -111,12 +111,12 @@ function TopSongsArtists() {
         </ul>
       </div>
 
-      <div className="w-1/3">
+      <div className="max-w-[1/3]">
         <h2 className="text-xl">Recent Top Artists</h2>
         <p className="text-sm font-freak freak-font-settings text-gray8 dark:text-gray6">
           Favorite artists this month
         </p>
-        <ul className="mt-6">
+        <ul className="mt-6 phone:mt-3">
           {artists
             ? artists.map((artist, i) => (
                 <ListCard key={artist.name} artist={artist} index={i + 1} />
@@ -135,11 +135,11 @@ export default function ListeningPage() {
     <Layout title="Listening">
       <LazyMotion features={domMax}>
         <NowPlaying />
-        <div className="flex mt-20 gap-20">
+        <div className="flex mt-16 phone:mt-8 gap-20">
           <Statistic />
-          <div className="">
+          {/* <div className="">
             <h2 className="text-xl">Category</h2>
-          </div>
+          </div> */}
         </div>
         <TopAlbums />
         <TopSongsArtists />

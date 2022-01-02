@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <LazyMotion features={domAnimation}>
       <m.footer variants={fade} initial="0" animate="1" className="p-16 tablet:px-10 phone:px-5">
-        <div className="flex gap-10 mb-10">
+        <div className="flex flex-wrap gap-10 mb-10 phone:gap-3">
           <p className="font-freak text-base text-gray9 dark:text-gray5">&#169; 2022 YuCheng Kuo</p>
           <p className="font-freak text-base text-gray7">Still WIP. Come back later! :&#41;</p>
         </div>

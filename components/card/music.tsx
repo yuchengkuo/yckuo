@@ -2,7 +2,7 @@ import { UpRightArrowIcon } from '@components/Icons'
 import { fade, fadeRight, scale } from '@utils/animation'
 import { m } from 'framer-motion'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Albums, Artists, Tracks } from 'types/types'
 
 export const CardWithCover = ({
@@ -15,6 +15,9 @@ export const CardWithCover = ({
   loading?: boolean
 }) => {
   const [isVisible, setVisible] = useState(false)
+  useEffect(() => {
+    if (window.innerWidth < 700) setVisible(true)
+  })
   if (loading) return <div className="bg-gray7/50 rounded w-40 h-40 animate-pulse" />
   return (
     <m.a
@@ -32,7 +35,10 @@ export const CardWithCover = ({
       onHoverEnd={() => setVisible(false)}
       layout
     >
-      <m.div layout className="bg-gray5 rounded overflow-hidden w-40 h-40 flex-none">
+      <m.div
+        layout
+        className="bg-gray5 rounded overflow-hidden w-40 h-40 flex-none phone:w-32 phone:h-32"
+      >
         <Image src={album.imageUrl} width={160} height={160} />
       </m.div>
       {isVisible && (
