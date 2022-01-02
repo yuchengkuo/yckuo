@@ -29,17 +29,8 @@ export default function Bg() {
       {!shouldReducedMotion && (
         <div className="fixed h-screen w-screen overflow-hidden pointer-events-none">
           <m.div
-            className="absolute rounded-full bg-marine6 dark:bg-cheese5"
-            style={{
-              x: posX,
-              y: posY,
-              width: '160vw',
-              height: '160vh',
-              left: '98vw',
-              top: '-30vh',
-              filter: 'blur(160px) opacity(0.8)',
-              zIndex: -10,
-            }}
+            className="absolute rounded-full bg-marine6 dark:bg-cheese5 tablet:hidden w-[160vw] h-[160vh] left-[98vw] top-[-30vh] blur-[160px] opacity-[0.8] z-[99] pointer-events-none"
+            style={{ x: posX, y: posY }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.2 }}
           />
