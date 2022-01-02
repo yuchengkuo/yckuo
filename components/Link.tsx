@@ -1,7 +1,26 @@
 import { domAnimation, LazyMotion, m } from 'framer-motion'
 import Link from 'next/link'
+import Tag from './Tag'
 
-export const NavLink = ({ label, url, ...props }: { label: string; url: string }) => {
+export const NavLink = ({
+  label,
+  url,
+  wip = false,
+  ...props
+}: {
+  label: string
+  url: string
+  wip?: boolean
+}) => {
+  if (wip)
+    return (
+      <>
+        <p className="font-freak freak-font-settings py-1 tracking-wide text-lg text-gray6 cursor-not-allowed">
+          {label}
+        </p>
+        <Tag label="WIP" />
+      </>
+    )
   return (
     <LazyMotion features={domAnimation}>
       <Link href={url} key={url} passHref>

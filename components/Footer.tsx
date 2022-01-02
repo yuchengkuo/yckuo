@@ -8,7 +8,7 @@ export default function Footer() {
     <LazyMotion features={domAnimation}>
       <m.footer variants={fade} initial="0" animate="1" className="p-16 tablet:px-10 phone:px-5">
         <div className="flex gap-10 mb-10">
-          <p className="font-freak text-base text-gray9 dark:text-gray5">&#169; 2021 YuCheng Kuo</p>
+          <p className="font-freak text-base text-gray9 dark:text-gray5">&#169; 2022 YuCheng Kuo</p>
           <p className="font-freak text-base text-gray7">Still WIP. Come back later! :&#41;</p>
         </div>
         <div className="flex flex-wrap pt-10 phone:gap-y-6 border-t border-gray7/20">
@@ -23,8 +23,9 @@ export default function Footer() {
                     whileInView="1"
                     viewport={{ once: false, margin: '-20px' }}
                     key={link.label}
+                    className="flex gap-2 items-baseline"
                   >
-                    <NavLink label={link.label} url={link.url} />
+                    <NavLink wip={link.wip} label={link.label} url={link.url} />
                   </m.li>
                 ))}
               </ul>

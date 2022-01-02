@@ -1,4 +1,13 @@
-export const routes = [
+export type Route = {
+  group: string
+  links: {
+    label: string
+    url: string
+    wip?: boolean
+  }[]
+}[]
+
+export const routes: Route = [
   {
     group: 'Pages',
     links: [
@@ -34,6 +43,7 @@ export const routes = [
       {
         label: 'Styleguide',
         url: '/styleguide',
+        wip: true,
       },
     ],
   },
@@ -47,6 +57,7 @@ export const routes = [
       {
         label: 'Projects',
         url: '/projects',
+        wip: true,
       },
     ],
   },
