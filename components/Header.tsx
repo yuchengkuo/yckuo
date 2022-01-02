@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { LeftArrowIcon, LogoIcon } from './Icons'
 import { fade } from '@utils/animation'
+import { useEffect, useState } from 'react'
+import useIntersectionObserver from '@utils/hooks/useIntersectionObserver'
 
 const Header = () => {
   const router = useRouter()
@@ -15,6 +17,14 @@ const Header = () => {
       title: title.replace(/[a-z]/, (str) => str.toUpperCase()).replace(/-/g, ' '),
     }
   }
+  const [h1, setH1] = useState(null)
+  useEffect(() => {
+    const el = document.querySelector('h1')
+    setH1(el)
+  })
+  const [index] = useIntersectionObserver([h1])
+  console.log(index)
+  const isVisible = index === -1
   return (
     <header className="flex items-center gap-4 z-50 sticky -top-12 px-16 pb-3 pt-16 tablet:px-10 phone:px-5 bg-cheese1/50 dark:bg-marine9/50 backdrop-blur-[6px]">
       <LazyMotion features={domAnimation}>
@@ -30,9 +40,11 @@ const Header = () => {
           </a>
         </Link>
         <AnimatePresence>
-          <m.p className="body-font-settings" variants={fade} initial="0" animate="1" exit="0">
-            {handleRouter(router.asPath).title}
-          </m.p>
+          {isVisible && (
+            <m.p className="body-font-settings" variants={fade} initial="0" animate="1" exit="0">
+              {handleRouter(router.asPath).title}
+            </m.p>
+          )}
         </AnimatePresence>
       </LazyMotion>
     </header>
