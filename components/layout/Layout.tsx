@@ -20,20 +20,20 @@ export default function Layout({
           initial="0"
           animate="1"
           transition={{ type: 'spring', damping: 20, mass: 1 }}
-          className="font-hagrid text-3xl phone:text-xl"
+          className="font-hagrid"
         >
           {title}
         </m.h1>
         {subtitle && (
-          <m.h1
+          <m.h3
             variants={fadeUp}
             initial="0"
             animate="1"
             transition={{ type: 'spring', damping: 20, mass: 1, delay: 0.04 }}
-            className="font-apfel mt-1 text-4xl phone:text-2xl"
+            className="font-apfel text-gray8 dark:text-gray6"
           >
             {subtitle}
-          </m.h1>
+          </m.h3>
         )}
         {animateChildren ? (
           <m.div

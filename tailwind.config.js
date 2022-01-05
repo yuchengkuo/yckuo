@@ -6,6 +6,7 @@ module.exports = {
       apfel: ['Apfel, system-ui'],
       freak: ['FREAK, system-ui'],
       sato: ['Sato, system-ui'],
+      spectral: ['Spectral, system-ui'],
     },
     screens: {
       tablet: { max: '1020px' },

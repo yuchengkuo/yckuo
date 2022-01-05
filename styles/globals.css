@@ -45,13 +45,27 @@
     font-display: block;
     font-weight: 300 900;
   }
+  @font-face {
+    font-family: Spectral;
+    src: url('/fonts/spectral-italic.woff2') format('woff2');
+    font-style: italic;
+    font-display: block;
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: Spectral;
+    src: url('/fonts/spectral-regular.woff2') format('woff2');
+    font-style: normal;
+    font-display: block;
+    font-weight: 400;
+  }
 
   html {
     @apply bg-cheese1 text-gray11 dark:bg-marine9 dark:text-gray2;
   }
 
   body {
-    @apply min-h-screen font-sato;
+    @apply min-h-screen font-sato antialiased;
   }
 
   main {
@@ -59,23 +73,23 @@
   }
 
   h1 {
-    @apply font-hagrid font-normal text-3xl phone:text-xl;
+    @apply font-hagrid font-normal text-3xl phone:text-2xl;
   }
 
   h2 {
-    @apply font-apfel font-normal text-3xl phone:text-xl;
+    @apply font-apfel font-normal text-2xl phone:text-xl;
   }
 
   h3 {
-    @apply font-apfel font-normal text-2xl phone:text-lg;
+    @apply font-apfel font-normal text-xl phone:text-lg;
   }
 
   h4 {
-    @apply font-apfel font-normal text-xl phone:text-base;
+    @apply font-apfel font-normal text-lg phone:text-base;
   }
 
   ::selection {
-    @apply text-cheese1 bg-marine6 dark:bg-cheese5 dark:text-marine9;
+    @apply bg-gray6 dark:bg-gray8;
   }
 }
 

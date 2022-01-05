@@ -37,13 +37,8 @@ export const routes: Route = [
         url: 'https://github.com/yuchengkuo/yckuo',
       },
       {
-        label: 'Archive',
-        url: '/archive',
-      },
-      {
         label: 'Styleguide',
         url: '/styleguide',
-        wip: true,
       },
     ],
   },
@@ -75,10 +70,6 @@ export const routes: Route = [
       {
         label: 'Github',
         url: 'https://github.com/yuchengkuo',
-      },
-      {
-        label: 'Savee',
-        url: 'https://savee.it/yuchengkuo',
       },
     ],
   },
