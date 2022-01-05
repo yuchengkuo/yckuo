@@ -3,8 +3,6 @@ import { ThemeProvider } from 'next-themes'
 import SEO from '@components/Seo'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
-import Cursor from '@components/Cursor'
-import Bg from '@components/Bg'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -12,8 +10,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <SEO />
       <ThemeProvider attribute="class">
-        <Cursor />
-        <Bg />
         <Header />
         <Component {...pageProps} />
         <Footer />
