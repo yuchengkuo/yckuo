@@ -23,17 +23,16 @@ const Header = () => {
     setH1(el)
   })
   const [index] = useIntersectionObserver([h1])
-  console.log(index)
   const isVisible = index === -1
   return (
-    <header className="flex items-center gap-4 z-50 sticky -top-12 px-16 pb-3 pt-16 tablet:px-10 phone:px-5 bg-cheese1/50 dark:bg-marine9/50 backdrop-blur-[6px]">
+    <header className="flex items-center gap-4 z-50 sticky -top-12 px-16 pb-3 pt-16 tablet:px-10 phone:px-5 bg-cheese1/70 dark:bg-marine9/70 backdrop-blur-[4px]">
       <LazyMotion features={domAnimation}>
         <Link href={handleRouter(router.asPath).backHref} passHref>
           <a>
             <m.button
-              className="box-border block w-8 h-8 text-gray9 dark:text-gray5 hover:text-marine6 dark:hover:text-cheese5 rounded hover:bg-gray7/10"
+              className="box-border block w-7 h-7 text-gray9 dark:text-gray5 rounded hover:bg-gray7/20"
               whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.95 }}
             >
               {router.asPath === '/' ? <LogoIcon /> : <LeftArrowIcon />}
             </m.button>
