@@ -19,7 +19,7 @@
 }
 
 .words a {
-  @apply text-marine6 dark:text-cheese5 rounded px-0.5 -mx-0.5 hover:underline hover:bg-marine6/20 dark:hover:bg-cheese5/20;
+  @apply underline decoration-gray7 rounded px-0.5 -mx-0.5 hover:bg-gray6 dark:hover:bg-gray9 hover:decoration-inherit transition-all;
 }
 
 .words blockquote {
