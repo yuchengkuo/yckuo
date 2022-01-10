@@ -99,7 +99,7 @@ export const ListCard = ({
       variants={{ 1: { y: -4 } }}
       initial="0"
       whileHover="1"
-      whileTap={{ scale: 0.98 }}
+      whileTap={{ scale: 0.99 }}
     >
       <p className="font-freak freak-font-settings text-xs text-gray8 dark:text-gray6">0{index}</p>
       <p className="body-font-settings font-medium">{(track && track.title) || artist.name}</p>
