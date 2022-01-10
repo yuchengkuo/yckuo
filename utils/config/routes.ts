@@ -59,10 +59,10 @@ export const routes: Route = [
   {
     group: 'External',
     links: [
-      {
-        label: 'LinkedIn',
-        url: 'https://linkedin.com/in/yucheng-kuo',
-      },
+      // {
+      //   label: 'LinkedIn',
+      //   url: 'https://linkedin.com/in/yucheng-kuo',
+      // },
       {
         label: 'Read.cv',
         url: 'https://read.cv/yuchengkuo',
@@ -70,6 +70,10 @@ export const routes: Route = [
       {
         label: 'Github',
         url: 'https://github.com/yuchengkuo',
+      },
+      {
+        label: 'Savee',
+        url: 'https://savee.it/yuchengkuo',
       },
     ],
   },

@@ -1,5 +1,5 @@
 export default {
-  title: 'YuCheng Kuo → Designer x Developer',
+  title: 'YuCheng Kuo → Designer, Engineer',
   keywords: ['Design', 'Engineering', 'UI', 'UX', 'Product', 'React', 'Portfolio', 'Nextjs', 'Web'],
   url: 'yuchengkuo.com',
   siteUrl: 'yuchengkuo.com/',
