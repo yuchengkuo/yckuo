@@ -5,7 +5,7 @@ export const LogoIcon = (props) => {
   return (
     <AnimatePresence>
       <m.svg
-        viewBox="0 0 32 32"
+        viewBox="0 0 28 28"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         variants={scale}
@@ -15,9 +15,8 @@ export const LogoIcon = (props) => {
         {...props}
       >
         <title>YuCheng Kuo</title>
-        <desc>Logo of YuCheng Kuo.</desc>
         <path
-          d="M12 8V24M12 8H4L8 16L4 24H12M12 8H20M12 24H20M12 24L20 8M24 16.3333L28 8H20M24 16.3333L28 24H20M24 16.3333L20 24"
+          d="M10.5 7V21M10.5 7H3.5L7 14L3.5 21H10.5M10.5 7H17.5M10.5 21H17.5M10.5 21L17.5 7M21 14.2917L24.5 7H17.5M21 14.2917L24.5 21H17.5M21 14.2917L17.5 21"
           strokeWidth="1.6"
           strokeLinejoin="round"
           className="stroke-current"
@@ -31,7 +30,7 @@ export const LeftArrowIcon = (props) => {
   return (
     <AnimatePresence>
       <m.svg
-        viewBox="0 0 24 24"
+        viewBox="0 0 28 28"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         variants={scale}
@@ -42,18 +41,16 @@ export const LeftArrowIcon = (props) => {
         {...props}
       >
         <path
-          d="M19 12H5"
-          className="stroke-current"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          d="M4.66675 14C4.66675 13.3557 5.18908 12.8333 5.83341 12.8333H22.1667C22.8111 12.8333 23.3334 13.3557 23.3334 14C23.3334 14.6443 22.8111 15.1667 22.1667 15.1667H5.83341C5.18908 15.1667 4.66675 14.6443 4.66675 14Z"
+          className="fill-current"
+          fillRule="evenodd"
+          clipRule="evenodd"
         />
         <path
-          d="M12 19L5 12L12 5"
-          className="stroke-current"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          d="M14.825 5.00838C15.2807 5.46399 15.2807 6.20268 14.825 6.6583L7.48333 14L14.825 21.3417C15.2807 21.7973 15.2807 22.536 14.825 22.9916C14.3694 23.4472 13.6307 23.4472 13.1751 22.9916L5.00846 14.825C4.55285 14.3694 4.55285 13.6307 5.00846 13.175L13.1751 5.00838C13.6307 4.55277 14.3694 4.55277 14.825 5.00838Z"
+          className="fill-current"
+          fillRule="evenodd"
+          clipRule="evenodd"
         />
       </m.svg>
     </AnimatePresence>

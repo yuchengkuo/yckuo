@@ -37,9 +37,8 @@ export default function Layout({
         )}
         {animateChildren ? (
           <m.div
-            variants={fade}
-            initial="0"
-            animate="1"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.04 }}
             className="my-10"
           >

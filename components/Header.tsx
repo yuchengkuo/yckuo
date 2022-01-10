@@ -3,8 +3,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { LeftArrowIcon, LogoIcon } from './Icons'
 import { fade } from '@utils/animation'
-import { useEffect, useState } from 'react'
-import useIntersectionObserver from '@utils/hooks/useIntersectionObserver'
+import useScrollProgress from '@utils/hooks/useScrollProgress'
 
 const Header = () => {
   const router = useRouter()
@@ -17,13 +16,8 @@ const Header = () => {
       title: title.replace(/[a-z]/, (str) => str.toUpperCase()).replace(/-/g, ' '),
     }
   }
-  const [h1, setH1] = useState(null)
-  useEffect(() => {
-    const el = document.querySelector('h1')
-    setH1(el)
-  })
-  const [index] = useIntersectionObserver([h1])
-  const isVisible = index === -1
+  const { distY } = useScrollProgress()
+  const isVisible = distY > 200
   return (
     <header className="flex items-center gap-4 z-50 sticky -top-12 px-16 pb-3 pt-16 tablet:px-10 phone:px-5 bg-cheese1/70 dark:bg-marine9/70 backdrop-blur-[4px]">
       <LazyMotion features={domAnimation}>
