@@ -1,36 +1,117 @@
-import { box } from '@styles/box';
-import { scale } from '@utils/animation';
-import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
+import { scale } from '@utils/animation'
+import { AnimatePresence, m } from 'framer-motion'
 
 export const LogoIcon = (props) => {
   return (
-    <LazyMotion features={domAnimation}>
-      <AnimatePresence>
-        <m.svg
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          variants={scale}
-          initial="0"
-          animate="1"
-          exit="0"
-          {...props}
-        >
-          <title>YuCheng Kuo</title>
-          <desc>Logo of YuCheng Kuo.</desc>
-          <path
-            d="M12 8V24M12 8H4L8 16L4 24H12M12 8H20M12 24H20M12 24L20 8M24 16.3333L28 8H20M24 16.3333L28 24H20M24 16.3333L20 24"
-            strokeWidth="1.6"
-            strokeLinejoin="round"
-            className={box({ stroke: '$foreground' })}
-          />
-        </m.svg>
-      </AnimatePresence>
-    </LazyMotion>
-  );
-};
+    <AnimatePresence>
+      <m.svg
+        viewBox="0 0 28 28"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        variants={scale}
+        initial="0"
+        animate="1"
+        exit="0"
+        {...props}
+      >
+        <title>YuCheng Kuo</title>
+        <path
+          d="M10.5 7V21M10.5 7H3.5L7 14L3.5 21H10.5M10.5 7H17.5M10.5 21H17.5M10.5 21L17.5 7M21 14.2917L24.5 7H17.5M21 14.2917L24.5 21H17.5M21 14.2917L17.5 21"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+          className="stroke-current"
+        />
+      </m.svg>
+    </AnimatePresence>
+  )
+}
+
+export const LeftArrowIcon = (props) => {
+  return (
+    <AnimatePresence>
+      <m.svg
+        viewBox="0 0 28 28"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        variants={scale}
+        initial="0"
+        animate="1"
+        exit="0"
+        aria-label="go back to last page"
+        {...props}
+      >
+        <path
+          d="M4.66675 14C4.66675 13.3557 5.18908 12.8333 5.83341 12.8333H22.1667C22.8111 12.8333 23.3334 13.3557 23.3334 14C23.3334 14.6443 22.8111 15.1667 22.1667 15.1667H5.83341C5.18908 15.1667 4.66675 14.6443 4.66675 14Z"
+          className="fill-current"
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
+        <path
+          d="M14.825 5.00838C15.2807 5.46399 15.2807 6.20268 14.825 6.6583L7.48333 14L14.825 21.3417C15.2807 21.7973 15.2807 22.536 14.825 22.9916C14.3694 23.4472 13.6307 23.4472 13.1751 22.9916L5.00846 14.825C4.55285 14.3694 4.55285 13.6307 5.00846 13.175L13.1751 5.00838C13.6307 4.55277 14.3694 4.55277 14.825 5.00838Z"
+          className="fill-current"
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
+      </m.svg>
+    </AnimatePresence>
+  )
+}
+
+export const RightArrowIcon = () => {
+  return (
+    <m.svg
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      variants={scale}
+      initial="0"
+      animate="1"
+      exit="0"
+      aria-label="continue to the item"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M3.33337 10C3.33337 9.53976 3.70647 9.16666 4.16671 9.16666H15.8334C16.2936 9.16666 16.6667 9.53976 16.6667 10C16.6667 10.4602 16.2936 10.8333 15.8334 10.8333H4.16671C3.70647 10.8333 3.33337 10.4602 3.33337 10Z"
+        className="fill-current"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9.4107 3.57741C9.73614 3.25197 10.2638 3.25197 10.5892 3.57741L16.4225 9.41074C16.748 9.73618 16.748 10.2638 16.4225 10.5893L10.5892 16.4226C10.2638 16.748 9.73614 16.748 9.4107 16.4226C9.08527 16.0971 9.08527 15.5695 9.4107 15.2441L14.6548 10L9.4107 4.75592C9.08527 4.43048 9.08527 3.90285 9.4107 3.57741Z"
+        className="fill-current"
+      />
+    </m.svg>
+  )
+}
+
+export const UpRightArrowIcon = () => {
+  return (
+    <m.svg
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      variants={scale}
+      initial="0"
+      animate="1"
+      exit="0"
+      aria-label="external link"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M11.8047 4.19526C12.0651 4.45561 12.0651 4.87772 11.8047 5.13807L5.13807 11.8047C4.87772 12.0651 4.45561 12.0651 4.19526 11.8047C3.93491 11.5444 3.93491 11.1223 4.19526 10.8619L10.8619 4.19526C11.1223 3.93491 11.5444 3.93491 11.8047 4.19526Z"
+        className="fill-current"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4 4.66667C4 4.29848 4.29848 4 4.66667 4H11.3333C11.7015 4 12 4.29848 12 4.66667V11.3333C12 11.7015 11.7015 12 11.3333 12C10.9651 12 10.6667 11.7015 10.6667 11.3333V5.33333H4.66667C4.29848 5.33333 4 5.03486 4 4.66667Z"
+        className="fill-current"
+      />
+    </m.svg>
+  )
+}
 
 export const AboutIcon = (props) => {
   return (
@@ -50,8 +131,8 @@ export const AboutIcon = (props) => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const ReadCVIcon = (props) => {
   return (
@@ -112,8 +193,8 @@ export const ReadCVIcon = (props) => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
 export const MailIcon = (props) => {
   return (
@@ -140,5 +221,5 @@ export const MailIcon = (props) => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}

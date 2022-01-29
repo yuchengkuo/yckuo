@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: Apfel;
+    src: url('/fonts/ApfelGrotezk-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-display: block;
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: Sato;
+    src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
+    font-style: normal;
+    font-display: block;
+    font-weight: 300 900;
+  }
+  @font-face {
+    font-family: Sato;
+    src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2');
+    font-style: italic;
+    font-display: block;
+    font-weight: 300 900;
+  }
+  @font-face {
+    font-family: Spectral;
+    src: url('/fonts/spectral-italic.woff2') format('woff2');
+    font-style: italic;
+    font-display: block;
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: Spectral;
+    src: url('/fonts/spectral-regular.woff2') format('woff2');
+    font-style: normal;
+    font-display: block;
+    font-weight: 400;
+  }
+
+  html {
+    @apply bg-background text-primary dark:bg-darkBackground dark:text-darkPrimary;
+  }
+
+  body {
+    @apply min-h-screen font-sato antialiased text-lg phone:text-base;
+  }
+
+  main {
+    @apply px-16 tablet:px-10 phone:px-5 py-6;
+  }
+
+  h1 {
+    @apply font-apfel font-normal text-3xl leading-8 text-highlight dark:text-darkHighlight;
+  }
+
+  h2 {
+    @apply font-apfel font-normal text-2xl phone:text-xl;
+  }
+
+  h3 {
+    @apply font-apfel font-normal text-xl phone:text-lg;
+  }
+
+  h4 {
+    @apply font-apfel font-normal text-lg phone:text-base;
+  }
+
+  ::selection {
+    @apply bg-gray6 dark:bg-gray8;
+  }
+}
+
+@layer utilities {
+  .body-font-settings {
+    font-feature-settings: 'ss02', 'ss03';
+  }
+}
+
+@import url(./custom-layout.css);
+@import url(./words-base.css);
