@@ -1,4 +1,3 @@
-import Image from '@components/article/Image'
 import { fade, fadeUp } from '@utils/animation'
 import { domAnimation, LazyMotion, m } from 'framer-motion'
 
