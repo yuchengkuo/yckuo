@@ -1,7 +1,6 @@
 import { defineDocumentType, makeSource, ComputedFields } from 'contentlayer/source-files'
 import remarkSlug from 'remark-slug'
 import remarkDirective from 'remark-directive'
-import remarkSectionize from 'remark-sectionize'
 import readingTime from 'reading-time'
 
 const computedFields: ComputedFields = {
@@ -47,5 +46,5 @@ export const Other = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: 'content',
   documentTypes: [Post, Project, Other],
-  mdx: { remarkPlugins: [remarkSlug, remarkDirective, remarkSectionize] },
+  mdx: { remarkPlugins: [remarkSlug, remarkDirective] },
 })
