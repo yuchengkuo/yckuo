@@ -1,12 +1,12 @@
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
-      hagrid: ['Hagrid, system-ui'],
-      apfel: ['Apfel, system-ui'],
-      freak: ['FREAK, system-ui'],
-      sato: ['Sato, system-ui'],
-      spectral: ['Spectral, system-ui'],
+      apfel: ['Apfel', ...fontFamily.sans],
+      sato: ['Sato', ...fontFamily.sans],
+      spectral: ['Spectral', ...fontFamily.sans],
     },
     screens: {
       tablet: { max: '1020px' },
@@ -26,7 +26,7 @@ module.exports = {
         gray10: 'hsl(0 0% 17% / 1)',
         gray11: 'hsl(0 0% 13% / 1)',
         gray12: 'hsl(0 0% 10% / 1)',
-        gray13: 'hsl(0, 0, 5% / 1)',
+        gray13: 'hsl(0 0 5% / 1)',
 
         cheese1: 'hsl(30 17% 90% / 1)',
         cheese2: 'hsl(30 58% 89% / 1)',
@@ -47,6 +47,19 @@ module.exports = {
         marine7: 'hsl(220 85% 32% / 1)',
         marine8: 'hsl(220 96% 20% / 1)',
         marine9: 'hsl(220 5% 12% / 1)',
+
+        background: 'hsl(60 12% 90% / 1)',
+        darkBackground: 'hsl(228 8% 12% / 1)',
+      },
+      textColor: {
+        primary: 'hsla(0 0% 12% / 1)',
+        secondary: 'hsl(0 0% 40% / 1)',
+        teritary: '',
+        highlight: 'hsl(220 22% 30% / 1)',
+        darkPrimary: 'hsl(0 0% 84% / 1)',
+        darkSecondary: 'hsl(0 0% 60% / 1)',
+        darkTeritary: '',
+        darkHighlight: 'hsl(54 18% 91% / 1)',
       },
     },
   },

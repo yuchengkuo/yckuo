@@ -14,26 +14,25 @@ export default function Layout({
 }) {
   return (
     <LazyMotion features={domAnimation}>
-      <main className="min-h-[calc(100vh-128px-108px)]">
+      <main className="min-h-[calc(100vh-104px-104px)]">
         <m.h1
           variants={fadeUp}
           initial="0"
           animate="1"
           transition={{ type: 'spring', damping: 20, mass: 1 }}
-          className="font-hagrid"
         >
           {title}
         </m.h1>
         {subtitle && (
-          <m.h3
+          <m.p
             variants={fadeUp}
             initial="0"
             animate="1"
             transition={{ type: 'spring', damping: 20, mass: 1, delay: 0.04 }}
-            className="font-apfel text-gray8 dark:text-gray6"
+            className="body-font-settings font-medium text-xl text-secondary dark:text-darkSecondary"
           >
             {subtitle}
-          </m.h3>
+          </m.p>
         )}
         {animateChildren ? (
           <m.div
