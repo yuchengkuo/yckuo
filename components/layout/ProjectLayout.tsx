@@ -1,5 +1,4 @@
 import { Project } from '.contentlayer/types'
-import SideMenu from '@components/article/SideMenu'
 import { fade, fadeUp } from '@utils/animation'
 import { domAnimation, LazyMotion, m } from 'framer-motion'
 
@@ -37,7 +36,6 @@ export default function ProjectLayout({
               </p>
             ))}
           </m.div>
-          <SideMenu />
         </div>
         <m.article variants={fade} initial="0" animate="1" className="my-10 words two-col-layout">
           {children}
