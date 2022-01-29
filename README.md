@@ -1,8 +1,9 @@
 Source of [yuchengkuo.com](https://yuchengkuo.com)
 
-Built with the following stacks:
+Built with:
+
 - [Next.js](https://nextjs.org)
-- [Stitches](https://stitches.dev)
+- [Tailwind](https://tailwindcss.com)
 - [Mdx](https://mdxjs.com)
 - [Framer Motion](https://framer.com/motion)
 - [Vercel](https://vercel.com)
