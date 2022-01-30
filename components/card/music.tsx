@@ -20,7 +20,8 @@ export const CardWithCover = ({
   index?: number
   loading?: boolean
 }) => {
-  if (loading) return <div className="bg-gray7/50 rounded w-60 h-60 animate-pulse" />
+  if (loading)
+    return <div className="bg-gray/10 dark:bg-darkGray/10 rounded w-60 h-60 animate-pulse" />
   return (
     <m.a
       href={url}
@@ -90,7 +91,8 @@ export const ListCard = ({
   index?: number
   loading?: boolean
 }) => {
-  if (loading) return <div className="bg-gray/10 rounded h-10 mb-2 animate-pulse" />
+  if (loading)
+    return <div className="bg-gray/10 dark:bg-darkGray/10 rounded h-10 mb-2 animate-pulse" />
   return (
     <m.a
       href={url}
