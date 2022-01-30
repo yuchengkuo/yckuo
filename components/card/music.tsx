@@ -27,7 +27,7 @@ export const CardWithCover = ({
       title={title}
       target="_blank"
       rel="noopener noreferrer"
-      className="px-4 pt-2 pb-4 -m-4 rounded hover:bg-gray7/10 group relative"
+      className="px-4 pt-2 pb-4 -m-4 rounded hover:bg-gray/10 group relative"
       variants={{ ...fade, 1: { y: -4 } }}
       initial="0"
       animate="visible"
@@ -90,7 +90,7 @@ export const ListCard = ({
   index?: number
   loading?: boolean
 }) => {
-  if (loading) return <div className="bg-gray7/50 rounded h-10 mb-2 animate-pulse" />
+  if (loading) return <div className="bg-gray/10 rounded h-10 mb-2 animate-pulse" />
   return (
     <m.a
       href={url}
