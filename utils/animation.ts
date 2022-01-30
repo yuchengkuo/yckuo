@@ -8,6 +8,7 @@ export const scale: Variants = {
 export const fade: Variants = {
   0: { opacity: 0 },
   1: { opacity: 1 },
+  visible: { opacity: 1 },
 }
 
 export const fadeUp: Variants = {
