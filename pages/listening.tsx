@@ -99,7 +99,7 @@ function TopAlbums() {
 function TopSongs() {
   const { data: tracks } = useSWR<Tracks[]>('/api/top-tracks', fetcher)
   return (
-    <div className="mt-16 phone:mt-8">
+    <div className="mt-16 phone:mt-8 flex flex-col items-start">
       <h2>Recent Top Songs</h2>
       <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
         Most played songs this month
@@ -158,7 +158,7 @@ export default function ListeningPage() {
         <TopAlbums />
         <div className="flex flex-wrap gap-10 phone:gap-5">
           <TopArtists />
-          <Statistic />
+          {/* <Statistic /> */}
         </div>
       </LazyMotion>
     </Layout>

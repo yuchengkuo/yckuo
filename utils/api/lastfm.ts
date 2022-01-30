@@ -20,7 +20,7 @@ export const getTopAlbums = async () => {
 
 export const getWeeklyTracks = async () => {
   const from = getUnixTime(previousSunday(Date.now()))
-  const method = `user.getweeklytrackchart`
+  const method = `user.getrecenttracks`
   const query = new URLSearchParams({
     method,
     from: `${from}`,
@@ -39,6 +39,7 @@ export const getWeeklyArtists = async () => {
   }).toString()
   return fetch(`${LASTFM_ENDPOINT}?${query}`)
 }
+
 export const getWeeklyAlbums = async () => {
   const from = getUnixTime(previousSunday(Date.now()))
   const method = 'user.getweeklyalbumchart'
