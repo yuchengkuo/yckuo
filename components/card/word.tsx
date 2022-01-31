@@ -23,7 +23,7 @@ export const PostCard = ({ post }: { post: Post }) => {
             <h2>{post.title}</h2>
           </div>
           <m.div
-            className="w-5 h-5 ml-auto text-secondary dark:text-darkSecondary"
+            className="w-4 h-4 ml-auto text-secondary dark:text-darkSecondary"
             variants={scale}
           >
             <RightArrowIcon />
