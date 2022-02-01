@@ -19,7 +19,10 @@ export default function Footer() {
         </div>
         <nav className="mt-10 border-t border-gray/20 dark:border-darkGray/20 flex flex-wrap">
           {routes.map((route) => (
-            <ul className="px-5 my-5 grow first:border-r first:border-gray/20 dark:first:border-darkGray/20">
+            <ul
+              key={route.group}
+              className="px-5 my-5 grow first:border-r first:border-gray/20 dark:first:border-darkGray/20"
+            >
               <p className="font-apfel text-secondary dark:text-darkSecondary">{route.group}</p>
               {route.links.map((link) => (
                 <li key={link.label} className="body-font-settings text-base font-medium mt-4">
