@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const artists = await (await getWeeklyArtists()).json()
 
   const stats = {
-    tracks: tracks.weeklytrackchart.track.length,
+    tracks: tracks.recenttracks.track.length,
     albums: albums.weeklyalbumchart.album.length,
     artists: artists.weeklyartistchart.artist.length,
   }

@@ -1,4 +1,5 @@
 import { Project } from '.contentlayer/types'
+import Head from '@components/Head'
 import { fade, fadeUp } from '@utils/animation'
 import { domAnimation, LazyMotion, m } from 'framer-motion'
 
@@ -10,8 +11,9 @@ export default function ProjectLayout({
   project: Project
 }) {
   return (
-    <main>
-      <LazyMotion features={domAnimation}>
+    <LazyMotion features={domAnimation}>
+      <Head title={project.title} description={project.subtitle} />
+      <main>
         <div className="mt-20 min-h-[40vh] grid grid-cols-3 items-baseline justify-between">
           <m.h1
             variants={fadeUp}
@@ -40,7 +42,7 @@ export default function ProjectLayout({
         <m.article variants={fade} initial="0" animate="1" className="my-10 words two-col-layout">
           {children}
         </m.article>
-      </LazyMotion>
-    </main>
+      </main>
+    </LazyMotion>
   )
 }

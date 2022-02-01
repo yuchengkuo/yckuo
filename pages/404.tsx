@@ -6,8 +6,8 @@ const NotFoundPage = () => {
     <Layout title="404" subtitle="The page doesn't exit. :(">
       <Link href="/" passHref>
         <a>
-          <button className="mt-6 px-3 py-2 rounded bg-gray7/10 hover:scale-[1.05] hover:bg-gray7/20 transition-all duration-200 ease-out active:scale-95">
-            &#8592; Home Page
+          <button className="font-apfel px-4 py-2 text-base rounded bg-gray/10 hover:-translate-y-1 hover:bg-gray/20 transition-all duration-200 ease-out active:scale-95">
+            Home page
           </button>
         </a>
       </Link>

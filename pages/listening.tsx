@@ -17,22 +17,24 @@ function handleArraySplit(arr: any[], size: number) {
 function NowPlaying() {
   const { data: now } = useSWR<NowPlayingTrack>('/api/now-playing', fetcher)
   return (
-    <div className="basis-[33.33%]">
-      <h2>Currently Playing</h2>
-      <p className="font-spectral italic text-gray8 dark:text-gray6">Spotify</p>
-      <div className="mt-4 phone:mt-2 font-apfel">
+    <div className="">
+      <h2>Currently</h2>
+      <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
+        Spotify
+      </p>
+      <div className="font-apfel mt-2 phone:mt-1">
         {now && now.isPlaying ? (
           <div className="flex flex-wrap">
             <p>{(now && now.artist) || now.show}&nbsp;-&nbsp;</p>
             <a
               href={now.url}
-              className="underline decoration-gray7 hover:decoration-inherit transition-all duration-200 ease-out"
+              className="underline decoration-gray7/70 hover:decoration-inherit transition-all duration-200 ease-out"
             >
               {now.title}
             </a>
           </div>
         ) : (
-          <p>Currently Offline</p>
+          <p>Offline for now...</p>
         )}
       </div>
     </div>
@@ -42,9 +44,9 @@ function NowPlaying() {
 function Statistic() {
   const { data: stats } = useSWR<Stats>('/api/stats', fetcher)
   return (
-    <div className="basis-[33.33%]">
+    <div className="mt-16 phone:mt-8">
       <h2>Stats</h2>
-      <p className="font-spectral italic text-gray8 dark:text-gray6">
+      <p className="font-spectral italic text-base text-secondary dark:text-darkSecondary">
         This week's (so far) stats by Last.fm
       </p>
       <div className="body-font-settings mt-4 phone:mt-2">
@@ -71,84 +73,93 @@ function TopAlbums() {
   return (
     <m.div className="mt-16 phone:mt-8">
       <h2>Weekly Top Albums</h2>
-      <p className="font-spectral italic text-gray8 dark:text-gray6">
-        A little album chart for this week.
-      </p>
-      {albums ? (
-        handleArraySplit(albums, 4).map((items: Albums[], group) => (
-          <div key={group} className="inline-flex flex-wrap gap-12 mt-6 phone:gap-4 phone:mt-3">
-            <LayoutGroup>
-              {items.map((album, i) => (
-                <CardWithCover key={album.title} index={group * 4 + i} album={album} />
-              ))}
-            </LayoutGroup>
-          </div>
-        ))
-      ) : (
-        <div className="inline-flex flex-wrap gap-12 mt-6 phone:gap-4 phone:mt-3">
-          {Array(8)
-            .fill(1)
-            .map((i) => (
-              <CardWithCover key={i} loading />
-            ))}
-        </div>
-      )}
+      <div className="flex flex-wrap gap-12 phone:gap-2 mt-8 phone:mt-2">
+        {albums
+          ? albums.map((album, index) => (
+              <LayoutGroup>
+                <CardWithCover
+                  key={album.title}
+                  index={index}
+                  title={album.title}
+                  subtitle={album.artist}
+                  imgSrc={album.imageUrl}
+                  url={album.spotifyUrl}
+                  info={`${album.releaseDate} • ${album.trackNum} tracks`}
+                />
+              </LayoutGroup>
+            ))
+          : Array(8)
+              .fill(1)
+              .map((_, i) => <CardWithCover key={i} loading />)}
+      </div>
     </m.div>
   )
 }
 
-function TopSongsArtists() {
+function TopSongs() {
   const { data: tracks } = useSWR<Tracks[]>('/api/top-tracks', fetcher)
-  const { data: artists } = useSWR<Artists[]>('/api/top-artists', fetcher)
-
   return (
-    <div className="mt-16 phone:mt-8 flex gap-10 phone:flex-col">
-      <div className="basis-[33.33%]">
-        <h2>Recent Top Songs</h2>
-        <p className="font-spectral italic text-gray8 dark:text-gray6">
-          Most played songs this month
-        </p>
-        <ul className="mt-6 phone:mt-3">
-          {tracks
-            ? tracks.map((track, i) => <ListCard key={track.title} track={track} index={i + 1} />)
-            : Array(5)
-                .fill(1)
-                .map((_, i) => <ListCard key={i} loading />)}
-        </ul>
-      </div>
-
-      <div className="basis-[33.33%]">
-        <h2>Recent Top Artists</h2>
-        <p className="font-spectral italic text-gray8 dark:text-gray6">
-          Favorite artists this month
-        </p>
-        <ul className="mt-6 phone:mt-3">
-          {artists
-            ? artists.map((artist, i) => (
-                <ListCard key={artist.name} artist={artist} index={i + 1} />
-              ))
-            : Array(5)
-                .fill(1)
-                .map((_, i) => <ListCard key={i} loading />)}
-        </ul>
-      </div>
+    <div className="mt-16 phone:mt-8 flex flex-col items-start">
+      <h2>Recent Top Songs</h2>
+      <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
+        Most played songs this month
+      </p>
+      <ul className={`mt-2 phone:mt-1 ${!tracks && 'w-full max-w-md'}`}>
+        {tracks
+          ? tracks.map((track, i) => (
+              <ListCard
+                key={track.title}
+                title={track.title}
+                subtitle={track.artists}
+                url={track.songUrl}
+                index={i + 1}
+              />
+            ))
+          : Array(5)
+              .fill(1)
+              .map((_, i) => <ListCard key={i} loading />)}
+      </ul>
     </div>
   )
 }
 
+function TopArtists() {
+  const { data: artists } = useSWR<Artists[]>('/api/top-artists', fetcher)
+  return (
+    <div className="mt-16 phone:mt-8">
+      <h2>Recent Top Artists</h2>
+      <p className="font-spectral italic text-base text-secondary dark:text-darkSecondary">
+        Favorite artists this month
+      </p>
+      <ul className="mt-2 phone:mt-1">
+        {artists
+          ? artists.map((artist, i) => (
+              <ListCard
+                key={artist.name}
+                title={artist.name}
+                subtitle={artist.genres}
+                url={artist.external_urls}
+                index={i + 1}
+              />
+            ))
+          : Array(5)
+              .fill(1)
+              .map((_, i) => <ListCard key={i} loading />)}
+      </ul>
+    </div>
+  )
+}
 export default function ListeningPage() {
   return (
-    <Layout title="Listening" subtitle="What I've been listening" animateChildren>
+    <Layout title="Listening" subtitle="A list of recent favorite 🎧" animateChildren>
       <LazyMotion features={domMax}>
-        <p className="text-lg body-font-settings text-gray10 dark:text-gray4 w-[500px]">
-          A list of recent favorite music and artist.🎧
-        </p>
-        <TopSongsArtists />
-        <div className="flex mt-16 phone:mt-8 gap-10">
-          <Statistic />
-          <NowPlaying />
-        </div>
+        <NowPlaying />
+        <TopSongs />
         <TopAlbums />
+        <div className="flex flex-wrap gap-10 phone:gap-5">
+          <TopArtists />
+          {/* <Statistic /> */}
+        </div>
       </LazyMotion>
     </Layout>
   )

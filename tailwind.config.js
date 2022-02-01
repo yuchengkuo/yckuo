@@ -50,6 +50,8 @@ module.exports = {
 
         background: 'hsl(60 12% 90% / 1)',
         darkBackground: 'hsl(228 8% 12% / 1)',
+        gray: 'hsl(0 0% 40% / 1)',
+        darkGray: 'hsl(0 0% 60% / 1)',
       },
       textColor: {
         primary: 'hsla(0 0% 12% / 1)',

@@ -1,19 +1,23 @@
-import { fade, fadeUp } from '@utils/animation'
+import Head from '@components/Head'
+import { fadeUp } from '@utils/animation'
 import { domAnimation, LazyMotion, m } from 'framer-motion'
 
 export default function Layout({
   children,
   title,
   subtitle,
+  description,
   animateChildren = false,
 }: {
   children: JSX.Element | JSX.Element[]
   title: string
   subtitle?: string
+  description?: string
   animateChildren?: boolean
 }) {
   return (
     <LazyMotion features={domAnimation}>
+      <Head title={title === 'YuCheng Kuo' ? '' : title} description={description || subtitle} />
       <main className="min-h-[calc(100vh-104px-104px)]">
         <m.h1
           variants={fadeUp}

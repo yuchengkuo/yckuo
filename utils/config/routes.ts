@@ -15,47 +15,47 @@ export const routes: Route = [
         label: 'About',
         url: '/about',
       },
-      {
-        label: 'Now',
-        url: '/now',
-      },
+      // {
+      //   label: 'Now',
+      //   url: '/now',
+      // },
       {
         label: 'Listening',
         url: '/listening',
       },
     ],
   },
-  {
-    group: 'Site',
-    links: [
-      {
-        label: 'Colophon',
-        url: '/colophon',
-      },
-      {
-        label: 'Source',
-        url: 'https://github.com/yuchengkuo/yckuo',
-      },
-      {
-        label: 'Styleguide',
-        url: '/styleguide',
-      },
-    ],
-  },
-  {
-    group: 'Words',
-    links: [
-      {
-        label: 'Posts',
-        url: '/posts',
-      },
-      {
-        label: 'Projects',
-        url: '/projects',
-        wip: true,
-      },
-    ],
-  },
+  // {
+  //   group: 'Site',
+  //   links: [
+  //     {
+  //       label: 'Colophon',
+  //       url: '/colophon',
+  //     },
+  //     {
+  //       label: 'Source',
+  //       url: 'https://github.com/yuchengkuo/yckuo',
+  //     },
+  //     {
+  //       label: 'Styleguide',
+  //       url: '/styleguide',
+  //     },
+  //   ],
+  // },
+  // {
+  //   group: 'Words',
+  //   links: [
+  //     {
+  //       label: 'Posts',
+  //       url: '/posts',
+  //     },
+  //     {
+  //       label: 'Projects',
+  //       url: '/projects',
+  //       wip: true,
+  //     },
+  //   ],
+  // },
   {
     group: 'External',
     links: [
