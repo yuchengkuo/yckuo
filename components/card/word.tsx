@@ -1,36 +1,32 @@
 import { Post, Project } from '.contentlayer/types'
-import { RightArrowIcon } from '@components/Icons'
-import { fade, scale } from '@utils/animation'
-import { domAnimation, LazyMotion, m } from 'framer-motion'
+import { RightArrowIcon, UpRightArrowIcon } from '@components/Icons'
+import { fade, scale, slideDown } from '@utils/animation'
+import { m } from 'framer-motion'
 import Link from 'next/link'
+import { Bookmark } from 'types/types'
 
 export const PostCard = ({ post }: { post: Post }) => {
   return (
-    <LazyMotion features={domAnimation}>
-      <Link href={`/posts/${post.slug}`} passHref>
-        <m.a
-          className="px-4 -mx-4 py-2 flex items-center rounded hover:bg-gray/10 transition-colors duration-200"
-          variants={{ ...fade, 1: { y: -4 } }}
-          initial="0"
-          whileInView="visible"
-          whileHover="1"
-          whileTap={{ scale: 0.99 }}
-        >
-          <div>
-            <time className="text-sm font-medium body-font-settings text-secondary dark:text-darkSecondary">
-              {new Date(post.date).toDateString().substring(4)}
-            </time>
-            <h2>{post.title}</h2>
-          </div>
-          <m.div
-            className="w-4 h-4 ml-auto text-secondary dark:text-darkSecondary"
-            variants={scale}
-          >
-            <RightArrowIcon />
-          </m.div>
-        </m.a>
-      </Link>
-    </LazyMotion>
+    <Link href={`/posts/${post.slug}`} passHref>
+      <m.a
+        className="px-4 -mx-4 py-2 flex items-center rounded hover:bg-gray/10 transition-colors duration-200"
+        variants={{ ...fade, 1: { y: -4 } }}
+        initial="0"
+        whileInView="visible"
+        whileHover="1"
+        whileTap={{ scale: 0.99 }}
+      >
+        <div>
+          <time className="text-sm font-medium body-font-settings text-secondary dark:text-darkSecondary">
+            {new Date(post.date).toDateString().substring(4)}
+          </time>
+          <h2>{post.title}</h2>
+        </div>
+        <m.div className="w-4 h-4 ml-auto text-secondary dark:text-darkSecondary" variants={scale}>
+          <RightArrowIcon />
+        </m.div>
+      </m.a>
+    </Link>
   )
 }
 
@@ -66,5 +62,36 @@ export const ProjectCard = ({ project }: { project: Project }) => {
         </div>
       </m.a>
     </Link>
+  )
+}
+
+export const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
+  return (
+    <m.a
+      className="px-4 -mx-4 py-2 flex items-center rounded hover:bg-gray/10 transition-colors duration-200"
+      variants={{ ...fade, 1: { y: -4 } }}
+      initial="0"
+      whileInView="visible"
+      whileHover="1"
+      whileTap={{ scale: 0.99 }}
+      href={bookmark.link}
+      layout
+    >
+      <m.div>
+        <p className="text-sm font-medium body-font-settings text-secondary dark:text-darkSecondary">
+          #{bookmark.tags[0]} • {bookmark.domain}
+        </p>
+        <h3>{bookmark.title}</h3>
+        <m.p
+          variants={slideDown}
+          className="text-sm font-medium body-font-settings text-secondary dark:text-darkSecondary max-w-[60ch] whitespace-nowrap overflow-hidden overflow-ellipsis"
+        >
+          {bookmark.excerpt}
+        </m.p>
+      </m.div>
+      <m.div className="w-4 h-4 ml-auto text-secondary dark:text-darkSecondary" variants={scale}>
+        <UpRightArrowIcon />
+      </m.div>
+    </m.a>
   )
 }
