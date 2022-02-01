@@ -1,3 +1,4 @@
+import Head from '@components/Head'
 import { fade, fadeUp } from '@utils/animation'
 import { domAnimation, LazyMotion, m } from 'framer-motion'
 
@@ -15,8 +16,9 @@ export default function ArticleLayout({
   img?: string
 }) {
   return (
-    <main>
-      <LazyMotion features={domAnimation}>
+    <LazyMotion features={domAnimation}>
+      <Head title={title} date={date} />
+      <main>
         {date && (
           <m.p
             className="font-medium body-font-settings text-sm mb-4 text-secondary dark:text-darkSecondary"
@@ -44,7 +46,7 @@ export default function ArticleLayout({
         <m.article variants={fade} initial="0" animate="1" className="mt-10 words">
           {children}
         </m.article>
-      </LazyMotion>
-    </main>
+      </main>
+    </LazyMotion>
   )
 }
