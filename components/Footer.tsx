@@ -22,7 +22,7 @@ export default function Footer() {
             <ul className="px-5 my-5 grow first:border-r first:border-gray/20 dark:first:border-darkGray/20">
               <p className="font-apfel text-secondary dark:text-darkSecondary">{route.group}</p>
               {route.links.map((link) => (
-                <li className="body-font-settings text-base font-medium mt-4">
+                <li key={link.label} className="body-font-settings text-base font-medium mt-4">
                   <Link href={link.url} passHref>
                     <m.a
                       variants={{ ...fadeUp, 1: { y: -4 } }}

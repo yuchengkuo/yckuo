@@ -34,7 +34,7 @@ function NowPlaying() {
             </a>
           </div>
         ) : (
-          <p>Currently Offline</p>
+          <p>Offline for now...</p>
         )}
       </div>
     </div>
@@ -73,7 +73,7 @@ function TopAlbums() {
   return (
     <m.div className="mt-16 phone:mt-8">
       <h2>Weekly Top Albums</h2>
-      <div className="flex flex-wrap gap-12 phone:gap-4 mt-8 phone:mt-4">
+      <div className="flex flex-wrap gap-12 phone:gap-2 mt-8 phone:mt-2">
         {albums
           ? albums.map((album, index) => (
               <LayoutGroup>
@@ -104,7 +104,7 @@ function TopSongs() {
       <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
         Most played songs this month
       </p>
-      <ul className="mt-2 phone:mt-1">
+      <ul className={`mt-2 phone:mt-1 ${!tracks && 'w-full max-w-md'}`}>
         {tracks
           ? tracks.map((track, i) => (
               <ListCard
