@@ -20,7 +20,7 @@
     "embla-carousel-react": "^6.1.1",
     "framer-motion": "^6.2.3",
     "next": "12.0.9",
-    "next-contentlayer": "0.0.33",
+    "next-contentlayer": "0.0.34",
     "next-seo": "^4.24.0",
     "next-themes": "0.0.15",
     "preact": "^10.5.15",
