@@ -49,3 +49,13 @@ export type Stats = {
   albums: number
   artists: number
 }
+
+export type Bookmark = {
+  excerpt: string
+  type: string
+  _id: string
+  title: string
+  link: string
+  domain: string
+  tags: string[]
+}
