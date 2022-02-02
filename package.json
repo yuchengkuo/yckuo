@@ -37,7 +37,7 @@
     "autoprefixer": "^10.4.2",
     "base64-arraybuffer": "^1.0.1",
     "cheerio": "^1.0.0-rc.10",
-    "contentlayer": "0.0.33",
+    "contentlayer": "0.0.34",
     "eslint": "^7.32.0",
     "postcss": "^8.4.4",
     "reading-time": "^1.5.0",
