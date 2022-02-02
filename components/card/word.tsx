@@ -84,7 +84,7 @@ export const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
         <h3>{bookmark.title}</h3>
         <m.p
           variants={slideDown}
-          className="text-sm font-medium body-font-settings text-secondary dark:text-darkSecondary max-w-[60ch] whitespace-nowrap overflow-hidden overflow-ellipsis"
+          className="text-sm font-medium body-font-settings text-secondary dark:text-darkSecondary line-clamp-1"
         >
           {bookmark.excerpt}
         </m.p>
