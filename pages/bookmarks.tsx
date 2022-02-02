@@ -10,11 +10,12 @@ export default function BookmarkPage({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Layout title="Bookmarks" animateChildren>
+      <p className="body-font-settings">A collection of interesting things on the internet.</p>
       <LazyMotion features={domMax}>
-        <div className="flex flex-col gap-2 max-w-[720px]">
+        <div className="flex flex-col gap-2 max-w-[720px] mt-8">
           {bookmarks.map((bookmark) => (
-            <LayoutGroup>
-              <BookmarkCard key={bookmark.title} bookmark={bookmark} />
+            <LayoutGroup key={bookmark.title}>
+              <BookmarkCard bookmark={bookmark} />
             </LayoutGroup>
           ))}
         </div>

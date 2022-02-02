@@ -23,6 +23,10 @@ export const routes: Route = [
         label: 'Listening',
         url: '/listening',
       },
+      {
+        label: 'Bookmarks',
+        url: '/bookmarks',
+      },
     ],
   },
   // {
