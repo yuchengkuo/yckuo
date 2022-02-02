@@ -89,7 +89,10 @@ export const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
           {bookmark.excerpt}
         </m.p>
       </m.div>
-      <m.div className="w-4 h-4 ml-auto text-secondary dark:text-darkSecondary" variants={scale}>
+      <m.div
+        className="w-4 h-4 ml-auto shrink-0 text-secondary dark:text-darkSecondary"
+        variants={scale}
+      >
         <UpRightArrowIcon />
       </m.div>
     </m.a>
