@@ -17,7 +17,7 @@
     "classnames": "^2.3.1",
     "cloudinary": "^1.27.0",
     "date-fns": "^2.28.0",
-    "embla-carousel-react": "^6.1.1",
+    "embla-carousel-react": "^6.2.0",
     "framer-motion": "^6.2.8",
     "next": "12.1.0",
     "next-contentlayer": "0.0.34",
