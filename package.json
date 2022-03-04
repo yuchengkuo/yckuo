@@ -38,7 +38,7 @@
     "base64-arraybuffer": "^1.0.2",
     "cheerio": "^1.0.0-rc.10",
     "contentlayer": "0.0.34",
-    "eslint": "^7.32.0",
+    "eslint": "^8.10.0",
     "postcss": "^8.4.6",
     "reading-time": "^1.5.0",
     "remark-directive": "^2.0.1",
