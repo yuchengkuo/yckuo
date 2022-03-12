@@ -1,5 +1,5 @@
 import Layout from '@components/layout/Layout'
-import { allProjects } from '.contentlayer/data'
+import { allProjects } from '.contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
 import { ProjectCard } from '@components/card/word'
 

@@ -1,4 +1,4 @@
-import { Post, Project } from '.contentlayer/types'
+import { Post, Project } from '.contentlayer/generated'
 import { RightArrowIcon, UpRightArrowIcon } from '@components/Icons'
 import { fade, scale, slideDown } from '@utils/animation'
 import { m } from 'framer-motion'

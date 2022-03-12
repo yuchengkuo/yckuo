@@ -1,4 +1,4 @@
-import { allOthers } from '.contentlayer/data'
+import { allOthers } from '.contentlayer/generated'
 import Layout from '@components/layout/Layout'
 import { InferGetStaticPropsType } from 'next'
 import { useMemo } from 'react'

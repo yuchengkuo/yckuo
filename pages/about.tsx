@@ -1,5 +1,5 @@
 import Layout from '@components/layout/Layout'
-import { allOthers } from '.contentlayer/data'
+import { allOthers } from '.contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
 import { useMemo } from 'react'
 import { getMDXComponent } from 'mdx-bundler/client'

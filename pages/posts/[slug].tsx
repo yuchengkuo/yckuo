@@ -1,5 +1,5 @@
 import ArticleLayout from '@components/layout/ArticleLayout'
-import { allPosts } from '.contentlayer/data'
+import { allPosts } from '.contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
 import { getMDXComponent } from 'mdx-bundler/client'
 import { useMemo } from 'react'
