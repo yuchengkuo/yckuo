@@ -46,7 +46,7 @@ export const CardWithCover = ({
       </m.div>
 
       <m.div className="rounded overflow-hidden max-w-[240px] mb-3" layout>
-        <Image src={imgSrc} width={240} height={240} />
+        <Image src={imgSrc} width={240} height={240} className="rounded overflow-hidden" />
         <m.div
           className="flex flex-col"
           initial="0"
