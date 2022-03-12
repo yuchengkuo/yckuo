@@ -1,5 +1,5 @@
 import Layout from '@components/layout/Layout'
-import { allPosts } from '.contentlayer/data'
+import { allPosts } from '.contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
 import { PostCard } from '@components/card/word'
 

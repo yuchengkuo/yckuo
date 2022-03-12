@@ -1,3 +1,11 @@
+@tailwind utilities;
+
+@layer utilities {
+  .body-font-settings {
+    font-feature-settings: 'ss02', 'ss03';
+  }
+}
+
 .words {
   @apply body-font-settings text-lg phone:text-base leading-8;
 }

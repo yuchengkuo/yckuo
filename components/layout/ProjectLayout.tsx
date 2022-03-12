@@ -1,4 +1,4 @@
-import { Project } from '.contentlayer/types'
+import { Project } from '.contentlayer/generated'
 import Head from '@components/Head'
 import { fade, fadeUp } from '@utils/animation'
 import { domAnimation, LazyMotion, m } from 'framer-motion'

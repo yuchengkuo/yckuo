@@ -1,4 +1,4 @@
-const { withContentlayer } = require('next-contentlayer');
+const { withContentlayer } = require('next-contentlayer')
 /**
  * @type {import('next').NextConfig}
  */
@@ -9,12 +9,13 @@ module.exports = withContentlayer()({
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
       Object.assign(config.resolve.alias, {
+        'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
         react: 'preact/compat',
         'react-dom/test-utils': 'preact/test-utils',
         'react-dom': 'preact/compat',
-      });
+      })
     }
-    return config;
+    return config
   },
   async rewrites() {
     return [
@@ -26,6 +27,6 @@ module.exports = withContentlayer()({
         source: '/_hive/:slug',
         destination: 'https://hive.splitbee.io/:slug',
       },
-    ];
+    ]
   },
-});
+})
