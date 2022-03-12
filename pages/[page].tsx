@@ -1,11 +1,10 @@
 import { allOthers } from '.contentlayer/generated'
 import Layout from '@components/layout/Layout'
 import { InferGetStaticPropsType } from 'next'
-import { useMemo } from 'react'
-import { getMDXComponent } from 'mdx-bundler/client'
+import { useMDXComponent } from 'next-contentlayer/hooks'
 
 export default function Pages({ page }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const Content = useMemo(() => getMDXComponent(page.body.code), [page.body.code])
+  const Content = useMDXComponent(page.body.code)
   return (
     <Layout key={page.slug} title={page.title} animateChildren>
       <div className="words">
