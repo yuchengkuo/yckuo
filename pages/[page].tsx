@@ -1,5 +1,6 @@
 import { allOthers } from '.contentlayer/generated'
 import Layout from '@components/layout/Layout'
+import MDXComponents from '@components/MDXComp'
 import { InferGetStaticPropsType } from 'next'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 
@@ -8,7 +9,7 @@ export default function Pages({ page }: InferGetStaticPropsType<typeof getStatic
   return (
     <Layout key={page.slug} title={page.title} animateChildren>
       <div className="words">
-        <Content />
+        <Content components={MDXComponents} />
       </div>
     </Layout>
   )
