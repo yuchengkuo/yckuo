@@ -15,15 +15,15 @@
 }
 
 .words p {
-  @apply mt-9 phone:mt-4;
+  @apply mt-6 phone:mt-4;
 }
 
 .words h2 {
-  @apply text-highlight dark:text-darkHighlight py-6 mt-6 phone:py-3 phone:mt-3;
+  @apply text-highlight dark:text-darkHighlight py-4 mt-8 phone:py-2 phone:mt-4;
 }
 
 .words h3 {
-  @apply text-highlight dark:text-darkHighlight py-4 mt-4 phone:py-2 phone:mt-2;
+  @apply text-highlight dark:text-darkHighlight py-2 mt-4 phone:py-1 phone:mt-3;
 }
 
 .words a {
@@ -40,7 +40,7 @@
 
 .words ul,
 .words ol {
-  @apply mt-8 phone:mt-4 phone:pl-4;
+  @apply mt-6 phone:mt-4 phone:pl-4;
 }
 
 .words ul {

@@ -99,12 +99,12 @@ function TopAlbums() {
 function TopSongs() {
   const { data: tracks } = useSWR<Tracks[]>('/api/top-tracks', fetcher)
   return (
-    <div className="mt-16 phone:mt-8 flex flex-col items-start">
+    <div className="mt-16 phone:mt-8 flex flex-col items-start overflow-x-scroll">
       <h2>Recent Top Songs</h2>
       <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
         Most played songs this month
       </p>
-      <ul className={`mt-2 phone:mt-1 ${!tracks && 'w-full max-w-md'}`}>
+      <ul className={`mt-2 phone:mt-1`}>
         {tracks
           ? tracks.map((track, i) => (
               <ListCard
@@ -126,7 +126,7 @@ function TopSongs() {
 function TopArtists() {
   const { data: artists } = useSWR<Artists[]>('/api/top-artists', fetcher)
   return (
-    <div className="mt-16 phone:mt-8">
+    <div className="mt-16 phone:mt-8 flex flex-col items-start overflow-x-scroll">
       <h2>Recent Top Artists</h2>
       <p className="font-spectral italic text-base text-secondary dark:text-darkSecondary">
         Favorite artists this month

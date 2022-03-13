@@ -17,7 +17,7 @@ export default function Footer() {
           <p className="font-apfel text-base">&#169; 2022 YuCheng Kuo, WIP...</p>
           <p className="font-spectral italic text-base">Explore</p>
         </div>
-        <nav className="mt-10 border-t border-gray/20 dark:border-darkGray/20 flex gap-6 phone:flex-col">
+        <nav className="mt-10 border-t border-gray/20 dark:border-darkGray/20 flex gap-6 phone:flex-col phone:gap-2">
           {routes.map((route) => (
             <ul
               key={route.group}
