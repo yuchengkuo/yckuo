@@ -98,7 +98,7 @@ export const ListCard = ({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-baseline min-w-max gap-4 p-2 -mx-2 rounded hover:bg-gray7/10 transition-colors ease-out body-font-settings font-medium"
+      className="flex items-baseline min-w-fit flex-wrap gap-4 phone:gap-2 p-2 -mx-2 rounded hover:bg-gray7/10 transition-colors ease-out body-font-settings font-medium"
       variants={{ ...fade, 1: { y: -4 } }}
       initial="0"
       animate="visible"
@@ -107,8 +107,13 @@ export const ListCard = ({
     >
       <p className="text-xs text-secondary dark:text-darkSecondary">0{index}</p>
       <p className="text-base">{title}</p>
-      <p className="text-sm text-secondary dark:text-darkSecondary">{subtitle}</p>
-      <m.div variants={scale} className="ml-auto w-4 h-4 text-gray8 dark:text-gray6 align-baseline">
+      <p className="text-sm text-secondary dark:text-darkSecondary phone:w-full phone:pl-6">
+        {subtitle}
+      </p>
+      <m.div
+        variants={scale}
+        className="ml-auto w-4 h-4 text-gray8 dark:text-gray6 align-baseline phone:hidden"
+      >
         <UpRightArrowIcon />
       </m.div>
     </m.a>
