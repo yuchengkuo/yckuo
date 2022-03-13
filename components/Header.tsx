@@ -39,6 +39,14 @@ const Header = () => {
             </m.p>
           )}
         </AnimatePresence>
+        <button
+          className="font-apfel font-bold ml-auto text-secondary dark:text-darkSecondary hover:text-primary dark:hover:text-darkPrimary"
+          onClick={() => {
+            document.querySelector('footer').scrollIntoView({ behavior: 'smooth' })
+          }}
+        >
+          Nav ↓
+        </button>
       </LazyMotion>
     </header>
   )
