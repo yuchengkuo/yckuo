@@ -73,7 +73,7 @@ function TopAlbums() {
   return (
     <m.div className="mt-16 phone:mt-8">
       <h2>Weekly Top Albums</h2>
-      <div className="flex flex-wrap gap-12 phone:gap-2 mt-8 phone:mt-2 max-w-7xl">
+      <div className="flex flex-wrap gap-12 phone:row-gap-2 mt-8 phone:mt-2 max-w-7xl">
         {albums
           ? albums.map((album, index) => (
               <LayoutGroup>
@@ -99,12 +99,12 @@ function TopAlbums() {
 function TopSongs() {
   const { data: tracks } = useSWR<Tracks[]>('/api/top-tracks', fetcher)
   return (
-    <div className="mt-16 phone:mt-8 flex flex-col">
+    <div className="mt-16 phone:mt-8 flex flex-col items-start">
       <h2>Recent Top Songs</h2>
       <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
         Most played songs this month
       </p>
-      <ul className="mt-2 phone:mt-1 max-w-max">
+      <ul className="mt-2 phone:mt-1 w-fit max-w-full">
         {tracks
           ? tracks.map((track, i) => (
               <ListCard
@@ -126,12 +126,12 @@ function TopSongs() {
 function TopArtists() {
   const { data: artists } = useSWR<Artists[]>('/api/top-artists', fetcher)
   return (
-    <div className="mt-16 phone:mt-8 flex flex-col">
+    <div className="mt-16 phone:mt-8 flex flex-col items-start">
       <h2>Recent Top Artists</h2>
       <p className="font-spectral italic text-base text-secondary dark:text-darkSecondary">
         Favorite artists this month
       </p>
-      <ul className="mt-2 phone:mt-1 max-w-max">
+      <ul className="mt-2 phone:mt-1 w-fit max-w-full">
         {artists
           ? artists.map((artist, i) => (
               <ListCard
@@ -156,10 +156,7 @@ export default function ListeningPage() {
         <NowPlaying />
         <TopSongs />
         <TopAlbums />
-        <div className="flex flex-wrap gap-10 phone:gap-5">
-          <TopArtists />
-          {/* <Statistic /> */}
-        </div>
+        <TopArtists />
       </LazyMotion>
     </Layout>
   )

@@ -92,7 +92,9 @@ export const ListCard = ({
   loading?: boolean
 }) => {
   if (loading)
-    return <div className="bg-gray/10 dark:bg-darkGray/10 rounded h-10 mb-2 animate-pulse" />
+    return (
+      <div className="bg-gray/10 dark:bg-darkGray/10 rounded w-[480px] max-w-full h-10 mb-2 animate-pulse" />
+    )
   return (
     <m.a
       href={url}
