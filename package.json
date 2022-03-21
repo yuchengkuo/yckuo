@@ -34,7 +34,7 @@
     "@mdx-js/mdx": "^2.0.0",
     "@types/node": "^17.0.21",
     "@types/react": "^17.0.40",
-    "autoprefixer": "^10.4.2",
+    "autoprefixer": "^10.4.4",
     "base64-arraybuffer": "^1.0.2",
     "cheerio": "^1.0.0-rc.10",
     "contentlayer": "^0.1.2",
