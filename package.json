@@ -39,7 +39,7 @@
     "cheerio": "^1.0.0-rc.10",
     "contentlayer": "^0.1.2",
     "eslint": "^8.11.0",
-    "postcss": "^8.4.8",
+    "postcss": "^8.4.12",
     "reading-time": "^1.5.0",
     "remark-directive": "^2.0.1",
     "remark-slug": "^7.0.1",
