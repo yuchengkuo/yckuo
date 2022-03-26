@@ -40,7 +40,7 @@
   }
 
   html {
-    @apply bg-background text-primary dark:bg-darkBackground dark:text-darkPrimary;
+    @apply bg-yellow-1 text-gray-12 dark:bg-grayDark-2 dark:text-grayDark-12;
   }
 
   body {
@@ -52,29 +52,23 @@
   }
 
   h1 {
-    @apply font-apfel font-normal text-3xl leading-8 text-highlight dark:text-darkHighlight;
+    @apply font-apfel font-normal text-3xl leading-8 text-indigo-12 dark:text-indigoDark-12;
   }
 
   h2 {
-    @apply font-apfel font-normal text-2xl phone:text-xl;
+    @apply font-apfel font-normal text-2xl phone:text-xl text-indigo-12 dark:text-indigoDark-12;
   }
 
   h3 {
-    @apply font-apfel font-normal text-xl phone:text-lg;
+    @apply font-apfel font-normal text-xl phone:text-lg text-indigo-12 dark:text-indigoDark-12;
   }
 
   h4 {
-    @apply font-apfel font-normal text-lg phone:text-base;
+    @apply font-apfel font-normal text-lg phone:text-base text-indigo-12 dark:text-indigoDark-12;
   }
 
   ::selection {
-    @apply bg-gray/50 dark:bg-darkGray/50;
-  }
-}
-
-@layer utilities {
-  .body-font-settings {
-    font-feature-settings: 'ss02', 'ss03';
+    @apply bg-gray-5 dark:bg-grayDark-5;
   }
 }
 

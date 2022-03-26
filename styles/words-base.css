@@ -1,11 +1,5 @@
 @tailwind utilities;
 
-@layer utilities {
-  .body-font-settings {
-    font-feature-settings: 'ss02', 'ss03';
-  }
-}
-
 .words {
   @apply body-font-settings text-lg phone:text-base leading-8;
 }
@@ -19,19 +13,19 @@
 }
 
 .words h2 {
-  @apply text-highlight dark:text-darkHighlight py-4 mt-8 phone:py-2 phone:mt-4;
+  @apply text-indigo-12 dark:text-indigo-1 py-4 mt-8 phone:py-2 phone:mt-4;
 }
 
 .words h3 {
-  @apply text-highlight dark:text-darkHighlight py-2 mt-4 phone:py-1 phone:mt-3;
+  @apply text-indigo-12 dark:text-indigo-1 py-2 mt-4 phone:py-1 phone:mt-3;
 }
 
 .words a {
-  @apply underline decoration-gray dark:decoration-darkGray rounded px-0.5 -mx-0.5 hover:bg-gray/20 dark:hover:bg-darkGray/20 hover:decoration-inherit transition-all;
+  @apply underline decoration-gray-9 dark:decoration-grayDark-9 rounded px-0.5 -mx-0.5 hover:bg-gray-3 dark:hover:bg-grayDark-3 hover:decoration-inherit transition-all;
 }
 
 .words blockquote {
-  @apply italic font-spectral mt-8 py-0.5 relative before:absolute before:-left-5 phone:before:-left-3 before:top-0 before:h-full before:w-0.5 before:rounded before:bg-gray/50 dark:before:bg-darkGray/50;
+  @apply italic font-spectral mt-8 py-0.5 relative before:absolute before:-left-5 phone:before:-left-3 before:top-0 before:h-full before:w-0.5 before:rounded before:bg-gray-6 dark:before:bg-grayDark-6;
 }
 
 .words blockquote * {
@@ -52,7 +46,7 @@
 }
 
 .words li {
-  @apply mb-1 marker:text-base marker:text-secondary marker:text-darkSecondary marker:align-middle phone:marker:text-xs;
+  @apply mb-1 marker:text-base marker:text-gray-11 marker:text-grayDark-11 marker:align-middle phone:marker:text-xs;
 }
 
 .words .words-img {

@@ -33,7 +33,7 @@ export default function Layout({
             initial="0"
             animate="1"
             transition={{ type: 'spring', damping: 20, mass: 1, delay: 0.04 }}
-            className="body-font-settings font-medium text-xl text-secondary dark:text-darkSecondary"
+            className="body-font-settings font-medium text-xl text-gray-11 dark:text-grayDark-11"
           >
             {subtitle}
           </m.p>
