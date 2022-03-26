@@ -21,7 +21,7 @@ export default function ArticleLayout({
       <main>
         {date && (
           <m.p
-            className="font-medium body-font-settings text-sm mb-4 text-secondary dark:text-darkSecondary"
+            className="font-medium body-font-settings text-sm mb-4 text-gray-11 dark:text-grayDark-11"
             variants={fade}
             initial="0"
             animate="1"
@@ -40,7 +40,7 @@ export default function ArticleLayout({
         </m.h1>
         {img && (
           <m.div variants={fade} initial="0" animate="1" className="mt-10">
-            <div className="w-80 h-64 bg-gray/50 dark:bg-darkGray/50"></div>
+            <div className="w-80 h-64 bg-gray-4 dark:bg-grayDark-4"></div>
           </m.div>
         )}
         <m.article variants={fade} initial="0" animate="1" className="mt-10 words">
