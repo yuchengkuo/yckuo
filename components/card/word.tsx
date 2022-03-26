@@ -1,5 +1,6 @@
 import { Post, Project } from '.contentlayer/generated'
 import { RightArrowIcon, UpRightArrowIcon } from '@components/Icons'
+import Tag from '@components/Tag'
 import { fade, scale, slideDown } from '@utils/animation'
 import { m } from 'framer-motion'
 import Link from 'next/link'
@@ -9,7 +10,7 @@ export const PostCard = ({ post }: { post: Post }) => {
   return (
     <Link href={`/posts/${post.slug}`} passHref>
       <m.a
-        className="px-4 -mx-4 py-2 flex items-center rounded hover:bg-gray/10 transition-colors duration-200"
+        className="px-4 -mx-4 py-2 flex items-center rounded hover:bg-gray-3 dark:hover:bg-grayDark-3 transition-colors duration-200"
         variants={{ ...fade, 1: { y: -4 } }}
         initial="0"
         whileInView="visible"
@@ -17,12 +18,12 @@ export const PostCard = ({ post }: { post: Post }) => {
         whileTap={{ scale: 0.99 }}
       >
         <div>
-          <time className="text-sm font-medium body-font-settings text-secondary dark:text-darkSecondary">
+          <time className="text-sm font-medium body-font-settings text-gray-11 dark:text-grayDark-11">
             {new Date(post.date).toDateString().substring(4)}
           </time>
           <h2>{post.title}</h2>
         </div>
-        <m.div className="w-4 h-4 ml-auto text-secondary dark:text-darkSecondary" variants={scale}>
+        <m.div className="w-4 h-4 ml-auto text-gray-11 dark:text-grayDark-11" variants={scale}>
           <RightArrowIcon />
         </m.div>
       </m.a>
@@ -34,7 +35,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <Link href={`/projects/${project.slug}`} passHref>
       <m.a
-        className="p-4 -mx-4 block rounded hover:bg-gray/10 transition-colors duration-200 ease-out"
+        className="p-4 -mx-4 block rounded hover:bg-gray-3 dark:hover:bg-grayDark-3 transition-colors duration-200 ease-out active:bg-gray-4 dark:active:bg-goldDark-4"
         variants={{ ...fade, 1: { y: -4 } }}
         initial="0"
         whileInView="visible"
@@ -43,22 +44,22 @@ export const ProjectCard = ({ project }: { project: Project }) => {
         whileTap={{ scale: 0.998 }}
       >
         <div className="flex justify-between">
-          <time className="font-medium body-font-settings text-sm text-secondary dark:text-darkSecondary">
+          <time className="font-medium body-font-settings text-sm text-gray-11 dark:text-grayDark-11">
             {new Date(project.year).getFullYear()}
           </time>
-          <m.div variants={scale} className="w-4 h-4 text-secondary dark:text-darkSecondary">
+          <m.div variants={scale} className="w-4 h-4 text-gray-11 dark:text-grayDark-11">
             <RightArrowIcon />
           </m.div>
         </div>
         <div>
           <h2 className="text-2xl">{project.title}</h2>
-          <p className="font-medium body-font-settings text-sm text-secondary dark:text-darkSecondary">
+          <p className="font-medium body-font-settings text-sm text-gray-11 dark:text-grayDark-11">
             {project.subtitle}
           </p>
         </div>
         <div className="flex gap-4 mt-2">
-          <div className="w-1/3 h-40 rounded bg-gray/30" />
-          <div className="w-2/3 h-40 rounded bg-gray/30" />
+          <div className="w-2/3 h-40 rounded bg-grayA-5" />
+          <div className="w-1/3 h-40 rounded bg-grayA-5" />
         </div>
       </m.a>
     </Link>
@@ -68,7 +69,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
 export const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
   return (
     <m.a
-      className="px-4 -mx-4 py-2 flex items-center rounded hover:bg-gray/10 transition-colors duration-200"
+      className="px-4 -mx-4 py-2 flex items-center rounded hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-goldDark-5 transition-colors duration-200"
       variants={{ ...fade, 1: { y: -4 } }}
       initial="0"
       whileInView="visible"
@@ -78,19 +79,19 @@ export const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
       layout
     >
       <m.div>
-        <p className="text-sm font-medium body-font-settings text-secondary dark:text-darkSecondary">
+        <p className="inline-flex items-baseline text-sm font-medium body-font-settings text-gray-11 dark:text-grayDark-11">
           #{bookmark.tags[0]} • {bookmark.domain}
         </p>
         <h3>{bookmark.title}</h3>
         <m.p
           variants={slideDown}
-          className="text-sm font-medium body-font-settings text-secondary dark:text-darkSecondary line-clamp-1"
+          className="text-sm font-medium body-font-settings text-gray-11 dark:text-grayDark-11 line-clamp-1"
         >
           {bookmark.excerpt}
         </m.p>
       </m.div>
       <m.div
-        className="w-4 h-4 ml-auto shrink-0 text-secondary dark:text-darkSecondary"
+        className="w-4 h-4 ml-auto shrink-0 text-gray-11 dark:text-grayDark-11"
         variants={scale}
       >
         <UpRightArrowIcon />

@@ -30,10 +30,7 @@ export default function ProjectLayout({
             variants={fade}
           >
             {project.info.map((item) => (
-              <p
-                key={item.title}
-                className="font-freak text-sm freak-font-settings text-gray8 dark:text-gray6"
-              >
+              <p key={item.title} className="font-freak text-sm freak-font-settings">
                 {item.title + ' / ' + item.content}
               </p>
             ))}

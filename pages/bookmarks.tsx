@@ -23,7 +23,7 @@ export default function BookmarkPage() {
             : Array(6)
                 .fill(1)
                 .map((_, i) => (
-                  <div key={i} className="h-20 mb-4 bg-gray/10 animate-pulse duration-500" />
+                  <div key={i} className="h-20 mb-4 bg-grayA-5 animate-pulse duration-500" />
                 ))}
         </div>
       </LazyMotion>

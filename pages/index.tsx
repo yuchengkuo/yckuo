@@ -8,7 +8,7 @@ export default function Home() {
         helping building{' '}
         <a
           href="https://oen.tw"
-          className="underline decoration-gray/50 dark:decoration-darkGray/50 hover:decoration-inherit transition-all duration-200 ease-out"
+          className="underline decoration-gray-9 dark:decoration-grayDark-9 hover:decoration-inherit transition-all duration-200 ease-out"
         >
           Oen.tw
         </a>

@@ -45,7 +45,7 @@ export default function Head({
               sizes="32x32"
               href="/static/favicons/favicon-dark.png"
             />
-            <meta name="theme-color" content="#1D1E22" />
+            <meta name="theme-color" content="#1C1C1C" />
           </>
         ) : (
           <>
@@ -61,7 +61,7 @@ export default function Head({
               sizes="32x32"
               href="/static/favicons/favicon-light.png"
             />
-            <meta name="theme-color" content="#E9E9E2" />
+            <meta name="theme-color" content="#FDFDF7" />
           </>
         )}
       </NextHead>
