@@ -40,7 +40,7 @@
   }
 
   html {
-    @apply bg-yellow-1 text-gray-12 dark:bg-grayDark-2 dark:text-grayDark-12;
+    @apply bg-gray-2 text-gray-12 dark:bg-grayDark-2 dark:text-grayDark-12 max-w-[2400px];
   }
 
   body {
@@ -56,15 +56,15 @@
   }
 
   h2 {
-    @apply font-apfel font-normal text-2xl phone:text-xl text-indigo-12 dark:text-indigoDark-12;
+    @apply font-apfel font-normal text-2xl phone:text-xl;
   }
 
   h3 {
-    @apply font-apfel font-normal text-xl phone:text-lg text-indigo-12 dark:text-indigoDark-12;
+    @apply font-apfel font-normal text-xl phone:text-lg;
   }
 
   h4 {
-    @apply font-apfel font-normal text-lg phone:text-base text-indigo-12 dark:text-indigoDark-12;
+    @apply font-apfel font-normal text-lg phone:text-base;
   }
 
   ::selection {

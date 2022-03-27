@@ -61,7 +61,7 @@ export default function Head({
               sizes="32x32"
               href="/static/favicons/favicon-light.png"
             />
-            <meta name="theme-color" content="#FDFDF7" />
+            <meta name="theme-color" content="#F7F7F7" />
           </>
         )}
       </NextHead>

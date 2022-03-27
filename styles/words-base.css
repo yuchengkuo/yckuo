@@ -13,11 +13,11 @@
 }
 
 .words h2 {
-  @apply text-indigo-12 dark:text-indigo-1 py-4 mt-8 phone:py-2 phone:mt-4;
+  @apply text-indigo-12 dark:text-indigoDark-12 py-4 mt-8 phone:py-2 phone:mt-4;
 }
 
 .words h3 {
-  @apply text-indigo-12 dark:text-indigo-1 py-2 mt-4 phone:py-1 phone:mt-3;
+  @apply text-indigo-12 dark:text-indigoDark-12 py-2 mt-4 phone:py-1 phone:mt-3;
 }
 
 .words a {
@@ -56,4 +56,8 @@
 .words h2 + *,
 .words h3 + * {
   @apply mt-0;
+}
+
+.words [data-image] {
+  @apply max-w-[960px];
 }
