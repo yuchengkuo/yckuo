@@ -5,7 +5,7 @@ import { PostCard } from '@components/card/word'
 
 export default function PostsPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Layout title="Posts">
+    <Layout title="Posts" subtitle="Random thoughts">
       <div className="flex flex-col gap-5 max-w-[640px]">
         {posts.map((post) => (
           <PostCard key={post.slug} post={post} />

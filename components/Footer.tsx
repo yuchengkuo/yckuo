@@ -33,7 +33,7 @@ export default function Footer() {
                       whileInView="visible"
                       whileHover="1"
                       whileTap={{ scale: 0.99 }}
-                      className="px-3 -mx-3 py-2 -my-2 inline-flex items-baseline justify-between w-full hover:bg-gray-4 dark:hover:bg-grayDark-4 transition-colors duration-200 ease-out"
+                      className="px-3 -mx-3 py-2 -my-2 inline-flex items-baseline justify-between w-full hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-grayDark-5 transition-colors duration-200 ease-out"
                     >
                       {link.label}
                       <m.div variants={scale} className="inline-block w-4 h-4">

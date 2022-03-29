@@ -76,15 +76,14 @@ function TopAlbums() {
       <div className="flex flex-wrap gap-12 phone:row-gap-2 mt-8 phone:mt-2 max-w-7xl">
         {albums
           ? albums.map((album, index) => (
-              <LayoutGroup>
+              <LayoutGroup key={album.spotifyUrl}>
                 <CardWithCover
-                  key={album.title}
                   index={index}
                   title={album.title}
                   subtitle={album.artist}
                   imgSrc={album.imageUrl}
                   url={album.spotifyUrl}
-                  info={`${album.releaseDate} • ${album.trackNum} tracks`}
+                  info={`${album.releaseDate} ⋅ ${album.trackNum} tracks`}
                 />
               </LayoutGroup>
             ))

@@ -7,7 +7,7 @@ export default function AboutPage({ about }: InferGetStaticPropsType<typeof getS
   const Content = useMDXComponent(about.body.code)
   return (
     <Layout title="About" animateChildren>
-      <div className="words">
+      <div className="prose">
         <Content />
       </div>
     </Layout>

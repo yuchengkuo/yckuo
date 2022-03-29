@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <header
       ref={ref}
-      className={`flex items-center gap-4 z-50 sticky -top-12 px-16 pb-3 pt-16 tablet:px-10 phone:px-5 bg-yellow-1/90 dark:bg-grayDark-2/80 backdrop-blur-[4px] ${
+      className={`flex items-center gap-4 z-50 sticky -top-12 px-16 pb-3 pt-16 tablet:px-10 phone:px-5 bg-gray-2/90 dark:bg-grayDark-2/80 backdrop-blur-[4px] ${
         header?.intersectionRatio < 1 && 'border-b border-gray-5 dark:border-grayDark-5'
       }`}
     >

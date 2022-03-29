@@ -2,6 +2,7 @@ import { defineDocumentType, makeSource, ComputedFields } from 'contentlayer/sou
 import remarkSlug from 'remark-slug'
 import remarkDirective from 'remark-directive'
 import readingTime from 'reading-time'
+import remarkSectionize from './utils/remark-sectionize'
 
 const computedFields: ComputedFields = {
   readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
@@ -15,6 +16,7 @@ export const Post = defineDocumentType(() => ({
   fields: {
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
+    layout: { type: 'enum', options: ['default', 'two-col'], default: 'default' },
   },
   computedFields,
 }))
@@ -29,6 +31,8 @@ export const Project = defineDocumentType(() => ({
     published: { type: 'boolean', required: true },
     info: { type: 'json', required: true },
     year: { type: 'date', required: true },
+    cover: { type: 'json' },
+    layout: { type: 'enum', options: ['default', 'two-col'], default: 'default' },
   },
   computedFields,
 }))
@@ -46,5 +50,5 @@ export const Other = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: 'content',
   documentTypes: [Post, Project, Other],
-  mdx: { remarkPlugins: [remarkSlug, remarkDirective] },
+  mdx: { remarkPlugins: [remarkSlug, remarkDirective, remarkSectionize] },
 })
