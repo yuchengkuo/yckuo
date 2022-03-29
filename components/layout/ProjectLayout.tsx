@@ -24,19 +24,27 @@ export default function ProjectLayout({
             {project.title}
           </m.h1>
           <m.div
-            className="flex flex-col gap-4 col-start-3"
+            className="flex flex-col gap-4 col-start-3 bg-gray-3 dark:bg-grayDark-3 border border-gray-6 dark:border-grayDark-6 p-4 rounded-md"
             initial="0"
             animate="1"
             variants={fade}
           >
             {project.info.map((item) => (
-              <p key={item.title} className="font-freak text-sm freak-font-settings">
-                {item.title + ' / ' + item.content}
+              <p
+                key={item}
+                className="font-medium body-font-settings text-base text-gray-11 dark:text-grayDark-11"
+              >
+                {item}
               </p>
             ))}
           </m.div>
         </div>
-        <m.article variants={fade} initial="0" animate="1" className="my-10 words two-col-layout">
+        <m.article
+          variants={fade}
+          initial="0"
+          animate="1"
+          className={`my-10 prose ${project.layout}-layout`}
+        >
           {children}
         </m.article>
       </main>

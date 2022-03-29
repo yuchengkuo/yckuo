@@ -67,10 +67,76 @@
     @apply font-apfel font-normal text-lg phone:text-base;
   }
 
+  strong {
+    @apply font-semibold;
+  }
+
   ::selection {
     @apply bg-gray-5 dark:bg-grayDark-5;
   }
 }
 
+/* styles for prose */
+@layer utilities {
+  .prose {
+    @apply body-font-settings text-lg phone:text-base leading-8;
+  }
+
+  .prose :not(section, blockquote *, [data-image], [data-carousel], [data-carousel] *) {
+    max-width: 40ch;
+  }
+
+  .prose p {
+    @apply mt-6 phone:mt-4;
+  }
+
+  .prose h2 {
+    @apply text-indigo-12 dark:text-indigoDark-12 py-4 mt-8 phone:py-2 phone:mt-4;
+  }
+
+  .prose h3 {
+    @apply text-indigo-12 dark:text-indigoDark-12 py-2 mt-4 phone:py-1 phone:mt-3;
+  }
+
+  .prose a {
+    @apply underline decoration-gray-9 dark:decoration-grayDark-9 rounded px-0.5 -mx-0.5 hover:bg-gray-3 dark:hover:bg-grayDark-3 hover:decoration-inherit transition-all;
+  }
+
+  .prose blockquote {
+    @apply italic font-spectral font-medium mt-10 py-0.5 relative before:absolute before:-left-5 phone:before:-left-3 before:top-0 before:h-full before:w-0.5 before:rounded before:bg-gray-6 dark:before:bg-grayDark-6;
+    max-width: 50ch !important;
+    font-feature-settings: 'sso3' off, 'ss02' off;
+  }
+
+  .prose blockquote * {
+    @apply mt-0;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply mt-6 phone:mt-4 phone:pl-4;
+  }
+
+  .prose ul {
+    @apply list-disc;
+  }
+
+  .prose ol {
+    @apply list-decimal;
+  }
+
+  .prose li {
+    @apply mb-1 marker:text-base marker:text-gray-11 marker:text-grayDark-11 marker:align-middle phone:marker:text-xs;
+  }
+
+  .prose [data-image] {
+    @apply mt-10 rounded max-w-4xl;
+  }
+
+  .prose h2 + *,
+  .prose h3 + * {
+    @apply mt-0;
+  }
+}
+
 @import url(./custom-layout.css);
-@import url(./words-base.css);

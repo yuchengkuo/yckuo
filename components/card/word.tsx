@@ -1,8 +1,9 @@
 import { Post, Project } from '.contentlayer/generated'
 import { RightArrowIcon, UpRightArrowIcon } from '@components/Icons'
-import Tag from '@components/Tag'
 import { fade, scale, slideDown } from '@utils/animation'
+import { loader } from '@utils/image-loader'
 import { m } from 'framer-motion'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Bookmark } from 'types/types'
 
@@ -58,8 +59,28 @@ export const ProjectCard = ({ project }: { project: Project }) => {
           </p>
         </div>
         <div className="flex gap-4 mt-2">
-          <div className="w-2/3 h-40 rounded bg-grayA-5" />
-          <div className="w-1/3 h-40 rounded bg-grayA-5" />
+          <div className="w-2/3 h-40 relative rounded bg-grayA-5 border border-gray-6 dark:border-grayDark-6 shadow">
+            {project.cover && (
+              <Image
+                src={project.cover[0].url}
+                loader={loader}
+                objectFit="cover"
+                layout="fill"
+                className="rounded"
+              />
+            )}
+          </div>
+          <div className="w-1/3 h-40 relative rounded bg-grayA-5 border border-gray-6 dark:border-grayDark-6 shadow">
+            {project.cover && (
+              <Image
+                src={project.cover[1].url}
+                loader={loader}
+                objectFit="cover"
+                layout="fill"
+                className="rounded"
+              />
+            )}
+          </div>
         </div>
       </m.a>
     </Link>

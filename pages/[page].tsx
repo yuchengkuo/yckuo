@@ -8,7 +8,7 @@ export default function Pages({ page }: InferGetStaticPropsType<typeof getStatic
   const Content = useMDXComponent(page.body.code)
   return (
     <Layout key={page.slug} title={page.title} animateChildren>
-      <div className="words">
+      <div className="prose">
         <Content components={MDXComponents} />
       </div>
     </Layout>

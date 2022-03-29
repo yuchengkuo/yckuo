@@ -18,5 +18,5 @@ export default function ProjectsPage({
 }
 
 export function getStaticProps() {
-  return { props: { allProjects } }
+  return { props: { allProjects: allProjects.filter((p) => p.published) } }
 }

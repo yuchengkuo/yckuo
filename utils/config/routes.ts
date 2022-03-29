@@ -48,7 +48,6 @@ export const routes: Route = [
   //     {
   //       label: 'Projects',
   //       url: '/projects',
-  //       wip: true,
   //     },
   //   ],
   // },

@@ -8,12 +8,14 @@ export default function ArticleLayout({
   date,
   readTime,
   img,
+  layout,
 }: {
-  children: JSX.Element | JSX.Element[]
+  children: ChildNode[]
   title: string
   date?: string
   readTime?: any
   img?: string
+  layout?: string
 }) {
   return (
     <LazyMotion features={domAnimation}>
@@ -21,12 +23,12 @@ export default function ArticleLayout({
       <main>
         {date && (
           <m.p
-            className="font-medium body-font-settings text-sm mb-4 text-gray-11 dark:text-grayDark-11"
+            className="font-medium body-font-settings text-sm mb-1 text-gray-11 dark:text-grayDark-11"
             variants={fade}
             initial="0"
             animate="1"
           >
-            {new Date(date).toDateString().substring(4)} • {readTime.text}
+            {new Date(date).toDateString().substring(4)} ⋅ {readTime.text}
           </m.p>
         )}
         <m.h1
@@ -43,7 +45,7 @@ export default function ArticleLayout({
             <div className="w-80 h-64 bg-gray-4 dark:bg-grayDark-4"></div>
           </m.div>
         )}
-        <m.article variants={fade} initial="0" animate="1" className="mt-10 words">
+        <m.article variants={fade} initial="0" animate="1" className={`mt-10 prose ${layout}`}>
           {children}
         </m.article>
       </main>

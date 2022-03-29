@@ -607,6 +607,11 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
+"@types/scrollbooster@^2.2.0":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@types/scrollbooster/-/scrollbooster-2.2.1.tgz#2bbb87e25dd7cf3adc6a5d2218b3c476cf71eb04"
+  integrity sha512-HK7+GC5YEXt98bQtFE38euJWMu05yuEpe2VOtJOm/c3Hx087CBR95woZVNSv8N8XpoPPPSZBE70INE9P2MB6eA==
+
 "@types/unist@*", "@types/unist@^2.0.0":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.6.tgz#250a7b16c3b91f672a24552ec64678eeb1d3a08d"
@@ -3473,6 +3478,14 @@ react-medium-image-zoom@^4.3.5:
     react-use "^17.2.1"
     tslib "^2.1.0"
 
+react-scrollbooster@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-scrollbooster/-/react-scrollbooster-0.1.2.tgz#54ffeb870799522eafc57cc5f88e554c387452cf"
+  integrity sha512-72ywccbM8bHPUfINLNgaqZx83ePhtUbPgPCjg0MW9GAqraj9loqldDoc/yyMS0Zx8PQGwBvPOLs959/3JR52og==
+  dependencies:
+    "@types/scrollbooster" "^2.2.0"
+    scrollbooster "^3.0.2"
+
 react-universal-interface@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/react-universal-interface/-/react-universal-interface-0.6.2.tgz#5e8d438a01729a4dbbcbeeceb0b86be146fe2b3b"
@@ -3734,6 +3747,11 @@ screenfull@^5.1.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/screenfull/-/screenfull-5.2.0.tgz#6533d524d30621fc1283b9692146f3f13a93d1ba"
   integrity sha512-9BakfsO2aUQN2K9Fdbj87RJIEZ82Q9IGim7FqM5OsebfoFC6ZHXgDq/KvniuLTPdeM8wY2o6Dj3WQ7KeQCj3cA==
+
+scrollbooster@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/scrollbooster/-/scrollbooster-3.0.2.tgz#c1f0da4322321a165c70751b51e13f62177f26be"
+  integrity sha512-WZjvtSxCgCEbfc+9DmxfhuK6ACOqQr3jymniIp4I9Hh0mIEK1CKS4t+d7iPdeuILP5Q/we13h4YUHD0o+gPiRg==
 
 section-matter@^1.0.0:
   version "1.0.0"

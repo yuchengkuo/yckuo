@@ -2,12 +2,13 @@ import ArticleLayout from '@components/layout/ArticleLayout'
 import { allPosts } from '.contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
 import { useMDXComponent } from 'next-contentlayer/hooks'
+import MDXComponents from '@components/MDXComp'
 
 export default function PostPage({ post }: InferGetStaticPropsType<typeof getStaticProps>) {
   const Content = useMDXComponent(post.body.code)
   return (
     <ArticleLayout key={post.slug} title={post.title} date={post.date} readTime={post.readingTime}>
-      <Content />
+      <Content components={MDXComponents} />
     </ArticleLayout>
   )
 }
