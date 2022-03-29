@@ -10,7 +10,7 @@ export default function ArticleLayout({
   img,
   layout,
 }: {
-  children: ChildNode[]
+  children: JSX.Element | JSX.Element[]
   title: string
   date?: string
   readTime?: any
