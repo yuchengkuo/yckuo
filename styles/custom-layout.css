@@ -1,44 +1,47 @@
-.default-layout > section {
-  @apply grid grid-cols-3;
+.default-layout {
+  & > section {
+    @apply grid grid-cols-3;
+  }
+
+  & > section > :not([data-image]) {
+    @apply col-start-1 col-span-1;
+  }
+
+  & > section > [data-image] {
+    @apply col-start-1 col-span-3;
+  }
 }
 
-.default-layout > section > :not([data-image]) {
-  @apply col-start-1 col-span-1;
-}
+.two-col-layout {
+  & > section {
+    @apply grid grid-cols-[1fr_40ch_1fr] items-baseline justify-items-stretch;
+  }
 
-.default-layout > section > [data-image] {
-  @apply col-start-1 col-span-3;
-}
+  & > section:not(:first-of-type) {
+    @apply mt-40;
+  }
 
-.two-col-layout > section {
-  @apply grid grid-cols-[1fr_minmax(auto,_40ch)_1fr] items-baseline;
-}
+  & > section > :first-child {
+    @apply mt-0;
+  }
 
-.two-col-layout > section:not(:first-of-type) {
-  @apply mt-40;
-}
+  & > section > h2 {
+    @apply col-span-1 sticky top-14;
+  }
 
-.two-col-layout > section > :first-child {
-  @apply mt-0;
-}
+  & > section > :not(h2, [data-image], [data-carousel]) {
+    @apply col-start-2 col-span-1;
+  }
 
-.two-col-layout > section > h2 {
-  @apply col-span-1 sticky top-14;
-}
+  & > section [data-image] {
+    @apply max-w-[960px] h-fit col-start-1 col-end-4 justify-self-center;
+  }
 
-.two-col-layout > section > :not(h2, [data-image], [data-carousel]) {
-  @apply col-start-2 col-span-1;
-}
+  & > section [data-carousel] {
+    @apply h-max col-start-1 col-span-3 my-12 -mx-16 scrollbar-hide;
+  }
 
-.two-col-layout > section [data-image] {
-  @apply max-w-[960px] h-fit col-start-1 col-end-4 justify-self-center;
-}
-
-.two-col-layout > section [data-carousel] {
-  @apply h-max col-start-1 col-span-3 my-12 -mx-16;
-  scrollbar-width: none;
-}
-
-.two-col-layout [data-carousel] [data-carousel-image] {
-  @apply first-of-type:ml-[33vw] last-of-type:mr-[33vw] shadow;
+  & [data-carousel] [data-carousel-image] {
+    @apply first-of-type:ml-[33vw] last-of-type:mr-[33vw];
+  }
 }
