@@ -31,12 +31,21 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/line-clamp'),
-    plugin(function ({ addUtilities }) {
+    plugin(function ({ addUtilities, addVariant }) {
       addUtilities({
         '.body-font-settings': {
           'font-feature-settings': "'ss02', 'ss03'",
         },
+        '.scrollbar-hide': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+        },
       })
+      addVariant('hover', '@media(hover: hover) { &:hover }')
+      addVariant('active', '@media(hover: hover) { &:active }')
     }),
   ],
 }

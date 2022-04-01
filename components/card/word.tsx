@@ -59,7 +59,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
           </p>
         </div>
         <div className="flex gap-4 mt-2">
-          <div className="w-2/3 h-40 relative rounded bg-grayA-5 border border-gray-6 dark:border-grayDark-6 shadow">
+          <div className="w-2/3 h-40 relative rounded bg-gray-3 dark:bg-grayDark-3 border border-gray-6 dark:border-grayDark-6 shadow">
             {project.cover && (
               <Image
                 src={project.cover[0].url}
@@ -70,7 +70,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
               />
             )}
           </div>
-          <div className="w-1/3 h-40 relative rounded bg-grayA-5 border border-gray-6 dark:border-grayDark-6 shadow">
+          <div className="w-1/3 h-40 relative rounded bg-gray-3 dark:bg-grayDark-3 border border-gray-6 dark:border-grayDark-6 shadow">
             {project.cover && (
               <Image
                 src={project.cover[1].url}
