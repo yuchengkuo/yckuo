@@ -2,7 +2,7 @@ import { Processor } from 'unified'
 import { Element } from 'hast'
 import { visit } from 'unist-util-visit'
 import cloudinary from 'cloudinary'
-import { getBlurredData } from './image-loader'
+import { getBlurDataURL } from './image-loader'
 
 cloudinary.v2.config({
   cloud_name: 'yucheng',
@@ -43,7 +43,7 @@ export default function (this: Processor) {
       node.properties.width = asset.width
       node.properties.height = asset.height
       node.properties.aspect_ratio = asset.width / asset.height
-      node.properties.blurDataURL = await getBlurredData(plugin_id)
+      node.properties.blurDataURL = (await getBlurDataURL(plugin_id)) as string
     }
   }
 }

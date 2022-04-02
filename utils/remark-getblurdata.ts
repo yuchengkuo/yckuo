@@ -5,7 +5,7 @@
 import { Processor } from 'unified'
 import { Node } from 'unist'
 import { visit } from 'unist-util-visit'
-import { getBlurredData } from './image-loader'
+import { getBlurDataURL } from './image-loader'
 
 interface MDXElementNode extends Node {
   type: 'mdxJsxFlowElement'
@@ -30,13 +30,13 @@ export default function (this: Processor) {
       tree,
       (node: MDXElementNode) => node.type === 'mdxJsxFlowElement' && node.name === 'Image',
       (node) => {
-        const base64 = getBlurredData(
+        const base64 = getBlurDataURL(
           node.attributes.find((attribute) => attribute.name === 'src').value
         ).then((res) =>
           node.attributes.push({
             type: 'mdxJsxAttribute',
             name: 'blurDataURL',
-            value: res,
+            value: res as string,
           })
         )
         promises.push(base64)
@@ -51,7 +51,7 @@ export default function (this: Processor) {
 
     // function appendCarouselAttribute(node) {
     //   const childrenPromises = node.children.map((child, i) => {
-    //     const base64 = getBlurredData(
+    //     const base64 = getBlurDataURL(
     //       child.attributes.filter((attribute) => attribute.name === 'src')[0].value
     //     )
     //       .then((res) =>

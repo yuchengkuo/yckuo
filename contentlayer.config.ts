@@ -1,4 +1,9 @@
-import { defineDocumentType, makeSource, ComputedFields } from 'contentlayer/source-files'
+import {
+  defineDocumentType,
+  makeSource,
+  ComputedFields,
+  defineNestedType,
+} from 'contentlayer/source-files'
 import remarkSlug from 'remark-slug'
 import remarkDirective from 'remark-directive'
 import readingTime from 'reading-time'
@@ -6,22 +11,14 @@ import remarkUnwrapImages from 'remark-unwrap-images'
 import remarkSectionize from './utils/remark-sectionize'
 import remarkGetBlurDataURL from './utils/remark-getblurdata'
 import rehypeImages from './utils/rehype-images'
-import { getBlurredData } from './utils/image-loader'
+import { getBlurDataURL } from './utils/image-loader'
 
 const computedFields: ComputedFields = {
   readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
   slug: { type: 'string', resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx/, '') },
   blurDataURL: {
     type: 'json',
-    resolve: async (doc) => {
-      if (typeof doc.cover === 'string') {
-        return await getBlurredData(doc.cover)
-      }
-      if (typeof doc.cover === 'object') {
-        return await Promise.all(doc.cover.map(async (src) => await getBlurredData(src)))
-      }
-      return []
-    },
+    resolve: async (doc) => await getBlurDataURL(doc.cover),
   },
 }
 
@@ -48,10 +45,32 @@ export const Project = defineDocumentType(() => ({
     published: { type: 'boolean', required: true },
     info: { type: 'json', required: true },
     year: { type: 'date', required: true },
-    cover: { type: 'json' },
+    cover: { type: 'list', of: { type: 'string' } },
     layout: { type: 'enum', options: ['default', 'two-col'], default: 'default' },
   },
   computedFields,
+}))
+
+export const LinkProject = defineDocumentType(() => ({
+  name: 'LinkProject',
+  filePathPattern: 'projects/*.yaml',
+  contentType: 'data',
+  fields: {
+    projectLinks: { type: 'list', of: ProjectLink },
+  },
+  isSingleton: true,
+}))
+
+export const ProjectLink = defineNestedType(() => ({
+  name: 'ProjectLink',
+  fields: {
+    title: { type: 'string', required: true },
+    subtitle: { type: 'string', required: true },
+    published: { type: 'boolean', required: true },
+    year: { type: 'date', required: true },
+    url: { type: 'string', required: true },
+    cover: { type: 'list', of: { type: 'string' } },
+  },
 }))
 
 export const Other = defineDocumentType(() => ({
@@ -66,7 +85,7 @@ export const Other = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Post, Project, Other],
+  documentTypes: [Post, Project, LinkProject, Other],
   mdx: {
     remarkPlugins: [
       remarkSlug,

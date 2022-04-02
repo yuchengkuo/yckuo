@@ -1,4 +1,4 @@
-import { Post, Project } from '.contentlayer/generated'
+import { Post, Project, ProjectLink } from '.contentlayer/generated'
 import { RightArrowIcon, UpRightArrowIcon } from '@components/Icons'
 import { fade, scale, slideDown } from '@utils/animation'
 import { loader } from '@utils/image-loader'
@@ -24,7 +24,7 @@ export const PostCard = ({ post }: { post: Post }) => {
           </time>
           <h2>{post.title}</h2>
         </div>
-        <m.div className="w-4 h-4 ml-auto text-gray-11 dark:text-grayDark-11" variants={scale}>
+        <m.div className="w-4 h-4 ml-auto" variants={scale}>
           <RightArrowIcon />
         </m.div>
       </m.a>
@@ -48,7 +48,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
           <time className="font-medium body-font-settings text-sm text-gray-11 dark:text-grayDark-11">
             {new Date(project.year).getFullYear()}
           </time>
-          <m.div variants={scale} className="w-4 h-4 text-gray-11 dark:text-grayDark-11">
+          <m.div variants={scale} className="w-4 h-4">
             <RightArrowIcon />
           </m.div>
         </div>
@@ -68,6 +68,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
                 blurDataURL={project.blurDataURL[0]}
                 objectFit="cover"
                 layout="fill"
+                sizes="30vw"
                 className="rounded"
               />
             )}
@@ -81,6 +82,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
                 blurDataURL={project.blurDataURL[1]}
                 objectFit="cover"
                 layout="fill"
+                sizes="30vw"
                 className="rounded"
               />
             )}
@@ -88,6 +90,66 @@ export const ProjectCard = ({ project }: { project: Project }) => {
         </div>
       </m.a>
     </Link>
+  )
+}
+
+export const ProjectLinkCard = ({ projectLink }: { projectLink: ProjectLink }) => {
+  return (
+    <m.a
+      href={projectLink.url}
+      className="p-4 -mx-4 block rounded hover:bg-gray-3 dark:hover:bg-grayDark-3 transition-colors duration-200 ease-out active:bg-gray-4 dark:active:bg-grayDark-4"
+      variants={{ ...fade, 1: { y: -4 } }}
+      initial="0"
+      whileInView="visible"
+      viewport={{ margin: '-20px' }}
+      whileHover="1"
+      whileTap={{ scale: 0.998 }}
+    >
+      <div className="flex justify-between">
+        <time className="font-medium body-font-settings text-sm text-gray-11 dark:text-grayDark-11">
+          {new Date(projectLink.year).getFullYear()}
+        </time>
+        <m.div variants={scale} className="w-4 h-4">
+          <UpRightArrowIcon />
+        </m.div>
+      </div>
+      <div>
+        <h2 className="text-2xl">{projectLink.title}</h2>
+        <p className="font-medium body-font-settings text-sm text-gray-11 dark:text-grayDark-11">
+          {projectLink.subtitle}
+        </p>
+      </div>
+      <div className="flex gap-4 mt-2">
+        <div className="w-2/3 h-40 relative rounded bg-gray-3 dark:bg-grayDark-3 border border-gray-6 dark:border-grayDark-6 shadow">
+          {projectLink.cover && (
+            <Image
+              src={projectLink.cover[0]}
+              loader={loader}
+              // placeholder="blur"
+              // blurDataURL={projectLink.blurDataURL[0]}
+              objectFit="cover"
+              layout="fill"
+              sizes="30vw"
+              className="rounded"
+            />
+          )}
+        </div>
+        <div className="w-1/3 h-40 relative rounded bg-gray-3 dark:bg-grayDark-3 border border-gray-6 dark:border-grayDark-6 shadow">
+          {projectLink.cover && (
+            <Image
+              src={projectLink.cover[1]}
+              loader={loader}
+              // placeholder="blur"
+              // blurDataURL={projectLink.blurDataURL[1]}
+              objectFit="cover"
+              layout="fill"
+              sizes="30vw"
+              className="rounded"
+            />
+          )}
+        </div>
+      </div>
+    </m.a>
   )
 }
 
@@ -115,10 +177,7 @@ export const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
           {bookmark.excerpt}
         </m.p>
       </m.div>
-      <m.div
-        className="w-4 h-4 ml-auto shrink-0 text-gray-11 dark:text-grayDark-11"
-        variants={scale}
-      >
+      <m.div className="w-4 h-4 ml-auto shrink-0" variants={scale}>
         <UpRightArrowIcon />
       </m.div>
     </m.a>
