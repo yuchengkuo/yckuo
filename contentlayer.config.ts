@@ -16,6 +16,7 @@ export const Post = defineDocumentType(() => ({
   fields: {
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
+    cover: { type: 'string' },
     layout: { type: 'enum', options: ['default', 'two-col'], default: 'default' },
   },
   computedFields,
