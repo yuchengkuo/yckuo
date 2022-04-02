@@ -62,8 +62,10 @@ export const ProjectCard = ({ project }: { project: Project }) => {
           <div className="w-2/3 h-40 relative rounded bg-gray-3 dark:bg-grayDark-3 border border-gray-6 dark:border-grayDark-6 shadow">
             {project.cover && (
               <Image
-                src={project.cover[0].url}
+                src={project.cover[0]}
                 loader={loader}
+                placeholder="blur"
+                blurDataURL={project.blurDataURL[0]}
                 objectFit="cover"
                 layout="fill"
                 className="rounded"
@@ -73,8 +75,10 @@ export const ProjectCard = ({ project }: { project: Project }) => {
           <div className="w-1/3 h-40 relative rounded bg-gray-3 dark:bg-grayDark-3 border border-gray-6 dark:border-grayDark-6 shadow">
             {project.cover && (
               <Image
-                src={project.cover[1].url}
+                src={project.cover[1]}
                 loader={loader}
+                placeholder="blur"
+                blurDataURL={project.blurDataURL[1]}
                 objectFit="cover"
                 layout="fill"
                 className="rounded"

@@ -14,7 +14,7 @@
 
 .two-col-layout {
   & > section {
-    @apply grid grid-cols-[1fr_40ch_1fr] items-baseline justify-items-stretch;
+    @apply grid grid-cols-[1fr_40ch_1fr] items-baseline;
   }
 
   & > section:not(:first-of-type) {

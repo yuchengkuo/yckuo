@@ -26,11 +26,12 @@ function Image(props) {
       <NextImg
         {...props}
         loader={loader}
+        placeholder="blur"
         objectFit="cover"
-        className="rounded-md shadow bg-gray-3 dark:bg-grayDark-3"
+        className="rounded shadow bg-gray-3 dark:bg-grayDark-3"
       />
       <figcaption className="text-sm w-fit font-medium text-gray-11 dark:text-grayDark-11">
-        {props.caps}
+        {props.caps || props.alt}
       </figcaption>
     </figure>
   )
@@ -47,18 +48,18 @@ function Carousel({ images }) {
     <div data-carousel className="my-12 overflow-scroll w-screen" ref={viewport}>
       <div className="w-fit flex gap-6">
         {images.map((props) => (
-          <div data-carousel-image className="relative w-full h-fit" key={props.src}>
+          <figure data-carousel-image className="relative w-full h-fit" key={props.src}>
             <NextImg
               {...props}
-              className="rounded-sm shadow bg-gray-3 dark:bg-grayDark-3"
+              className="rounded shadow bg-gray-3 dark:bg-grayDark-3"
               layout="fixed"
               objectFit="cover"
               loader={loader}
             />
             <figcaption className="text-sm w-fit font-medium text-gray-11 dark:text-grayDark-11">
-              {props.alt}
+              {props.caps || props.alt}
             </figcaption>
-          </div>
+          </figure>
         ))}
       </div>
     </div>
@@ -67,6 +68,7 @@ function Carousel({ images }) {
 
 const MDXComponents = {
   a: AnchorTag,
+  img: Image,
   Image,
   Carousel,
 }
