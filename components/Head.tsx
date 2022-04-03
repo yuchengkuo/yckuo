@@ -2,6 +2,7 @@ import { ArticleJsonLd, DefaultSeo } from 'next-seo'
 import { useDarkMode } from 'usehooks-ts'
 import NextHead from 'next/head'
 import { defaultArticleJsonLd, defaultSEO } from '@utils/config/seo'
+import { useTheme } from './ThemeSelect'
 
 export default function Head({
   title,
@@ -15,6 +16,7 @@ export default function Head({
   img?: string
 }) {
   const { isDarkMode } = useDarkMode()
+  const { prefer } = useTheme()
   return (
     <>
       <DefaultSeo {...defaultSEO} title={title} description={description} />
@@ -31,7 +33,7 @@ export default function Head({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="msapplication-TileColor" content="#1D1E22" />
 
-        {isDarkMode ? (
+        {(prefer === 'system' && isDarkMode) || prefer === 'dark' ? (
           <>
             <link
               rel="icon"

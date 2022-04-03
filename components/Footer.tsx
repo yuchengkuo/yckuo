@@ -3,6 +3,7 @@ import { fade, fadeUp, scale } from '@utils/animation'
 import { routes } from '@utils/config/routes'
 import Link from 'next/link'
 import { RightArrowIcon, UpRightArrowIcon } from './Icons'
+import ThemeSelect from './ThemeSelect'
 
 export default function Footer() {
   return (
@@ -47,6 +48,9 @@ export default function Footer() {
             </ul>
           ))}
         </nav>
+        <div className="flex justify-end">
+          <ThemeSelect />
+        </div>
       </m.footer>
     </LazyMotion>
   )

@@ -40,11 +40,11 @@
   }
 
   html {
-    @apply bg-gray-2 text-gray-12 dark:bg-grayDark-2 dark:text-grayDark-12 max-w-[2400px];
+    @apply max-w-[2400px];
   }
 
   body {
-    @apply min-h-screen font-sato antialiased text-lg phone:text-base;
+    @apply bg-gray-2 text-gray-12 dark:bg-grayDark-2 dark:text-grayDark-12 min-h-screen font-sato antialiased text-lg phone:text-base;
   }
 
   main {

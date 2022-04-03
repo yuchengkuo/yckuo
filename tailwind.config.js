@@ -12,6 +12,7 @@ for (const color in colors) {
 
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     fontFamily: {
       apfel: ['Apfel', ...fontFamily.sans],
