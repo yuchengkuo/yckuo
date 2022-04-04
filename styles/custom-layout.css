@@ -38,7 +38,7 @@
   }
 
   & > section [data-carousel] {
-    @apply h-max col-start-1 col-span-3 w-[99vw] my-12 -mx-16 scrollbar-hide overflow-hidden;
+    @apply h-max col-start-1 col-span-3 w-[99vw] my-12 -mx-16 scrollbar-hide overflow-auto;
     @screen tablet {
       @apply w-[99.5vw] -mx-10;
     }
