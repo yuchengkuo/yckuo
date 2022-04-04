@@ -39,7 +39,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <Link href={`/projects/${project.slug}`} passHref>
       <m.a
-        className="p-4 -mx-4 block rounded hover:bg-gray-3 dark:hover:bg-grayDark-3 transition-colors duration-200 ease-out active:bg-gray-4 dark:active:bg-grayDark-4"
+        className="p-4 -mx-4 block rounded hover:bg-gray-4 dark:hover:bg-grayDark-4 transition-colors duration-200 ease-out active:bg-gray-5 dark:active:bg-grayDark-5"
         variants={{ ...fade, 1: { y: -4 } }}
         initial="0"
         whileInView="visible"
@@ -100,7 +100,7 @@ export const ProjectLinkCard = ({ projectLink }: { projectLink: ProjectLink }) =
   return (
     <m.a
       href={projectLink.url}
-      className="p-4 -mx-4 block rounded hover:bg-gray-3 dark:hover:bg-grayDark-3 transition-colors duration-200 ease-out active:bg-gray-4 dark:active:bg-grayDark-4"
+      className="p-4 -mx-4 block rounded hover:bg-gray-4 dark:hover:bg-grayDark-4 transition-colors duration-200 ease-out active:bg-gray-5 dark:active:bg-grayDark-5"
       variants={{ ...fade, 1: { y: -4 } }}
       initial="0"
       whileInView="visible"

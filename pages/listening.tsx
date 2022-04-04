@@ -73,6 +73,9 @@ function TopAlbums() {
   return (
     <m.div className="mt-16 phone:mt-8">
       <h2>Weekly Top Albums</h2>
+      <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
+        Current album hooks
+      </p>
       <div className="flex flex-wrap gap-12 phone:row-gap-2 mt-8 phone:mt-2 max-w-7xl">
         {albums
           ? albums.map((album, index) => (
