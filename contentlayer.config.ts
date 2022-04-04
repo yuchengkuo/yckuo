@@ -35,6 +35,26 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }))
 
+export const Micro = defineDocumentType(() => ({
+  name: 'Micro',
+  filePathPattern: `posts/*.yaml`,
+  contentType: 'data',
+  fields: {
+    micro: { type: 'list', of: MicroBlog },
+  },
+  isSingleton: true,
+}))
+
+export const MicroBlog = defineNestedType(() => ({
+  name: 'MicroBlog',
+  fields: {
+    date: { type: 'date', required: true },
+    title: { type: 'string' },
+    tag: { type: 'list', of: { type: 'string' } },
+    content: { type: 'mdx', required: true },
+  },
+}))
+
 export const Project = defineDocumentType(() => ({
   name: 'Project',
   filePathPattern: `projects/*.mdx`,
@@ -85,7 +105,7 @@ export const Other = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Post, Project, LinkProject, Other],
+  documentTypes: [Post, Micro, Project, LinkProject, Other],
   mdx: {
     remarkPlugins: [
       remarkSlug,

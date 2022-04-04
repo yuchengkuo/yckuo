@@ -34,7 +34,7 @@
   }
 
   & > section [data-image] {
-    @apply max-w-[960px] h-fit col-start-1 col-end-4 justify-self-center;
+    @apply max-w-[960px] h-fit col-start-1 col-end-4 justify-self-center my-12;
   }
 
   & > section [data-carousel] {

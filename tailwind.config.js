@@ -45,6 +45,9 @@ module.exports = {
           },
         },
       })
+      addVariant('not-first', '&:not(:first-of-type)')
+      addVariant('not-last', '&:not(:last-of-type)')
+      addVariant('only-middle', '&:not(:first-of-type, :last-of-type)')
       addVariant('hover', '@media(hover: hover) { &:hover }')
       addVariant('active', '@media(hover: hover) { &:active }')
     }),

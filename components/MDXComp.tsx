@@ -22,7 +22,7 @@ function AnchorTag({ href, children, ...props }: { href: string; children: React
 
 function Image(props) {
   return (
-    <figure data-image className="my-12">
+    <figure data-image>
       <NextImg
         {...props}
         loader={loader}

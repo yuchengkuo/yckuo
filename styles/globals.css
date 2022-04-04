@@ -99,7 +99,7 @@
   }
 
   .prose a {
-    @apply underline decoration-gray-9 dark:decoration-grayDark-9 rounded px-0.5 -mx-0.5 hover:bg-gray-3 dark:hover:bg-grayDark-3 hover:decoration-inherit transition-all;
+    @apply underline decoration-gray-9 dark:decoration-grayDark-9 rounded px-0.5 -mx-0.5 hover:bg-gray-3 dark:hover:bg-grayDark-3 hover:decoration-current dark:hover:decoration-current transition-all;
   }
 
   .prose blockquote {
@@ -136,6 +136,50 @@
   .prose h2 + *,
   .prose h3 + * {
     @apply mt-0;
+  }
+}
+
+@layer utilities {
+  .micro {
+    @apply max-w-[48ch];
+
+    & p {
+      @apply body-font-settings;
+    }
+
+    & p:not(:first-of-type) {
+      @apply mt-4;
+    }
+
+    & ul,
+    ol {
+      @apply mt-2 phone:pl-2;
+    }
+
+    & ul {
+      @apply list-disc;
+    }
+
+    & ol {
+      @apply list-decimal;
+    }
+
+    & li {
+      @apply mb-1 marker:text-base marker:text-gray-11 marker:text-grayDark-11 marker:align-middle phone:marker:text-xs;
+    }
+
+    & a {
+      @apply underline decoration-gray-9 dark:decoration-grayDark-9 rounded px-0.5 -mx-0.5 hover:bg-gray-3 dark:hover:bg-grayDark-3 hover:decoration-current dark:hover:decoration-current transition-all;
+    }
+
+    & blockquote {
+      @apply italic font-spectral font-medium my-4 py-0.5 relative before:absolute before:-left-3 phone:before:-left-2 before:top-0 before:h-full before:w-0.5 before:rounded before:bg-gray-6 dark:before:bg-grayDark-6;
+      font-feature-settings: 'sso3' off, 'ss02' off;
+    }
+
+    & [data-image] {
+      @apply my-6;
+    }
   }
 }
 
