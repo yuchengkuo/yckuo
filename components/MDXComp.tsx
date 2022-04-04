@@ -28,7 +28,7 @@ function Image(props) {
         loader={loader}
         placeholder="blur"
         objectFit="cover"
-        className="rounded shadow bg-gray-3 dark:bg-grayDark-3"
+        className="rounded shadow overflow-hidden bg-gray-3 dark:bg-grayDark-3"
       />
       <figcaption className="text-sm w-fit font-medium text-gray-11 dark:text-grayDark-11">
         {props.caps || props.alt}
@@ -45,7 +45,7 @@ function Carousel({ images }) {
     bounceForce: 1,
   })
   return (
-    <div data-carousel className="my-12 overflow-scroll w-screen" ref={viewport}>
+    <div data-carousel ref={viewport}>
       <div className="w-fit flex gap-6">
         {images.map((props) => (
           <figure data-carousel-image className="relative w-full h-fit" key={props.src}>

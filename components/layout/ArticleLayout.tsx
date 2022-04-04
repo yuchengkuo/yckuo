@@ -37,7 +37,7 @@ export default function ArticleLayout({
         </m.h1>
         {post.cover && (
           <m.div variants={fade} initial="0" animate="1" className="mt-10">
-            <div className="w-1/2 h-80 relative bg-gray-4 dark:bg-grayDark-4">
+            <div className="w-1/2 tablet:w-2/3 phone:w-auto h-80 phone:h-48 relative">
               <Image
                 src={post.cover}
                 loader={loader}
@@ -45,7 +45,7 @@ export default function ArticleLayout({
                 blurDataURL={post.blurDataURL}
                 layout="fill"
                 objectFit="cover"
-                className="rounded"
+                className="rounded-md shadow overflow-hidden bg-gray-4 dark:bg-grayDark-4"
               />
             </div>
           </m.div>

@@ -1,6 +1,6 @@
 .default-layout {
   & > section {
-    @apply grid grid-cols-3;
+    @apply grid grid-cols-3 tablet:block;
   }
 
   & > section > :not([data-image]) {
@@ -14,11 +14,11 @@
 
 .two-col-layout {
   & > section {
-    @apply grid grid-cols-[1fr_40ch_1fr] items-baseline;
+    @apply grid grid-cols-[1fr_40ch_1fr] items-baseline tablet:block;
   }
 
   & > section:not(:first-of-type) {
-    @apply mt-40;
+    @apply mt-40 tablet:mt-24 phone:mt-16;
   }
 
   & > section > :first-child {
@@ -26,7 +26,7 @@
   }
 
   & > section > h2 {
-    @apply col-span-1 sticky top-14;
+    @apply col-span-1 sticky top-14 tablet:static;
   }
 
   & > section > :not(h2, [data-image], [data-carousel]) {
@@ -38,10 +38,22 @@
   }
 
   & > section [data-carousel] {
-    @apply h-max col-start-1 col-span-3 my-12 -mx-16 scrollbar-hide;
+    @apply h-max col-start-1 col-span-3 w-[99vw] my-12 -mx-16 scrollbar-hide overflow-hidden;
+    @screen tablet {
+      @apply w-[99.5vw] -mx-10;
+    }
+    @screen phone {
+      @apply -mx-5;
+    }
   }
 
   & [data-carousel] [data-carousel-image] {
-    @apply first-of-type:ml-[33vw] last-of-type:mr-[33vw];
+    @apply first-of-type:ml-[calc((99vw-40ch)/2)] last-of-type:mr-[calc((99vw-40ch)/2)];
+    @screen tablet {
+      @apply first-of-type:ml-10 last-of-type:mr-10;
+    }
+    @screen phone {
+      @apply first-of-type:ml-5 last-of-type:mr-5;
+    }
   }
 }
