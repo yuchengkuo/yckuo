@@ -18,7 +18,6 @@ export function useTheme() {
 
   const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)')
 
-  // Read local storage theme once first
   const storageTheme = useReadLocalStorage<ThemeList>('theme')
   useIsomorphicLayoutEffect(() => {
     if (storageTheme) setPrefer(storageTheme)
@@ -61,7 +60,7 @@ function SelectItem(props: Select.SelectItemProps) {
   return (
     <Select.Item
       {...props}
-      className="hover:bg-gray-7 dark:hover:bg-grayDark-7 cursor-pointer focus:bg-gray-7 dark:focus:bg-grayDark-7 focus:outline-none px-2 py-px body-font-settings text-base flex items-center justify-start gap-1 rounded"
+      className="hover:bg-gray-7 dark:hover:bg-grayDark-7 cursor-pointer focus:bg-gray-7 dark:focus:bg-grayDark-7 focus:outline-none px-2 py-0.5 body-font-settings text-base flex items-center justify-start gap-1 rounded"
     >
       {props.children}
     </Select.Item>
