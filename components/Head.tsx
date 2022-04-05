@@ -16,7 +16,6 @@ export default function Head({
   img?: string
 }) {
   const { isDarkMode } = useDarkMode()
-  const { prefer } = useTheme()
   return (
     <>
       <DefaultSeo {...defaultSEO} title={title} description={description} />
@@ -33,7 +32,7 @@ export default function Head({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="msapplication-TileColor" content="#1D1E22" />
 
-        {(prefer === 'system' && isDarkMode) || prefer === 'dark' ? (
+        {isDarkMode ? (
           <>
             <link
               rel="icon"
