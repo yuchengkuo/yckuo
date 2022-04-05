@@ -50,6 +50,7 @@ module.exports = {
       addVariant('only-middle', '&:not(:first-of-type, :last-of-type)')
       addVariant('hover', '@media(hover: hover) { &:hover }')
       addVariant('active', '@media(hover: hover) { &:active }')
+      addVariant('state', '&[data-state=on]')
     }),
   ],
 }
