@@ -1,4 +1,4 @@
-import { ReactChildren } from 'react'
+import { ReactChildren, ReactComponentElement } from 'react'
 import Link from 'next/link'
 import NextImg from 'next/image'
 import { loader } from '@utils/image-loader'
@@ -16,6 +16,19 @@ function AnchorTag({ href, children, ...props }: { href: string; children: React
       <Link href={href} passHref>
         <a {...props}>{children}</a>
       </Link>
+    )
+  }
+}
+
+function Heading(Tag) {
+  return function (props) {
+    if (!props.id) return <Tag {...props} />
+    return (
+      <Tag {...props}>
+        <Link href={Tag === 'h2' ? `#${props.id}-section` : `#${props.id}`} passHref>
+          <a>{props.children}</a>
+        </Link>
+      </Tag>
     )
   }
 }
@@ -67,6 +80,9 @@ function Carousel({ images }) {
 }
 
 const MDXComponents = {
+  h2: Heading('h2'),
+  h3: Heading('h3'),
+  h4: Heading('h4'),
   a: AnchorTag,
   img: Image,
   Image,

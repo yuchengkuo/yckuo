@@ -14,7 +14,7 @@
 
 .two-col-layout {
   & > section {
-    @apply grid grid-cols-[1fr_40ch_1fr] items-baseline tablet:block;
+    @apply grid grid-cols-[1fr_40ch_1fr] items-baseline tablet:block scroll-mt-20;
   }
 
   & > section:not(:first-of-type) {
@@ -27,6 +27,10 @@
 
   & > section > h2 {
     @apply col-span-1 sticky top-14 tablet:static;
+  }
+
+  & > section > h3 {
+    @apply scroll-mt-20;
   }
 
   & > section > :not(h2, [data-image], [data-carousel]) {
