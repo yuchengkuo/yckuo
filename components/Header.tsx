@@ -19,7 +19,7 @@ const Header = () => {
       title: title.replace(/[a-z]/, (str) => str.toUpperCase()).replace(/-/g, ' '),
     }
   }
-  const { distY } = useScrollProgress()
+  const { distY, progress } = useScrollProgress()
   const isVisible = distY > 200
   const ref = useRef(null)
   const header = useIntersectionObserver(ref, { threshold: 1 })
@@ -45,24 +45,25 @@ const Header = () => {
         </Link>
         <AnimatePresence>
           {isVisible && (
-            <m.p
-              className="body-font-settings font-medium"
-              variants={fade}
-              initial="0"
-              animate="1"
-              exit="0"
-            >
-              {handleRouter(router.asPath).title}
+            <m.p variants={fade} initial="0" animate="1" exit="0">
+              <button
+                className="body-font-settings font-medium"
+                onClick={() => scrollTo({ top: 0, behavior: 'smooth' })}
+              >
+                {handleRouter(router.asPath).title}
+              </button>
             </m.p>
           )}
         </AnimatePresence>
         <button
           className="font-apfel font-bold ml-auto text-gray-11 dark:text-grayDark-11 hover:text-current transition-all"
           onClick={() => {
-            document.querySelector('footer').scrollIntoView({ behavior: 'smooth' })
+            progress > 0.95
+              ? scrollTo({ top: 0, behavior: 'smooth' })
+              : document.querySelector('footer').scrollIntoView({ behavior: 'smooth' })
           }}
         >
-          Nav ↓
+          {progress > 0.95 ? 'Top ↑' : 'Nav ↓'}
         </button>
       </LazyMotion>
     </header>
