@@ -32,7 +32,7 @@
     "usehooks-ts": "^2.4.2"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^2.1.0",
+    "@mdx-js/mdx": "^2.1.1",
     "@radix-ui/colors": "^0.1.8",
     "@types/node": "^17.0.23",
     "@types/react": "^17.0.43",
