@@ -46,11 +46,15 @@ export default function BookmarkPage() {
 
 function FilterToggle({ filters, setFilter }: { filters: string[]; setFilter: Dispatch<string> }) {
   return (
-    <ToggleGroup.Root type="single" onValueChange={(v) => setFilter(v)} className="flex gap-2 mt-6">
+    <ToggleGroup.Root
+      type="single"
+      onValueChange={(v) => setFilter(v)}
+      className="flex gap-2 mt-6 phone:-mx-5 phone:px-5 overflow-scroll scrollbar-hide"
+    >
       {filters.map((filter) => (
         <ToggleGroup.Item
           key={filter}
-          className="text-sm font-medium body-font-settings px-2.5 py-1 rounded-full bg-gray-6 dark:bg-grayDark-6 state:bg-indigo-9 state:text-gray-1 dark:state:bg-indigoDark-10"
+          className="text-sm w-fit whitespace-nowrap font-medium body-font-settings px-2.5 py-1 rounded-full bg-gray-6 dark:bg-grayDark-6 state:bg-indigo-9 state:text-gray-1 dark:state:bg-indigoDark-10"
           value={filter}
         >
           {filter}

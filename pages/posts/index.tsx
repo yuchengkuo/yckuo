@@ -2,6 +2,7 @@ import Layout from '@components/layout/Layout'
 import { allPosts } from '.contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
 import { PostCard } from '@components/card/word'
+import { compareDesc } from 'date-fns'
 
 export default function PostsPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -16,6 +17,6 @@ export default function PostsPage({ posts }: InferGetStaticPropsType<typeof getS
 }
 
 export function getStaticProps() {
-  const posts = allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const posts = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
   return { props: { posts } }
 }

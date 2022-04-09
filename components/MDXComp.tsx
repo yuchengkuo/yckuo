@@ -44,7 +44,7 @@ function Image(props) {
         className="rounded shadow overflow-hidden bg-gray-3 dark:bg-grayDark-3"
       />
       <figcaption className="text-sm w-fit font-medium text-gray-11 dark:text-grayDark-11">
-        {props.caps || props.alt}
+        {props.caps}
       </figcaption>
     </figure>
   )
@@ -70,7 +70,7 @@ function Carousel({ images }) {
               loader={loader}
             />
             <figcaption className="text-sm w-fit font-medium text-gray-11 dark:text-grayDark-11">
-              {props.caps || props.alt}
+              {props.caps}
             </figcaption>
           </figure>
         ))}
