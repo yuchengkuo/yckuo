@@ -28,6 +28,7 @@ export default function Footer() {
                 <li key={link.label} className="body-font-settings text-base font-medium mt-4">
                   <Link href={link.url} passHref>
                     <m.a
+                      rel={link.label === 'Github' ? 'me' : null}
                       variants={{ ...fadeUp, 1: { y: -4 } }}
                       initial="0"
                       whileInView="visible"
