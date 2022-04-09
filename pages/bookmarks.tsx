@@ -54,7 +54,7 @@ function FilterToggle({ filters, setFilter }: { filters: string[]; setFilter: Di
       {filters.map((filter) => (
         <ToggleGroup.Item
           key={filter}
-          className="text-sm w-fit whitespace-nowrap font-medium body-font-settings px-2.5 py-1 rounded-full bg-gray-6 dark:bg-grayDark-6 state:bg-indigo-9 state:text-gray-1 dark:state:bg-indigoDark-10"
+          className="text-sm w-fit whitespace-nowrap font-medium body-font-settings px-2.5 py-1 rounded-full border border-gray-7 hover:border-gray-8 hover:bg-gray-3 dark:hover:bg-grayDark-3 dark:border-grayDark-7 dark:hover:border-grayDark-8 state:bg-indigo-9 state:text-gray-1 dark:state:bg-indigoDark-10 transition-all duration-200"
           value={filter}
         >
           {filter}

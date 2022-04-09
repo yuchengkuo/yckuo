@@ -15,7 +15,7 @@ export default function ArticleLayout({
   return (
     <LazyMotion features={domAnimation}>
       <Head title={post.title} date={post.date} />
-      <main>
+      <main className="min-h-[calc(100vh-104px-104px)]">
         {post.date && (
           <m.p
             className="font-medium body-font-settings text-sm mb-1 text-gray-11 dark:text-grayDark-11"
