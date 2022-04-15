@@ -2,7 +2,7 @@ const { withContentlayer } = require('next-contentlayer')
 /**
  * @type {import('next').NextConfig}
  */
-module.exports = withContentlayer()({
+module.exports = withContentlayer({
   images: {
     domains: ['i.scdn.co', 'lastfm.freetls.fastly.net'],
   },
