@@ -203,7 +203,7 @@ export const MicroCard = ({ micro }: { micro: MicroBlog }) => {
       </Link>
       <h3 className="">{micro.title}</h3>
       <div className="flex gap-2 text-sm font-medium body-font-settings text-indigo-10 dark:text-indigoDark-11">
-        {micro.tag && micro.tag.map((t) => <p>#{t}</p>)}
+        {micro.tag && micro.tag.map((t) => <p key={t}>#{t}</p>)}
       </div>
       <div className="body-font-settings mt-2 micro">
         <Content components={MDXComponents} />

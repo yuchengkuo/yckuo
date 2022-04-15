@@ -21,7 +21,7 @@ function AnchorTag({ href, children, ...props }: { href: string; children: React
 }
 
 function Heading(Tag) {
-  return function (props) {
+  return function Heading(props) {
     if (!props.id) return <Tag {...props} />
     return (
       <Tag {...props}>
