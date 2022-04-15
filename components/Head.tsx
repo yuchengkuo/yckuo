@@ -2,6 +2,7 @@ import { ArticleJsonLd, DefaultSeo } from 'next-seo'
 import { useDarkMode } from 'usehooks-ts'
 import NextHead from 'next/head'
 import { defaultArticleJsonLd, defaultSEO } from '@utils/config/seo'
+import { useTheme } from './ThemeSelect'
 
 export default function Head({
   title,

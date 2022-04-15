@@ -1,0 +1,15 @@
+projectLinks:
+  - title: A little stopwatch and timer
+    subtitle: Side Project
+    url: https://next-stopwatch-timer.vercel.app
+    year: 2021-11-08
+    published: false
+    cover:
+      - project/SCR-20220402-vofegw
+      - project/SCR-20220402-vqileo
+
+  - title: yuchengkuo.com
+    subtitle: Personal website, Portfolio
+    url: https://yuchengkuo.com
+    year: 2022-01-01
+    published: true

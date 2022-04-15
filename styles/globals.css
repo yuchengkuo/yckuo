@@ -40,11 +40,11 @@
   }
 
   html {
-    @apply bg-gray-2 text-gray-12 dark:bg-grayDark-2 dark:text-grayDark-12 max-w-[2400px];
+    @apply max-w-[2400px];
   }
 
   body {
-    @apply min-h-screen font-sato antialiased text-lg phone:text-base;
+    @apply bg-gray-2 text-gray-12 dark:bg-grayDark-2 dark:text-grayDark-12 min-h-screen font-sato antialiased text-lg phone:text-base;
   }
 
   main {
@@ -80,62 +80,114 @@
 @layer utilities {
   .prose {
     @apply body-font-settings text-lg phone:text-base leading-8;
-  }
 
-  .prose :not(section, blockquote *, [data-image], [data-carousel], [data-carousel] *) {
-    max-width: 40ch;
-  }
+    & :not(section, blockquote *, [data-image], [data-carousel], [data-carousel] *) {
+      max-width: 40ch;
+    }
 
-  .prose p {
-    @apply mt-6 phone:mt-4;
-  }
+    & p {
+      @apply mt-6 phone:mt-4;
+    }
 
-  .prose h2 {
-    @apply text-indigo-12 dark:text-indigoDark-12 py-4 mt-8 phone:py-2 phone:mt-4;
-  }
+    & h2 {
+      @apply text-indigo-12 dark:text-indigoDark-12 py-4 mt-8 phone:py-2 phone:mt-4;
+    }
 
-  .prose h3 {
-    @apply text-indigo-12 dark:text-indigoDark-12 py-2 mt-4 phone:py-1 phone:mt-3;
-  }
+    & h3 {
+      @apply text-indigo-12 dark:text-indigoDark-12 py-2 mt-4 phone:py-1 phone:mt-3;
+    }
 
-  .prose a {
-    @apply underline decoration-gray-9 dark:decoration-grayDark-9 rounded px-0.5 -mx-0.5 hover:bg-gray-3 dark:hover:bg-grayDark-3 hover:decoration-inherit transition-all;
-  }
+    & :not(h2, h3) > a {
+      @apply underline decoration-gray-9 dark:decoration-grayDark-9 rounded px-0.5 -mx-0.5 hover:bg-gray-3 dark:hover:bg-grayDark-3 hover:decoration-current dark:hover:decoration-current transition-all;
+    }
 
-  .prose blockquote {
-    @apply italic font-spectral font-medium mt-10 py-0.5 relative before:absolute before:-left-5 phone:before:-left-3 before:top-0 before:h-full before:w-0.5 before:rounded before:bg-gray-6 dark:before:bg-grayDark-6;
-    max-width: 50ch !important;
-    font-feature-settings: 'sso3' off, 'ss02' off;
-  }
+    & :where(h2[id], h3[id]) > a {
+      @apply after:content-['#'] after:opacity-0 hover:after:opacity-100 after:text-lg after:ml-1 after:italic after:transition-all after:duration-200;
+    }
 
-  .prose blockquote * {
-    @apply mt-0;
-  }
+    & hr {
+      @apply border-t-gray-6 dark:border-t-grayDark-6 mt-8 phone:mt-4;
+    }
 
-  .prose ul,
-  .prose ol {
-    @apply mt-6 phone:mt-4 phone:pl-4;
-  }
+    & blockquote {
+      @apply italic font-spectral font-medium mt-10 py-0.5 relative before:absolute before:-left-5 phone:before:-left-3 before:top-0 before:h-full before:w-0.5 before:rounded before:bg-gray-6 dark:before:bg-grayDark-6;
+      max-width: 50ch !important;
+      font-feature-settings: 'sso3' off, 'ss02' off;
+    }
 
-  .prose ul {
-    @apply list-disc;
-  }
+    & blockquote * {
+      @apply mt-0;
+    }
 
-  .prose ol {
-    @apply list-decimal;
-  }
+    & ul,
+    & ol {
+      @apply mt-6 phone:mt-4 phone:pl-4;
+    }
 
-  .prose li {
-    @apply mb-1 marker:text-base marker:text-gray-11 marker:text-grayDark-11 marker:align-middle phone:marker:text-xs;
-  }
+    & ul {
+      @apply list-disc;
+    }
 
-  .prose [data-image] {
-    @apply mt-10 rounded max-w-4xl;
-  }
+    & ol {
+      @apply list-decimal;
+    }
 
-  .prose h2 + *,
-  .prose h3 + * {
-    @apply mt-0;
+    & li {
+      @apply mb-1 marker:text-base marker:text-gray-11 marker:text-grayDark-11 marker:align-middle phone:marker:text-xs;
+    }
+
+    & [data-image] {
+      @apply mt-10 rounded max-w-4xl;
+    }
+
+    & h2 + *,
+    & h3 + * {
+      @apply mt-0;
+    }
+  }
+}
+
+@layer utilities {
+  .micro {
+    @apply max-w-[48ch];
+
+    & p {
+      @apply body-font-settings;
+    }
+
+    & p:not(:first-of-type) {
+      @apply mt-4;
+    }
+
+    & ul,
+    ol {
+      @apply mt-2 phone:pl-2;
+    }
+
+    & ul {
+      @apply list-disc;
+    }
+
+    & ol {
+      @apply list-decimal;
+    }
+
+    & li {
+      @apply mb-1 marker:text-base marker:text-gray-11 marker:text-grayDark-11 marker:align-middle phone:marker:text-xs;
+    }
+
+    & a {
+      @apply underline decoration-gray-9 dark:decoration-grayDark-9 rounded px-0.5 -mx-0.5 hover:bg-gray-3 dark:hover:bg-grayDark-3 hover:decoration-current dark:hover:decoration-current transition-all;
+    }
+
+    & blockquote {
+      @apply italic font-spectral font-medium my-4 py-0.5 relative before:absolute before:-left-3 phone:before:-left-2 before:top-0 before:h-full before:w-0.5 before:rounded before:bg-gray-6 dark:before:bg-grayDark-6;
+      font-feature-settings: 'sso3' off, 'ss02' off;
+    }
+
+    & [data-image] {
+      @apply my-6;
+    }
   }
 }
 

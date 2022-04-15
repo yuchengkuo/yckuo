@@ -7,7 +7,7 @@ import MDXComponents from '@components/MDXComp'
 export default function PostPage({ post }: InferGetStaticPropsType<typeof getStaticProps>) {
   const Content = useMDXComponent(post.body.code)
   return (
-    <ArticleLayout key={post.slug} title={post.title} date={post.date} readTime={post.readingTime}>
+    <ArticleLayout key={post.slug} post={post}>
       <Content components={MDXComponents} />
     </ArticleLayout>
   )

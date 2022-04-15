@@ -12,6 +12,7 @@ for (const color in colors) {
 
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     fontFamily: {
       apfel: ['Apfel', ...fontFamily.sans],
@@ -31,12 +32,25 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/line-clamp'),
-    plugin(function ({ addUtilities }) {
+    plugin(function ({ addUtilities, addVariant }) {
       addUtilities({
         '.body-font-settings': {
           'font-feature-settings': "'ss02', 'ss03'",
         },
+        '.scrollbar-hide': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+        },
       })
+      addVariant('not-first', '&:not(:first-of-type)')
+      addVariant('not-last', '&:not(:last-of-type)')
+      addVariant('only-middle', '&:not(:first-of-type, :last-of-type)')
+      addVariant('hover', '@media(hover: hover) { &:hover }')
+      addVariant('active', '@media(hover: hover) { &:active }')
+      addVariant('state', '&[data-state=on]')
     }),
   ],
 }

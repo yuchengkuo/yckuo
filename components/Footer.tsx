@@ -3,6 +3,7 @@ import { fade, fadeUp, scale } from '@utils/animation'
 import { routes } from '@utils/config/routes'
 import Link from 'next/link'
 import { RightArrowIcon, UpRightArrowIcon } from './Icons'
+import ThemeSelect from './ThemeSelect'
 
 export default function Footer() {
   return (
@@ -34,7 +35,7 @@ export default function Footer() {
                       whileInView="visible"
                       whileHover="1"
                       whileTap={{ scale: 0.99 }}
-                      className="px-3 -mx-3 py-2 -my-2 inline-flex items-baseline justify-between w-full hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-grayDark-5 transition-colors duration-200 ease-out"
+                      className="px-3 -mx-3 py-2 -my-2 inline-flex items-baseline justify-between w-full hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-grayDark-5 transition-colors duration-200 ease-out select-none"
                     >
                       {link.label}
                       <m.div variants={scale} className="inline-block w-4 h-4">
@@ -47,6 +48,9 @@ export default function Footer() {
             </ul>
           ))}
         </nav>
+        <div className="flex justify-end">
+          <ThemeSelect />
+        </div>
       </m.footer>
     </LazyMotion>
   )

@@ -47,7 +47,7 @@ function Statistic() {
     <div className="mt-16 phone:mt-8">
       <h2>Stats</h2>
       <p className="font-spectral italic text-base text-secondary dark:text-darkSecondary">
-        This week's (so far) stats by Last.fm
+        This week&apos;s (so far) stats by Last.fm
       </p>
       <div className="body-font-settings mt-4 phone:mt-2">
         {stats ? (
@@ -73,6 +73,9 @@ function TopAlbums() {
   return (
     <m.div className="mt-16 phone:mt-8">
       <h2>Weekly Top Albums</h2>
+      <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
+        Current album hooks
+      </p>
       <div className="flex flex-wrap gap-12 phone:row-gap-2 mt-8 phone:mt-2 max-w-7xl">
         {albums
           ? albums.map((album, index) => (

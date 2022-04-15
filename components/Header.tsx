@@ -6,28 +6,30 @@ import { fade } from '@utils/animation'
 import useScrollProgress from '@utils/hooks/useScrollProgress'
 import { useIntersectionObserver } from 'usehooks-ts'
 import { useRef } from 'react'
+import classNames from 'classnames'
 
 const Header = () => {
   const router = useRouter()
   function handleRouter(path: string) {
     const arr = path.split('/')
-    const title = arr.slice(-1)[0]
+    const title = arr[arr.length - 1].replace(/#.+/, '')
     arr.splice(-1, 1)
     return {
       backHref: arr.length === 1 ? '/' : arr.join('/'),
       title: title.replace(/[a-z]/, (str) => str.toUpperCase()).replace(/-/g, ' '),
     }
   }
-  const { distY } = useScrollProgress()
+  const { distY, progress } = useScrollProgress()
   const isVisible = distY > 200
   const ref = useRef(null)
   const header = useIntersectionObserver(ref, { threshold: 1 })
   return (
     <header
       ref={ref}
-      className={`flex items-center gap-4 z-50 sticky -top-12 px-16 pb-3 pt-16 tablet:px-10 phone:px-5 bg-gray-2/90 dark:bg-grayDark-2/80 backdrop-blur-[4px] ${
+      className={classNames(
+        'flex items-center gap-4 z-50 sticky -top-12 px-16 pb-3 pt-16 tablet:px-10 phone:px-5 bg-gray-2/90 dark:bg-grayDark-2/80 backdrop-blur-[4px]',
         header?.intersectionRatio < 1 && 'border-b border-gray-5 dark:border-grayDark-5'
-      }`}
+      )}
     >
       <LazyMotion features={domAnimation}>
         <Link href={handleRouter(router.asPath).backHref} passHref>
@@ -43,24 +45,25 @@ const Header = () => {
         </Link>
         <AnimatePresence>
           {isVisible && (
-            <m.p
-              className="body-font-settings font-medium"
-              variants={fade}
-              initial="0"
-              animate="1"
-              exit="0"
-            >
-              {handleRouter(router.asPath).title}
+            <m.p variants={fade} initial="0" animate="1" exit="0">
+              <button
+                className="body-font-settings font-medium"
+                onClick={() => scrollTo({ top: 0, behavior: 'smooth' })}
+              >
+                {handleRouter(router.asPath).title}
+              </button>
             </m.p>
           )}
         </AnimatePresence>
         <button
           className="font-apfel font-bold ml-auto text-gray-11 dark:text-grayDark-11 hover:text-current transition-all"
           onClick={() => {
-            document.querySelector('footer').scrollIntoView({ behavior: 'smooth' })
+            progress > 0.95
+              ? scrollTo({ top: 0, behavior: 'smooth' })
+              : document.querySelector('footer').scrollIntoView({ behavior: 'smooth' })
           }}
         >
-          Nav ↓
+          {progress > 0.95 ? 'Top ↑' : 'Nav ↓'}
         </button>
       </LazyMotion>
     </header>

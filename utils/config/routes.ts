@@ -49,6 +49,10 @@ export const routes: Route = [
   //       label: 'Projects',
   //       url: '/projects',
   //     },
+  //     {
+  //       label: 'Micro',
+  //       url: '/micro',
+  //     },
   //   ],
   // },
   {
