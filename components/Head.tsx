@@ -31,39 +31,14 @@ export default function Head({
         <link rel="mask-icon" href="/static/favicons/pinned-tab.svg" color="#1D1E22" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="msapplication-TileColor" content="#1D1E22" />
+        <link rel="webmention" href="https://webmention.io/www.yuchengkuo.com/webmention" />
+        <link rel="pingback" href="https://webmention.io/www.yuchengkuo.com/xmlrpc" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon.png" />
 
         {isDarkMode ? (
-          <>
-            <link
-              rel="icon"
-              type="image/svg+xml"
-              sizes="16x16"
-              href="/static/favicons/favicon-dark.svg"
-            />
-            <link
-              rel="alternate icon"
-              type="image/png"
-              sizes="32x32"
-              href="/static/favicons/favicon-dark.png"
-            />
-            <meta name="theme-color" content="#1C1C1C" />
-          </>
+          <meta name="theme-color" content="#1C1C1C" />
         ) : (
-          <>
-            <link
-              rel="icon"
-              type="image/svg+xml"
-              sizes="16x16"
-              href="/static/favicons/favicon-light.svg"
-            />
-            <link
-              rel="alternate icon"
-              type="image/png"
-              sizes="32x32"
-              href="/static/favicons/favicon-light.png"
-            />
-            <meta name="theme-color" content="#F7F7F7" />
-          </>
+          <meta name="theme-color" content="#F7F7F7" />
         )}
       </NextHead>
     </>
