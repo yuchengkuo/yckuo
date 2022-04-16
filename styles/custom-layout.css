@@ -42,22 +42,10 @@
   }
 
   & > section [data-carousel] {
-    @apply h-max col-start-1 col-span-3 w-[99vw] my-12 -mx-16 scrollbar-hide overflow-auto;
-    @screen tablet {
-      @apply w-[99.5vw] -mx-10;
-    }
-    @screen phone {
-      @apply -mx-5;
-    }
+    @apply h-max col-start-1 col-span-3 w-[99vw] my-12 -mx-16 scrollbar-hide overflow-auto tablet:w-[99.5vw] tablet:-mx-10 phone:-mx-5;
   }
 
   & [data-carousel] [data-carousel-image] {
-    @apply first-of-type:ml-[calc((99vw-40ch)/2)] last-of-type:mr-[calc((99vw-40ch)/2)];
-    @screen tablet {
-      @apply first-of-type:ml-10 last-of-type:mr-10;
-    }
-    @screen phone {
-      @apply first-of-type:ml-5 last-of-type:mr-5;
-    }
+    @apply first-of-type:ml-[calc((99vw-40ch)/2)] last-of-type:mr-[calc((99vw-40ch)/2)] tablet:first-of-type:ml-10 tablet:last-of-type:mr-10 phone:first-of-type:ml-5 phone:last-of-type:mr-5;
   }
 }

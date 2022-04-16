@@ -133,7 +133,7 @@
     }
 
     & li {
-      @apply mb-1 marker:text-base marker:text-gray-11 marker:text-grayDark-11 marker:align-middle phone:marker:text-xs;
+      @apply mb-1 marker:text-base marker:text-gray-11 dark:marker:text-grayDark-11 marker:align-middle phone:marker:text-xs;
     }
 
     & [data-image] {
@@ -173,7 +173,7 @@
     }
 
     & li {
-      @apply mb-1 marker:text-base marker:text-gray-11 marker:text-grayDark-11 marker:align-middle phone:marker:text-xs;
+      @apply mb-1 marker:text-base marker:text-gray-11 dark:marker:text-grayDark-11 marker:align-middle phone:marker:text-xs;
     }
 
     & a {
