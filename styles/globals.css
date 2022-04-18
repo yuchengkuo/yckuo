@@ -191,4 +191,12 @@
   }
 }
 
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  @apply fixed z-50 top-0 left-0 w-full h-0.5 bg-indigo-10 dark:bg-indigoDark-10;
+}
+
 @import url(./custom-layout.css);
