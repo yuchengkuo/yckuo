@@ -47,7 +47,13 @@ export const CardWithCover = ({
 
       <m.div className="rounded overflow-hidden max-w-[240px] mb-3" layout>
         {imgSrc ? (
-          <Image src={imgSrc} width={240} height={240} className="rounded overflow-hidden" />
+          <Image
+            src={imgSrc}
+            alt={'Album cover of ' + title}
+            width={240}
+            height={240}
+            className="rounded overflow-hidden"
+          />
         ) : (
           <div className="w-60 h-60 bg-gray-6 dark:bg-grayDark-6" />
         )}
