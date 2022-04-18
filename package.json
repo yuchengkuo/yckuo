@@ -18,7 +18,7 @@
     "@radix-ui/react-toggle-group": "^0.1.5",
     "@tailwindcss/line-clamp": "^0.3.1",
     "classnames": "^2.3.1",
-    "cloudinary": "^1.29.0",
+    "cloudinary": "^1.29.1",
     "date-fns": "^2.28.0",
     "embla-carousel-react": "^6.2.0",
     "framer-motion": "^6.3.0",
