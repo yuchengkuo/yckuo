@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { MicroBlog, Post, Project, ProjectLink } from '.contentlayer/generated'
 import { RightArrowIcon, UpRightArrowIcon } from '@components/Icons'
 import { fade, scale, slideDown } from '@utils/animation'
@@ -167,6 +168,7 @@ export const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
       whileTap={{ scale: 0.99 }}
       href={bookmark.link}
       layout
+      layoutId={bookmark.title}
     >
       <m.div>
         <p className="inline-flex items-baseline text-sm font-medium body-font-settings text-gray-11 dark:text-grayDark-11">

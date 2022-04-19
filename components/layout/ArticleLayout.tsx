@@ -40,6 +40,7 @@ export default function ArticleLayout({
             <div className="w-1/2 tablet:w-2/3 phone:w-auto h-80 phone:h-48 relative">
               <Image
                 src={post.cover}
+                alt=""
                 loader={loader}
                 placeholder="blur"
                 blurDataURL={post.blurDataURL}
