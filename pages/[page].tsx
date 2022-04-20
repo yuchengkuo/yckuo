@@ -1,6 +1,6 @@
 import { allOthers } from '.contentlayer/generated'
 import Layout from '@components/layout/Layout'
-import MDXComponents from '@components/MDXComp'
+import MDXComponents from '@components/MDXComponents'
 import { InferGetStaticPropsType } from 'next'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 

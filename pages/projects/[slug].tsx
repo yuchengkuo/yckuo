@@ -1,5 +1,5 @@
 import ProjectLayout from '@components/layout/ProjectLayout'
-import MDXComponents from '@components/MDXComp'
+import MDXComponents from '@components/MDXComponents'
 import { allProjects } from 'contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
 import { useMDXComponent } from 'next-contentlayer/hooks'

@@ -1,4 +1,4 @@
-import { BookmarkCard } from '@components/card/word'
+import BookmarkCard from '@components/BookmarkCard'
 import Layout from '@components/layout/Layout'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import fetcher from '@utils/fetcher'

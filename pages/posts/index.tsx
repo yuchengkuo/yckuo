@@ -1,7 +1,7 @@
 import Layout from '@components/layout/Layout'
 import { allPosts } from '.contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
-import { PostCard } from '@components/card/word'
+import PostCard from '@components/PostCard'
 import { compareDesc } from 'date-fns'
 
 export default function PostsPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {

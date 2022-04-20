@@ -1,7 +1,7 @@
 import Layout from '@components/layout/Layout'
 import { linkProject, allProjects } from '.contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
-import { ProjectCard, ProjectLinkCard } from '@components/card/word'
+import ProjectCard from '@components/ProjectCard'
 
 export default function ProjectsPage({
   allProjects,
@@ -9,13 +9,9 @@ export default function ProjectsPage({
   return (
     <Layout title="Projects" subtitle="Selected works">
       <div className="flex flex-col gap-10 max-w-[640px]">
-        {allProjects.map((project) =>
-          project.type === 'Project' ? (
-            <ProjectCard key={project.slug} project={project} />
-          ) : (
-            <ProjectLinkCard key={project.url} projectLink={project} />
-          )
-        )}
+        {allProjects.map((project) => (
+          <ProjectCard key={project.title} project={project} />
+        ))}
       </div>
     </Layout>
   )
