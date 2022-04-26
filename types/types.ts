@@ -21,24 +21,23 @@ export type NowPlayingTrack = {
   show: string
 }
 
-export type Albums = {
+export type Album = {
   title: string
   artist: string
   playcount: number
-  image: string
   spotifyUrl: string
   imageUrl: string
   trackNum: number
-  releaseDate: string
+  releaseYear: string
 }
 
-export type Tracks = {
+export type Track = {
   title: string
   artists: string
   songUrl: string
 }
 
-export type Artists = {
+export type Artist = {
   name: string
   genres: string
   external_urls: string

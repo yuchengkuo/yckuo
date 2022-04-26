@@ -5,7 +5,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <script async data-api="/_hive" src="/bee.js"></script>
+          <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
           <script
             dangerouslySetInnerHTML={{
               __html: `

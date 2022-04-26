@@ -19,7 +19,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
     album.spotifyUrl = search.albums.items[0].external_urls.spotify
     album.imageUrl = search.albums.items[0].images[0].url
     album.trackNum = search.albums.items[0].total_tracks
-    album.releaseDate = search.albums.items[0].release_date.slice(0, 4)
+    album.releaseYear = search.albums.items[0].release_date.slice(0, 4)
   }
   res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=43200')
   return res.status(200).json(albums)

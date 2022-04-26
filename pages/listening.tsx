@@ -1,9 +1,10 @@
-import { CardWithCover, ListCard } from '@components/card/music'
+import AlbumCard from '@components/AlbumCard'
 import Layout from '@components/layout/Layout'
+import ListCard from '@components/ListCard'
 import fetcher from '@utils/fetcher'
 import { domMax, LayoutGroup, LazyMotion, m } from 'framer-motion'
 import useSWR from 'swr'
-import { Albums, Artists, NowPlayingTrack, Stats, Tracks } from 'types/types'
+import { Album, Artist, NowPlayingTrack, Stats, Track } from 'types/types'
 
 function handleArraySplit(arr: any[], size: number) {
   const res = []
@@ -69,7 +70,7 @@ function Statistic() {
 }
 
 function TopAlbums() {
-  const { data: albums } = useSWR<Albums[]>('/api/top-albums', fetcher)
+  const { data: albums } = useSWR<Album[]>('/api/top-albums', fetcher)
   return (
     <m.div className="mt-16 phone:mt-8">
       <h2>Weekly Top Albums</h2>
@@ -80,26 +81,19 @@ function TopAlbums() {
         {albums
           ? albums.map((album, index) => (
               <LayoutGroup key={album.spotifyUrl}>
-                <CardWithCover
-                  index={index}
-                  title={album.title}
-                  subtitle={album.artist}
-                  imgSrc={album.imageUrl}
-                  url={album.spotifyUrl}
-                  info={`${album.releaseDate} ⋅ ${album.trackNum} tracks`}
-                />
+                <AlbumCard index={index} album={album} />
               </LayoutGroup>
             ))
           : Array(8)
               .fill(1)
-              .map((_, i) => <CardWithCover key={i} loading />)}
+              .map((_, i) => <AlbumCard key={i} loading />)}
       </div>
     </m.div>
   )
 }
 
 function TopSongs() {
-  const { data: tracks } = useSWR<Tracks[]>('/api/top-tracks', fetcher)
+  const { data: tracks } = useSWR<Track[]>('/api/top-tracks', fetcher)
   return (
     <div className="mt-16 phone:mt-8 flex flex-col items-start">
       <h2>Recent Top Songs</h2>
@@ -126,7 +120,7 @@ function TopSongs() {
 }
 
 function TopArtists() {
-  const { data: artists } = useSWR<Artists[]>('/api/top-artists', fetcher)
+  const { data: artists } = useSWR<Artist[]>('/api/top-artists', fetcher)
   return (
     <div className="mt-16 phone:mt-8 flex flex-col items-start">
       <h2>Recent Top Artists</h2>

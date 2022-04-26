@@ -1,4 +1,4 @@
-import { MicroCard } from '@components/card/word'
+import MicroCard from '@components/Micro'
 import Layout from '@components/layout/Layout'
 import { micro } from 'contentlayer/generated'
 import { compareDesc } from 'date-fns'
