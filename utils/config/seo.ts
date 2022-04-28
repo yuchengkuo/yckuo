@@ -5,7 +5,7 @@ const url = process.env.NODE_ENV === 'production' ? 'https://yuchengkuo.com' : '
 export const defaultSEO: NextSEO.DefaultSeoProps = {
   defaultTitle: 'YuCheng Kuo → Designer, Engineer',
   titleTemplate: '%s | YuCheng Kuo → Designer, Engineer',
-  description: 'Self-taught Designer, Engineer from Taiwan.',
+  description: 'A self-taught product dsigner and engineer from Taiwan.',
   canonical: 'https://yuchengkuo.com/',
   openGraph: {
     type: 'website',
