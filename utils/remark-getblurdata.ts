@@ -23,7 +23,7 @@ interface MDXElementNode extends Node {
  * @type {import('unified').Plugin<void[], Root>}
  */
 
-export default function (this: Processor) {
+export default function plugin(this: Processor) {
   return async function (tree: MDXElementNode) {
     const promises = []
     visit(

@@ -6,7 +6,7 @@ import { Processor } from 'unified'
 import { Node } from 'unist'
 import { visit } from 'unist-util-visit'
 
-export default function (this: Processor) {
+export default function plugin(this: Processor) {
   return function (tree: Node) {
     visit(
       tree,
