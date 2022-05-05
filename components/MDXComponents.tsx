@@ -1,10 +1,10 @@
-import { ReactChildren, ReactComponentElement } from 'react'
+import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import NextImg from 'next/image'
 import { loader } from '@utils/image-loader'
 import { useScrollBoost } from 'react-scrollbooster'
 
-function AnchorTag({ href, children, ...props }: { href: string; children: ReactChildren }) {
+function AnchorTag({ href, children, ...props }: { href: string; children: ReactNode }) {
   if (href.startsWith('https' || 'http')) {
     return (
       <a href={href} {...props}>
