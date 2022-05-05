@@ -6,7 +6,7 @@ import { UpRightArrowIcon } from './Icons'
 export default function BookmarkCard({ bookmark }: { bookmark: Bookmark }) {
   return (
     <m.a
-      className="px-4 -mx-4 py-2 flex items-center rounded hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-grayDark-5 transition-colors duration-200"
+      className="hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-grayDark-5 -mx-4 flex items-center rounded px-4 py-2 transition-colors duration-200"
       variants={{ ...fade, 1: { y: -4 } }}
       initial="0"
       whileInView="visible"
@@ -17,18 +17,18 @@ export default function BookmarkCard({ bookmark }: { bookmark: Bookmark }) {
       layoutId={bookmark.title}
     >
       <m.div>
-        <p className="inline-flex items-baseline text-sm font-medium body-font-settings text-gray-11 dark:text-grayDark-11">
+        <p className="text-gray-11 dark:text-grayDark-11 inline-flex items-baseline text-sm font-medium body-font-settings">
           #{bookmark.tags[0]} • {bookmark.domain}
         </p>
         <h3>{bookmark.title}</h3>
         <m.p
           variants={slideDown}
-          className="text-sm font-medium body-font-settings text-gray-11 dark:text-grayDark-11 line-clamp-1"
+          className="text-gray-11 dark:text-grayDark-11 text-sm font-medium line-clamp-1 body-font-settings"
         >
           {bookmark.excerpt}
         </m.p>
       </m.div>
-      <m.div className="w-4 h-4 ml-auto shrink-0" variants={scale}>
+      <m.div className="ml-auto h-4 w-4 shrink-0" variants={scale}>
         <UpRightArrowIcon />
       </m.div>
     </m.a>

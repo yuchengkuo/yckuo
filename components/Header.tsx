@@ -27,15 +27,15 @@ const Header = () => {
     <header
       ref={ref}
       className={classNames(
-        'flex items-center gap-4 z-50 sticky -top-12 px-16 pb-3 pt-16 tablet:px-10 phone:px-5 bg-gray-2/90 dark:bg-grayDark-2/80 backdrop-blur-[4px]',
-        header?.intersectionRatio < 1 && 'border-b border-gray-5 dark:border-grayDark-5'
+        'bg-gray-2/90 dark:bg-grayDark-2/80 sticky -top-12 z-50 flex items-center gap-4 px-16 pb-3 pt-16 backdrop-blur-[4px] tablet:px-10 phone:px-5',
+        header?.intersectionRatio < 1 && 'border-gray-5 dark:border-grayDark-5 border-b'
       )}
     >
       <LazyMotion features={domAnimation}>
         <Link href={handleRouter(router.asPath).backHref} passHref>
           <a>
             <m.button
-              className="box-border block w-7 h-7 rounded hover:bg-gray-5 dark:hover:bg-grayDark-5"
+              className="hover:bg-gray-5 dark:hover:bg-grayDark-5 box-border block h-7 w-7 rounded"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -47,7 +47,7 @@ const Header = () => {
           {isVisible && (
             <m.p variants={fade} initial="0" animate="1" exit="0">
               <button
-                className="body-font-settings font-medium"
+                className="font-medium body-font-settings"
                 onClick={() => scrollTo({ top: 0, behavior: 'smooth' })}
               >
                 {handleRouter(router.asPath).title}
@@ -56,7 +56,7 @@ const Header = () => {
           )}
         </AnimatePresence>
         <button
-          className="font-apfel font-bold ml-auto text-gray-11 dark:text-grayDark-11 hover:text-current transition-all"
+          className="text-gray-11 dark:text-grayDark-11 ml-auto font-apfel font-bold transition-all hover:text-current"
           onClick={() => {
             progress > 0.95
               ? scrollTo({ top: 0, behavior: 'smooth' })

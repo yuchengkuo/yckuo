@@ -47,6 +47,8 @@
     "eslint": "^8.16.0",
     "eslint-config-next": "12.1.6",
     "postcss": "^8.4.14",
+    "prettier": "^2.6.2",
+    "prettier-plugin-tailwindcss": "^0.1.10",
     "reading-time": "^1.5.0",
     "remark-directive": "^2.0.1",
     "remark-slug": "^7.0.1",

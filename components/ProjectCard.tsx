@@ -10,7 +10,7 @@ export default function ProjectCard({ project }: { project: Project | ProjectLin
   return (
     <Link href={project.type === 'Project' ? `/projects/${project.slug}` : project.url} passHref>
       <m.a
-        className="p-4 -mx-4 block rounded hover:bg-gray-4 dark:hover:bg-grayDark-4 transition-colors duration-200 ease-out active:bg-gray-5 dark:active:bg-grayDark-5"
+        className="hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-grayDark-5 -mx-4 block rounded p-4 transition-colors duration-200 ease-out"
         variants={{ ...fade, 1: { y: -4 } }}
         initial="0"
         whileInView="visible"
@@ -19,22 +19,22 @@ export default function ProjectCard({ project }: { project: Project | ProjectLin
         whileTap={{ scale: 0.998 }}
       >
         <div className="flex justify-between">
-          <time className="font-medium body-font-settings text-sm text-gray-11 dark:text-grayDark-11">
+          <time className="text-gray-11 dark:text-grayDark-11 text-sm font-medium body-font-settings">
             {new Date(project.year).getFullYear()}
           </time>
-          <m.div variants={scale} className="w-4 h-4">
+          <m.div variants={scale} className="h-4 w-4">
             <RightArrowIcon />
           </m.div>
         </div>
         <div>
           <h2 className="text-2xl">{project.title}</h2>
-          <p className="font-medium body-font-settings text-sm text-gray-11 dark:text-grayDark-11">
+          <p className="text-gray-11 dark:text-grayDark-11 text-sm font-medium body-font-settings">
             {project.subtitle}
           </p>
         </div>
-        <div className="flex gap-4 mt-2">
+        <div className="mt-2 flex gap-4">
           {project.cover && (
-            <div className="w-2/3 h-40 relative rounded bg-gray-3 dark:bg-grayDark-3 border border-gray-6 dark:border-grayDark-6 shadow">
+            <div className="bg-gray-3 dark:bg-grayDark-3 border-gray-6 dark:border-grayDark-6 relative h-40 w-2/3 rounded border shadow">
               <Image
                 src={project.cover[0]}
                 alt=""
@@ -49,7 +49,7 @@ export default function ProjectCard({ project }: { project: Project | ProjectLin
             </div>
           )}
           {project.cover && (
-            <div className="w-1/3 h-40 relative rounded bg-gray-3 dark:bg-grayDark-3 border border-gray-6 dark:border-grayDark-6 shadow">
+            <div className="bg-gray-3 dark:bg-grayDark-3 border-gray-6 dark:border-grayDark-6 relative h-40 w-1/3 rounded border shadow">
               <Image
                 src={project.cover[1]}
                 alt=""

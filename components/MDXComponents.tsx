@@ -41,9 +41,9 @@ function Image(props) {
         loader={loader}
         placeholder="blur"
         objectFit="cover"
-        className="rounded shadow overflow-hidden bg-gray-3 dark:bg-grayDark-3"
+        className="bg-gray-3 dark:bg-grayDark-3 overflow-hidden rounded shadow"
       />
-      <figcaption className="text-sm w-fit font-medium text-gray-11 dark:text-grayDark-11">
+      <figcaption className="text-gray-11 dark:text-grayDark-11 w-fit text-sm font-medium">
         {props.caps}
       </figcaption>
     </figure>
@@ -59,17 +59,17 @@ function Carousel({ images }) {
   })
   return (
     <div data-carousel ref={viewport}>
-      <div className="w-fit flex gap-6">
+      <div className="flex w-fit gap-6">
         {images.map((props) => (
-          <figure data-carousel-image className="relative w-full h-fit" key={props.src}>
+          <figure data-carousel-image className="relative h-fit w-full" key={props.src}>
             <NextImg
               {...props}
-              className="rounded shadow bg-gray-3 dark:bg-grayDark-3"
+              className="bg-gray-3 dark:bg-grayDark-3 rounded shadow"
               layout="fixed"
               objectFit="cover"
               loader={loader}
             />
-            <figcaption className="text-sm w-fit font-medium text-gray-11 dark:text-grayDark-11">
+            <figcaption className="text-gray-11 dark:text-grayDark-11 w-fit text-sm font-medium">
               {props.caps}
             </figcaption>
           </figure>

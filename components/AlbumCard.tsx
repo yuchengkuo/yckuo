@@ -14,14 +14,14 @@ export default function AlbumCard({
   loading?: boolean
 }) {
   if (loading)
-    return <div className="bg-gray-4 dark:bg-grayDark-4 rounded w-60 h-60 animate-pulse" />
+    return <div className="h-60 w-60 animate-pulse rounded bg-gray-4 dark:bg-grayDark-4" />
   return (
     <m.a
       href={album.spotifyUrl}
       title={album.title}
       target="_blank"
       rel="noopener noreferrer"
-      className="px-4 pt-2 pb-4 -m-4 rounded-md hover:bg-gray-4 dark:hover:bg-grayDark-3 group relative"
+      className="group relative -m-4 rounded-md px-4 pt-2 pb-4 hover:bg-gray-4 dark:hover:bg-grayDark-3"
       variants={{ ...fade, 1: { y: -4 } }}
       initial="0"
       animate="visible"
@@ -32,25 +32,25 @@ export default function AlbumCard({
     >
       <m.div
         variants={slideDown}
-        className="flex justify-between mb-2 body-font-settings font-medium text-gray-11 dark:text-grayDark-11"
+        className="mb-2 flex justify-between font-medium text-gray-11 body-font-settings dark:text-grayDark-11"
       >
-        <m.p className="tabular-nums text-xs">0{index + 1}</m.p>
+        <m.p className="text-xs tabular-nums">0{index + 1}</m.p>
         <m.p className="text-xs">
           {album.releaseYear} ⋅ {album.trackNum} tracks
         </m.p>
       </m.div>
 
-      <m.div className="rounded overflow-hidden max-w-[240px] mb-3" layout>
+      <m.div className="mb-3 max-w-[240px] overflow-hidden rounded" layout>
         {album.imageUrl ? (
           <Image
             src={album.imageUrl}
             alt={'Album cover of ' + album.title + 'by' + album.artist}
             width={240}
             height={240}
-            className="rounded overflow-hidden"
+            className="overflow-hidden rounded"
           />
         ) : (
-          <div className="w-60 h-60 bg-gray-6 dark:bg-grayDark-6" />
+          <div className="h-60 w-60 bg-gray-6 dark:bg-grayDark-6" />
         )}
         <m.div
           className="flex flex-col"
@@ -59,13 +59,13 @@ export default function AlbumCard({
           transition={{ delayChildren: 0.3, staggerChildren: 0.06 }}
           layout
         >
-          <div className="body-font-settings font-medium whitespace-nowrap">
-            <m.p variants={fadeRight} className="text-base overflow-hidden overflow-ellipsis">
+          <div className="whitespace-nowrap font-medium body-font-settings">
+            <m.p variants={fadeRight} className="overflow-hidden overflow-ellipsis text-base">
               {album.title}
             </m.p>
             <m.p
               variants={fadeRight}
-              className="text-sm overflow-hidden overflow-ellipsis text-gray-11 dark:text-grayDark-11"
+              className="overflow-hidden overflow-ellipsis text-sm text-gray-11 dark:text-grayDark-11"
             >
               {album.artist}
             </m.p>
@@ -73,7 +73,7 @@ export default function AlbumCard({
         </m.div>
       </m.div>
 
-      <m.div variants={scale} className="w-4 h-4 absolute right-4 bottom-4">
+      <m.div variants={scale} className="absolute right-4 bottom-4 h-4 w-4">
         <UpRightArrowIcon />
       </m.div>
     </m.a>

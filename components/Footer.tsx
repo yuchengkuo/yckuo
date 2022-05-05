@@ -16,17 +16,17 @@ export default function Footer() {
       >
         <div className="flex flex-wrap justify-between">
           <p className="font-apfel text-base">&#169; 2022 YuCheng Kuo, WIP...</p>
-          <p className="font-spectral italic text-base">Explore</p>
+          <p className="font-spectral text-base italic">Explore</p>
         </div>
-        <nav className="mt-10 border-t border-gray-5 dark:border-grayDark-5 flex gap-6 phone:flex-col phone:gap-2">
+        <nav className="border-gray-5 dark:border-grayDark-5 mt-10 flex gap-6 border-t phone:flex-col phone:gap-2">
           {routes.map((route) => (
             <ul
               key={route.group}
-              className="my-5 grow border-r border-gray-5 dark:border-grayDark-5 last:border-0 phone:border-none"
+              className="border-gray-5 dark:border-grayDark-5 my-5 grow border-r last:border-0 phone:border-none"
             >
-              <p className="font-apfel text-gray-11 dark:text-grayDark-11">{route.group}</p>
+              <p className="text-gray-11 dark:text-grayDark-11 font-apfel">{route.group}</p>
               {route.links.map((link) => (
-                <li key={link.label} className="body-font-settings text-base font-medium mt-4">
+                <li key={link.label} className="mt-4 text-base font-medium body-font-settings">
                   <Link href={link.url} passHref>
                     <m.a
                       rel={link.label === 'Github' ? 'me' : null}
@@ -35,10 +35,10 @@ export default function Footer() {
                       whileInView="visible"
                       whileHover="1"
                       whileTap={{ scale: 0.99 }}
-                      className="px-3 -mx-3 py-2 -my-2 inline-flex items-baseline justify-between w-full hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-grayDark-5 transition-colors duration-200 ease-out select-none"
+                      className="hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-grayDark-5 -mx-3 -my-2 inline-flex w-full select-none items-baseline justify-between px-3 py-2 transition-colors duration-200 ease-out"
                     >
                       {link.label}
-                      <m.div variants={scale} className="inline-block w-4 h-4">
+                      <m.div variants={scale} className="inline-block h-4 w-4">
                         {link.url.startsWith('http') ? <UpRightArrowIcon /> : <RightArrowIcon />}
                       </m.div>
                     </m.a>
