@@ -44,7 +44,7 @@
     "base64-arraybuffer": "^1.0.2",
     "cheerio": "^1.0.0-rc.10",
     "contentlayer": "^0.2.4",
-    "eslint": "^8.15.0",
+    "eslint": "^8.16.0",
     "eslint-config-next": "12.1.6",
     "postcss": "^8.4.14",
     "reading-time": "^1.5.0",
