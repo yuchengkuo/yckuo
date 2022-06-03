@@ -2,7 +2,7 @@ import { fade, scale } from '@utils/animation'
 import { Project, ProjectLink } from 'contentlayer/generated'
 import Link from 'next/link'
 import { m } from 'framer-motion'
-import { RightArrowIcon } from './Icons'
+import { RightArrowIcon, UpRightArrowIcon } from './Icons'
 import Image from 'next/image'
 import { loader } from '@utils/image-loader'
 
@@ -23,7 +23,7 @@ export default function ProjectCard({ project }: { project: Project | ProjectLin
             {new Date(project.year).getFullYear()}
           </time>
           <m.div variants={scale} className="h-4 w-4">
-            <RightArrowIcon />
+            {project.type === 'Project' ? <RightArrowIcon /> : <UpRightArrowIcon />}
           </m.div>
         </div>
         <div>
