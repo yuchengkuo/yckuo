@@ -60,7 +60,7 @@ function SelectItem(props: Select.SelectItemProps) {
   return (
     <Select.Item
       {...props}
-      className="hover:bg-gray-7 dark:hover:bg-grayDark-7 cursor-pointer focus:bg-gray-7 dark:focus:bg-grayDark-7 focus:outline-none px-2 py-0.5 body-font-settings text-base flex items-center justify-start gap-1 rounded"
+      className="hover:bg-gray-7 dark:hover:bg-grayDark-7 focus:bg-gray-7 dark:focus:bg-grayDark-7 flex cursor-pointer items-center justify-start gap-1 rounded px-2 py-0.5 text-base body-font-settings focus:outline-none"
     >
       {props.children}
     </Select.Item>
@@ -72,14 +72,14 @@ export default function ThemeSelect() {
   type Prefer = typeof prefer
   return (
     <Select.Root value={prefer} onValueChange={(val: Prefer) => setPrefer(val)}>
-      <Select.Trigger className="border bg-gray-3 border-gray-6 hover:bg-gray-5 hover:border-gray-8 dark:bg-grayDark-3 dark:border-grayDark-6 dark:hover:bg-grayDark-5 dark:hover:border-grayDark-8 text-sm px-2 py-px rounded flex items-center justify-between gap-2 transition-all duration-200 w-28 body-font-settings">
+      <Select.Trigger className="bg-gray-3 border-gray-6 hover:bg-gray-5 hover:border-gray-8 dark:bg-grayDark-3 dark:border-grayDark-6 dark:hover:bg-grayDark-5 dark:hover:border-grayDark-8 flex w-28 items-center justify-between gap-2 rounded border px-2 py-px text-sm transition-all duration-200 body-font-settings">
         <Select.Value />
         <Select.Icon>
           <SelectIcon />
         </Select.Icon>
       </Select.Trigger>
 
-      <Select.Content className="bg-gray-4 dark:bg-grayDark-4 px-px py-1 rounded-md shadow-xl border border-gray-6 dark:border-grayDark-6">
+      <Select.Content className="bg-gray-4 dark:bg-grayDark-4 border-gray-6 dark:border-grayDark-6 rounded-md border px-px py-1 shadow-xl">
         <Select.Viewport className="flex flex-col gap-1">
           <SelectItem value="system">
             <Select.Icon className="text-gray-11 dark:text-grayDark-11">

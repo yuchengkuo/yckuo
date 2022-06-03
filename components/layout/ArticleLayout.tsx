@@ -18,7 +18,7 @@ export default function ArticleLayout({
       <main className="min-h-[calc(100vh-104px-104px)]">
         {post.date && (
           <m.p
-            className="font-medium body-font-settings text-sm mb-1 text-gray-11 dark:text-grayDark-11"
+            className="text-gray-11 dark:text-grayDark-11 mb-1 text-sm font-medium body-font-settings"
             variants={fade}
             initial="0"
             animate="1"
@@ -37,7 +37,7 @@ export default function ArticleLayout({
         </m.h1>
         {post.cover && (
           <m.div variants={fade} initial="0" animate="1" className="mt-10">
-            <div className="w-1/2 tablet:w-2/3 phone:w-auto h-80 phone:h-48 relative">
+            <div className="relative h-80 w-1/2 tablet:w-2/3 phone:h-48 phone:w-auto">
               <Image
                 src={post.cover}
                 alt=""
@@ -46,7 +46,7 @@ export default function ArticleLayout({
                 blurDataURL={post.blurDataURL}
                 layout="fill"
                 objectFit="cover"
-                className="rounded-md shadow overflow-hidden bg-gray-4 dark:bg-grayDark-4"
+                className="bg-gray-4 dark:bg-grayDark-4 overflow-hidden rounded-md shadow"
               />
             </div>
           </m.div>
@@ -55,7 +55,7 @@ export default function ArticleLayout({
           variants={fade}
           initial="0"
           animate="1"
-          className={`mt-10 prose ${post.layout}-layout`}
+          className={`prose mt-10 ${post.layout}-layout`}
         >
           {children}
         </m.article>

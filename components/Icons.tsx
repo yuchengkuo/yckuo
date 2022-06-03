@@ -1,6 +1,5 @@
 import { scale } from '@utils/animation'
 import { AnimatePresence, m } from 'framer-motion'
-import { SVGAttributes } from 'react'
 
 export const LogoIcon = (props) => {
   return (
