@@ -38,23 +38,23 @@ export const routes: Route = [
       },
     ],
   },
-  // {
-  //   group: 'Words',
-  //   links: [
-  //     {
-  //       label: 'Posts',
-  //       url: '/posts',
-  //     },
-  //     {
-  //       label: 'Projects',
-  //       url: '/projects',
-  //     },
-  //     {
-  //       label: 'Micro',
-  //       url: '/micro',
-  //     },
-  //   ],
-  // },
+  {
+    group: 'Words',
+    links: [
+      // {
+      //   label: 'Posts',
+      //   url: '/posts',
+      // },
+      {
+        label: 'Projects',
+        url: '/projects',
+      },
+      // {
+      //   label: 'Micro',
+      //   url: '/micro',
+      // },
+    ],
+  },
   {
     group: 'External',
     links: [

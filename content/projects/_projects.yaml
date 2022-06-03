@@ -13,3 +13,9 @@ projectLinks:
     url: https://yuchengkuo.com
     year: 2022-01-01
     published: true
+
+  - title: SSelect for Figma
+    subtitle: ✨ A little Figma plugin to make quick selection happens in Quick Actions.
+    url: https://www.figma.com/c/plugin/1087207671419748735
+    year: 2022-04-01
+    published: true
