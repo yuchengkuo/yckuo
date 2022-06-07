@@ -1,6 +1,7 @@
 import { fade, scale } from '@utils/animation'
 import { UpRightArrowIcon } from './Icons'
 import { m } from 'framer-motion'
+import splitbee from '@splitbee/web'
 
 export default function ListCard({
   url,
@@ -24,6 +25,7 @@ export default function ListCard({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => splitbee.track('music', { destination: url })}
       className="hover:bg-gray-4 dark:hover:bg-grayDark-4 -mx-2 flex min-w-fit flex-wrap items-baseline gap-4 rounded p-2 font-medium transition-colors ease-out body-font-settings phone:gap-2"
       variants={{ ...fade, 1: { y: -4 } }}
       initial="0"

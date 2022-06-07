@@ -2,6 +2,7 @@ import { fade, scale, slideDown } from '@utils/animation'
 import { Bookmark } from 'types/types'
 import { m } from 'framer-motion'
 import { UpRightArrowIcon } from './Icons'
+import splitbee from '@splitbee/web'
 
 export default function BookmarkCard({ bookmark }: { bookmark: Bookmark }) {
   return (
@@ -13,6 +14,7 @@ export default function BookmarkCard({ bookmark }: { bookmark: Bookmark }) {
       whileHover="1"
       whileTap={{ scale: 0.99 }}
       href={bookmark.link}
+      onClick={() => splitbee.track('bookmark', { destination: bookmark.link })}
       layout
       layoutId={bookmark.title}
     >
