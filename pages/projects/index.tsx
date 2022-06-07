@@ -8,7 +8,7 @@ export default function ProjectsPage({
   allProjects,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Layout title="Projects" subtitle="Selected works">
+    <Layout title="Projects" subtitle="Some fun works">
       <div className="flex max-w-[640px] flex-col gap-10">
         {allProjects.map((project) => (
           <ProjectCard key={project.title} project={project} />

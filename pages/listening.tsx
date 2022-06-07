@@ -20,16 +20,16 @@ function NowPlaying() {
   return (
     <div className="">
       <h2>Currently</h2>
-      <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
+      <p className="text-secondary dark:text-darkSecondary font-spectral text-base italic">
         Spotify
       </p>
-      <div className="font-apfel mt-2 phone:mt-1">
+      <div className="mt-2 font-apfel phone:mt-1">
         {now && now.isPlaying ? (
           <div className="flex flex-wrap">
             <p>{(now && now.artist) || now.show}&nbsp;-&nbsp;</p>
             <a
               href={now.url}
-              className="underline decoration-gray7/70 hover:decoration-inherit transition-all duration-200 ease-out"
+              className="decoration-gray7/70 underline transition-all duration-200 ease-out hover:decoration-inherit"
             >
               {now.title}
             </a>
@@ -47,10 +47,10 @@ function Statistic() {
   return (
     <div className="mt-16 phone:mt-8">
       <h2>Stats</h2>
-      <p className="font-spectral italic text-base text-secondary dark:text-darkSecondary">
+      <p className="text-secondary dark:text-darkSecondary font-spectral text-base italic">
         This week&apos;s (so far) stats by Last.fm
       </p>
-      <div className="body-font-settings mt-4 phone:mt-2">
+      <div className="mt-4 body-font-settings phone:mt-2">
         {stats ? (
           <>
             <p>{stats.tracks} plays</p>
@@ -74,10 +74,10 @@ function TopAlbums() {
   return (
     <m.div className="mt-16 phone:mt-8">
       <h2>Weekly Top Albums</h2>
-      <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
+      <p className="text-secondary dark:text-darkSecondary font-spectral text-base italic">
         Current album hooks
       </p>
-      <div className="flex flex-wrap gap-12 phone:row-gap-2 mt-8 phone:mt-2 max-w-7xl">
+      <div className="phone:row-gap-2 mt-8 flex max-w-7xl flex-wrap gap-12 phone:mt-2">
         {albums
           ? albums.map((album, index) => (
               <LayoutGroup key={album.spotifyUrl}>
@@ -95,12 +95,12 @@ function TopAlbums() {
 function TopSongs() {
   const { data: tracks } = useSWR<Track[]>('/api/top-tracks', fetcher)
   return (
-    <div className="mt-16 phone:mt-8 flex flex-col items-start">
+    <div className="mt-16 flex flex-col items-start phone:mt-8">
       <h2>Recent Top Songs</h2>
-      <p className="font-spectral text-base italic text-secondary dark:text-darkSecondary">
+      <p className="text-secondary dark:text-darkSecondary font-spectral text-base italic">
         Most played songs this month
       </p>
-      <ul className="mt-2 phone:mt-1 w-fit max-w-full">
+      <ul className="mt-2 w-fit max-w-full phone:mt-1">
         {tracks
           ? tracks.map((track, i) => (
               <ListCard
@@ -122,12 +122,12 @@ function TopSongs() {
 function TopArtists() {
   const { data: artists } = useSWR<Artist[]>('/api/top-artists', fetcher)
   return (
-    <div className="mt-16 phone:mt-8 flex flex-col items-start">
+    <div className="mt-16 flex flex-col items-start phone:mt-8">
       <h2>Recent Top Artists</h2>
-      <p className="font-spectral italic text-base text-secondary dark:text-darkSecondary">
+      <p className="text-secondary dark:text-darkSecondary font-spectral text-base italic">
         Favorite artists this month
       </p>
-      <ul className="mt-2 phone:mt-1 w-fit max-w-full">
+      <ul className="mt-2 w-fit max-w-full phone:mt-1">
         {artists
           ? artists.map((artist, i) => (
               <ListCard

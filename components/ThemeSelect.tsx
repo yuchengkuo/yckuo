@@ -1,4 +1,5 @@
 import * as Select from '@radix-ui/react-select'
+import splitbee from '@splitbee/web'
 import { useRef, useState } from 'react'
 import {
   useIsomorphicLayoutEffect,
@@ -72,7 +73,10 @@ export default function ThemeSelect() {
   type Prefer = typeof prefer
   return (
     <Select.Root value={prefer} onValueChange={(val: Prefer) => setPrefer(val)}>
-      <Select.Trigger className="bg-gray-3 border-gray-6 hover:bg-gray-5 hover:border-gray-8 dark:bg-grayDark-3 dark:border-grayDark-6 dark:hover:bg-grayDark-5 dark:hover:border-grayDark-8 flex w-28 items-center justify-between gap-2 rounded border px-2 py-px text-sm transition-all duration-200 body-font-settings">
+      <Select.Trigger
+        className="bg-gray-3 border-gray-6 hover:bg-gray-5 hover:border-gray-8 dark:bg-grayDark-3 dark:border-grayDark-6 dark:hover:bg-grayDark-5 dark:hover:border-grayDark-8 flex w-28 items-center justify-between gap-2 rounded border px-2 py-px text-sm transition-all duration-200 body-font-settings"
+        onClick={() => splitbee.track('select-theme')}
+      >
         <Select.Value />
         <Select.Icon>
           <SelectIcon />

@@ -5,6 +5,7 @@ import { m } from 'framer-motion'
 import { RightArrowIcon, UpRightArrowIcon } from './Icons'
 import Image from 'next/image'
 import { loader } from '@utils/image-loader'
+import splitbee from '@splitbee/web'
 
 export default function ProjectCard({ project }: { project: Project | ProjectLink }) {
   return (
@@ -17,6 +18,11 @@ export default function ProjectCard({ project }: { project: Project | ProjectLin
         viewport={{ margin: '-20px' }}
         whileHover="1"
         whileTap={{ scale: 0.998 }}
+        onClick={() =>
+          splitbee.track('project', {
+            destination: project.type === 'Project' ? project.slug : project.url,
+          })
+        }
       >
         <div className="flex justify-between">
           <time className="text-gray-11 dark:text-grayDark-11 text-sm font-medium body-font-settings">

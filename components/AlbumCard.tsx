@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { m } from 'framer-motion'
 import { UpRightArrowIcon } from './Icons'
 import { Album } from 'types/types'
+import splitbee from '@splitbee/web'
 
 export default function AlbumCard({
   album,
@@ -14,14 +15,15 @@ export default function AlbumCard({
   loading?: boolean
 }) {
   if (loading)
-    return <div className="h-60 w-60 animate-pulse rounded bg-gray-4 dark:bg-grayDark-4" />
+    return <div className="bg-gray-4 dark:bg-grayDark-4 h-60 w-60 animate-pulse rounded" />
   return (
     <m.a
       href={album.spotifyUrl}
+      onClick={() => splitbee.track('music', { destination: album.spotifyUrl })}
       title={album.title}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative -m-4 rounded-md px-4 pt-2 pb-4 hover:bg-gray-4 dark:hover:bg-grayDark-3"
+      className="hover:bg-gray-4 dark:hover:bg-grayDark-3 group relative -m-4 rounded-md px-4 pt-2 pb-4"
       variants={{ ...fade, 1: { y: -4 } }}
       initial="0"
       animate="visible"
@@ -32,7 +34,7 @@ export default function AlbumCard({
     >
       <m.div
         variants={slideDown}
-        className="mb-2 flex justify-between font-medium text-gray-11 body-font-settings dark:text-grayDark-11"
+        className="text-gray-11 dark:text-grayDark-11 mb-2 flex justify-between font-medium body-font-settings"
       >
         <m.p className="text-xs tabular-nums">0{index + 1}</m.p>
         <m.p className="text-xs">
@@ -50,7 +52,7 @@ export default function AlbumCard({
             className="overflow-hidden rounded"
           />
         ) : (
-          <div className="h-60 w-60 bg-gray-6 dark:bg-grayDark-6" />
+          <div className="bg-gray-6 dark:bg-grayDark-6 h-60 w-60" />
         )}
         <m.div
           className="flex flex-col"
@@ -65,7 +67,7 @@ export default function AlbumCard({
             </m.p>
             <m.p
               variants={fadeRight}
-              className="overflow-hidden overflow-ellipsis text-sm text-gray-11 dark:text-grayDark-11"
+              className="text-gray-11 dark:text-grayDark-11 overflow-hidden overflow-ellipsis text-sm"
             >
               {album.artist}
             </m.p>
