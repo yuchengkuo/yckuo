@@ -23,7 +23,7 @@ export default function BookmarkPage() {
         />
       )}
       <LazyMotion features={domMax}>
-        <div className="flex flex-col gap-2 max-w-[720px] mt-8">
+        <div className="mt-8 flex max-w-[720px] flex-col gap-2">
           <LayoutGroup>
             {bookmarks
               ? bookmarks
@@ -34,7 +34,7 @@ export default function BookmarkPage() {
                   .map((_, i) => (
                     <div
                       key={i}
-                      className="h-20 mb-4 bg-gray-5 dark:bg-grayDark-5 animate-pulse duration-500"
+                      className="bg-gray-5 dark:bg-grayDark-5 mb-4 h-20 animate-pulse duration-500"
                     />
                   ))}
           </LayoutGroup>
@@ -49,12 +49,12 @@ function FilterToggle({ filters, setFilter }: { filters: string[]; setFilter: Di
     <ToggleGroup.Root
       type="single"
       onValueChange={(v) => setFilter(v)}
-      className="flex gap-2 mt-6 phone:-mx-5 phone:px-5 overflow-scroll scrollbar-hide"
+      className="mt-6 flex gap-2 overflow-scroll scrollbar-hide phone:-mx-5 phone:px-5"
     >
       {filters.map((filter) => (
         <ToggleGroup.Item
           key={filter}
-          className="text-sm w-fit whitespace-nowrap font-medium body-font-settings px-2.5 py-1 rounded-full border border-gray-7 hover:border-gray-8 hover:bg-gray-3 dark:hover:bg-grayDark-3 dark:border-grayDark-7 dark:hover:border-grayDark-8 state:bg-indigo-9 state:text-gray-1 dark:state:bg-indigoDark-10 transition-all duration-200"
+          className="border-gray-7 hover:border-gray-8 hover:bg-gray-3 dark:hover:bg-grayDark-3 dark:border-grayDark-7 dark:hover:border-grayDark-8 state:bg-indigo-9 state:text-gray-1 dark:state:bg-indigoDark-10 w-fit whitespace-nowrap rounded-full border px-2.5 py-1 text-sm font-medium transition-all duration-200 body-font-settings"
           value={filter}
         >
           {filter}
