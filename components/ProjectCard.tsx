@@ -12,7 +12,7 @@ export default function ProjectCard({ project }: { project: Project | ProjectLin
   return (
     <Link href={project.type === 'Project' ? `/projects/${project.slug}` : project.url} passHref>
       <m.a
-        className="hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-grayDark-5 -mx-4 block rounded p-4 transition-colors duration-200 ease-out"
+        className="hover:bg-gray-4 dark:hover:bg-grayDark-4 active:bg-gray-5 dark:active:bg-grayDark-5 -mx-4 flex w-full flex-col rounded p-4 transition-colors duration-200 ease-out"
         variants={{ ...fade, 1: { y: -4 } }}
         initial="0"
         whileInView="visible"
