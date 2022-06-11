@@ -1,4 +1,6 @@
 import { ImageLoaderProps } from 'next/image'
+import fetch from 'node-fetch'
+import { Buffer } from 'buffer'
 
 export const loader = ({ src, width, quality }: ImageLoaderProps) => {
   return `https://res.cloudinary.com/yucheng/image/upload/f_auto,w_${width},q_${
