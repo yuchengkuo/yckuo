@@ -14,31 +14,41 @@ export default function ProjectLayout({
     <LazyMotion features={domAnimation}>
       <Head title={project.title} description={project.subtitle} />
       <main>
-        <div className="mt-20 grid min-h-[40vh] grid-cols-3 items-baseline justify-between tablet:block phone:mt-4 phone:min-h-0">
-          <m.h1
-            variants={fadeUp}
-            initial="0"
-            animate="1"
-            transition={{ type: 'spring', damping: 20, mass: 1 }}
-            className="tablet:mb-40 tablet:w-1/2 phone:mb-8 phone:w-auto"
-          >
-            {project.title}
-          </m.h1>
-          <m.div
-            className="bg-gray-3 dark:bg-grayDark-3 border-gray-6 dark:border-grayDark-6 col-start-3 flex flex-col gap-4 rounded-md border p-4 tablet:ml-auto tablet:w-1/2 phone:w-auto phone:gap-3"
+        <div className="mb-32 phone:mb-8">
+          <div className="">
+            <m.p
+              className="text-gray-11 dark:text-grayDark-11 mb-1 text-sm font-medium body-font-settings"
+              variants={fade}
+              initial="0"
+              animate="1"
+            >
+              {new Date(project.year).getFullYear()} ⋅ {project.readingTime.text}
+            </m.p>
+            <m.h1
+              variants={fadeUp}
+              initial="0"
+              animate="1"
+              transition={{ type: 'spring', damping: 20, mass: 1 }}
+              className="tablet:mb-40 tablet:w-1/2 phone:mb-8 phone:w-auto"
+            >
+              {project.title}
+            </m.h1>
+          </div>
+          <m.ul
+            className="bg-gray-3 dark:bg-grayDark-3 border-gray-6 dark:border-grayDark-6  mt-8 flex w-[40ch] flex-col gap-2 rounded-md border p-4"
             initial="0"
             animate="1"
             variants={fade}
           >
             {project.info.map((item) => (
-              <p
+              <li
                 key={item}
                 className="text-gray-11 dark:text-grayDark-11 text-base font-medium body-font-settings phone:text-sm"
               >
                 {item}
-              </p>
+              </li>
             ))}
-          </m.div>
+          </m.ul>
         </div>
         <m.article
           variants={fade}

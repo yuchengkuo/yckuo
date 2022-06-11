@@ -9,7 +9,7 @@ projectLinks:
       - project/SCR-20220402-vqileo
 
   - title: yuchengkuo.com
-    subtitle: Personal website, Portfolio
+    subtitle: My personal website, portfolio
     url: https://yuchengkuo.com
     year: 2022-01-01
     published: true
@@ -18,4 +18,10 @@ projectLinks:
     subtitle: ✨ A little Figma plugin to make quick selection happens in Quick Actions.
     url: https://www.figma.com/c/plugin/1087207671419748735
     year: 2022-04-01
+    published: true
+
+  - title: Pages for Figma
+    subtitle: 🗂️ A Figma plugin to help organizing pages with group and emoji.
+    url: https://www.figma.com/c/plugin/1107319011917873959
+    year: 2022-05-01
     published: true
