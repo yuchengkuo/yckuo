@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'Uncut Sans';
+  src: url('/fonts/Uncut-Sans-VF.woff2') format('woff2-variations');
+  font-style: normal italic;
+  font-display: block;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2-variations');
+  font-style: normal;
+  font-display: block;
+  font-weight: 100 900;
+  font-feature-settings: 'ss02', 'ss03';
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2-variations');
+  font-style: italic;
+  font-display: block;
+  font-weight: 100 900;
+  font-feature-settings: 'ss02', 'ss03';
+}
+
+@font-face {
+  font-family: 'Azeret Mono';
+  src: url('/fonts/AzeretMono-VariableFont_wght.woff2') format('woff2-variations');
+  font-style: normal;
+  font-display: block;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Azeret Mono';
+  src: url('/static/fonts/AzeretMono-Italic-VariableFont_wght.woff2') format('woff2-variations');
+  font-style: italic;
+  font-display: block;
+  font-weight: 100 900;
+}
+
+body {
+  @apply bg-bg;
+}
+
+h1 {
+  @apply font-Uncut text-4xl;
+  font-variation-settings: 'wght' 650;
+}
+
+h2 {
+  @apply font-Uncut text-3xl;
+  font-variation-settings: 'wght' 600;
+}

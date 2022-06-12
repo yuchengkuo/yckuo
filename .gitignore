@@ -33,3 +33,7 @@ yarn-error.log*
 
 # Contentlayer
 .contentlayer
+
+# svelte
+/.svelte-kit
+.output
