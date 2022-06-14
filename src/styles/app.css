@@ -40,16 +40,38 @@
   font-weight: 100 900;
 }
 
+:root {
+  --colors-bg: #e7e7e7;
+
+  --colors-fg: #321913;
+  --colors-fg-secondary: #684f48;
+}
+
+.dark {
+  --colors-bg: #1f1f1f;
+
+  --colors-fg: #fef5f1;
+  --colors-fg-secondary: #999;
+}
+
 body {
-  @apply bg-bg;
+  @apply bg-bg text-fg-secondary font-Satoshi font-feature;
 }
 
 h1 {
-  @apply font-Uncut text-4xl;
+  @apply font-Uncut text-fg text-4xl;
   font-variation-settings: 'wght' 650;
+  font-feature-settings: normal;
 }
 
 h2 {
-  @apply font-Uncut text-3xl;
+  @apply font-Uncut text-fg text-2xl;
   font-variation-settings: 'wght' 600;
+  font-feature-settings: normal;
+}
+
+h3 {
+  @apply font-Uncut text-fg text-xl;
+  font-variation-settings: 'wght' 550;
+  font-feature-settings: normal;
 }

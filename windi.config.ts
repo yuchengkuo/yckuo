@@ -15,15 +15,20 @@ export default defineConfig({
       tablet: { max: '1020px' },
       phone: { max: '720px' },
     },
-    colors: {
-      bg: {
-        DEFAULT: '#e7e7e7',
+    extend: {
+      colors: {
+        bg: 'var(--colors-bg)',
+
+        fg: {
+          DEFAULT: 'var(--colors-fg)',
+          secondary: 'var(--colors-fg-secondary)',
+        },
       },
     },
   },
   plugins: [
     require('windicss/plugin/line-clamp'),
-    plugin(function ({ addUtilities, addVariant }) {
+    plugin(function ({ addUtilities, theme }) {
       addUtilities({
         '.scrollbar-hide': {
           '-ms-overflow-style': 'none',
@@ -31,6 +36,12 @@ export default defineConfig({
           '&::-webkit-scrollbar': {
             display: 'none',
           },
+        },
+        '.font-feature': {
+          'font-feature-settings': "'ss02', 'ss03'",
+        },
+        '.font-feature-none': {
+          'font-feature-settings': 'none',
         },
       })
       // addVariant('not-first', '&:not(:first-of-type)')
