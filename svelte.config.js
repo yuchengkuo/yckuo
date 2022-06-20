@@ -11,17 +11,28 @@ const config = {
   kit: {
     adapter: adapter(),
 
-    paths: {
-      base: '',
-    },
-
     // Override http methods in the Todo forms
     methodOverride: {
       allowed: ['PATCH', 'DELETE'],
     },
 
+    alias: {
+      $components: 'src/components',
+      $utils: 'src/utils',
+      $content: 'content',
+      $contentlayer: '.contentlayer/generated',
+    },
+
     vite: {
       plugins: [WindiCss()],
+      define: { 'process.env': process.env },
+
+      server: {
+        fs: {
+          // Allow serving files from one level up to the project root
+          allow: ['..'],
+        },
+      },
     },
   },
 }

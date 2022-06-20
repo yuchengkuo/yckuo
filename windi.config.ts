@@ -24,11 +24,14 @@ export default defineConfig({
           secondary: 'var(--colors-fg-secondary)',
         },
       },
+      width: {
+        fit: 'fit-content',
+      },
     },
   },
   plugins: [
     require('windicss/plugin/line-clamp'),
-    plugin(function ({ addUtilities, theme }) {
+    plugin(function ({ addUtilities, addVariant }) {
       addUtilities({
         '.scrollbar-hide': {
           '-ms-overflow-style': 'none',
@@ -44,12 +47,9 @@ export default defineConfig({
           'font-feature-settings': 'none',
         },
       })
-      // addVariant('not-first', '&:not(:first-of-type)')
-      // addVariant('not-last', '&:not(:last-of-type)')
-      // addVariant('only-middle', '&:not(:first-of-type, :last-of-type)')
-      // addVariant('hover', '@media(hover: hover) { &:hover }')
-      // addVariant('active', '@media(hover: hover) { &:active }')
-      // addVariant('state', '&[data-state=on]')
+      addVariant('only-middle', ({ modifySelectors }) =>
+        modifySelectors(({ className }) => `.${className}:not(:first-of-type, :last-of-type)`)
+      )
     }),
   ],
 })
