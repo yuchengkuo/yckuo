@@ -4,6 +4,7 @@
   "authors": "YuCheng Kuo",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@7.4.0",
   "scripts": {
     "dev": "run-p dev:*",
     "dev:svelte": "svelte-kit dev",
@@ -54,6 +55,7 @@
     "svelte-preprocess": "^4.10.7",
     "tslib": "^2.4.0",
     "typescript": "^4.7.3",
+    "vite": "^2.9.12",
     "vite-plugin-windicss": "^1.8.4"
   }
 }
