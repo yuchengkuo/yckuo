@@ -1,3 +1,6 @@
+@import './theme.css';
+@import './prose.css';
+
 @font-face {
   font-family: 'Uncut Sans';
   src: url('/fonts/Uncut-Sans-VF.woff2') format('woff2-variations');
@@ -40,38 +43,53 @@
   font-weight: 100 900;
 }
 
-:root {
-  --colors-bg: #e7e7e7;
-
-  --colors-fg: #321913;
-  --colors-fg-secondary: #684f48;
+#nprogress {
+  pointer-events: none;
 }
 
-.dark {
-  --colors-bg: #1f1f1f;
+#nprogress .bar {
+  @apply bg-$colors-fg;
+  opacity: 0.75;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
 
-  --colors-fg: #fef5f1;
-  --colors-fg-secondary: #999;
+html {
+  @apply bg-$colors-fg min-h-screen antialiased;
 }
 
 body {
-  @apply bg-bg text-fg-secondary font-Satoshi font-feature;
+  @apply bg-$colors-bg flex flex-col font-Satoshi font-feature min-h-screen font-475 text-$colors-fg;
 }
 
 h1 {
-  @apply font-Uncut text-fg text-4xl;
-  font-variation-settings: 'wght' 650;
+  @apply font-Uncut text-$colors-fg text-4xl tracking-[-0.03em];
+  font-variation-settings: 'wght' 600, 'slnt' 0;
   font-feature-settings: normal;
 }
 
 h2 {
-  @apply font-Uncut text-fg text-2xl;
-  font-variation-settings: 'wght' 600;
+  @apply font-Uncut text-$colors-fg text-2xl tracking-[-0.02em];
+  font-variation-settings: 'wght' 550, 'slnt' 0;
   font-feature-settings: normal;
 }
 
 h3 {
-  @apply font-Uncut text-fg text-xl;
-  font-variation-settings: 'wght' 550;
+  @apply font-Uncut text-$colors-fg text-xl tracking-[-0.02em];
+  font-variation-settings: 'wght' 550, 'slnt' 0;
   font-feature-settings: normal;
+}
+
+h4 {
+  @apply font-Uncut text-$colors-fg text-lg tracking-[-0.02em];
+  font-variation-settings: 'wght' 500, 'slnt' 0;
+  font-feature-settings: normal;
+}
+
+body > *:not(footer) a {
+  @apply rounded-sm transition-all duration-200 underline underline-$colors-surface hover:(underline-current bg-$colors-surface py-0.5 px-1 -my-0.5 -mx-1) ;
 }

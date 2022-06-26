@@ -1,0 +1,17 @@
+:root {
+  --colors-bg: rgb(230, 214, 188);
+
+  --colors-fg: rgb(29, 37, 93);
+  --colors-fg-secondary: rgb(29, 37, 93);
+
+  --colors-surface: rgba(29, 37, 93, 0.08);
+}
+
+.dark {
+  --colors-bg: rgb(57, 70, 73);
+
+  --colors-fg: rgb(239, 238, 207);
+  --colors-fg-secondary: rgb(239, 238, 207);
+
+  --colors-surface: rgba(239, 238, 207, 0.08);
+}

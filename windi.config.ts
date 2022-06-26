@@ -16,14 +16,6 @@ export default defineConfig({
       phone: { max: '720px' },
     },
     extend: {
-      colors: {
-        bg: 'var(--colors-bg)',
-
-        fg: {
-          DEFAULT: 'var(--colors-fg)',
-          secondary: 'var(--colors-fg-secondary)',
-        },
-      },
       width: {
         fit: 'fit-content',
       },
