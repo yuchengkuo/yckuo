@@ -3,5 +3,8 @@
   "scss.lint.unknownAtRules": "ignore",
   "css.validate": false,
   "scss.validate": false,
-  "windicss.sortOnSave": true
+  "windicss.sortOnSave": true,
+  "windicss.includeLanguages": {
+    "svelte": "html"
+  }
 }
