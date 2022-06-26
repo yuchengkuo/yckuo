@@ -2,10 +2,13 @@ lockfileVersion: 5.4
 
 specifiers:
   '@markdoc/markdoc': ^0.1.3
+  '@motionone/dom': ^10.10.0
   '@splitbee/web': ^0.3.0
   '@sveltejs/adapter-auto': ^1.0.0-next.50
   '@sveltejs/kit': ^1.0.0-next.350
+  '@types/js-yaml': ^4.0.5
   '@types/node': ^17.0.40
+  '@types/nprogress': ^0.2.0
   '@typescript-eslint/eslint-plugin': ^5.27.1
   '@typescript-eslint/parser': ^5.27.1
   base64-arraybuffer: ^1.0.2
@@ -16,6 +19,7 @@ specifiers:
   date-fns: ^2.28.0
   eslint: ^8.17.0
   eslint-plugin-svelte3: ^4.0.0
+  js-yaml: ^4.1.0
   motion: ^10.10.0
   npm-run-all: ^4.1.5
   nprogress: ^0.2.0
@@ -30,13 +34,16 @@ specifiers:
   svelte: ^3.48.0
   svelte-check: ^2.7.2
   svelte-preprocess: ^4.10.7
+  sveltejs-markdoc: ^0.1.1
   tslib: ^2.4.0
   typescript: ^4.7.3
   vite: ^2.9.12
   vite-plugin-windicss: ^1.8.4
+  windicss: ^3.5.5
 
 dependencies:
   '@markdoc/markdoc': 0.1.3
+  '@motionone/dom': 10.10.0
   '@splitbee/web': 0.3.0
   classnames: 2.3.1
   cloudinary: 1.30.0
@@ -44,11 +51,14 @@ dependencies:
   motion: 10.10.0
   nprogress: 0.2.0
   sharp: 0.30.6
+  sveltejs-markdoc: 0.1.1
 
 devDependencies:
   '@sveltejs/adapter-auto': 1.0.0-next.50
   '@sveltejs/kit': 1.0.0-next.350_svelte@3.48.0
+  '@types/js-yaml': 4.0.5
   '@types/node': 17.0.45
+  '@types/nprogress': 0.2.0
   '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
   '@typescript-eslint/parser': 5.29.0_b5e7v2qnwxfo6hmiq56u52mz3e
   base64-arraybuffer: 1.0.2
@@ -56,6 +66,7 @@ devDependencies:
   contentlayer: 0.2.5_date-fns@2.28.0
   eslint: 8.18.0
   eslint-plugin-svelte3: 4.0.0_wy4erphnvhealet26qderqv6bu
+  js-yaml: 4.1.0
   npm-run-all: 4.1.5
   prettier: 2.7.1
   prettier-plugin-svelte: 2.7.0_nakrehnrzdf7fdea5k3a4dfy4m
@@ -71,6 +82,7 @@ devDependencies:
   typescript: 4.7.4
   vite: 2.9.12
   vite-plugin-windicss: 1.8.4_vite@2.9.12
+  windicss: 3.5.5
 
 packages:
 
@@ -822,6 +834,10 @@ packages:
       '@types/unist': 2.0.6
     dev: true
 
+  /@types/js-yaml/4.0.5:
+    resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
+    dev: true
+
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
@@ -850,6 +866,10 @@ packages:
 
   /@types/node/17.0.45:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+    dev: true
+
+  /@types/nprogress/0.2.0:
+    resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==}
     dev: true
 
   /@types/pug/2.0.6:
@@ -1021,7 +1041,7 @@ packages:
     dependencies:
       debug: 4.3.4
       jiti: 1.14.0
-      windicss: 3.5.4
+      windicss: 3.5.5
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1035,7 +1055,7 @@ packages:
       fast-glob: 3.2.11
       magic-string: 0.26.2
       micromatch: 4.0.5
-      windicss: 3.5.4
+      windicss: 3.5.5
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4808,6 +4828,10 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
+  /sveltejs-markdoc/0.1.1:
+    resolution: {integrity: sha512-0GOhUzhg/gaiokdGfFrcRGkWhmALzP2RGkcrLItW86LRlLODRt8h+woYl0SgcqGybZJjJYJisQIJPwS0unyj+w==}
+    dev: false
+
   /tar-fs/2.1.1:
     resolution: {integrity: sha512-V0r2Y9scmbDRLCNex/+hYzvp/zyYjvFbHPNgVTKfQvVrb6guiE/fxP+XblDNR011utopbkex2nM4dHNV6GDsng==}
     dependencies:
@@ -5121,7 +5145,7 @@ packages:
       debug: 4.3.4
       kolorist: 1.5.1
       vite: 2.9.12
-      windicss: 3.5.4
+      windicss: 3.5.5
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5207,8 +5231,8 @@ packages:
       string-width: 4.2.3
     dev: true
 
-  /windicss/3.5.4:
-    resolution: {integrity: sha512-x2Iu0a69dtNiKHMkR886lx0WKbZI5GqvXyvGBCJ2VA6rcjKYjnzCA/Ljd6hNQBfqlkSum8J+qAVcCfLzQFI4rQ==}
+  /windicss/3.5.5:
+    resolution: {integrity: sha512-Mnbb9DT+74cw3UxcVimbwCw5tKxITNvOBwTFMFdUv9f5KoZensestA4vKUM8tw74QAwyjE5bqH0QQufgFQwj0Q==}
     engines: {node: '>= 12'}
     hasBin: true
     dev: true

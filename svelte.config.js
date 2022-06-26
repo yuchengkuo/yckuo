@@ -18,6 +18,7 @@ const config = {
 
     alias: {
       $components: 'src/components',
+      $schema: 'src/markdoc',
       $utils: 'src/utils',
       $content: 'content',
       $contentlayer: '.contentlayer/generated',
