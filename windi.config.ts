@@ -23,6 +23,7 @@ export default defineConfig({
   },
   plugins: [
     require('windicss/plugin/line-clamp'),
+    require('windicss/plugin/aspect-ratio'),
     plugin(function ({ addUtilities, addVariant }) {
       addUtilities({
         '.scrollbar-hide': {

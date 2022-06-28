@@ -1,0 +1,52 @@
+<script lang="ts">
+  import clsx from 'clsx'
+  import { getImgProps } from './getImgProps'
+
+  import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
+  import { onMount } from 'svelte'
+
+  export let id: string
+  export let alt = ''
+  export let widths = [280, 560, 840, 1100, 1650, 2500, 2100]
+  export let sizes = [
+    '(max-width:1023px) 80vw',
+    '(min-width:1024px) and (max-width:1620px) 67vw',
+    '1100px',
+  ]
+  export let transformations: TransformerOption | TransformerVideoOption = {}
+  export let blurDataUrl = ''
+
+  let imgEl: HTMLImageElement
+  let visible: boolean
+
+  const { src, srcset } = getImgProps({ id, widths, transformations })
+
+  onMount(() => {
+    if (!imgEl) return
+    if (imgEl.complete) return
+    let current = true
+    imgEl.addEventListener('load', () => {
+      if (!current || !imgEl) return
+      setTimeout(() => (visible = true), 0)
+    })
+    return () => (current = false)
+  })
+</script>
+
+<div {...$$props}>
+  {#if blurDataUrl}
+    <img src={blurDataUrl} {alt} class="rounded object-cover object-center" />
+    <div class="rounded object-cover object-center backdrop-filter backdrop-blur-lg" />
+  {/if}
+  <img
+    bind:this={imgEl}
+    {src}
+    {alt}
+    {srcset}
+    sizes={sizes.join(', ')}
+    class={clsx(
+      'rounded object-cover object-center bg-$colors-surface transition-opacity duration-300',
+      !visible && 'opacity-0'
+    )}
+  />
+</div>
