@@ -49,4 +49,13 @@
       !visible && 'opacity-0'
     )}
   />
+  <noscript>
+    <img
+      {src}
+      {alt}
+      {srcset}
+      sizes={sizes.join(', ')}
+      class="bg-$colors-surface rounded object-cover object-center transition-opacity duration-300"
+    />
+  </noscript>
 </div>
