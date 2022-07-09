@@ -3,7 +3,7 @@
   import { getImgProps } from './getImgProps'
 
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
-  import { onMount } from 'svelte'
+  import { beforeUpdate, onMount } from 'svelte'
 
   export let id: string
   export let alt = ''
@@ -17,9 +17,13 @@
   export let blurDataUrl = ''
 
   let imgEl: HTMLImageElement
-  let visible: boolean
+  let visible = false
 
   const { src, srcset } = getImgProps({ id, widths, transformations })
+
+  beforeUpdate(() => {
+    if (imgEl?.complete) visible = true
+  })
 
   onMount(() => {
     if (!imgEl) return
