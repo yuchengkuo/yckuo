@@ -21,7 +21,6 @@ const config = {
       $schema: 'src/markdoc',
       $utils: 'src/utils',
       $content: 'content',
-      $contentlayer: '.contentlayer/generated',
     },
 
     vite: {

@@ -58,12 +58,17 @@
   height: 2px;
 }
 
+::selection {
+  @apply bg-$colors-surface;
+}
+
 html {
   @apply bg-$colors-fg min-h-screen antialiased;
 }
 
 body {
   @apply bg-$colors-bg flex flex-col font-Uncut min-h-screen font-475 text-$colors-fg transition-colors ease-out duration-500 delay-25;
+  font-variation-settings: 'slnt' 0;
 }
 
 h1 {
