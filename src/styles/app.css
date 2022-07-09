@@ -63,33 +63,29 @@ html {
 }
 
 body {
-  @apply bg-$colors-bg flex flex-col font-Satoshi font-feature min-h-screen font-475 text-$colors-fg;
+  @apply bg-$colors-bg flex flex-col font-Uncut min-h-screen font-475 text-$colors-fg transition-colors ease-out duration-500 delay-25;
 }
 
 h1 {
-  @apply font-Uncut text-$colors-fg text-4xl tracking-[-0.03em];
-  font-variation-settings: 'wght' 600, 'slnt' 0;
-  font-feature-settings: normal;
+  @apply font-Uncut font-575 text-$colors-fg text-4xl tracking-[-0.03em];
+  font-variation-settings: 'slnt' 0;
 }
 
 h2 {
-  @apply font-Uncut text-$colors-fg text-2xl tracking-[-0.02em];
-  font-variation-settings: 'wght' 550, 'slnt' 0;
-  font-feature-settings: normal;
+  @apply font-Uncut font-550 text-$colors-fg text-2xl tracking-[-0.02em];
+  font-variation-settings: 'slnt' 2;
 }
 
 h3 {
-  @apply font-Uncut text-$colors-fg text-xl tracking-[-0.02em];
-  font-variation-settings: 'wght' 550, 'slnt' 0;
-  font-feature-settings: normal;
+  @apply font-Uncut font-500 text-$colors-fg text-xl tracking-[-0.02em];
+  font-variation-settings: 'slnt' 0;
 }
 
 h4 {
-  @apply font-Uncut text-$colors-fg text-lg tracking-[-0.02em];
-  font-variation-settings: 'wght' 500, 'slnt' 0;
-  font-feature-settings: normal;
+  @apply font-Uncut font-450 text-$colors-fg text-lg tracking-[-0.02em];
+  font-variation-settings: 'slnt' 0;
 }
 
-body > *:not(footer) a {
-  @apply rounded-sm transition-all duration-200 underline underline-$colors-surface hover:(underline-current bg-$colors-surface py-0.5 px-1 -my-0.5 -mx-1) ;
+a {
+  @apply rounded-sm transition-all duration-200 underline underline-$colors-border decoration-1.6px underline-offset-1.4px hover:(underline-current decoration-2.2px) ;
 }

@@ -1,0 +1,63 @@
+.prose {
+  :not(section, blockquote *) {
+    @apply max-w-50ch;
+  }
+
+  p {
+    @apply font-475 text-lg pb-8 leading-9;
+  }
+
+  h1 {
+    @apply mb-8;
+  }
+
+  h2 {
+    @apply mb-6 phone:mt-4 phone:py-2;
+  }
+
+  h3 {
+    @apply mb-4 phone:mt-2;
+  }
+
+  h2[id],
+  h3[id],
+  h4[id] {
+    @apply relative after:(content-['#'] font-Azeret text-base opacity-0 transition-opacity hover:opacity-100) ;
+  }
+
+  :where(h1[id], h2[id], h3[id]) > a {
+    @apply no-underline;
+  }
+
+  hr {
+    @apply border-t border-$colors-border my-8;
+  }
+
+  blockquote {
+    @apply mx-0;
+
+    * {
+      @apply font-Spectral font-575 text-lg mb-0 italic;
+    }
+  }
+
+  li {
+    @apply text-lg mb-2;
+  }
+
+  ul {
+    @apply -ml-2 pl-6;
+
+    li {
+      @apply list-outside pl-2 marker:(content-['–'] font-700 text-base text-$colors-border) ;
+    }
+  }
+
+  ol {
+    @apply pl-6;
+
+    li {
+      @apply marker:(text-base font-400 tabular-nums) ;
+    }
+  }
+}

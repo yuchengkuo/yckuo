@@ -5,13 +5,115 @@
   --colors-fg-secondary: rgb(29, 37, 93);
 
   --colors-surface: rgba(29, 37, 93, 0.08);
+  --colors-border: rgba(29, 37, 93, 0.4);
 }
 
 .dark {
+  --colors-bg: rgba(43, 53, 77, 1);
+
+  --colors-fg: rgba(232, 244, 212, 1);
+  --colors-fg-secondary: rgba(232, 244, 212, 1);
+
+  --colors-surface: rgba(232, 244, 212, 0.08);
+  --colors-border: rgba(232, 244, 212, 0.4);
+}
+
+[data-theme='green'] {
+  --colors-bg: rgba(196, 234, 192, 1);
+
+  --colors-fg: rgba(56, 40, 75, 1);
+  --colors-fg-secondary: rgba(56, 40, 75, 1);
+
+  --colors-surface: rgba(56, 40, 75, 0.08);
+  --colors-border: rgba(56, 40, 75, 0.6);
+}
+
+[data-theme='green'].dark {
   --colors-bg: rgb(57, 70, 73);
 
   --colors-fg: rgb(239, 238, 207);
   --colors-fg-secondary: rgb(239, 238, 207);
 
   --colors-surface: rgba(239, 238, 207, 0.08);
+  --colors-border: rgba(239, 238, 207, 0.6);
+}
+
+[data-theme='cyan'] {
+  --colors-bg: rgba(199, 224, 221, 1);
+
+  --colors-fg: rgba(1, 70, 230, 1);
+  --colors-fg-secondary: rgba(8, 65, 100, 1);
+
+  --colors-surface: rgba(8, 65, 100, 0.08);
+  --colors-border: rgba(8, 65, 100, 0.6);
+}
+
+[data-theme='cyan'].dark {
+  --colors-bg: rgba(42, 30, 84, 1);
+
+  --colors-fg: rgba(229, 236, 199, 1);
+  --colors-fg-secondary: rgba(187, 213, 230, 1);
+
+  --colors-surface: rgba(187, 213, 230, 0.08);
+  --colors-border: rgba(187, 213, 230, 0.6);
+}
+
+[data-theme='pink'] {
+  --colors-bg: rgba(238, 217, 214, 1);
+
+  --colors-fg: rgba(12, 84, 178, 1);
+  --colors-fg-secondary: rgba(45, 30, 73, 1);
+
+  --colors-surface: rgba(45, 30, 73, 0.08);
+  --colors-border: rgba(45, 30, 73, 0.6);
+}
+
+[data-theme='pink'].dark {
+  --colors-bg: rgba(86, 32, 57, 1);
+
+  --colors-fg: rgba(233, 181, 92, 1);
+  --colors-fg-secondary: rgba(226, 219, 238, 1);
+
+  --colors-surface: rgba(226, 219, 238, 0.08);
+  --colors-border: rgba(226, 219, 238, 0.6);
+}
+
+[data-theme='orange'] {
+  --colors-bg: rgba(250, 228, 211, 1);
+
+  --colors-fg: rgba(102, 37, 48, 1);
+  --colors-fg-secondary: rgba(0, 1, 54, 1);
+
+  --colors-surface: rgba(0, 1, 54, 0.08);
+  --colors-border: rgba(0, 1, 54, 0.6);
+}
+
+[data-theme='orange'].dark {
+  --colors-bg: rgba(46, 18, 2, 1);
+
+  --colors-fg: rgba(249, 198, 121, 1);
+  --colors-fg-secondary: rgba(190, 198, 184, 1);
+
+  --colors-surface: rgba(190, 198, 184, 0.08);
+  --colors-border: rgba(190, 198, 184, 0.6);
+}
+
+[data-theme='violet'] {
+  --colors-bg: rgba(228, 214, 234, 1);
+
+  --colors-fg: rgba(37, 31, 80, 1);
+  --colors-fg-secondary: rgba(37, 31, 80, 1);
+
+  --colors-surface: rgba(37, 31, 80, 0.08);
+  --colors-border: rgba(37, 31, 80, 0.6);
+}
+
+[data-theme='violet'].dark {
+  --colors-bg: rgba(81, 62, 129, 1);
+
+  --colors-fg: rgba(247, 234, 210, 1);
+  --colors-fg-secondary: rgba(247, 234, 210, 1);
+
+  --colors-surface: rgba(247, 234, 210, 0.08);
+  --colors-border: rgba(247, 234, 210, 0.6);
 }
