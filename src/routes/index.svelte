@@ -1,63 +1,82 @@
-<script context="module" lang="ts">
-  export const prerender = true
+<script lang="ts" context="module">
+  export const load: Load = async function ({ fetch }) {
+    const res = await fetch('/api/content/home?data')
+
+    if (res.ok) {
+      const { data } = await res.json()
+      return {
+        props: { data },
+        cache: { maxage: 30 * 24 * 60 * 60, private: false },
+      }
+    }
+    return {
+      status: 404,
+    }
+  }
 </script>
 
 <script lang="ts">
   import { spring } from 'motion'
+  import Markdoc from 'sveltejs-markdoc'
+
+  import Project from '$components/Project.svelte'
+
   import motion from '$lib/animation'
   import { fadeup } from '$lib/animation/keyframes'
+
+  import type { Load } from '@sveltejs/kit'
+
+  export let data
 
   const easing = spring({ mass: 1, damping: 20 })
 </script>
 
 <svelte:head>
-  <title>YuCheng Kuo → Designer, Engingeer</title>
+  <title>YuCheng Kuo · Designer, Engingeer</title>
+  <script>
+    document.documentElement.removeAttribute('data-theme')
+  </script>
 </svelte:head>
 
-<section class="flex gap-6">
-  <div class="w-3/8">
+<section class="min-h-screen *grid">
+  <div class="col-span-3 children:mb-8">
     <h1 use:motion={{ keyframes: fadeup, options: { easing, delay: 0.4 } }}>YuCheng Kuo</h1>
-    <p use:motion={{ keyframes: fadeup, options: { easing, delay: 0.5 } }} class="mt-8 text-lg">
-      Hello, I'm YuCheng. I am a self-taught designer and engineer from Taiwan. I'm currently
-      helping building Oen.tw
-    </p>
+    <div use:motion={{ keyframes: fadeup, options: { easing, delay: 0.5 } }} class="text-lg">
+      <Markdoc content={data.overview.markdown} />
+    </div>
 
     <nav
       use:motion={{ keyframes: fadeup, options: { easing, delay: 0.8 } }}
-      class="flex flex-col mt-8 gap-2 items-start"
+      class="flex font-Azeret font-400 text-sm gap-2 justify-between uppercase"
     >
       <a href="/about">About</a>
+      <a href="/project">Project</a>
+      <a href="/bookmark">Bookmark</a>
+      <a href="/listening">Listening</a>
+      <a href="/watching">Watching</a>
     </nav>
   </div>
 </section>
 
-<section class="grid gap-6 grid-cols-16">
-  <div id="projects" class="col-start-1 col-end-5">
+<section class="*grid children:col-span-2">
+  <div id="projects">
     <h2>Projects</h2>
 
-    ...
+    {#each data.projects as project}
+      <Project {project} />
+    {/each}
+
+    <a href="/project">All →</a>
   </div>
-  <div class="col-start-6 col-end-10">
-    <h2>Work</h2>
 
-    <p>...</p>
-  </div>
+  <div class="text-lg col-start-4">
+    <h2>{data.work.title}</h2>
 
-  <div class="col-end-15 col-start-11">
-    <h2>Log</h2>
-
-    <div class="bg-$colors-surface rounded h-72px w-full" />
-
-    <h4>Recently</h4>
-    <div class="bg-$colors-surface rounded h-60 w-full" />
+    <Markdoc content={data.work.markdown} />
   </div>
 </section>
 
 <style>
-  section {
-    @apply mb-40;
-  }
-
   section h2 {
     @apply mb-6;
   }

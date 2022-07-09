@@ -21,6 +21,9 @@ export default defineConfig({
       },
     },
   },
+  alias: {
+    grid: 'grid grid-cols-8 gap-10',
+  },
   plugins: [
     require('windicss/plugin/line-clamp'),
     require('windicss/plugin/aspect-ratio'),
