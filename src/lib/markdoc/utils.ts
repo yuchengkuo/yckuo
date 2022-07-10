@@ -18,6 +18,33 @@ export function getContentBySlug(params: string) {
   throw new Error(`File ${params}.md does not exist`)
 }
 
+export function getDataBySlug(params: string) {
+  const dirs = readdirSync(contentPath, { withFileTypes: true })
+
+  const file = dirs.find((f) => f.isFile() && f.name === `${params}.yaml`)
+
+  const data = load(readFileSync(join(contentPath, file.name), 'utf-8'))
+
+  if (data) {
+    findMarkdown(data)
+    return data
+  }
+
+  throw new Error(`File ${params}.yaml does not exist`)
+}
+
+function findMarkdown(data: Object & { markdown?: string }) {
+  if (data.hasOwnProperty('markdown')) {
+    const { content } = transformContent(data.markdown)
+    data.markdown = content as unknown as string
+  }
+  for (const [key, value] of Object.entries(data)) {
+    if (typeof value === 'object') {
+      findMarkdown(data[key])
+    }
+  }
+}
+
 function transformContent(raw: string) {
   const ast = Markdoc.parse(raw)
   const error = Markdoc.validate(ast, config)
