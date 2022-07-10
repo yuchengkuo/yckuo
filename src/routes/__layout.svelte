@@ -21,9 +21,11 @@
   >
     {#if $page.url.pathname !== '/'}
       <button
-        class="font-Azeret font-450 text-sm text-$colors-fg-secondary mb-8 transition-all duration-200 uppercase underline underline-$colors-border decoration-1.6px underline-offset-1.4px hover:(decoration-2.2px underline-current) "
-        on:click={() => window.history.back()}>←·Back</button
+        class="font-Azeret font-450 text-sm text-$colors-fg-secondary mb-8 *attr"
+        on:click={() => window.history.back()}
       >
+        ←·Back
+      </button>
     {/if}
 
     <slot />

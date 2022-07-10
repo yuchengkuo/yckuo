@@ -92,5 +92,5 @@ h4 {
 }
 
 a {
-  @apply rounded-sm transition-all duration-200 underline underline-$colors-border decoration-1.6px underline-offset-1.4px hover:(underline-current decoration-2.2px) ;
+  @apply *attr;
 }

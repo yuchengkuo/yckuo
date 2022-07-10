@@ -2,6 +2,10 @@ import { defineConfig } from 'windicss/helpers'
 import defaultTheme from 'windicss/defaultTheme'
 import plugin from 'windicss/plugin'
 
+function range(size: number, startAt = 1) {
+  return Array.from(Array(size).keys()).map((i) => i + startAt)
+}
+
 export default defineConfig({
   darkMode: 'class',
   theme: {
@@ -23,7 +27,9 @@ export default defineConfig({
   },
   alias: {
     grid: 'grid grid-cols-8 gap-10',
+    attr: 'transition-all duration-200 underline underline-$colors-border decoration-1.6px underline-offset-1.4px hover:(underline-current decoration-2.2px)',
   },
+  safelist: [range(5).map((i) => `rotate-[${i}deg] rotate-[-${i}deg]`)],
   plugins: [
     require('windicss/plugin/line-clamp'),
     require('windicss/plugin/aspect-ratio'),
