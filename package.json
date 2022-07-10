@@ -22,7 +22,7 @@
     "cloudinary": "^1.30.0",
     "date-fns": "^2.28.0",
     "embla-carousel-react": "^6.2.0",
-    "framer-motion": "^6.3.16",
+    "framer-motion": "^6.4.3",
     "next": "12.1.6",
     "next-contentlayer": "^0.2.5",
     "next-seo": "^5.4.0",
