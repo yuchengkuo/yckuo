@@ -1,5 +1,6 @@
 @import './theme.css';
 @import './prose.css';
+@import './project.css';
 
 @font-face {
   font-family: 'Uncut Sans';

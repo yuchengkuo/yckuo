@@ -117,3 +117,23 @@
   --colors-surface: rgba(247, 234, 210, 0.08);
   --colors-border: rgba(247, 234, 210, 0.6);
 }
+
+[data-theme='grass'] {
+  --colors-bg: rgba(243, 254, 241, 1);
+
+  --colors-fg: rgba(10, 95, 174, 1);
+  --colors-fg-secondary: rgba(53, 44, 86, 1);
+
+  --colors-surface: rgba(53, 44, 86, 0.08);
+  --colors-border: rgba(53, 44, 86, 0.6);
+}
+
+[data-theme='grass'].dark {
+  --colors-bg: rgba(50, 103, 103, 1);
+
+  --colors-fg: rgba(244, 230, 107, 1);
+  --colors-fg-secondary: rgba(212, 220, 219, 1);
+
+  --colors-surface: rgba(212, 220, 219, 0.08);
+  --colors-border: rgba(212, 220, 219, 0.6);
+}
