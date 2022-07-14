@@ -1,6 +1,5 @@
 import adapter from '@sveltejs/adapter-auto'
 import preprocess from 'svelte-preprocess'
-import WindiCss from 'vite-plugin-windicss'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -21,18 +20,6 @@ const config = {
       $schema: 'src/markdoc',
       $utils: 'src/utils',
       $content: 'content',
-    },
-
-    vite: {
-      plugins: [WindiCss()],
-      define: { 'process.env': process.env },
-
-      server: {
-        fs: {
-          // Allow serving files from one level up to the project root
-          allow: ['..'],
-        },
-      },
     },
   },
 }
