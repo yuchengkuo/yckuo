@@ -47,7 +47,7 @@
     "cheerio": "^1.0.0-rc.12",
     "contentlayer": "^0.2.5",
     "eslint": "^8.19.0",
-    "eslint-config-next": "12.1.6",
+    "eslint-config-next": "12.2.2",
     "node-fetch": "2.6.7",
     "postcss": "^8.4.14",
     "prettier": "^2.6.2",
