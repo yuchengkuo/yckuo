@@ -1,7 +1,7 @@
 import { getContentBySlug, getDataBySlug } from '$lib/markdoc/utils'
 import type { RequestHandler } from '@sveltejs/kit'
 
-export const get: RequestHandler = async function ({ params, url }) {
+export const GET: RequestHandler = async function ({ params, url }) {
   const { slug } = params
 
   if (url.searchParams.has('data')) {
