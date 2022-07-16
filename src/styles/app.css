@@ -68,7 +68,7 @@ html {
 }
 
 body {
-  @apply bg-$colors-bg flex flex-col font-Uncut min-h-screen font-475 text-$colors-fg transition-colors ease-out duration-500 delay-25;
+  @apply bg-$colors-bg flex flex-col font-Uncut min-h-screen font-475 text-$colors-fg text-lg transition-colors ease-out duration-500 delay-25;
   font-variation-settings: 'slnt' 0;
 }
 

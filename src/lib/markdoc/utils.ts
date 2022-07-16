@@ -6,24 +6,42 @@ import { load } from 'js-yaml'
 
 const contentPath = 'content'
 
-export function getContentBySlug(params: string) {
-  const dirs = readdirSync(contentPath, { withFileTypes: true })
+type Frontmatter = {
+  [key: string]: string
+}
+
+export function getAllContentMeta(folder = '') {
+  const dirs = readdirSync(join(contentPath, folder), { withFileTypes: true })
+
+  const files = dirs.filter((f) => f.isFile() && f.name.endsWith('.md'))
+
+  if (files) {
+    return files.map((f) => ({
+      ...(transformContent(readFileSync(join(contentPath, folder, f.name), 'utf-8'))
+        .frontmatter as Frontmatter),
+      slug: f.name.replace(/\.md/, ''),
+    }))
+  }
+}
+
+export function getContentBySlug(params: string, folder = '') {
+  const dirs = readdirSync(join(contentPath, folder), { withFileTypes: true })
 
   const file = dirs.find((f) => f.isFile() && f.name === `${params}.md`)
 
   if (file) {
-    return transformContent(readFileSync(join(contentPath, file.name), 'utf-8'))
+    return transformContent(readFileSync(join(contentPath, folder, file.name), 'utf-8'))
   }
 
   throw new Error(`File ${params}.md does not exist`)
 }
 
-export function getDataBySlug(params: string) {
-  const dirs = readdirSync(contentPath, { withFileTypes: true })
+export function getDataBySlug(params: string, folder = '') {
+  const dirs = readdirSync(join(contentPath, folder), { withFileTypes: true })
 
   const file = dirs.find((f) => f.isFile() && f.name === `${params}.yaml`)
 
-  const data = load(readFileSync(join(contentPath, file.name), 'utf-8'))
+  const data = load(readFileSync(join(contentPath, folder, file.name), 'utf-8'))
 
   if (data) {
     findMarkdown(data)
@@ -51,7 +69,9 @@ function transformContent(raw: string) {
 
   if (error.length) console.warn('Error while validating content', error)
 
-  const frontmatter = ast.attributes.frontmatter ? load(ast.attributes.frontmatter) : {}
+  const frontmatter = ast.attributes.frontmatter
+    ? (load(ast.attributes.frontmatter) as Frontmatter)
+    : {}
   config.variables = { frontmatter, ...config.variables }
 
   return { content: Markdoc.transform(ast, config), frontmatter }
