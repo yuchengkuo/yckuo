@@ -15,6 +15,7 @@
   ]
   export let transformations: TransformerOption | TransformerVideoOption = {}
   export let blurDataUrl = ''
+  export let showcap = false
 
   let imgEl: HTMLImageElement
   let visible = false
@@ -37,7 +38,7 @@
   })
 </script>
 
-<div {...$$props}>
+<image-wrap on:click {...$$restProps}>
   {#if blurDataUrl}
     <img src={blurDataUrl} {alt} class="rounded object-cover object-center" />
     <div class="rounded object-cover object-center backdrop-filter backdrop-blur-lg" />
@@ -49,7 +50,7 @@
     {srcset}
     sizes={sizes.join(', ')}
     class={clsx(
-      'rounded object-cover object-center bg-$colors-surface transition-opacity duration-300',
+      'rounded object-cover object-center bg-$colors-surface transition-opacity duration-300 w-full h-full',
       !visible && 'opacity-0'
     )}
   />
@@ -59,7 +60,16 @@
       {alt}
       {srcset}
       sizes={sizes.join(', ')}
-      class="bg-$colors-surface rounded object-cover object-center transition-opacity duration-300"
+      class="bg-$colors-surface rounded h-full object-cover object-center w-full transition-opacity duration-300"
     />
   </noscript>
-</div>
+  {#if showcap}
+    <caption class="font-500 mt-4 text-base w-fit px-20 block">— {alt}</caption>
+  {/if}
+</image-wrap>
+
+<style>
+  caption {
+    font-variation-settings: 'slnt' 10;
+  }
+</style>
