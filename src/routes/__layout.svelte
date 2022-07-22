@@ -3,6 +3,7 @@
   import '../styles/app.css'
 
   import NProgress from 'nprogress'
+  import { onMount } from 'svelte'
 
   import { afterNavigate, beforeNavigate } from '$app/navigation'
   import { page } from '$app/stores'
@@ -12,6 +13,11 @@
 
   beforeNavigate(() => NProgress.start())
   afterNavigate(() => NProgress.done())
+
+  let colorize: boolean
+  onMount(() => {
+    colorize = document.documentElement.classList.contains('decolorize')
+  })
 </script>
 
 {#key $page}
@@ -36,6 +42,18 @@
   <h3 class="font-600 text-base text-$colors-fg-secondary tracking-tight">YuCheng Kuo</h3>
   <div class="flex font-Azeret text-xs gap-6">
     <p class="slashed-zero">(C)2019-present</p>
+    <button
+      class="uppercase *attr"
+      on:click={() => {
+        document.documentElement.classList.toggle('decolorize')
+        if (colorize) {
+          localStorage.removeItem('decolorize')
+        } else {
+          localStorage.setItem('decolorize', 'true')
+        }
+        colorize = !colorize
+      }}>{colorize ? 'Colorize' : 'Decolorize'}</button
+    >
     <a href="/" class="uppercase">Changelog</a>
   </div>
 </footer>

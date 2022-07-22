@@ -18,6 +18,28 @@
   --colors-border: rgba(232, 244, 212, 0.4);
 }
 
+.decolorize,
+.decolorize[data-theme] {
+  --colors-bg: rgba(231, 231, 231, 1);
+
+  --colors-fg: rgba(51, 51, 51, 1);
+  --colors-fg-secondary: rgba(116, 116, 116, 1);
+
+  --colors-surface: rgba(116, 116, 116, 0.08);
+  --colors-border: rgba(116, 116, 116, 0.4);
+}
+
+.decolorize.dark,
+.decolorize[data-theme].dark {
+  --colors-bg: rgba(39, 39, 39, 1);
+
+  --colors-fg: rgba(235, 235, 235, 1);
+  --colors-fg-secondary: rgba(169, 169, 169, 1);
+
+  --colors-surface: rgba(169, 169, 169, 0.08);
+  --colors-border: rgba(169, 169, 169, 0.4);
+}
+
 [data-theme='green'] {
   --colors-bg: rgba(196, 234, 192, 1);
 
