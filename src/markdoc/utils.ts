@@ -1,11 +1,12 @@
-import { Tag } from '@markdoc/markdoc'
-import type { RenderableTreeNode } from '@markdoc/markdoc'
+import pkg from '@markdoc/markdoc'
+const { Tag } = pkg
+import type { RenderableTreeNode, Tag as TagType } from '@markdoc/markdoc'
 
 // visist renderable tree with callback when pass the test function
 export function visit(
   tree: RenderableTreeNode[],
-  test: (node: Tag) => boolean,
-  callback: (node: Tag, parent: Tag[]) => void
+  test: (node: TagType) => boolean,
+  callback: (node: TagType, parent: TagType[]) => void
 ) {
   const parent = tree
   tree.forEach((node) => {
@@ -22,13 +23,13 @@ export function visit(
 }
 
 // wrap h2 and following content with `section` and others with `div`
-export function sectionize(node: Tag, parent: Tag[]) {
+export function sectionize(node: TagType, parent: TagType[]) {
   const start = node
   const depth = node.attributes.level
 
   const startIndex = parent.indexOf(start)
 
-  let end: Tag
+  let end: TagType
 
   //look for heading from start node
   let index = startIndex

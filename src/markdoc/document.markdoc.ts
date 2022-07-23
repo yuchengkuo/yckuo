@@ -1,4 +1,5 @@
-import { Tag } from '@markdoc/markdoc'
+import pkg from '@markdoc/markdoc'
+const { Tag } = pkg
 import type { Schema } from '@markdoc/markdoc'
 import { sectionize, visit } from './utils'
 
