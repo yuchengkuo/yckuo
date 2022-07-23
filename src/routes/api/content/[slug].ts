@@ -1,5 +1,6 @@
 import { getContentBySlug, getDataBySlug } from '$lib/markdoc/utils'
 import type { RequestHandler } from '@sveltejs/kit'
+import type { JSONValue } from '@sveltejs/kit/types/private'
 
 export const GET: RequestHandler = async function ({ params, url }) {
   const { slug } = params
@@ -10,7 +11,7 @@ export const GET: RequestHandler = async function ({ params, url }) {
     if (data) {
       return {
         status: 200,
-        body: JSON.stringify({ data }),
+        body: { data } as JSONValue,
       }
     }
     return {
@@ -23,7 +24,7 @@ export const GET: RequestHandler = async function ({ params, url }) {
   if (content) {
     return {
       status: 200,
-      body: JSON.stringify({ content, frontmatter }),
+      body: { content, frontmatter } as JSONValue,
     }
   }
   return {

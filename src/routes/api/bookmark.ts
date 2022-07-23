@@ -14,7 +14,7 @@ export const GET: RequestHandler = async function ({}) {
   if (items) {
     return {
       status: 200,
-      body: JSON.stringify({ items }),
+      body: { items },
       headers: {
         'Cache-Control': 'public, s-maxage=1080000, stale-while-revalidate=43200',
       },
