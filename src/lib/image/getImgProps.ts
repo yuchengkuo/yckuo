@@ -13,25 +13,40 @@ export function getImgProps({
   transformations?: TransformerOption | TransformerVideoOption
 }) {
   const averageSize = Math.ceil(widths.reduce((a, s) => a + s) / widths.length)
+  let isRemote: boolean
+  let url: URL
+
+  try {
+    url = new URL(id)
+    isRemote = true
+  } catch (_) {
+    isRemote = false
+  }
 
   return {
-    src: buildImageUrl(id, {
+    src: buildImageUrl(isRemote ? url.toString() : id, {
       transformations: {
         quality: 'auto',
         format: 'auto',
         ...transformations,
         resize: { width: averageSize, ...transformations?.resize },
       },
+      cloud: {
+        storageType: isRemote ? 'fetch' : 'upload',
+      },
     }),
     srcset: widths
       .map((width) =>
         [
-          buildImageUrl(id, {
+          buildImageUrl(isRemote ? url.toString() : id, {
             transformations: {
               quality: 'auto',
               format: 'auto',
               ...transformations,
               resize: { width: width, ...transformations?.resize },
+            },
+            cloud: {
+              storageType: isRemote ? 'fetch' : 'upload',
             },
           }),
           `${width}w`,
