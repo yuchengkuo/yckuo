@@ -19,6 +19,8 @@
 </script>
 
 <script lang="ts">
+  import Image from '$lib/image/Image.svelte'
+
   export let items
 </script>
 
@@ -58,11 +60,7 @@
         <div
           class="opacity-0 h-0 transform col-start-7 col-span-2 rotate-[{deg}deg] group-hover:opacity-100"
         >
-          <img
-            src={item.cover}
-            alt={item.title}
-            on:error={(e) => (e.currentTarget.style.opacity = '0')}
-          />
+          <Image id={item.cover} alt={item.title} />
         </div>
       </li>
     {/each}
