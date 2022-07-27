@@ -43,7 +43,7 @@
   <div class="flex font-Azeret text-xs gap-6">
     <p class="slashed-zero">(C)2019-present</p>
     <button
-      class="uppercase *attr"
+      class="font-475 uppercase *attr"
       on:click={() => {
         document.documentElement.classList.toggle('decolorize')
         if (colorize) {
