@@ -10,7 +10,7 @@ type Frontmatter = {
   [key: string]: string
 }
 
-export function getAllContentMeta(folder = '') {
+export function getAllContentMeta(folder = ''): (Frontmatter & { slug: string })[] {
   const dirs = readdirSync(join(contentPath, folder), { withFileTypes: true })
 
   const files = dirs.filter((f) => f.isFile() && f.name.endsWith('.md'))

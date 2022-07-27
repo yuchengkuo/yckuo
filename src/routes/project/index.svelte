@@ -7,6 +7,8 @@
     tag: string[]
     image: string[]
     slug: string
+    link?: string
+    time: string
   }
 
   export let allProjects: Project[]
@@ -35,15 +37,9 @@
           </p>
           <a
             class="font-Azeret mt-4 text-$colors-fg-secondary text-sm w-fit block"
-            href={`/project/${project.slug}`}>more -></a
+            href={project.link ? project.link : `/project/${project.slug}`}
+            >{project.link ? 'link ↗' : 'more ->'}</a
           >
-        </div>
-        <div
-          class="font-Azeret font-450 text-xs text-$colors-fg-secondary w-[200%] col-span-1 children:mb-2"
-        >
-          {#each project.tag ?? [] as tag}
-            <p>– {tag}</p>
-          {/each}
         </div>
         <div
           class="grid col-span-4 self-center place-items-center children:(row-start-1 col-start-1 shadow-md) "
