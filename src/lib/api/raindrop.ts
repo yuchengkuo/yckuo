@@ -1,4 +1,4 @@
-const access_token = import.meta.env.VITE_RAINDROP_ACCESS_TOKEN
+import { RAINDROP_ACCESS_TOKEN as access_token } from '$env/static/private'
 
 const RAINDROPS_ENDPOINT = `https://api.raindrop.io/rest/v1/raindrops/`
 
