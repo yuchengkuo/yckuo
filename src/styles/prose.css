@@ -1,8 +1,4 @@
 .prose {
-  :not(section, blockquote *) {
-    @apply max-w-50ch;
-  }
-
   p {
     @apply font-475 text-lg pb-8 leading-9;
   }
@@ -22,7 +18,7 @@
   h2[id],
   h3[id],
   h4[id] {
-    @apply relative after:(content-['#'] font-Azeret text-base opacity-0 transition-opacity hover:opacity-100) ;
+    @apply relative after:(content-['#'] pl-2 font-Azeret text-base opacity-0 transition-opacity hover:opacity-100) ;
   }
 
   :where(h1[id], h2[id], h3[id]) > a {
@@ -46,15 +42,15 @@
   }
 
   ul {
-    @apply -ml-2 pl-6;
+    @apply mb-8 -ml-2 pl-6;
 
     li {
-      @apply list-outside pl-2 marker:(content-['–'] font-700 text-base text-$colors-border) ;
+      @apply list-outside pl-2 marker:(content-['—'] font-700 text-base text-$colors-border) ;
     }
   }
 
   ol {
-    @apply pl-6;
+    @apply mb-8 pl-6;
 
     li {
       @apply marker:(text-base font-400 tabular-nums) ;

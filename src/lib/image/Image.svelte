@@ -1,9 +1,10 @@
 <script lang="ts">
   import clsx from 'clsx'
+  import { beforeUpdate, onMount } from 'svelte'
+
   import { getImgProps } from './getImgProps'
 
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
-  import { beforeUpdate, onMount } from 'svelte'
 
   export let id: string
   export let alt = ''

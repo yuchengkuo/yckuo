@@ -1,0 +1,37 @@
+.project {
+  section {
+    @apply my-40 w-full grid gap-x-10 grid-cols-8 items-baseline children:(col-start-3 col-span-3) ;
+  }
+
+  h2 {
+    @apply font-650;
+  }
+
+  h3 {
+    @apply font-575;
+  }
+
+  image-wrap {
+    @apply mb-10 block;
+
+    &[full='true'] {
+      @apply rounded-lg my-40 w-100vw z-50 col-start-1 col-span-8 block justify-self-center overflow-hidden;
+    }
+  }
+
+  blockquote {
+    @apply bg-$colors-surface border-$colors-border rounded-sm border-l-2 shadow-sm -my-2 -mx-5 mb-10 py-2 px-5;
+
+    * {
+      @apply font-semibold text-lg leading-9;
+    }
+
+    p {
+      @apply m-0 p-0;
+    }
+  }
+
+  grid {
+    @apply grid gap-x-10 grid-cols-4 col-start-3 col-span-4 children:(col-span-2);
+  }
+}
