@@ -9,13 +9,13 @@
 }
 
 .dark {
-  --colors-bg: 43, 53, 77
+  --colors-bg: 43, 53, 77;
 
-  --colors-fg: 232, 244, 212
-  --colors-fg-secondary: 232, 244, 212
+  --colors-fg: 232, 244, 212;
+  --colors-fg-secondary: 232, 244, 212;
 
-  --colors-surface: 232, 244, 212
-  --colors-border: 232, 244, 212
+  --colors-surface: 232, 244, 212;
+  --colors-border: 232, 244, 212;
 }
 
 .decolorize,

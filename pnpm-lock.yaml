@@ -34,6 +34,7 @@ specifiers:
   slugify: ^1.6.5
   svelte: ^3.49.0
   svelte-check: ^2.8.0
+  svelte-confetti: ^1.2.0
   svelte-preprocess: ^4.10.7
   svelte-seo: ^1.4.1
   sveltejs-markdoc: ^0.1.1
@@ -80,6 +81,7 @@ devDependencies:
   slugify: 1.6.5
   svelte: 3.49.0
   svelte-check: 2.8.0_svelte@3.49.0
+  svelte-confetti: 1.2.0
   svelte-preprocess: 4.10.7_uslzfc62di2n2otc2tvfklnwji
   svelte-seo: 1.4.1_typescript@4.7.4
   tslib: 2.4.0
@@ -3617,6 +3619,10 @@ packages:
       - sass
       - stylus
       - sugarss
+    dev: true
+
+  /svelte-confetti/1.2.0:
+    resolution: {integrity: sha512-6njSCc2mzNQpgxd6VnIkS8yhdbL9np9uTpK6bdmbephmLvI0+km0cBdfuM+MLmceVdW9Frx+ibwCFPDq/dBd1g==}
     dev: true
 
   /svelte-hmr/0.14.12_svelte@3.49.0:

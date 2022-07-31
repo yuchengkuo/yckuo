@@ -3,6 +3,7 @@
   import '../styles/app.css'
 
   import NProgress from 'nprogress'
+  import { Confetti } from 'svelte-confetti'
   import { onMount } from 'svelte'
 
   import { afterNavigate, beforeNavigate } from '$app/navigation'
@@ -15,11 +16,12 @@
   afterNavigate(() => NProgress.done())
 
   let colorize: boolean
+  let showConfetti = true
   onMount(() => {
     colorize = document.documentElement.classList.contains('decolorize')
   })
 
-  function toogleColor() {
+  async function toogleColor() {
     document.documentElement.classList.toggle('decolorize')
     if (colorize) {
       localStorage.removeItem('decolorize')
@@ -27,6 +29,7 @@
       localStorage.setItem('decolorize', 'true')
     }
     colorize = !colorize
+    showConfetti = !showConfetti
   }
 </script>
 
@@ -50,11 +53,19 @@
 
 <footer class="flex mt-40 text-fg-secondary px-6 pb-4 justify-between items-baseline">
   <h3 class="font-600 text-base text-fg-secondary tracking-tight">YuCheng Kuo</h3>
-  <div class="flex font-Azeret text-xs gap-6">
+  <div class="flex font-Azeret text-xs gap-6 relative">
     <p class="slashed-zero">(C)2019-present</p>
     <button class="font-475 uppercase *attr" on:click={toogleColor}
       >{colorize ? 'Colorize' : 'Decolorize'}</button
     >
     <a href="/" class="uppercase">Changelog</a>
+    {#if showConfetti}
+      <div class="top-1/2 left-1/2 absolute">
+        <Confetti
+          colorArray={[`rgb(var(--colors-fg))`, `rgb(var(--colors-fg-secondary))`]}
+          duartion="1000"
+        />
+      </div>
+    {/if}
   </div>
 </footer>
