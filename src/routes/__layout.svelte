@@ -18,6 +18,16 @@
   onMount(() => {
     colorize = document.documentElement.classList.contains('decolorize')
   })
+
+  function toogleColor() {
+    document.documentElement.classList.toggle('decolorize')
+    if (colorize) {
+      localStorage.removeItem('decolorize')
+    } else {
+      localStorage.setItem('decolorize', 'true')
+    }
+    colorize = !colorize
+  }
 </script>
 
 {#key $page}
@@ -42,17 +52,8 @@
   <h3 class="font-600 text-base text-$colors-fg-secondary tracking-tight">YuCheng Kuo</h3>
   <div class="flex font-Azeret text-xs gap-6">
     <p class="slashed-zero">(C)2019-present</p>
-    <button
-      class="font-475 uppercase *attr"
-      on:click={() => {
-        document.documentElement.classList.toggle('decolorize')
-        if (colorize) {
-          localStorage.removeItem('decolorize')
-        } else {
-          localStorage.setItem('decolorize', 'true')
-        }
-        colorize = !colorize
-      }}>{colorize ? 'Colorize' : 'Decolorize'}</button
+    <button class="font-475 uppercase *attr" on:click={toogleColor}
+      >{colorize ? 'Colorize' : 'Decolorize'}</button
     >
     <a href="/" class="uppercase">Changelog</a>
   </div>

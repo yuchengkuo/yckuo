@@ -22,6 +22,7 @@
   import Markdoc from 'sveltejs-markdoc'
 
   import Project from '$components/Project.svelte'
+  import Head from '$components/Head.svelte'
 
   import motion from '$lib/animation'
   import { fadeup } from '$lib/animation/keyframes'
@@ -31,12 +32,11 @@
   const easing = spring({ mass: 1, damping: 20 })
 </script>
 
-<svelte:head>
-  <title>YuCheng Kuo · Designer, Engingeer</title>
+<Head>
   <script>
     document.documentElement.removeAttribute('data-theme')
   </script>
-</svelte:head>
+</Head>
 
 <section class="flex flex-col min-h-screen pb-40">
   <div class="*grid gap-y-0 items-start children:(col-start-1 col-span-3 mb-8) ">

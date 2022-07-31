@@ -19,17 +19,18 @@
 </script>
 
 <script lang="ts">
+  import Head from '$components/Head.svelte'
+
   import Image from '$lib/image/Image.svelte'
 
   export let items
 </script>
 
-<svelte:head>
-  <title>Bookmarks · YuCheng Kuo</title>
+<Head title="Bookmarks · YuCheng Kuo">
   <script>
     document.documentElement.setAttribute('data-theme', 'cyan')
   </script>
-</svelte:head>
+</Head>
 
 <section>
   <h1 class="mb-8">Bookmarks</h1>

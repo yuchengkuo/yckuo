@@ -1,4 +1,6 @@
 <script lang="ts" context="module">
+  import type { Load } from '@sveltejs/kit'
+
   export const load: Load = async function ({ fetch }) {
     const res = await fetch('/api/content/about?data')
 
@@ -18,19 +20,18 @@
 <script lang="ts">
   import Markdoc from 'sveltejs-markdoc'
 
-  import { components } from '$lib/markdoc/components'
+  import Head from '$components/Head.svelte'
 
-  import type { Load } from '@sveltejs/kit'
+  import { components } from '$lib/markdoc/components'
 
   export let data
 </script>
 
-<svelte:head>
-  <title>About · YuCheng Kuo</title>
+<Head title="About · YuCheng Kuo">
   <script>
     document.documentElement.setAttribute('data-theme', 'green')
   </script>
-</svelte:head>
+</Head>
 
 <section class="min-h-screen mt-8 *grid">
   <div class="col-span-3">

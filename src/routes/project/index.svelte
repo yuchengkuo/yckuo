@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Head from '$components/Head.svelte'
+
   import Image from '$lib/image/Image.svelte'
 
   type Project = {
@@ -14,12 +16,11 @@
   export let allProjects: Project[]
 </script>
 
-<svelte:head>
-  <title>Projects · YuCheng Kuo</title>
+<Head title="Projects · YuCheng Kuo">
   <script>
     document.documentElement.setAttribute('data-theme', 'grass')
   </script>
-</svelte:head>
+</Head>
 
 <section class="mb-40">
   <h1 class="w-fit">Projects</h1>
