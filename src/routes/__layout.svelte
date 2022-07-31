@@ -16,7 +16,7 @@
   afterNavigate(() => NProgress.done())
 
   let colorize: boolean
-  let showConfetti = true
+  let showConfetti = false
   onMount(() => {
     colorize = document.documentElement.classList.contains('decolorize')
   })
@@ -28,8 +28,8 @@
     } else {
       localStorage.setItem('decolorize', 'true')
     }
+    showConfetti = colorize ? true : false
     colorize = !colorize
-    showConfetti = !showConfetti
   }
 </script>
 
@@ -63,7 +63,7 @@
       <div class="top-1/2 left-1/2 absolute">
         <Confetti
           colorArray={[`rgb(var(--colors-fg))`, `rgb(var(--colors-fg-secondary))`]}
-          duartion="1000"
+          duration="1500"
         />
       </div>
     {/if}
