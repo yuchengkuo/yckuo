@@ -20,7 +20,7 @@
   }
 
   blockquote {
-    @apply bg-$colors-surface border-$colors-border rounded-sm border-l-2 shadow-sm -my-2 -mx-5 mb-10 py-2 px-5;
+    @apply bg-surface border-border rounded-sm border-l-2 shadow-sm -my-2 -mx-5 mb-10 py-2 px-5;
 
     * {
       @apply font-semibold text-lg leading-9;

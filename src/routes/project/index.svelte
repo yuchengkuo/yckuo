@@ -24,7 +24,7 @@
 
 <section class="mb-40">
   <h1 class="w-fit">Projects</h1>
-  <p class="mt-8 text-$colors-fg-secondary w-fit">Lists of experiments, fun works</p>
+  <p class="mt-8 text-fg-secondary w-fit">Lists of experiments, fun works</p>
 </section>
 
 <section>
@@ -33,11 +33,11 @@
       <li class="mb-30 *grid items-baseline">
         <div class="col-span-3">
           <h2>{project.title}</h2>
-          <p class="mt-2 text-$colors-fg-secondary text-lg">
+          <p class="mt-2 text-fg-secondary text-lg">
             {project.excerpt}
           </p>
           <a
-            class="font-Azeret mt-4 text-$colors-fg-secondary text-sm w-fit block"
+            class="font-Azeret mt-4 text-fg-secondary text-sm w-fit block"
             href={project.link ? project.link : `/project/${project.slug}`}
             >{project.link ? 'link ↗' : 'more ->'}</a
           >
@@ -48,7 +48,7 @@
           {#each project.image ?? [] as id (id)}
             {@const deg = Math.floor(Math.random() * 20 - 10) % 10}
             <Image
-              class="rounded-sm h-160px transform aspect-video rotate-[{deg}deg] bg-$colors-surafce"
+              class="rounded-sm h-160px transform aspect-video rotate-[{deg}deg] bg-surafce"
               {id}
               alt={`${project.title} project images`}
             />

@@ -49,7 +49,7 @@
 }
 
 #nprogress .bar {
-  @apply bg-$colors-fg;
+  @apply bg-fg;
   opacity: 0.75;
   position: fixed;
   z-index: 99;
@@ -60,35 +60,35 @@
 }
 
 ::selection {
-  @apply bg-$colors-surface;
+  @apply bg-surface;
 }
 
 html {
-  @apply bg-$colors-fg min-h-screen antialiased;
+  @apply bg-fg min-h-screen antialiased;
 }
 
 body {
-  @apply bg-$colors-bg flex flex-col font-Uncut min-h-screen font-475 text-$colors-fg text-lg transition-colors ease-out duration-500 delay-25;
+  @apply bg-bg flex flex-col font-Uncut min-h-screen font-475 text-fg text-lg transition-colors ease-out duration-500 delay-25;
   font-variation-settings: 'slnt' 0;
 }
 
 h1 {
-  @apply font-Uncut font-575 text-$colors-fg text-4xl tracking-[-0.03em];
+  @apply font-Uncut font-575 text-fg text-4xl tracking-[-0.03em];
   font-variation-settings: 'slnt' 0;
 }
 
 h2 {
-  @apply font-Uncut font-550 text-$colors-fg text-2xl tracking-[-0.02em];
+  @apply font-Uncut font-550 text-fg text-2xl tracking-[-0.02em];
   font-variation-settings: 'slnt' 2;
 }
 
 h3 {
-  @apply font-Uncut font-500 text-$colors-fg text-xl tracking-[-0.02em];
+  @apply font-Uncut font-500 text-fg text-xl tracking-[-0.02em];
   font-variation-settings: 'slnt' 0;
 }
 
 h4 {
-  @apply font-Uncut font-450 text-$colors-fg text-lg tracking-[-0.02em];
+  @apply font-Uncut font-450 text-fg text-lg tracking-[-0.02em];
   font-variation-settings: 'slnt' 0;
 }
 

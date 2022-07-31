@@ -51,7 +51,7 @@
     {srcset}
     sizes={sizes.join(', ')}
     class={clsx(
-      'rounded object-cover object-center bg-$colors-surface transition-opacity duration-300 w-full h-full',
+      'rounded object-cover object-center bg-surface transition-opacity duration-300 w-full h-full',
       !visible && 'opacity-0'
     )}
   />
@@ -61,7 +61,7 @@
       {alt}
       {srcset}
       sizes={sizes.join(', ')}
-      class="bg-$colors-surface rounded h-full object-cover object-center w-full transition-opacity duration-300"
+      class="bg-surface rounded h-full object-cover object-center w-full transition-opacity duration-300"
     />
   </noscript>
   {#if showcap}

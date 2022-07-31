@@ -18,8 +18,7 @@
   <p>{project.excerpt}</p>
   <div class="flex flex-wrap w-full gap-2">
     {#each project.tags as tag}
-      <small
-        class="bg-$colors-surface font-Azeret rounded-[4px] font-450 text-xs py-0.5 px-1 capitalize"
+      <small class="bg-surface font-Azeret rounded-[4px] font-450 text-xs py-0.5 px-1 capitalize"
         >{tag}</small
       >
     {/each}

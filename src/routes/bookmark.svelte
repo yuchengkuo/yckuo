@@ -34,7 +34,7 @@
 
 <section>
   <h1 class="mb-8">Bookmarks</h1>
-  <p class="text-$colors-fg-secondary text-lg">A curated list of interesting on the web</p>
+  <p class="text-fg-secondary text-lg">A curated list of interesting on the web</p>
 </section>
 
 <section class="">
@@ -44,7 +44,7 @@
       <li class="*grid group items-baseline">
         <div class="flex flex-col opacity-0 gap-1 col-start-2 group-hover:opacity-100">
           {#each item.tags as tag}
-            <p class="font-Azeret font-400 text-$colors-fg-secondary text-xs text-right">
+            <p class="font-Azeret font-400 text-fg-secondary text-xs text-right">
               – {tag}
             </p>
           {/each}
@@ -52,10 +52,8 @@
 
         <div class="flex flex-col gap-2 col-start-3 col-span-3">
           <h3>{item.title}</h3>
-          <a class="font-Azeret text-$colors-fg-secondary text-sm w-fit" href={item.link}
-            >{item.domain}</a
-          >
-          <p class="font-475 text-$colors-fg-secondary text-lg">{item.excerpt}</p>
+          <a class="font-Azeret text-fg-secondary text-sm w-fit" href={item.link}>{item.domain}</a>
+          <p class="font-475 text-fg-secondary text-lg">{item.excerpt}</p>
         </div>
 
         <div

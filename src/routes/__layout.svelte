@@ -37,7 +37,7 @@
   >
     {#if $page.url.pathname !== '/'}
       <button
-        class="font-Azeret font-450 text-sm text-$colors-fg-secondary mb-8 *attr"
+        class="font-Azeret font-450 text-sm text-fg-secondary mb-8 *attr"
         on:click={() => window.history.back()}
       >
         ←·Back
@@ -48,8 +48,8 @@
   </main>
 {/key}
 
-<footer class="flex mt-40 text-$colors-fg-secondary px-6 pb-4 justify-between items-baseline">
-  <h3 class="font-600 text-base text-$colors-fg-secondary tracking-tight">YuCheng Kuo</h3>
+<footer class="flex mt-40 text-fg-secondary px-6 pb-4 justify-between items-baseline">
+  <h3 class="font-600 text-base text-fg-secondary tracking-tight">YuCheng Kuo</h3>
   <div class="flex font-Azeret text-xs gap-6">
     <p class="slashed-zero">(C)2019-present</p>
     <button class="font-475 uppercase *attr" on:click={toogleColor}

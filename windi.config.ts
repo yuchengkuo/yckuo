@@ -6,6 +6,19 @@ function range(size: number, startAt = 1) {
   return Array.from(Array(size).keys()).map((i) => i + startAt)
 }
 
+function cssPropColor(prop: `--colors-${string}`, opacity?: number): Function {
+  return ({ opacityVariable, opacityValue }) => {
+    if (opacity !== undefined && opacityValue !== undefined && opacityVariable !== undefined)
+      return `rgba(var(${prop}), ${opacity})`
+
+    if (opacityValue !== undefined) return `rgba(var(${prop}), ${opacityValue})`
+
+    if (opacityVariable !== undefined) return `rgba(var(${prop}), var(${opacityVariable}, 1))`
+
+    return `rgb(var(${prop}))`
+  }
+}
+
 export default defineConfig({
   darkMode: 'class',
   theme: {
@@ -23,11 +36,20 @@ export default defineConfig({
       width: {
         fit: 'fit-content',
       },
+      colors: {
+        bg: cssPropColor('--colors-bg'),
+        fg: {
+          DEFAULT: cssPropColor('--colors-fg'),
+          secondary: cssPropColor('--colors-fg-secondary'),
+        },
+        surface: cssPropColor('--colors-surface', 0.08),
+        border: cssPropColor('--colors-border', 0.4),
+      },
     },
   },
   alias: {
     grid: 'grid grid-cols-8 gap-10',
-    attr: 'transition-all duration-100 underline underline-$colors-border decoration-1.6px underline-offset-1.4px hover:(underline-current decoration-2.2px) active:(text-$colors-border)',
+    attr: 'transition-all duration-100 underline underline-border decoration-1.6px underline-offset-1.4px hover:(underline-current decoration-2.2px) active:(text-border)',
   },
   safelist: [range(5).map((i) => `rotate-[${i}deg] rotate-[-${i}deg]`)],
   plugins: [
@@ -41,12 +63,6 @@ export default defineConfig({
           '&::-webkit-scrollbar': {
             display: 'none',
           },
-        },
-        '.font-feature': {
-          'font-feature-settings': "'ss02', 'ss03'",
-        },
-        '.font-feature-none': {
-          'font-feature-settings': 'none',
         },
       })
       addVariant('only-middle', ({ modifySelectors }) =>
