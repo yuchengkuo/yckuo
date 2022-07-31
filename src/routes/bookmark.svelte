@@ -26,7 +26,10 @@
   export let items
 </script>
 
-<Head title="Bookmarks · YuCheng Kuo">
+<Head
+  title="Bookmarks · YuCheng Kuo"
+  description="A little collection of interesting things on the internet."
+>
   <script>
     document.documentElement.setAttribute('data-theme', 'cyan')
   </script>
