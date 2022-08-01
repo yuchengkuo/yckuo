@@ -1,5 +1,4 @@
 <script lang="ts">
-  import clsx from 'clsx'
   import { beforeUpdate, onMount } from 'svelte'
 
   import { getImgProps } from './getImgProps'
@@ -44,16 +43,15 @@
     <img src={blurDataUrl} {alt} class="rounded object-cover object-center" />
     <div class="rounded object-cover object-center backdrop-filter backdrop-blur-lg" />
   {/if}
+  <div class="bg-surface rounded h-full w-full" class:hidden={visible} />
   <img
     bind:this={imgEl}
     {src}
     {alt}
     {srcset}
     sizes={sizes.join(', ')}
-    class={clsx(
-      'rounded object-cover object-center bg-surface transition-opacity duration-300 w-full h-full',
-      !visible && 'opacity-0'
-    )}
+    class="bg-surface rounded h-full object-cover object-center w-full transition-opacity duration-300"
+    class:opacity-0={!visible}
   />
   <noscript>
     <img
@@ -65,7 +63,7 @@
     />
   </noscript>
   {#if showcap}
-    <caption class="font-500 mt-4 text-base w-fit px-20 block">— {alt}</caption>
+    <caption class="font-500 mt-4 text-base w-fit block">— {alt}</caption>
   {/if}
 </image-wrap>
 
