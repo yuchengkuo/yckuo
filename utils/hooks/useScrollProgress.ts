@@ -1,10 +1,10 @@
-import { useViewportScroll } from 'framer-motion'
+import { useScroll } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 export default function useScrollProgress() {
   const [progress, setProgress] = useState(0)
   const [distY, setDistY] = useState(0)
-  const { scrollY, scrollYProgress } = useViewportScroll()
+  const { scrollY, scrollYProgress } = useScroll()
 
   useEffect(() => {
     const unSubsProgree = scrollYProgress.onChange((current) => setProgress(current))
