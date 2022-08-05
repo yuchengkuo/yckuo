@@ -18,7 +18,7 @@ specifiers:
   date-fns: ^2.29.1
   embla-carousel-react: ^6.2.0
   eslint: ^8.21.0
-  eslint-config-next: 12.2.2
+  eslint-config-next: 12.2.4
   framer-motion: ^6.5.1
   next: 12.2.2
   next-contentlayer: ^0.2.6
@@ -77,7 +77,7 @@ devDependencies:
   cheerio: 1.0.0-rc.12
   contentlayer: 0.2.6
   eslint: 8.21.0
-  eslint-config-next: 12.2.2_qugx7qdu5zevzvxaiqyxfiwquq
+  eslint-config-next: 12.2.4_qugx7qdu5zevzvxaiqyxfiwquq
   node-fetch: 2.6.7
   postcss: 8.4.14
   prettier: 2.7.1
@@ -455,8 +455,8 @@ packages:
     resolution: {integrity: sha512-BqDwE4gDl1F608TpnNxZqrCn6g48MBjvmWFEmeX5wEXDXh3IkAOw6ASKUgjT8H4OUePYFqghDFUss5ZhnbOUjw==}
     dev: false
 
-  /@next/eslint-plugin-next/12.2.2:
-    resolution: {integrity: sha512-XOi0WzJhGH3Lk51SkSu9eZxF+IY1ZZhWcJTIGBycAbWU877IQa6+6KxMATWCOs7c+bmp6Sd8KywXJaDRxzu0JA==}
+  /@next/eslint-plugin-next/12.2.4:
+    resolution: {integrity: sha512-ChDkUIkJeYWKRx+FdF+EhUgvKtK1wF+Xew4Os7ef3iAjMch5GGBiezw2zGXTa/C0E6potz4j11EpX89mngffug==}
     dependencies:
       glob: 7.1.7
     dev: true
@@ -2254,8 +2254,8 @@ packages:
     dev: false
     optional: true
 
-  /eslint-config-next/12.2.2_qugx7qdu5zevzvxaiqyxfiwquq:
-    resolution: {integrity: sha512-oJhWBLC4wDYYUFv/5APbjHUFd0QRFCojMdj/QnMoOEktmeTvwnnoA8F8uaXs0fQgsaTK0tbUxBRv9/Y4/rpxOA==}
+  /eslint-config-next/12.2.4_qugx7qdu5zevzvxaiqyxfiwquq:
+    resolution: {integrity: sha512-r3keSLY1Z+rN+ASN8nmWwZ+AsMl6IrPGRWgbQhKHcop4/fk1hJGxE9Xf/mYMkV07+1Q/catchw25lu525HFy5Q==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -2263,7 +2263,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@next/eslint-plugin-next': 12.2.2
+      '@next/eslint-plugin-next': 12.2.4
       '@rushstack/eslint-patch': 1.1.4
       '@typescript-eslint/parser': 5.32.0_qugx7qdu5zevzvxaiqyxfiwquq
       eslint: 8.21.0
