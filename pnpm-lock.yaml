@@ -26,7 +26,6 @@ specifiers:
   node-fetch: 2.6.7
   nprogress: ^0.2.0
   postcss: ^8.4.14
-  preact: ^10.10.1
   prettier: ^2.7.1
   prettier-plugin-tailwindcss: ^0.1.13
   react: 17.0.2
@@ -59,7 +58,6 @@ dependencies:
   next-contentlayer: 0.2.6_6s32wxz5ps7aqzzuo7qur6i26m
   next-seo: 5.5.0_6s32wxz5ps7aqzzuo7qur6i26m
   nprogress: 0.2.0
-  preact: 10.10.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-medium-image-zoom: 4.4.3_sfoxds7t5ydpegc3knd667wn6m
@@ -4317,10 +4315,6 @@ packages:
       nanoid: 3.3.4
       picocolors: 1.0.0
       source-map-js: 1.0.2
-    dev: false
-
-  /preact/10.10.1:
-    resolution: {integrity: sha512-cXljG59ylGtSLismoLojXPAGvnh2ipQr3BYz9KZQr+1sdASCT+sR/v8dSMDS96xGCdtln2wHfAHCnLJK+XcBNg==}
     dev: false
 
   /prebuild-install/7.1.1:
