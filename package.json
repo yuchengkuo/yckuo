@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "packageManager": "pnpm@7.6.0",
   "repository": {
     "url": "https://github.com/yuchengkuo/yckuo"
   },
