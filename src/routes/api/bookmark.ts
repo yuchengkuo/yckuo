@@ -1,7 +1,7 @@
 import { getBookmarks } from '$lib/api/raindrop'
 import type { RequestHandler } from '@sveltejs/kit'
 
-export const GET: RequestHandler = async function ({}) {
+export const GET: RequestHandler = async function () {
   const res = await getBookmarks('20734001')
 
   if (!res.ok)

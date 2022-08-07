@@ -12,7 +12,7 @@ export function visit(
   tree.forEach((node) => {
     if (typeof node === 'string') return
 
-    if (Boolean(test.call(this, node))) {
+    if (test.call(this, node)) {
       callback.call(this, node, parent)
     }
 

@@ -20,7 +20,7 @@ export const heading: Schema = {
   },
 }
 
-function generateID(children: Array<RenderableTreeNode>, attributes: any) {
+function generateID(children: Array<RenderableTreeNode>, attributes: Record<string, unknown>) {
   if (attributes.id && typeof attributes.id === 'string') {
     return attributes.id
   }

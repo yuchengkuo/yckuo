@@ -3,7 +3,7 @@
   import { dev } from '$app/env'
   import type { SvelteSeoProps } from 'svelte-seo/types/SvelteSeo'
 
-  interface $$Props extends SvelteSeoProps {}
+  type $$Props = SvelteSeoProps
 
   const baseUrl = dev ? '' : 'https://yuchengkuo.com'
 

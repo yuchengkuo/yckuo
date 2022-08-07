@@ -9,7 +9,7 @@ const CONFIG_ENDPOINT = '3/configuration'
 const FAVTV_ENDPOINT = `4/account/${user_id}/tv/favorites`
 const TV_ENPOINT = '3/tv'
 
-export async function getFavoriteTV(page: number = 1) {
+export async function getFavoriteTV(page = 1) {
   const url = new URL(FAVTV_ENDPOINT, BASE_ENDPOINT)
 
   const query = new URLSearchParams({

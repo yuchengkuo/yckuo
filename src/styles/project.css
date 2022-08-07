@@ -1,6 +1,6 @@
 .project {
   section {
-    @apply my-40 w-full grid gap-x-10 grid-cols-8 items-baseline children:(col-start-3 col-span-3) ;
+    @apply my-40 w-full grid gap-x-10 grid-cols-8 items-baseline children:(col-start-3 col-span-3);
   }
 
   h2 {

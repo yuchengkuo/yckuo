@@ -2,8 +2,16 @@ import { buildImageUrl, setConfig } from 'cloudinary-build-url'
 
 setConfig({ cloudName: 'yucheng' })
 
-export async function getBlurDataUrl(cloudinaryId: string) {
-  const imageURL = buildImageUrl(cloudinaryId, {
+export async function getBlurDataUrl(id: string) {
+  let isRemote: boolean
+
+  try {
+    new URL(id)
+    isRemote = true
+  } catch (_) {
+    isRemote = false
+  }
+  const imageURL = buildImageUrl(id, {
     transformations: {
       resize: { width: 100 },
       quality: 'auto',
@@ -13,9 +21,12 @@ export async function getBlurDataUrl(cloudinaryId: string) {
         value: '1000',
       },
     },
+    cloud: {
+      storageType: isRemote ? 'fetch' : 'upload',
+    },
   })
-  const dataUrl = await getDataUrlForImage(imageURL)
-  return dataUrl
+
+  return await getDataUrlForImage(imageURL)
 }
 
 async function getDataUrlForImage(imageUrl: string) {

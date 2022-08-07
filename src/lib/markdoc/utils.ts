@@ -51,8 +51,8 @@ export function getDataBySlug(params: string, folder = '') {
   throw new Error(`File ${params}.yaml does not exist`)
 }
 
-function findMarkdown(data: Object & { markdown?: string }) {
-  if (data.hasOwnProperty('markdown')) {
+function findMarkdown(data: unknown & { markdown?: string }) {
+  if ('markdown' in data) {
     const { content } = transformContent(data.markdown)
     data.markdown = content as unknown as string
   }
