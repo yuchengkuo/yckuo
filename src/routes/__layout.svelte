@@ -1,10 +1,12 @@
 <script lang="ts">
   import 'virtual:windi.css'
+  import 'virtual:windi-devtools'
   import '../styles/app.css'
 
   import NProgress from 'nprogress'
   import { Confetti } from 'svelte-confetti'
   import { onMount } from 'svelte'
+  import { inview } from 'svelte-inview'
 
   import { afterNavigate, beforeNavigate } from '$app/navigation'
   import { page } from '$app/stores'
@@ -17,6 +19,11 @@
 
   let colorize: boolean
   let showConfetti = false
+  let pathnames: string[]
+  let border = false
+
+  $: pathnames = $page.url.pathname.split('/')
+
   onMount(() => {
     colorize = document.documentElement.classList.contains('decolorize')
   })
@@ -36,15 +43,32 @@
 {#key $page}
   <main
     use:motion={{ keyframes: fade, options: { duration: 0.4, delay: 0.4 } }}
-    class="h-full mb-auto p-20"
+    class="h-full mb-auto p-20 phone:(p-6)"
   >
     {#if $page.url.pathname !== '/'}
-      <button
-        class="font-Azeret font-450 text-sm text-fg-secondary mb-8 *attr"
-        on:click={() => window.history.back()}
+      <nav
+        class="flex font-Azeret bg-bg/80 border-b-border/10 font-450 text-sm text-fg-secondary mb-6 pb-2 top-0 z-50 gap-2 duration-200 sticky backdrop-blur backdrop-filter"
+        class:border-b={border}
+        class:pt-2={border}
+        use:inview={{ threshold: 0, rootMargin: '0px 0px -100% 0px' }}
+        on:change={(e) => {
+          const { inView } = e.detail
+          if (inView) {
+            border = true
+          } else {
+            border = false
+          }
+        }}
       >
-        ←·Back
-      </button>
+        {#each pathnames as path, index}
+          <a href={index === 0 ? '/' : pathnames.slice(0, index + 1).join('/')}>
+            {index === 0 ? 'index' : path}
+          </a>
+          {#if pathnames.length !== index + 1}
+            <span class="opacity-50">/</span>
+          {/if}
+        {/each}
+      </nav>
     {/if}
 
     <slot />
@@ -53,19 +77,23 @@
 
 <footer class="flex mt-40 text-fg-secondary px-6 pb-4 justify-between items-baseline">
   <h3 class="font-600 text-base text-fg-secondary tracking-tight">YuCheng Kuo</h3>
-  <div class="flex font-Azeret text-xs gap-6 relative">
+  <div class="flex font-Azeret text-xs gap-6">
     <p class="slashed-zero">(C)2019-present</p>
-    <button class="font-475 uppercase *attr" on:click={toogleColor}
-      >{colorize ? 'Colorize' : 'Decolorize'}</button
+    <button
+      class="text-xs uppercase *attr"
+      on:click={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Top</button
     >
+    <button class="font-475 uppercase relative *attr" on:click={toogleColor}
+      >{colorize ? 'Colorize' : 'Decolorize'}
+      {#if showConfetti}
+        <div class="top-1/2 left-1/2 absolute">
+          <Confetti
+            colorArray={[`rgb(var(--colors-fg))`, `rgb(var(--colors-fg-secondary))`]}
+            duration="1500"
+          />
+        </div>
+      {/if}
+    </button>
     <a href="/" class="uppercase">Changelog</a>
-    {#if showConfetti}
-      <div class="top-1/2 left-1/2 absolute">
-        <Confetti
-          colorArray={[`rgb(var(--colors-fg))`, `rgb(var(--colors-fg-secondary))`]}
-          duration="1500"
-        />
-      </div>
-    {/if}
   </div>
 </footer>

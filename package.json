@@ -58,6 +58,7 @@
     "svelte": "^3.49.0",
     "svelte-check": "^2.8.0",
     "svelte-confetti": "^1.2.0",
+    "svelte-inview": "^3.0.1",
     "svelte-preprocess": "^4.10.7",
     "svelte-seo": "^1.4.1",
     "tslib": "^2.4.0",
