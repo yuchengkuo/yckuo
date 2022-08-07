@@ -18,6 +18,7 @@
   afterNavigate(() => NProgress.done())
 
   let colorize: boolean
+  let theme: 'darken' | 'lighten'
   let showConfetti = false
   let pathnames: string[]
   let border = false
@@ -26,9 +27,21 @@
 
   onMount(() => {
     colorize = document.documentElement.classList.contains('decolorize')
+    theme = document.documentElement.classList.contains('dark') ? 'lighten' : 'darken'
+
+    const matchMedia = window.matchMedia('(prefers-color-scheme: dark)')
+    matchMedia.addEventListener('change', (e) => {
+      if (localStorage.getItem('theme')) return
+      if (e.matches) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+      theme = document.documentElement.classList.contains('dark') ? 'lighten' : 'darken'
+    })
   })
 
-  async function toogleColor() {
+  async function toggleColor() {
     document.documentElement.classList.toggle('decolorize')
     if (colorize) {
       localStorage.removeItem('decolorize')
@@ -37,6 +50,29 @@
     }
     showConfetti = colorize ? true : false
     colorize = !colorize
+  }
+
+  async function toggleTheme() {
+    if (theme === 'darken') {
+      document.documentElement.classList.add('dark')
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        localStorage.removeItem('theme')
+      } else {
+        localStorage.setItem('theme', 'dark')
+      }
+      theme = 'lighten'
+      return
+    }
+    if (theme === 'lighten') {
+      document.documentElement.classList.remove('dark')
+      if (!window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        localStorage.removeItem('theme')
+      } else {
+        localStorage.setItem('theme', 'light')
+      }
+      theme = 'darken'
+      return
+    }
   }
 </script>
 
@@ -47,17 +83,13 @@
   >
     {#if $page.url.pathname !== '/'}
       <nav
-        class="flex font-Azeret bg-bg/80 border-b-border/10 font-450 text-sm text-fg-secondary mb-6 pb-2 top-0 z-50 gap-2 duration-200 sticky backdrop-blur backdrop-filter"
+        class="flex font-Azeret bg-bg/80 border-b-border/10 font-450 text-sm text-fg-secondary mb-6 pb-2 top-0 z-40 gap-2 sticky backdrop-blur backdrop-filter"
         class:border-b={border}
         class:pt-2={border}
         use:inview={{ threshold: 0, rootMargin: '0px 0px -100% 0px' }}
         on:change={(e) => {
           const { inView } = e.detail
-          if (inView) {
-            border = true
-          } else {
-            border = false
-          }
+          inView ? (border = true) : (border = false)
         }}
       >
         {#each pathnames as path, index}
@@ -79,11 +111,8 @@
   <h3 class="font-600 text-base text-fg-secondary tracking-tight">YuCheng Kuo</h3>
   <div class="flex font-Azeret text-xs gap-6">
     <p class="slashed-zero">(C)2019-present</p>
-    <button
-      class="text-xs uppercase *attr"
-      on:click={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Top</button
-    >
-    <button class="font-475 uppercase relative *attr" on:click={toogleColor}
+    <button class="text-xs uppercase *attr" on:click={toggleTheme}>{theme}</button>
+    <button class="font-475 uppercase relative *attr" on:click={toggleColor}
       >{colorize ? 'Colorize' : 'Decolorize'}
       {#if showConfetti}
         <div class="top-1/2 left-1/2 absolute">

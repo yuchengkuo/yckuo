@@ -1,6 +1,6 @@
 .project {
   section {
-    @apply my-40 w-full grid gap-x-10 grid-cols-8 items-baseline children:(col-start-3 col-span-3);
+    @apply my-40 w-full grid gap-x-10 grid-cols-8 items-baseline children:(col-start-3 col-span-3) ;
   }
 
   h2 {
@@ -15,10 +15,10 @@
     @apply mb-10 block;
 
     &[full='true'] {
-      @apply rounded-lg my-40 w-100vw z-50 col-start-1 col-span-8 block justify-self-center overflow-hidden;
+      @apply rounded-lg my-40 w-100vw z-99 col-start-1 col-span-8 block justify-self-center overflow-hidden;
 
       caption {
-        @apply px-20;
+        @apply px-20 z-10;
       }
     }
   }
