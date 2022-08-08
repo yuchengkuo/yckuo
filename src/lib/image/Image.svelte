@@ -16,6 +16,8 @@
   export let transformations: TransformerOption | TransformerVideoOption = {}
   export let blurDataUrl = ''
   export let showcap = false
+  let className = ''
+  export { className as class }
 
   let imgEl: HTMLImageElement
   let visible = false
@@ -38,7 +40,7 @@
   })
 </script>
 
-<image-wrap on:click {...$$restProps} style="display: block;">
+<image-wrap on:click class={className} style="display: block;">
   {#if blurDataUrl}
     <img src={blurDataUrl} {alt} class="rounded object-cover object-center" />
     <div class="rounded object-cover object-center backdrop-filter backdrop-blur-lg" />
