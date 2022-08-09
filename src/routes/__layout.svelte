@@ -107,10 +107,12 @@
   </main>
 {/key}
 
-<footer class="flex mt-40 text-fg-secondary px-6 pb-4 justify-between items-baseline">
+<footer
+  class="flex flex-wrap mt-40 text-fg-secondary px-6 pb-4 justify-between items-baseline phone:(gap-4)"
+>
   <h3 class="font-600 text-base text-fg-secondary tracking-tight">YuCheng Kuo</h3>
-  <div class="flex font-Azeret text-xs gap-6">
-    <p class="slashed-zero">(C)2019-present</p>
+  <div class="flex flex-wrap font-Azeret text-xs gap-6 phone:(gap-y-4 justify-between) ">
+    <p class="slashed-zero phone:(w-full)">(C)2019-present</p>
     <button class="text-xs uppercase *attr" on:click={toggleTheme}>{theme}</button>
     <button class="font-475 uppercase relative *attr" on:click={toggleColor}
       >{colorize ? 'Colorize' : 'Decolorize'}

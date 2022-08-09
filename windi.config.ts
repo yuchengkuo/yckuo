@@ -49,7 +49,7 @@ export default defineConfig({
   },
   alias: {
     grid: 'grid grid-cols-8 gap-10 tablet:(grid-cols-6) phone:(grid-cols-4 gap-4)',
-    attr: 'transition-all duration-100 underline underline-border decoration-1.6px underline-offset-1.4px transform-gpu hover:(underline-current decoration-2.2px) active:(text-border scale-95)',
+    attr: 'transition-all duration-100 underline underline-border decoration-1.6px underline-offset-1.4px transform hover:(underline-current decoration-2.2px) active:(text-border scale-95)',
   },
   safelist: [range(5).map((i) => `rotate-[${i}deg] rotate-[-${i}deg]`)],
   plugins: [

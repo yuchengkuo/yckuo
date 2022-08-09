@@ -39,7 +39,9 @@
 </Head>
 
 <section class="flex flex-col min-h-screen pb-40">
-  <div class="*grid gap-y-0 items-start children:(col-start-1 col-span-3 mb-8) ">
+  <div
+    class="*grid gap-y-0 items-start children:(col-start-1 col-span-3 mb-8) tablet:children:(col-span-5) "
+  >
     <h1 use:motion={{ keyframes: fadeup, options: { easing, delay: 0.4 } }}>YuCheng Kuo</h1>
     <div use:motion={{ keyframes: fadeup, options: { easing, delay: 0.5 } }} class="text-lg">
       <Markdoc content={data.overview.markdown} />
@@ -47,7 +49,7 @@
 
     <nav
       use:motion={{ keyframes: fadeup, options: { easing, delay: 0.8 } }}
-      class="flex font-Azeret font-400 text-sm gap-2 justify-between uppercase"
+      class="flex flex-wrap font-Azeret font-400 text-sm gap-2 justify-between uppercase"
     >
       <a sveltekit:prefetch href="/about">About</a>
       <a sveltekit:prefetch href="/project">Project</a>
@@ -58,7 +60,7 @@
   </div>
 </section>
 
-<section class="*grid children:col-span-2">
+<section class="*grid tablet:( children:(col-span-full) ) phone:(gap-y-20) children:col-span-2 ">
   <div id="projects">
     <h2>Projects</h2>
 
@@ -69,7 +71,7 @@
     <a href="/project">All →</a>
   </div>
 
-  <div class="col-start-4">
+  <div class="col-start-4 tablet:(col-start-1)">
     <h2>{data.work.title}</h2>
 
     <Markdoc content={data.work.markdown} />

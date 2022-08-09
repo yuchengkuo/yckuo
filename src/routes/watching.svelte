@@ -39,7 +39,9 @@
 <h1 class="mb-50">Watching</h1>
 
 <section class="*grid">
-  <ul class="grid gap-x-8 gap-y-16 grid-cols-5 col-span-6">
+  <ul
+    class="grid gap-x-8 gap-y-16 grid-cols-5 col-span-6 tablet:(grid-cols-4) phone:(grid-cols-2 gap-6) "
+  >
     {#each shows as show, index (show.id)}
       <li
         class="group"
