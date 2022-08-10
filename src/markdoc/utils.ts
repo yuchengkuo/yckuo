@@ -23,7 +23,7 @@ export function visit(
 }
 
 // wrap h2 and following content with `section` and others with `div`
-export function sectionize(node: TagType, parent: TagType[]) {
+export function sectionize(node: TagType, parent: TagType[], test?: (node: TagType) => boolean) {
   const start = node
   const depth = node.attributes.level
 
@@ -34,7 +34,10 @@ export function sectionize(node: TagType, parent: TagType[]) {
   //look for heading from start node
   let index = startIndex
   while (++index < parent.length) {
-    if (parent[index].name.match(/h\d/) && parent[index].attributes.level <= depth) {
+    if (
+      (parent[index].name.match(/h\d/) && parent[index].attributes.level <= depth) ||
+      (test && test.call(this, parent[index]))
+    ) {
       end = parent[index]
       break
     }

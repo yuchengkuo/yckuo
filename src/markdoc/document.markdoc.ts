@@ -10,8 +10,8 @@ export const document: Schema = {
     const attributes = node.transformAttributes(config)
     const children = node.transformChildren(config)
 
-    // wrap h2 and following content by `section`, others with `div`
-    for (let depth = 6; depth > 0; depth--) {
+    // wrap only h2 and following content by `section`
+    for (let depth = 2; depth > 0; depth--) {
       visit(
         children,
         (node) => node.name.match(/h\d/) && node.attributes.level === depth,
