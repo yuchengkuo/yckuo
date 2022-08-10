@@ -60,7 +60,7 @@
   </div>
 </section>
 
-<section class="*grid tablet:( children:(col-span-full) ) phone:(gap-y-20) children:col-span-2 ">
+<section class="*grid phone:(gap-y-20) children:col-span-2 tablet:children:(col-span-full) ">
   <div id="projects">
     <h2>Projects</h2>
 

@@ -82,8 +82,8 @@
     class="h-full mb-auto p-20 phone:(p-6)"
   >
     {#if $page.url.pathname !== '/'}
-      <nav
-        class="flex font-Azeret bg-bg/80 border-b-border/10 font-450 text-sm text-fg-secondary mb-6 pb-2 top-0 z-40 gap-2 sticky backdrop-blur backdrop-filter"
+      <header
+        class="flex font-Azeret bg-bg/80 border-b-border/10 font-450 text-sm text-fg-secondary mb-6 pb-2 transition-colors top-0 ease-out z-40 gap-2 duration-500 delay-25 sticky backdrop-blur backdrop-filter"
         class:border-b={border}
         class:pt-2={border}
         use:inview={{ threshold: 0, rootMargin: '0px 0px -100% 0px' }}
@@ -100,7 +100,7 @@
             <span class="opacity-50">/</span>
           {/if}
         {/each}
-      </nav>
+      </header>
     {/if}
 
     <slot />
