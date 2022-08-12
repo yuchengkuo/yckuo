@@ -40,7 +40,7 @@
   })
 </script>
 
-<image-wrap on:click class={className} style="display: block;" {...$$restProps}>
+<image-wrap on:click class={className} style:display="block" {...$$restProps}>
   {#if blurDataUrl}
     <img src={blurDataUrl} {alt} class="rounded object-cover object-center" />
     <div class="rounded object-cover object-center backdrop-filter backdrop-blur-lg" />

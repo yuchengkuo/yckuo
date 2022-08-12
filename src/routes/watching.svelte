@@ -79,7 +79,8 @@
 {#if shows[hoverId]}
   <div
     class="rounded-md h-max bg-fg-secondary/84 shadow-lg text-bg p-4 transform w-80 rotate-2 backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto"
-    style={`left: ${x}px; top: ${y}px;`}
+    style:left={`${x}px`}
+    style:top={`${y}px`}
   >
     {#key hoverId}
       <h4 class="font-575 text-bg mb-1">{shows[hoverId].title}</h4>
