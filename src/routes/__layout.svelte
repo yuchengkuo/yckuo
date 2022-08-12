@@ -76,7 +76,7 @@
   }
 </script>
 
-{#key $page}
+{#key $page.url.pathname}
   <main
     use:motion={{ keyframes: fade, options: { duration: 0.4, delay: 0.4 } }}
     class="h-full mb-auto p-20 phone:(p-6)"
