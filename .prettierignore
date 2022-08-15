@@ -1,5 +1,14 @@
 node_modules
 
+#contentlayer
 .contentlayer
-.svelte-kit
+
+# vercel
 .vercel
+
+# svelte
+/.svelte-kit
+.output
+
+# pnpm
+pnpm-lock.yaml
