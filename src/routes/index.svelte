@@ -40,7 +40,7 @@
 
 <section class="flex flex-col min-h-screen pb-40">
   <div
-    class="*grid gap-y-0 items-start children:(col-start-1 col-span-3 mb-8) tablet:children:(col-span-5) "
+    class="*grid gap-y-0 items-start no-js:children:(opacity-100) children:(col-start-1 col-span-3 mb-8 opacity-0) tablet:children:(col-span-5) "
   >
     <h1 use:motion={{ keyframes: fadeup, options: { easing, delay: 0.4 } }}>YuCheng Kuo</h1>
     <div use:motion={{ keyframes: fadeup, options: { easing, delay: 0.5 } }} class="text-lg">

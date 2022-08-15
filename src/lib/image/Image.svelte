@@ -40,19 +40,19 @@
   })
 </script>
 
-<image-wrap on:click class={className} style:display="block" {...$$restProps}>
+<figure on:click class={className} style:display="block" {...$$restProps}>
   {#if blurDataUrl}
     <img src={blurDataUrl} {alt} class="rounded object-cover object-center" />
     <div class="rounded object-cover object-center backdrop-filter backdrop-blur-lg" />
   {/if}
-  <div class="bg-surface rounded h-full w-full" class:hidden={visible} />
+  <div class="bg-surface rounded h-full w-full no-js:hidden" class:hidden={visible} />
   <img
     bind:this={imgEl}
     {src}
     {alt}
     {srcset}
     sizes={sizes.join(', ')}
-    class="bg-surface rounded h-full object-cover object-center w-full transition-opacity duration-300"
+    class="bg-surface rounded h-full object-cover object-center w-full transition-opacity duration-300 no-js:hidden"
     class:opacity-0={!visible}
   />
   <noscript>
@@ -65,12 +65,12 @@
     />
   </noscript>
   {#if showcap}
-    <caption class="font-500 mt-4 text-base w-fit block">— {alt}</caption>
+    <figcaption class="font-500 mt-4 text-base w-fit block">— {alt}</figcaption>
   {/if}
-</image-wrap>
+</figure>
 
 <style>
-  caption {
+  figcaption {
     font-variation-settings: 'slnt' 10;
   }
 </style>

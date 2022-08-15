@@ -36,6 +36,9 @@ export default defineConfig({
       width: {
         fit: 'fit-content',
       },
+      height: {
+        fit: 'fit-content',
+      },
       colors: {
         bg: cssPropColor('--colors-bg'),
         fg: {
@@ -67,6 +70,9 @@ export default defineConfig({
       })
       addVariant('only-middle', ({ modifySelectors }) =>
         modifySelectors(({ className }) => `.${className}:not(:first-of-type, :last-of-type)`)
+      )
+      addVariant('no-js', ({ modifySelectors }) =>
+        modifySelectors(({ className }) => `.no-js .${className}`)
       )
     }),
   ],

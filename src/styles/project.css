@@ -1,33 +1,29 @@
 .project {
   section {
-    @apply my-40 w-full grid gap-10 gap-y-0 grid-cols-8 items-baseline tablet:(grid-cols-6 children:(col-span-5) ) phone:(grid-cols-4 gap-4 children:(col-span-full) ) all:(col-start-3 col-span-3) ;
+    @apply my-40 w-full grid gap-10 gap-y-0 grid-cols-8 items-baseline tablet:(grid-cols-6 children:(col-span-5) ) phone:(grid-cols-4 gap-4 children:(col-span-full) ) all:(col-start-3 col-span-3);
 
     h2 {
       @apply font-650;
     }
 
     h3 {
-      @apply font-575 *hstack;
+      @apply font-575;
     }
 
-    image-wrap {
-      @apply mb-10 block;
+    figure {
+      @apply mb-10 col-start-2 col-span-6;
 
-      &[full='true'] {
+      &[full] {
         @apply rounded-lg my-40 w-full col-start-1 col-span-8 block justify-self-center overflow-hidden tablet:(my-20) phone:(my-10);
 
-        caption {
+        figcaption {
           @apply text-fg-secondary;
         }
-      }
-
-      &:not([full='true']) {
-        @apply col-start-2 col-span-6;
       }
     }
 
     blockquote {
-      @apply bg-surface border-border rounded-sm border-l-2 shadow-sm -my-2 -mx-5 mb-10 py-2 px-5 phone:(px-3 -mx-3) ;
+      @apply bg-surface border-border rounded-sm border-l-2 shadow-sm -my-2 -mx-5 mb-10 py-2 px-5 phone:(px-3 -mx-3);
 
       * {
         @apply font-semibold text-lg leading-9;
@@ -53,7 +49,7 @@
         @apply col-auto col-start-2;
       }
 
-      image-wrap caption {
+      figure figcaption {
         @apply mt-2;
       }
 

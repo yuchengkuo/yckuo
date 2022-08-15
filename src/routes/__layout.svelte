@@ -76,14 +76,20 @@
   }
 </script>
 
+<svelte:head>
+  <script>
+    document.documentElement.classList.remove('no-js')
+  </script>
+</svelte:head>
+
 {#key $page.url.pathname}
   <main
     use:motion={{ keyframes: fade, options: { duration: 0.4, delay: 0.4 } }}
-    class="h-full mb-auto p-20 phone:(p-6)"
+    class="h-full mb-auto opacity-0 p-20 no-js:opacity-100 phone:(p-6)"
   >
     {#if $page.url.pathname !== '/'}
       <header
-        class="flex font-Azeret bg-bg/80 border-b-border/10 font-450 text-sm text-fg-secondary mb-6 pb-2 transition-colors top-0 ease-out z-40 gap-2 duration-500 delay-25 sticky backdrop-blur backdrop-filter"
+        class="flex font-Azeret bg-bg/80 border-b-border/10 font-450 text-sm text-fg-secondary mb-6 pb-2 transition-colors top-0 ease-out z-40 gap-2 duration-500 delay-25 sticky backdrop-blur backdrop-filter no-js:pt-2"
         class:border-b={border}
         class:pt-2={border}
         use:inview={{ threshold: 0, rootMargin: '0px 0px -100% 0px' }}
@@ -113,8 +119,8 @@
   <h3 class="font-600 text-base text-fg-secondary tracking-tight">YuCheng Kuo</h3>
   <div class="flex flex-wrap font-Azeret text-xs gap-6 phone:(gap-y-4 justify-between) ">
     <p class="slashed-zero phone:(w-full)">(C)2019-present</p>
-    <button class="text-xs uppercase *attr" on:click={toggleTheme}>{theme}</button>
-    <button class="font-475 uppercase relative *attr" on:click={toggleColor}
+    <button class="text-xs uppercase *attr no-js:hidden" on:click={toggleTheme}>{theme}</button>
+    <button class="font-475 uppercase relative *attr no-js:hidden" on:click={toggleColor}
       >{colorize ? 'Colorize' : 'Decolorize'}
       {#if showConfetti}
         <div class="top-1/2 left-1/2 absolute">
