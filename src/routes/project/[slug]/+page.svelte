@@ -1,8 +1,7 @@
 <script lang="ts">
   import Markdoc from 'sveltejs-markdoc'
 
-  import Head from '$components/Head.svelte'
-
+  import Head from '$lib/seo/Head.svelte'
   import { components } from '$lib/markdoc/components'
   import Image from '$lib/image/Image.svelte'
 

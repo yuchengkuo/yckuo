@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Head from '$components/Head.svelte'
-
+  import Head from '$lib/seo/Head.svelte'
   import Image from '$lib/image/Image.svelte'
 
   import type { PageData } from './$types'
@@ -22,7 +21,7 @@
   <p class="text-fg-secondary text-lg">A curated list of interesting on the web</p>
 </section>
 
-<section class="">
+<section>
   <ul class="flex flex-col gap-16">
     {#each data as item}
       {@const deg = Math.floor((Math.random() * 20 - 10) % 3)}

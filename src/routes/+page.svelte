@@ -3,10 +3,10 @@
   import Markdoc from 'sveltejs-markdoc'
 
   import Project from '$components/Project.svelte'
-  import Head from '$components/Head.svelte'
-
+  import Head from '$lib/seo/Head.svelte'
   import motion from '$lib/animation'
   import { fadeup } from '$lib/animation/keyframes'
+
   import type { PageData } from './$types'
 
   export let data: PageData

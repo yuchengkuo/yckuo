@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores'
 
-  import Head from '$components/Head.svelte'
+  import Head from '$lib/seo/Head.svelte'
 
   console.log($page.error.message)
 </script>
