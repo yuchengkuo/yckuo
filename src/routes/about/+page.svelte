@@ -1,22 +1,3 @@
-<script lang="ts" context="module">
-  import type { Load } from '@sveltejs/kit'
-
-  export const load: Load = async function ({ fetch }) {
-    const res = await fetch('/api/content/about?data')
-
-    if (res.ok) {
-      const { data } = await res.json()
-      return {
-        props: { data },
-        cache: { maxage: 30 * 24 * 60 * 60 },
-      }
-    }
-    return {
-      status: 404,
-    }
-  }
-</script>
-
 <script lang="ts">
   import Markdoc from 'sveltejs-markdoc'
 
@@ -24,7 +5,9 @@
 
   import { components } from '$lib/markdoc/components'
 
-  export let data
+  import type { PageData } from './$types'
+
+  export let data: PageData
 </script>
 
 <Head title="About · YuCheng Kuo">

@@ -20,14 +20,14 @@
     "url": "https://github.com/yuchengkuo/yckuo"
   },
   "dependencies": {
-    "@markdoc/markdoc": "^0.1.4",
+    "@markdoc/markdoc": "^0.1.5",
     "@motionone/dom": "^10.13.2",
     "@splitbee/web": "^0.3.0",
     "cloudinary": "^1.30.1",
     "cloudinary-build-url": "^0.2.4",
     "clsx": "^1.2.1",
     "date-fns": "^2.29.1",
-    "motion": "^10.13.2",
+    "motion": "^10.13.3",
     "nprogress": "^0.2.0",
     "sharp": "^0.30.7",
     "sveltejs-markdoc": "^0.1.1"
@@ -35,15 +35,15 @@
   "devDependencies": {
     "@cld-apis/types": "^0.1.6",
     "@sveltejs/adapter-auto": "^1.0.0-next.64",
-    "@sveltejs/kit": "^1.0.0-next.405",
+    "@sveltejs/kit": "^1.0.0-next.410",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^17.0.45",
     "@types/nprogress": "^0.2.0",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
-    "@typescript-eslint/parser": "^5.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
     "base64-arraybuffer": "^1.0.2",
     "cheerio": "^1.0.0-rc.12",
-    "eslint": "^8.21.0",
+    "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "js-yaml": "^4.1.0",
@@ -63,7 +63,7 @@
     "svelte-seo": "^1.4.1",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
-    "vite": "^3.0.4",
+    "vite": "^3.0.8",
     "vite-plugin-windicss": "^1.8.7",
     "windicss": "^3.5.6"
   }

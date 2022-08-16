@@ -1,22 +1,3 @@
-<script lang="ts" context="module">
-  import type { Load } from '@sveltejs/kit'
-
-  export const load: Load = async function ({ fetch }) {
-    const res = await fetch('/api/content/home?data')
-
-    if (res.ok) {
-      const { data } = await res.json()
-      return {
-        props: { data },
-        cache: { maxage: 30 * 24 * 60 * 60, private: false },
-      }
-    }
-    return {
-      status: 404,
-    }
-  }
-</script>
-
 <script lang="ts">
   import { spring } from 'motion'
   import Markdoc from 'sveltejs-markdoc'
@@ -26,8 +7,9 @@
 
   import motion from '$lib/animation'
   import { fadeup } from '$lib/animation/keyframes'
+  import type { PageData } from './$types'
 
-  export let data
+  export let data: PageData
 
   const easing = spring({ mass: 1, damping: 20 })
 </script>

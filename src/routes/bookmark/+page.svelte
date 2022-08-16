@@ -1,29 +1,11 @@
-<script lang="ts" context="module">
-  import type { Load } from '@sveltejs/kit'
-
-  export const load: Load = async function ({ fetch }) {
-    const res = await fetch('/api/bookmark')
-
-    if (res.ok) {
-      const { items } = await res.json()
-      return {
-        status: 200,
-        props: { items },
-        cache: { maxage: 15 * 24 * 60 * 60, private: false },
-      }
-    }
-    return {
-      status: 404,
-    }
-  }
-</script>
-
 <script lang="ts">
   import Head from '$components/Head.svelte'
 
   import Image from '$lib/image/Image.svelte'
 
-  export let items
+  import type { PageData } from './$types'
+
+  export let data: PageData
 </script>
 
 <Head
@@ -42,7 +24,7 @@
 
 <section class="">
   <ul class="flex flex-col gap-16">
-    {#each items as item}
+    {#each data as item}
       {@const deg = Math.floor((Math.random() * 20 - 10) % 3)}
       <li class="*grid group items-baseline relative">
         <div

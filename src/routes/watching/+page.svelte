@@ -1,19 +1,3 @@
-<script lang="ts" context="module">
-  import type { Load } from '@sveltejs/kit'
-
-  export const load: Load = async function ({ fetch }) {
-    const res = await fetch('/api/watching/tv')
-
-    if (res.ok) {
-      return {
-        status: 200,
-        props: { shows: (await res.json()).results },
-        cache: { maxage: 15 * 24 * 60 * 60, private: false },
-      }
-    }
-  }
-</script>
-
 <script lang="ts">
   import Head from '$components/Head.svelte'
 
@@ -27,7 +11,7 @@
   let x: number
   let y: number
 
-  export let shows: Show[]
+  export let data: Show[]
 </script>
 
 <Head title="Watching · YuCheng Kuo">
@@ -42,7 +26,7 @@
   <ul
     class="grid gap-x-8 gap-y-16 grid-cols-5 col-span-6 tablet:(grid-cols-4) phone:(grid-cols-2 gap-6) "
   >
-    {#each shows as show, index (show.id)}
+    {#each data as show, index (show.id)}
       <li
         class="group"
         on:mouseenter={() => (hoverId = index)}
@@ -76,15 +60,15 @@
   </ul>
 </section>
 
-{#if shows[hoverId]}
+{#if data[hoverId]}
   <div
     class="rounded-md h-max bg-fg-secondary/84 shadow-lg text-bg p-4 transform w-80 rotate-2 backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto"
     style:left={`${x}px`}
     style:top={`${y}px`}
   >
     {#key hoverId}
-      <h4 class="font-575 text-bg mb-1">{shows[hoverId].title}</h4>
-      <p class="text-base">{shows[hoverId].overview}</p>
+      <h4 class="font-575 text-bg mb-1">{data[hoverId].title}</h4>
+      <p class="text-base">{data[hoverId].overview}</p>
     {/key}
   </div>
 {/if}

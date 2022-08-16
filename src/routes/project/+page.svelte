@@ -3,17 +3,9 @@
 
   import Image from '$lib/image/Image.svelte'
 
-  type Project = {
-    title: string
-    excerpt: string
-    tag: string[]
-    image: string[]
-    slug: string
-    link?: string
-    time: string
-  }
+  import type { PageServerData } from './$types'
 
-  export let allProjects: Project[]
+  export let data: PageServerData
 </script>
 
 <Head title="Projects · YuCheng Kuo">
@@ -29,7 +21,7 @@
 
 <section>
   <ul>
-    {#each allProjects as project}
+    {#each data.allProjects as project}
       <li class="mb-30 *grid items-baseline tablet:(gap-y-16) phone:(gap-y-12) ">
         <div class="col-span-3 phone:(col-span-full) ">
           <h2>{project.title}</h2>

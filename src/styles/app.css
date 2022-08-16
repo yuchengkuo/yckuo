@@ -95,3 +95,7 @@ h4 {
 a {
   @apply *attr;
 }
+
+code {
+  @apply bg-surface rounded font-Azeret -m-0.5 p-0.5 text-[0.8em];
+}
