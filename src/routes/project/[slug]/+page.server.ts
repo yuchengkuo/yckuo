@@ -7,8 +7,6 @@ export const load: PageServerLoad = async function ({ params }) {
 
   const { content, frontmatter } = getContentBySlug(slug, 'projects')
 
-  console.log(content)
-
   if (content) {
     return { content: content as string, frontmatter }
   }

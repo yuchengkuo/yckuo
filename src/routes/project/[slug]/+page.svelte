@@ -8,8 +8,6 @@
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
-
-  $: console.log(data)
 </script>
 
 <Head title="{data.frontmatter.title} · Project · YuCheng Kuo">
