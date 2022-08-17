@@ -2,7 +2,6 @@
   import { spring } from 'motion'
   import Markdoc from 'sveltejs-markdoc'
 
-  import Project from '$components/Project.svelte'
   import Head from '$lib/seo/Head.svelte'
   import motion from '$lib/animation'
   import { fadeup } from '$lib/animation/keyframes'
@@ -24,13 +23,13 @@
   <div
     class="*grid gap-y-0 items-start no-js:children:(opacity-100) children:(col-start-1 col-span-3 mb-8 opacity-0) tablet:children:(col-span-5) "
   >
-    <h1 use:motion={{ keyframes: fadeup, options: { easing, delay: 0.4 } }}>YuCheng Kuo</h1>
-    <div use:motion={{ keyframes: fadeup, options: { easing, delay: 0.5 } }} class="text-lg">
+    <h1 use:motion={{ keyframes: fadeup, options: { easing, delay: 0.3 } }}>YuCheng Kuo</h1>
+    <div use:motion={{ keyframes: fadeup, options: { easing, delay: 0.4 } }} class="text-lg">
       <Markdoc content={data.overview.markdown} />
     </div>
 
     <nav
-      use:motion={{ keyframes: fadeup, options: { easing, delay: 0.8 } }}
+      use:motion={{ keyframes: fadeup, options: { easing, delay: 0.7 } }}
       class="flex flex-wrap font-Azeret font-400 text-sm gap-2 justify-between uppercase"
     >
       <a sveltekit:prefetch href="/about">About</a>
@@ -47,13 +46,23 @@
     <h2>Projects</h2>
 
     {#each data.projects as project}
-      <Project {project} />
+      <div class="not-last:mb-12">
+        <h3>{project.title}</h3>
+        <p class="mt-2 text-fg-secondary text-lg">
+          {project.excerpt}
+        </p>
+        <a
+          class="font-Azeret mt-4 text-fg-secondary text-sm w-fit block"
+          href={project.link ? project.link : `/project/${project.slug}`}
+          >{project.link ? 'link ↗' : 'more ->'}</a
+        >
+      </div>
     {/each}
 
     <a href="/project">All →</a>
   </div>
 
-  <div class="col-start-4 tablet:(col-start-1)">
+  <div class="col-start-4 tablet:(col-start-1) phone:mt-20">
     <h2>{data.work.title}</h2>
 
     <Markdoc content={data.work.markdown} />

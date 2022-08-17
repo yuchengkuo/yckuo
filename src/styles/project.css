@@ -1,6 +1,6 @@
 .project {
   section {
-    @apply my-40 w-full grid gap-10 gap-y-0 grid-cols-8 items-baseline tablet:(grid-cols-6 children:(col-span-5) ) phone:(grid-cols-4 gap-4 children:(col-span-full) ) all:(col-start-3 col-span-3) ;
+    @apply my-40 w-full grid gap-10 gap-y-0 grid-cols-8 items-baseline tablet:(grid-cols-6 children:(col-span-5) ) phone:(block children:(col-span-full) ) all:(col-start-3 col-span-3) ;
 
     h2 {
       @apply font-650;
@@ -11,7 +11,7 @@
     }
 
     figure {
-      @apply mb-10 col-start-2 col-span-6;
+      @apply mb-10 col-start-2 col-span-6 phone:(mb-5);
 
       &[full='true'] {
         @apply rounded-lg my-40 w-full col-start-1 col-span-8 block justify-self-center overflow-hidden tablet:(my-20) phone:(my-10);
@@ -35,11 +35,11 @@
     }
 
     grid {
-      @apply grid gap-x-10 grid-cols-4 col-start-3 col-span-4 phone:(col-start-1) children:(col-span-2);
+      @apply grid gap-x-10 grid-cols-4 col-start-3 col-span-4 phone:(block) children:(col-span-2);
     }
 
     gallery {
-      @apply mt-40 grid col-span-full gap-x-6 grid-cols-[5fr,3fr] col-start-1 items-end;
+      @apply mt-40 grid col-span-full gap-x-6 grid-cols-[5fr,3fr] col-start-1 items-end phone:(block mt-20) ;
 
       :nth-child(2n + 1) {
         @apply col-auto col-start-1;

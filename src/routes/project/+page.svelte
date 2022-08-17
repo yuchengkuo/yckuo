@@ -22,7 +22,7 @@
   <ul>
     {#each data.allProjects as project}
       <li class="mb-30 *grid items-baseline tablet:(gap-y-16) phone:(gap-y-12) ">
-        <div class="col-span-3 phone:(col-span-full) ">
+        <div class="col-span-3 phone:(col-span-full mb-8) ">
           <h2>{project.title}</h2>
           <p class="mt-2 text-fg-secondary text-lg">
             {project.excerpt}
