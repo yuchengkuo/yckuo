@@ -7,9 +7,7 @@ export const load: Load = async function ({ fetch, setHeaders }) {
   if (res.ok) {
     const { data } = await res.json()
 
-    setHeaders({
-      'cache-control': 'public, max-age=30 * 24 * 60 * 60',
-    })
+    setHeaders({ 'cache-control': 'public, max-age=86400' })
     return data
   }
   throw error(404)
