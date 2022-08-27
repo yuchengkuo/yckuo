@@ -23,7 +23,7 @@
 
 <section>
   <ul class="flex flex-col gap-16">
-    {#each data as item}
+    {#each data.items as item}
       {@const deg = Math.floor((Math.random() * 20 - 10) % 3)}
       <li class="*grid group items-baseline relative">
         <div

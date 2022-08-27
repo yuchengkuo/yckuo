@@ -7,7 +7,7 @@ export const load: PageLoad = async function ({ fetch, setHeaders }) {
   if (res.ok) {
     setHeaders({ 'cache-control': 'public, s-maxage=1080000, stale-while-revalidate=43200' })
     const items = await res.json()
-    return items
+    return { items }
   }
   throw error(404)
 }
