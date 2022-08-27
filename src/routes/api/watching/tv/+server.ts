@@ -36,10 +36,6 @@ export const GET: RequestHandler = async function () {
         )
       ).sort((a, b) => compareDesc(new Date(a.lastAir), new Date(b.lastAir))),
     },
-    {
-      headers: {
-        'Cache-Control': 'public, s-maxage=1080000, stale-while-revalidate=43200',
-      },
-    }
+    { headers: { 'Cache-Control': 'public, s-maxage=1080000, stale-while-revalidate=43200' } }
   )
 }

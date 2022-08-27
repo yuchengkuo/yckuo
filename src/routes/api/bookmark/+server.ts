@@ -11,9 +11,7 @@ export const GET: RequestHandler = async function () {
 
   if (items) {
     return json(items, {
-      headers: {
-        'cache-control': 'public, s-maxage=1080000, stale-while-revalidate=43200',
-      },
+      headers: { 'cache-control': 'public, s-maxage=1080000, stale-while-revalidate=43200' },
     })
   }
   return new Response(undefined, { status: 404 })
