@@ -1,16 +1,13 @@
 <script lang="ts">
   import Head from '$lib/seo/Head.svelte'
   import Image from '$lib/image/Image.svelte'
-
-  type Show = {
-    [key: string]: string
-  }
+  import type { PageData } from './$types'
 
   let hoverId: number
   let x: number
   let y: number
 
-  export let data: Show[]
+  export let data: PageData
 </script>
 
 <Head title="Watching · YuCheng Kuo">
@@ -25,7 +22,7 @@
   <ul
     class="grid gap-x-8 gap-y-16 grid-cols-5 col-span-6 tablet:(grid-cols-4) phone:(grid-cols-2 gap-6) "
   >
-    {#each data as show, index (show.id)}
+    {#each data.shows as show, index (show.id)}
       <li
         class="group"
         on:mouseenter={() => (hoverId = index)}
@@ -59,15 +56,15 @@
   </ul>
 </section>
 
-{#if data[hoverId]}
+{#if data.shows[hoverId]}
   <div
     class="rounded-md h-max bg-fg-secondary/84 shadow-lg text-bg p-4 transform w-80 rotate-2 backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto"
     style:left={`${x}px`}
     style:top={`${y}px`}
   >
     {#key hoverId}
-      <h4 class="font-575 text-bg mb-1">{data[hoverId].title}</h4>
-      <p class="text-base">{data[hoverId].overview}</p>
+      <h4 class="font-575 text-bg mb-1">{data.shows[hoverId].title}</h4>
+      <p class="text-base">{data.shows[hoverId].overview}</p>
     {/key}
   </div>
 {/if}

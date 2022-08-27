@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit'
+import { error, json } from '@sveltejs/kit'
 import { getFavoriteTV, getPosterUrl, getShowDetail } from '$lib/api/moviedb'
 import type { RequestHandler } from '@sveltejs/kit'
 import { compareDesc } from 'date-fns'
@@ -6,9 +6,7 @@ import { compareDesc } from 'date-fns'
 export const GET: RequestHandler = async function () {
   const res = await getFavoriteTV()
 
-  if (!res.ok) {
-    return new Response(undefined, { status: 404 })
-  }
+  if (!res.ok) throw error(404)
 
   const { results, total_pages } = await res.json()
 
@@ -36,6 +34,6 @@ export const GET: RequestHandler = async function () {
         )
       ).sort((a, b) => compareDesc(new Date(a.lastAir), new Date(b.lastAir))),
     },
-    { headers: { 'Cache-Control': 'public, s-maxage=1080000, stale-while-revalidate=43200' } }
+    { headers: { 'cache-control': 'public, s-maxage=1080000, stale-while-revalidate=43200' } }
   )
 }
