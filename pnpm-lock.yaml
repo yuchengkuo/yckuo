@@ -7,8 +7,10 @@ specifiers:
   '@radix-ui/react-toggle-group': 0.1.5
   '@splitbee/web': 0.3.0
   '@tailwindcss/line-clamp': 0.4.0
+  '@types/hast': ^2.3.4
   '@types/node': 18.7.13
   '@types/react': 18.0.17
+  '@types/unist': ^2.0.6
   autoprefixer: 10.4.8
   base64-arraybuffer: 1.0.2
   cheerio: 1.0.0-rc.12
@@ -41,7 +43,9 @@ specifiers:
   swr: 1.3.0
   tailwindcss: 3.1.8
   typescript: 4.8.2
+  unified: ^10.1.2
   unist-util-find-after: 4.0.0
+  unist-util-visit: ^4.1.1
   unist-util-visit-parents: 5.1.1
   usehooks-ts: 2.6.0
 
@@ -70,8 +74,10 @@ devDependencies:
   '@mdx-js/mdx': 2.1.3
   '@radix-ui/colors': 0.1.8
   '@tailwindcss/line-clamp': 0.4.0_tailwindcss@3.1.8
+  '@types/hast': 2.3.4
   '@types/node': 18.7.13
   '@types/react': 18.0.17
+  '@types/unist': 2.0.6
   autoprefixer: 10.4.8_postcss@8.4.16
   base64-arraybuffer: 1.0.2
   cheerio: 1.0.0-rc.12
@@ -89,7 +95,9 @@ devDependencies:
   slugify: 1.6.5
   tailwindcss: 3.1.8
   typescript: 4.8.2
+  unified: 10.1.2
   unist-util-find-after: 4.0.0
+  unist-util-visit: 4.1.1
   unist-util-visit-parents: 5.1.1
 
 packages:
@@ -405,7 +413,7 @@ packages:
       unified: 10.1.2
       unist-util-position-from-estree: 1.1.1
       unist-util-stringify-position: 3.0.2
-      unist-util-visit: 4.1.0
+      unist-util-visit: 4.1.1
       vfile: 5.3.4
     transitivePeerDependencies:
       - supports-color
@@ -3412,7 +3420,7 @@ packages:
     dependencies:
       '@types/mdast': 3.0.10
       '@types/unist': 2.0.6
-      unist-util-visit: 4.1.0
+      unist-util-visit: 4.1.1
 
   /mdast-util-directive/2.2.1:
     resolution: {integrity: sha512-yZRRuaulzc6bM4IOyZfkOrVs+9Sf1BC+rldRXJyl/Ej6S/6ewQQ9jt75HvEoqZZ4m9ealVTHiS4MP2GRUE7INA==}
@@ -3506,7 +3514,7 @@ packages:
       unist-builder: 3.0.0
       unist-util-generated: 2.0.0
       unist-util-position: 4.0.3
-      unist-util-visit: 4.1.0
+      unist-util-visit: 4.1.1
 
   /mdast-util-to-markdown/1.3.0:
     resolution: {integrity: sha512-6tUSs4r+KK4JGTTiQ7FfHmVOaDrLQJPmpjD6wPMlHGUVXoG9Vjc3jIeP+uyBWRf8clwB2blM+W7+KrlMYQnftA==}
@@ -3516,7 +3524,7 @@ packages:
       longest-streak: 3.0.1
       mdast-util-to-string: 3.1.0
       micromark-util-decode-string: 1.0.2
-      unist-util-visit: 4.1.0
+      unist-util-visit: 4.1.1
       zwitch: 2.0.2
 
   /mdast-util-to-string/3.1.0:
@@ -4706,7 +4714,7 @@ packages:
       github-slugger: 1.4.0
       mdast-util-to-string: 3.1.0
       unified: 10.1.2
-      unist-util-visit: 4.1.0
+      unist-util-visit: 4.1.1
     dev: true
 
   /remark-unwrap-images/3.0.1:
@@ -4715,7 +4723,7 @@ packages:
       '@types/mdast': 3.0.10
       hast-util-whitespace: 2.0.0
       unified: 10.1.2
-      unist-util-visit: 4.1.0
+      unist-util-visit: 4.1.1
     dev: true
 
   /repeat-string/1.6.1:
@@ -5262,7 +5270,7 @@ packages:
     resolution: {integrity: sha512-0yDkppiIhDlPrfHELgB+NLQD5mfjup3a8UYclHruTJWmY74je8g+CIFr79x5f6AkmzSwlvKLbs63hC0meOMowQ==}
     dependencies:
       '@types/unist': 2.0.6
-      unist-util-visit: 4.1.0
+      unist-util-visit: 4.1.1
 
   /unist-util-stringify-position/3.0.2:
     resolution: {integrity: sha512-7A6eiDCs9UtjcwZOcCpM4aPII3bAAGv13E96IkawkOAW0OhH+yRxtY0lzo8KiHpzEMfH7Q+FizUmwp8Iqy5EWg==}
@@ -5275,8 +5283,8 @@ packages:
       '@types/unist': 2.0.6
       unist-util-is: 5.1.1
 
-  /unist-util-visit/4.1.0:
-    resolution: {integrity: sha512-n7lyhFKJfVZ9MnKtqbsqkQEk5P1KShj0+//V7mAcoI6bpbUjh3C/OG8HVD+pBihfh6Ovl01m8dkcv9HNqYajmQ==}
+  /unist-util-visit/4.1.1:
+    resolution: {integrity: sha512-n9KN3WV9k4h1DxYR1LoajgN93wpEi/7ZplVe02IoB4gH5ctI1AaF2670BLHQYbwj+pY83gFtyeySFiyMHJklrg==}
     dependencies:
       '@types/unist': 2.0.6
       unist-util-is: 5.1.1
