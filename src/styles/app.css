@@ -64,7 +64,11 @@
 }
 
 html {
-  @apply bg-fg min-h-screen antialiased;
+  @apply bg-fg mx-auto min-h-screen max-w-9xl antialiased;
+
+  @media screen and (min-width: 1536px) {
+    @apply bg-bg;
+  }
 }
 
 body {
