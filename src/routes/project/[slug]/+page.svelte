@@ -10,22 +10,22 @@
   export let data: PageServerData
 </script>
 
-<Head title="{data.frontmatter.title} · Project · YuCheng Kuo">
+<Head title="{data.title} · Project · YuCheng Kuo">
   <script>
     document.documentElement.setAttribute('data-theme', 'violet')
   </script>
 </Head>
 
 <section class="*grid pt-16 gap-y-0 phone:block children:(col-start-3 col-span-4) ">
-  <h1 class="mb-10 leading-3rem">{data.frontmatter.title}</h1>
+  <h1 class="mb-10 leading-3rem">{data.title}</h1>
 
   <div class="w-full grid place-items-center children:(col-start-1 col-span-1 row-start-1) ">
-    {#each data.frontmatter.image ?? [] as id (id)}
+    {#each data.image ?? [] as id (id)}
       {@const deg = Math.floor(Math.random() * 20 - 10) % 5}
       <Image
         class="rounded-sm transform aspect-video rotate-[{deg}deg] bg-surafce phone:(h-fit) "
         {id}
-        alt={`${data.frontmatter.title} project images`}
+        alt={`${data.title} project images`}
       />
     {/each}
   </div>

@@ -6,9 +6,9 @@
   import motion from '$lib/animation'
   import { fadeup } from '$lib/animation/keyframes'
 
-  import type { PageData } from './$types'
+  import type { PageServerData } from './$types'
 
-  export let data: PageData
+  export let data: PageServerData
 
   const easing = spring({ mass: 1, damping: 20 })
 </script>
@@ -67,6 +67,16 @@
 
     <Markdoc content={data.work.markdown} />
   </div>
+
+  <aside class="col-start-7">
+    <nav class="flex flex-col font-Azeret font-400 text-sm gap-4 uppercase items-start">
+      <a sveltekit:prefetch href="/about">About</a>
+      <a sveltekit:prefetch href="/project">Project</a>
+      <a sveltekit:prefetch href="/bookmark">Bookmark</a>
+      <a sveltekit:prefetch href="/listening">Listening</a>
+      <a sveltekit:prefetch href="/watching">Watching</a>
+    </nav>
+  </aside>
 </section>
 
 <style>

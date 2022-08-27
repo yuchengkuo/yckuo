@@ -1,60 +1,56 @@
 import { readdirSync, readFileSync } from 'fs'
 import { join } from 'path'
-import Markdoc from '@markdoc/markdoc'
+import Markdoc, { type RenderableTreeNode } from '@markdoc/markdoc'
 import { config } from '$schema/markdoc.config'
 import { load } from 'js-yaml'
+import readingTime from 'reading-time'
 
 const contentPath = 'content'
 
-type Frontmatter = {
-  [key: string]: string
-}
-
-export function getAllContentMeta(folder = ''): (Frontmatter & { slug: string })[] {
+export function getAllContentMeta<T extends Record<string, unknown>>(folder = ''): Array<T> {
   const dirs = readdirSync(join(contentPath, folder), { withFileTypes: true })
 
   const files = dirs.filter((f) => f.isFile() && f.name.endsWith('.md'))
 
   if (files) {
     return files.map((f) => ({
-      ...(transformContent(readFileSync(join(contentPath, folder, f.name), 'utf-8'))
-        .frontmatter as Frontmatter),
+      ...parseContent<T>(readFileSync(join(contentPath, folder, f.name), 'utf-8')),
       slug: f.name.replace(/\.md/, ''),
     }))
   }
 }
 
-export function getContentBySlug(params: string, folder = '') {
+export function getContentBySlug<T extends Record<string, unknown>>(params: string, folder = '') {
   const dirs = readdirSync(join(contentPath, folder), { withFileTypes: true })
 
   const file = dirs.find((f) => f.isFile() && f.name === `${params}.md`)
 
   if (file) {
-    return transformContent(readFileSync(join(contentPath, folder, file.name), 'utf-8'))
+    return parseContent<T>(readFileSync(join(contentPath, folder, file.name), 'utf-8'))
   }
 
   throw new Error(`File ${params}.md does not exist`)
 }
 
-export function getDataBySlug(params: string, folder = '') {
+export function getDataBySlug<T extends Record<string, unknown>>(params: string, folder = '') {
   const dirs = readdirSync(join(contentPath, folder), { withFileTypes: true })
 
   const file = dirs.find((f) => f.isFile() && f.name === `${params}.yaml`)
 
-  const data = load(readFileSync(join(contentPath, folder, file.name), 'utf-8'))
+  const data = load(readFileSync(join(contentPath, folder, file.name), 'utf-8')) as T
 
   if (data) {
-    findMarkdown(data)
+    findMarkdown<T>(data)
     return data
   }
 
   throw new Error(`File ${params}.yaml does not exist`)
 }
 
-function findMarkdown(data: unknown & { markdown?: string }) {
-  if ('markdown' in data) {
-    const { content } = transformContent(data.markdown)
-    data.markdown = content as unknown as string
+function findMarkdown<T>(data: T & { markdown?: string | RenderableTreeNode }) {
+  if ('markdown' in data && typeof data.markdown === 'string') {
+    const { content } = parseContent(data.markdown)
+    data.markdown = content
   }
   for (const [key, value] of Object.entries(data)) {
     if (typeof value === 'object') {
@@ -63,16 +59,14 @@ function findMarkdown(data: unknown & { markdown?: string }) {
   }
 }
 
-function transformContent(raw: string) {
+function parseContent<T extends Record<string, unknown>>(raw: string) {
   const ast = Markdoc.parse(raw)
   const error = Markdoc.validate(ast, config)
 
-  if (error.length) console.warn('Error while validating content', error)
+  if (error.length) console.error('Error while validating content', error)
 
-  const frontmatter = ast.attributes.frontmatter
-    ? (load(ast.attributes.frontmatter) as Frontmatter)
-    : {}
+  const frontmatter = (ast.attributes.frontmatter ? load(ast.attributes.frontmatter) : {}) as T
   config.variables = { frontmatter, ...config.variables }
 
-  return { content: Markdoc.transform(ast, config), frontmatter }
+  return { content: Markdoc.transform(ast, config), readingTime: readingTime(raw), ...frontmatter }
 }

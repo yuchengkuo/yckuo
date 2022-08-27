@@ -2,19 +2,10 @@ import { getAllContentMeta } from '$lib/markdoc/utils'
 import { error } from '@sveltejs/kit'
 import { compareDesc } from 'date-fns'
 import type { PageServerLoad } from './$types'
-
-type Project = {
-  title: string
-  excerpt: string
-  tag: string[]
-  image: string[]
-  slug: string
-  link?: string
-  time: string
-}
+import type { Project } from '$contentlayer'
 
 export const load: PageServerLoad = async function ({ setHeaders }) {
-  const allProjects = getAllContentMeta('projects') as unknown as Project[]
+  const allProjects = getAllContentMeta<Project>('projects')
   allProjects.sort((a, b) => compareDesc(new Date(a.time), new Date(b.time)))
 
   setHeaders({ 'cache-control': 'public, max-age=86400' })
