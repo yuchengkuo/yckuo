@@ -130,5 +130,5 @@
       </div>
     {/if}
   </button>
-  <a href="/" class="uppercase">Changelog</a>
+  <a href="/changelog" class="uppercase">Changelog</a>
 </footer>

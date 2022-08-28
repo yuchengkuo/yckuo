@@ -67,8 +67,18 @@ export const About = defineDocumentType(() => ({
   },
 }))
 
+export const Changelog = defineDocumentType(() => ({
+  name: 'Changelog',
+  filePathPattern: 'changelog.md',
+  isSingleton: true,
+  fields: {
+    title: { type: 'string', required: true },
+    lastUpdate: { type: 'date', required: true },
+  },
+}))
+
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Project, About, Post, Micro],
+  documentTypes: [Project, About, Post, Micro, Changelog],
   disableImportAliasWarning: true,
 })

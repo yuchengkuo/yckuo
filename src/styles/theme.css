@@ -159,3 +159,23 @@
   --colors-surface: 212, 220, 219;
   --colors-border: 212, 220, 219;
 }
+
+[data-theme='sands'] {
+  --colors-bg: 235, 241, 201;
+
+  --colors-fg: 50, 29, 83;
+  --colors-fg-secondary: 98, 42, 67;
+
+  --colors-surface: 98, 42, 67;
+  --colors-border: 98, 42, 67;
+}
+
+[data-theme='sands'].dark {
+  --colors-bg: 80, 70, 45;
+
+  --colors-fg: 189, 238, 253;
+  --colors-fg-secondary: 236, 222, 166;
+
+  --colors-surface: 236, 222, 166;
+  --colors-border: 236, 222, 166;
+}
