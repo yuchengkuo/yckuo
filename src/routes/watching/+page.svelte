@@ -1,11 +1,11 @@
 <script lang="ts">
   import Head from '$lib/seo/Head.svelte'
   import Image from '$lib/image/Image.svelte'
+  import { spring } from 'svelte/motion'
   import type { PageData } from './$types'
 
   let hoverId: number
-  let x: number
-  let y: number
+  let cords = spring({ x: 0, y: 0 }, { stiffness: 0.1, damping: 0.5 })
 
   export let data: PageData
 </script>
@@ -25,13 +25,15 @@
     {#each data.shows as show, index (show.id)}
       <li
         class="group"
-        on:mouseenter={() => (hoverId = index)}
+        on:mouseenter={(e) => {
+          hoverId = index
+          cords.set({ x: e.clientX + 8, y: e.clientY + 8 }, { hard: true })
+        }}
         on:focus={() => (hoverId = index)}
         on:mouseleave={() => (hoverId = undefined)}
         on:blur={() => (hoverId = undefined)}
         on:mousemove={(e) => {
-          x = e.clientX + 8
-          y = e.clientY + 8
+          cords.set({ x: e.clientX + 8, y: e.clientY + 8 })
         }}
         tabindex="0"
       >
@@ -59,8 +61,8 @@
 {#if data.shows[hoverId]}
   <div
     class="rounded-md h-max bg-fg-secondary/84 shadow-lg text-bg p-4 transform w-80 rotate-2 backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto"
-    style:left={`${x}px`}
-    style:top={`${y}px`}
+    style:left={`${$cords.x}px`}
+    style:top={`${$cords.y}px`}
   >
     {#key hoverId}
       <h4 class="font-575 text-bg mb-1">{data.shows[hoverId].title}</h4>
