@@ -4,6 +4,7 @@ import Markdoc, { type RenderableTreeNode } from '@markdoc/markdoc'
 import { config } from '$schema/markdoc.config'
 import { load } from 'js-yaml'
 import readingTime from 'reading-time'
+import { instanceToPlain } from 'class-transformer'
 
 const contentPath = 'content'
 
@@ -67,6 +68,11 @@ function parseContent<T extends Record<string, unknown>>(raw: string) {
 
   const frontmatter = (ast.attributes.frontmatter ? load(ast.attributes.frontmatter) : {}) as T
   config.variables = { frontmatter, ...config.variables }
+  ast.attributes.frontmatter = frontmatter
 
-  return { content: Markdoc.transform(ast, config), readingTime: readingTime(raw), ...frontmatter }
+  return {
+    content: instanceToPlain(Markdoc.transform(ast, config)) as RenderableTreeNode,
+    readingTime: readingTime(raw),
+    ...frontmatter,
+  }
 }

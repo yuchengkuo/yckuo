@@ -19,8 +19,6 @@ export const document: Schema = {
       )
     }
 
-    if ('frontmatter' in attributes) attributes.frontmatter = undefined
-
     return new Tag(this.render, attributes, children)
   },
 }

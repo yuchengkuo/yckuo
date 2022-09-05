@@ -27,6 +27,7 @@
     "@markdoc/markdoc": "^0.1.7",
     "@motionone/dom": "^10.14.1",
     "@splitbee/web": "^0.3.0",
+    "class-transformer": "^0.5.1",
     "cloudinary": "^1.31.0",
     "cloudinary-build-url": "^0.2.4",
     "clsx": "^1.2.1",

@@ -6,9 +6,9 @@
   import motion from '$lib/animation'
   import { fadeup } from '$lib/animation/keyframes'
 
-  import type { PageServerData } from './$types'
+  import type { PageData } from './$types'
 
-  export let data: PageServerData
+  export let data: PageData
 
   const easing = spring({ mass: 1, damping: 20 })
 </script>
@@ -32,11 +32,11 @@
       use:motion={{ keyframes: fadeup, options: { easing, delay: 0.7 } }}
       class="flex flex-wrap font-Azeret font-400 text-sm gap-2 justify-between uppercase"
     >
-      <a sveltekit:prefetch href="/about">About</a>
-      <a sveltekit:prefetch href="/project">Project</a>
-      <a sveltekit:prefetch href="/bookmark">Bookmark</a>
-      <a sveltekit:prefetch href="/listening">Listening</a>
-      <a sveltekit:prefetch href="/watching">Watching</a>
+      <a data-sveltekit-prefetch href="/about">About</a>
+      <a data-sveltekit-prefetch href="/project">Project</a>
+      <a data-sveltekit-prefetch href="/bookmark">Bookmark</a>
+      <a data-sveltekit-prefetch href="/listening">Listening</a>
+      <a data-sveltekit-prefetch href="/watching">Watching</a>
     </nav>
   </div>
 </section>
@@ -70,11 +70,11 @@
 
   <aside class="col-start-7">
     <nav class="flex flex-col font-Azeret font-400 text-sm gap-4 uppercase items-start">
-      <a sveltekit:prefetch href="/about">About</a>
-      <a sveltekit:prefetch href="/project">Project</a>
-      <a sveltekit:prefetch href="/bookmark">Bookmark</a>
-      <a sveltekit:prefetch href="/listening">Listening</a>
-      <a sveltekit:prefetch href="/watching">Watching</a>
+      <a data-sveltekit-prefetch href="/about">About</a>
+      <a data-sveltekit-prefetch href="/project">Project</a>
+      <a data-sveltekit-prefetch href="/bookmark">Bookmark</a>
+      <a data-sveltekit-prefetch href="/listening">Listening</a>
+      <a data-sveltekit-prefetch href="/watching">Watching</a>
     </nav>
   </aside>
 </section>

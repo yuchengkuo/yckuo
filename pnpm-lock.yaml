@@ -14,6 +14,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.36.1
   base64-arraybuffer: ^1.0.2
   cheerio: ^1.0.0-rc.12
+  class-transformer: ^0.5.1
   cloudinary: ^1.31.0
   cloudinary-build-url: ^0.2.4
   clsx: ^1.2.1
@@ -48,6 +49,7 @@ dependencies:
   '@markdoc/markdoc': 0.1.7
   '@motionone/dom': 10.14.1
   '@splitbee/web': 0.3.0
+  class-transformer: 0.5.1
   cloudinary: 1.31.0
   cloudinary-build-url: 0.2.4
   clsx: 1.2.1
@@ -1445,6 +1447,10 @@ packages:
   /ci-info/2.0.0:
     resolution: {integrity: sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==}
     dev: true
+
+  /class-transformer/0.5.1:
+    resolution: {integrity: sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==}
+    dev: false
 
   /clipanion/3.2.0-rc.11:
     resolution: {integrity: sha512-fugY+N5uPop31VDYhjTc31DwPjCCLx6kmvdlFTf8fztpOxwplopiZr1XSHSA2qNmfpcXlJZKJsXMkxvXmdzK7g==}
