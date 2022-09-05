@@ -1,6 +1,6 @@
 <script lang="ts">
   import SvelteSeo from 'svelte-seo'
-  import { dev } from '$app/env'
+  import { dev } from '$app/environment'
   import type { SvelteSeoProps } from 'svelte-seo/types/SvelteSeo'
 
   type $$Props = SvelteSeoProps
