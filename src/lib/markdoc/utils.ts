@@ -5,6 +5,7 @@ import { config } from '$schema/markdoc.config'
 import { load } from 'js-yaml'
 import readingTime from 'reading-time'
 import { instanceToPlain } from 'class-transformer'
+import { error } from '@sveltejs/kit'
 
 const contentPath = 'content'
 
@@ -30,7 +31,7 @@ export function getContentBySlug<T extends Record<string, unknown>>(params: stri
     return parseContent<T>(readFileSync(join(contentPath, folder, file.name), 'utf-8'))
   }
 
-  throw new Error(`File ${params}.md does not exist`)
+  throw error(404, `File ${params}.md does not exist`)
 }
 
 export function getDataBySlug<T extends Record<string, unknown>>(params: string, folder = '') {
@@ -45,7 +46,7 @@ export function getDataBySlug<T extends Record<string, unknown>>(params: string,
     return data
   }
 
-  throw new Error(`File ${params}.yaml does not exist`)
+  throw error(404, `File ${params}.yaml does not exist`)
 }
 
 function findMarkdown<T>(data: T & { markdown?: string | RenderableTreeNode }) {

@@ -1,12 +1,13 @@
 import { error, json } from '@sveltejs/kit'
 import { getFavoriteTV, getPosterUrl, getShowDetail } from '$lib/api/moviedb'
-import type { RequestHandler } from '@sveltejs/kit'
 import { compareDesc } from 'date-fns'
+
+import type { RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async function () {
   const res = await getFavoriteTV()
 
-  if (!res.ok) throw error(404)
+  if (!res.ok) throw error(404, 'Not Found')
 
   const { results, total_pages } = await res.json()
 
