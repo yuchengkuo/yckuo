@@ -77,22 +77,22 @@ body {
 }
 
 h1 {
-  @apply font-Uncut font-575 text-fg text-4xl tracking-[-0.03em];
+  @apply font-Uncut font-575 text-fg text-4xl tracking-[-0.03em] tablet:text-3xl;
   font-variation-settings: 'slnt' 0;
 }
 
 h2 {
-  @apply font-Uncut font-550 text-fg text-2xl tracking-[-0.02em];
+  @apply font-Uncut font-575 text-fg text-2xl tracking-[-0.02em];
   font-variation-settings: 'slnt' 2;
 }
 
 h3 {
-  @apply font-Uncut font-500 text-fg text-xl tracking-[-0.02em];
+  @apply font-Uncut font-575 text-fg text-xl tracking-[-0.02em];
   font-variation-settings: 'slnt' 0;
 }
 
 h4 {
-  @apply font-Uncut font-450 text-fg text-lg tracking-[-0.02em];
+  @apply font-Uncut font-500 text-fg text-lg tracking-[-0.02em];
   font-variation-settings: 'slnt' 0;
 }
 

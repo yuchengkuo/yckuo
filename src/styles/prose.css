@@ -18,8 +18,12 @@
   h2[id],
   h3[id],
   h4[id] {
-    @apply relative after:(content-['#'] pl-2 font-Azeret text-base opacity-0 transition-opacity hover:opacity-100);
+    @apply relative hover:children:opacity-100;
     scroll-margin-top: 40px;
+
+    a {
+      @apply font-semibold opacity-0 text-[0.8em];
+    }
   }
 
   :where(h1[id], h2[id], h3[id]) > a {
@@ -46,7 +50,7 @@
     @apply mb-8 -ml-2 pl-6;
 
     li {
-      @apply list-outside pl-2 marker:(content-['—'] font-700 text-base text-border);
+      @apply list-outside pl-2 marker:(content-['—'] font-700 text-base text-border) ;
     }
   }
 
@@ -54,7 +58,7 @@
     @apply mb-8 pl-6;
 
     li {
-      @apply marker:(text-base font-400 tabular-nums);
+      @apply marker:(text-base font-400 tabular-nums) ;
     }
   }
 }

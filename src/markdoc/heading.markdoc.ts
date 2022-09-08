@@ -15,7 +15,8 @@ export const heading: Schema = {
     const id = generateID(children, attributes)
 
     return new Tag(`h${node.attributes['level']}`, { ...attributes, id }, [
-      new Tag('a', { href: `#${id}` }, children),
+      ...children,
+      new Tag('a', { href: `#${id}` }, ['#']),
     ])
   },
 }

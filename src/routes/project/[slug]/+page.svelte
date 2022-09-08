@@ -37,6 +37,6 @@
 
 <style>
   h1 {
-    font-variation-settings: 'slnt' 4;
+    font-variation-settings: 'slnt' 2;
   }
 </style>

@@ -20,13 +20,13 @@
 
 .decolorize,
 .decolorize[data-theme] {
-  --colors-bg: 231, 231, 231;
+  --colors-bg: 242, 242, 242;
 
-  --colors-fg: 51, 51, 51;
-  --colors-fg-secondary: 116, 116, 116;
+  --colors-fg: 32, 32, 32;
+  --colors-fg-secondary: 110, 110, 110;
 
-  --colors-surface: 116, 116, 116;
-  --colors-border: 116, 116, 116;
+  --colors-surface: 110, 110, 110;
+  --colors-border: 110, 110, 110;
 }
 
 .decolorize.dark,
@@ -173,7 +173,7 @@
 [data-theme='sands'].dark {
   --colors-bg: 80, 70, 45;
 
-  --colors-fg: 189, 238, 253;
+  --colors-fg: 236, 165, 89;
   --colors-fg-secondary: 236, 222, 166;
 
   --colors-surface: 236, 222, 166;
