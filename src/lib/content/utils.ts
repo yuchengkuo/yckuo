@@ -69,7 +69,7 @@ function parseContent<T extends Record<string, unknown>>(raw: string) {
 
   const frontmatter = (ast.attributes.frontmatter ? load(ast.attributes.frontmatter) : {}) as T
   config.variables = { frontmatter, ...config.variables }
-  ast.attributes.frontmatter = frontmatter
+  ast.attributes.frontmatter = null
 
   return {
     content: instanceToPlain(Markdoc.transform(ast, config)) as RenderableTreeNode,

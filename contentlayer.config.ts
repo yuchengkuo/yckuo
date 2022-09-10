@@ -63,7 +63,15 @@ export const About = defineDocumentType(() => ({
   isSingleton: true,
   fields: {
     title: { type: 'string', required: true },
-    links: { type: 'list', of: { type: 'string' } },
+    links: { type: 'list', of: Link },
+  },
+}))
+
+const Link = defineNestedType(() => ({
+  name: 'Link',
+  fields: {
+    label: { type: 'string', required: true },
+    url: { type: 'string', required: true },
   },
 }))
 

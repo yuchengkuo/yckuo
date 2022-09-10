@@ -3,10 +3,19 @@
 
   import Head from '$lib/seo/Head.svelte'
   import { components } from '$lib/content/components'
+  import { motion } from '$lib/animation/motion'
 
-  import type { PageData } from './$types'
+  import type { RenderableTreeNode } from '@markdoc/markdoc'
+  import type { PageServerData } from './$types'
+  import { spring } from 'motion'
 
-  export let data: PageData
+  export let data: PageServerData
+
+  let { content } = data as { content: Exclude<RenderableTreeNode, string> }
+  $: ({ content } = data as { content: Exclude<RenderableTreeNode, string> })
+
+  let overview = { ...content }
+  overview.children = overview.children.slice(0, -1)
 </script>
 
 <Head title="About · YuCheng Kuo">
@@ -17,13 +26,16 @@
 
 <section class="min-h-screen mt-8 *grid">
   <div class="col-span-3">
-    <h1 class="mb-8">{data.overview.title}</h1>
+    <h1 class="mb-8">{data.title}</h1>
     <div class="prose">
-      <Markdoc content={data.overview.markdown} {components} />
+      <Markdoc content={overview} {components} />
     </div>
   </div>
 
-  <div class="bg-gray-400 rounded-32px h-90 mt-8 col-start-5 col-span-2" />
+  <div
+    use:motion={{ hover: { scale: 1.02 }, transition: { easing: spring({ damping: 8 }) } }}
+    class="bg-surface rounded-32px h-90 mt-8 col-start-5 col-span-2"
+  />
   <div class="flex flex-col mt-8 gap-2 col-start-7">
     {#each data.links as link}
       <a class="font-550 text-xl" href={link.url}>{link.label}</a>
@@ -31,31 +43,6 @@
   </div>
 </section>
 
-<section class="*grid children:col-span-2">
-  <div class="">
-    <h2>{data.website.title}</h2>
-    <div class="prose">
-      <Markdoc content={data.website.markdown} {components} />
-    </div>
-  </div>
-
-  <div class="col-start-4">
-    <h2>{data.design.title}</h2>
-    <div class="prose">
-      <Markdoc content={data.design.markdown} {components} />
-    </div>
-  </div>
-
-  <div class="col-start-7">
-    <h2>{data.more.title}</h2>
-    <div class="prose">
-      <Markdoc content={data.more.markdown} {components} />
-    </div>
-  </div>
+<section class="mt-20 prose">
+  <Markdoc content={content.children[content.children.length - 1]} {components} />
 </section>
-
-<style>
-  section h2 {
-    @apply mb-6;
-  }
-</style>

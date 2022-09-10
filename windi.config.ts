@@ -74,6 +74,12 @@ export default defineConfig({
       addVariant('no-js', ({ modifySelectors }) =>
         modifySelectors(({ className }) => `.no-js .${className}`)
       )
+      addVariant('second-child', ({ modifySelectors }) =>
+        modifySelectors(({ className }) => `.${className} > :nth-child(2)`)
+      )
+      addVariant('last-child', ({ modifySelectors }) =>
+        modifySelectors(({ className }) => `.${className} > :last-child`)
+      )
     }),
   ],
 })

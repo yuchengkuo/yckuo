@@ -1,4 +1,5 @@
 import type { ConfigType } from '@markdoc/markdoc'
+import { column } from './columns.markdoc'
 import { document } from './document.markdoc'
 import { gallery } from './gallery.markdoc'
 import { grid } from './grid.markdoc'
@@ -16,6 +17,7 @@ export const config: ConfigType = {
     image,
     gallery,
     grid,
+    column,
   },
   validation: {},
   variables: {},
