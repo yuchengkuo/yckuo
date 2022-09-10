@@ -10,9 +10,7 @@
 
   import { afterNavigate, beforeNavigate } from '$app/navigation'
   import { page } from '$app/stores'
-
-  import { fade } from '$lib/animation/keyframes'
-  import motion from '$lib/animation'
+  import { motion } from '$lib/animation/motion'
 
   beforeNavigate(() => NProgress.start())
   afterNavigate(() => NProgress.done())
@@ -84,7 +82,11 @@
 
 {#key $page.url.pathname}
   <main
-    use:motion={{ keyframes: fade, options: { duration: 0.4, delay: 0.4 } }}
+    use:motion={{
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      transition: { delay: 0.4, duration: 0.4 },
+    }}
     class="h-full mb-auto opacity-0 p-20 no-js:opacity-100 phone:(p-6)"
   >
     {#if $page.url.pathname !== '/'}

@@ -523,6 +523,17 @@ packages:
       tslib: 2.4.0
     dev: false
 
+  /@motionone/dom/10.14.2:
+    resolution: {integrity: sha512-GbGtvTSelXfT4TeQUQ3Y31PllAu0Uvghqr68FSPAJsh1hjbuYPaiPJWpP6+t/t50cHtvUbl4m2SgnGKJ0NCgWA==}
+    dependencies:
+      '@motionone/animation': 10.14.0
+      '@motionone/generators': 10.14.0
+      '@motionone/types': 10.14.0
+      '@motionone/utils': 10.14.0
+      hey-listen: 1.0.8
+      tslib: 2.4.0
+    dev: false
+
   /@motionone/easing/10.14.0:
     resolution: {integrity: sha512-2vUBdH9uWTlRbuErhcsMmt1jvMTTqvGmn9fHq8FleFDXBlHFs5jZzHJT9iw+4kR1h6a4SZQuCf72b9ji92qNYA==}
     dependencies:
@@ -538,10 +549,10 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@motionone/svelte/10.14.1:
-    resolution: {integrity: sha512-v4w2POtz04UgY1FspuRC753nvl9Ehw3o8twYeD2tkM4SAj9qW1WaX1q6jOtrFI7fjBP3qMzB1fOEl38sbeOu4g==}
+  /@motionone/svelte/10.14.2:
+    resolution: {integrity: sha512-WKgER0eH7b8q0/ODElHIbzMM3uIINdcdCw87jf7xqs4daidsy6e1ckh2XJF2Z8zyWyUEtO4VHvGumRX7EjrxFA==}
     dependencies:
-      '@motionone/dom': 10.14.1
+      '@motionone/dom': 10.14.2
       tslib: 2.4.0
     dev: false
 
@@ -3888,7 +3899,7 @@ packages:
     dependencies:
       '@motionone/animation': 10.14.0
       '@motionone/dom': 10.14.1
-      '@motionone/svelte': 10.14.1
+      '@motionone/svelte': 10.14.2
       '@motionone/types': 10.14.0
       '@motionone/utils': 10.14.0
       '@motionone/vue': 10.14.1

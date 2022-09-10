@@ -3,14 +3,15 @@
   import Markdoc from 'sveltejs-markdoc'
 
   import Head from '$lib/seo/Head.svelte'
-  import motion from '$lib/animation'
-  import { fadeup } from '$lib/animation/keyframes'
+  import { motion } from '$lib/animation/motion'
 
   import type { PageData } from './$types'
 
   export let data: PageData
 
   const easing = spring({ mass: 1, damping: 20 })
+  const initial = { y: '20%', opacity: 0 }
+  const animate = { y: 0, opacity: 1 }
 </script>
 
 <Head>
@@ -21,15 +22,15 @@
 
 <section class="flex flex-col min-h-screen pb-40">
   <div
-    class="*grid gap-y-0 items-start no-js:children:(opacity-100) children:(col-start-1 col-span-3 mb-8 opacity-0) tablet:children:(col-span-5) "
+    class="*grid gap-y-0 items-start children:(col-start-1 col-span-3 mb-8) tablet:children:(col-span-5) "
   >
-    <h1 use:motion={{ keyframes: fadeup, options: { easing, delay: 0.3 } }}>YuCheng Kuo</h1>
-    <div use:motion={{ keyframes: fadeup, options: { easing, delay: 0.4 } }} class="text-lg">
+    <h1 use:motion={{ initial, animate, transition: { easing, delay: 0.3 } }}>YuCheng Kuo</h1>
+    <div use:motion={{ initial, animate, transition: { easing, delay: 0.4 } }} class="text-lg">
       <Markdoc content={data.overview.markdown} />
     </div>
 
     <nav
-      use:motion={{ keyframes: fadeup, options: { easing, delay: 0.7 } }}
+      use:motion={{ initial, animate, transition: { easing, delay: 0.6 } }}
       class="flex flex-wrap font-Azeret font-400 text-sm gap-2 justify-between uppercase"
     >
       <a data-sveltekit-prefetch href="/about">About</a>
