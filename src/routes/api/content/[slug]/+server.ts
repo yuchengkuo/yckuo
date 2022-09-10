@@ -1,4 +1,4 @@
-import { getContentBySlug, getDataBySlug } from '$lib/markdoc/utils'
+import { getContentBySlug, getDataBySlug } from '$lib/content/utils'
 import { json, type RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async function ({ params, url }) {

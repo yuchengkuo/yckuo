@@ -1,4 +1,4 @@
-import { getAllContentMeta } from '$lib/markdoc/utils'
+import { getAllContentMeta } from '$lib/content/utils'
 import { compareDesc } from 'date-fns'
 
 import type { PageServerLoad } from './$types'

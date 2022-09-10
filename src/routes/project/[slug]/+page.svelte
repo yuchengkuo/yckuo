@@ -2,7 +2,7 @@
   import Markdoc from 'sveltejs-markdoc'
 
   import Head from '$lib/seo/Head.svelte'
-  import { components } from '$lib/markdoc/components'
+  import { components } from '$lib/content/components'
   import Image from '$lib/image/Image.svelte'
 
   import type { PageServerData } from './$types'

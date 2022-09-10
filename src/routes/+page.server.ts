@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit'
-import { getAllContentMeta, getDataBySlug } from '$lib/markdoc/utils'
+import { getAllContentMeta, getDataBySlug } from '$lib/content/utils'
 import type { PageServerLoad } from './$types'
 import { compareDesc } from 'date-fns'
 import type { Project } from '$contentlayer'

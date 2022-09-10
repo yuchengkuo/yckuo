@@ -2,7 +2,7 @@
   import Head from '$lib/seo/Head.svelte'
   import { format } from 'date-fns'
   import Markdoc from 'sveltejs-markdoc'
-  import { components } from '$lib/markdoc/components'
+  import { components } from '$lib/content/components'
 
   import type { PageServerData } from './$types'
 

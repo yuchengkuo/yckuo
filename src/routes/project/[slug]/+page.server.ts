@@ -1,4 +1,4 @@
-import { getContentBySlug } from '$lib/markdoc/utils'
+import { getContentBySlug } from '$lib/content/utils'
 
 import type { Project } from '$contentlayer'
 import type { PageServerLoad } from './$types'
