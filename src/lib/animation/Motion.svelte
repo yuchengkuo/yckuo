@@ -9,7 +9,6 @@
     type Variants,
     type VariantDefinition,
     type InViewOptions,
-    type MotionKeyframes,
   } from '@motionone/dom'
 
   import { contextKey } from './context'

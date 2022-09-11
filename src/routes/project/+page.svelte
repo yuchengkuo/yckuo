@@ -1,6 +1,6 @@
 <script lang="ts">
   import Head from '$lib/seo/Head.svelte'
-  import Image from '$lib/image/Image.svelte'
+  import Stack from './Stack.svelte'
 
   import type { PageServerData } from './$types'
 
@@ -34,16 +34,9 @@
           >
         </div>
         <div
-          class="grid col-span-4 self-center place-items-center tablet:(col-span-1) phone:(col-span-full) children:(row-start-1 col-start-1 shadow-md) "
+          class="col-span-4 self-center justify-self-center tablet:(col-span-1) phone:(col-span-full)"
         >
-          {#each project.image ?? [] as id (id)}
-            {@const deg = Math.floor(Math.random() * 20 - 10) % 10}
-            <Image
-              class="rounded-sm h-160px transform aspect-video rotate-[{deg}deg] bg-surafce phone:(h-fit) "
-              {id}
-              alt={`${project.title} project images`}
-            />
-          {/each}
+          <Stack images={project.image} />
         </div>
       </li>
     {/each}
