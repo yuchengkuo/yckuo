@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { beforeUpdate, onMount } from 'svelte'
+  import { beforeUpdate, onMount, tick } from 'svelte'
+  import { inView } from 'motion'
 
   import { getImgProps } from './getImgProps'
 
@@ -15,57 +16,81 @@
   ]
   export let transformations: TransformerOption | TransformerVideoOption = {}
   export let blurDataUrl = ''
+  export let aspectRatio = ''
   export let showcap = false
   let className = ''
   export { className as class }
 
   let imgEl: HTMLImageElement
+  let container: HTMLElement
   let visible = false
+  let inview = false
+  let current = false
 
   const { src, srcset } = getImgProps({ id, widths, transformations })
 
-  beforeUpdate(() => {
+  beforeUpdate(async () => {
     if (imgEl?.complete) visible = true
-  })
 
-  onMount(() => {
+    await tick()
+
     if (!imgEl) return
     if (imgEl.complete) return
-    let current = true
+    current = true
     imgEl.addEventListener('load', () => {
       if (!current || !imgEl) return
       setTimeout(() => (visible = true), 0)
+    })
+  })
+
+  onMount(() => {
+    inView(container, () => {
+      inview = true
     })
     return () => (current = false)
   })
 </script>
 
-<figure on:click class={className} style:display="block" {...$$restProps}>
-  {#if blurDataUrl}
-    <img src={blurDataUrl} {alt} class="rounded object-cover object-center" />
-    <div class="rounded object-cover object-center backdrop-filter backdrop-blur-lg" />
-  {/if}
-  <div class="bg-surface rounded h-full w-full no-js:hidden" class:hidden={visible} />
-  <img
-    bind:this={imgEl}
-    {src}
-    {alt}
-    {srcset}
-    sizes={sizes.join(', ')}
-    class="bg-surface rounded h-full object-cover object-center w-full transition-opacity duration-300 no-js:hidden"
-    class:opacity-0={!visible}
-  />
-  <noscript>
-    <img
-      {src}
-      {alt}
-      {srcset}
-      sizes={sizes.join(', ')}
-      class="bg-surface rounded h-full object-cover object-center w-full transition-opacity duration-300"
-    />
-  </noscript>
+<figure on:click bind:this={container} class={className} style:display="block" {...$$restProps}>
+  <div class={`aspect-${aspectRatio}`}>
+    <div class="bg-surface rounded h-full w-full no-js:hidden" class:hidden={visible} />
+
+    {#if blurDataUrl}
+      <img
+        src={blurDataUrl}
+        {alt}
+        class="rounded h-full object-cover object-center w-full no-js:hidden"
+        class:hidden={visible}
+      />
+      <div
+        class="rounded h-full object-cover object-center w-full backdrop-filter backdrop-blur-lg"
+      />
+    {/if}
+
+    {#if inview}
+      <img
+        bind:this={imgEl}
+        {src}
+        {alt}
+        {srcset}
+        sizes={sizes.join(', ')}
+        class="bg-surface rounded h-full object-cover object-center w-full transition-opacity duration-300 no-js:hidden"
+        class:opacity-0={!visible}
+      />
+    {/if}
+
+    <noscript>
+      <img
+        {src}
+        {alt}
+        {srcset}
+        sizes={sizes.join(', ')}
+        class="bg-surface rounded h-full object-cover object-center w-full transition-opacity duration-300"
+      />
+    </noscript>
+  </div>
   {#if showcap}
-    <figcaption class="font-500 mt-4 text-base w-fit block">— {alt}</figcaption>
+    <figcaption class="h-fit font-500 mt-4 text-base w-fit block">— {alt}</figcaption>
   {/if}
 </figure>
 
