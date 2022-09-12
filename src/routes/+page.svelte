@@ -33,11 +33,11 @@
       use:motion={{ initial, animate, transition: { easing, delay: 0.6 } }}
       class="flex flex-wrap font-Azeret font-400 text-sm gap-2 justify-between uppercase"
     >
-      <a data-sveltekit-prefetch href="/about">About</a>
-      <a data-sveltekit-prefetch href="/project">Project</a>
-      <a data-sveltekit-prefetch href="/bookmark">Bookmark</a>
-      <a data-sveltekit-prefetch href="/listening">Listening</a>
-      <a data-sveltekit-prefetch href="/watching">Watching</a>
+      <a href="/about">About</a>
+      <a href="/project">Project</a>
+      <a href="/bookmark">Bookmark</a>
+      <a href="/listening">Listening</a>
+      <a href="/watching">Watching</a>
     </nav>
   </div>
 </section>
@@ -71,11 +71,11 @@
 
   <aside class="col-start-7">
     <nav class="flex flex-col font-Azeret font-400 text-sm gap-4 uppercase items-start">
-      <a data-sveltekit-prefetch href="/about">About</a>
-      <a data-sveltekit-prefetch href="/project">Project</a>
-      <a data-sveltekit-prefetch href="/bookmark">Bookmark</a>
-      <a data-sveltekit-prefetch href="/listening">Listening</a>
-      <a data-sveltekit-prefetch href="/watching">Watching</a>
+      <a href="/about">About</a>
+      <a href="/project">Project</a>
+      <a href="/bookmark">Bookmark</a>
+      <a href="/listening">Listening</a>
+      <a href="/watching">Watching</a>
     </nav>
   </aside>
 </section>

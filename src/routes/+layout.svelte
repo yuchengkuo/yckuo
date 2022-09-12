@@ -88,6 +88,7 @@
       transition: { delay: 0.4, duration: 0.4 },
     }}
     class="h-full mb-auto opacity-0 p-20 no-js:opacity-100 phone:(p-6)"
+    data-sveltekit-prefetch
   >
     {#if $page.url.pathname !== '/'}
       <header
