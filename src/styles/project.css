@@ -1,6 +1,6 @@
 .project {
   section {
-    @apply my-40 w-full grid gap-10 gap-y-0 grid-cols-8 items-baseline tablet:(grid-cols-6 children:(col-span-5) ) phone:(block children:(col-span-full) ) children:(col-start-3 col-span-3) ;
+    @apply my-40 w-full grid gap-10 gap-y-0 grid-cols-8 items-baseline tablet:(grid-cols-6 children:(col-span-5) ) phone:(block children:(col-span-full) ) children:(col-start-3 col-span-4) ;
 
     h2 {
       @apply font-650;

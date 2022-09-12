@@ -6,7 +6,9 @@
   import Image from '$lib/image/Image.svelte'
   import { motion } from '$lib/animation/motion'
 
-  export let images: string[]
+  import type { Image as ImageType } from '$contentlayer'
+
+  export let images: ImageType[]
 
   let imgEl: HTMLDivElement
 
@@ -25,6 +27,7 @@
     const offsetX = el[target].clientWidth * 0.9
     const offsetY = -el[target].clientHeight * 0.4
     const scale = 0.8
+    const rotateZ = Math.floor(Math.random() * 20 - 10) % 10
 
     await animate(
       el[target],
@@ -37,7 +40,7 @@
 
     await animate(
       el[target],
-      { x: [offsetX, 0], y: [offsetY, 0], scale: [scale, 1] },
+      { x: [offsetX, 0], y: [offsetY, 0], scale: [scale, 1], rotateZ: [null, rotateZ] },
       { easing: spring({ damping: 20 }) }
     ).finished
   }
@@ -46,7 +49,7 @@
 </script>
 
 <div
-  class="cursor-pointer w-fit grid place-items-center children:(col-start-1 row-start-1) "
+  class="cursor-pointer h-fit grid place-items-center children:(col-start-1 row-start-1) "
   use:motion={{
     hover: { scale: 1.01, rotateZ: 1 },
     transition: { easing: 'ease-out' },
@@ -54,14 +57,15 @@
   on:mouseup={swap}
   bind:this={imgEl}
 >
-  {#each images ?? [] as id (id)}
+  {#each images ?? [] as img (img.id)}
     {@const deg = Math.floor(Math.random() * 20 - 10) % 10}
-    <div>
-      <Image
-        class="rounded-sm h-160px z-10 shadow-md transform aspect-video rotate-[{deg}deg] bg-surafce phone:(h-fit) "
-        {id}
-        alt=""
-      />
-    </div>
+    {@const { id, aspectRatio = '', blurDataUrl = '' } = img}
+    <Image
+      {id}
+      {aspectRatio}
+      {blurDataUrl}
+      class="rounded-sm w-320px z-10 shadow-md transform rotate-[{deg}deg] bg-surafce phone:(h-fit) "
+      alt=""
+    />
   {/each}
 </div>

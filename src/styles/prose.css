@@ -19,7 +19,7 @@
   h3[id],
   h4[id] {
     @apply relative hover:children:opacity-100;
-    scroll-margin-top: 40px;
+    scroll-margin-top: 56px;
 
     a {
       @apply font-semibold opacity-0 text-[0.8em];

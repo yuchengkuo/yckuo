@@ -11,7 +11,7 @@ const computedFields: ComputedFields = {
   slug: { type: 'string', resolve: (doc) => doc._raw.sourceFileName.replace(/\.md/, '') },
 }
 
-export const Post = defineDocumentType(() => ({
+const Post = defineDocumentType(() => ({
   name: 'Post',
   filePathPattern: 'posts/*.md',
   fields: {
@@ -22,7 +22,7 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }))
 
-export const Micro = defineDocumentType(() => ({
+const Micro = defineDocumentType(() => ({
   name: 'Micro',
   filePathPattern: 'posts/*.yaml',
   contentType: 'data',
@@ -32,7 +32,7 @@ export const Micro = defineDocumentType(() => ({
   isSingleton: true,
 }))
 
-export const MicroBlog = defineNestedType(() => ({
+const MicroBlog = defineNestedType(() => ({
   name: 'MicroBlog',
   fields: {
     date: { type: 'date', required: true },
@@ -42,22 +42,24 @@ export const MicroBlog = defineNestedType(() => ({
   },
 }))
 
-export const Project = defineDocumentType(() => ({
+const Project = defineDocumentType(() => ({
   name: 'Project',
   filePathPattern: 'projects/*.md',
   fields: {
     title: { type: 'string', required: true },
     excerpt: { type: 'string', required: true },
     tag: { type: 'list', of: { type: 'string' } },
-    image: { type: 'list', of: { type: 'string' } },
+    image: { type: 'list', of: Image },
     time: { type: 'date', required: true },
-    link: { type: 'string' },
+    link: { type: 'string', description: 'Provide link for project without page.' },
     featured: { type: 'boolean' },
+    action: { type: 'list', of: Link },
+    meta: { type: 'list', of: Meta },
   },
   computedFields,
 }))
 
-export const About = defineDocumentType(() => ({
+const About = defineDocumentType(() => ({
   name: 'About',
   filePathPattern: 'about.md',
   isSingleton: true,
@@ -75,7 +77,24 @@ const Link = defineNestedType(() => ({
   },
 }))
 
-export const Changelog = defineDocumentType(() => ({
+const Meta = defineNestedType(() => ({
+  name: 'Meta',
+  fields: {
+    title: { type: 'string', required: true },
+    content: { type: 'string', required: true },
+  },
+}))
+
+const Image = defineNestedType(() => ({
+  name: 'Image',
+  fields: {
+    id: { type: 'string', required: true },
+    blurDataUrl: { type: 'string' },
+    aspectRatio: { type: 'string' },
+  },
+}))
+
+const Changelog = defineDocumentType(() => ({
   name: 'Changelog',
   filePathPattern: 'changelog.md',
   isSingleton: true,
