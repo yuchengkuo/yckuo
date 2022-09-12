@@ -5,11 +5,11 @@ import { sectionize, visit } from './utils'
 
 export const column: Schema = {
   render: 'column',
-  transform(node, config) {
+  async transform(node, config) {
     const attributes = node.transformAttributes(config)
-    const children = node.transformChildren(config)
+    const children = await node.transformChildren(config)
 
-    //sectionize content inside this tag
+    // sectionize content inside this tag
     for (let depth = 6; depth > 0; depth--) {
       visit(
         children,

@@ -6,9 +6,9 @@ import { sectionize, visit } from './utils'
 export const document: Schema = {
   render: 'article',
   attributes: { frontmatter: { default: {} } },
-  transform(node, config) {
+  async transform(node, config) {
     const attributes = node.transformAttributes(config)
-    const children = node.transformChildren(config)
+    const children = await node.transformChildren(config)
 
     // wrap only h2 and following content by `section`
     for (let depth = 2; depth > 0; depth--) {

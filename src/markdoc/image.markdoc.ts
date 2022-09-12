@@ -1,6 +1,8 @@
 import pkg from '@markdoc/markdoc'
 const { Tag } = pkg
 import type { Schema } from '@markdoc/markdoc'
+import { getBlurDataUrl } from '$lib/image/getBlurDataUrl'
+import { getAspectRatio } from '$lib/image/getAspectRatio'
 
 export const image: Schema = {
   render: 'Image',
@@ -13,10 +15,18 @@ export const image: Schema = {
     full: { type: Boolean, default: false },
   },
   selfClosing: true,
-  transform(node, config) {
+  async transform(node, config) {
     const attributes = node.transformAttributes(config)
     const children = node.transformChildren(config)
 
-    return new Tag(this.render, { ...attributes }, children)
+    const id = attributes['id']
+    if (!id) {
+      return new Tag(this.render, { ...attributes }, children)
+    }
+
+    const blurDataUrl = await getBlurDataUrl(id)
+    const aspectRatio = await getAspectRatio(id)
+
+    return new Tag(this.render, { blurDataUrl, aspectRatio, ...attributes }, children)
   },
 }
