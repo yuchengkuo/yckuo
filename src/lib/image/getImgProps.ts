@@ -1,5 +1,6 @@
-import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 import { buildImageUrl, setConfig } from 'cloudinary-build-url'
+
+import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
 setConfig({ cloudName: 'yucheng' })
 
@@ -14,12 +15,13 @@ export function getImgProps({
 }) {
   const averageSize = Math.ceil(widths.reduce((a, s) => a + s) / widths.length)
   let isRemote: boolean
-  let url: URL
+  let url: URL | string
 
   try {
     url = new URL(id)
     isRemote = true
   } catch (_) {
+    url = ''
     isRemote = false
   }
 
