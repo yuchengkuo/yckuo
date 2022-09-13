@@ -20,16 +20,18 @@
 
 <section class="mt-12 *grid gap-y-0">
   <div
-    use:motion={{ initial: { opacity: 0 }, animate: { opacity: 1 } }}
+    use:motion={{ initial: { scale: 0.8 }, animate: { scale: 1 }, transition: { delay: 0.3 } }}
     class="w-full grid col-start-2 col-span-6 place-items-center children:(col-start-1 col-span-1 row-start-1) "
   >
-    <Image
-      class="bg-surafce rounded-2xl transform overflow-hidden aspect-video phone:(h-fit) "
-      id={data.image[0].id}
-      aspectRatio={data.image[0].aspectRatio}
-      blurDataUrl={data.image[0].blurDataUrl}
-      alt={`${data.title} project images`}
-    />
+    {#if data.image}
+      <Image
+        class="bg-surafce rounded-2xl max-h-65vh transform overflow-hidden phone:(h-fit) "
+        id={data.image[0].id}
+        aspectRatio={data.image[0].aspectRatio}
+        blurDataUrl={data.image[0].blurDataUrl}
+        alt={`${data.title} project images`}
+      />
+    {/if}
   </div>
 
   <projectmeta class="divide-y divide-border mt-16 col-start-3 col-span-4 block">

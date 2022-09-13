@@ -47,10 +47,10 @@
   }
 
   ul {
-    @apply mb-8 -ml-2 pl-6;
+    @apply mb-8;
 
     li {
-      @apply list-outside pl-2 marker:(content-['—'] font-700 text-base text-border) ;
+      @apply list-outside before:(content-['—'] inline-block mr-2 font-700 text-base text-border) ;
     }
   }
 
