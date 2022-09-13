@@ -17,12 +17,7 @@
 
 <section class="text-fg-secondary mb-32">
   <h1 class="mb-8">Changelog</h1>
-  <p>
-    History of yuchengkuo.com. Last updated at {format(
-      new Date(data.lastUpdate),
-      'yyyy-MM-dd hh:mm'
-    )}
-  </p>
+  <p>History of yuchengkuo.com. Last updated at {data.lastUpdate}</p>
 </section>
 
 <section class="text-fg-secondary prose project">
