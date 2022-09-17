@@ -41,7 +41,7 @@
     "@radix-ui/colors": "0.1.8",
     "@tailwindcss/line-clamp": "0.4.2",
     "@types/hast": "^2.3.4",
-    "@types/node": "18.7.14",
+    "@types/node": "18.7.18",
     "@types/react": "18.0.18",
     "@types/unist": "^2.0.6",
     "autoprefixer": "10.4.8",
