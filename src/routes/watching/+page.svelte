@@ -2,6 +2,7 @@
   import Head from '$lib/seo/Head.svelte'
   import Image from '$lib/image/Image.svelte'
   import { spring } from 'svelte/motion'
+
   import type { PageData } from './$types'
 
   let hoverId: number
@@ -38,14 +39,15 @@
         tabindex="0"
       >
         <a
-          class="w-full block hover:(scale-101 -translate-y-1 rotate-0.5 shadow-md) active:(scale-99) group-focus:(scale-101 -translate-y-1 rotate-0.5 shadow-md) "
+          class="block hover:(scale-101 -translate-y-1 rotate-0.5 shadow-md) active:(scale-99) group-focus:(scale-101 -translate-y-1 rotate-0.5 shadow-md) "
           href={`https://www.themoviedb.org/tv/${show.id}`}
         >
           <Image
             id={show.posterUrl}
             alt=""
             widths={[120, 240, 360]}
-            class="rounded-md shadow-smoverflow-hidden aspect-100/66"
+            class="rounded-md shadow-sm overflow-hidden"
+            aspectRatio="100/66"
           />
         </a>
         <h4 class="mt-4 text-center line-clamp-2">{show.title}</h4>

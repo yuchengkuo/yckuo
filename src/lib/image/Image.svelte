@@ -15,8 +15,8 @@
     '1100px',
   ]
   export let transformations: TransformerOption | TransformerVideoOption = {}
-  export let blurDataUrl = ''
-  export let aspectRatio = ''
+  export let blurDataUrl: string = null
+  export let aspectRatio: string = null
   export let showcap = false
   let className = ''
   export { className as class }

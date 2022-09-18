@@ -25,7 +25,7 @@
   >
     {#if data.image}
       <Image
-        class="bg-surafce rounded-2xl max-h-65vh transform overflow-hidden phone:(h-fit) "
+        class="bg-surafce rounded-2xl w-full max-h-65vh transform overflow-hidden phone:(h-fit) "
         id={data.image[0].id}
         aspectRatio={data.image[0].aspectRatio}
         blurDataUrl={data.image[0].blurDataUrl}

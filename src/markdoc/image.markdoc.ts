@@ -20,9 +20,6 @@ export const image: Schema = {
     const children = node.transformChildren(config)
 
     const id = attributes['id']
-    if (!id) {
-      return new Tag(this.render, { ...attributes }, children)
-    }
 
     const blurDataUrl = await getBlurDataUrl(id)
     const aspectRatio = await getAspectRatio(id)
