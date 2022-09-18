@@ -54,7 +54,10 @@ export default defineConfig({
     grid: 'grid grid-cols-8 gap-10 tablet:(grid-cols-6) phone:(block)',
     attr: 'transition-all duration-100 underline underline-border decoration-1.6px underline-offset-1.4px transform hover:(underline-current decoration-2.2px) active:(text-border scale-95)',
   },
-  safelist: [range(5).map((i) => `rotate-[${i}deg] rotate-[-${i}deg]`)],
+  safelist: [
+    range(5).map((i) => `rotate-[${i}deg] rotate-[-${i}deg]`),
+    range(200, 15).map((i) => `aspect-${i}/100`),
+  ],
   plugins: [
     require('windicss/plugin/line-clamp'),
     require('windicss/plugin/aspect-ratio'),

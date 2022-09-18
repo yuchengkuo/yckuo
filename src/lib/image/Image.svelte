@@ -52,18 +52,21 @@
 </script>
 
 <figure on:click bind:this={container} class={className} style:display="block" {...$$restProps}>
-  <div class={`aspect-${aspectRatio}`}>
-    <div class="bg-surface rounded h-full w-full no-js:hidden" class:hidden={visible} />
+  <div class="rounded-lg relative overflow-hidden no-js:hidden aspect-{aspectRatio}">
+    <div class="bg-surface inset-0 absolute" class:hidden={visible} />
 
     {#if blurDataUrl}
       <img
         src={blurDataUrl}
         {alt}
-        class="rounded h-full object-cover object-center w-full no-js:hidden"
-        class:hidden={visible}
+        class="h-full object-cover w-full inset-0 transition-opacity ease-out duration-300 absolute"
+        class:opacity-0={visible}
+        class:invisible={visible}
       />
       <div
-        class="rounded h-full object-cover object-center w-full backdrop-filter backdrop-blur-lg"
+        class="inset-0 transition-opacity ease-out duration-300 absolute backdrop-filter backdrop-blur-xl"
+        class:opacity-0={visible}
+        class:invisible={visible}
       />
     {/if}
 
@@ -74,7 +77,7 @@
         {alt}
         {srcset}
         sizes={sizes.join(', ')}
-        class="bg-surface rounded h-full object-cover object-center w-full transition-opacity duration-300 no-js:hidden"
+        class="bg-surface h-full object-cover object-center w-full transition-opacity ease-out duration-300"
         class:opacity-0={!visible}
       />
     {/if}
@@ -85,7 +88,7 @@
         {alt}
         {srcset}
         sizes={sizes.join(', ')}
-        class="bg-surface rounded h-full object-cover object-center w-full transition-opacity duration-300"
+        class="bg-surface h-full object-cover object-center w-full transition-opacity duration-300"
       />
     </noscript>
   </div>
