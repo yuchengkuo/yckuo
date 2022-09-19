@@ -1,6 +1,7 @@
 import { error, json } from '@sveltejs/kit'
 import { getFavoriteTV, getPosterUrl, getShowDetail } from '$lib/api/moviedb'
 import { compareDesc } from 'date-fns'
+import { getBlurDataUrl } from '$lib/image/getBlurDataUrl'
 
 import type { RequestHandler } from '@sveltejs/kit'
 
@@ -26,6 +27,7 @@ export const GET: RequestHandler = async function () {
           results.map(async (show) => ({
             title: show.name,
             posterUrl: await getPosterUrl(show.poster_path),
+            blurDataUrl: await getBlurDataUrl(await getPosterUrl(show.poster_path)),
             time: show.first_air_date,
             overview: show.overview,
             vote: show.vote_average,

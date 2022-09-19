@@ -23,7 +23,7 @@
 
 <section>
   <ul class="flex flex-col gap-16">
-    {#each data.items as item}
+    {#each data.bookmarks as item}
       {@const deg = Math.floor((Math.random() * 20 - 10) % 3)}
       <li class="*grid group items-baseline relative">
         <div
@@ -47,7 +47,12 @@
         <div
           class="opacity-0 h-0 transform col-start-7 col-span-2 rotate-[{deg}deg] group-hover:opacity-100 tablet:(opacity-100 col-span-3 h-full) phone:(col-span-full rotate-0)"
         >
-          <Image id={item.cover} alt={item.title} />
+          <Image
+            id={item.cover}
+            alt={item.title}
+            aspectRatio={item.aspectRatio}
+            blurDataUrl={item.blurDataUrl}
+          />
         </div>
       </li>
     {/each}

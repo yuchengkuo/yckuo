@@ -47,7 +47,8 @@
             alt=""
             widths={[120, 240, 360]}
             class="rounded-md shadow-sm overflow-hidden"
-            aspectRatio="100/66"
+            aspectRatio="152/100"
+            blurDataUrl={show.blurDataUrl}
           />
         </a>
         <h4 class="mt-4 text-center line-clamp-2">{show.title}</h4>

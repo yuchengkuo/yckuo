@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit'
 import { buildImageUrl, setConfig } from 'cloudinary-build-url'
 
 setConfig({ cloudName: 'yucheng' })
@@ -30,10 +31,14 @@ export async function getBlurDataUrl(id: string) {
 }
 
 async function getDataUrlForImage(imageUrl: string) {
-  const res = await fetch(imageUrl)
-  const arrayBuffer = await res.arrayBuffer()
-  const base64 = Buffer.from(arrayBuffer).toString('base64')
-  const mime = res.headers.get('Content-Type') ?? 'image/webp'
-  const dataUrl = `data:${mime};base64,${base64}`
-  return dataUrl
+  try {
+    const res = await fetch(imageUrl)
+    const arrayBuffer = await res.arrayBuffer()
+    const base64 = Buffer.from(arrayBuffer).toString('base64')
+    const mime = res.headers.get('Content-Type') ?? 'image/webp'
+    const dataUrl = `data:${mime};base64,${base64}`
+    return dataUrl
+  } catch (e) {
+    throw error(404, `Error while getting blur data url: ${e}`)
+  }
 }
