@@ -21,7 +21,7 @@ export async function getAllContentMeta<T extends Record<string, unknown>>(
   if (files) {
     return Promise.all(
       files.map(async (f) => ({
-        ...(await parseContent<T>(readFileSync(join(contentPath, folder, f.name), 'utf-8'))),
+        ...(await parseFrontmatter<T>(readFileSync(join(contentPath, folder, f.name), 'utf-8'))),
         slug: f.name.replace(/\.md/, ''),
       }))
     )
@@ -61,10 +61,10 @@ export async function getDataBySlug<T extends Record<string, unknown>>(
   throw error(404, `File ${params}.yaml does not exist`)
 }
 
-async function findMarkdown<T>(data: T & { markdown?: string | RenderableTreeNode }) {
-  if ('markdown' in data && typeof data.markdown === 'string') {
+async function findMarkdown<T>(data: T & { markdown?: string | RenderableTreeNode | unknown }) {
+  if (data['markdown'] && typeof data.markdown === 'string') {
     const { content } = await parseContent(data.markdown)
-    data.markdown = content
+    data['markdown'] = content
   }
   for (const [key, value] of Object.entries(data)) {
     if (typeof value === 'object') {
@@ -73,15 +73,22 @@ async function findMarkdown<T>(data: T & { markdown?: string | RenderableTreeNod
   }
 }
 
+async function parseFrontmatter<T extends Record<string, unknown>>(raw: string) {
+  const ast = Markdoc.parse(raw)
+  const frontmatter = (ast.attributes.frontmatter ? load(ast.attributes.frontmatter) : {}) as T
+
+  await parseImage(frontmatter)
+
+  return frontmatter
+}
+
 async function parseContent<T extends Record<string, unknown>>(raw: string) {
   const ast = Markdoc.parse(raw)
   const error = Markdoc.validate(ast, config)
 
   if (error.length) console.error('Error while validating content', error)
 
-  const frontmatter = (ast.attributes.frontmatter ? load(ast.attributes.frontmatter) : {}) as T
-
-  parseImage(frontmatter)
+  const frontmatter = await parseFrontmatter<T>(raw)
 
   config.variables = { frontmatter, ...config.variables }
   ast.attributes.frontmatter = null
