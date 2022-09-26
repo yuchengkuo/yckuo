@@ -1,4 +1,3 @@
-import { error } from '@sveltejs/kit'
 import { buildImageUrl, setConfig } from 'cloudinary-build-url'
 
 setConfig({ cloudName: 'yucheng' })
@@ -37,6 +36,6 @@ export async function getAspectRatioForImage(imageUrl: string): Promise<string> 
 
     return `${height}/${width}`
   } catch (e) {
-    throw error(404, `Error while getting aspect ratio: ${e}`)
+    console.error(`Error while getting aspect ratio for ${imageUrl}: ${e}`)
   }
 }

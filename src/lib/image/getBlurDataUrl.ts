@@ -1,4 +1,3 @@
-import { error } from '@sveltejs/kit'
 import { buildImageUrl, setConfig } from 'cloudinary-build-url'
 
 setConfig({ cloudName: 'yucheng' })
@@ -39,6 +38,6 @@ async function getDataUrlForImage(imageUrl: string) {
     const dataUrl = `data:${mime};base64,${base64}`
     return dataUrl
   } catch (e) {
-    throw error(404, `Error while getting blur data url: ${e}`)
+    console.error(`Error while getting blur data url for ${imageUrl}: ${e}`)
   }
 }

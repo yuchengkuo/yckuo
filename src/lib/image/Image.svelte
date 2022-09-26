@@ -61,12 +61,10 @@
         {alt}
         class="h-full object-cover w-full inset-0 transition-opacity ease-out duration-300 absolute"
         class:opacity-0={visible}
-        class:invisible={visible}
       />
       <div
         class="inset-0 transition-opacity ease-out duration-300 absolute backdrop-filter backdrop-blur-xl"
         class:opacity-0={visible}
-        class:invisible={visible}
       />
     {/if}
 
