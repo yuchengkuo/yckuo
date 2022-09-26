@@ -13,11 +13,13 @@
 
   import { contextKey } from './context'
   import { forwardEventsBuilder } from './forwardEvent'
+  import { intro, outro } from './out'
 
   type Props = {
     tag?: string
     initial?: VariantDefinition
     animate?: VariantDefinition
+    exit?: VariantDefinition
     hover?: VariantDefinition
     press?: VariantDefinition
     inView?: VariantDefinition
@@ -26,11 +28,12 @@
     transition?: AnimationOptionsWithOverrides
   }
 
-  type $$Props = svelteHTML.HTMLProps<HTMLDivElement> & Props
+  type $$Props = svelteHTML.HTMLProps<'div', Props>
 
   export let tag = 'div'
   export let initial: VariantDefinition = null
   export let animate: VariantDefinition = null
+  export let exit: VariantDefinition = null
   export let hover: VariantDefinition = null
   export let press: VariantDefinition = null
   export let inView: VariantDefinition = null
@@ -38,7 +41,7 @@
   export let variants: Variants = null
   export let transition: AnimationOptionsWithOverrides = null
 
-  let element: Element
+  let element: HTMLElement
 
   const forwardEvents = forwardEventsBuilder(get_current_component())
 
@@ -48,6 +51,8 @@
     {
       initial,
       animate,
+      // @ts-ignore
+      exit,
       hover,
       press,
       inView,
@@ -73,6 +78,8 @@
     state.update({
       initial,
       animate,
+      // @ts-ignore
+      exit,
       hover,
       press,
       inView,
@@ -88,6 +95,8 @@
   bind:this={element}
   style={initialStyle}
   use:forwardEvents
+  in:intro
+  out:outro
   {...$$restProps}
 >
   <slot />
