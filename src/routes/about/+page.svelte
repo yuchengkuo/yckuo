@@ -1,13 +1,15 @@
 <script lang="ts">
   import Markdoc from 'sveltejs-markdoc'
+  import { spring } from 'motion'
 
   import Head from '$lib/seo/Head.svelte'
   import { components } from '$lib/content/components'
   import { motion } from '$lib/animation/motion'
 
+  import Palette from './Palette.svelte'
+
   import type { RenderableTreeNode } from '@markdoc/markdoc'
   import type { PageServerData } from './$types'
-  import { spring } from 'motion'
 
   export let data: PageServerData
 
@@ -24,10 +26,10 @@
   </script>
 </Head>
 
-<section class="min-h-screen mt-8 *grid">
+<section class="mt-8 *grid">
   <div class="col-span-3">
     <h1 class="mb-8">{data.title}</h1>
-    <div class="prose">
+    <div class="text-fg-secondary prose">
       <Markdoc content={overview} {components} />
     </div>
   </div>
@@ -43,6 +45,8 @@
   </div>
 </section>
 
-<section class="mt-20 prose">
+<section class="mt-20 text-fg-secondary prose">
   <Markdoc content={content.children[content.children.length - 1]} {components} />
 </section>
+
+<Palette />
