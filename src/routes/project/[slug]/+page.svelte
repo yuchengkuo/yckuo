@@ -52,7 +52,7 @@
 
       <item>
         <small>Tag</small>
-        <p class="mt-2">{data.tag.join(', ')}</p>
+        <p class="mt-2">{(data.tag ?? ['']).join(', ')}</p>
       </item>
 
       <div class="flex flex-wrap col-span-full pt-12 gap-6">

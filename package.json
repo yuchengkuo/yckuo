@@ -4,7 +4,7 @@
   "authors": "YuCheng Kuo",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@7.8.0",
+  "packageManager": "pnpm@7.12.2",
   "scripts": {
     "dev": "run-p dev:*",
     "dev:content": "contentlayer dev",
