@@ -108,17 +108,20 @@ async function parseImage(frontmatter: Record<string, unknown>) {
     if (key === 'image') {
       const images = frontmatter['image']
       if (Array.isArray(images)) {
-        images.forEach(async (img) => {
-          const id = img['id'] as string
-          if (!id) return
-          img['blurDataUrl'] = await getBlurDataUrl(id)
-          img['aspectRatio'] = await getAspectRatio(id)
-        })
+        frontmatter['image'] = await Promise.all(
+          images.map(async (img) => {
+            const id = img['id'] as string
+            if (!id) return img
+            img['blurDataUrl'] = await getBlurDataUrl(id)
+            img['aspectRatio'] = await getAspectRatio(id)
+            return img
+          })
+        )
       }
     }
 
     if (typeof value === 'object') {
-      parseImage(value[key])
+      await parseImage(value[key])
     }
   }
 }
