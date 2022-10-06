@@ -1,20 +1,22 @@
 <script lang="ts">
   import Markdoc from 'sveltejs-markdoc'
-  import { spring } from 'motion'
 
   import Head from '$lib/seo/Head.svelte'
   import { components } from '$lib/content/components'
-  import { motion } from '$lib/animation/motion'
 
   import Palette from './Palette.svelte'
+  import Savee from './Savee.svelte'
+  import Readcv from './Readcv.svelte'
+  import Avatar from './Avatar.svelte'
+  import Github from './Github.svelte'
 
   import type { RenderableTreeNode } from '@markdoc/markdoc'
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
 
-  let { content } = data as { content: Exclude<RenderableTreeNode, string> }
-  $: ({ content } = data as { content: Exclude<RenderableTreeNode, string> })
+  let { content } = data.about as { content: Exclude<RenderableTreeNode, string> }
+  $: ({ content } = data.about as { content: Exclude<RenderableTreeNode, string> })
 
   let overview = { ...content }
   overview.children = overview.children.slice(0, -1)
@@ -28,20 +30,21 @@
 
 <section class="mt-8 *grid">
   <div class="col-span-3">
-    <h1 class="mb-8">{data.title}</h1>
+    <h1 class="mb-8">{data.about.title}</h1>
     <div class="text-fg-secondary prose">
       <Markdoc content={overview} {components} />
     </div>
   </div>
 
-  <div
-    use:motion={{ hover: { scale: 1.02 }, transition: { easing: spring({ damping: 8 }) } }}
-    class="bg-surface rounded-32px h-90 mt-8 col-start-5 col-span-2"
-  />
-  <div class="flex flex-col mt-8 gap-2 col-start-7">
-    {#each data.links as link}
-      <a class="font-550 text-xl" href={link.url}>{link.label}</a>
-    {/each}
+  <div class="flex flex-wrap mt-8 gap-6 col-start-5 col-span-4 justify-end">
+    <div class="flex ml-auto w-full">
+      <Avatar />
+    </div>
+    <div class="flex flex-col gap-6 items-end justify-end">
+      <Github />
+      <Readcv />
+    </div>
+    <Savee />
   </div>
 </section>
 
