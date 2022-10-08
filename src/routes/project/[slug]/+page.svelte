@@ -23,11 +23,11 @@
 >
   <div
     use:motion={{ initial: { scale: 0.8 }, animate: { scale: 1 }, transition: { delay: 0.3 } }}
-    class="h-fit w-full col-span-full sm:w-8/10"
+    class="w-full col-span-full sm:w-8/10"
   >
     {#if data.image}
       <Image
-        class="bg-surafce rounded-2xl w-full max-h-[max(520px,_65vh)]"
+        class="bg-surafce object-cover rounded-2xl w-full max-h-[max(520px,_65vh)] overflow-hidden"
         id={data.image[0].id}
         aspectRatio={data.image[0].aspectRatio}
         blurDataUrl={data.image[0].blurDataUrl}

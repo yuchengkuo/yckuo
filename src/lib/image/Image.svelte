@@ -81,17 +81,16 @@
         class:opacity-0={!visible}
       />
     {/if}
-
-    <noscript>
-      <img
-        {src}
-        {alt}
-        {srcset}
-        sizes={sizes.join(', ')}
-        class="bg-surface h-full object-cover object-center w-full transition-opacity duration-300"
-      />
-    </noscript>
   </div>
+  <noscript>
+    <img
+      {src}
+      {alt}
+      {srcset}
+      sizes={sizes.join(', ')}
+      class="bg-surface h-full object-cover object-center w-full transition-opacity duration-300"
+    />
+  </noscript>
   {#if showcap}
     <figcaption class="h-fit font-500 mt-2 text-sm w-fit block ms:mt-4 md:text-base ">
       — {alt}

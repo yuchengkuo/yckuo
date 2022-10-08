@@ -76,7 +76,7 @@ html {
 }
 
 body {
-  @apply bg-bg flex flex-col font-Uncut min-h-screen font-475 text-lg text-fg transition-colors ease-out duration-500 delay-25 <sm:overflow-x-hidden;
+  @apply bg-bg flex flex-col font-Uncut min-h-screen font-475 text-lg text-fg transition-colors ease-out duration-500 delay-25 overflow-x-hidden;
   font-variation-settings: 'slnt' 0;
 }
 

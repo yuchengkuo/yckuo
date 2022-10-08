@@ -66,7 +66,7 @@
       {id}
       {aspectRatio}
       {blurDataUrl}
-      class="rounded-sm w-full sm:w-240px lg:w-360px z-10 shadow-md transform rotate-[{deg}deg] bg-surafce {className}"
+      class="rounded-sm w-full sm:w-240px lg:w-320px z-10 shadow-md transform rotate-[{deg}deg] bg-surafce {className}"
       alt=""
     />
   {/each}
