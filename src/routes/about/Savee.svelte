@@ -8,7 +8,7 @@
 
 <savee
   data-theme="green"
-  class="bg-fg mt-auto rounded-3xl h-120 shadow-lg w-88 dark relative block overflow-hidden"
+  class="bg-fg rounded-3xl h-120 shadow-lg w-88 dark relative block overflow-hidden"
 >
   <div class="flex flex-col h-full w-full p-5 overflow-scroll scrollbar-hide">
     <a href="https://savee.it/yuchengkuo" class="font-600 text-bg text-xs w-fit z-50 relative block"
@@ -27,9 +27,9 @@
         </picture>
       {/each}
     </column>
-    <p class="h-min font-700 text-bg text-10px z-50 relative">
+    <copy class="font-700 text-bg text-10px z-50 block relative">
       Last 20 saved. All copyright to their respective owners.
-    </p>
+    </copy>
   </div>
 
   <overlay class="inset-0 absolute pointer-events-none overflow-hidden" />

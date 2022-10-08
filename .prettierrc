@@ -3,5 +3,5 @@
   "tabWidth": 2,
   "printWidth": 100,
   "semi": false,
-  "plugins": ["./node_modules/prettier-plugin-svelte"]
+  "plugins": ["prettier-plugin-svelte"]
 }

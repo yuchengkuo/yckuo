@@ -1,6 +1,7 @@
 <script lang="ts">
-  import Head from '$lib/seo/Head.svelte'
   import Markdoc from 'sveltejs-markdoc'
+
+  import Head from '$lib/seo/Head.svelte'
   import { components } from '$lib/content/components'
 
   import type { PageServerData } from './$types'
@@ -14,11 +15,11 @@
   </script>
 </Head>
 
-<section class="text-fg-secondary mb-32">
-  <h1 class="mb-8">Changelog</h1>
-  <p>History of yuchengkuo.com. Last updated at {data.lastUpdate}</p>
+<section class="mb-20 md:mb-40">
+  <h1 class="mb-4 md:mb-8">Changelog</h1>
+  <p class="text-fg-secondary ">History of yuchengkuo.com. Last updated at {data.lastUpdate}</p>
 </section>
 
-<section class="text-fg-secondary prose project">
+<section class="text-fg-secondary layout-center">
   <Markdoc content={data.content} {components} />
 </section>

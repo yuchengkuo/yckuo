@@ -1,6 +1,6 @@
 @import './theme.css';
 @import './prose.css';
-@import './project.css';
+@import './article-layout.css';
 
 @font-face {
   font-family: 'Uncut Sans';
@@ -67,34 +67,36 @@
 
 html {
   @apply bg-fg mx-auto min-h-screen max-w-9xl antialiased;
+}
 
-  @media screen and (min-width: 1536px) {
+@screen 2xl {
+  html {
     @apply bg-bg;
   }
 }
 
 body {
-  @apply bg-bg flex flex-col font-Uncut min-h-screen font-475 text-fg text-lg transition-colors ease-out duration-500 delay-25;
+  @apply bg-bg flex flex-col font-Uncut min-h-screen font-475 text-lg text-fg transition-colors ease-out duration-500 delay-25 <sm:overflow-x-hidden;
   font-variation-settings: 'slnt' 0;
 }
 
 h1 {
-  @apply font-Uncut font-575 text-fg text-4xl tracking-[-0.03em] tablet:text-3xl;
+  @apply font-Uncut font-575 text-fg text-3xl -tracking-0.03em lg:text-4xl;
   font-variation-settings: 'slnt' 0;
 }
 
 h2 {
-  @apply font-Uncut font-575 text-fg text-2xl tracking-[-0.02em];
+  @apply font-Uncut font-575 text-fg text-2xl -tracking-0.02em;
   font-variation-settings: 'slnt' 2;
 }
 
 h3 {
-  @apply font-Uncut font-575 text-fg text-xl tracking-[-0.02em];
+  @apply font-Uncut font-575 text-fg text-xl -tracking-0.02em;
   font-variation-settings: 'slnt' 0;
 }
 
 h4 {
-  @apply font-Uncut font-500 text-fg text-lg tracking-[-0.02em];
+  @apply font-Uncut font-500 text-fg text-lg -tracking-0.02em;
   font-variation-settings: 'slnt' 0;
 }
 
@@ -103,5 +105,5 @@ a {
 }
 
 code {
-  @apply bg-surface rounded font-Azeret -m-0.5 p-0.5 text-[0.8em];
+  @apply bg-surface rounded font-Azeret -m-0.5 p-0.5 text-0.8em;
 }

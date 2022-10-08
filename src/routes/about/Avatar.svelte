@@ -10,7 +10,7 @@
   $: width = (38 + textWidth).toFixed(4) + 'px'
 </script>
 
-<avatar class="ml-auto shadow-md w-16 block relative">
+<avatar class="h-fit shadow-md w-16 block relative">
   <Image
     id="about_avatar_cq1ocu"
     alt="YuCheng Kuo"

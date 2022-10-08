@@ -1,6 +1,6 @@
 .prose {
   p {
-    @apply font-475 text-lg pb-8 leading-9;
+    @apply mb-8 leading-8;
   }
 
   h1 {
@@ -8,11 +8,11 @@
   }
 
   h2 {
-    @apply mb-6 phone:mt-4 phone:py-2;
+    @apply py-2 md:mt-4 lg:mb-6;
   }
 
   h3 {
-    @apply mb-4 phone:mt-2;
+    @apply mt-2 lg:mb-4;
   }
 
   h2[id],
@@ -50,7 +50,7 @@
     @apply mb-8;
 
     li {
-      @apply list-outside before:(content-['—'] inline-block mr-2 font-700 text-base text-border) ;
+      @apply list-outside before:(content-['—'] inline-block mr-2 font-700 text-base text-border);
     }
   }
 
@@ -58,7 +58,7 @@
     @apply mb-8 pl-6;
 
     li {
-      @apply marker:(text-base font-400 tabular-nums) ;
+      @apply marker:(text-base font-400 tabular-nums);
     }
   }
 }

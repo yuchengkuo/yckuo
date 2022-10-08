@@ -28,10 +28,6 @@ export default defineConfig({
       Spectral: ['Spectral', ...defaultTheme.fontFamily.serif],
       Azeret: ['Azeret Mono', ...defaultTheme.fontFamily.mono],
     },
-    screens: {
-      tablet: { max: '1020px' },
-      phone: { max: '720px' },
-    },
     extend: {
       width: {
         fit: 'fit-content',
@@ -51,7 +47,6 @@ export default defineConfig({
     },
   },
   alias: {
-    grid: 'grid grid-cols-8 gap-10 tablet:(grid-cols-6) phone:(block)',
     attr: 'transition-all duration-100 underline underline-border decoration-1.6px underline-offset-1.4px transform hover:(underline-current decoration-2.2px) active:(text-border scale-95)',
   },
   safelist: [

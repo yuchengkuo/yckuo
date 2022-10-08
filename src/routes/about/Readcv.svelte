@@ -4,10 +4,10 @@
 
 <readcv
   data-theme="pink"
-  class="bg-bg ml-auto rounded-3xl h-52 shadow-lg p-5 w-52 block relative overflow-hidden"
+  class="bg-bg rounded-3xl h-44 shadow-lg p-5 w-44 block relative overflow-hidden"
 >
   <div
-    use:motion={{ hover: { y: -16 } }}
+    use:motion={{ hover: { y: -12 } }}
     class="rounded-md mx-auto shadow-md mt-1/3 block overflow-hidden"
   >
     <a href="https://read.cv/yuchengkuo"><img src="/images/cv.png" alt="cv" /></a>

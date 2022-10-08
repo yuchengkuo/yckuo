@@ -20,11 +20,12 @@ export const column: Schema = {
     }
 
     const passClass = attributes['class']
-    const classnames = `grid grid-cols-${attributes.n} gap-40`
+    const twoColumn = attributes.n === 2
+    const classnames = twoColumn ? 'md:(grid grid-cols-2 gap-40)' : 'md:(grid grid-cols-3 gap-40)'
 
     return new Tag(
       this.render,
-      { ...attributes, class: [classnames, passClass].join(' ') },
+      { ...attributes, class: ['block', classnames, passClass].join(' ') },
       children
     )
   },

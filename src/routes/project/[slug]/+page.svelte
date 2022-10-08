@@ -18,41 +18,43 @@
   </script>
 </Head>
 
-<section class="mt-12 *grid gap-y-0">
+<section
+  class="mt-12 gap-x-10 justify-items-center sm:grid sm:grid-cols-[1fr_6fr_1fr] xl:grid-cols-[1fr_2fr_1fr]"
+>
   <div
     use:motion={{ initial: { scale: 0.8 }, animate: { scale: 1 }, transition: { delay: 0.3 } }}
-    class="w-full grid col-start-2 col-span-6 place-items-center children:(col-start-1 col-span-1 row-start-1) "
+    class="h-fit w-full col-span-full sm:w-8/10"
   >
     {#if data.image}
       <Image
-        class="bg-surafce rounded-2xl w-full max-h-65vh transform overflow-hidden phone:(h-fit) "
+        class="bg-surafce rounded-2xl w-full max-h-[max(520px,_65vh)]"
         id={data.image[0].id}
         aspectRatio={data.image[0].aspectRatio}
         blurDataUrl={data.image[0].blurDataUrl}
-        alt={`${data.title} project images`}
+        alt={`${data.title} project cover image`}
       />
     {/if}
   </div>
 
-  <projectmeta class="divide-y divide-border mt-16 col-start-3 col-span-4 block">
+  <projectmeta class="divide-y divide-border mt-8 col-start-2 block sm:mt-16">
     <h1 class="font-600 mb-4">{data.title}</h1>
 
-    <div class="grid pt-8 gap-6 grid-cols-2 phone:block">
+    <div class="pt-8 gap-6 grid-cols-2 sm:grid">
       <item class="col-span-full">
         <small>Description</small>
-        <p class="mt-2">{data.excerpt}</p>
+        <p>{data.excerpt}</p>
       </item>
 
       {#each data.meta ?? [] as meta, index}
         <item class:col-span-full={index === 0 && meta.title === 'Context'}>
           <small>{meta.title}</small>
-          <p class="mt-2">{meta.content}</p>
+          <p>{meta.content}</p>
         </item>
       {/each}
 
       <item>
         <small>Tag</small>
-        <p class="mt-2">{(data.tag ?? ['']).join(', ')}</p>
+        <p>{(data.tag ?? ['']).join(', ')}</p>
       </item>
 
       <div class="flex flex-wrap col-span-full pt-12 gap-6">
@@ -68,7 +70,7 @@
   </projectmeta>
 </section>
 
-<section class="prose project">
+<section class="prose layout-center">
   <Markdoc content={data.content} {components} />
 </section>
 
@@ -81,13 +83,21 @@
     @apply font-650 text-sm uppercase;
   }
 
-  @screen phone {
-    item:not(:first-of-type) {
-      @apply mt-6 block;
-    }
+  item p {
+    @apply font-475 mt-1;
   }
 
-  item p {
-    @apply font-475;
+  item:not(:first-of-type) {
+    @apply mt-6 block;
+  }
+
+  @screen sm {
+    item:not(:first-of-type) {
+      @apply mt-0;
+    }
+
+    item p {
+      @apply mt-2;
+    }
   }
 </style>

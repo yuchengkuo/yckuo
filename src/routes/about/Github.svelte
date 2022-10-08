@@ -1,6 +1,6 @@
 <github
   data-theme="cyan"
-  class="bg-bg rounded-3xl h-40 shadow-lg p-4 w-40 relative block overflow-hidden"
+  class="bg-bg rounded-2xl h-28 shadow-lg p-4 w-28 relative block overflow-hidden"
 >
   <div />
 

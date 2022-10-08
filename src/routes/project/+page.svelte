@@ -13,32 +13,28 @@
   </script>
 </Head>
 
-<section class="mb-40">
-  <h1 class="w-fit">Projects</h1>
-  <p class="mt-8 text-fg-secondary w-fit">Lists of experiments, fun works</p>
+<section class="mb-20 md:mb-40">
+  <h1 class="mb-4 md:mb-8">Projects</h1>
+  <p class="text-fg-secondary">Lists of experiments, fun works</p>
 </section>
 
-<section>
-  <ul>
-    {#each data.allProjects as project}
-      <li class="mb-30 *grid items-baseline tablet:(gap-y-16) phone:(gap-y-12) ">
-        <div class="col-span-3 phone:(col-span-full mb-8) ">
-          <h2>{project.title}</h2>
-          <p class="mt-2 text-fg-secondary text-lg">
-            {project.excerpt}
-          </p>
-          <a
-            class="font-Azeret mt-4 text-fg-secondary text-sm w-fit block"
-            href={project.link ? project.link : `/project/${project.slug}`}
-            >{project.link ? 'link ↗' : 'more ->'}</a
-          >
-        </div>
-        <div
-          class="col-span-4 self-center justify-self-center tablet:(col-span-1) phone:(col-span-full)"
+<ul>
+  {#each data.allProjects as project}
+    <li class="mb-30 gap-6 items-baseline block sm:grid sm:grid-cols-2 lg:grid-cols-[3fr_5fr]">
+      <div class="phone:mb-8">
+        <h2>{project.title}</h2>
+        <p class="mt-2 text-fg-secondary text-lg">
+          {project.excerpt}
+        </p>
+        <a
+          class="rounded font-Azeret mt-4 text-fg-secondary text-sm w-fit block"
+          href={project.link ? project.link : `/project/${project.slug}`}
+          >{project.link ? 'link ↗' : 'more ->'}</a
         >
-          <Stack images={project.image} />
-        </div>
-      </li>
-    {/each}
-  </ul>
-</section>
+      </div>
+      <div class="mt-6 self-center justify-self-center sm:mt-0">
+        <Stack images={project.image} />
+      </div>
+    </li>
+  {/each}
+</ul>

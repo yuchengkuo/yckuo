@@ -9,6 +9,8 @@
   import type { Image as ImageType } from '$contentlayer'
 
   export let images: ImageType[]
+  let className: string = ''
+  export { className as class }
 
   let imgEl: HTMLDivElement
 
@@ -58,13 +60,13 @@
   bind:this={imgEl}
 >
   {#each images ?? [] as img (img.id)}
-    {@const deg = Math.floor(Math.random() * 20 - 10) % 10}
+    {@const deg = Math.floor(Math.random() * 20 - 10) % 8}
     {@const { id, aspectRatio = '', blurDataUrl = '' } = img}
     <Image
       {id}
       {aspectRatio}
       {blurDataUrl}
-      class="rounded-sm w-320px z-10 shadow-md transform rotate-[{deg}deg] bg-surafce phone:(h-fit) "
+      class="rounded-sm w-full sm:w-240px lg:w-360px z-10 shadow-md transform rotate-[{deg}deg] bg-surafce {className}"
       alt=""
     />
   {/each}

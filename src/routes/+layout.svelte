@@ -87,7 +87,7 @@
       animate: { opacity: 1 },
       transition: { delay: 0.4, duration: 0.4 },
     }}
-    class="h-full mb-auto opacity-0 p-20 no-js:opacity-100 phone:(p-6)"
+    class="mb-auto opacity-0 p-6 no-js:opacity-100 md:p-20"
     data-sveltekit-prefetch
   >
     {#if $page.url.pathname !== '/'}
@@ -117,10 +117,9 @@
 {/key}
 
 <footer
-  class="flex flex-wrap font-Azeret mt-40 text-xs text-fg-secondary px-6 pb-4 gap-6 justify-between items-baseline phone:(gap-4)"
+  class="flex flex-wrap font-Azeret mt-40 text-xs text-fg-secondary px-6 pb-4 gap-3 items-baseline justify-between sm:gap-6"
 >
-  <h3 class="mr-auto font-600 text-base tracking-tight phone:(mr-0 w-1/2) ">YuCheng Kuo</h3>
-  <p class="slashed-zero">(C)2019-present</p>
+  <h4 class="mr-auto font-600 text-base tracking-tight">YuCheng Kuo</h4>
   <button class="text-xs uppercase *attr no-js:hidden" on:click={toggleTheme}>{theme}</button>
   <button class="font-475 uppercase relative *attr no-js:hidden" on:click={toggleColor}
     >{colorize ? 'Colorize' : 'Decolorize'}
@@ -133,5 +132,5 @@
       </div>
     {/if}
   </button>
-  <a href="/changelog" class="uppercase">Changelog</a>
+  <p class="w-full slashed-zero sm:w-auto">v3 (C)2019-present</p>
 </footer>

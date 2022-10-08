@@ -1,6 +1,5 @@
 <script lang="ts">
   import { spring } from 'motion'
-  import Markdoc from 'sveltejs-markdoc'
 
   import Head from '$lib/seo/Head.svelte'
   import { motion } from '$lib/animation/motion'
@@ -20,62 +19,54 @@
   </script>
 </Head>
 
-<section class="flex flex-col min-h-screen pb-40">
-  <div
-    class="*grid gap-y-0 items-start children:(col-start-1 col-span-3 mb-8) tablet:children:(col-span-5) "
-  >
+<section class="pb-20 lg:(grid pb-56 gap-80 grid-cols-2) ">
+  <div class="last-child:md:mt-8 last-child:mt-4 ">
     <h1 use:motion={{ initial, animate, transition: { easing, delay: 0.3 } }}>YuCheng Kuo</h1>
-    <div use:motion={{ initial, animate, transition: { easing, delay: 0.4 } }} class="text-lg">
-      <Markdoc content={data.overview.markdown} />
+    <div use:motion={{ initial, animate, transition: { easing, delay: 0.4 } }}>
+      <i>Hello</i>, I'm YuCheng. I am a product designer and UI developer from Taiwan. I'm currently
+      helping building <a href="https://oen.tw">Oen Tech</a> as designer/engineer.
     </div>
-
-    <nav
-      use:motion={{ initial, animate, transition: { easing, delay: 0.6 } }}
-      class="flex flex-wrap font-Azeret font-400 text-sm gap-2 justify-between uppercase"
-    >
-      <a href="/about">About</a>
-      <a href="/project">Project</a>
-      <a href="/bookmark">Bookmark</a>
-      <a href="/listening">Listening</a>
-      <a href="/watching">Watching</a>
-    </nav>
   </div>
 </section>
 
-<section class="*grid phone:(gap-y-20) children:col-span-2 tablet:children:(col-span-full) ">
-  <div id="projects">
+<section class="grid gap-y-10 md:(gap-40 gap-40 items-baseline grid-cols-2) lg:grid-cols-3 ">
+  <div use:motion={{ initial, animate, transition: { easing, delay: 0.65 } }} id="projects">
     <h2>Projects</h2>
 
     {#each data.projects as project}
-      <div class="not-last:mb-12">
+      <project class="block not-last:mb-8 md:not-last:mb-12">
         <h3>{project.title}</h3>
-        <p class="mt-2 text-fg-secondary text-lg">
+        <p class="mt-1 text-fg-secondary">
           {project.excerpt}
         </p>
         <a
-          class="font-Azeret mt-4 text-fg-secondary text-sm w-fit block"
+          class="font-Azeret mt-3 text-fg-secondary text-sm w-fit block"
           href={project.link ? project.link : `/project/${project.slug}`}
           >{project.link ? 'link ↗' : 'more ->'}</a
         >
-      </div>
+      </project>
     {/each}
 
-    <a href="/project">All →</a>
+    <a href="/project">See all →</a>
   </div>
 
-  <div class="col-start-4 tablet:(col-start-1) phone:mt-20">
-    <h2>{data.work.title}</h2>
+  <info use:motion={{ initial, animate, transition: { easing, delay: 0.7 } }}>
+    <h2>Work</h2>
+    <h2>Notes</h2>
+    <h2>Contact</h2>
+  </info>
 
-    <Markdoc content={data.work.markdown} />
-  </div>
-
-  <aside class="col-start-7">
-    <nav class="flex flex-col font-Azeret font-400 text-sm gap-4 uppercase items-start">
+  <aside
+    use:motion={{ initial, animate, transition: { easing, delay: 0.75 } }}
+    class="<lg:(-order-1 col-span-full) "
+  >
+    <nav class="flex flex-col flex-wrap font-Azeret font-400 text-sm gap-4 uppercase items-start">
       <a href="/about">About</a>
       <a href="/project">Project</a>
       <a href="/bookmark">Bookmark</a>
       <a href="/listening">Listening</a>
       <a href="/watching">Watching</a>
+      <a href="/changelog">Changelog</a>
     </nav>
   </aside>
 </section>
@@ -83,5 +74,20 @@
 <style>
   section h2 {
     @apply mb-6;
+  }
+  info {
+    @apply block;
+  }
+  info h2:not(:first-of-type) {
+    @apply mt-10;
+  }
+  info p {
+    @apply mt-1;
+  }
+  info a {
+    @apply font-Azeret text-sm w-fit;
+  }
+  info ul {
+    @apply mt-4;
   }
 </style>

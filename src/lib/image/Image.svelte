@@ -52,7 +52,9 @@
 </script>
 
 <figure on:click bind:this={container} class={className} style:display="block" {...$$restProps}>
-  <div class="rounded-lg relative overflow-hidden no-js:hidden aspect-{aspectRatio}">
+  <div
+    class="rounded md:rounded-md lg:rounded-lg relative overflow-hidden no-js:hidden aspect-{aspectRatio}"
+  >
     <div class="bg-surface inset-0 absolute" class:hidden={visible} />
 
     {#if blurDataUrl}
@@ -91,7 +93,9 @@
     </noscript>
   </div>
   {#if showcap}
-    <figcaption class="h-fit font-500 mt-4 text-base w-fit block">— {alt}</figcaption>
+    <figcaption class="h-fit font-500 mt-2 text-sm w-fit block ms:mt-4 md:text-base ">
+      — {alt}
+    </figcaption>
   {/if}
 </figure>
 

@@ -17,12 +17,13 @@
   </script>
 </Head>
 
-<h1 class="mb-50">Watching</h1>
+<section class="mb-20 md:mb-40">
+  <h1 class="mb-4 md:mb-8">Watching</h1>
+  <p class="text-fg-secondary">A list of tv shows that I love. Still WIP.</p>
+</section>
 
-<section class="*grid">
-  <ul
-    class="grid gap-x-8 gap-y-16 grid-cols-5 col-span-6 tablet:(grid-cols-4) phone:(grid-cols-2 gap-6) "
-  >
+<section class="xl:(grid grid-cols-[3fr_1fr]) ">
+  <ul class="grid gap-6 grid-cols-2 sm:grid-cols-4 md:grid-cols-5">
     {#each data.shows as show, index (show.id)}
       <li
         class="group"
