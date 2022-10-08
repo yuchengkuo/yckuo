@@ -5,6 +5,7 @@ import { sectionize, visit } from './utils'
 
 export const grid: Schema = {
   render: 'grid',
+  attributes: { class: { type: String } },
   async transform(node, config) {
     const attributes = node.transformAttributes(config)
     const children = await node.transformChildren(config)

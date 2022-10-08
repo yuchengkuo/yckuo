@@ -49,7 +49,7 @@ export function sectionize(node: TagType, parent: TagType[], test?: (node: TagTy
 
   const section = new Tag(
     depth > 2 ? 'div' : 'section',
-    { id: `${start.attributes.id}-section` },
+    start.attributes.id ? { id: `${start.attributes.id}-section` } : null,
     between
   )
 

@@ -14,6 +14,7 @@ export const config: ConfigType = {
   },
   partials: {},
   tags: {
+    about: { render: 'About' },
     image,
     gallery,
     grid,
