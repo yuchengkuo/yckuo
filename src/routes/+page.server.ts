@@ -10,6 +10,6 @@ export const load: PageServerLoad = async function ({ setHeaders }) {
     .filter((p) => p.featured)
     .sort((a, b) => compareDesc(new Date(a.time), new Date(b.time)))
 
-  setHeaders({ 'cache-control': 'public, max-age=432000' })
+  setHeaders({ 'cache-control': 'public, max-age=432000, stale-while-revalidate=86400' })
   return { projects }
 }

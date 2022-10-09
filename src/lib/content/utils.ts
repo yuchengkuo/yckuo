@@ -111,9 +111,10 @@ async function parseImage(frontmatter: Record<string, unknown>) {
         frontmatter['image'] = await Promise.all(
           images.map(async (img) => {
             const id = img['id'] as string
+            const isVideo = img['isVideo'] as boolean
             if (!id) return img
-            img['blurDataUrl'] = await getBlurDataUrl(id)
-            img['aspectRatio'] = await getAspectRatio(id)
+            img['blurDataUrl'] = await getBlurDataUrl(id, isVideo)
+            img['aspectRatio'] = await getAspectRatio(id, isVideo)
             return img
           })
         )

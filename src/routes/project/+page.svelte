@@ -20,7 +20,7 @@
 
 <ul>
   {#each data.allProjects as project}
-    <li class="mb-30 gap-6 items-baseline block sm:grid sm:grid-cols-2 lg:grid-cols-[3fr_5fr]">
+    <li class="mb-40 gap-6 items-start block sm:grid sm:grid-cols-2 lg:grid-cols-[3fr_5fr]">
       <div class="phone:mb-8">
         <h2>{project.title}</h2>
         <p class="mt-2 text-fg-secondary text-lg">
@@ -32,7 +32,7 @@
           >{project.link ? 'link ↗' : 'more ->'}</a
         >
       </div>
-      <div class="mt-6 self-center justify-self-center sm:mt-0">
+      <div class="mt-6 justify-self-center sm:mt-0 xl:h-0">
         <Stack images={project.image} />
       </div>
     </li>

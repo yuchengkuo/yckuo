@@ -20,13 +20,13 @@ export type Savee = {
 }
 
 export const load: PageServerLoad = async function ({ setHeaders }) {
-  setHeaders({ 'cache-control': 'public, max-age=259200' })
+  setHeaders({ 'cache-control': 'public, max-age=259200, stale-while-revalidate=86400' })
 
   const about = getContentBySlug<About>('about')
 
   try {
     const res = await getItems()
-    if (!res) return { about }
+    if (!res.ok) return { about }
     const savee = await res.json()
     const {
       data: {

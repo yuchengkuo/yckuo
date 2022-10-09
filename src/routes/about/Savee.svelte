@@ -16,7 +16,7 @@
     >
     <column class="flex-grow py-28 block" class:empty={!items}>
       {#each items ?? [] as item}
-        <picture class="h-fit text-xs w-fit transition duration-200 filter hover:grayscale">
+        <picture class="h-fit text-xs w-full transition duration-200 filter hover:grayscale">
           <a
             href={item.pageURL || `https://savee.it${item.url}`}
             title={item.name}

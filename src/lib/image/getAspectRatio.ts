@@ -1,9 +1,10 @@
-import { buildImageUrl, setConfig } from 'cloudinary-build-url'
+import type { CldOptions } from '@cld-apis/types'
+import { buildImageUrl, buildVideoUrl, setConfig } from 'cloudinary-build-url'
 import { ratioMap } from './map'
 
 setConfig({ cloudName: 'yucheng' })
 
-export async function getAspectRatio(id: string) {
+export async function getAspectRatio(id: string, isVideo = false) {
   let isRemote: boolean
 
   try {
@@ -12,7 +13,8 @@ export async function getAspectRatio(id: string) {
   } catch (_) {
     isRemote = false
   }
-  const imageURL = buildImageUrl(id, {
+
+  const options: CldOptions = {
     transformations: {
       resize: { width: 100 },
       quality: 'auto',
@@ -22,7 +24,8 @@ export async function getAspectRatio(id: string) {
     cloud: {
       storageType: isRemote ? 'fetch' : 'upload',
     },
-  })
+  }
+  const imageURL = isVideo ? buildVideoUrl(id, options) : buildImageUrl(id, options)
 
   return await getAspectRatioForImage(imageURL)
 }

@@ -2,12 +2,13 @@
   import { beforeUpdate, onMount, tick } from 'svelte'
   import { inView } from 'motion'
 
-  import { getImgProps } from './getImgProps'
+  import { getAWebpProps, getImgProps } from './getImgProps'
 
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
   export let id: string
   export let alt = ''
+  export let isVideo = false
   export let widths = [280, 560, 840, 1100, 1650, 2500, 2100]
   export let sizes = [
     '(max-width:1023px) 80vw',
@@ -27,7 +28,17 @@
   let inview = false
   let current = false
 
-  const { src, srcset } = getImgProps({ id, widths, transformations })
+  const { src, srcset } = getImgProps({
+    id,
+    widths,
+    transformations: transformations as TransformerOption,
+  })
+
+  const { src: aWebpSrc } = getAWebpProps({
+    id,
+    width: 320,
+    transformations: transformations as TransformerVideoOption,
+  })
 
   beforeUpdate(async () => {
     if (imgEl?.complete) visible = true
@@ -73,10 +84,10 @@
     {#if inview}
       <img
         bind:this={imgEl}
-        {src}
+        src={isVideo ? aWebpSrc : src}
         {alt}
-        {srcset}
-        sizes={sizes.join(', ')}
+        srcset={isVideo ? null : srcset}
+        sizes={isVideo ? null : sizes.join(', ')}
         class="bg-surface h-full object-cover object-center w-full transition-opacity ease-out duration-300"
         class:opacity-0={!visible}
       />

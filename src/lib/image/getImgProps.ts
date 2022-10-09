@@ -1,4 +1,4 @@
-import { buildImageUrl, setConfig } from 'cloudinary-build-url'
+import { buildImageUrl, buildVideoUrl, setConfig } from 'cloudinary-build-url'
 
 import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
@@ -11,7 +11,7 @@ export function getImgProps({
 }: {
   id: string
   widths: Array<number>
-  transformations?: TransformerOption | TransformerVideoOption
+  transformations?: TransformerOption
 }) {
   const averageSize = Math.ceil(widths.reduce((a, s) => a + s) / widths.length)
   let isRemote: boolean
@@ -55,5 +55,38 @@ export function getImgProps({
         ].join(' ')
       )
       .join(', '),
+  }
+}
+
+export function getAWebpProps({
+  id,
+  width,
+  transformations,
+}: {
+  id: string
+  width: number
+  transformations?: TransformerVideoOption
+}) {
+  return {
+    src: buildVideoUrl(id, {
+      transformations: {
+        quality: 'auto',
+        format: 'webp',
+        resize: {
+          type: 'scale',
+          width,
+        },
+        // bug in `cloudinary-build-url`
+        flags: 'animated.awebp' as 'awebp',
+        effect: {
+          name: 'loop',
+          ...transformations?.effect,
+        },
+      },
+      cloud: {
+        resourceType: 'video',
+        storageType: 'upload',
+      },
+    }),
   }
 }

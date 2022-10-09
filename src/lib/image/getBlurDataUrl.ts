@@ -1,9 +1,11 @@
-import { buildImageUrl, setConfig } from 'cloudinary-build-url'
+import { buildImageUrl, buildVideoUrl, setConfig } from 'cloudinary-build-url'
 import { blurDataMap } from './map'
+
+import type { CldOptions } from '@cld-apis/types'
 
 setConfig({ cloudName: 'yucheng' })
 
-export async function getBlurDataUrl(id: string) {
+export async function getBlurDataUrl(id: string, isVideo = false) {
   let isRemote: boolean
 
   try {
@@ -12,7 +14,8 @@ export async function getBlurDataUrl(id: string) {
   } catch (_) {
     isRemote = false
   }
-  const imageURL = buildImageUrl(id, {
+
+  const options: CldOptions = {
     transformations: {
       resize: { width: 100 },
       quality: 'auto',
@@ -25,7 +28,8 @@ export async function getBlurDataUrl(id: string) {
     cloud: {
       storageType: isRemote ? 'fetch' : 'upload',
     },
-  })
+  }
+  const imageURL = isVideo ? buildVideoUrl(id, options) : buildImageUrl(id, options)
 
   return await getDataUrlForImage(imageURL)
 }

@@ -89,8 +89,10 @@ const Image = defineNestedType(() => ({
   name: 'Image',
   fields: {
     id: { type: 'string', required: true },
+    alt: { type: 'string', default: '' },
     blurDataUrl: { type: 'string' },
     aspectRatio: { type: 'string' },
+    isVideo: { type: 'boolean', default: false },
   },
 }))
 

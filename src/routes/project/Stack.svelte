@@ -60,14 +60,15 @@
   bind:this={imgEl}
 >
   {#each images ?? [] as img (img.id)}
-    {@const deg = Math.floor(Math.random() * 20 - 10) % 8}
-    {@const { id, aspectRatio = '', blurDataUrl = '' } = img}
+    {@const deg = Math.floor(Math.random() * 20 - 10) % 10}
+    {@const { id, alt, aspectRatio = '', blurDataUrl = '', isVideo } = img}
     <Image
       {id}
+      {alt}
       {aspectRatio}
       {blurDataUrl}
+      {isVideo}
       class="rounded-sm w-full sm:w-240px lg:w-320px z-10 shadow-md transform rotate-[{deg}deg] bg-surafce {className}"
-      alt=""
     />
   {/each}
 </div>
