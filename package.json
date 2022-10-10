@@ -48,7 +48,7 @@
     "base64-arraybuffer": "1.0.2",
     "cheerio": "1.0.0-rc.12",
     "contentlayer": "0.2.7",
-    "eslint": "8.23.0",
+    "eslint": "8.25.0",
     "eslint-config-next": "12.2.5",
     "node-fetch": "2.6.7",
     "postcss": "8.4.16",
