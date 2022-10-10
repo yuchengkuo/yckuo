@@ -9,14 +9,15 @@
   import type { Image as ImageType } from '$contentlayer'
 
   export let images: ImageType[]
-  let className: string = ''
+  let className = ''
   export { className as class }
 
   let imgEl: HTMLDivElement
 
   onMount(() =>
     inView(imgEl, () => {
-      animate(imgEl, { rotateZ: [0, 1, 0] }, { delay: 4, easing: 'ease-out' })
+      if (images && images.length > 1)
+        animate(imgEl, { rotateZ: [0, 1, 0] }, { delay: 4, easing: 'ease-out' })
     })
   )
 
@@ -60,7 +61,7 @@
   bind:this={imgEl}
 >
   {#each images ?? [] as img (img.id)}
-    {@const deg = Math.floor(Math.random() * 20 - 10) % 10}
+    {@const deg = Math.floor(Math.random() * 20 - 10) % 8}
     {@const { id, alt, aspectRatio = '', blurDataUrl = '', isVideo } = img}
     <Image
       {id}

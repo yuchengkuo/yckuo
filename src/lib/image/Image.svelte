@@ -9,7 +9,7 @@
   export let id: string
   export let alt = ''
   export let isVideo = false
-  export let widths = [280, 560, 840, 1100, 1650, 2500, 2100]
+  export let widths = [280, 560, 840, 1100, 1650, 2100]
   export let sizes = [
     '(max-width:1023px) 80vw',
     '(min-width:1024px) and (max-width:1620px) 67vw',

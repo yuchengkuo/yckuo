@@ -51,7 +51,7 @@
     {
       initial,
       animate,
-      // @ts-ignore
+      // @ts-expect-error create exit state
       exit,
       hover,
       press,
@@ -78,7 +78,7 @@
     state.update({
       initial,
       animate,
-      // @ts-ignore
+      // @ts-expect-error update exit state
       exit,
       hover,
       press,

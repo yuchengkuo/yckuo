@@ -24,7 +24,7 @@
     <h1 use:motion={{ initial, animate, transition: { easing, delay: 0.3 } }}>YuCheng Kuo</h1>
     <div use:motion={{ initial, animate, transition: { easing, delay: 0.4 } }}>
       <i>Hello</i>, I'm YuCheng. I am a product designer and UI developer from Taiwan. I'm currently
-      helping building <a href="https://oen.tw">Oen Tech</a> as designer/engineer.
+      working as designer/engineer building <a href="https://oen.tw">Oen Tech</a>.
     </div>
   </div>
 </section>
@@ -50,14 +50,41 @@
     <a href="/project">See all →</a>
   </div>
 
-  <info use:motion={{ initial, animate, transition: { easing, delay: 0.7 } }}>
+  <info class="block" use:motion={{ initial, animate, transition: { easing, delay: 0.725 } }}>
     <h2>Work</h2>
+    <p>Building experience at Oen Tech, which involves:</p>
+    <ul>
+      <li>UX flows</li>
+      <li>Comopnent library in Figma</li>
+      <li>Interaction & Visual</li>
+      <li>Prototyping</li>
+      <li>Front-end (UI development)</li>
+    </ul>
     <h2>Notes</h2>
+    <div
+      class="bg-surface rounded-md font-Azeret text-xs text-center w-full py-4 overflow-hidden whitespace-nowrap"
+    >
+      <wip
+        class="block"
+        use:motion={{
+          animate: { x: ['100%', '-100%'] },
+          transition: { repeat: Infinity, duration: 16, easing: 'linear' },
+        }}
+      >
+        Work in progress... Come back later :)
+      </wip>
+    </div>
     <h2>Contact</h2>
+    <ul class="prose">
+      <li>Email: <a href="mailto:hey@yuchengkuo.com">hey@yuchengkuo</a></li>
+      <li>Read.cv: <a href="https://read.cv/yuchengkuo">yuchengkuo</a></li>
+      <li>Github: <a href="https://github/yuchengkuo">yuchengkuo</a></li>
+      <li>Figma: <a href="https://figma.com/yuchengkuo">@yuchengkuo</a></li>
+    </ul>
   </info>
 
   <aside
-    use:motion={{ initial, animate, transition: { easing, delay: 0.75 } }}
+    use:motion={{ initial, animate, transition: { easing, delay: 0.8 } }}
     class="<lg:(-order-1 col-span-full) "
   >
     <nav class="flex flex-col flex-wrap font-Azeret font-400 text-sm gap-4 uppercase items-start">
@@ -75,19 +102,19 @@
   section h2 {
     @apply mb-6;
   }
-  info {
-    @apply block;
+
+  section h2:not(:first-of-type) {
+    @apply mt-8;
   }
-  info h2:not(:first-of-type) {
-    @apply mt-10;
-  }
+
   info p {
-    @apply mt-1;
+    @apply mb-4;
   }
-  info a {
-    @apply font-Azeret text-sm w-fit;
+  info :not(ul.prose) li {
+    @apply list-outside text-base mb-0.5;
   }
-  info ul {
-    @apply mt-4;
+
+  info li::before {
+    @apply font-500 mr-2 text-sm text-border content-['—'] inline-block;
   }
 </style>
