@@ -21,7 +21,9 @@ export const column: Schema = {
 
     const passClass = attributes['class']
     const twoColumn = attributes.n === 2
-    const classnames = twoColumn ? 'md:(grid grid-cols-2 gap-40)' : 'md:(grid grid-cols-3 gap-40)'
+    const classnames = twoColumn
+      ? 'md:(grid grid-cols-2 gap-20) xl:gap-40'
+      : 'md:(grid grid-cols-3 gap-20) xl:gap-40'
 
     return new Tag(
       this.render,

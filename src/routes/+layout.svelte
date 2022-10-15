@@ -7,6 +7,8 @@
   import { Confetti } from 'svelte-confetti'
   import { onMount } from 'svelte'
   import { inview } from 'svelte-inview'
+  import { format } from 'date-fns'
+  import zhTW from 'date-fns/locale/zh-TW'
 
   import { afterNavigate, beforeNavigate } from '$app/navigation'
   import { page } from '$app/stores'
@@ -20,6 +22,7 @@
   let showConfetti = false
   let pathnames: string[]
   let border = false
+  let present = 'present'
 
   $: pathnames = $page.url.pathname.split('/')
 
@@ -37,6 +40,11 @@
       }
       theme = document.documentElement.classList.contains('dark') ? 'lighten' : 'darken'
     })
+
+    const interval = setInterval(() => {
+      present = format(new Date(), 'yyyy hh:mm:ss', { locale: zhTW })
+    }, 1000)
+    return () => clearInterval(interval)
   })
 
   async function toggleColor() {
@@ -87,7 +95,7 @@
       animate: { opacity: 1 },
       transition: { delay: 0.4, duration: 0.4 },
     }}
-    class="mb-auto opacity-0 p-6 no-js:opacity-100 md:p-20"
+    class="mb-auto opacity-0 py-12 px-4 no-js:opacity-100 md:p-20"
     data-sveltekit-prefetch
   >
     {#if $page.url.pathname !== '/'}
@@ -132,5 +140,5 @@
       </div>
     {/if}
   </button>
-  <p class="w-full slashed-zero sm:w-auto">v3 (C)2019-present</p>
+  <p class="w-full slashed-zero sm:w-auto">v3 (C)2019-{present}</p>
 </footer>

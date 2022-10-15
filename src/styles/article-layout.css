@@ -23,10 +23,10 @@
     }
 
     blockquote {
-      @apply bg-surface border-border rounded-sm border-l-2 shadow-sm -my-2 -mx-5 -mx-3 mb-10 py-2 px-5;
+      @apply bg-surface border-border rounded-sm border-l-2 shadow-sm -my-2 -mx-5 -mx-3 mb-10 py-2 px-5 <sm:(-mx-2.5 px-2.5 -my-1 py-1 mb-6);
 
       * {
-        @apply font-semibold text-lg leading-9;
+        @apply leading-9 <sm:leading-7;
       }
 
       p {
@@ -54,7 +54,7 @@
       }
 
       img {
-        @apply rounded-xl shadow;
+        @apply shadow;
       }
     }
   }

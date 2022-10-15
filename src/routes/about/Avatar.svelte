@@ -37,7 +37,7 @@
       aria-label="hidden"
       bind:clientWidth={textWidth}
       class:invisible={!hover}
-      class="font-700 text-xs text-orange-700 block whitespace-nowrap dark:text-orange-300"
+      class="font-700 text-xs text-orange-700 block whitespace-nowrap <sm:hidden dark:text-orange-300"
       >Nice meeting you :)</span
     >
   </emoji>

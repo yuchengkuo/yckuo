@@ -5,8 +5,8 @@
   import Savee from './Savee.svelte'
 </script>
 
-<div class="flex flex-wrap gap-6 justify-end">
-  <div class="flex flex-col gap-6 items-end justify-end">
+<div class="flex flex-wrap gap-6 justify-end <sm:gap-4">
+  <div class="flex flex-col gap-6 items-end justify-end <sm:gap-4 <lg:(flex-row flex-wrap) ">
     <Avatar />
     <Github />
     <Readcv />

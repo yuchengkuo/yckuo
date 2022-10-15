@@ -85,7 +85,7 @@
 
   <aside
     use:motion={{ initial, animate, transition: { easing, delay: 0.8 } }}
-    class="<lg:(-order-1 col-span-full) "
+    class="<sm:mb-12 <lg:(-order-1 col-span-full) "
   >
     <nav class="flex flex-col flex-wrap font-Azeret font-400 text-sm gap-4 uppercase items-start">
       <a href="/about">About</a>

@@ -62,7 +62,7 @@
   })
 </script>
 
-<figure on:click bind:this={container} class={className} style:display="block" {...$$restProps}>
+<figure on:click bind:this={container} class="{className} overflow-hidden block" {...$$restProps}>
   <div
     class="rounded md:rounded-md lg:rounded-lg relative overflow-hidden no-js:hidden aspect-{aspectRatio}"
   >
@@ -88,6 +88,7 @@
         {alt}
         srcset={isVideo ? null : srcset}
         sizes={isVideo ? null : sizes.join(', ')}
+        loading="lazy"
         class="bg-surface h-full object-cover object-center w-full transition-opacity ease-out duration-300"
         class:opacity-0={!visible}
       />
@@ -99,6 +100,7 @@
       {alt}
       {srcset}
       sizes={sizes.join(', ')}
+      loading="lazy"
       class="bg-surface h-full object-cover object-center w-full transition-opacity duration-300"
     />
   </noscript>
@@ -110,6 +112,10 @@
 </figure>
 
 <style>
+  figure,
+  figure * {
+    isolation: isolate;
+  }
   figcaption {
     font-variation-settings: 'slnt' 10;
   }
