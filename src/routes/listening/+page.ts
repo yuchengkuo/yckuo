@@ -1,5 +1,7 @@
 import type { PageLoad } from './$types'
 
+export const prerender = false
+
 type Album = {
   title: string
   artist: string
