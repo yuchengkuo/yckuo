@@ -53,7 +53,7 @@
 </script>
 
 <div
-  class="bg-surface flex flex-wrap rounded-3xl mt-32 w-full p-6 gap-6 justify-between items-start relative phone:(p-4 justify-center) "
+  class="bg-surface flex flex-wrap rounded-3xl mt-32 w-full p-6 gap-6 justify-between items-start relative <sm:(p-4 justify-center) "
 >
   {#each themes.filter((t) => t.dark === dark) as theme, index (theme.name + dark)}
     {@const visible = target === index && hover}
@@ -74,6 +74,7 @@
       class:dark
       class="bg-bg rounded-lg cursor-pointer flex flex-col h-32 shadow p-3 w-32 relative justify-start hover:shadow-lg all:pointer-events-none"
       tabindex="0"
+      role="button"
       on:click={() => setActiveTheme(theme.name)}
       on:mouseenter|capture={() => setHoverTheme(index, theme.name)}
       on:focus={() => setHoverTheme(index, theme.name)}

@@ -21,7 +21,7 @@
 <ul>
   {#each data.allProjects as project}
     <li class="mb-40 gap-6 items-start block sm:grid sm:grid-cols-2 lg:grid-cols-[3fr_5fr]">
-      <div class="phone:mb-8">
+      <div class="<sm:mb-8">
         <h2>{project.title}</h2>
         <p class="mt-2 text-fg-secondary text-lg">
           {project.excerpt}

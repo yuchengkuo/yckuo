@@ -27,6 +27,7 @@
     {#each data.shows as show, index (show.id)}
       <li
         class="group"
+        role="link"
         on:mouseenter={(e) => {
           hoverId = index
           cords.set({ x: e.clientX + 8, y: e.clientY + 8 }, { hard: true })
