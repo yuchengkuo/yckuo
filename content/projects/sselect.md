@@ -5,9 +5,10 @@ tag:
   - Figma
   - Plugin
   - Commnand
+image:
+  - id: project/sselect
+    alt: plugin thumbnail
 link: https://figma.com/c/plugin/1087207671419748735
 time: 2022-04
 featured: true
 ---
-
-# ss

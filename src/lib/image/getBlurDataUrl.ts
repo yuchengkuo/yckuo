@@ -1,5 +1,5 @@
 import { buildImageUrl, buildVideoUrl, setConfig } from 'cloudinary-build-url'
-import { blurDataMap } from './map'
+import { blurDataCache } from './cache'
 
 import type { CldOptions } from '@cld-apis/types'
 
@@ -35,7 +35,7 @@ export async function getBlurDataUrl(id: string, isVideo = false) {
 }
 
 async function getDataUrlForImage(imageUrl: string) {
-  const blurDataUrl = blurDataMap.get(imageUrl)
+  const blurDataUrl = blurDataCache.get(imageUrl)
   if (blurDataUrl) return blurDataUrl
 
   try {
@@ -46,7 +46,7 @@ async function getDataUrlForImage(imageUrl: string) {
     const mime = res.headers.get('Content-Type') ?? 'image/webp'
     const dataUrl = `data:${mime};base64,${base64}`
 
-    blurDataMap.set(imageUrl, dataUrl)
+    blurDataCache.set(imageUrl, dataUrl)
     return dataUrl
   } catch (e) {
     console.error(`Error while getting blur data url for ${imageUrl}: ${e}`)

@@ -39,7 +39,7 @@
     }
 
     gallery {
-      @apply mt-40 mt-10 col-span-full grid-cols-[5fr,3fr] col-start-1 items-end block sm:grid sm:gap-6 xl:mt-20 <sm:children:mb-4 xl:children:mb-0;
+      @apply mt-10 col-span-full grid-cols-[5fr,3fr] col-start-1 items-end block sm:grid sm:gap-6 xl:mt-20 not-last:(mb-10 xl:mb-20) <sm:children:mb-4 xl:children:mb-0;
 
       :nth-child(2n + 1) {
         @apply w-full col-auto col-start-1;

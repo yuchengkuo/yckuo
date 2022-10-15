@@ -55,7 +55,7 @@
     <p>Building experience at Oen Tech, which involves:</p>
     <ul>
       <li>UX flows</li>
-      <li>Comopnent library in Figma</li>
+      <li>Component library in Figma</li>
       <li>Interaction & Visual</li>
       <li>Prototyping</li>
       <li>Front-end (UI development)</li>
@@ -93,7 +93,7 @@
       <a href="/bookmark">Bookmark</a>
       <a href="/listening">Listening</a>
       <a href="/watching">Watching</a>
-      <a href="/changelog">Changelog</a>
+      <!-- <a href="/changelog">Changelog</a> -->
     </nav>
   </aside>
 </section>

@@ -1,6 +1,6 @@
 import type { CldOptions } from '@cld-apis/types'
 import { buildImageUrl, buildVideoUrl, setConfig } from 'cloudinary-build-url'
-import { ratioMap } from './map'
+import { ratioCache } from './cache'
 
 setConfig({ cloudName: 'yucheng' })
 
@@ -31,7 +31,7 @@ export async function getAspectRatio(id: string, isVideo = false) {
 }
 
 export async function getAspectRatioForImage(imageUrl: string): Promise<string> {
-  const aspectRatio = ratioMap.get(imageUrl)
+  const aspectRatio = ratioCache.get(imageUrl)
   if (aspectRatio) return aspectRatio
 
   try {
@@ -42,7 +42,7 @@ export async function getAspectRatioForImage(imageUrl: string): Promise<string> 
 
     const { width, height } = result.output
 
-    ratioMap.set(imageUrl, `${height}/${width}`)
+    ratioCache.set(imageUrl, `${height}/${width}`)
 
     return `${height}/${width}`
   } catch (e) {

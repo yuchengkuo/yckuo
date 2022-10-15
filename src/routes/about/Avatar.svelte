@@ -14,7 +14,7 @@
   <Image
     id="about_avatar_cq1ocu"
     alt="YuCheng Kuo"
-    aspectRatio="1/1"
+    aspectRatio="100/100"
     class="bg-bg bg-blend-multiply rounded-xl shadow-md pointer-events-none overflow-hidden filter"
   />
 
