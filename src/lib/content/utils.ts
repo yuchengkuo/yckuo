@@ -14,7 +14,7 @@ const contentPath = 'content'
 export async function getAllContentMeta<T extends Record<string, unknown>>(
   folder = ''
 ): Promise<Array<T>> {
-  const dirs = readdirSync(resolve(join(contentPath, folder)), { withFileTypes: true })
+  const dirs = readdirSync(resolve(__dirname, join(contentPath, folder)), { withFileTypes: true })
 
   const files = dirs.filter((f) => f.isFile() && f.name.endsWith('.md'))
 
@@ -22,7 +22,7 @@ export async function getAllContentMeta<T extends Record<string, unknown>>(
     return Promise.all(
       files.map(async (f) => ({
         ...(await parseFrontmatter<T>(
-          readFileSync(resolve(join(contentPath, folder, f.name)), 'utf-8')
+          readFileSync(resolve(__dirname, join(contentPath, folder, f.name)), 'utf-8')
         )),
         slug: f.name.replace(/\.md/, ''),
       }))
@@ -34,13 +34,13 @@ export async function getContentBySlug<T extends Record<string, unknown>>(
   params: string,
   folder = ''
 ) {
-  const dirs = readdirSync(resolve(join(contentPath, folder)), { withFileTypes: true })
+  const dirs = readdirSync(resolve(__dirname, join(contentPath, folder)), { withFileTypes: true })
 
   const file = dirs.find((f) => f.isFile() && f.name === `${params}.md`)
 
   if (file) {
     return await parseContent<T>(
-      readFileSync(resolve(join(contentPath, folder, file.name)), 'utf-8')
+      readFileSync(resolve(__dirname, join(contentPath, folder, file.name)), 'utf-8')
     )
   }
 
@@ -51,11 +51,13 @@ export async function getDataBySlug<T extends Record<string, unknown>>(
   params: string,
   folder = ''
 ) {
-  const dirs = readdirSync(resolve(join(contentPath, folder)), { withFileTypes: true })
+  const dirs = readdirSync(resolve(__dirname, join(contentPath, folder)), { withFileTypes: true })
 
   const file = dirs.find((f) => f.isFile() && f.name === `${params}.yaml`)
 
-  const data = load(readFileSync(resolve(join(contentPath, folder, file.name)), 'utf-8')) as T
+  const data = load(
+    readFileSync(resolve(__dirname, join(contentPath, folder, file.name)), 'utf-8')
+  ) as T
 
   if (data) {
     await findMarkdown<T>(data)
