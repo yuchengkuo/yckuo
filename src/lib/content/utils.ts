@@ -1,5 +1,4 @@
 import { readdirSync, readFileSync } from 'fs'
-import { join } from 'path'
 import Markdoc, { type RenderableTreeNode } from '@markdoc/markdoc'
 import { config } from '$schema/markdoc.config'
 import { load } from 'js-yaml'
@@ -14,15 +13,14 @@ const contentPath = './content'
 export async function getAllContentMeta<T extends Record<string, unknown>>(
   folder = ''
 ): Promise<Array<T>> {
-  console.log(process.cwd())
-  const dirs = readdirSync(join(contentPath, folder), { withFileTypes: true })
+  const dirs = readdirSync(`${contentPath}/${folder}`, { withFileTypes: true })
 
   const files = dirs.filter((f) => f.isFile() && f.name.endsWith('.md'))
 
   if (files) {
     return Promise.all(
       files.map(async (f) => ({
-        ...(await parseFrontmatter<T>(readFileSync(join(contentPath, folder, f.name), 'utf-8'))),
+        ...(await parseFrontmatter<T>(readFileSync(`${contentPath}/${folder}/${f.name}`, 'utf-8'))),
         slug: f.name.replace(/\.md/, ''),
       }))
     )
@@ -33,12 +31,12 @@ export async function getContentBySlug<T extends Record<string, unknown>>(
   params: string,
   folder = ''
 ) {
-  const dirs = readdirSync(join(contentPath, folder), { withFileTypes: true })
+  const dirs = readdirSync(`${contentPath}/${folder}`, { withFileTypes: true })
 
   const file = dirs.find((f) => f.isFile() && f.name === `${params}.md`)
 
   if (file) {
-    return await parseContent<T>(readFileSync(join(contentPath, folder, file.name), 'utf-8'))
+    return await parseContent<T>(readFileSync(`${contentPath}/${folder}/${file.name}`, 'utf-8'))
   }
 
   throw error(404, `File ${params}.md does not exist`)
@@ -48,11 +46,11 @@ export async function getDataBySlug<T extends Record<string, unknown>>(
   params: string,
   folder = ''
 ) {
-  const dirs = readdirSync(join(contentPath, folder), { withFileTypes: true })
+  const dirs = readdirSync(`${contentPath}/${folder}`, { withFileTypes: true })
 
   const file = dirs.find((f) => f.isFile() && f.name === `${params}.yaml`)
 
-  const data = load(readFileSync(join(contentPath, folder, file.name), 'utf-8')) as T
+  const data = load(readFileSync(`${contentPath}/${folder}/${file.name}`, 'utf-8')) as T
 
   if (data) {
     await findMarkdown<T>(data)
