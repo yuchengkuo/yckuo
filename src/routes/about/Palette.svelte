@@ -76,6 +76,7 @@
       tabindex="0"
       role="button"
       on:click={() => setActiveTheme(theme.name)}
+      on:keypress={() => setActiveTheme(theme.name)}
       on:mouseenter|capture={() => setHoverTheme(index, theme.name)}
       on:focus={() => setHoverTheme(index, theme.name)}
       on:mouseout={resetTheme}
