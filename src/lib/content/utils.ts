@@ -9,11 +9,12 @@ import { error } from '@sveltejs/kit'
 import { getBlurDataUrl } from '$lib/image/getBlurDataUrl'
 import { getAspectRatio } from '$lib/image/getAspectRatio'
 
-const contentPath = 'content'
+const contentPath = './content'
 
 export async function getAllContentMeta<T extends Record<string, unknown>>(
   folder = ''
 ): Promise<Array<T>> {
+  console.log(process.cwd())
   const dirs = readdirSync(join(process.cwd(), contentPath, folder), { withFileTypes: true })
 
   const files = dirs.filter((f) => f.isFile() && f.name.endsWith('.md'))
