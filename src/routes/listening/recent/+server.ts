@@ -1,12 +1,12 @@
 import { getRecentTracks } from '$lib/api/lastfm'
 import { error, json, type RequestHandler } from '@sveltejs/kit'
 
-export const GET: RequestHandler = async function ({ url }) {
+export const GET: RequestHandler = async function () {
   const res = await getRecentTracks()
 
   if (!res.ok) throw error(404)
 
-  const limit = Number(url.searchParams.get('limit') ?? 20)
+  const limit = 20
 
   const { recenttracks } = await res.json()
 

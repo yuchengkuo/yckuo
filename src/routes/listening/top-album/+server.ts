@@ -2,12 +2,12 @@ import { getTopAlbums } from '$lib/api/lastfm'
 import { getAlbumSearchResult } from '$lib/api/spotify'
 import { error, json, type RequestHandler } from '@sveltejs/kit'
 
-export const GET: RequestHandler = async function ({ url }) {
+export const GET: RequestHandler = async function () {
   const res = await getTopAlbums()
 
   if (!res.ok) throw error(404)
 
-  const limit = Number(url.searchParams.get('limit') ?? 8)
+  const limit = 12
 
   const { topalbums } = await res.json()
   const albums = topalbums.album.slice(0, limit).map((album) => ({
@@ -36,7 +36,7 @@ export const GET: RequestHandler = async function ({ url }) {
   return json(albums, {
     headers: {
       'content-type': 'application/json;',
-      'cache-control': 'public, stale-while-revalidate=86400',
+      'cache-control': 'public, max-age=127800, stale-while-revalidate=86400',
     },
   })
 }

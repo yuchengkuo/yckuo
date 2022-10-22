@@ -10,7 +10,7 @@ export const GET: RequestHandler = async function ({ params, url }) {
     return json({ data }, { headers: { 'content-type': 'application/json;' } })
   }
 
-  const { content, ...frontmatter } = getContentBySlug(slug)
+  const { content, ...frontmatter } = await getContentBySlug(slug)
 
   return json({ content, frontmatter }, { headers: { 'content-type': 'application/json;' } })
 }

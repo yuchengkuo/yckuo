@@ -1,12 +1,12 @@
 import { getTopArtists } from '$lib/api/spotify'
 import { error, json, type RequestHandler } from '@sveltejs/kit'
 
-export const GET: RequestHandler = async function ({ url }) {
+export const GET: RequestHandler = async function () {
   const response = await getTopArtists()
 
   if (!response.ok) throw error(404)
 
-  const limit = Number(url.searchParams.get('limit') ?? 4)
+  const limit = 4
 
   const { items } = await response.json()
   const artists = items.slice(0, limit).map((item) => ({
@@ -21,7 +21,7 @@ export const GET: RequestHandler = async function ({ url }) {
   return json(artists, {
     headers: {
       'content-type': 'application/json',
-      'cache-control': 'public, stale-while-revalidate=43200, max-age=129600',
+      'cache-control': 'public,max-age=129600, stale-while-revalidate=43200',
     },
   })
 }
