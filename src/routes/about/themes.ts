@@ -50,9 +50,9 @@ export const themes = [
   {
     name: 'default',
     label: 'Grain',
-    colors: { bg: '#E6D6BC', fg: '#1B2154' },
+    colors: { bg: '#EAE5CC', fg: '#14215c' },
     dark: false,
-    contrast: 10.56,
+    contrast: 11.83,
     aa: 'AAA',
   },
   {

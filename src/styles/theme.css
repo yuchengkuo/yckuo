@@ -1,12 +1,12 @@
 :root,
 [data-theme='default'] {
-  --colors-bg: 230, 214, 188;
+  --colors-bg: 234, 229, 204;
 
-  --colors-fg: 29, 37, 93;
-  --colors-fg-secondary: 29, 37, 93;
+  --colors-fg: 20, 33, 92;
+  --colors-fg-secondary: 20, 33, 92;
 
-  --colors-surface: 29, 37, 93;
-  --colors-border: 29, 37, 93;
+  --colors-surface: 20, 33, 92;
+  --colors-border: 20, 33, 92;
 }
 
 .dark,
