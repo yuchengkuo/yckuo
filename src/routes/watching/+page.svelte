@@ -65,7 +65,7 @@
 
 {#if data.shows[hoverId]}
   <div
-    class="rounded-md h-max bg-fg-secondary/84 shadow-lg text-bg p-4 transform w-80 rotate-2 backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto"
+    class="rounded-md h-max bg-fg-secondary/84 shadow-lg text-bg p-4 transform w-80 rotate-2 backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto <sm:hidden"
     style:left={`${$cords.x}px`}
     style:top={`${$cords.y}px`}
   >
