@@ -19,6 +19,8 @@ export type Savee = {
   }
 }
 
+export const prerender = true
+
 export const load: PageServerLoad = async function ({ setHeaders }) {
   setHeaders({ 'cache-control': 'public, max-age=259200, stale-while-revalidate=86400' })
 

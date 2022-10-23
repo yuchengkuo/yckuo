@@ -3,6 +3,8 @@ import { getContentBySlug } from '$lib/content/utils'
 import type { Project } from '$contentlayer'
 import type { LayoutServerLoad } from './$types'
 
+export const prerender = true
+
 export const load: LayoutServerLoad = async function ({ params, setHeaders }) {
   const { slug } = params
   const project = getContentBySlug<Project>(slug, 'projects')
