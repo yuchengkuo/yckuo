@@ -33,8 +33,9 @@ specifiers:
   prettier: ^2.7.1
   prettier-plugin-svelte: ^2.8.0
   reading-time: ^1.5.0
-  sharp: ^0.30.7
+  sharp: ^0.31.1
   slugify: ^1.6.5
+  snd-lib: ^1.1.1
   string-replace-async: ^3.0.2
   svelte: ^3.51.0
   svelte-check: ^2.9.2
@@ -62,7 +63,8 @@ dependencies:
   lodash.throttle: 4.1.1
   motion: 10.14.2
   nprogress: 0.2.0
-  sharp: 0.30.7
+  sharp: 0.31.1
+  snd-lib: 1.1.1
   sveltejs-markdoc: 0.1.1
 
 devDependencies:
@@ -2546,6 +2548,11 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
+  /events/3.3.0:
+    resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
+    engines: {node: '>=0.8.x'}
+    dev: false
+
   /expand-template/2.0.3:
     resolution: {integrity: sha512-XYfuKMvj4O35f/pOXLObndIRvyQ+/+6AhODh+OKWj9S9498pHHn/IMszH+gt0fBCRWMNfk1ZSp5x3AifmnI2vg==}
     engines: {node: '>=6'}
@@ -4820,9 +4827,9 @@ packages:
     dev: false
     optional: true
 
-  /sharp/0.30.7:
-    resolution: {integrity: sha512-G+MY2YW33jgflKPTXXptVO28HvNOo9G3j0MybYAHeEmby+QuD2U98dT6ueht9cv/XDqZspSpIhoSW+BAKJ7Hig==}
-    engines: {node: '>=12.13.0'}
+  /sharp/0.31.1:
+    resolution: {integrity: sha512-GR8M1wBwOiFKLkm9JPun27OQnNRZdHfSf9VwcdZX6UrRmM1/XnOrLFTF0GAil+y/YK4E6qcM/ugxs80QirsHxg==}
+    engines: {node: '>=14.15.0'}
     requiresBuild: true
     dependencies:
       color: 4.2.3
@@ -4923,6 +4930,12 @@ packages:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.4.0
+
+  /snd-lib/1.1.1:
+    resolution: {integrity: sha512-7e9i8GOZorszelqZ0Q3rhn4txWvCID57sEWZVWLc9F2O3lCrm/Cfk7QRGcWD75S9rSoZ0AcqN1ZgKkqaYPaiJA==}
+    dependencies:
+      events: 3.3.0
+    dev: false
 
   /socks-proxy-agent/5.0.1:
     resolution: {integrity: sha512-vZdmnjb9a2Tz6WEQVIurybSwElwPxMZaIc7PzqbJTrezcKNznv6giT7J7tZDZ1BojVaa1jvO/UiUdhDVB0ACoQ==}

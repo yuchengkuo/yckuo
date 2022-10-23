@@ -5,14 +5,16 @@
 
   import NProgress from 'nprogress'
   import { Confetti } from 'svelte-confetti'
-  import { onMount } from 'svelte'
+  import { onMount, setContext } from 'svelte'
   import { inview } from 'svelte-inview'
   import { format } from 'date-fns'
   import zhTW from 'date-fns/locale/zh-TW'
+  import Snd from 'snd-lib'
 
   import { afterNavigate, beforeNavigate } from '$app/navigation'
   import { page } from '$app/stores'
   import { motion } from '$lib/animation/motion'
+  import { dev } from '$app/environment'
 
   beforeNavigate(() => NProgress.start())
   afterNavigate(() => NProgress.done())
@@ -31,6 +33,8 @@
     animate: { opacity: 1 },
     transition: { delay: 0.4, duration: 0.4 },
   }
+  const snd = new Snd()
+  setContext('snd', snd)
 
   onMount(() => {
     colorize = document.documentElement.classList.contains('decolorize')
@@ -53,12 +57,18 @@
     return () => clearInterval(interval)
   })
 
+  onMount(async () => {
+    await snd.load(Snd.KITS.SND02)
+  })
+
   async function toggleColor() {
     document.documentElement.classList.toggle('decolorize')
     if (colorize) {
       localStorage.removeItem('decolorize')
+      snd.play(Snd.SOUNDS.TRANSITION_UP)
     } else {
       localStorage.setItem('decolorize', 'true')
+      snd.play(Snd.SOUNDS.TOGGLE_OFF)
     }
     showConfetti = colorize ? true : false
     colorize = !colorize
@@ -67,6 +77,7 @@
   async function toggleTheme() {
     if (theme === 'darken') {
       document.documentElement.classList.add('dark')
+      snd.play(Snd.SOUNDS.TAP)
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         localStorage.removeItem('theme')
       } else {
@@ -77,6 +88,7 @@
     }
     if (theme === 'lighten') {
       document.documentElement.classList.remove('dark')
+      snd.play(Snd.SOUNDS.TYPE)
       if (!window.matchMedia('(prefers-color-scheme: dark)').matches) {
         localStorage.removeItem('theme')
       } else {

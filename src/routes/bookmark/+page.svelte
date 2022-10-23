@@ -1,17 +1,27 @@
 <script lang="ts">
+  import { getContext, onDestroy, onMount } from 'svelte'
   import { spring } from 'motion'
   import Head from '$lib/seo/Head.svelte'
   import Image from '$lib/image/Image.svelte'
   import { motion } from '$lib/animation/motion'
+  import Snd from 'snd-lib'
 
   import type { PageData } from './$types'
 
   export let data: PageData
 
+  const snd = getContext('snd') as Snd
   const cord = { x: 0, y: 0 }
   const scrollOffset = 24
   let initialScrollTop = 0
   let downscroll = true
+
+  onMount(async () => {
+    await snd.load(Snd.KITS.SND01)
+  })
+  onDestroy(async () => {
+    await snd.load(Snd.KITS.SND02)
+  })
 </script>
 
 <svelte:window
@@ -42,7 +52,8 @@
       {@const deg = Math.floor((Math.random() * 20 - 10) % 3)}
       <li
         class="relative group sm:(items-baseline grid gap-x-4 grid-cols-[2fr_1fr]) md:grid-cols-[2fr_1fr_1fr] xl:(grid-cols-[2fr_3fr_3fr] gap-x-10) "
-        on:pointermove={(e) => {
+        on:mouseenter={() => snd.play(Snd.SOUNDS.TYPE)}
+        on:mousemove={(e) => {
           const offset = 56
           const left = e.currentTarget.offsetLeft
           const width = e.currentTarget.clientWidth
@@ -53,7 +64,7 @@
           cord.x = offsetX
           cord.y = offsetY
         }}
-        on:pointerleave={() => {
+        on:mouseleave={() => {
           cord.x = 0
           cord.y = 0
         }}
