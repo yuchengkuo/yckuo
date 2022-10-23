@@ -89,6 +89,7 @@
 </script>
 
 <svelte:head>
+  <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
   <script>
     document.documentElement.classList.remove('no-js')
   </script>
