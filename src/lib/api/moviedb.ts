@@ -11,11 +11,9 @@ const TV_ENPOINT = '3/tv'
 
 export async function getFavoriteTV(page = 1) {
   const url = new URL(FAVTV_ENDPOINT, BASE_ENDPOINT)
-
   const query = new URLSearchParams({
     page: page.toString(),
   })
-
   query.forEach((value, key) => url.searchParams.append(key, value))
 
   return fetch(url.toString(), {
@@ -29,27 +27,35 @@ export async function getPosterUrl(file_path: string) {
   const url = new URL(CONFIG_ENDPOINT, BASE_ENDPOINT)
   url.searchParams.append('api_key', api_key)
 
-  const res = await fetch(url.toString())
-  if (!res.ok) return
+  try {
+    const res = await fetch(url.toString())
 
-  const { images } = await res.json()
-  const { secure_base_url, poster_sizes } = images
-  return secure_base_url + poster_sizes[5] + file_path
+    const { images } = await res.json()
+    const { secure_base_url, poster_sizes } = images
+    return secure_base_url + poster_sizes[5] + file_path
+  } catch (e) {
+    console.error('Error while getting poster URL', e)
+    return ''
+  }
 }
 
 export async function getShowDetail(id: number) {
   const url = new URL(join(TV_ENPOINT, String(id)), BASE_ENDPOINT)
   url.searchParams.append('api_key', api_key)
 
-  const res = await fetch(url.toString())
-  if (!res.ok) return
+  try {
+    const res = await fetch(url.toString())
 
-  const {
-    genres,
-    status,
-    last_air_date: lastAir,
-    number_of_episodes: episodes,
-    number_of_seasons: seasons,
-  } = await res.json()
-  return { genres, status, episodes, seasons, lastAir }
+    const {
+      genres,
+      status,
+      last_air_date: lastAir,
+      number_of_episodes: episodes,
+      number_of_seasons: seasons,
+    } = await res.json()
+    return { genres, status, episodes, seasons, lastAir }
+  } catch (e) {
+    console.log('Error while getting show detail', e)
+    return {}
+  }
 }
