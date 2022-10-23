@@ -27,7 +27,7 @@
           {project.excerpt}
         </p>
         <a
-          class="rounded font-Azeret mt-4 text-fg-secondary text-sm w-fit block"
+          class="rounded font-Azeret -my-1 -mx-2 mt-4 text-fg-secondary text-sm w-fit py-1 px-2 block"
           href={project.link ? project.link : `/project/${project.slug}`}
           >{project.link ? 'link ↗' : 'more ->'}</a
         >

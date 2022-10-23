@@ -15,7 +15,7 @@ My name is YuCheng Kuo. I am a product designer and UI developer from Taiwan. Cu
 
 I am always fascinated by the connection between how technologies reshape our daily lives and how we then reshape new technologies in the future.
 
-I value multi-disciplined skills that could help people achieve their goals in a delightful and simple way. And I seek ambitious teams where together, we can create lasting and impactful experience that fulfill user needs and business goals.
+I value multi-disciplined skills that could help people achieve their goals in a delightful and simple way. And I seek ambitious teams where together, we can create lasting and impactful experience that fulfill both user needs and business goals.
 
 {% about /%}
 
@@ -35,7 +35,7 @@ Types used on this website are mainly [Uncut Sans](https://uncut.wtf/sans-serif/
 
 I first got into digital design/front-end with the attempt to make school presentations enjoyable for the audience (sounds actually weird). With the lead of passionate curiosity and constant self-learning, I had accquired strong love of both desiging feasible solutions and developing with good design.
 
-Aside from above, I'm an avid music listener and tv/film enthusiast. I think the best experience is to feel the music and live the scenes. Working on [listening](/listening) and [watching](/watching) page to showcase some of the current loves.
+Aside from above, I'm an avid music listener and tv/film enthusiast. My favorite and best experience is feeling the music and living the scenes. Working on [listening](/listening) and [watching](/watching) page to showcase some of the current loves.
 
 ## Now
 

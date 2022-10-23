@@ -50,6 +50,7 @@ const Project = defineDocumentType(() => ({
     excerpt: { type: 'string', required: true },
     tag: { type: 'list', of: { type: 'string' } },
     image: { type: 'list', of: Image },
+    hideCover: { type: 'boolean', default: false },
     time: { type: 'date', required: true },
     link: { type: 'string', description: 'Provide link for project without page.' },
     featured: { type: 'boolean' },

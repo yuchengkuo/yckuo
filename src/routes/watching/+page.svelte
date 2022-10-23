@@ -19,7 +19,7 @@
 
 <section class="mb-20 md:mb-40">
   <h1 class="mb-4 md:mb-8">Watching</h1>
-  <p class="text-fg-secondary">A list of tv shows that I love. Still WIP.</p>
+  <p class="text-fg-secondary">A list of great tv shows. Still WIP.</p>
 </section>
 
 <section class="xl:(grid grid-cols-[3fr_1fr]) ">

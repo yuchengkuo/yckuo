@@ -19,7 +19,7 @@
     use:motion={{ initial: { scale: 0.8 }, animate: { scale: 1 }, transition: { delay: 0.3 } }}
     class="w-full col-span-full justify-self-center sm:w-8/10"
   >
-    {#if data.image}
+    {#if data.image && !data.hideCover}
       {@const image = data.image[0]}
       <Image
         class="bg-surafce object-cover rounded-2xl w-full max-h-[max(520px,_65vh)] overflow-hidden"
@@ -27,6 +27,7 @@
         aspectRatio={image.aspectRatio}
         blurDataUrl={image.blurDataUrl}
         alt={`${data.title} project cover image`}
+        isVideo={image.isVideo}
       />
     {/if}
   </div>

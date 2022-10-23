@@ -19,9 +19,10 @@ image:
   - id: project/home
     alt: home page
     isVideo: true
+hideCover: true
 meta:
   - title: Context
-    content: A everlasting project to learn/play things that are interesting and fun.
+    content: A everlasting project to learn/play things that bring joy and fulfilment.
   - title: Tool
     content: Figma, VS Code, SvelteKit
   - title: Timeline

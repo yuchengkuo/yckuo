@@ -42,7 +42,7 @@
       {@const deg = Math.floor((Math.random() * 20 - 10) % 3)}
       <li
         class="relative group sm:(items-baseline grid gap-x-4 grid-cols-[2fr_1fr]) md:grid-cols-[2fr_1fr_1fr] xl:(grid-cols-[2fr_3fr_3fr] gap-x-10) "
-        on:mousemove={(e) => {
+        on:pointermove={(e) => {
           const offset = 56
           const left = e.currentTarget.offsetLeft
           const width = e.currentTarget.clientWidth
@@ -53,7 +53,7 @@
           cord.x = offsetX
           cord.y = offsetY
         }}
-        on:mouseleave={() => {
+        on:pointerleave={() => {
           cord.x = 0
           cord.y = 0
         }}
@@ -82,8 +82,7 @@
         </div>
 
         <div
-          class="mt-2 opacity-100 md:mt-0 xl:(opacity-0 w-7/10 h-0 justify-self-end) <xl:order-3 group-hover:opacity-100 "
-          style:transform="rotate({deg}deg)"
+          class="mt-2 self-start md:mt-0 xl:(opacity-0 w-7/10 h-0 justify-self-end) <xl:order-3 group-hover:opacity-100 "
           use:motion={{
             animate: { x: cord.x, y: cord.y },
             transition: { easing: spring({ damping: 40 }) },
@@ -94,6 +93,7 @@
             alt={item.title}
             aspectRatio={item.aspectRatio}
             blurDataUrl={item.blurDataUrl}
+            class="rotate-{deg} transform"
           />
         </div>
       </li>
