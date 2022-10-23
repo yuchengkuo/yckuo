@@ -1,0 +1,184 @@
+:root,
+[data-theme='default'] {
+  --colors-bg: 234, 229, 204;
+
+  --colors-fg: 20, 33, 92;
+  --colors-fg-secondary: 20, 33, 92;
+
+  --colors-surface: 20, 33, 92;
+  --colors-border: 20, 33, 92;
+}
+
+.dark,
+.dark[data-theme='default'] {
+  --colors-bg: 43, 53, 77;
+
+  --colors-fg: 232, 244, 212;
+  --colors-fg-secondary: 232, 244, 212;
+
+  --colors-surface: 232, 244, 212;
+  --colors-border: 232, 244, 212;
+}
+
+.decolorize,
+.decolorize[data-theme] {
+  --colors-bg: 242, 242, 242;
+
+  --colors-fg: 32, 32, 32;
+  --colors-fg-secondary: 110, 110, 110;
+
+  --colors-surface: 110, 110, 110;
+  --colors-border: 110, 110, 110;
+}
+
+.decolorize.dark,
+.dark .decolorize,
+.decolorize[data-theme].dark {
+  --colors-bg: 39, 39, 39;
+
+  --colors-fg: 235, 235, 235;
+  --colors-fg-secondary: 169, 169, 169;
+
+  --colors-surface: 169, 169, 169;
+  --colors-border: 169, 169, 169;
+}
+
+[data-theme='green'] {
+  --colors-bg: 196, 234, 192;
+
+  --colors-fg: 56, 40, 75;
+  --colors-fg-secondary: 56, 40, 75;
+
+  --colors-surface: 56, 40, 75;
+  --colors-border: 56, 40, 75;
+}
+
+[data-theme='green'].dark {
+  --colors-bg: 57, 70, 73;
+
+  --colors-fg: 239, 238, 207;
+  --colors-fg-secondary: 239, 238, 207;
+
+  --colors-surface: 239, 238, 207;
+  --colors-border: 239, 238, 207;
+}
+
+[data-theme='cyan'] {
+  --colors-bg: 199, 224, 221;
+
+  --colors-fg: 1, 70, 230;
+  --colors-fg-secondary: 8, 65, 100;
+
+  --colors-surface: 8, 65, 100;
+  --colors-border: 8, 65, 100;
+}
+
+[data-theme='cyan'].dark {
+  --colors-bg: 42, 30, 84;
+
+  --colors-fg: 229, 236, 199;
+  --colors-fg-secondary: 187, 213, 230;
+
+  --colors-surface: 187, 213, 230;
+  --colors-border: 187, 213, 230;
+}
+
+[data-theme='pink'] {
+  --colors-bg: 238, 217, 214;
+
+  --colors-fg: 12, 84, 178;
+  --colors-fg-secondary: 45, 30, 73;
+
+  --colors-surface: 45, 30, 73;
+  --colors-border: 45, 30, 73;
+}
+
+[data-theme='pink'].dark {
+  --colors-bg: 86, 32, 57;
+
+  --colors-fg: 233, 181, 92;
+  --colors-fg-secondary: 226, 219, 238;
+
+  --colors-surface: 226, 219, 238;
+  --colors-border: 226, 219, 238;
+}
+
+[data-theme='orange'] {
+  --colors-bg: 250, 228, 211;
+
+  --colors-fg: 102, 37, 48;
+  --colors-fg-secondary: 0, 1, 54;
+
+  --colors-surface: 0, 1, 54;
+  --colors-border: 0, 1, 54;
+}
+
+[data-theme='orange'].dark {
+  --colors-bg: 46, 18, 2;
+
+  --colors-fg: 249, 198, 121;
+  --colors-fg-secondary: 190, 198, 184;
+
+  --colors-surface: 190, 198, 184;
+  --colors-border: 190, 198, 184;
+}
+
+[data-theme='violet'] {
+  --colors-bg: 228, 214, 234;
+
+  --colors-fg: 37, 31, 80;
+  --colors-fg-secondary: 37, 31, 80;
+
+  --colors-surface: 37, 31, 80;
+  --colors-border: 37, 31, 80;
+}
+
+[data-theme='violet'].dark {
+  --colors-bg: 81, 62, 129;
+
+  --colors-fg: 247, 234, 210;
+  --colors-fg-secondary: 247, 234, 210;
+
+  --colors-surface: 247, 234, 210;
+  --colors-border: 247, 234, 210;
+}
+
+[data-theme='grass'] {
+  --colors-bg: 243, 254, 241;
+
+  --colors-fg: 10, 95, 174;
+  --colors-fg-secondary: 53, 44, 86;
+
+  --colors-surface: 53, 44, 86;
+  --colors-border: 53, 44, 86;
+}
+
+[data-theme='grass'].dark {
+  --colors-bg: 50, 103, 103;
+
+  --colors-fg: 244, 230, 107;
+  --colors-fg-secondary: 212, 220, 219;
+
+  --colors-surface: 212, 220, 219;
+  --colors-border: 212, 220, 219;
+}
+
+[data-theme='sands'] {
+  --colors-bg: 235, 241, 201;
+
+  --colors-fg: 50, 29, 83;
+  --colors-fg-secondary: 98, 42, 67;
+
+  --colors-surface: 98, 42, 67;
+  --colors-border: 98, 42, 67;
+}
+
+[data-theme='sands'].dark {
+  --colors-bg: 80, 70, 45;
+
+  --colors-fg: 236, 165, 89;
+  --colors-fg-secondary: 236, 222, 166;
+
+  --colors-surface: 236, 222, 166;
+  --colors-border: 236, 222, 166;
+}

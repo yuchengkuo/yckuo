@@ -1,9 +1,11 @@
+# yuchengkuo.com
+
+---
+
 Source of [yuchengkuo.com](https://yuchengkuo.com)
 
-Built with:
-
-- [Next.js](https://nextjs.org)
-- [Tailwind](https://tailwindcss.com)
-- [Mdx](https://mdxjs.com)
-- [Framer Motion](https://framer.com/motion)
+- [SvelteKit](https://kit.svelte.dev)
+- [WindiCSS](https://windicss.org)
+- [Markdoc](https://markdoc.io)
+- [Motion One](https://motion.dev)
 - [Vercel](https://vercel.com)

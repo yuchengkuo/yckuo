@@ -1,0 +1,17 @@
+node_modules
+
+# static
+public
+
+#contentlayer
+.contentlayer
+
+# vercel
+.vercel
+
+# svelte
+/.svelte-kit
+.output
+
+# pnpm
+pnpm-lock.yaml
