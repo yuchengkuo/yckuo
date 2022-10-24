@@ -9,7 +9,7 @@
   export let data: PageData
 
   const easing = spring({ mass: 1, damping: 20 })
-  const initial = { y: '20%', opacity: 0 }
+  const initial = { y: '20%', opacity: 0.001 }
   const animate = { y: 0, opacity: 1 }
 </script>
 

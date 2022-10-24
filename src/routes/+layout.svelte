@@ -13,8 +13,8 @@
 
   import { afterNavigate, beforeNavigate } from '$app/navigation'
   import { page } from '$app/stores'
-  import { motion } from '$lib/animation/motion'
   import { dev } from '$app/environment'
+  import { motion } from '$lib/animation/motion'
 
   beforeNavigate(() => NProgress.start())
   afterNavigate(() => NProgress.done())
@@ -29,7 +29,7 @@
   $: pathnames = $page.url.pathname.split('/')
 
   const fadeInConfig = {
-    initial: { opacity: 0 },
+    initial: { opacity: 0.001 },
     animate: { opacity: 1 },
     transition: { delay: 0.4, duration: 0.4 },
   }
@@ -101,7 +101,9 @@
 </script>
 
 <svelte:head>
-  <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
+  {#if !dev}
+    <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
+  {/if}
   <script>
     document.documentElement.classList.remove('no-js')
   </script>
