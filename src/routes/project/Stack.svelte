@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getContext, onMount } from 'svelte'
+  import { onMount } from 'svelte'
   import { animate, inView, spring } from 'motion'
   import throttle from 'lodash.throttle'
   import Snd from 'snd-lib'
@@ -14,8 +14,12 @@
   export { className as class }
 
   let imgEl: HTMLDivElement
+  let snd: Snd
 
-  const snd = getContext('snd') as Snd
+  onMount(() => {
+    snd = new Snd()
+    snd.load(Snd.KITS.SND03)
+  })
 
   onMount(() =>
     inView(imgEl, () => {

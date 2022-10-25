@@ -5,7 +5,7 @@
 
   import NProgress from 'nprogress'
   import { Confetti } from 'svelte-confetti'
-  import { onMount, setContext } from 'svelte'
+  import { onMount } from 'svelte'
   import { inview } from 'svelte-inview'
   import { format } from 'date-fns'
   import zhTW from 'date-fns/locale/zh-TW'
@@ -25,6 +25,7 @@
   let pathnames: string[]
   let border = false
   let present = 'present'
+  let snd: Snd
 
   $: pathnames = $page.url.pathname.split('/')
 
@@ -33,8 +34,11 @@
     animate: { opacity: 1 },
     transition: { delay: 0.4, duration: 0.4 },
   }
-  const snd = new Snd()
-  setContext('snd', snd)
+
+  onMount(async () => {
+    snd = new Snd()
+    await snd.load(Snd.KITS.SND02)
+  })
 
   onMount(() => {
     colorize = document.documentElement.classList.contains('decolorize')

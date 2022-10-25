@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getContext, onDestroy, onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import { spring } from 'motion'
   import Head from '$lib/seo/Head.svelte'
   import Image from '$lib/image/Image.svelte'
@@ -10,17 +10,15 @@
 
   export let data: PageData
 
-  const snd = getContext('snd') as Snd
   const cord = { x: 0, y: 0 }
   const scrollOffset = 24
   let initialScrollTop = 0
   let downscroll = true
+  let snd: Snd
 
   onMount(async () => {
+    snd = new Snd()
     await snd.load(Snd.KITS.SND01)
-  })
-  onDestroy(async () => {
-    await snd.load(Snd.KITS.SND02)
   })
 </script>
 
