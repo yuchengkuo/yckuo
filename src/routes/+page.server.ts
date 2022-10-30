@@ -4,8 +4,6 @@ import { compareDesc } from 'date-fns'
 import type { PageServerLoad } from './$types'
 import type { Project } from '$contentlayer'
 
-export const prerender = true
-
 export const load: PageServerLoad = async function ({ setHeaders }) {
   const allProjects = await getAllContentMeta<Project>('projects')
   const projects = allProjects

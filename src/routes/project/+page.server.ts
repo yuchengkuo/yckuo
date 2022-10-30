@@ -4,8 +4,6 @@ import { compareDesc } from 'date-fns'
 import type { PageServerLoad } from './$types'
 import type { Project } from '$contentlayer'
 
-export const prerender = true
-
 export const load: PageServerLoad = async function ({ setHeaders }) {
   const allProjects = await getAllContentMeta<Project>('projects')
   allProjects.sort((a, b) => compareDesc(new Date(a.time), new Date(b.time)))

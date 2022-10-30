@@ -6,8 +6,8 @@
   console.error($page.error.message)
 </script>
 
-<Head title="404 · YuCheng Kuo" />
+<Head title="{$page.status} · YuCheng Kuo" />
 
-<h1 class="mb-4">404</h1>
+<h1 class="mb-4">{$page.status}</h1>
 
 <p>Couldn't find <code>{$page.url.pathname}</code></p>

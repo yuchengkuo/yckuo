@@ -22,25 +22,25 @@
 
 .decolorize,
 .decolorize[data-theme] {
-  --colors-bg: 242, 242, 242;
+  --colors-bg: 250, 250, 250;
 
-  --colors-fg: 32, 32, 32;
-  --colors-fg-secondary: 110, 110, 110;
+  --colors-fg: 16, 16, 16;
+  --colors-fg-secondary: 96, 96, 96;
 
-  --colors-surface: 110, 110, 110;
-  --colors-border: 110, 110, 110;
+  --colors-surface: 96, 96, 96;
+  --colors-border: 96, 96, 96;
 }
 
 .decolorize.dark,
 .dark .decolorize,
 .decolorize[data-theme].dark {
-  --colors-bg: 39, 39, 39;
+  --colors-bg: 24, 24, 24;
 
-  --colors-fg: 235, 235, 235;
-  --colors-fg-secondary: 169, 169, 169;
+  --colors-fg: 240, 240, 240;
+  --colors-fg-secondary: 172, 172, 172;
 
-  --colors-surface: 169, 169, 169;
-  --colors-border: 169, 169, 169;
+  --colors-surface: 172, 172, 172;
+  --colors-border: 172, 172, 172;
 }
 
 [data-theme='green'] {

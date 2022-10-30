@@ -1,6 +1,8 @@
 import { error } from '@sveltejs/kit'
 import type { PageLoad } from './$types'
 
+export const prerender = false
+
 export const load: PageLoad = async function ({ fetch, setHeaders }) {
   const res = await fetch('/api/bookmark')
 
