@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { onDestroy, onMount } from 'svelte'
+  import { onMount } from 'svelte'
   import { spring } from 'motion'
   import Head from '$lib/seo/Head.svelte'
   import Image from '$lib/image/Image.svelte'
   import { motion } from '$lib/animation/motion'
   import Snd from 'snd-lib'
 
-  import type { PageData } from './$types'
+  import type { PageServerData } from './$types'
 
-  export let data: PageData
+  export let data: PageServerData
 
   const cord = { x: 0, y: 0 }
   const scrollOffset = 24

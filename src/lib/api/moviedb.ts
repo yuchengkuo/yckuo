@@ -3,11 +3,28 @@ import { join } from 'path'
 import { TMDB_API_KEY as api_key } from '$env/static/private'
 import { TMDB_ACCESS_TOKEN as access_token } from '$env/static/private'
 import { TMDB_USERID as user_id } from '$env/static/private'
+import { getFullUrl } from './util'
 
 const BASE_ENDPOINT = 'https://api.themoviedb.org'
 const CONFIG_ENDPOINT = '3/configuration'
 const FAVTV_ENDPOINT = `4/account/${user_id}/tv/favorites`
+const LIST_ENDPOINT = `4/list`
 const TV_ENPOINT = '3/tv'
+
+export async function getTMDBList(page = '1', list_id = 8210272) {
+  const url = new URL(LIST_ENDPOINT + `/${list_id}`, BASE_ENDPOINT)
+  const query = new URLSearchParams({
+    page: page,
+    api_key,
+    sort_by: 'release_date.desc',
+  })
+
+  return fetch(getFullUrl(url, query), {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  })
+}
 
 export async function getFavoriteTV(page = 1) {
   const url = new URL(FAVTV_ENDPOINT, BASE_ENDPOINT)
@@ -32,7 +49,7 @@ export async function getPosterUrl(file_path: string) {
 
     const { images } = await res.json()
     const { secure_base_url, poster_sizes } = images
-    return secure_base_url + poster_sizes[5] + file_path
+    return secure_base_url + poster_sizes[6] + file_path
   } catch (e) {
     console.error('Error while getting poster URL', e)
     return ''

@@ -2,41 +2,48 @@ import { getTopAlbums } from '$lib/api/lastfm'
 import { getAlbumSearchResult } from '$lib/api/spotify'
 import { error, json, type RequestHandler } from '@sveltejs/kit'
 
-export const GET: RequestHandler = async function () {
-  const res = await getTopAlbums()
+export const GET: RequestHandler = async function ({ url }) {
+  try {
+    const res = await getTopAlbums()
+    const limit = url.searchParams.get('limit') || 12
 
-  if (!res.ok) throw error(404)
+    const { topalbums } = await res.json()
+    const slicedAlbums = topalbums.album.slice(0, limit)
 
-  const limit = 12
+    const albums = await Promise.all(
+      slicedAlbums.map(async (album) => {
+        const title = album.name
+        const artist = album.artist.name
+        const result = await (await getAlbumSearchResult(title, artist)).json()
 
-  const { topalbums } = await res.json()
-  const albums = topalbums.album.slice(0, limit).map((album) => ({
-    title: album.name,
-    artist: album.artist.name,
-    playcount: album.playcount,
-    image: album.image[2]['#text'],
-  }))
+        const shared = {
+          title,
+          artist,
+          playcount: album.playcount,
+          image: album.image[3]['#text'],
+        }
 
-  for (const album of albums) {
-    const search = await (await getAlbumSearchResult(album.title, album.artist)).json()
+        if (!result.albums.total) return shared
 
-    if (!search.albums.total) {
-      album.spotifyUrl = ''
-      album.imageUrl = album.image
-      album.trackNum = 0
-      album.releaseYear = '--'
-    } else {
-      album.spotifyUrl = search.albums.items[0].external_urls.spotify
-      album.imageUrl = search.albums.items[0].images[0].url
-      album.trackNum = search.albums.items[0].total_tracks
-      album.releaseYear = search.albums.items[0].release_date.slice(0, 4)
-    }
+        const item = result.albums.items[0]
+        return {
+          ...shared,
+          spotifyUrl: item.external_urls.spotify,
+          imageUrl: item.images[0].url,
+          trackNum: item.total_tracks,
+          releaseYear: item.release_date.slice(0, 4),
+        }
+      })
+    )
+
+    return json(albums, {
+      headers: {
+        'content-type': 'application/json;',
+        'cache-control': 'public, s-maxage=86400, stale-while-revalidate=43200',
+      },
+    })
+  } catch (err) {
+    console.error('Error: ', err)
+    throw error(500, 'Error while getting top albums')
   }
-
-  return json(albums, {
-    headers: {
-      'content-type': 'application/json;',
-      'cache-control': 'public, max-age=127800, stale-while-revalidate=86400',
-    },
-  })
 }
