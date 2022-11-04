@@ -26,7 +26,7 @@ export const GET: RequestHandler = async function () {
     {
       headers: {
         'content-type': 'application/json',
-        'cache-control': 'public, stale-while-revalidate=43200, max-age=129600',
+        'cache-control': 'public, s-maxage=86400, stale-while-revalidate=43200',
       },
     }
   )

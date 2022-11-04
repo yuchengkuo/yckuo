@@ -9,9 +9,11 @@
   import { inview } from 'svelte-inview'
   import { format } from 'date-fns'
   import zhTW from 'date-fns/locale/zh-TW'
+  import Snd from 'snd-lib'
 
   import { afterNavigate, beforeNavigate } from '$app/navigation'
   import { page } from '$app/stores'
+  import { dev } from '$app/environment'
   import { motion } from '$lib/animation/motion'
 
   beforeNavigate(() => NProgress.start())
@@ -23,15 +25,22 @@
   let pathnames: string[]
   let border = false
   let present = 'present'
+  let snd: Snd
 
   $: pathnames = $page.url.pathname.split('/')
 
   const fadeInConfig = {
-    initial: { opacity: 0 },
+    initial: { opacity: 0.001 },
     animate: { opacity: 1 },
     transition: { delay: 0.4, duration: 0.4 },
   }
 
+  onMount(async () => {
+    snd = new Snd()
+    await snd.load(Snd.KITS.SND02)
+  })
+
+  /** onMount init */
   onMount(() => {
     colorize = document.documentElement.classList.contains('decolorize')
     theme = document.documentElement.classList.contains('dark') ? 'lighten' : 'darken'
@@ -53,20 +62,25 @@
     return () => clearInterval(interval)
   })
 
+  /** Toggle color scheme */
   async function toggleColor() {
     document.documentElement.classList.toggle('decolorize')
     if (colorize) {
       localStorage.removeItem('decolorize')
+      snd.play(Snd.SOUNDS.TRANSITION_UP)
     } else {
       localStorage.setItem('decolorize', 'true')
+      snd.play(Snd.SOUNDS.TOGGLE_OFF)
     }
     showConfetti = colorize ? true : false
     colorize = !colorize
   }
 
+  /** Toggle light/dark mode */
   async function toggleTheme() {
     if (theme === 'darken') {
       document.documentElement.classList.add('dark')
+      snd.play(Snd.SOUNDS.TAP)
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         localStorage.removeItem('theme')
       } else {
@@ -77,6 +91,7 @@
     }
     if (theme === 'lighten') {
       document.documentElement.classList.remove('dark')
+      snd.play(Snd.SOUNDS.TYPE)
       if (!window.matchMedia('(prefers-color-scheme: dark)').matches) {
         localStorage.removeItem('theme')
       } else {
@@ -89,34 +104,38 @@
 </script>
 
 <svelte:head>
-  <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
+  {#if !dev}
+    <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
+  {/if}
   <script>
     document.documentElement.classList.remove('no-js')
   </script>
 </svelte:head>
 
+{#if $page.url.pathname !== '/'}
+  <header
+    class="flex font-Azeret bg-bg/60 border-b-border/10 font-450 -mt-2 mt-12 text-sm text-fg-secondary mb-6 py-2 px-4 transition-colors top-0 ease-out z-40 gap-2 duration-500 delay-25 sticky backdrop-blur backdrop-filter md:px-8 lg:px-20"
+    class:border-b={border}
+    data-sveltekit-prefetch
+    use:motion={fadeInConfig}
+    use:inview={{ threshold: 0, rootMargin: '0px 0px -100% 0px' }}
+    on:change={(e) => {
+      const { inView } = e.detail
+      inView ? (border = true) : (border = false)
+    }}
+  >
+    {#each pathnames as path, index}
+      <a href={index === 0 ? '/' : pathnames.slice(0, index + 1).join('/')}>
+        {index === 0 ? 'index' : path}
+      </a>
+      {#if pathnames.length !== index + 1}
+        <span class="opacity-50">/</span>
+      {/if}
+    {/each}
+  </header>
+{/if}
+
 {#key $page.url.pathname}
-  {#if $page.url.pathname !== '/'}
-    <header
-      class="flex font-Azeret bg-bg/60 border-b-border/10 font-450 -mt-2 mt-12 text-sm text-fg-secondary mb-6 py-2 px-4 transition-colors top-0 ease-out z-40 gap-2 duration-500 delay-25 sticky backdrop-blur backdrop-filter md:px-8 lg:px-20"
-      class:border-b={border}
-      use:motion={fadeInConfig}
-      use:inview={{ threshold: 0, rootMargin: '0px 0px -100% 0px' }}
-      on:change={(e) => {
-        const { inView } = e.detail
-        inView ? (border = true) : (border = false)
-      }}
-    >
-      {#each pathnames as path, index}
-        <a href={index === 0 ? '/' : pathnames.slice(0, index + 1).join('/')}>
-          {index === 0 ? 'index' : path}
-        </a>
-        {#if pathnames.length !== index + 1}
-          <span class="opacity-50">/</span>
-        {/if}
-      {/each}
-    </header>
-  {/if}
   <main
     class:pt-12={$page.url.pathname === '/'}
     class:md:pt-20={$page.url.pathname === '/'}

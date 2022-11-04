@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import { animate, inView, spring } from 'motion'
   import throttle from 'lodash.throttle'
+  import Snd from 'snd-lib'
 
   import Image from '$lib/image/Image.svelte'
   import { motion } from '$lib/animation/motion'
@@ -13,6 +14,12 @@
   export { className as class }
 
   let imgEl: HTMLDivElement
+  let snd: Snd
+
+  onMount(() => {
+    snd = new Snd()
+    snd.load(Snd.KITS.SND03)
+  })
 
   onMount(() =>
     inView(imgEl, () => {
@@ -24,6 +31,8 @@
   async function swapEffect() {
     if (!imgEl || !images) return
     if (images.length === 1) return
+
+    snd.play(Snd.SOUNDS.SWIPE)
 
     const el = Array.from(imgEl.children)
     const target = el.length - 1

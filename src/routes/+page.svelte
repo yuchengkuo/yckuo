@@ -4,12 +4,12 @@
   import Head from '$lib/seo/Head.svelte'
   import { motion } from '$lib/animation/motion'
 
-  import type { PageData } from './$types'
+  import type { PageServerData } from './$types'
 
-  export let data: PageData
+  export let data: PageServerData
 
   const easing = spring({ mass: 1, damping: 20 })
-  const initial = { y: '20%', opacity: 0 }
+  const initial = { y: '20%', opacity: 0.001 }
   const animate = { y: 0, opacity: 1 }
 </script>
 

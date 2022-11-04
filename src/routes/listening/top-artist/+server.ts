@@ -21,7 +21,7 @@ export const GET: RequestHandler = async function () {
   return json(artists, {
     headers: {
       'content-type': 'application/json',
-      'cache-control': 'public,max-age=129600, stale-while-revalidate=43200',
+      'cache-control': 'public, s-maxage=86400, stale-while-revalidate=43200',
     },
   })
 }

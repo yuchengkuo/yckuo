@@ -8,6 +8,8 @@ const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode`
 const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks?time_range=short_term`
 const TOP_ARTISTS_ENDPOINT = `https://api.spotify.com/v1/me/top/artists?time_range=short_term`
+const SAVED_ALBUMS_ENDPOINT = `https://api.spotify.com/v1/me/albums`
+const PLAYLIST_ENPOINT = `https://api.spotify.com/v1/playlists`
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`
 const SEARCH_ENDPOINT = `https://api.spotify.com/v1/search`
 
@@ -47,6 +49,20 @@ export async function getTopTracks() {
   })
 }
 
+export async function getSavedAlbums(limit = 30, page = 1) {
+  const { access_token } = await getAccessToken()
+
+  const url = new URL(SAVED_ALBUMS_ENDPOINT)
+  url.searchParams.append('limit', limit.toString())
+  url.searchParams.append('page', page.toString())
+
+  return fetch(url.toString(), {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  })
+}
+
 export async function getTopArtists() {
   const { access_token } = await getAccessToken()
 
@@ -57,11 +73,21 @@ export async function getTopArtists() {
   })
 }
 
+export async function getPlaylist(id: string) {
+  const { access_token } = await getAccessToken()
+
+  return fetch(PLAYLIST_ENPOINT + '/' + id, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  })
+}
+
 export async function getAlbumSearchResult(title: string, artist: string) {
   const { access_token } = await getAccessToken()
 
   const query = new URLSearchParams({
-    q: `${title} artist:${artist}`,
+    q: `${title} artist:${artist} album:${title}`,
     type: 'album',
   })
 

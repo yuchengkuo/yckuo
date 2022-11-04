@@ -96,7 +96,7 @@
   style={initialStyle}
   use:forwardEvents
   in:intro
-  out:outro
+  out:outro|local
   {...$$restProps}
 >
   <slot />
