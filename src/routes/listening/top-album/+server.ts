@@ -1,5 +1,6 @@
 import { getTopAlbums } from '$lib/api/lastfm'
 import { getAlbumSearchResult } from '$lib/api/spotify'
+import { getBlurDataUrl } from '$lib/image/getBlurDataUrl'
 import { error, json, type RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async function ({ url }) {
@@ -30,6 +31,7 @@ export const GET: RequestHandler = async function ({ url }) {
           ...shared,
           spotifyUrl: item.external_urls.spotify,
           imageUrl: item.images[0].url,
+          blurDataUrl: await getBlurDataUrl(item.images[0].url, false, false),
           trackNum: item.total_tracks,
           releaseYear: item.release_date.slice(0, 4),
         }

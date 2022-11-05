@@ -32,8 +32,6 @@ export const load: PageServerLoad = async function ({ setHeaders, url }) {
       results.push(...next)
     }
 
-    console.log(results)
-
     const items = (await Promise.all(
       results.map(async (item) => {
         const posterUrl = await getPosterUrl(item.poster_path)
