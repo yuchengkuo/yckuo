@@ -114,7 +114,7 @@
         >
           <Image
             id={item.posterUrl}
-            alt=""
+            alt="Poster of {item.type}, {item.title}"
             widths={[240, 360, 720]}
             aspectRatio="152/100"
             blurDataUrl={item.blurDataUrl}
