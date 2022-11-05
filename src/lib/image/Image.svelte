@@ -6,15 +6,18 @@
 
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
-  export let id: string
+  export let id = ''
+  let externalSrc = ''
+  export { externalSrc as src }
   export let alt = ''
   export let isVideo = false
   export let widths = [280, 560, 840, 1100, 1650, 2100]
-  export let sizes = [
+  let sourceSizes = [
     '(max-width:1023px) 80vw',
     '(min-width:1024px) and (max-width:1620px) 67vw',
     '1100px',
   ]
+  export { sourceSizes as sizes }
   export let transformations: TransformerOption | TransformerVideoOption = {}
   export let blurDataUrl: string = null
   export let aspectRatio: string = null
@@ -28,17 +31,30 @@
   let inview = false
   let current = false
 
-  const { src, srcset } = getImgProps({
-    id,
-    widths,
-    transformations: transformations as TransformerOption,
-  })
+  let src = ''
+  let srcset = ''
+  let sizes = sourceSizes.join(', ')
 
-  const { src: aWebpSrc } = getAWebpProps({
-    id,
-    width: 320,
-    transformations: transformations as TransformerVideoOption,
-  })
+  if (!externalSrc) {
+    ;({ src, srcset } = getImgProps({
+      id,
+      widths,
+      transformations: transformations as TransformerOption,
+    }))
+  } else {
+    src = externalSrc
+    srcset = null
+  }
+
+  if (isVideo) {
+    ;({ src } = getAWebpProps({
+      id,
+      width: 320,
+      transformations: transformations as TransformerVideoOption,
+    }))
+    srcset = null
+    sizes = null
+  }
 
   beforeUpdate(async () => {
     if (imgEl?.complete) visible = true
@@ -84,26 +100,28 @@
     {#if inview}
       <img
         bind:this={imgEl}
-        src={isVideo ? aWebpSrc : src}
+        {src}
         {alt}
-        srcset={isVideo ? null : srcset}
-        sizes={isVideo ? null : sizes.join(', ')}
+        {srcset}
+        {sizes}
         loading="lazy"
         class="bg-surface h-full object-cover object-center w-full transition-opacity ease-out duration-300"
         class:opacity-0={!visible}
       />
     {/if}
   </div>
+
   <noscript>
     <img
       {src}
       {alt}
       {srcset}
-      sizes={sizes.join(', ')}
+      {sizes}
       loading="lazy"
       class="bg-surface h-full object-cover object-center w-full transition-opacity duration-300"
     />
   </noscript>
+
   {#if showcap}
     <figcaption class="h-fit font-500 mt-2 text-sm w-fit block ms:mt-4 md:text-base ">
       — {alt}

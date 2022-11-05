@@ -5,7 +5,7 @@ import type { CldOptions } from '@cld-apis/types'
 
 setConfig({ cloudName: 'yucheng' })
 
-export async function getBlurDataUrl(id: string, isVideo = false) {
+export async function getBlurDataUrl(id: string, isVideo = false, cld = true) {
   let isRemote: boolean
 
   try {
@@ -31,7 +31,7 @@ export async function getBlurDataUrl(id: string, isVideo = false) {
   }
   const imageURL = isVideo ? buildVideoUrl(id, options) : buildImageUrl(id, options)
 
-  return await getDataUrlForImage(imageURL)
+  return await getDataUrlForImage(cld ? imageURL : id)
 }
 
 async function getDataUrlForImage(imageUrl: string) {
