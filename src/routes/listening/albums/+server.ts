@@ -1,27 +1,28 @@
 import { getSavedAlbums } from '$lib/api/spotify'
-import { pick } from 'lodash'
 import { error, json, type RequestHandler } from '@sveltejs/kit'
+import { getBlurDataUrl } from '$lib/image/getBlurDataUrl'
 
-export const GET: RequestHandler = async function () {
+export const GET: RequestHandler = async function ({ url }) {
   try {
-    const res = await getSavedAlbums()
+    const res = await getSavedAlbums(url.searchParams.get('limit') || '12')
 
     const { items } = await res.json()
-    const albums = items.map((item) => {
-      const albums = pick(item.album, [
-        'album_type',
-        'total_tracks',
-        'external_urls',
-        'id',
-        'images',
-        'name',
-        'release_date',
-        'artists',
-        'tracks',
-        'genres',
-      ])
-      return albums
-    })
+
+    const albums = await Promise.all(
+      items.map(async ({ album }) => ({
+        type: album.album_type,
+        total_tracks: album.total_tracks,
+        url: album.external_urls['spotify'],
+        id: album.id,
+        image: album.images[1].url,
+        blurDataUrl: await getBlurDataUrl(album.images[1].url, false, false),
+        name: album.name,
+        release_date: album.release_date,
+        artist: album.artists.map((a) => a.name).join(', '),
+        tracks: album.tracks,
+        genres: album.genres,
+      }))
+    )
 
     return json(albums, {
       headers: {

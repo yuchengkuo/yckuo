@@ -49,12 +49,12 @@ export async function getTopTracks() {
   })
 }
 
-export async function getSavedAlbums(limit = 30, page = 1) {
+export async function getSavedAlbums(limit = '30', page = '1') {
   const { access_token } = await getAccessToken()
 
   const url = new URL(SAVED_ALBUMS_ENDPOINT)
-  url.searchParams.append('limit', limit.toString())
-  url.searchParams.append('page', page.toString())
+  url.searchParams.append('limit', limit)
+  url.searchParams.append('page', page)
 
   return fetch(url.toString(), {
     headers: {
