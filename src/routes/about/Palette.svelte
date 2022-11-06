@@ -94,7 +94,7 @@
         <div
           class="flex flex-col mt-auto font-600 text-xs gap-0.5 items-start"
           use:motion={infoVariants}
-          out:outro
+          out:outro|local
         >
           <hex class="border-fg rounded-sm text-fg px-1 block">{theme.colors.bg}</hex>
           <hex class="bg-fg rounded-sm text-bg px-1 block">{theme.colors.fg}</hex>
@@ -111,7 +111,7 @@
             animate: { y: 0, opacity: 1 },
             exit: { y: -4, opacity: 0 },
           }}
-          out:outro
+          out:outro|local
           class="font-800 text-fg text-xs tracking-tight w-fit top-3 right-4 absolute"
         >
           {theme.label}
