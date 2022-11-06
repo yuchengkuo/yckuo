@@ -3,14 +3,28 @@
 
   import Head from '$lib/seo/Head.svelte'
   import { motion } from '$lib/animation/motion'
+  import tooltip from '$lib/tooltip/tooltip'
 
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
 
+  let copied: boolean | 'failed' = false
+
   const easing = spring({ mass: 1, damping: 20 })
   const initial = { y: '20%', opacity: 0.001 }
   const animate = { y: 0, opacity: 1 }
+
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText('hey@yuchengkuo.com')
+      copied = true
+    } catch (e) {
+      copied = 'failed'
+      console.error(e)
+    }
+    setTimeout(() => (copied = false), 5000)
+  }
 </script>
 
 <Head>
@@ -76,7 +90,20 @@
     </div>
     <h2>Contact</h2>
     <ul class="prose">
-      <li>Email: <a href="mailto:hey@yuchengkuo.com">hey@yuchengkuo</a></li>
+      <li>
+        Email: <a
+          href="mailto:hey@yuchengkuo.com"
+          use:tooltip={{
+            content:
+              copied === 'failed'
+                ? 'Failed copying... Browser seems not supported.'
+                : copied
+                ? 'Copied! Hope to hear from you soon!'
+                : 'Click to send, right click to copy',
+          }}
+          on:contextmenu|preventDefault={copy}>hey@yuchengkuo.com</a
+        >
+      </li>
       <li>Read.cv: <a href="https://read.cv/yuchengkuo">yuchengkuo</a></li>
       <li>Github: <a href="https://github/yuchengkuo">yuchengkuo</a></li>
       <li>Figma: <a href="https://figma.com/yuchengkuo">@yuchengkuo</a></li>

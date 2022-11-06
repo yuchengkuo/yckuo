@@ -15,6 +15,7 @@
   import { page } from '$app/stores'
   import { dev } from '$app/environment'
   import { motion } from '$lib/animation/motion'
+  import tooltip from '$lib/tooltip/tooltip'
 
   beforeNavigate(() => NProgress.start())
   afterNavigate(() => NProgress.done())
@@ -150,9 +151,17 @@
 <footer
   class="flex flex-wrap font-Azeret mt-40 text-xs text-fg-secondary px-6 pb-4 gap-3 items-baseline justify-between sm:gap-6"
 >
-  <h4 class="mr-auto font-600 text-base tracking-tight">YuCheng Kuo</h4>
-  <button class="text-xs uppercase *attr no-js:hidden" on:click={toggleTheme}>{theme}</button>
-  <button class="font-475 uppercase relative *attr no-js:hidden" on:click={toggleColor}
+  <p class="font-Uncut mr-auto font-650 text-base tracking-tight">YuCheng Kuo</p>
+  <button
+    class="text-xs uppercase *attr no-js:hidden"
+    on:click={toggleTheme}
+    use:tooltip={{ content: theme === 'lighten' ? 'Toggle light theme' : 'Toggle dark theme' }}
+    >{theme}</button
+  >
+  <button
+    class="font-475 uppercase relative *attr no-js:hidden"
+    on:click={toggleColor}
+    use:tooltip={{ content: colorize ? 'Tune up the colors' : 'Tune down the colors' }}
     >{colorize ? 'Colorize' : 'Decolorize'}
     {#if showConfetti}
       <div class="top-1/2 left-1/2 absolute">
