@@ -20,8 +20,11 @@
   --colors-border: 232, 244, 212;
 }
 
+.no-js,
 .decolorize,
-.decolorize[data-theme] {
+.decolorize[data-theme],
+.no-js[data-theme],
+[data-theme='gray'] {
   --colors-bg: 250, 250, 250;
 
   --colors-fg: 16, 16, 16;
@@ -31,9 +34,11 @@
   --colors-border: 96, 96, 96;
 }
 
+.no-js.dark,
 .decolorize.dark,
 .dark .decolorize,
-.decolorize[data-theme].dark {
+.decolorize[data-theme].dark,
+[data-theme='gray'].dark {
   --colors-bg: 24, 24, 24;
 
   --colors-fg: 240, 240, 240;

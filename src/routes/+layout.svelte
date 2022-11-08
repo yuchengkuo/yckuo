@@ -7,8 +7,7 @@
   import { Confetti } from 'svelte-confetti'
   import { onMount } from 'svelte'
   import { inview } from 'svelte-inview'
-  import { format } from 'date-fns'
-  import zhTW from 'date-fns/locale/zh-TW'
+  import { intlFormat } from 'date-fns'
   import Snd from 'snd-lib'
 
   import { afterNavigate, beforeNavigate } from '$app/navigation'
@@ -58,7 +57,14 @@
     })
 
     const interval = setInterval(() => {
-      present = format(new Date(), 'yyyy 🇹🇼 hh:mm:ss a', { locale: zhTW })
+      present = intlFormat(new Date(), {
+        year: 'numeric',
+        hour: 'numeric',
+        hour12: true,
+        minute: 'numeric',
+        second: 'numeric',
+        timeZone: 'Asia/Taipei',
+      })
     }, 500)
     return () => clearInterval(interval)
   })

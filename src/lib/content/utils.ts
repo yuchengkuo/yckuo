@@ -10,11 +10,13 @@ import { getAspectRatio } from '$lib/image/getAspectRatio'
 
 const contentPath = './content'
 
+/**
+ * Return array of frontmatter in provided folder path
+ */
 export async function getAllContentMeta<T extends Record<string, unknown>>(
   folder = ''
 ): Promise<Array<T>> {
   const dirs = readdirSync(`${contentPath}/${folder}`, { withFileTypes: true })
-
   const files = dirs.filter((f) => f.isFile() && f.name.endsWith('.md'))
 
   if (files) {
@@ -27,60 +29,35 @@ export async function getAllContentMeta<T extends Record<string, unknown>>(
   }
 }
 
+/**
+ * Get RenderableTree from provided param and folder
+ */
 export async function getContentBySlug<T extends Record<string, unknown>>(
   params: string,
   folder = ''
 ) {
   const dirs = readdirSync(`${contentPath}/${folder}`, { withFileTypes: true })
-
   const file = dirs.find((f) => f.isFile() && f.name === `${params}.md`)
 
   if (file) {
     return await parseContent<T>(readFileSync(`${contentPath}/${folder}/${file.name}`, 'utf-8'))
   }
-
   throw error(404, `File ${params}.md does not exist`)
 }
 
-export async function getDataBySlug<T extends Record<string, unknown>>(
-  params: string,
-  folder = ''
-) {
-  const dirs = readdirSync(`${contentPath}/${folder}`, { withFileTypes: true })
-
-  const file = dirs.find((f) => f.isFile() && f.name === `${params}.yaml`)
-
-  const data = load(readFileSync(`${contentPath}/${folder}/${file.name}`, 'utf-8')) as T
-
-  if (data) {
-    await findMarkdown<T>(data)
-    return data
-  }
-
-  throw error(404, `File ${params}.yaml does not exist`)
-}
-
-async function findMarkdown<T>(data: T & { markdown?: string | RenderableTreeNode | unknown }) {
-  if (data['markdown'] && typeof data.markdown === 'string') {
-    const { content } = await parseContent(data.markdown)
-    data['markdown'] = content
-  }
-  for (const [key, value] of Object.entries(data)) {
-    if (typeof value === 'object') {
-      await findMarkdown(data[key])
-    }
-  }
-}
-
+/**
+ * Parse provided markdown raw string with js-yaml, parse images and return frontmatter
+ */
 async function parseFrontmatter<T extends Record<string, unknown>>(raw: string) {
   const ast = Markdoc.parse(raw)
   const frontmatter = (ast.attributes.frontmatter ? load(ast.attributes.frontmatter) : {}) as T
-
   await parseImage(frontmatter)
-
   return frontmatter
 }
 
+/**
+ * Parse provided markdown raw string with Markdoc and return RenderalbeTree and frontmatter
+ */
 async function parseContent<T extends Record<string, unknown>>(raw: string) {
   const ast = Markdoc.parse(raw)
   const error = Markdoc.validate(ast, config)
@@ -88,9 +65,7 @@ async function parseContent<T extends Record<string, unknown>>(raw: string) {
   if (error.length) console.error('Error while validating content', error)
 
   const frontmatter = await parseFrontmatter<T>(raw)
-
   config.variables = { frontmatter, ...config.variables }
-  ast.attributes.frontmatter = null
 
   return {
     // async transform for Markdoc
@@ -100,6 +75,9 @@ async function parseContent<T extends Record<string, unknown>>(raw: string) {
   }
 }
 
+/**
+ * Parse frontmatter with 'image' key and provided 'id' for blurDataUrl and aspect ratio
+ */
 async function parseImage(frontmatter: Record<string, unknown>) {
   if (!frontmatter) return
 

@@ -65,6 +65,10 @@
   @apply bg-surface;
 }
 
+* {
+  scrollbar-color: rgba(var(--colors-fg), 0.5) rgb(var(--colors-bg));
+}
+
 html {
   @apply bg-fg mx-auto min-h-screen max-w-9xl antialiased;
 }
@@ -105,5 +109,5 @@ a {
 }
 
 code {
-  @apply bg-surface rounded font-Azeret -m-0.5 p-0.5 text-0.8em;
+  @apply bg-surface rounded font-Azeret font-600 -my-0.5 text-fg p-0.5 text-0.8em;
 }
