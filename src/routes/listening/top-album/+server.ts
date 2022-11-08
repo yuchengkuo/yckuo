@@ -3,16 +3,14 @@ import { getAlbumSearchResult } from '$lib/api/spotify'
 import { getBlurDataUrl } from '$lib/image/getBlurDataUrl'
 import { error, json, type RequestHandler } from '@sveltejs/kit'
 
-export const GET: RequestHandler = async function ({ url }) {
+export const GET: RequestHandler = async function () {
   try {
     const res = await getTopAlbums()
-    const limit = url.searchParams.get('limit') || 12
 
     const { topalbums } = await res.json()
-    const slicedAlbums = topalbums.album.slice(0, limit)
 
     const albums = await Promise.all(
-      slicedAlbums.map(async (album) => {
+      topalbums.album.map(async (album) => {
         const title = album.name
         const artist = album.artist.name
         const result = await (await getAlbumSearchResult(title, artist)).json()
@@ -24,7 +22,7 @@ export const GET: RequestHandler = async function ({ url }) {
           image: album.image[3]['#text'],
         }
 
-        if (!result.albums.total) return shared
+        if (!result) return shared
 
         const item = result.albums.items[0]
         return {

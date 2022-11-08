@@ -10,4 +10,4 @@
 
 <h1 class="mb-4">{$page.status}</h1>
 
-<p>Couldn't find <code>{$page.url.pathname}</code></p>
+<p>Failed accessing <code>{$page.url.pathname}</code></p>
