@@ -26,17 +26,17 @@
         timeline([
           [
             Array.from(content.children).filter((_, index) => index % 5 === 2),
-            { transform: ['none', 'translateY(32%)'] },
+            { transform: ['none', 'translateY(44%)'] },
             { allowWebkitAcceleration: true },
           ],
           [
             Array.from(content.children).filter((_, index) => index % 5 === 1 || index % 5 === 3),
-            { transform: ['none', 'translateY(26%)'] },
+            { transform: ['none', 'translateY(10%)'] },
             { at: '<', allowWebkitAcceleration: true },
           ],
           [
             Array.from(content.children).filter((_, index) => index % 5 === 0 || index % 5 === 4),
-            { transform: ['none', 'translateY(20%)'] },
+            { transform: ['none', 'translateY(-20%)'] },
             { at: '<', allowWebkitAcceleration: true },
           ],
         ])
@@ -129,7 +129,7 @@
   {@const item = data.items[hoverId]}
   {@const rotate = (Math.random() * 10 - 5) % 3}
   <hover-card
-    class="rounded-lg h-max bg-fg-secondary/75 shadow-lg text-bg p-5 w-80 block backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto <sm:hidden"
+    class="rounded-xl h-max bg-fg-secondary/75 shadow-xl text-bg p-5 w-80 block backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto <sm:hidden"
     style:left="{$cords.x}px"
     style:top="{$cords.y}px"
     style:transform="rotate({rotate}deg)"

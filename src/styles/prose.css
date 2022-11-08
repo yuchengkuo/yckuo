@@ -22,12 +22,16 @@
     scroll-margin-top: 56px;
 
     a {
-      @apply font-semibold opacity-0 text-[0.8em];
+      @apply font-semibold ml-2 opacity-0 text-[0.8em];
     }
   }
 
   :where(h1[id], h2[id], h3[id]) > a {
     @apply no-underline;
+  }
+
+  a {
+    @apply text-fg;
   }
 
   hr {
@@ -59,6 +63,22 @@
 
     li {
       @apply marker:(text-base font-400 tabular-nums);
+    }
+  }
+
+  .shiki-container {
+    @apply mb-8 overflow-x-auto;
+
+    pre {
+      @apply rounded-xl font-Azeret border-1 border-fg/6 py-5 px-6 overflow-x-auto !bg-surface !dark:(bg-surface border-fg/6);
+    }
+
+    code {
+      @apply bg-transparent font-525 m-0 text-sm p-0;
+
+      .line {
+        @apply not-last:not-first:min-h-5;
+      }
     }
   }
 }

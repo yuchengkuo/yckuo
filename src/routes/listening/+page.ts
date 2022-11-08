@@ -43,12 +43,10 @@ type Saved = {
 
 export const prerender = false
 
-export const load: PageLoad = async function ({ fetch, setHeaders }) {
+export const load: PageLoad = async function ({ fetch }) {
   const albums = (await (await fetch('/listening/top-album')).json()) as Album[]
   const playback = (await (await fetch('/listening/now')).json()) as Playback
   const saved = (await (await fetch('/listening/albums')).json()) as Saved[]
-
-  setHeaders({ 'cache-control': 'public, s-maxage=86400, stale-while-revalidate=43200' })
 
   return { ...playback, albums, saved }
 }
