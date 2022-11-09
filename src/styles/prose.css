@@ -15,6 +15,11 @@
     @apply my-2 lg:mb-4;
   }
 
+  h4 {
+    @apply my-2 lg:mb-3;
+  }
+
+  h1[id],
   h2[id],
   h3[id],
   h4[id] {
@@ -78,6 +83,22 @@
 
       .line {
         @apply not-last:not-first:min-h-5;
+      }
+
+      .highlight {
+        @apply bg-surface rounded -m-px p-px;
+      }
+
+      .highlight-range {
+        @apply bg-surface;
+      }
+
+      .highlight-start {
+        @apply rounded-t-lg;
+      }
+
+      .highlight-end {
+        @apply rounded-b-lg;
       }
     }
   }
