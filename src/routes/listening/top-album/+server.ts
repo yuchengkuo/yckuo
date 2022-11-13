@@ -22,9 +22,8 @@ export const GET: RequestHandler = async function () {
           image: album.image[3]['#text'],
         }
 
-        if (!result) return shared
-
         const item = result.albums.items[0]
+        if (!item) return shared
         return {
           ...shared,
           spotifyUrl: item.external_urls.spotify,

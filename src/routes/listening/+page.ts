@@ -12,21 +12,6 @@ type Album = {
   releaseYear: number
 }
 
-type Playback = {
-  isPlaying: boolean
-  playback?: PlaybackTrack
-}
-
-type PlaybackTrack = {
-  title: string
-  url: string
-  artist: string
-  album: string
-  albumImageUrl: string
-  show: string
-  showImageUrl: string
-}
-
 type Saved = {
   type: string
   total_tracks: string
@@ -45,8 +30,7 @@ export const prerender = false
 
 export const load: PageLoad = async function ({ fetch }) {
   const albums = (await (await fetch('/listening/top-album')).json()) as Album[]
-  const playback = (await (await fetch('/listening/now')).json()) as Playback
   const saved = (await (await fetch('/listening/albums')).json()) as Saved[]
 
-  return { ...playback, albums, saved }
+  return { albums, saved }
 }

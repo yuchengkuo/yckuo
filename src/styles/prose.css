@@ -4,7 +4,7 @@
   }
 
   h1 {
-    @apply mb-8;
+    @apply mb-8 text-3xl;
   }
 
   h2 {
@@ -15,6 +15,11 @@
     @apply my-2 lg:mb-4;
   }
 
+  h4 {
+    @apply my-2 lg:mb-3;
+  }
+
+  h1[id],
   h2[id],
   h3[id],
   h4[id] {
@@ -39,10 +44,14 @@
   }
 
   blockquote {
-    @apply mx-0;
+    @apply bg-surface border-border rounded-sm border-l-2 shadow-sm -my-2 mx-0 -mx-5 -mx-3 mb-10 py-2 px-5 <sm:(-mx-2.5 px-2.5 -my-1 py-1 mb-6);
 
     * {
-      @apply font-Spectral font-medium mb-0 italic;
+      @apply font-Spectral font-medium mb-0 leading-9 italic <sm:leading-7;
+    }
+
+    p {
+      @apply m-0 p-0;
     }
   }
 
@@ -67,10 +76,10 @@
   }
 
   .shiki-container {
-    @apply mb-8 overflow-x-auto;
+    @apply bg-surface rounded-xl border-1 border-fg/6 mb-8 overflow-x-auto dark:(bg-surface border-fg/6);
 
     pre {
-      @apply rounded-xl font-Azeret border-1 border-fg/6 py-5 px-6 overflow-x-auto !bg-surface !dark:(bg-surface border-fg/6);
+      @apply font-Azeret min-w-full my-0 w-fit py-5 px-6 !bg-transparent <md:(py-3 px-4);
     }
 
     code {
@@ -78,6 +87,10 @@
 
       .line {
         @apply not-last:not-first:min-h-5;
+      }
+
+      .no-highlight span {
+        @apply !text-gray-500 !dark:text-gray-400;
       }
     }
   }

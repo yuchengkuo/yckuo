@@ -1,6 +1,5 @@
-import pkg from '@markdoc/markdoc'
+import pkg, { type Scalar, type RenderableTreeNode, type Tag as TagType } from '@markdoc/markdoc'
 const { Tag } = pkg
-import type { RenderableTreeNode, Tag as TagType } from '@markdoc/markdoc'
 
 // visist renderable tree with callback when pass the test function
 export function visit(
@@ -10,7 +9,7 @@ export function visit(
 ) {
   const parent = tree
   tree.forEach((node) => {
-    if (typeof node === 'string') return
+    if (isScalar(node)) return
 
     if (test.call(this, node)) {
       callback.call(this, node, parent)
@@ -20,6 +19,14 @@ export function visit(
       visit(node.children, test, callback)
     }
   })
+}
+
+function isScalar(node: RenderableTreeNode): node is Scalar {
+  if (typeof node === 'boolean' || typeof node === 'number' || typeof node === 'string') {
+    return true
+  } else {
+    return false
+  }
 }
 
 // wrap h2 and following content with `section` and others with `div`

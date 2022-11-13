@@ -187,3 +187,23 @@
   --colors-surface: 236, 222, 166;
   --colors-border: 236, 222, 166;
 }
+
+[data-theme='geyser'] {
+  --colors-bg: 229, 232, 225;
+
+  --colors-fg: 33, 84, 64;
+  --colors-fg-secondary: 45, 32, 71;
+
+  --colors-surface: 45, 32, 71;
+  --colors-border: 45, 32, 71;
+}
+
+[data-theme='geyser'].dark {
+  --colors-bg: 17, 4, 57;
+
+  --colors-fg: 237, 196, 175;
+  --colors-fg-secondary: 186, 199, 185;
+
+  --colors-surface: 186, 199, 185;
+  --colors-border: 186, 199, 185;
+}

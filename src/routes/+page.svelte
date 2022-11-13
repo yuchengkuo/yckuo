@@ -74,20 +74,7 @@
       <li>Prototyping</li>
       <li>Front-end (UI development)</li>
     </ul>
-    <h2>Notes</h2>
-    <div
-      class="bg-surface rounded-md font-Azeret text-xs text-center w-full py-4 overflow-hidden whitespace-nowrap"
-    >
-      <wip
-        class="block"
-        use:motion={{
-          animate: { x: ['100%', '-100%'] },
-          transition: { repeat: Infinity, duration: 16, easing: 'linear' },
-        }}
-      >
-        Work in progress... Come back later :)
-      </wip>
-    </div>
+
     <h2>Contact</h2>
     <ul class="prose">
       <li>
@@ -114,12 +101,13 @@
     use:motion={{ initial, animate, transition: { easing, delay: 0.8 } }}
     class="<sm:mb-12 <lg:(-order-1 col-span-full) "
   >
-    <nav class="flex flex-col flex-wrap font-Azeret font-400 text-sm gap-4 uppercase items-start">
+    <nav class="flex flex-col flex-wrap font-Azeret font-480 text-sm gap-2 uppercase items-start">
       <a href="/about">About</a>
       <a href="/project">Project</a>
       <a href="/bookmark">Bookmark</a>
       <a href="/listening">Listening</a>
       <a href="/watching">Watching</a>
+      <a href="/note">Note</a>
       <!-- <a href="/changelog">Changelog</a> -->
     </nav>
   </aside>
@@ -143,5 +131,9 @@
 
   info li::before {
     @apply font-500 mr-2 text-sm text-border content-['—'] inline-block;
+  }
+
+  nav a {
+    @apply rounded -mx-2 py-1 px-2;
   }
 </style>
