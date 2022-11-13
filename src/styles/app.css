@@ -109,5 +109,9 @@ a {
 }
 
 code {
-  @apply bg-surface rounded font-Azeret font-600 -my-0.5 text-fg p-0.5 text-0.8em;
+  @apply bg-surface rounded font-Azeret font-600 -my-1 text-fg p-1 text-0.8em;
+}
+
+kbd {
+  @apply bg-surface rounded font-Azeret border-b-2 border-fg-secondary/30 border-x-1 border-t-1 font-650 text-sm leading-none py-1 px-1.5 inline-block;
 }

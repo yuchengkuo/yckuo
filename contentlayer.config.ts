@@ -22,6 +22,19 @@ const Post = defineDocumentType(() => ({
   computedFields,
 }))
 
+const Note = defineDocumentType(() => ({
+  name: 'Note',
+  filePathPattern: 'notes/*.md',
+  fields: {
+    title: { type: 'string', required: true },
+    date: { type: 'date', required: true },
+    tag: { type: 'list', of: { type: 'string' } },
+    feature: { type: 'boolean' },
+    meta: { type: 'list', of: Meta },
+  },
+  computedFields,
+}))
+
 const Micro = defineDocumentType(() => ({
   name: 'Micro',
   filePathPattern: 'posts/*.yaml',

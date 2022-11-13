@@ -13,12 +13,12 @@
     bind:this={tooltip}
     use:motion={{
       initial: {
-        transform: 'translateX(-50%) translateY(4px) rotateZ(-2deg) rotateX(20deg)',
+        transform: 'translateX(-50%) translateY(4px) rotateZ(-1deg) rotateX(20deg)',
         opacity: 0,
         bottom: '150%',
       },
       animate: { transform: `translateX(-50%)`, opacity: 1, bottom: '150%' },
-      transition: { delay: 0.2 },
+      transition: { delay: 0.1 },
     }}
     class="rounded font-Azeret bg-fg-secondary/90 font-600 shadow-lg text-bg tracking-tight w-max py-2 px-3 left-1/2 text-0.7rem leading-3 z-99 backdrop-filter block absolute pointer-events-none backdrop-blur"
   >

@@ -2,8 +2,9 @@ import pkg, { type Schema } from '@markdoc/markdoc'
 const { Tag } = pkg
 import shiki, { FontStyle, type IThemedToken } from 'shiki'
 
+import grammar from './markdoc.tmLanguage.json'
+
 export const fence: Schema = {
-  render: 'Fence',
   children: ['inline', 'text'],
   attributes: {
     content: { type: String, render: false },
@@ -25,15 +26,24 @@ export const fence: Schema = {
       themes: [theme.dark],
     })
 
+    const markdoc = {
+      id: 'Markdoc',
+      scopeName: 'text.html.markdoc',
+      grammar,
+      aliases: ['markdoc'],
+    }
+    //@ts-expect-error import json with vitejs
+    await highlighter.loadLanguage(markdoc)
+
     const lang = attributes.language || 'text'
-    const code = typeof children[0] === 'string' && children[0]
+    const code = (typeof children[0] === 'string' && children[0]) || node.attributes.content
     const highlight = attributes.highlight as Array<number | Array<number>>
 
     const tokens = highlighter.codeToThemedTokens(code, lang)
-    const darkToens = highlighter.codeToThemedTokens(code, lang, theme.dark)
+    const darkTokens = highlighter.codeToThemedTokens(code, lang, theme.dark)
 
     const lightTree = getRenderableTree(tokens, highlight)
-    const darkTree = getRenderableTree(darkToens, highlight)
+    const darkTree = getRenderableTree(darkTokens, highlight)
     const lightBG = highlighter.getBackgroundColor()
     const darkBG = highlighter.getBackgroundColor(theme.dark)
 
@@ -48,7 +58,7 @@ export const fence: Schema = {
       style: `background-color: ${darkBG};`,
     }
 
-    return new Tag('pre', { ...attributes, class: 'shiki-container block' }, [
+    return new Tag('div', { ...attributes, class: 'shiki-container block' }, [
       new Tag('pre', lightAttr, [lightTree]),
       new Tag('pre', darkAttr, [darkTree]),
     ])
@@ -69,15 +79,18 @@ function getRenderableTree(tokens: IThemedToken[][], highlights?: (number | numb
     { class: 'inline' },
     tokens.map((tokenArr, index) => {
       const target = index + 1
-      const highlight = lines?.includes(target) ? 'highlight' : ''
-      const range = ranges?.some((range) => target >= range[0] && target <= range[1])
-        ? 'highlight-range'
-        : ''
+      const highlight =
+        lines?.includes(target) || ranges?.some((range) => target >= range[0] && target <= range[1])
+          ? 'highlight'
+          : highlights?.length
+          ? 'no-highlight'
+          : ''
+
       const rangeStart = ranges?.some((range) => target === range[0]) ? 'highlight-start' : ''
       const rangeEnd = ranges?.some((range) => target === range[1]) ? 'highlight-end' : ''
       return new Tag(
         'div',
-        { class: ['line', highlight, range, rangeStart, rangeEnd].join(' ') },
+        { class: ['line', highlight, rangeStart, rangeEnd].join(' ') },
         tokenArr.map((token) => {
           const { color, content, fontStyle } = token
           const text = `color: ${color}`
