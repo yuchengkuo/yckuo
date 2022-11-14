@@ -8,7 +8,7 @@
   export let data: LayoutServerData
 </script>
 
-<Head title="{data.title} · Project · YuCheng Kuo">
+<Head title={data.title}>
   <script>
     document.documentElement.setAttribute('data-theme', 'violet')
   </script>

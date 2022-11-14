@@ -4,9 +4,12 @@
   import { components } from '$lib/content/components'
 
   import type { PageServerData } from './$types'
+  import Head from '$lib/seo/Head.svelte'
 
   export let data: PageServerData
 </script>
+
+<Head title={data.title} />
 
 <div class="mb-12">
   <h1 class="text-3xl">{data.title}</h1>

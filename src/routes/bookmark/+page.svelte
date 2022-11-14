@@ -16,6 +16,8 @@
   let downscroll = true
   let snd: Snd
 
+  const openGraph = { images: [{ url: 'bookmarks.png' }], url: 'bookmarks' }
+
   onMount(async () => {
     snd = new Snd()
     await snd.load(Snd.KITS.SND01)
@@ -31,8 +33,9 @@
 />
 
 <Head
-  title="Bookmarks · YuCheng Kuo"
+  title="Bookmarks"
   description="A little collection of interesting things on the internet."
+  {openGraph}
 >
   <script>
     document.documentElement.setAttribute('data-theme', 'cyan')

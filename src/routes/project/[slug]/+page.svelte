@@ -8,6 +8,6 @@
   export let data: LayoutServerData
 </script>
 
-<section class="prose layout-center">
+<section class="text-fg-secondary prose layout-center">
   <Markdoc content={data.content} {components} />
 </section>

@@ -15,7 +15,7 @@
   }
 </script>
 
-<Head>
+<Head title="Notes" description="Notes, thoughts, journals, snippets, etc.">
   <script>
     document.documentElement.setAttribute('data-theme', 'geyser')
   </script>
@@ -27,14 +27,14 @@
     class="border-r border-fg/8 flex-shrink-0 pr-8 pb-4 top-16 w-1/3 overflow-y-auto sticky"
     style:height="calc(100vh - 64px)"
   >
-    <h1 class="mb-2">Notes</h1>
+    <h1 class="mb-4">Notes</h1>
     <p class="text-fg-secondary mb-8">Notes, thoughts, journals, snippets, etc.</p>
     <nav class="rounded-lg relative">
       {#each data.notes as note, index}
         {@const active = $page.url.pathname === '/note/' + note.slug}
         <a
           href="/note/{note.slug}"
-          class="rounded text-fg-secondary mb-1 py-2.5 px-3.5 transform-none block underline-transparent hover:bg-surface"
+          class="rounded font-500 text-fg-secondary mb-1 py-2.5 px-3.5 transform-none block underline-transparent hover:bg-surface"
           class:text-fg={active}
           class:bg-surface={active}
           class:font-600={active}

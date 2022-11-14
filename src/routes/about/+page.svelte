@@ -12,7 +12,7 @@
   export let data: PageServerData
 </script>
 
-<Head title="About · YuCheng Kuo">
+<Head title="About">
   <script>
     document.documentElement.setAttribute('data-theme', 'green')
   </script>
