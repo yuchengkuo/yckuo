@@ -5,9 +5,11 @@
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
+
+  const openGraph = { images: [{ url: 'project.png' }], url: 'projects' }
 </script>
 
-<Head title="Projects · YuCheng Kuo">
+<Head title="Projects" {openGraph}>
   <script>
     document.documentElement.setAttribute('data-theme', 'grass')
   </script>

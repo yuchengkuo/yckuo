@@ -7,12 +7,20 @@
 
   const baseUrl = dev ? '' : 'https://yuchengkuo.com'
 
-  const title = 'YuCheng Kuo · Designer x Engingeer'
-  const description =
+  const defaultTitle = 'YuCheng Kuo – Designer & Engingeer'
+  const defaultDescription =
     'Personal website, portfolio, little corner on the internet of YuCheng Kuo, a product designer and UI developer'
-  const openGraph = {
+
+  export let title = ''
+  export let description = ''
+  export let openGraph: SvelteSeoProps['openGraph'] = {}
+
+  title = title ? title + ' – ' + 'YuCheng Kuo' : defaultTitle
+  description = description || defaultDescription
+
+  const defaultOpenGraph: SvelteSeoProps['openGraph'] = {
     type: 'website',
-    url: 'https://yuchengkuo.com',
+    url: baseUrl,
     title,
     description,
     images: [
@@ -22,8 +30,17 @@
       },
     ],
   }
+
+  openGraph = {
+    ...defaultOpenGraph,
+    ...openGraph,
+    url: openGraph?.url ? `${baseUrl}/${openGraph.url}` : defaultOpenGraph.url,
+    images:
+      openGraph?.images?.map((images) => ({ url: `${baseUrl}/og/${images.url}` })) ||
+      defaultOpenGraph.images,
+  }
 </script>
 
-<SvelteSeo {title} {description} canonical="https://yuchengkuo.com/" {openGraph} {...$$props}>
+<SvelteSeo {title} {description} canonical="https://yuchengkuo.com/" {openGraph} {...$$restProps}>
   <slot />
 </SvelteSeo>

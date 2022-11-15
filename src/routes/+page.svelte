@@ -34,7 +34,7 @@
 </Head>
 
 <section class="pb-20 lg:(grid pb-56 gap-80 grid-cols-2) ">
-  <div class="last-child:md:mt-8 last-child:mt-4 ">
+  <div class="text-fg-secondary last-child:md:mt-8 last-child:mt-4">
     <h1 use:motion={{ initial, animate, transition: { easing, delay: 0.3 } }}>YuCheng Kuo</h1>
     <div use:motion={{ initial, animate, transition: { easing, delay: 0.4 } }}>
       <i>Hello</i>, I'm YuCheng. I am a product designer and UI developer from Taiwan. I'm currently
@@ -92,8 +92,8 @@
         >
       </li>
       <li>Read.cv: <a href="https://read.cv/yuchengkuo">yuchengkuo</a></li>
-      <li>Github: <a href="https://github/yuchengkuo">yuchengkuo</a></li>
-      <li>Figma: <a href="https://figma.com/yuchengkuo">@yuchengkuo</a></li>
+      <li>Github: <a href="https://github.com/yuchengkuo">yuchengkuo</a></li>
+      <li>Figma: <a href="https://figma.com/@yuchengkuo">@yuchengkuo</a></li>
     </ul>
   </info>
 

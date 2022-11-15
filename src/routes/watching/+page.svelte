@@ -55,7 +55,7 @@
   }
 </script>
 
-<Head title="Watching · YuCheng Kuo">
+<Head title="Watching">
   <script>
     document.documentElement.setAttribute('data-theme', 'orange')
   </script>
@@ -107,7 +107,7 @@
         on:mousemove={(e) => setHoverCardCords(e)}
       >
         <a
-          class="transition block filter hover:(scale-101 -translate-y-1 rotate-0.5 shadow-lg) active:(scale-99) group-focus:(scale-101 -translate-y-1 rotate-0.5 shadow-md) "
+          class="transition overflow-hidden block filter hover:(scale-101 rounded-lg -translate-y-1 rotate-0.5 shadow-lg) active:(scale-99) group-focus:(scale-101 rounded-lg -translate-y-1 rotate-0.5 shadow-md) "
           href="https://www.themoviedb.org/{item.type}/{item.id}"
           class:contrast-75={hoverId !== undefined && hoverId !== index}
           tabindex="0"

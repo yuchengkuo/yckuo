@@ -19,7 +19,8 @@
   />
 
   <emoji
-    class="rounded-full cursor-pointer flex bg-gray-200 border-1 border-cool-gray-300 shadow-md text-base px-2 -top-3 right-7/10 gap-1 items-center block absolute dark:bg-gray-600 dark:border-cool-gray-500"
+    class="rounded-full cursor-pointer flex bg-gray-200 border-1 border-cool-gray-300 shadow-md text-base px-2 -top-3 right-7/10 gap-1 items-center block absolute no-js:hidden dark:bg-gray-600 dark:border-cool-gray-500"
+    role="presentation"
     on:mouseenter={() => (hover = true)}
     on:mouseleave={() => (hover = false)}
     use:motion={{

@@ -5,7 +5,7 @@ tag:
   - Figma
 ---
 
-Top 13 Figma shortcuts that are used on my daily basis.
+Top 15 Figma shortcuts that are used on my daily basis.
 
 {% shortcut %}
 
@@ -20,6 +20,14 @@ Zoom the viewport to fit content
 {% kbd %}⌘{% /kbd %} + {% kbd %}P{% /kbd %} or {% kbd %}⌘{% /kbd %} + {% kbd %}/{% /kbd %}
 
 Open Quick Acitons
+
+{% /shortcut %}
+
+{% shortcut %}
+
+{% kbd %}Shift{% /kbd %} + {% kbd %}A{% /kbd %}
+
+Add Auto Layout
 
 {% /shortcut %}
 
@@ -44,6 +52,14 @@ Copy figma file link/Copy selection link
 {% kbd %}⌥{% /kbd %} + {% kbd %}W{% /kbd %} {% kbd %}A{% /kbd %} {% kbd %}S{% /kbd %} {% kbd %}D{% /kbd %}
 
 Align to top/left/bottom/right
+
+{% /shortcut %}
+
+{% shortcut %}
+
+{% kbd %}⌥{% /kbd %} + {% kbd %}V{% /kbd %} {% kbd %}H{% /kbd %}
+
+Align center vertically/horizontally
 
 {% /shortcut %}
 
