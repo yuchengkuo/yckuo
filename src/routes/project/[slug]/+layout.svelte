@@ -57,7 +57,7 @@
         {#each data.action ?? [] as link}
           <a
             href={link.url}
-            class="bg-surface border-border rounded-full border-1 shadow text-center py-2 px-8 block"
+            class="bg-surface border-border rounded-full border-1 shadow text-fg text-center py-2 px-8 block"
             >{link.label}</a
           >
         {/each}
@@ -74,7 +74,7 @@
   }
 
   small {
-    @apply font-650 text-sm uppercase;
+    @apply font-650 text-sm text-fg uppercase;
   }
 
   item p {

@@ -29,7 +29,7 @@ This site is built with [SvelteKit](https://kit.svelte.dev) (recently migrated f
 
 Most content is written in markdown with [Markdoc](https://markdoc.io) and typed with [Contentlayer](https://contentlayer.dev) stored on Github, other data sources are coming from Spotify, Last.fm, TMDB, and Raindrop.
 
-Types used on this website are mainly [Uncut Sans](https://uncut.wtf/sans-serif/uncut-sans.html), [Azeret Mono](https://azeret.displaay.net/) and [Spectral](https://www.productiontype.com/family/spectral). Colors on this site are hand picked with the magical help of [Khroma](https://khroma.co). Check below ↓.
+Types used on this website are mainly [Uncut Sans](https://uncut.wtf/sans-serif/uncut-sans.html), [Azeret Mono](https://azeret.displaay.net/) and [Newsreader](https://www.productiontype.com/family/newsreader). Colors on this site are hand picked with the magical help of [Khroma](https://khroma.co). Check below ↓.
 
 ## More about me
 

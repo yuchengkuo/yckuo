@@ -24,8 +24,7 @@ export default defineConfig({
   theme: {
     fontFamily: {
       Uncut: ['Uncut Sans', ...defaultTheme.fontFamily.sans],
-      Satoshi: ['Satoshi', ...defaultTheme.fontFamily.sans],
-      Spectral: ['Spectral', ...defaultTheme.fontFamily.serif],
+      Newsreader: ['Newsreader', ...defaultTheme.fontFamily.sans],
       Azeret: ['Azeret Mono', ...defaultTheme.fontFamily.mono],
     },
     extend: {

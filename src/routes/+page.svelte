@@ -92,8 +92,8 @@
         >
       </li>
       <li>Read.cv: <a href="https://read.cv/yuchengkuo">yuchengkuo</a></li>
-      <li>Github: <a href="https://github/yuchengkuo">yuchengkuo</a></li>
-      <li>Figma: <a href="https://figma.com/yuchengkuo">@yuchengkuo</a></li>
+      <li>Github: <a href="https://github.com/yuchengkuo">yuchengkuo</a></li>
+      <li>Figma: <a href="https://figma.com/@yuchengkuo">@yuchengkuo</a></li>
     </ul>
   </info>
 
