@@ -103,7 +103,7 @@ h4 {
 }
 
 a {
-  @apply *attr;
+  @apply attr;
 }
 
 code {

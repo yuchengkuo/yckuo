@@ -22,7 +22,7 @@
     {#if data.image && !data.hideCover}
       {@const image = data.image[0]}
       <Image
-        class="bg-surafce object-cover rounded-2xl w-full max-h-[max(520px,_65vh)] overflow-hidden <sm:rounded-lg"
+        class="bg-surafce object-cover rounded-2xl w-full max-h-[max(520px,_65vh)] overflow-hidden lt-sm:rounded-lg"
         id={image.id}
         aspectRatio={image.aspectRatio}
         blurDataUrl={image.blurDataUrl}

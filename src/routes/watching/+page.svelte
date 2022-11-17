@@ -116,7 +116,7 @@
             id={item.posterUrl}
             alt="Poster of {item.type}, {item.title}"
             widths={[240, 360, 720]}
-            aspectRatio="152/100"
+            aspectRatio="100/152"
             blurDataUrl={item.blurDataUrl}
           />
         </a>
@@ -129,7 +129,7 @@
   {@const item = data.items[hoverId]}
   {@const rotate = (Math.random() * 10 - 5) % 3}
   <hover-card
-    class="rounded-xl h-max bg-fg-secondary/75 shadow-xl text-bg p-5 w-80 block backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto <sm:hidden"
+    class="rounded-xl h-max bg-fg-secondary/75 shadow-xl text-bg p-5 w-80 block backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto lt-sm:hidden"
     style:left="{$cords.x}px"
     style:top="{$cords.y}px"
     style:transform="rotate({rotate}deg)"

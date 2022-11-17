@@ -88,17 +88,22 @@
 </script>
 
 <footer
-  class="flex flex-wrap font-Azeret mt-40 text-xs text-fg-secondary px-6 pb-4 gap-3 items-baseline justify-between sm:gap-6"
+  class="flex flex-wrap items-baseline justify-between"
+  font="Azeret"
+  text="xs fg-secondary"
+  gap="3 sm:6"
+  p="x-6 b-4"
+  m="t-40"
 >
   <p class="font-Uncut mr-auto font-650 text-base tracking-tight">YuCheng Kuo</p>
   <button
-    class="text-xs uppercase *attr no-js:hidden"
+    class="text-xs uppercase attr no-js:hidden"
     on:click={toggleTheme}
     use:tooltip={{ content: theme === 'lighten' ? 'Toggle light theme' : 'Toggle dark theme' }}
     >{theme}</button
   >
   <button
-    class="font-475 uppercase relative *attr no-js:hidden"
+    class="font-475 uppercase relative attr no-js:hidden"
     on:click={toggleColor}
     use:tooltip={{ content: colorize ? 'Tune up the colors' : 'Tune down the colors' }}
     >{colorize ? 'Colorize' : 'Decolorize'}

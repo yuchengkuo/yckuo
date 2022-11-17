@@ -53,7 +53,7 @@
 </script>
 
 <div
-  class="bg-surface flex flex-wrap rounded-3xl mt-32 w-full p-6 gap-6 justify-between items-start relative <sm:(p-4 justify-center) "
+  class="bg-surface flex flex-wrap rounded-3xl mt-32 w-full p-6 gap-6 justify-between items-start relative lt-sm:(p-4 justify-center) "
 >
   {#each themes.filter((t) => t.dark === dark) as theme, index (theme.name + dark)}
     {@const visible = target === index && hover}

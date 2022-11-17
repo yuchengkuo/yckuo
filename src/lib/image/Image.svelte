@@ -80,7 +80,8 @@
 
 <figure on:click bind:this={container} class="{className} overflow-hidden block" {...$$restProps}>
   <div
-    class="rounded md:rounded-md lg:rounded-lg relative overflow-hidden no-js:hidden aspect-{aspectRatio}"
+    class="rounded md:rounded-md lg:rounded-lg relative overflow-hidden no-js:hidden"
+    style="aspect-ratio: {aspectRatio}"
   >
     <div class="bg-surface inset-0 absolute" class:hidden={visible} />
 
@@ -123,7 +124,7 @@
   </noscript>
 
   {#if showcap}
-    <figcaption class="h-fit font-500 mt-2 text-sm w-fit block ms:mt-4 md:text-base ">
+    <figcaption class="h-fit font-500 mt-2 text-sm w-fit block md:mt-4 md:text-base">
       — {alt}
     </figcaption>
   {/if}

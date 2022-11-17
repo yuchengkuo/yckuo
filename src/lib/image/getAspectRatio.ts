@@ -16,7 +16,7 @@ export async function getAspectRatio(id: string, isVideo = false) {
 
   const options: CldOptions = {
     transformations: {
-      resize: { width: 100 },
+      resize: { width: 50 },
       quality: 'auto',
       format: 'webp',
       flags: 'getinfo',
@@ -42,9 +42,9 @@ export async function getAspectRatioForImage(imageUrl: string): Promise<string> 
 
     const { width, height } = result.output
 
-    ratioCache.set(imageUrl, `${height}/${width}`)
+    ratioCache.set(imageUrl, `${width}/${height}`)
 
-    return `${height}/${width}`
+    return `${width}/${height}`
   } catch (e) {
     console.error(`Error while getting aspect ratio for ${imageUrl}: ${e}`)
   }
