@@ -1,49 +1,38 @@
-.layout-center {
-  section {
-    @apply my-40 w-full gap-x-10 items-baseline sm:grid sm:grid-cols-[1fr_6fr_1fr] xl:grid-cols-[1fr_2fr_1fr] children:(col-start-2);
+.layout-center section {
+  @apply my-40 w-full gap-x-10 items-baseline sm:grid sm:grid-cols-[1fr_6fr_1fr] xl:grid-cols-[1fr_2fr_1fr] children:(col-start-2);
+}
 
-    h2 {
-      @apply font-650;
-    }
+.layout-center section figure {
+  @apply col-span-full justify-self-center sm:(w-8/10 mb-8) xl:mb-10;
+}
 
-    h3 {
-      @apply font-625;
-    }
+.layout-center section figure[full='true'] {
+  @apply rounded-lg my-10 w-full col-span-full col-start-1 justify-self-center sm:my-10 xl:my-20;
+}
+.layout-center section figure[full='true'] figcaption {
+  @apply text-fg-secondary;
+}
 
-    figure {
-      @apply col-span-full justify-self-center sm:(w-8/10 mb-8) xl:mb-10;
+.layout-center section grid {
+  @apply block sm:(grid-cols-4 col-start-2 grid gap-x-10) children:(col-span-2);
+}
 
-      &[full='true'] {
-        @apply rounded-lg my-10 w-full col-span-full col-start-1 justify-self-center sm:my-10 xl:my-20;
+.layout-center section gallery {
+  @apply mt-10 col-span-full grid-cols-[5fr_3fr] col-start-1 items-end block sm:grid sm:gap-6 xl:mt-20 not-last:(mb-10 xl:mb-20) lt-sm:children:mb-4 xl:children:mb-0;
+}
 
-        figcaption {
-          @apply text-fg-secondary;
-        }
-      }
-    }
+.layout-center section gallery :nth-child(2n + 1) {
+  @apply w-full col-auto col-start-1;
+}
 
-    grid {
-      @apply block sm:(grid-cols-4 col-start-2 grid gap-x-10) children:(col-span-2);
-    }
+.layout-center section gallery :nth-child(2n) {
+  @apply w-full col-auto col-start-2;
+}
 
-    gallery {
-      @apply mt-10 col-span-full grid-cols-[5fr,3fr] col-start-1 items-end block sm:grid sm:gap-6 xl:mt-20 not-last:(mb-10 xl:mb-20) <sm:children:mb-4 xl:children:mb-0;
+.layout-center section gallery :nth-child(4n) {
+  @apply self-start;
+}
 
-      :nth-child(2n + 1) {
-        @apply w-full col-auto col-start-1;
-      }
-
-      :nth-child(2n) {
-        @apply w-full col-auto col-start-2;
-      }
-
-      :nth-child(4n) {
-        @apply self-start;
-      }
-
-      img {
-        @apply shadow;
-      }
-    }
-  }
+.layout-center section gallery img {
+  @apply shadow;
 }

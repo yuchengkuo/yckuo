@@ -49,16 +49,16 @@ export const fence: Schema = {
 
     const lightAttr = {
       ...attributes,
-      class: 'shiki shiki-light dark:hidden',
+      class: 'shiki shiki-light',
       style: `background-color: ${lightBG};`,
     }
     const darkAttr = {
       ...attributes,
-      class: 'shiki shiki-dark hidden dark:block',
+      class: 'shiki shiki-dark',
       style: `background-color: ${darkBG};`,
     }
 
-    return new Tag('div', { ...attributes, class: 'shiki-container block' }, [
+    return new Tag('div', { ...attributes, class: 'shiki-container' }, [
       new Tag('pre', lightAttr, [lightTree]),
       new Tag('pre', darkAttr, [darkTree]),
     ])
@@ -76,7 +76,7 @@ function getRenderableTree(tokens: IThemedToken[][], highlights?: (number | numb
 
   return new Tag(
     'code',
-    { class: 'inline' },
+    {},
     tokens.map((tokenArr, index) => {
       const target = index + 1
       const highlight =

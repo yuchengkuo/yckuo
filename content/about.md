@@ -21,7 +21,7 @@ I value multi-disciplined skills that could help people achieve their goals in a
 
 {% /column %}
 
-{% column class="mt-40" %}
+{% column %}
 
 ## This website
 

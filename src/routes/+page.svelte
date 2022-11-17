@@ -34,7 +34,7 @@
 </Head>
 
 <section class="pb-20 lg:(grid pb-56 gap-80 grid-cols-2) ">
-  <div class="text-fg-secondary last-child:md:mt-8 last-child:mt-4">
+  <div class="text-fg-secondary child-last:mt-4 child-last:md:mt-8">
     <h1 use:motion={{ initial, animate, transition: { easing, delay: 0.3 } }}>YuCheng Kuo</h1>
     <div use:motion={{ initial, animate, transition: { easing, delay: 0.4 } }}>
       <i>Hello</i>, I'm YuCheng. I am a product designer and UI developer from Taiwan. I'm currently
@@ -99,7 +99,7 @@
 
   <aside
     use:motion={{ initial, animate, transition: { easing, delay: 0.8 } }}
-    class="<sm:mb-12 <lg:(-order-1 col-span-full) "
+    class="lt-sm:mb-12 lt-lg:(-order-1 col-span-full)"
   >
     <nav class="flex flex-col flex-wrap font-Azeret font-480 text-sm gap-2 uppercase items-start">
       <a href="/about">About</a>

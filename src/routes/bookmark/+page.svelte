@@ -52,7 +52,10 @@
     {#each data.bookmarks as item}
       {@const deg = Math.floor((Math.random() * 20 - 10) % 3)}
       <li
-        class="relative group sm:(items-baseline grid gap-x-4 grid-cols-[2fr_1fr]) md:grid-cols-[2fr_1fr_1fr] xl:(grid-cols-[2fr_3fr_3fr] gap-x-10) "
+        class="relative group items-baseline"
+        sm="grid grid-cols-[2fr_1fr] gap-x-4"
+        md="grid-cols-[2fr_1fr_1fr]"
+        xl="grid-cols-[2fr_3fr_3fr] gap-x-10"
         on:mouseenter={() => snd.play(Snd.SOUNDS.TYPE)}
         on:mousemove={(e) => {
           const offset = 56
@@ -75,13 +78,9 @@
           transition: { easing: spring({ damping: 30, stiffness: 600 }) },
         }}
       >
-        <div
-          class="hidden md:(block opacity-100) xl:opacity-0 <xl:order-2 group-hover:opacity-100 "
-        >
+        <div class="hidden lt-xl:order-2 group-hover:opacity-100 " md="block" xl="opacity-0">
           {#each item.tags as tag}
-            <p
-              class="font-Azeret font-400 text-fg-secondary text-xs xl:text-right xl:not-last:mb-1"
-            >
+            <p class="font-Azeret font-400 text-fg-secondary text-xs" xl="text-right not-last:mb-1">
               – {tag}
             </p>
           {/each}
@@ -90,11 +89,13 @@
         <div class="flex flex-col gap-2">
           <h3>{item.title}</h3>
           <a class="font-Azeret text-fg-secondary text-sm w-fit" href={item.link}>{item.domain}</a>
-          <p class="font-475 text-fg-secondary text-lg">{item.excerpt}</p>
+          <p text="fg-secondary">{item.excerpt}</p>
         </div>
 
         <div
-          class="mt-2 self-start md:mt-0 xl:(opacity-0 w-7/10 h-0 justify-self-end) <xl:order-3 group-hover:opacity-100 "
+          class="mt-0 mt-2 self-start lt-xl:order-3 group-hover:opacity-100 "
+          md="mt-0"
+          xl="opacity-0 w-7/10 h-0 justify-self-end"
           use:motion={{
             animate: { x: cord.x, y: cord.y },
             transition: { easing: spring({ damping: 40 }) },

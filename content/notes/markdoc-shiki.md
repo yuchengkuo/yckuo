@@ -128,7 +128,7 @@ export const fence: Schema = {
     }
 
     // Render two trees for each theme
-    return new Tag('div', { ...attributes, class: 'shiki-container block' }, [
+    return new Tag('div', { ...attributes, class: 'shiki-container' }, [
       new Tag('pre', lightAttr, [lightTree]),
       new Tag('pre', darkAttr, [darkTree]),
     ])
@@ -138,7 +138,7 @@ export const fence: Schema = {
 function getRenderableTree(tokens: IThemedToken[][]) {
   return new Tag(
     'code',
-    { class: 'inline' },
+    {},
     tokens.map((tokenArr) =>
       Tag(
         'div',
@@ -234,7 +234,7 @@ export const fence: Schema = {
       style: `background-color: ${darkBG};`,
     }
 
-    return new Tag('div', { ...attributes, class: 'shiki-container block' }, [
+    return new Tag('div', { ...attributes, class: 'shiki-container' }, [
       new Tag('pre', lightAttr, [lightTree]),
       new Tag('pre', darkAttr, [darkTree]),
     ])

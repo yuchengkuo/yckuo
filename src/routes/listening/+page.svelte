@@ -21,7 +21,7 @@
 
 <section class="my-60 text-fg-secondary">
   <h1
-    class="mx-auto font-900 mb-2 w-fit text-5xl"
+    class="mx-auto font-900 mb-2 w-fit text-4xl"
     use:motion={{
       initial: { y: '20%', opacity: 0, rotateY: 3 },
       animate: { y: 0, opacity: 1, rotateY: 0 },
@@ -31,7 +31,7 @@
       },
     }}
   >
-    Jam
+    Listening
   </h1>
   <p
     class="mx-auto font-450 w-fit"
@@ -55,7 +55,7 @@
           <Image
             src={album.imageUrl || album.image}
             alt={`Album artwork of ${album.title} by ${album.artist}`}
-            aspectRatio="100/100"
+            aspectRatio="1/1"
             blurDataUrl={album.blurDataUrl}
             class="shadow-md"
           />
@@ -79,7 +79,7 @@
           <Image
             src={album.image}
             alt={`Album artwork of ${album.name} by ${album.artist}`}
-            aspectRatio="100/100"
+            aspectRatio="1/1"
             blurDataUrl={album.blurDataUrl}
             class="shadow-md"
           />

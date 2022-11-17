@@ -1,15 +1,15 @@
 import { sveltekit } from '@sveltejs/kit/vite'
-import windicss from 'vite-plugin-windicss'
+import unocss from 'unocss/vite'
 
 /** @type {import('vite').UserConfig} */
 const config = {
-  plugins: [sveltekit(), windicss()],
+  plugins: [unocss({ transformCSS: 'pre' }), sveltekit()],
   define: { 'process.env': process.env },
 
   server: {
     fs: {
       // Allow serving files from one level up to the project root
-      allow: ['..'],
+      strict: false,
     },
   },
 }

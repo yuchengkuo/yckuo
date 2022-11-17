@@ -6,7 +6,5 @@
   "windicss.sortOnSave": true,
   "windicss.includeLanguages": {
     "svelte": "html"
-  },
-  "windicss.enableAttrUtilityCompletion": false,
-  "windicss.enableAttrVariantCompletion": false
+  }
 }

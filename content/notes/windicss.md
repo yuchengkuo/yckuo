@@ -46,8 +46,6 @@ Attributify mode is the most interesting one, it enables us to write utility cla
 </button>
 ```
 
-> Heads-up: Use attributify mode in Svelte with Typescript might encounter some TypeError in code editor. Related issues: [#754](https://github.com/windicss/windicss/issues/754), [#1352](https://github.com/sveltejs/language-tools/issues/1352).
-
 ## Discover furthur
 
 - [Windicss](https://windicss.org)
