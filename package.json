@@ -40,7 +40,7 @@
     "nprogress": "^0.2.0",
     "shiki": "^0.11.1",
     "snd-lib": "^1.1.1",
-    "sveltejs-markdoc": "^0.1.2"
+    "sveltejs-markdoc": "^0.2.0"
   },
   "devDependencies": {
     "@cld-apis/types": "^0.1.6",
