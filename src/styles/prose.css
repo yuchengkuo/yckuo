@@ -44,7 +44,7 @@ hr {
   @apply bg-surface border-border rounded-sm border-l-2 shadow-sm -my-2 mx-0 -mx-5 -mx-3 mb-10 py-2 px-5 lt-sm:(-mx-2.5 px-2.5 -my-1 py-1 mb-6);
 }
 .prose blockquote * {
-  @apply font-Newsreader font-medium text-base mb-0 leading-9 italic lt-sm:leading-7;
+  @apply font-Newsreader font-550 text-base mb-0 leading-9 italic lt-sm:leading-7;
   font-variation-settings: 'opsz' 8;
 }
 
@@ -74,19 +74,19 @@ hr {
   @apply bg-surface rounded-xl border-1 border-fg/6 mb-8 overflow-x-auto dark:(bg-surface border-fg/6);
 }
 
-.prose pre {
+.prose .shiki-container pre {
   @apply font-Azeret min-w-full my-0 w-fit py-5 px-6 !bg-transparent lt-md:(py-3 px-4);
 }
 
-.prose code {
+.prose .shiki-container code {
   @apply bg-transparent font-525 m-0 text-sm p-0;
 }
 
-.prose .line {
+.prose .shiki-container .line {
   @apply not-last:not-first:min-h-5;
 }
 
-.prose .no-highlight span {
+.prose .shiki-container .no-highlight span {
   @apply !text-gray-500 !dark:text-gray-400;
 }
 
@@ -99,7 +99,7 @@ hr {
 }
 
 .prose column {
-  @apply block mb-40;
+  @apply block mb-20 xl:mb-40;
 }
 
 .prose column[n='2'] {

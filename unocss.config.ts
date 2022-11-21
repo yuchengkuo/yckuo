@@ -6,7 +6,6 @@ import {
   transformerVariantGroup,
   presetAttributify,
 } from 'unocss'
-import defaultTheme from 'windicss/defaultTheme'
 
 export default defineConfig({
   transformers: [transformerDirectives(), transformerVariantGroup()],
@@ -14,9 +13,9 @@ export default defineConfig({
   presets: [presetAttributify(), presetUno()],
   theme: {
     fontFamily: {
-      Uncut: ['Uncut Sans', ...defaultTheme.fontFamily.sans],
-      Newsreader: ['Newsreader', ...defaultTheme.fontFamily.sans],
-      Azeret: ['Azeret Mono', ...defaultTheme.fontFamily.mono],
+      Uncut: ['Uncut Sans', 'ui-sans-serif', 'system-ui', '-apple-system'],
+      Newsreader: ['Newsreader', 'ui-serif', 'Georgia', 'Cambria'],
+      Azeret: ['Azeret Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo'],
     },
     colors: {
       bg: 'rgb(var(--colors-bg))',

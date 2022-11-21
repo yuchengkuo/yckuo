@@ -93,7 +93,7 @@
   text="xs fg-secondary"
   gap="3 sm:6"
   p="x-6 b-4"
-  m="t-40"
+  m="t-20 md:t-40"
 >
   <p class="font-Uncut mr-auto font-650 text-base tracking-tight">YuCheng Kuo</p>
   <button

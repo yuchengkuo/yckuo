@@ -22,7 +22,7 @@
     bg="bg/60"
     z="40"
     p="y-2 x-4 md:x-8 lg:x-20"
-    m="-t-2 t-12 b-6"
+    m="-t-2 t-12 b-2 sm:b-6"
     transition="duration-500 delay-25 ease-out colors"
     flex="~"
     font="Azeret 450"
