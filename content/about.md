@@ -25,7 +25,7 @@ I value multi-disciplined skills that could help people achieve their goals in a
 
 ## This website
 
-This site is built with [SvelteKit](https://kit.svelte.dev) (recently migrated from [Next.js](https://nextjs.org) and loving it!), styled with [Windicss](https://windicss.org), animated with [Motion One](https://motion.dev), and hosted on [Vercel](https://vercel.com). The [source](https://github.com/yuchengkuo/yckuo) of this website can be found on Github.
+This site is built with [SvelteKit](https://kit.svelte.dev) (recently migrated from [Next.js](https://nextjs.org) and loving it!), styled with [Unocss](https://uno.antfu.me/), animated with [Motion One](https://motion.dev), and hosted on [Vercel](https://vercel.com). The [source](https://github.com/yuchengkuo/yckuo) of this website can be found on Github.
 
 Most content is written in markdown with [Markdoc](https://markdoc.io) and typed with [Contentlayer](https://contentlayer.dev) stored on Github, other data sources are coming from Spotify, Last.fm, TMDB, and Raindrop.
 

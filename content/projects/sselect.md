@@ -16,7 +16,7 @@ meta:
   - title: Tool
     content: Figma, VS Code, Rollupjs
   - title: Timeline
-    content: 2022
+    content: '2022'
 action:
   - label: See plugin on Figma ↗
     url: https://figma.com/c/plugin/1087207671419748735

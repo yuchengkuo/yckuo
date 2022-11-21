@@ -18,6 +18,7 @@ const Post = defineDocumentType(() => ({
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
     cover: { type: 'string' },
+    tag: { type: 'list', of: { type: 'string' } },
   },
   computedFields,
 }))
@@ -122,6 +123,6 @@ const Changelog = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Project, About, Post, Micro],
+  documentTypes: [Project, About, Post, Micro, Playlists, Note],
   disableImportAliasWarning: true,
 })

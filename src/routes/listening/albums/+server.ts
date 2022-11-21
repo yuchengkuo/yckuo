@@ -1,6 +1,5 @@
 import { getSavedAlbums } from '$lib/api/spotify'
 import { error, json, type RequestHandler } from '@sveltejs/kit'
-import { getBlurDataUrl } from '$lib/image/getBlurDataUrl'
 
 export const GET: RequestHandler = async function ({ url }) {
   try {
@@ -15,7 +14,6 @@ export const GET: RequestHandler = async function ({ url }) {
         url: album.external_urls['spotify'],
         id: album.id,
         image: album.images[1].url,
-        blurDataUrl: await getBlurDataUrl(album.images[1].url, false, false),
         name: album.name,
         release_date: album.release_date,
         artist: album.artists.map((a) => a.name).join(', '),
