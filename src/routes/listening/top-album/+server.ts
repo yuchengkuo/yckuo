@@ -1,44 +1,33 @@
-import { getTopAlbums } from '$lib/api/lastfm'
-import { getAlbumSearchResult } from '$lib/api/spotify'
-import { getBlurDataUrl } from '$lib/image/getBlurDataUrl'
+import { getTopTracks } from '$lib/api/spotify'
 import { error, json, type RequestHandler } from '@sveltejs/kit'
 
-export const GET: RequestHandler = async function () {
+export const GET: RequestHandler = async function ({ url }) {
   try {
-    const res = await getTopAlbums()
+    const res = await getTopTracks('40')
 
-    const { topalbums } = await res.json()
+    const { items } = await res.json()
 
-    const albums = await Promise.all(
-      topalbums.album.map(async (album) => {
-        const title = album.name
-        const artist = album.artist.name
-        const result = await (await getAlbumSearchResult(title, artist)).json()
-
-        const shared = {
-          title,
-          artist,
-          playcount: album.playcount,
-          image: album.image[3]['#text'],
-        }
-
-        const item = result.albums.items[0]
-        if (!item) return shared
-        return {
-          ...shared,
-          spotifyUrl: item.external_urls.spotify,
-          imageUrl: item.images[0].url,
-          blurDataUrl: await getBlurDataUrl(item.images[0].url, false, false),
-          trackNum: item.total_tracks,
-          releaseYear: item.release_date.slice(0, 4),
-        }
-      })
-    )
+    const albums = []
+    items.forEach((item) => {
+      if (albums.length >= (Number(url.searchParams.get('limit')) || 12)) return
+      if (!albums.map((album) => album.name).includes(item.album.name))
+        albums.push({
+          type: item.album.album_type,
+          total_tracks: item.album.total_tracks,
+          url: item.album.external_urls['spotify'],
+          id: item.album.id,
+          image: item.album.images[1].url,
+          name: item.album.name,
+          release_date: item.album.release_date,
+          artist: item.album.artists.map((a) => a.name).join(', '),
+          tracks: item.album.total_tracks,
+        })
+    })
 
     return json(albums, {
       headers: {
         'content-type': 'application/json;',
-        'cache-control': 'public, s-maxage=86400, stale-while-revalidate=43200',
+        'cache-control': 'public, s-maxage=864000, stale-while-revalidate=432000',
       },
     })
   } catch (err) {

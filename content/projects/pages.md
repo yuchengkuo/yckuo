@@ -16,7 +16,7 @@ meta:
   - title: Tool
     content: Figma, VS Code, Svelte, TailwindCSS
   - title: Timeline
-    content: 2022
+    content: '2022'
 action:
   - label: See plugin on Figma ↗
     url: https://www.figma.com/c/plugin/1107319011917873959

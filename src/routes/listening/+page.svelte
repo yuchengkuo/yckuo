@@ -10,10 +10,10 @@
 
   export let data: PageData
 
-  let hover = ''
+  let hover: PageData['albums'][0] | PageData['saved'][0]
 </script>
 
-<Head title="Listening · YuCheng Kuo" description="A collection of jam.">
+<Head title="Listening" description="A collection of jam.">
   <script>
     document.documentElement.setAttribute('data-theme', 'pink')
   </script>
@@ -41,22 +41,21 @@
   </p>
 </section>
 
-<tag>Top albums this week</tag>
+<tag>Recent top albums</tag>
 <section>
   <grid class="grid grid-cols-1 relative sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:-mx-20">
-    {#each data.albums as album (album.title)}
+    {#each data.albums as album (album.name)}
       <album class="flex w-full z-10 relative aspect-square items-center">
         <a
-          href={album.spotifyUrl}
+          href={album.url}
           class="m-auto h-8/10 w-auto aspect-square"
-          on:mouseenter={() => (hover = album.artist + ' — ' + album.title)}
-          on:mouseleave={() => (hover = '')}
+          on:mouseenter={() => (hover = album)}
+          on:mouseleave={() => (hover = undefined)}
         >
           <Image
-            src={album.imageUrl || album.image}
-            alt={`Album artwork of ${album.title} by ${album.artist}`}
+            src={album.image}
+            alt={`Album artwork of ${album.name} by ${album.artist}`}
             aspectRatio="1/1"
-            blurDataUrl={album.blurDataUrl}
             class="shadow-md"
           />
         </a>
@@ -73,14 +72,13 @@
         <a
           href={album.url}
           class="m-auto h-8/10 w-auto aspect-square"
-          on:mouseenter={() => (hover = album.artist + ' — ' + album.name)}
-          on:mouseleave={() => (hover = '')}
+          on:mouseenter={() => (hover = album)}
+          on:mouseleave={() => (hover = undefined)}
         >
           <Image
             src={album.image}
             alt={`Album artwork of ${album.name} by ${album.artist}`}
             aspectRatio="1/1"
-            blurDataUrl={album.blurDataUrl}
             class="shadow-md"
           />
         </a>
@@ -90,20 +88,32 @@
 </section>
 
 {#key hover}
-  <div
-    use:motion={{
-      initial: { opacity: 0, transform: 'translateY(2px)' },
-      animate: { opacity: 1, transform: 'rotate(0.1deg)' },
-      exit: { opacity: 0, transform: 'translateY(2px)' },
-      transition: { easing: spring({ damping: 10 }) },
-    }}
-    out:outro|local
-    class="flex bottom-1/2 left-0 z-0 gap-16 pointer-events-none mix-blend-hard-light fixed"
-  >
-    {#each new Array(8) as _}
-      <p class="font-900 text-fg tracking-tighter text-4xl whitespace-nowrap">{hover}</p>
-    {/each}
-  </div>
+  {#if hover}
+    <div
+      use:motion={{
+        initial: { opacity: 0, transform: 'translateY(2px)' },
+        animate: { opacity: 1, transform: 'rotate(0.1deg)' },
+        exit: { opacity: 0, transform: 'translateY(2px)' },
+        transition: { easing: spring({ damping: 10 }) },
+      }}
+      out:outro|local
+      class="bottom-1/2 left-0 z-0 pointer-events-none mix-blend-hard-light fixed"
+    >
+      <div
+        use:motion={{
+          animate: { transform: 'translateX(-50%)' },
+          transition: { duration: 80, repeat: Infinity },
+        }}
+        class="flex gap-16"
+      >
+        {#each new Array(8) as _}
+          <p class="font-900 text-fg tracking-tighter text-4xl whitespace-nowrap">
+            {hover.artist} — {hover.name}
+          </p>
+        {/each}
+      </div>
+    </div>
+  {/if}
 {/key}
 
 <style>

@@ -6,7 +6,7 @@ import { SPOTIFY_REFRESH_TOKEN as refresh_token } from '$env/static/private'
 
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode`
-const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks?time_range=short_term`
+const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks`
 const TOP_ARTISTS_ENDPOINT = `https://api.spotify.com/v1/me/top/artists?time_range=short_term`
 const SAVED_ALBUMS_ENDPOINT = `https://api.spotify.com/v1/me/albums`
 const PLAYLIST_ENPOINT = `https://api.spotify.com/v1/playlists`
@@ -39,10 +39,15 @@ export async function getNowPlaying() {
   })
 }
 
-export async function getTopTracks() {
+export async function getTopTracks(limit = '30', offset = '0') {
   const { access_token } = await getAccessToken()
 
-  return fetch(TOP_TRACKS_ENDPOINT, {
+  const url = new URL(TOP_TRACKS_ENDPOINT)
+  url.searchParams.append('time_range', 'short_term')
+  url.searchParams.append('limit', limit)
+  url.searchParams.append('offset', offset)
+
+  return fetch(url.toString(), {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
