@@ -123,6 +123,6 @@ const Changelog = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Project, About, Post, Micro, Playlists, Note],
+  documentTypes: [Project, About, Post, Micro, Note],
   disableImportAliasWarning: true,
 })
