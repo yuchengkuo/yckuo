@@ -32,7 +32,7 @@
     "@splitbee/web": "^0.3.0",
     "class-transformer": "^0.5.1",
     "cloudinary-build-url": "^0.2.4",
-    "contentlayer": "0.2.7",
+    "contentlayer": "0.2.9",
     "date-fns": "^2.29.3",
     "lodash.throttle": "^4.1.1",
     "motion": "^10.14.3",
