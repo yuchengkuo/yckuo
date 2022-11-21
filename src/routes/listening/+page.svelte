@@ -121,7 +121,7 @@
     @apply bg-surface rounded-full font-Azeret mx-auto font-800 text-xs tracking-tight w-fit py-1.5 px-3 uppercase block;
   }
 
-  section:not(:last-child, :first-child) {
+  section:not(:first-child) {
     @apply mb-40;
   }
 </style>
