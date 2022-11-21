@@ -19,7 +19,7 @@
   </script>
 </Head>
 
-<section class="my-60 text-fg-secondary">
+<section class="my-20 text-fg-secondary md:my-60">
   <h1
     class="mx-auto font-900 mb-2 w-fit text-4xl"
     use:motion={{

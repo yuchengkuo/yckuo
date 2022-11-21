@@ -2,7 +2,7 @@
   import { motion } from '$lib/animation/motion'
   import { outro } from '$lib/animation/out'
   import { spring, type Variants } from 'motion'
-  import { onMount, afterUpdate } from 'svelte'
+  import { onMount, afterUpdate, tick } from 'svelte'
 
   import { themes } from './themes'
 
@@ -53,7 +53,7 @@
 </script>
 
 <div
-  class="bg-surface flex flex-wrap rounded-3xl mt-32 w-full p-6 gap-6 justify-between items-start relative lt-sm:(p-4 justify-center) "
+  class="bg-surface flex flex-wrap m-auto rounded-3xl mt-32 w-full p-6 w-80 gap-6 justify-between items-start relative lt-sm:(p-4 grid grid-cols-2)"
 >
   {#each themes.filter((t) => t.dark === dark) as theme, index (theme.name + dark)}
     {@const visible = target === index && hover}
@@ -72,15 +72,14 @@
       }}
       data-theme={theme.name}
       class:dark
-      class="bg-bg rounded-lg cursor-pointer flex flex-col h-32 shadow p-3 w-32 relative justify-start hover:shadow-lg all:pointer-events-none"
+      class="bg-bg rounded-lg cursor-pointer flex flex-col h-32 shadow p-3 w-32 relative justify-start hover:shadow-lg all:pointer-events-none lt-sm:(w-full aspect-square)"
       tabindex="0"
       role="button"
       on:click={() => setActiveTheme(theme.name)}
       on:keypress={() => setActiveTheme(theme.name)}
-      on:mouseenter|capture={() => setHoverTheme(index, theme.name)}
+      on:mouseenter={() => setHoverTheme(index, theme.name)}
+      on:mouseleave={resetTheme}
       on:focus={() => setHoverTheme(index, theme.name)}
-      on:mouseout={resetTheme}
-      on:blur={resetTheme}
     >
       <div class="flex w-full gap-1 items-center justify-start children:(w-3 h-3 rounded-full) ">
         <span class="bg-bg border-fg border-1" />
@@ -135,7 +134,7 @@
         animate: { y: 0, opacity: 1 },
         hover: { letterSpacing: '0.025em' },
       }}
-      class="font-800 text-sm -top-6 right-6 absolute"
+      class="font-800 text-sm -top-6 right-6 absolute lt-sm:right-4"
       on:click={() => (dark = !dark)}>{dark ? 'Let the light in' : 'Embrace the drakness'}</button
     >
   {/key}
@@ -146,15 +145,18 @@
         initial: { y: 8, opacity: 0 },
         animate: { y: 0, opacity: 1 },
       }}
-      class="font-800 text-xs -top-5 left-6 text-fg-secondary/60 absolute"
+      class="font-800 text-xs -top-5 left-6 text-fg-secondary/60 absolute lt-sm:left-4"
     >
-      {!hover
-        ? 'Hover to discover'
-        : active
-        ? 'Hooray! 🎉'
-        : decolorize
-        ? 'Colors are off now, try colorize ↘'
-        : 'Click to apply'}
+      {#if !hover}
+        <span class="lt-sm:hidden">Hover to discover</span>
+        <span class="sm:hidden">Click to apply</span>
+      {:else if active}
+        Hooray! 🎉
+      {:else if decolorize}
+        Colors are off now, try colorize ↘
+      {:else}
+        Click to apply
+      {/if}
     </tip>
   {/key}
 </div>

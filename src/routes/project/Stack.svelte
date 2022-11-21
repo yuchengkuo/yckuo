@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { animate, inView, spring } from 'motion'
-  import throttle from 'lodash.throttle'
+  import { throttle } from 'lodash'
   import Snd from 'snd-lib'
 
   import Image from '$lib/image/Image.svelte'
