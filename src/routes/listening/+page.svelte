@@ -13,7 +13,7 @@
   let hover: PageData['albums'][0] | PageData['saved'][0]
 </script>
 
-<Head title="Listening · YuCheng Kuo" description="A collection of jam.">
+<Head title="Listening" description="A collection of jam.">
   <script>
     document.documentElement.setAttribute('data-theme', 'pink')
   </script>
