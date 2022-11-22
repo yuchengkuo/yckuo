@@ -11,9 +11,10 @@
   export let data: PageData
 
   let hover: PageData['albums'][0] | PageData['saved'][0]
+  const openGraph = { images: [{ url: 'listening.png' }], url: 'listening' }
 </script>
 
-<Head title="Listening" description="A collection of jam.">
+<Head title="Listening" description="A collection of jam." {openGraph}>
   <script>
     document.documentElement.setAttribute('data-theme', 'pink')
   </script>

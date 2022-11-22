@@ -8,6 +8,7 @@
 
   export let data: LayoutServerData
 
+  const openGraph = { images: [{ url: 'notes.png' }], url: 'note' }
   const fadeupConfig: Options = {
     initial: { y: 8, opacity: 0 },
     animate: { y: 0, opacity: 1 },
@@ -15,7 +16,7 @@
   }
 </script>
 
-<Head title="Notes" description="Notes, thoughts, journals, snippets, etc.">
+<Head title="Notes" description="Notes, thoughts, journals, snippets, etc." {openGraph}>
   <script>
     document.documentElement.setAttribute('data-theme', 'geyser')
   </script>

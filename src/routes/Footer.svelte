@@ -100,12 +100,13 @@
     class="text-xs uppercase attr no-js:hidden"
     on:click={toggleTheme}
     use:tooltip={{ content: theme === 'lighten' ? 'Toggle light theme' : 'Toggle dark theme' }}
-    >{theme}</button
+    data-splitbee-event="Toogle Theme">{theme}</button
   >
   <button
     class="font-475 uppercase relative attr no-js:hidden"
     on:click={toggleColor}
     use:tooltip={{ content: colorize ? 'Tune up the colors' : 'Tune down the colors' }}
+    data-splitbee-event="Toggle Color"
     >{colorize ? 'Colorize' : 'Decolorize'}
     {#if showConfetti}
       <div class="top-1/2 left-1/2 absolute">

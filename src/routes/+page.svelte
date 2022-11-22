@@ -80,6 +80,8 @@
       <li>
         Email: <a
           href="mailto:hey@yuchengkuo.com"
+          data-splitbee-event="Open Link"
+          data-splitbee-target="Email"
           use:tooltip={{
             content:
               copied === 'failed'
@@ -91,9 +93,27 @@
           on:contextmenu|preventDefault={copy}>hey@yuchengkuo.com</a
         >
       </li>
-      <li>Read.cv: <a href="https://read.cv/yuchengkuo">yuchengkuo</a></li>
-      <li>Github: <a href="https://github.com/yuchengkuo">yuchengkuo</a></li>
-      <li>Figma: <a href="https://figma.com/@yuchengkuo">@yuchengkuo</a></li>
+      <li>
+        Read.cv: <a
+          data-splitbee-event="Open Link"
+          data-splitbee-target="Read.cv"
+          href="https://read.cv/yuchengkuo">yuchengkuo</a
+        >
+      </li>
+      <li>
+        Github: <a
+          data-splitbee-event="Open Link"
+          data-splitbee-target="Figma"
+          href="https://github.com/yuchengkuo">yuchengkuo</a
+        >
+      </li>
+      <li>
+        Figma: <a
+          data-splitbee-event="Open Link"
+          data-splitbee-target="Github"
+          href="https://figma.com/@yuchengkuo">@yuchengkuo</a
+        >
+      </li>
     </ul>
   </info>
 
