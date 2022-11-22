@@ -53,7 +53,7 @@
 </script>
 
 <div
-  class="bg-surface flex flex-wrap m-auto rounded-3xl mt-32 w-full p-6 w-80 gap-6 justify-between items-start relative lt-sm:(p-4 grid grid-cols-2)"
+  class="bg-surface flex flex-wrap m-auto rounded-3xl mt-32 w-full p-6 gap-6 justify-between items-start relative lt-sm:(p-4 grid grid-cols-2)"
 >
   {#each themes.filter((t) => t.dark === dark) as theme, index (theme.name + dark)}
     {@const visible = target === index && hover}
@@ -74,7 +74,7 @@
       data-splitbee-event="Switch Theme"
       data-splitbee-theme={theme.name}
       class:dark
-      class="bg-bg rounded-lg cursor-pointer flex flex-col h-32 shadow p-3 w-32 relative justify-start hover:shadow-lg all:pointer-events-none lt-sm:(w-full aspect-square)"
+      class="bg-bg rounded-lg cursor-pointer grid grid-cols-2 gap-0 h-32 shadow p-3 w-32 relative justify-start hover:shadow-lg all:pointer-events-none lt-sm:(w-full h-auto aspect-square)"
       tabindex="0"
       role="button"
       on:click={() => setActiveTheme(theme.name)}
@@ -83,7 +83,7 @@
       on:mouseleave={resetTheme}
       on:focus={() => setHoverTheme(index, theme.name)}
     >
-      <div class="flex w-full gap-1 items-center justify-start children:(w-3 h-3 rounded-full) ">
+      <div class="flex gap-1 justify-start children:(w-3 h-3 rounded-full) ">
         <span class="bg-bg border-fg border-1" />
         <span class="bg-fg" />
         {#if theme.colors.fg_secondary}
@@ -92,8 +92,20 @@
       </div>
 
       {#if visible}
+        <word
+          use:motion={{
+            initial: { y: -4, opacity: 0 },
+            animate: { y: 0, opacity: 1 },
+            exit: { y: -4, opacity: 0 },
+          }}
+          out:outro|local
+          class="font-800 text-fg text-xs leading-none tracking-tight w-fit items-start justify-self-end"
+        >
+          {theme.label}
+        </word>
+
         <div
-          class="flex flex-col mt-auto font-600 text-xs gap-0.5 items-start"
+          class="flex flex-col w-full font-600 text-xs gap-0.5 items-start justify-end content-end"
           use:motion={infoVariants}
           out:outro|local
         >
@@ -105,23 +117,10 @@
             >
           {/if}
         </div>
-
-        <word
-          use:motion={{
-            initial: { y: -4, opacity: 0 },
-            animate: { y: 0, opacity: 1 },
-            exit: { y: -4, opacity: 0 },
-          }}
-          out:outro|local
-          class="font-800 text-fg text-xs tracking-tight w-fit top-3 right-4 absolute"
-        >
-          {theme.label}
-        </word>
       {/if}
 
       <contrast
-        use:motion={{ animate: visible && { right: '16px', bottom: '16px' } }}
-        class="flex flex-col font-700 text-fg-secondary w-fit right-3 bottom-3 text-0.625rem block absolute items-end"
+        class="flex flex-col gap-0 self-end justify-self-end font-700 text-fg-secondary w-fit text-0.625rem block leading-none items-end"
       >
         <span class="font-Azeret text-xs tracking-tighter">{theme.aa}</span>
         {theme.contrast}
