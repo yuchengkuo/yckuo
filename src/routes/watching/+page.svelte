@@ -20,6 +20,8 @@
   let outerWidth = 0
   let hoverCard: HTMLElement
 
+  const openGraph = { images: [{ url: 'watching.png' }], url: 'watching' }
+
   onMount(() => {
     if (outerWidth > 768)
       return scroll(
@@ -55,7 +57,7 @@
   }
 </script>
 
-<Head title="Watching">
+<Head title="Watching" description="A list of series and films that I find great." {openGraph}>
   <script>
     document.documentElement.setAttribute('data-theme', 'orange')
   </script>

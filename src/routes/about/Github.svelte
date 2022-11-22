@@ -2,7 +2,13 @@
   import tooltip from '$lib/tooltip/tooltip'
 </script>
 
-<a href="https://github.com" class="p-1 w-8 block" use:tooltip={{ content: 'Github' }}>
+<a
+  href="https://github.com"
+  class="p-1 w-8 block"
+  data-splitbee-event="Open Link"
+  data-splitbee-target="Github"
+  use:tooltip={{ content: 'Github' }}
+>
   <svg aria-hidden="true" viewBox="0 0 16 16">
     <path
       class="fill-fg"

@@ -2,7 +2,13 @@
   import tooltip from '$lib/tooltip/tooltip'
 </script>
 
-<a class="w-8 block" href="https://read.cv/yuchengkuo" use:tooltip={{ content: 'Read.cv' }}>
+<a
+  class="w-8 block"
+  href="https://read.cv/yuchengkuo"
+  data-splitbee-event="Open Link"
+  data-splitbee-target="Read.cv"
+  use:tooltip={{ content: 'Read.cv' }}
+>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28"
     ><path
       fill-rule="evenodd"

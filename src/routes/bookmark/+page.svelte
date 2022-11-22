@@ -16,7 +16,7 @@
   let downscroll = true
   let snd: Snd
 
-  const openGraph = { images: [{ url: 'bookmarks.png' }], url: 'bookmarks' }
+  const openGraph = { images: [{ url: 'bookmarks.png' }], url: 'bookmark' }
 
   onMount(async () => {
     snd = new Snd()
@@ -88,7 +88,12 @@
 
         <div class="flex flex-col gap-2">
           <h3>{item.title}</h3>
-          <a class="font-Azeret text-fg-secondary text-sm w-fit" href={item.link}>{item.domain}</a>
+          <a
+            class="font-Azeret text-fg-secondary text-sm w-fit"
+            href={item.link}
+            data-splitbee-event="Open Bookmark"
+            data-splitbee-target={item.link}>{item.domain}</a
+          >
           <p text="fg-secondary">{item.excerpt}</p>
         </div>
 

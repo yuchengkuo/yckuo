@@ -71,6 +71,8 @@
         variants: paletteVariants,
       }}
       data-theme={theme.name}
+      data-splitbee-event="Switch Theme"
+      data-splitbee-theme={theme.name}
       class:dark
       class="bg-bg rounded-lg cursor-pointer flex flex-col h-32 shadow p-3 w-32 relative justify-start hover:shadow-lg all:pointer-events-none lt-sm:(w-full aspect-square)"
       tabindex="0"

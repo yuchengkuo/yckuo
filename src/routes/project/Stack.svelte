@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { animate, inView, spring } from 'motion'
-  import  throttle  from 'lodash.throttle'
+  import throttle from 'lodash.throttle'
   import Snd from 'snd-lib'
 
   import Image from '$lib/image/Image.svelte'
@@ -68,6 +68,7 @@
   }}
   on:mouseup={swap}
   bind:this={imgEl}
+  data-splitbee-event="Swap stack"
 >
   {#each images ?? [] as img (img.id)}
     {@const deg = Math.floor(Math.random() * 20 - 10) % 8}
