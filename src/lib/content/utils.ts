@@ -67,9 +67,10 @@ async function parseContent<T extends Record<string, unknown>>(raw: string) {
   const frontmatter = await parseFrontmatter<T>(raw)
   config.variables = { frontmatter, ...config.variables }
 
+  const content = await Markdoc.transform(ast, config)
   return {
     // async transform for Markdoc
-    content: instanceToPlain(await Markdoc.transform(ast, config)) as RenderableTreeNode,
+    content: instanceToPlain(content) as RenderableTreeNode,
     readingTime: readingTime(raw),
     ...frontmatter,
   }
