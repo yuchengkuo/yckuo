@@ -83,7 +83,7 @@ body {
 }
 
 h1 {
-  @apply font-Uncut font-625 text-fg text-3xl -tracking-0.04em lg:text-4xl;
+  @apply font-Uncut font-650 text-fg text-3xl -tracking-0.05em lg:text-4xl;
   font-variation-settings: 'slnt' 0;
 }
 
