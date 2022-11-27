@@ -154,6 +154,6 @@
   }
 
   nav a {
-    @apply rounded -mx-2 py-1 px-2;
+    @apply -mx-2 py-1 px-2;
   }
 </style>
