@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Arena from './Arena.svelte'
   import Avatar from './Avatar.svelte'
   import Figma from './Figma.svelte'
   import Github from './Github.svelte'
@@ -11,6 +12,7 @@
   <Readcv />
   <Github />
   <Figma />
+  <Arena />
   <Savee />
   <Avatar />
 </div>

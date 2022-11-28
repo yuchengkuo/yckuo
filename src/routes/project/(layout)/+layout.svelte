@@ -57,7 +57,8 @@
           <a
             href={link.url}
             class="bg-surface border-border rounded-full border-1 shadow text-fg text-center py-2 px-8 block"
-            >{link.label}</a
+            data-splitbee-event="Open Link"
+            data-splitbee-target={link.url}>{link.label}</a
           >
         {/each}
       </div>

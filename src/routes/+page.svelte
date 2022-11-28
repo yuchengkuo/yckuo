@@ -61,7 +61,7 @@
       </project>
     {/each}
 
-    <a href="/project">See all →</a>
+    <a href="/project">See all {data.projectsAmount} →</a>
   </div>
 
   <info class="block" use:motion={{ initial, animate, transition: { easing, delay: 0.725 } }}>
