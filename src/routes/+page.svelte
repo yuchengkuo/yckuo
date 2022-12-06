@@ -33,127 +33,64 @@
   </script>
 </Head>
 
-<section class="pb-20 lg:(grid pb-56 gap-80 grid-cols-2) ">
-  <div class="text-fg-secondary child-last:mt-4 child-last:md:mt-8">
-    <h1 use:motion={{ initial, animate, transition: { easing, delay: 0.3 } }}>YuCheng Kuo</h1>
-    <div use:motion={{ initial, animate, transition: { easing, delay: 0.4 } }}>
+<section class="max-w-640px mx-auto">
+  <div class="text-fg-secondary child-last:mt-4 child-last:md:mt-8 leading-1.75rem">
+    <h1>YuCheng Kuo</h1>
+    <div>
       <i>Hello</i>, I'm YuCheng. I am a product designer and UI developer from Taiwan. I'm currently
-      working as designer/engineer building <a href="https://oen.tw">Oen Tech</a>.
+      working as designer/engineer building <a class="attr" href="https://oen.tw">Oen Tech</a>,
+      which involves:
+      <ul mt="4">
+        <li>UX flows</li>
+        <li>Component library in Figma</li>
+        <li>Interaction & Visual</li>
+        <li>Prototyping</li>
+        <li>Front-end (UI development)</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<section class="grid gap-y-10 md:(gap-40 gap-40 items-baseline grid-cols-2) lg:grid-cols-3 ">
-  <div use:motion={{ initial, animate, transition: { easing, delay: 0.65 } }} id="projects">
+<section class="max-w-640px mx-auto">
+  <div id="projects">
     <h2>Projects</h2>
 
-    {#each data.projects as project}
-      <project class="block not-last:mb-8 md:not-last:mb-12">
-        <h3>{project.title}</h3>
-        <p class="mt-1 text-fg-secondary">
-          {project.excerpt}
-        </p>
-        <a
-          class="font-Azeret mt-3 text-fg-secondary text-sm w-fit block"
-          href={project.link ? project.link : `/project/${project.slug}`}
-          >{project.link ? 'link ↗' : 'more ->'}</a
-        >
-      </project>
-    {/each}
-
-    <a href="/project">See all →</a>
-  </div>
-
-  <info class="block" use:motion={{ initial, animate, transition: { easing, delay: 0.725 } }}>
-    <h2>Work</h2>
-    <p>Building experience at Oen Tech, which involves:</p>
     <ul>
-      <li>UX flows</li>
-      <li>Component library in Figma</li>
-      <li>Interaction & Visual</li>
-      <li>Prototyping</li>
-      <li>Front-end (UI development)</li>
+      {#each data.projects as project}
+        <a class="block py-4" href={project.link ? project.link : `/project/${project.slug}`}>
+          <div class="flex justify-between">
+            <h3>{project.title}</h3>
+            <time class="text-sm">{project.time.substring(0, 4)}</time>
+          </div>
+          <p class="mt-3 text-fg-secondary">
+            {project.excerpt}
+          </p>
+        </a>
+      {/each}
     </ul>
 
-    <h2>Contact</h2>
-    <ul class="prose">
-      <li>
-        Email: <a
-          href="mailto:hey@yuchengkuo.com"
-          data-splitbee-event="Open Link"
-          data-splitbee-target="Email"
-          use:tooltip={{
-            content:
-              copied === 'failed'
-                ? 'Failed copying... Browser seems not supported.'
-                : copied
-                ? 'Copied! Hope to hear from you soon!'
-                : 'Click to send, right click to copy',
-          }}
-          on:contextmenu|preventDefault={copy}>hey@yuchengkuo.com</a
-        >
-      </li>
-      <li>
-        Read.cv: <a
-          data-splitbee-event="Open Link"
-          data-splitbee-target="Read.cv"
-          href="https://read.cv/yuchengkuo">yuchengkuo</a
-        >
-      </li>
-      <li>
-        Github: <a
-          data-splitbee-event="Open Link"
-          data-splitbee-target="Figma"
-          href="https://github.com/yuchengkuo">yuchengkuo</a
-        >
-      </li>
-      <li>
-        Figma: <a
-          data-splitbee-event="Open Link"
-          data-splitbee-target="Github"
-          href="https://figma.com/@yuchengkuo">@yuchengkuo</a
-        >
-      </li>
-    </ul>
-  </info>
-
-  <aside
-    use:motion={{ initial, animate, transition: { easing, delay: 0.8 } }}
-    class="lt-sm:mb-12 lt-lg:(-order-1 col-span-full)"
-  >
-    <nav class="flex flex-col flex-wrap font-Azeret font-480 text-sm gap-2 uppercase items-start">
-      <a href="/about">About</a>
-      <a href="/project">Project</a>
-      <a href="/bookmark">Bookmark</a>
-      <a href="/listening">Listening</a>
-      <a href="/watching">Watching</a>
-      <a href="/note">Note</a>
-      <!-- <a href="/changelog">Changelog</a> -->
-    </nav>
-  </aside>
+    <a class="block attr mt-6 w-fit" href="/project">See all {data.projectsAmount} →</a>
+  </div>
 </section>
 
 <style>
   section h2 {
-    @apply mb-6;
+    --uno: mb-6;
   }
 
   section h2:not(:first-of-type) {
-    @apply mt-8;
+    --uno: mt-8;
   }
 
-  info p {
-    @apply mb-4;
+  section {
+    --uno: mb-30;
   }
-  info :not(ul.prose) li {
-    @apply list-outside text-base mb-0.5;
-  }
-
-  info li::before {
-    @apply font-500 mr-2 text-sm text-border content-['—'] inline-block;
+  :not(ul.prose) li {
+    --uno: list-outside mb-0.5;
   }
 
-  nav a {
-    @apply rounded -mx-2 py-1 px-2;
+  li::before {
+    --uno: font-500 mr-2 text-sm text-border inline-block;
+    content: '—';
   }
 </style>

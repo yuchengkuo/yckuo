@@ -6,8 +6,8 @@ tag:
   - FSAE
   - Team Building
 image:
-  - id: project/building-the-racecar/compete-5_lsrdc3
   - id: project/building-the-racecar/achi-3_pvfltm
+  - id: project/building-the-racecar/compete-5_lsrdc3
   - id: project/building-the-racecar/compete-7_tha6dr
   - id: project/building-the-racecar/compete-8_yzkqgu
 time: 2019-08

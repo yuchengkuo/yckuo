@@ -124,7 +124,7 @@
   </noscript>
 
   {#if showcap}
-    <figcaption class="h-fit font-500 mt-2 text-sm w-fit block md:mt-4 md:text-base">
+    <figcaption class="h-fit mt-2 text-sm w-fit block md:mt-4 md:text-base">
       — {alt}
     </figcaption>
   {/if}

@@ -28,7 +28,7 @@
         timeline([
           [
             Array.from(content.children).filter((_, index) => index % 5 === 2),
-            { transform: ['none', 'translateY(44%)'] },
+            { transform: ['none', 'translateY(-20%)'] },
             { allowWebkitAcceleration: true },
           ],
           [
@@ -59,20 +59,19 @@
 
 <Head title="Watching" description="A list of series and films that I find great." {openGraph}>
   <script>
-    document.documentElement.setAttribute('data-theme', 'orange')
+    document.documentElement.setAttribute('data-theme', 'watching')
   </script>
 </Head>
 
 <svelte:window bind:outerWidth />
 
-<section class="my-20 md:my-60">
+<section class="text-fg-secondary max-w-640px mx-auto mb-20">
   <h1
     use:motion={{
       initial: { y: '20%', opacity: 0 },
       animate: { y: 0, opacity: 1 },
-      transition: { delay: 0.7, easing: motionSpring({ damping: 40 }) },
+      transition: { delay: 0.6, easing: motionSpring({ damping: 40 }) },
     }}
-    class="mx-auto font-900 mb-4 w-fit text-4xl md:mb-2"
   >
     Watching
   </h1>
@@ -80,9 +79,8 @@
     use:motion={{
       initial: { opacity: 0 },
       animate: { opacity: 1 },
-      transition: { delay: 0.7, easing: motionSpring({ damping: 40 }) },
+      transition: { delay: 0.6, easing: motionSpring({ damping: 40 }) },
     }}
-    class="mx-auto font-450 text-center text-fg-secondary w-fit"
   >
     A list of series and films that I find great.
   </p>
@@ -90,17 +88,21 @@
 
 <section>
   <ul
-    class="grid gap-4 grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:(-mx-20 mb-40 gap-6) "
+    class="grid gap-4 grid-cols-2 justify-items-center"
+    sm="grid-cols-4"
+    md="grid-cols-5"
+    xl="w-fit mx-auto mb-40 gap-10"
     bind:this={content}
     use:motion={{
       initial: { opacity: 0, y: 16 },
       animate: { opacity: 1, y: 0 },
-      transition: { delay: 1.8, easing: motionSpring({ damping: 40 }) },
+      transition: { delay: 1.5, easing: motionSpring({ damping: 40 }) },
     }}
   >
     {#each data.items as item, index (item.id)}
       <li
-        class="group relative"
+        class="relative"
+        lg="w-40"
         on:mouseenter={(e) => {
           hoverId = index
           setHoverCardCords(e, true)
@@ -109,15 +111,18 @@
         on:mousemove={(e) => setHoverCardCords(e)}
       >
         <a
-          class="transition overflow-hidden block filter hover:(scale-101 rounded-lg -translate-y-1 rotate-0.5 shadow-lg) active:(scale-99) group-focus:(scale-101 rounded-lg -translate-y-1 rotate-0.5 shadow-md) "
+          class="transition overflow-hidden block filte shadow-md"
+          hover="scale-101 rounded -translate-y-1 rotate-0.5 shadow-lg"
+          active="scale-99"
+          focus="scale-101 rounded -translate-y-1 rotate-0.5 shadow-md"
           href="https://www.themoviedb.org/{item.type}/{item.id}"
-          class:contrast-75={hoverId !== undefined && hoverId !== index}
+          class:contrast-85={hoverId !== undefined && hoverId !== index}
           tabindex="0"
         >
           <Image
             id={item.posterUrl}
             alt="Poster of {item.type}, {item.title}"
-            widths={[240, 360, 720]}
+            widths={[240, 480]}
             aspectRatio="100/152"
             blurDataUrl={item.blurDataUrl}
           />
@@ -131,7 +136,7 @@
   {@const item = data.items[hoverId]}
   {@const rotate = (Math.random() * 10 - 5) % 3}
   <hover-card
-    class="rounded-xl h-max bg-fg-secondary/75 shadow-xl text-bg p-5 w-80 block backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto lt-sm:hidden"
+    class="rounded-xl h-max bg-fg-secondary/75 shadow-xl text-bg p-4 w-72 block backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto lt-sm:hidden"
     style:left="{$cords.x}px"
     style:top="{$cords.y}px"
     style:transform="rotate({rotate}deg)"
@@ -139,8 +144,8 @@
     bind:this={hoverCard}
   >
     {#key hoverId}
-      <h4 class="font-800 font-900 text-bg">{item.title}</h4>
-      <p class="my-4 text-base">{item.overview}</p>
+      <h1 class="font-900 text-bg text-lg">{item.title}</h1>
+      <p class="my-2">{item.overview}</p>
       <div class="border-t flex border-bg/20 border-bg/30 pt-4 gap-2 items-center">
         <tag class="rounded-full bg-bg/75 font-600 text-xs text-fg-secondary w-fit px-2 block">
           {item.type}

@@ -16,76 +16,13 @@
 
 <Head title="Listening" description="A collection of jam." {openGraph}>
   <script>
-    document.documentElement.setAttribute('data-theme', 'pink')
+    document.documentElement.setAttribute('data-theme', 'listening')
   </script>
 </Head>
 
-<section class="my-20 text-fg-secondary md:my-60">
-  <h1
-    class="mx-auto font-900 mb-2 w-fit text-4xl"
-    use:motion={{
-      initial: { y: '20%', opacity: 0, rotateY: 3 },
-      animate: { y: 0, opacity: 1, rotateY: 0 },
-      transition: {
-        easing: spring({ damping: 40 }),
-        delay: 0.5,
-      },
-    }}
-  >
-    Listening
-  </h1>
-  <p
-    class="mx-auto font-450 w-fit"
-    use:motion={{ initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { delay: 0.65 } }}
-  >
-    A collection of recent favorite music.
-  </p>
-</section>
-
-<tag>Recent top albums</tag>
-<section>
-  <grid class="grid grid-cols-1 relative sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:-mx-20">
-    {#each data.albums as album (album.name)}
-      <album class="flex w-full z-10 relative aspect-square items-center">
-        <a
-          href={album.url}
-          class="m-auto h-8/10 w-auto aspect-square"
-          on:mouseenter={() => (hover = album)}
-          on:mouseleave={() => (hover = undefined)}
-        >
-          <Image
-            src={album.image}
-            alt={`Album artwork of ${album.name} by ${album.artist}`}
-            aspectRatio="1/1"
-            class="shadow-md"
-          />
-        </a>
-      </album>
-    {/each}
-  </grid>
-</section>
-
-<tag>Recently saved albums</tag>
-<section>
-  <grid class="grid grid-cols-1 relative sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:-mx-20">
-    {#each data.saved as album (album.name)}
-      <album class="flex w-full z-10 relative aspect-square items-center">
-        <a
-          href={album.url}
-          class="m-auto h-8/10 w-auto aspect-square"
-          on:mouseenter={() => (hover = album)}
-          on:mouseleave={() => (hover = undefined)}
-        >
-          <Image
-            src={album.image}
-            alt={`Album artwork of ${album.name} by ${album.artist}`}
-            aspectRatio="1/1"
-            class="shadow-md"
-          />
-        </a>
-      </album>
-    {/each}
-  </grid>
+<section class="text-fg-secondary max-w-640px mx-auto mb-20">
+  <h1 class="mb-4">Listening</h1>
+  <p>A collection of recent favorite music.</p>
 </section>
 
 {#key hover}
@@ -98,7 +35,7 @@
         transition: { easing: spring({ damping: 10 }) },
       }}
       out:outro|local
-      class="bottom-1/2 left-0 z-0 pointer-events-none mix-blend-hard-light fixed"
+      class="bottom-1/2 left-0 pointer-events-none fixed"
     >
       <div
         use:motion={{
@@ -108,7 +45,7 @@
         class="flex gap-16"
       >
         {#each new Array(8) as _}
-          <p class="font-900 text-fg tracking-tighter text-4xl whitespace-nowrap">
+          <p class="font-900 text-fg tracking-tighter text-2xl whitespace-nowrap">
             {hover.artist} — {hover.name}
           </p>
         {/each}
@@ -117,12 +54,70 @@
   {/if}
 {/key}
 
+<p class="tag">Recent top albums</p>
+<section>
+  <ul>
+    {#each data.albums as album (album.name)}
+      <li>
+        <a
+          href={album.url}
+          class="aspect-square w-50"
+          on:mouseenter={() => (hover = album)}
+          on:mouseleave={() => (hover = undefined)}
+        >
+          <Image
+            src={album.image}
+            alt="Album artwork of {album.name} by {album.artist}"
+            aspectRatio="1/1"
+            class="shadow-md"
+          />
+        </a>
+      </li>
+    {/each}
+  </ul>
+</section>
+
+<p class="tag">Recently saved albums</p>
+<section>
+  <ul>
+    {#each data.saved as album (album.name)}
+      <li>
+        <a
+          href={album.url}
+          class="aspect-square w-50"
+          on:mouseenter={() => (hover = album)}
+          on:mouseleave={() => (hover = undefined)}
+        >
+          <Image
+            src={album.image}
+            alt="Album artwork of {album.name} by {album.artist}"
+            aspectRatio="1/1"
+            class="shadow-md"
+          />
+        </a>
+      </li>
+    {/each}
+  </ul>
+</section>
+
 <style>
-  tag {
-    @apply bg-surface rounded-full font-Azeret mx-auto font-800 text-xs tracking-tight w-fit py-1.5 px-3 uppercase block;
+  ul {
+    --uno: w-fit mx-auto grid grid-cols-1 relative  gap-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+  }
+
+  li {
+    --uno: flex w-fit relative;
+  }
+
+  a {
+    --uno: active:scale-96;
+  }
+  .tag {
+    --uno: bg-surface rounded-full font-Azeret mx-auto font-800 text-xs tracking-tight w-fit py-1.5
+      px-3 mb-10 uppercase block;
   }
 
   section:not(:first-child) {
-    @apply mb-40;
+    --uno: mb-40;
   }
 </style>

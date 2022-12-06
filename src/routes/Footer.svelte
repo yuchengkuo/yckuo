@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { intlFormat } from 'date-fns'
   import Snd from 'snd-lib'
   import { onMount } from 'svelte'
   import { Confetti } from 'svelte-confetti'
@@ -9,7 +8,6 @@
   let colorize: boolean
   let theme: 'darken' | 'lighten'
   let showConfetti = false
-  let present = 'present'
   let snd: Snd
 
   /** onMount init */
@@ -27,18 +25,6 @@
       }
       theme = document.documentElement.classList.contains('dark') ? 'lighten' : 'darken'
     })
-
-    const interval = setInterval(() => {
-      present = intlFormat(new Date(), {
-        year: 'numeric',
-        hour: 'numeric',
-        hour12: true,
-        minute: 'numeric',
-        second: 'numeric',
-        timeZone: 'Asia/Taipei',
-      })
-    }, 500)
-    return () => clearInterval(interval)
   })
 
   onMount(async () => {
@@ -88,14 +74,13 @@
 </script>
 
 <footer
-  class="flex flex-wrap items-baseline justify-between"
-  font="Azeret"
+  class="max-w-640px mx-auto flex flex-wrap items-baseline justify-between border-t border-border"
   text="xs fg-secondary"
   gap="3 sm:6"
-  p="x-6 b-4"
-  m="t-20 md:t-40"
+  p="t-20 b-20 md:b-40"
+  m="t-20"
 >
-  <p class="font-Uncut mr-auto font-650 text-base tracking-tight">YuCheng Kuo</p>
+  <p class="font-675 text-base tracking-tight flex-grow">YuCheng Kuo</p>
   <button
     class="text-xs uppercase attr no-js:hidden"
     on:click={toggleTheme}
@@ -117,5 +102,11 @@
       </div>
     {/if}
   </button>
-  <p class="font-normal w-full slashed-zero sm:w-auto">v3 (C)2019-{present}</p>
+  <p class="font-Azeret font-475 tracking-tighter slashed-zero">v3 (C)2019-2022</p>
 </footer>
+
+<style>
+  button {
+    --uno: font-Azeret;
+  }
+</style>

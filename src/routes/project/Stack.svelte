@@ -15,6 +15,7 @@
 
   let imgEl: HTMLDivElement
   let snd: Snd
+  let cords = { x: 0, y: 0 }
 
   onMount(() => {
     snd = new Snd()
@@ -58,20 +59,26 @@
   }
 
   const swap = throttle(swapEffect, 700, { trailing: false })
+  const singular = images && images.length === 1
 </script>
 
 <div
-  class="cursor-pointer h-fit grid place-items-center children:(col-start-1 row-start-1) "
+  bind:this={imgEl}
+  class="h-fit grid place-items-center relative children:(col-start-1 row-start-1)"
+  class:cursor-pointer={!singular}
+  after="no-js:hidden whitespace-nowrap -rotate-4 -translate-x-1/2 -translate-y-110% origin-bottom-center {singular &&
+    'hidden'}"
+  data-splitbee-event="Swap stack"
+  style="--x: {cords.x}px; --y: {cords.y}px;"
+  on:mouseup={swap}
+  on:mousemove={(e) => (cords = { x: e.offsetX, y: e.offsetY })}
   use:motion={{
     hover: { scale: 1.01, rotateZ: 1 },
     transition: { easing: 'ease-out' },
   }}
-  on:mouseup={swap}
-  bind:this={imgEl}
-  data-splitbee-event="Swap stack"
 >
   {#each images ?? [] as img (img.id)}
-    {@const deg = Math.floor(Math.random() * 20 - 10) % 8}
+    {@const deg = Math.floor(Math.random() * 20 - 10) % 10}
     {@const { id, alt, aspectRatio = '', blurDataUrl = '', isVideo } = img}
     <Image
       {id}
@@ -83,3 +90,14 @@
     />
   {/each}
 </div>
+
+<style>
+  div:hover::after {
+    @apply text-bg bg-fg/75 text-xs font-Azeret uppercase font-650 py-1 px-2 rounded backdrop-filter backdrop-blur z-99;
+    content: 'Next->';
+    pointer-events: none;
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+  }
+</style>

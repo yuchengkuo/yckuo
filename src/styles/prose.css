@@ -1,89 +1,89 @@
 .prose p {
-  @apply mb-8 leading-8 lt-sm:(mb-6 leading-7);
+  --uno: mb-8 leading-8 lt-sm:(mb-6 leading-7);
 }
 
 .prose h1 {
-  @apply mb-8 text-3xl;
+  --uno: mb-8;
 }
 
 .prose h2 {
-  @apply mb-2 py-2 md:mt-4 lg:mb-6 font-650;
+  --uno: mb-2 py-2 md:mt-4 lg:mb-4;
 }
 
 .prose h3 {
-  @apply my-2 lg:mb-4 font-625;
+  --uno: my-2 lg:mb-3 font-625;
 }
 
 .prose h4 {
-  @apply my-2 lg:mb-3;
+  --uno: my-2 lg:mb-3;
 }
 
 .prose h1[id],
 .prose h2[id],
 .prose h3[id],
 .prose h4[id] {
-  @apply children:hover:opacity-100;
+  --uno: children:hover:opacity-100;
   scroll-margin-top: 56px;
 }
 .prose h1[id] a,
 .prose h2[id] a,
 .prose h3[id] a,
 .prose h4[id] a {
-  @apply font-semibold ml-2 opacity-0 text-0.8em;
+  --uno: font-semibold ml-2 opacity-0 text-0.8em;
 }
 
 .prose a {
-  @apply text-fg;
+  --uno: text-fg attr;
 }
 
 hr {
-  @apply border-t border-border my-8;
+  --uno: border-t border-border my-8;
 }
 
 .prose blockquote {
-  @apply bg-surface border-border rounded-sm border-l-2 shadow-sm -my-2 mx-0 -mx-5 -mx-3 mb-10 py-2 px-5 lt-sm:(-mx-2.5 px-2.5 -my-1 py-1 mb-6);
+  --uno: bg-surface border-border rounded-sm border-l-2 shadow-sm -my-2 mx-0 -mx-5 -mx-3 mb-10 py-2 px-5 lt-sm:(-mx-2.5 px-2.5 -my-1 py-1 mb-6);
 }
 .prose blockquote * {
-  @apply font-Newsreader font-550 text-base mb-0 leading-9 italic lt-sm:leading-7;
+  --uno: font-Newsreader font-550 text-base mb-0 leading-9 italic lt-sm:leading-7;
   font-variation-settings: 'opsz' 8;
 }
 
 .prose blockquote p {
-  @apply m-0 p-0;
+  --uno: m-0 p-0;
 }
 
 .prose li {
-  @apply mb-1 xl:mb-2;
+  --uno: mb-1 xl:mb-2;
 }
 
 .prose ul {
-  @apply mb-8;
+  --uno: mb-8;
 }
 .prose ul li {
-  @apply list-outside before:(content-['—'] inline-block mr-2 font-700 text-base text-border);
+ --uno: list-outside before:(content-['—'] inline-block mr-2 font-700 text-base text-border);
 }
 
 .prose ol {
-  @apply mb-8 pl-6;
+  --uno: mb-8 pl-6;
 }
 .prose ol li {
-  @apply marker:(text-base font-400 tabular-nums);
+  --uno: marker:(text-base font-400 tabular-nums);
 }
 
 .prose .shiki-container {
-  @apply bg-surface rounded-xl border-1 border-fg/6 mb-8 overflow-x-auto dark:(bg-surface border-fg/6);
+  --uno: bg-surface rounded-xl border-1 border-fg/6 mb-8 overflow-x-auto dark:(bg-surface border-fg/6);
 }
 
 .prose .shiki-container pre {
-  @apply font-Azeret min-w-full my-0 w-fit py-5 px-6 !bg-transparent lt-md:(py-3 px-4);
+  @apply font-Azeret min-w-full my-0 w-fit py-4 px-5 !bg-transparent lt-md:(py-3 px-4);
 }
 
 .prose .shiki-container code {
-  @apply bg-transparent font-525 m-0 text-sm p-0;
+  --uno: bg-transparent font-550 m-0 text-xs p-0;
 }
 
 .prose .shiki-container .line {
-  @apply not-last:not-first:min-h-5;
+  --uno: not-last:not-first:min-h-4;
 }
 
 .prose .shiki-container .no-highlight span {
@@ -91,21 +91,9 @@ hr {
 }
 
 .prose .shiki-light {
-  @apply dark:hidden;
+  --uno: dark:hidden;
 }
 
 .prose .shiki-dark {
-  @apply hidden dark:block;
-}
-
-.prose column {
-  @apply block mb-20 xl:mb-40;
-}
-
-.prose column[n='2'] {
-  @apply md:(grid grid-cols-2 gap-20) xl:gap-40;
-}
-
-.prose column[n='3'] {
-  @apply md:(grid grid-cols-3 gap-20) xl:gap-40;
+  --uno: hidden dark:block;
 }

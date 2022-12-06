@@ -1,13 +1,13 @@
 .layout-center section {
-  @apply my-40 w-full gap-x-10 items-baseline sm:grid sm:grid-cols-[1fr_6fr_1fr] xl:grid-cols-[1fr_2fr_1fr] children:(col-start-2);
+  @apply my-40 w-full gap-x-10 items-baseline sm:grid sm:grid-cols-[1fr_6fr_1fr] xl:grid-cols-[1fr_640px_1fr] children:(col-start-2);
 }
 
 .layout-center section figure {
-  @apply col-span-full justify-self-center sm:(w-8/10 mb-8) xl:mb-10;
+  @apply justify-self-center sm:(w-8/10 mb-8) xl:(mb-10 w-120% col-start-2);
 }
 
 .layout-center section figure[full='true'] {
-  @apply rounded-lg my-10 w-full col-span-full col-start-1 justify-self-center sm:my-10 xl:my-20;
+  @apply rounded-lg my-10 w-8/10 col-span-full col-start-1 justify-self-center sm:my-10 xl:my-20;
 }
 .layout-center section figure[full='true'] figcaption {
   @apply text-fg-secondary;
@@ -18,7 +18,7 @@
 }
 
 .layout-center section gallery {
-  @apply mt-10 col-span-full grid-cols-[5fr_3fr] col-start-1 items-end block sm:grid sm:gap-6 xl:mt-20 not-last:(mb-10 xl:mb-20) lt-sm:children:mb-4 xl:children:mb-0;
+  @apply mt-10 col-span-full justify-self-center grid-cols-[5fr_3fr] col-start-1 items-end block sm:grid sm:gap-8 xl:(mt-20 w-8/10) not-last:(mb-10 xl:mb-20) lt-sm:children:mb-4 xl:children:mb-0;
 }
 
 .layout-center section gallery :nth-child(2n + 1) {

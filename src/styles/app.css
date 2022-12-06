@@ -47,7 +47,6 @@
 }
 
 #nprogress .bar {
-  @apply bg-fg;
   opacity: 0.75;
   position: fixed;
   z-index: 99;
@@ -56,11 +55,11 @@
   width: 100%;
   height: 3px;
   border-radius: 8px;
-  @apply shadow-current shadow-lg;
+  --uno: bg-fg shadow-current shadow-lg;
 }
 
 ::selection {
-  @apply bg-surface;
+  --uno: bg-surface;
 }
 
 * {
@@ -68,48 +67,51 @@
 }
 
 html {
-  @apply bg-fg mx-auto min-h-screen max-w-9xl antialiased;
+  --uno: bg-bg mx-auto min-h-screen max-w-9xl antialiased;
 }
 
 @screen 2xl {
   html {
-    @apply bg-bg;
+    --uno: bg-bg;
   }
 }
 
 body {
-  @apply bg-bg flex flex-col font-Uncut min-h-screen font-475 text-fg text-base transition-colors ease-out duration-500 delay-25 overflow-x-hidden xl:text-lg;
+  --uno: bg-bg text-fg font-Uncut font-500 -tracking-2%;
+  --uno: min-h-screen overflow-x-hidden lt-md:px-4;
+  --uno: transition-colors ease-out duration-500 delay-25;
+  font-variation-settings: 'slnt' 0;
+  word-spacing: -0.04em;
+}
+
+h1,
+.lev1 {
+  --uno: font-Uncut font-700 text-fg text-3xl -tracking-0.05em;
   font-variation-settings: 'slnt' 0;
 }
 
-h1 {
-  @apply font-Uncut font-650 text-fg text-3xl -tracking-0.05em lg:text-4xl;
+h2,
+.lev2 {
+  --uno: font-Uncut font-650 text-fg text-2xl -tracking-0.03em;
+}
+
+h3,
+.lev3 {
+  --uno: font-Uncut font-550 text-fg text-xl -tracking-0.02em;
   font-variation-settings: 'slnt' 0;
 }
 
-h2 {
-  @apply font-Uncut font-600 text-fg text-xl -tracking-0.03em lg:text-2xl;
-  font-variation-settings: 'slnt' 2;
-}
-
-h3 {
-  @apply font-Uncut font-555 text-fg text-lg -tracking-0.02em lg:text-xl;
+h4,
+.lev4 {
+  --uno: font-Uncut font-550 text-fg text-lg -tracking-0.02em;
   font-variation-settings: 'slnt' 0;
-}
-
-h4 {
-  @apply font-Uncut font-500 text-fg text-lg -tracking-0.02em;
-  font-variation-settings: 'slnt' 0;
-}
-
-a {
-  @apply attr;
 }
 
 code {
-  @apply bg-surface rounded font-Azeret font-600 -my-1 text-fg p-1 text-0.8em;
+  --uno: bg-surface text-fg rounded font-Azeret font-600 -my-1 p-1 text-0.8em;
 }
 
 kbd {
-  @apply bg-surface rounded font-Azeret border-b-2 border-fg-secondary/30 border-x-1 border-t-1 font-650 text-sm leading-none py-1 px-1.5 inline-block;
+  --uno: bg-surface rounded font-Azeret border-b-2 border-fg-secondary/30 border-x-1 border-t-1
+    font-650 text-sm leading-none py-1 px-1.5 inline-block;
 }
