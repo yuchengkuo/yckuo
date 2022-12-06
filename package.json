@@ -28,13 +28,13 @@
   },
   "dependencies": {
     "@markdoc/markdoc": "^0.2.1",
-    "@motionone/dom": "^10.14.3",
+    "@motionone/dom": "^10.15.3",
     "@splitbee/web": "^0.3.0",
     "class-transformer": "^0.5.1",
     "cloudinary-build-url": "^0.2.4",
     "date-fns": "^2.29.3",
     "lodash.throttle": "^4.1.1",
-    "motion": "^10.14.3",
+    "motion": "^10.15.3",
     "nprogress": "^0.2.0",
     "popmotion": "^11.0.5",
     "shiki": "^0.11.1",
@@ -48,10 +48,10 @@
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.191",
     "@types/lodash.throttle": "^4.1.7",
-    "@types/node": "^18.11.10",
+    "@types/node": "^18.11.11",
     "@types/nprogress": "^0.2.0",
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.1",
+    "@typescript-eslint/parser": "^5.45.1",
     "@unocss/reset": "^0.47.5",
     "contentlayer": "0.2.9",
     "eslint": "^8.29.0",
@@ -64,7 +64,7 @@
     "prettier-plugin-svelte": "^2.8.1",
     "reading-time": "^1.5.0",
     "svelte": "^3.53.1",
-    "svelte-check": "^2.10.0",
+    "svelte-check": "^2.10.1",
     "svelte-confetti": "^1.2.2",
     "svelte-inview": "^3.0.1",
     "svelte-preprocess": "^4.10.7",
@@ -72,6 +72,6 @@
     "tslib": "^2.4.1",
     "typescript": "^4.9.3",
     "unocss": "^0.47.5",
-    "vite": "^3.2.4"
+    "vite": "^3.2.5"
   }
 }
