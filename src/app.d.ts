@@ -13,6 +13,6 @@ declare global {
     // interface Stuff {}
   }
   namespace svelteHTML {
-    interface HTMLAttributes<T> extends AttributifyAttributes {}
+    interface HTMLAttributes extends AttributifyAttributes {}
   }
 }

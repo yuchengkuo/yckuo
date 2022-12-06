@@ -20,12 +20,12 @@ export default defineConfig({
     colors: {
       bg: 'rgb(var(--colors-bg))',
       fg: { DEFAULT: 'rgb(var(--colors-fg))', secondary: 'rgb(var(--colors-fg-secondary))' },
-      border: 'rgba(var(--colors-border), 0.4)',
-      surface: 'rgba(var(--colors-surface), 0.08)',
+      border: 'rgba(var(--colors-border), 0.3)',
+      surface: 'rgba(var(--colors-surface), 0.06)',
     },
   },
   shortcuts: {
-    attr: 'transition-all duration-100 underline underline-border decoration-1.6px underline-offset-1.4px transform hover:(underline-current decoration-2.2px) active:(text-border scale-95)',
+    attr: 'transition-all duration-100 underline underline-fg-secondary/60 decoration-1.6px underline-offset-1.4px transform hover:(underline-current decoration-2.2px) active:(text-border scale-95)',
   },
   variants: [
     {

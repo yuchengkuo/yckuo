@@ -22,11 +22,7 @@ export function visit(
 }
 
 function isScalar(node: RenderableTreeNode): node is Scalar {
-  if (typeof node === 'boolean' || typeof node === 'number' || typeof node === 'string') {
-    return true
-  } else {
-    return false
-  }
+  return typeof node === 'boolean' || typeof node === 'number' || typeof node === 'string'
 }
 
 // wrap h2 and following content with `section` and others with `div`

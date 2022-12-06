@@ -1,5 +1,4 @@
 import type { ConfigType } from '@markdoc/markdoc'
-import { column } from './columns.markdoc'
 import { document } from './document.markdoc'
 import { fence } from './fence.markdoc'
 import { gallery } from './gallery.markdoc'
@@ -17,7 +16,6 @@ export const config: ConfigType = {
   partials: {},
   tags: {
     about: { render: 'About' },
-    column,
     gallery,
     grid,
     image,

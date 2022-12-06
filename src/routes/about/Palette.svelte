@@ -34,7 +34,7 @@
 
   function resetTheme() {
     hover = false
-    !active && document.documentElement.setAttribute('data-theme', 'green')
+    !active && document.documentElement.setAttribute('data-theme', 'about')
   }
 
   // variants not working now
@@ -53,7 +53,7 @@
 </script>
 
 <div
-  class="bg-surface flex flex-wrap m-auto rounded-3xl mt-32 w-full p-6 gap-6 justify-between items-start relative lt-sm:(p-4 grid grid-cols-2)"
+  class="bg-surface flex flex-wrap m-auto rounded-3xl mt-32 max-w-768px p-6 gap-6 justify-between items-start relative lt-sm:(p-4 grid grid-cols-2)"
 >
   {#each themes.filter((t) => t.dark === dark) as theme, index (theme.name + dark)}
     {@const visible = target === index && hover}
@@ -91,7 +91,7 @@
         {/if}
       </div>
 
-      {#if visible}
+      <!-- {#if visible}
         <word
           use:motion={{
             initial: { y: -4, opacity: 0 },
@@ -117,14 +117,14 @@
             >
           {/if}
         </div>
-      {/if}
+      {/if} -->
 
-      <contrast
+      <!-- <contrast
         class="flex flex-col gap-0 self-end justify-self-end font-700 text-fg-secondary w-fit text-0.625rem block leading-none items-end"
       >
         <span class="font-Azeret text-xs tracking-tighter">{theme.aa}</span>
         {theme.contrast}
-      </contrast>
+      </contrast> -->
     </palette>
   {/each}
 
@@ -135,7 +135,7 @@
         animate: { y: 0, opacity: 1 },
         hover: { letterSpacing: '0.025em' },
       }}
-      class="font-800 text-sm -top-6 right-6 absolute lt-sm:right-4"
+      class="font-800 text-sm font-Uncut -top-6 right-6 absolute lt-sm:right-4"
       on:click={() => (dark = !dark)}>{dark ? 'Let the light in' : 'Embrace the drakness'}</button
     >
   {/key}

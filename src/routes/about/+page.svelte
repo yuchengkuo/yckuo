@@ -14,11 +14,11 @@
 
 <Head title="About">
   <script>
-    document.documentElement.setAttribute('data-theme', 'green')
+    document.documentElement.setAttribute('data-theme', 'about')
   </script>
 </Head>
 
-<section class="mt-8 text-fg-secondary">
+<section class="text-fg-secondary max-w-640px mx-auto">
   <h1 class="mb-8">{data.about.title}</h1>
   <Markdoc content={data.about.content} components={{ ...components, About }} />
 </section>

@@ -62,11 +62,7 @@ export function visit(
  * Check whether node is Scalar
  */
 function isScalar(node: RenderableTreeNode): node is Scalar {
-  if (typeof node === 'boolean' || typeof node === 'number' || typeof node === 'string') {
-    return true
-  } else {
-    return false
-  }
+  return typeof node === 'boolean' || typeof node === 'number' || typeof node === 'string'
 }
 
 /**

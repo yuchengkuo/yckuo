@@ -9,8 +9,6 @@ links:
     url: https://savee.com/yuchengkuo
 ---
 
-{% column n=2 %}
-
 My name is YuCheng Kuo. I am a product designer and UI developer from Taiwan. Currently working as a designer/engineer at [Oen Tech](https://oen.tw), helping building the software that brings engagement, fundraising, and payment together for Nonprofits, campaigns and all kinds of orgs.
 
 I am always fascinated by the connection between how technologies reshape our daily lives and how we then reshape new technologies in the future.
@@ -18,10 +16,6 @@ I am always fascinated by the connection between how technologies reshape our da
 I value multi-disciplined skills that could help people achieve their goals in a delightful and simple way. And I seek ambitious teams where together, we can create lasting and impactful experience that fulfill both user needs and business goals.
 
 {% about /%}
-
-{% /column %}
-
-{% column %}
 
 ## This website
 
@@ -48,5 +42,3 @@ A [Now](https://nownownow.com/about) section. Current areas of fucus, interests 
 - Picking up excercise again
 
 Thanks for stopping by, [have a great day](https://youtu.be/5PYzrhtDBrA)! ヅ
-
-{% /column %}

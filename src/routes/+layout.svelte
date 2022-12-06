@@ -12,6 +12,7 @@
 
   import Header from './Header.svelte'
   import Footer from './Footer.svelte'
+  import Layer from './Layer.svelte'
 
   beforeNavigate(() => NProgress.start())
   afterNavigate(() => NProgress.done())
@@ -39,17 +40,29 @@
 
 {#key $page.url.pathname}
   <main
-    class:pt-12={$page.url.pathname === '/'}
-    class:md:pt-20={$page.url.pathname === '/'}
-    class="mb-auto px-4 pb-12 no-js:opacity-100 md:(px-8 pb-20) lg:px-20"
+    class="pb-20 no-js:opacity-100"
+    class:pt-20={$page.url.pathname === '/'}
     class:opacity-0={withTransition}
     class:opacity-100={!withTransition}
-    data-sveltekit-prefetch
+    data-sveltekit-preload
     use:motion={withTransition ? fadeInConfig : {}}
   >
     <slot />
   </main>
 {/key}
 
+<nav
+  data-sveltekit-preload
+  class="max-w-640px mx-auto flex flex-wrap gap-4 font-Azeret font-550 text-sm tracking-tighter"
+>
+  <a href="/about">About</a>
+  <a href="/project">Project</a>
+  <a href="/bookmark">Bookmark</a>
+  <a href="/listening">Listening</a>
+  <a href="/watching">Watching</a>
+  <a href="/note">Note</a>
+</nav>
+
 <Footer />
+<Layer />
 

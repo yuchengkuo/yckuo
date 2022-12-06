@@ -5,15 +5,23 @@
 </script>
 
 <!-- Only visible in mobile -->
-<section class="mb-12 md:hidden">
-  <h1 class="mb-1">Notes</h1>
+<section class="mb-20">
+  <h1 class="mb-4">Notes</h1>
   <p class="text-fg-secondary">Notes, thoughts, journals, snippets, etc.</p>
 </section>
 
-<section class="md:hidden">
-  {#each data.notes as note}
-    <a class="text-lg py-3 block" href="/note/{note.slug}">
-      {note.title}
-    </a>
-  {/each}
+<section>
+  <ul>
+    {#each data.notes as note}
+      <li>
+        <a
+          class="lev4 !text-fg-secondary py-3 block"
+          hover="!text-opacity-80"
+          href="/note/{note.slug}"
+        >
+          {note.title}
+        </a>
+      </li>
+    {/each}
+  </ul>
 </section>

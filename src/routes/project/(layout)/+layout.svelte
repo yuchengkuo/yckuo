@@ -7,63 +7,65 @@
 
 <Head title={$page.data.title}>
   <script>
-    document.documentElement.setAttribute('data-theme', 'violet')
+    document.documentElement.setAttribute('data-theme', 'project_id')
   </script>
 </Head>
 
-<section class="mt-12 gap-x-10 sm:grid sm:grid-cols-[1fr_6fr_1fr] xl:grid-cols-[1fr_2fr_1fr]">
+<section md="gap-x-10 grid grid-cols-[1fr_640px_1fr]" children="col-start-2">
+  <h1 class="mb-8">{$page.data.title}</h1>
+
   <div
     use:motion={{ initial: { scale: 0.8 }, animate: { scale: 1 }, transition: { delay: 0.3 } }}
-    class="w-full col-span-full justify-self-center sm:w-8/10"
+    md="w-12/10 justify-self-center"
   >
     {#if $page.data.image && !$page.data.hideCover}
       {@const image = $page.data.image[0]}
       <Image
-        class="bg-surafce object-cover rounded-2xl w-full max-h-[max(520px,_65vh)] overflow-hidden lt-sm:rounded-lg"
+        class="shadow-md rounded-lg"
         id={image.id}
         aspectRatio={image.aspectRatio}
         blurDataUrl={image.blurDataUrl}
-        alt={`${$page.data.title} project cover image`}
+        alt="{$page.data.title} project cover image"
         isVideo={image.isVideo}
       />
     {/if}
   </div>
 
-  <projectmeta class="divide-y divide-border mt-8 text-fg-secondary col-start-2 block sm:mt-16">
-    <h1 class="font-600 mb-4">{$page.data.title}</h1>
-
-    <div class="pt-8 gap-6 grid-cols-2 sm:grid">
-      <item class="col-span-full">
+  <div class="mt-6 text-fg-secondary" md="mt-10">
+    <ul class="gap-6 grid-cols-2 grid" md="gap-10">
+      <li class="col-span-full">
         <small>Description</small>
         <p>{$page.data.excerpt}</p>
-      </item>
+      </li>
 
       {#each $page.data.meta ?? [] as meta, index}
-        <item class:col-span-full={index === 0 && meta.title === 'Context'}>
+        <li class:col-span-full={index === 0 && meta.title === 'Context'}>
           <small>{meta.title}</small>
           <p>{meta.content}</p>
-        </item>
+        </li>
       {/each}
 
       {#if $page.data.tag}
-        <item>
+        <li>
           <small>Tag</small>
           <p>{($page.data.tag ?? ['']).join(', ')}</p>
-        </item>
+        </li>
       {/if}
 
-      <div class="flex flex-wrap col-span-full pt-12 gap-6">
+      <div class="flex flex-wrap col-span-full pt-6 gap-4" md="pt-12 gap-6">
         {#each $page.data.action ?? [] as link}
           <a
             href={link.url}
             class="bg-surface border-border rounded-full border-1 shadow text-fg text-center py-2 px-8 block"
+            transition="all ease-out 200"
+            hover="bg-fg/5 shadow-md dark:bg-fg/12"
             data-splitbee-event="Open Link"
             data-splitbee-target={link.url}>{link.label}</a
           >
         {/each}
       </div>
-    </div>
-  </projectmeta>
+    </ul>
+  </div>
 </section>
 
 <slot />
@@ -74,24 +76,24 @@
   }
 
   small {
-    @apply font-650 text-sm text-fg uppercase;
+    --uno: font-700 text-sm text-fg uppercase;
   }
 
-  item p {
-    @apply font-475 mt-1;
+  li p {
+    --uno: font-475 mt-1 leading-8;
   }
 
-  item:not(:first-of-type) {
-    @apply mt-6 block;
+  li:not(:first-of-type) {
+    --uno: block;
   }
 
   @screen sm {
-    item:not(:first-of-type) {
-      @apply mt-0;
+    li:not(:first-of-type) {
+      --uno: mt-0;
     }
 
-    item p {
-      @apply mt-2;
+    li p {
+      --uno: mt-2;
     }
   }
 </style>
