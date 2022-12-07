@@ -22,14 +22,18 @@
 
 <ul>
   {#each data.allProjects as project}
-    <li class="grid gap-6 grid-cols-[1fr_640px_1fr]">
+    <li md="grid gap-x-6 grid-cols-[1fr_640px_1fr]">
       <a
-        class="block py-4 col-start-2"
+        class="block py-4 col-start-2 transition"
         sm="pb-8"
-        href={project.link ? project.link : `/project/${project.slug}`}
+        hover="invert-50 dark:(invert-none brightness-85)"
+        href={project.link || `/project/${project.slug}`}
       >
         <div class="lt-sm:mb-8 col-start-2">
-          <h2 class="lev3">{project.title}</h2>
+          <h2 class="lev3">
+            {project.title}
+            {#if project.link}↗{/if}
+          </h2>
           <p class="mt-2 text-fg-secondary">
             {project.excerpt}
           </p>

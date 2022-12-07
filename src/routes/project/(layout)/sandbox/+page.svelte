@@ -13,7 +13,9 @@
 </Head>
 
 <ul
-  class="grid grid-cols-3 place-items-center mt-16"
+  class="place-items-center mt-16"
+  md="grid grid-cols-2"
+  xl="grid-cols-3"
   children="min-h-24rem w-full grid place-items-center relative hover:bg-light-400 dark:hover:bg-dark-700"
 >
   <li><Glow /></li>

@@ -29,9 +29,9 @@
     bind:this={button}
     class="w-fit h-fit px-4 py-1.5 font-575 rounded-lg"
     bg="light-600 dark:dark-400"
-    transition="transition delay-30 duration-300"
+    transition="transition duration-300"
     pos="relative"
-    active="translate-y-0.3"
+    active="translate-y-0.5"
   >
     Glow ✨
   </button>
@@ -59,5 +59,12 @@
     mask-origin: content-box, border-box;
     mask-clip: content-box, border-box;
     mask-repeat: repeat, repeat;
+    -webkit-mask-image: linear-gradient(black, rgba(0, 0, 0, 0.5)), linear-gradient(black, black);
+    -webkit-mask-composite: xor;
+    -webkit-mask-position: 0% 0%, 0% 0%;
+    -webkit-mask-size: auto auto;
+    -webkit-mask-origin: content-box, border-box;
+    -webkit-mask-clip: content-box, border-box;
+    -webkit-mask-repeat: repeat, repeat;
   }
 </style>

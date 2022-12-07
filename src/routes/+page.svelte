@@ -57,15 +57,21 @@
 
     <ul>
       {#each data.projects as project}
-        <a class="block py-4" href={project.link ? project.link : `/project/${project.slug}`}>
-          <div class="flex justify-between">
-            <h3>{project.title}</h3>
-            <time class="text-sm">{project.time.substring(0, 4)}</time>
-          </div>
-          <p class="mt-3 text-fg-secondary">
-            {project.excerpt}
-          </p>
-        </a>
+        <li before="!hidden">
+          <a
+            class="block py-4 transition"
+            href={project.link || `/project/${project.slug}`}
+            hover="invert-50 dark:(invert-none brightness-80)"
+          >
+            <div class="flex justify-between">
+              <h3>{project.title}</h3>
+              <time class="text-sm">{project.time.substring(0, 4)}</time>
+            </div>
+            <p class="mt-3 text-fg-secondary">
+              {project.excerpt}
+            </p>
+          </a>
+        </li>
       {/each}
     </ul>
 
@@ -85,7 +91,8 @@
   section {
     --uno: mb-30;
   }
-  :not(ul.prose) li {
+
+  ul li {
     --uno: list-outside mb-0.5;
   }
 

@@ -22,7 +22,7 @@
 .prose h2[id],
 .prose h3[id],
 .prose h4[id] {
-  --uno: children:hover:opacity-100;
+  --uno: children:hover:opacity-100 children:focus:opacity-100;
   scroll-margin-top: 56px;
 }
 .prose h1[id] a,
