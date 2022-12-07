@@ -32,7 +32,7 @@
   </div>
 
   <div class="mt-6 text-fg-secondary" md="mt-10">
-    <ul class="gap-6 grid-cols-2 grid" md="gap-10">
+    <ul class="grid grid-cols-2 gap-6" md="gap-10">
       <li class="col-span-full">
         <small>Description</small>
         <p>{$page.data.excerpt}</p>

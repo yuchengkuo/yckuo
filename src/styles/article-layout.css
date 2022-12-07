@@ -1,38 +1,31 @@
 .layout-center section {
-  @apply my-40 w-full gap-x-10 items-baseline sm:grid sm:grid-cols-[1fr_6fr_1fr] xl:grid-cols-[1fr_640px_1fr] children:(col-start-2);
+  --uno: my-40 gap-x-10 items-baseline md:grid md:grid-cols-[1fr_640px_1fr] children:col-start-2;
 }
 
 .layout-center section figure {
-  @apply justify-self-center sm:(w-8/10 mb-8) xl:(mb-10 w-120% col-start-2);
+  --uno: justify-self-center sm:mb-8 lg:w-12/10 xl:(mb-10 col-start-2);
 }
 
 .layout-center section figure[full='true'] {
-  @apply rounded-lg my-10 w-8/10 col-span-full col-start-1 justify-self-center sm:my-10 xl:my-20;
-}
-.layout-center section figure[full='true'] figcaption {
-  @apply text-fg-secondary;
+  --uno: rounded-lg my-10 col-span-full col-start-1 justify-self-center sm:my-10 lg:w-8/10 xl:my-20;
 }
 
 .layout-center section grid {
-  @apply block sm:(grid-cols-4 col-start-2 grid gap-x-10) children:(col-span-2);
+  --uno: block sm:(grid grid-cols-2 gap-x-10);
 }
 
 .layout-center section gallery {
-  @apply mt-10 col-span-full justify-self-center grid-cols-[5fr_3fr] col-start-1 items-end block sm:grid sm:gap-8 xl:(mt-20 w-8/10) not-last:(mb-10 xl:mb-20) lt-sm:children:mb-4 xl:children:mb-0;
+  --uno: block mt-10 not-last:(mb-10 xl:mb-20) col-start-1 col-span-full justify-self-center sm:(grid grid-cols-[5fr_3fr] gap-8 items-end) md:w-8/10 xl:mt-20 children:mb-4 sm:children:mb-0;
 }
 
 .layout-center section gallery :nth-child(2n + 1) {
-  @apply w-full col-auto col-start-1;
+  --uno: w-full col-auto col-start-1;
 }
 
 .layout-center section gallery :nth-child(2n) {
-  @apply w-full col-auto col-start-2;
+  --uno: w-full col-auto col-start-2;
 }
 
 .layout-center section gallery :nth-child(4n) {
-  @apply self-start;
-}
-
-.layout-center section gallery img {
-  @apply shadow;
+  --uno: self-start;
 }

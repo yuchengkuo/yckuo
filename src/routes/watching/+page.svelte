@@ -90,8 +90,8 @@
   <ul
     class="grid gap-4 grid-cols-2 justify-items-center"
     sm="grid-cols-4"
-    md="grid-cols-5"
-    xl="w-fit mx-auto mb-40 gap-10"
+    md="grid-cols-5 mb-40"
+    lg="w-fit mx-auto gap-10"
     bind:this={content}
     use:motion={{
       initial: { opacity: 0, y: 16 },

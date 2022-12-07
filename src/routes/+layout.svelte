@@ -66,3 +66,8 @@
 <Footer />
 <Layer />
 
+<style>
+  a {
+    --uno: attr;
+  }
+</style>

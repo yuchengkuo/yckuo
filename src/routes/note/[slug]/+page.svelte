@@ -16,9 +16,12 @@
 
   <!-- <time class="font-Azeret text-sm">{lightFormat(new Date(data.date), 'yyyy-MM-dd')}</time> -->
   {#if data.tag}
-    <div class="flex mt-2 gap-2">
+    <div class="flex mt-4 gap-2">
       {#each data.tag ?? [] as tag}
-        <p class="bg-fg-secondary/16 rounded-full py-px font-600 text-fg-secondary text-sm px-2">
+        <p
+          class="bg-fg-secondary/8 rounded-full py-px font-600 text-fg-secondary text-sm px-2"
+          dark="bg-fg-secondary/20"
+        >
           {tag}
         </p>
       {/each}

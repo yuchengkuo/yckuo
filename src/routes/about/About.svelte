@@ -7,7 +7,7 @@
   import Savee from './Savee.svelte'
 </script>
 
-<div class="flex gap-6 justify-end items-end lt-sm:gap-4 lt-md:(mt-20 flex-row-reverse) ">
+<div class="my-8 flex gap-6 justify-end items-end lt-sm:gap-4 lt-md:flex-row-reverse">
   <small class="mb-0 xl:mr-auto">ヅ</small>
   <Readcv />
   <Github />

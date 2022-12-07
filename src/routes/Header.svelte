@@ -15,15 +15,14 @@
 
 {#if $page.url.pathname !== '/'}
   <header
-    class="mt-8 mb-4 relative text-sm text-fg-secondary"
-    sm="pt-20"
+    class="pt-20 mb-4 relative text-sm text-fg-secondary"
     data-sveltekit-preload
     use:motion={fadeInConfig}
   >
     <div class="flex items-center gap-2 max-w-640px mx-auto py-2">
       {#each pathnames as path, index}
         <a
-          class="h-fit font-Azeret font-500 tracking-tighter"
+          class="h-fit attr font-Azeret font-500 tracking-tighter"
           href={index === 0 ? '/' : pathnames.slice(0, index + 1).join('/')}
         >
           {#if index === 0}
