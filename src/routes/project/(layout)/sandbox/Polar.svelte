@@ -18,7 +18,7 @@
 </script>
 
 <div
-  class="w-full h-full grid place-items-center"
+  class="w-full h-full grid place-items-center filter blur-md"
   style="--x: {$x}px; --y: {$y}px; --hue: {$hue}; --sat: {$sat}%;"
   bind:this={outer}
   on:mousemove={handleMousemove}
@@ -27,7 +27,7 @@
     y.set(e.clientY - div.getBoundingClientRect().y)
   }}
 >
-  <div class="w-28 h-28 rounded-full filter blur-md" bind:this={div} />
+  <div class="w-28 h-28 rounded-full" bind:this={div} />
 </div>
 
 <style>

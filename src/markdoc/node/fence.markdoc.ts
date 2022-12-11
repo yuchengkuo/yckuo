@@ -2,7 +2,7 @@ import pkg, { type Schema } from '@markdoc/markdoc'
 const { Tag } = pkg
 import shiki, { FontStyle, type IThemedToken } from 'shiki'
 
-import grammar from './markdoc.tmLanguage.json'
+import grammar from '../markdoc.tmLanguage.json'
 
 export const fence: Schema = {
   children: ['inline', 'text'],

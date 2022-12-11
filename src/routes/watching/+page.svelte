@@ -151,6 +151,7 @@
           {item.type}
         </tag>
         <time class="font-Azeret text-xs">{item.time.substring(0, 4)}</time>
+        <p class="ml-auto font-600 text-xs">{item.vote}/10</p>
       </div>
     {/key}
   </hover-card>

@@ -45,6 +45,10 @@
         class="flex gap-16"
       >
         {#each new Array(8) as _}
+          <div class="shrink-0" children="text-xs font-550">
+            <p>{hover.release_date.slice(0, 4)}</p>
+            <p>{hover.total_tracks} tracks</p>
+          </div>
           <p class="font-900 text-fg tracking-tighter text-2xl whitespace-nowrap">
             {hover.artist} — {hover.name}
           </p>
@@ -114,7 +118,7 @@
   }
   .tag {
     --uno: bg-surface rounded-full font-Azeret mx-auto font-800 text-xs tracking-tight w-fit py-1.5
-      px-3 mb-10 uppercase block;
+      px-3 mb-10 uppercase backdrop-blur;
   }
 
   section:not(:first-child) {

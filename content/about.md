@@ -37,7 +37,7 @@ A [Now](https://nownownow.com/about) section. Current areas of fucus, interests 
 
 - Learning to \_\_\_\_\_\_\_\_\_
 - Prioritize myself
-- Make quick notes for thoughts
+- Thinking about ways to write interactive document easily
 - Document what happened
 - Picking up excercise again
 

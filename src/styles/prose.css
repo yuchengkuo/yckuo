@@ -15,7 +15,7 @@
 }
 
 .prose h4 {
-  --uno: my-2 lg:mb-3;
+  --uno: my-2 lg:mb-3 font-600;
 }
 
 .prose h1[id],

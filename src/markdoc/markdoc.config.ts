@@ -1,10 +1,10 @@
 import type { ConfigType } from '@markdoc/markdoc'
-import { document } from './document.markdoc'
-import { fence } from './fence.markdoc'
-import { gallery } from './gallery.markdoc'
-import { grid } from './grid.markdoc'
-import { heading } from './heading.markdoc'
-import { image } from './image.markdoc'
+import { document } from './node/document.markdoc'
+import { fence } from './node/fence.markdoc'
+import { gallery } from './tag/gallery.markdoc'
+import { grid } from './tag/grid.markdoc'
+import { heading } from './node/heading.markdoc'
+import { image } from './tag/image.markdoc'
 
 export const config: ConfigType = {
   functions: {},
