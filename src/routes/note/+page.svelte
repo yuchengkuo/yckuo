@@ -13,6 +13,8 @@
 <section>
   <ul>
     {#each data.notes as note}
+      {@const date = new Date(note.date)}
+      {@const month = date.getMonth() + 1}
       <li>
         <a
           class="lev4 !text-fg-secondary py-4 transition flex justify-between items-baseline"
@@ -20,7 +22,9 @@
           href="/note/{note.slug}"
         >
           {note.title}
-          <span class="text-sm">{new Date(note.date).getFullYear()}</span>
+          <span class="text-xs tabular-nums slashed-zero"
+            >{date.getFullYear()}/{month < 10 ? '0' + month.toString() : month}</span
+          >
         </a>
       </li>
     {/each}

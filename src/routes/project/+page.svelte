@@ -27,13 +27,17 @@
         class="block py-4 col-start-2 transition"
         sm="pb-8"
         hover="invert-50 dark:(invert-none brightness-85)"
+        active="invert-70 dark:(invert-none brightness-60)"
         href={project.link || `/project/${project.slug}`}
       >
         <div class="lt-sm:mb-8 col-start-2">
-          <h2 class="lev3">
-            {project.title}
-            {#if project.link}↗{/if}
-          </h2>
+          <div class="flex justify-between">
+            <h2 class="lev3">
+              {project.title}
+              {#if project.link}↗{/if}
+            </h2>
+            <time class="text-xs tabular-nums slashed-zero">{project.time.substring(0, 4)}</time>
+          </div>
           <p class="mt-2 text-fg-secondary">
             {project.excerpt}
           </p>

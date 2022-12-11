@@ -1,8 +1,7 @@
 <script lang="ts">
   import { motion } from '$lib/animation/motion'
-  import { outro } from '$lib/animation/out'
   import { spring, type Variants } from 'motion'
-  import { onMount, afterUpdate, tick } from 'svelte'
+  import { onMount, afterUpdate } from 'svelte'
 
   import { themes } from './themes'
 
@@ -44,12 +43,6 @@
     hover: { borderRadius: '12px', padding: '16px', scale: 1.04 },
     press: { scale: 0.98 },
   }
-
-  const infoVariants: Variants = {
-    initial: { y: 4, opacity: 0 },
-    animate: { y: 0, opacity: 1 },
-    exit: { y: 4, opacity: 0 },
-  }
 </script>
 
 <div
@@ -83,48 +76,13 @@
       on:mouseleave={resetTheme}
       on:focus={() => setHoverTheme(index, theme.name)}
     >
-      <div class="flex gap-1 justify-start children:(w-3 h-3 rounded-full) ">
+      <div class="flex gap-1 justify-start" children="w-3 h-3 rounded-full">
         <span class="bg-bg border-fg border-1" />
         <span class="bg-fg" />
         {#if theme.colors.fg_secondary}
           <span class="bg-fg-secondary" />
         {/if}
       </div>
-
-      <!-- {#if visible}
-        <word
-          use:motion={{
-            initial: { y: -4, opacity: 0 },
-            animate: { y: 0, opacity: 1 },
-            exit: { y: -4, opacity: 0 },
-          }}
-          out:outro|local
-          class="font-800 text-fg text-xs leading-none tracking-tight w-fit items-start justify-self-end"
-        >
-          {theme.label}
-        </word>
-
-        <div
-          class="flex flex-col w-full font-600 text-xs gap-0.5 items-start justify-end content-end"
-          use:motion={infoVariants}
-          out:outro|local
-        >
-          <hex class="border-fg rounded-sm text-fg px-1 block">{theme.colors.bg}</hex>
-          <hex class="bg-fg rounded-sm text-bg px-1 block">{theme.colors.fg}</hex>
-          {#if theme.colors.fg_secondary}
-            <hex class="bg-fg-secondary rounded-sm text-bg px-1 block"
-              >{theme.colors.fg_secondary}</hex
-            >
-          {/if}
-        </div>
-      {/if} -->
-
-      <!-- <contrast
-        class="flex flex-col gap-0 self-end justify-self-end font-700 text-fg-secondary w-fit text-0.625rem block leading-none items-end"
-      >
-        <span class="font-Azeret text-xs tracking-tighter">{theme.aa}</span>
-        {theme.contrast}
-      </contrast> -->
     </palette>
   {/each}
 
@@ -161,9 +119,3 @@
     </tip>
   {/key}
 </div>
-
-<style>
-  word {
-    font-variation-settings: 'slnt' 6;
-  }
-</style>

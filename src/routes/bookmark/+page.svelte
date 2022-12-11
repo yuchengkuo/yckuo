@@ -43,16 +43,15 @@
 
 <section class="max-w-640px mx-auto mb-20">
   <h1 class="mb-4">Bookmarks</h1>
-  <p class="text-fg-secondary">A curated list of interesting things on the web</p>
+  <p class="text-fg-secondary">A curated list of interesting things on the web.</p>
 </section>
 
 <section>
   <ul class="flex flex-col">
     {#each data.bookmarks as item}
       <li
-        class="relative group items-baseline py-6"
+        class="relative group items-baseline py-6 mx-none sm:mx-auto lt-xl:max-w-640px"
         sm="grid grid-cols-[2fr_1fr] gap-x-4"
-        md="grid-cols-[2fr_1fr_1fr]"
         xl="grid-cols-[1fr_640px_1fr] gap-x-10"
         on:mouseenter={() => snd.play(Snd.SOUNDS.TYPE)}
         use:motion={{
@@ -61,11 +60,11 @@
           transition: { easing: spring({ damping: 30, stiffness: 600 }) },
         }}
       >
-        <div class="hidden lt-xl:order-2 group-hover:opacity-100" md="block" xl="opacity-0">
+        <div class="hidden lt-md:order-2 group-hover:opacity-100" xl="block opacity-0">
           {#each item.tags as tag}
             <p
               class="font-Azeret font-500 tracking-tighter text-fg-secondary text-xs"
-              xl="text-right not-last:mb-1"
+              lg="text-right not-last:mb-1"
             >
               – {tag}
             </p>

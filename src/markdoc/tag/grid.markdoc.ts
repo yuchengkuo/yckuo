@@ -1,7 +1,7 @@
 import pkg from '@markdoc/markdoc'
 const { Tag } = pkg
 import type { Schema } from '@markdoc/markdoc'
-import { sectionize, visit } from './utils'
+import { sectionize, visit } from '../utils'
 
 export const grid: Schema = {
   render: 'grid',

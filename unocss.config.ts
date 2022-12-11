@@ -1,6 +1,7 @@
 import {
   defineConfig,
   presetUno,
+  presetIcons,
   extractorSvelte,
   transformerDirectives,
   transformerVariantGroup,
@@ -10,7 +11,11 @@ import {
 export default defineConfig({
   transformers: [transformerDirectives(), transformerVariantGroup()],
   extractors: [extractorSvelte],
-  presets: [presetAttributify(), presetUno()],
+  presets: [
+    presetAttributify(),
+    presetUno(),
+    presetIcons({ extraProperties: { display: 'inline-block' }, warn: true }),
+  ],
   theme: {
     fontFamily: {
       Uncut: ['Uncut Sans', 'ui-sans-serif', 'system-ui', '-apple-system'],

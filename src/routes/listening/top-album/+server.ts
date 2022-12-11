@@ -20,7 +20,6 @@ export const GET: RequestHandler = async function ({ url }) {
           name: item.album.name,
           release_date: item.album.release_date,
           artist: item.album.artists.map((a) => a.name).join(', '),
-          tracks: item.album.total_tracks,
         })
     })
 

@@ -17,7 +17,6 @@ export const GET: RequestHandler = async function ({ url }) {
         name: album.name,
         release_date: album.release_date,
         artist: album.artists.map((a) => a.name).join(', '),
-        tracks: album.tracks,
         genres: album.genres,
       }))
     )

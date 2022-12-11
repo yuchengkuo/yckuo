@@ -109,4 +109,7 @@
   button {
     --uno: font-Azeret;
   }
+  p ~ p {
+    font-feature-settings: 'calt' on;
+  }
 </style>

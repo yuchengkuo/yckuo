@@ -9,7 +9,6 @@ type Album = {
   name: string
   release_date: string
   artist: string
-  tracks: string
 }
 
 type Saved = Album & {

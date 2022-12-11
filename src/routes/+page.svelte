@@ -62,10 +62,11 @@
             class="block py-4 transition"
             href={project.link || `/project/${project.slug}`}
             hover="invert-50 dark:(invert-none brightness-80)"
+            active="invert-70 dark:(invert-none brightness-60)"
           >
             <div class="flex justify-between">
               <h3>{project.title}</h3>
-              <time class="text-sm">{project.time.substring(0, 4)}</time>
+              <time class="text-xs tabular-nums slashed-zero">{project.time.substring(0, 4)}</time>
             </div>
             <p class="mt-3 text-fg-secondary">
               {project.excerpt}
