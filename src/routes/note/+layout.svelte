@@ -3,7 +3,6 @@
   import Head from '$lib/seo/Head.svelte'
 
   import type { Options } from 'motion'
-  import type { LayoutServerData } from './$types'
 
   const openGraph = { images: [{ url: 'notes.png' }], url: 'note' }
   const fadeupConfig: Options = {

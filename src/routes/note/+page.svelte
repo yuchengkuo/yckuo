@@ -4,7 +4,6 @@
   export let data: PageData
 </script>
 
-<!-- Only visible in mobile -->
 <section class="mb-10">
   <h1 class="mb-4">Notes</h1>
   <p class="text-fg-secondary">Notes, thoughts, journals, snippets, etc.</p>

@@ -19,6 +19,7 @@
   let content: HTMLElement
   let outerWidth = 0
   let hoverCard: HTMLElement
+  let animating = false
 
   const openGraph = { images: [{ url: 'watching.png' }], url: 'watching' }
 
@@ -98,6 +99,7 @@
       animate: { opacity: 1, y: 0 },
       transition: { delay: 1.5, easing: motionSpring({ damping: 40 }) },
     }}
+    on:motioncomplete={() => (animating = true)}
   >
     {#each data.items as item, index (item.id)}
       <li
@@ -137,6 +139,7 @@
   {@const rotate = (Math.random() * 10 - 5) % 3}
   <hover-card
     class="rounded-xl h-max bg-fg-secondary/75 shadow-xl text-bg p-4 w-72 block backdrop-blur-lg backdrop-filter fixed pointer-events-none will-change-auto lt-sm:hidden"
+    class:opacity-0={!animating}
     style:left="{$cords.x}px"
     style:top="{$cords.y}px"
     style:transform="rotate({rotate}deg)"
