@@ -16,7 +16,8 @@
 {#if $page.url.pathname !== '/'}
   <header
     class="pt-20 mb-4 relative text-sm text-fg-secondary"
-    data-sveltekit-preload
+    data-sveltekit-preload-data
+    data-sveltekit-preload-code
     use:motion={fadeInConfig}
   >
     <div class="flex items-center gap-2 max-w-640px mx-auto py-2">

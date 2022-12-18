@@ -76,7 +76,10 @@
       {/each}
     </ul>
 
-    <a class="block attr mt-6 w-fit" href="/project">See all {data.projectsAmount} →</a>
+    <a
+      class="block font-Azeret text-xs text-fg-secondary font-700 uppercase mt-6 w-fit py-1.5 px-4 bg-surface rounded-full border border-border"
+      href="/project">See all {data.projectsAmount} →</a
+    >
   </div>
 </section>
 

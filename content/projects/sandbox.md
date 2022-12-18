@@ -1,6 +1,6 @@
 ---
 title: Sandbox
-excerpt: Space to explore.
+excerpt: Space to explore. Built with Svelte and Motion One.
 time: 2022-11
 featured: true
 meta:

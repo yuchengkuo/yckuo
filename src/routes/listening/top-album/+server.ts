@@ -3,25 +3,30 @@ import { error, json, type RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async function ({ url }) {
   try {
-    const res = await getTopTracks('40')
-
-    const { items } = await res.json()
-
+    let limit = 0
     const albums = []
-    items.forEach((item) => {
-      if (albums.length >= (Number(url.searchParams.get('limit')) || 12)) return
-      if (!albums.map((album) => album.name).includes(item.album.name))
-        albums.push({
-          type: item.album.album_type,
-          total_tracks: item.album.total_tracks,
-          url: item.album.external_urls['spotify'],
-          id: item.album.id,
-          image: item.album.images[1].url,
-          name: item.album.name,
-          release_date: item.album.release_date,
-          artist: item.album.artists.map((a) => a.name).join(', '),
-        })
-    })
+
+    while (albums.length < (url.searchParams.get('limit') || 12)) {
+      const offset = limit
+      limit += 20
+      const res = await getTopTracks(limit.toString(), offset.toString())
+
+      const { items } = await res.json()
+
+      for await (const item of items) {
+        if (!albums.map((album) => album.name).includes(item.album.name))
+          albums.push({
+            type: item.album.album_type,
+            total_tracks: item.album.total_tracks,
+            url: item.album.external_urls['spotify'],
+            id: item.album.id,
+            image: item.album.images[1].url,
+            name: item.album.name,
+            release_date: item.album.release_date,
+            artist: item.album.artists.map((a) => a.name).join(', '),
+          })
+      }
+    }
 
     return json(albums, {
       headers: {

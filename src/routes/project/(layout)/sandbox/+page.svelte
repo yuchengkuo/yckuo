@@ -1,11 +1,7 @@
 <script lang="ts">
   import Head from '$lib/seo/Head.svelte'
-  import Context from './Context.svelte'
-  import Glow from './Glow.svelte'
-  import Polar from './Polar.svelte'
-  import Tabs from './Tabs.svelte'
-  import Thumb from './Thumb.svelte'
-  import Wip from './WIP.svelte'
+
+  const boxes = import.meta.glob<any>('./boxes/*.svelte')
 </script>
 
 <Head title="Sandbox" description="A little playground.">
@@ -20,10 +16,24 @@
   xl="grid-cols-3"
   children="min-h-24rem w-full grid place-items-center relative hover:bg-light-400 dark:hover:bg-dark-700"
 >
-  <li><Glow /></li>
-  <li><Tabs /></li>
-  <li><Polar /></li>
-  <li><Thumb /></li>
-  <li><Context /></li>
-  <li><Wip /></li>
+  {#each Object.keys(boxes) as key}
+    <li>
+      <small
+        class="text-xs text-fg-secondary font-600 opacity-0 transition absolute right-1 bottom-1 py-px px-2 bg-surface rounded-full"
+        >{key.split('/').at(-1).split('.').at(0)}</small
+      >
+      {#await boxes[key]() then component}
+        <svelte:component this={component.default} />
+      {/await}
+    </li>
+  {/each}
 </ul>
+
+<style>
+  li:last-child small {
+    --uno: hidden;
+  }
+  li:hover small {
+    --uno: opacity-100;
+  }
+</style>

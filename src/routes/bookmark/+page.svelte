@@ -52,7 +52,7 @@
       <li
         class="relative group items-baseline py-6 mx-none sm:mx-auto lt-xl:max-w-640px"
         sm="grid grid-cols-[2fr_1fr] gap-x-4"
-        xl="grid-cols-[1fr_640px_1fr] gap-x-10"
+        xl="grid-cols-[1fr_640px_1fr] mx-unset gap-x-10"
         on:mouseenter={() => snd.play(Snd.SOUNDS.TYPE)}
         use:motion={{
           initial: { y: downscroll ? scrollOffset : -scrollOffset },
