@@ -3,7 +3,7 @@
 
   import Head from '$lib/seo/Head.svelte'
   import { motion } from '$lib/animation/motion'
-  import tooltip from '$lib/tooltip/tooltip'
+  import tooltip from '$lib/action/tooltip/action'
 
   import type { PageServerData } from './$types'
 

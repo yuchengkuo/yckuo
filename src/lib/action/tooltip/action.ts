@@ -15,8 +15,8 @@ export default function tooltip(element: HTMLElement, options: Options): SvelteA
   function handleShowTooltip() {
     if (!Tooltip) {
       Tooltip = new Component({
-        target: element,
-        props: { content },
+        target: document.body,
+        props: { content, trigger: element },
       })
     }
   }

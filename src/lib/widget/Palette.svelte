@@ -1,34 +1,26 @@
 <script lang="ts">
   import { motion } from '$lib/animation/motion'
+  import useTheme, { type ThemeNames } from '$lib/theme/useTheme'
   import { spring, type Variants } from 'motion'
-  import { onMount, afterUpdate } from 'svelte'
 
-  import { themes } from './themes'
+  import { themes } from '../theme/themes'
 
-  let dark = false
   let hover = false
   let target: number
   let active = false
-  let decolorize = false
 
-  onMount(() => {
-    dark = document.documentElement.classList.contains('dark')
-  })
+  const { dark, colorized, toggleMode, setTheme } = useTheme()
 
-  afterUpdate(() => {
-    decolorize = document.documentElement.classList.contains('decolorize')
-  })
-
-  function setActiveTheme(theme: string) {
+  function setActiveTheme(theme: ThemeNames) {
     active = true
-    document.documentElement.setAttribute('data-theme', theme)
+    setTheme(theme)
   }
 
-  function setHoverTheme(index: number, theme: string) {
+  function setHoverTheme(index: number, theme: ThemeNames) {
     active = false
     hover = true
     target = index
-    document.documentElement.setAttribute('data-theme', theme)
+    setTheme(theme)
   }
 
   function resetTheme() {
@@ -48,8 +40,7 @@
 <div
   class="bg-surface flex flex-wrap m-auto rounded-3xl mt-32 max-w-768px p-6 gap-6 justify-between items-start relative lt-sm:(p-4 grid grid-cols-2)"
 >
-  {#each themes.filter((t) => t.dark === dark) as theme, index (theme.name + dark)}
-    {@const visible = target === index && hover}
+  {#each themes.filter((t) => t.dark === $dark) as theme, index (theme.name + $dark)}
     <palette
       use:motion={{
         initial: { y: 8, opacity: 0 },
@@ -66,7 +57,7 @@
       data-theme={theme.name}
       data-splitbee-event="Switch Theme"
       data-splitbee-theme={theme.name}
-      class:dark
+      class:dark={$dark}
       class="bg-bg rounded-lg cursor-pointer grid grid-cols-2 gap-0 h-32 shadow p-3 w-32 relative justify-start hover:shadow-lg all:pointer-events-none lt-sm:(w-full h-auto aspect-square)"
       tabindex="0"
       role="button"
@@ -86,7 +77,7 @@
     </palette>
   {/each}
 
-  {#key dark}
+  {#key $dark}
     <button
       use:motion={{
         initial: { y: 8, opacity: 0 },
@@ -94,7 +85,7 @@
         hover: { letterSpacing: '0.025em' },
       }}
       class="font-800 text-sm font-Uncut -top-6 right-6 absolute lt-sm:right-4"
-      on:click={() => (dark = !dark)}>{dark ? 'Let the light in' : 'Embrace the drakness'}</button
+      on:click={toggleMode}>{$dark ? 'Light On' : 'Light Off'}</button
     >
   {/key}
 
@@ -111,7 +102,7 @@
         <span class="sm:hidden">Click to apply</span>
       {:else if active}
         Hooray! 🎉
-      {:else if decolorize}
+      {:else if !$colorized}
         Colors are off now, try colorize ↘
       {:else}
         Click to apply

@@ -1,34 +1,10 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import useTheme from '$lib/theme/useTheme'
 
-  let dark = false
-  let color = false
-  let theme = ''
-
-  onMount(() => {
-    dark = document.documentElement.classList.contains('dark')
-    color = document.documentElement.classList.contains('decolorize')
-    const callback: MutationCallback = function (list) {
-      for (const mutation of list) {
-        if (mutation.attributeName === 'class') {
-          dark = document.documentElement.classList.contains('dark')
-          color = document.documentElement.classList.contains('decolorize')
-        }
-        if (mutation.attributeName === 'data-theme')
-          theme = document.documentElement.getAttribute('data-theme') || ''
-      }
-    }
-    const observer = new MutationObserver(callback)
-    observer.observe(document.documentElement, {
-      attributeFilter: ['class', 'data-theme'],
-    })
-    return () => {
-      observer.disconnect()
-    }
-  })
+  const { dark, theme, colorized } = useTheme()
 </script>
 
-{#key dark + theme + color}
+{#key $dark + $theme + $colorized}
   <div
     role="presentation"
     class="fixed inset-0 pointer-events-none select-none z-0 no-js:hidden"
@@ -55,6 +31,7 @@
     mask: linear-gradient(transparent, black);
     -webkit-mask: linear-gradient(transparent, black);
   }
+  /* Workaround for hiding gradient when change color or mode */
   @keyframes scale {
     from {
       transform: scaleY(120%);

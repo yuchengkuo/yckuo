@@ -2,7 +2,7 @@
   import clickOutside from '$lib/action/clickoutside'
   import { motion } from '$lib/animation/motion'
   import { outro } from '$lib/animation/out'
-  import portal from '$lib/portal/action'
+  import portal from '$lib/action/portal/action'
 
   let menu = false
 

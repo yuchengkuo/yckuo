@@ -7,6 +7,7 @@ export const heading: Schema = {
   attributes: {
     id: { type: String },
     level: { type: Number, required: true, default: 1 },
+    link: { type: Boolean, default: true },
   },
   transform(node, config) {
     const attributes = node.transformAttributes(config)
@@ -16,7 +17,7 @@ export const heading: Schema = {
 
     return new Tag(`h${node.attributes['level']}`, { ...attributes, id }, [
       ...children,
-      new Tag('a', { href: `#${id}` }, ['#']),
+      attributes['link'] && new Tag('a', { href: `#${id}` }, ['#']),
     ])
   },
 }

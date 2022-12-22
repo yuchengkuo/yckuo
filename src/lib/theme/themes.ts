@@ -1,4 +1,13 @@
-export const themes = [
+import type { ThemeNames } from './useTheme'
+
+export const themes: {
+  name: ThemeNames
+  label: string
+  colors: { bg: string; fg: string; fg_secondary?: string }
+  dark: boolean
+  contrast: number
+  aa: string
+}[] = [
   {
     name: 'bookmark',
     label: 'Pirate',
