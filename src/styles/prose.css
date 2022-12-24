@@ -7,7 +7,7 @@
 }
 
 .prose h2 {
-  --uno: mb-2 py-2 md:mt-4 lg:mb-4;
+  --uno: mb-2 py-2 md:not-first:mt-4 lg:mb-4;
 }
 
 .prose h3 {
@@ -72,18 +72,25 @@ hr {
 
 .prose .shiki-container {
   --uno: bg-surface rounded-xl border-1 border-fg/6 mb-8 overflow-x-auto dark:(bg-surface border-fg/6);
+  counter-reset: line;
 }
 
 .prose .shiki-container pre {
-  @apply font-Azeret min-w-full my-0 w-fit py-4 px-5 !bg-transparent lt-md:(py-3 px-4);
+  @apply font-Azeret min-w-full my-0 w-fit py-4 pl-2 pr-4 !bg-transparent lt-md:(py-3 px-4);
 }
 
 .prose .shiki-container code {
-  --uno: bg-transparent font-550 m-0 text-xs p-0;
+  --uno: bg-transparent font-525 m-0 text-xs leading-5 p-0;
 }
 
 .prose .shiki-container .line {
-  --uno: not-last:not-first:min-h-4;
+  --uno: last:hidden;
+}
+
+.prose .shiki-container .line::before {
+  counter-increment: line;
+  content: counter(line);
+  --uno: inline-block w-4 mr-4 text-fg-secondary/50 text-right;
 }
 
 .prose .shiki-container .no-highlight span {

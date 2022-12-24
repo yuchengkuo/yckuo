@@ -8,8 +8,8 @@
   <div
     role="presentation"
     class="fixed inset-0 pointer-events-none select-none z-0 no-js:hidden"
-    before="content-none fixed inset-0 h-5% bg-bg/1 backdrop-blur-md"
-    after="content-none fixed inset-x-0 bottom-0 h-5% bg-bg/1 backdrop-blur-md"
+    before="content-none fixed inset-0 h-4% bg-bg/1 backdrop-blur-md"
+    after="content-none fixed inset-x-0 bottom-0 h-4% bg-bg/1 backdrop-blur-md"
   />
 {/key}
 
@@ -17,10 +17,10 @@
   div[role='presentation'] {
     animation: 1000ms scale;
     background-image: linear-gradient(
-      rgba(var(--colors-bg), 0.4) 2%,
-      transparent 4%,
-      transparent 96%,
-      rgba(var(--colors-bg), 0.4) 98%
+      rgba(var(--colors-bg), 0.1) 1%,
+      transparent 2%,
+      transparent 98%,
+      rgba(var(--colors-bg), 0.1) 99%
     );
   }
   div[role='presentation']::before {

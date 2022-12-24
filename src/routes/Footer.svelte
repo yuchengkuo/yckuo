@@ -14,7 +14,6 @@
   text="xs fg-secondary"
   gap="3 sm:6"
   p="t-20 b-20 md:b-40"
-  m="t-20"
 >
   <p class="font-675 text-base tracking-tight flex-grow">YuCheng Kuo</p>
   <button

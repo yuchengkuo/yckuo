@@ -17,18 +17,17 @@
   <section>
     <ul>
       {#each data.notes as note}
-        {@const date = new Date(note.date)}
-        {@const month = date.getMonth() + 1}
+        {@const date = new Intl.DateTimeFormat('en-US', {
+          dateStyle: 'medium',
+          timeZone: 'Asia/Taipei',
+        }).format(new Date(note.date))}
         <li>
           <a
             class="lev4 !text-fg-secondary py-4 transition flex justify-between items-baseline"
             hover="invert-50 dark:(invert-none brightness-80)"
             href="/note/{note.slug}"
           >
-            {note.title}
-            <span class="text-xs tabular-nums slashed-zero"
-              >{date.getFullYear()}/{month < 10 ? '0' + month.toString() : month}</span
-            >
+            {note.title}<span class="text-xs tabular-nums slashed-zero">{date}</span>
           </a>
         </li>
       {/each}

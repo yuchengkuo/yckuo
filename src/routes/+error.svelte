@@ -6,8 +6,10 @@
   console.error($page.error.message)
 </script>
 
-<Head title="{$page.status} · YuCheng Kuo" />
+<Head title={$page.status.toString()} />
 
-<h1 class="mb-4">{$page.status}</h1>
+<div class="max-w-640px mx-auto">
+  <h1 class="mb-4">{$page.status}</h1>
 
-<p>Failed accessing <code>{$page.url.pathname}</code></p>
+  <p>Failed accessing <code>{$page.url.pathname}</code></p>
+</div>
