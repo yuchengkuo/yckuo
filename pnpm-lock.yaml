@@ -204,7 +204,7 @@ packages:
       comment-json: 4.2.3
       esbuild: 0.15.18
       gray-matter: 4.0.3
-      mdx-bundler: 9.0.1_esbuild@0.15.18
+      mdx-bundler: 9.2.1_esbuild@0.15.18
       rehype-stringify: 9.0.3
       remark-frontmatter: 4.0.1
       remark-parse: 10.0.1
@@ -3465,11 +3465,11 @@ packages:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
     dev: true
 
-  /mdx-bundler/9.0.1_esbuild@0.15.18:
-    resolution: {integrity: sha512-/ktO4WTwrZszPOISh9qU0Ud/WXlTZHqA9grErUZGc7WGd7mooJiCCxejkkzHy7TQf1PS83jGECLrTeSVUkqEkQ==}
-    engines: {node: '>=12', npm: '>=6'}
+  /mdx-bundler/9.2.1_esbuild@0.15.18:
+    resolution: {integrity: sha512-hWEEip1KU9MCNqeH2rqwzAZ1pdqPPbfkx9OTJjADqGPQz4t9BO85fhI7AP9gVYrpmfArf9/xJZUN0yBErg/G/Q==}
+    engines: {node: '>=14', npm: '>=6'}
     peerDependencies:
-      esbuild: 0.11.x || 0.12.x || 0.13.x || 0.14.x
+      esbuild: 0.*
     dependencies:
       '@babel/runtime': 7.20.7
       '@esbuild-plugins/node-resolve': 0.1.4_esbuild@0.15.18
@@ -3480,6 +3480,7 @@ packages:
       remark-frontmatter: 4.0.1
       remark-mdx-frontmatter: 1.1.1
       uuid: 8.3.2
+      vfile: 5.3.6
     transitivePeerDependencies:
       - supports-color
     dev: true

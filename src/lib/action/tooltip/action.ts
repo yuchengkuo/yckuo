@@ -5,20 +5,27 @@ interface Options {
   content: string
   Component?: typeof TooltipCompnent
   offset?: number
-  direction?: 'top' | 'bottom'
+  placement?: 'top' | 'bottom' | 'left' | 'right'
+  alignment?: 'start' | 'end' | 'center'
 }
 
 export default function tooltip(element: HTMLElement, options: Options): SvelteActionReturnType {
   element.style.position = 'relative'
 
-  let { Component = TooltipCompnent, content, offset = 12, direction = 'top' } = options
+  let {
+    Component = TooltipCompnent,
+    content,
+    offset = 12,
+    placement = 'top',
+    alignment = 'center',
+  } = options
   let Tooltip: SvelteComponent
 
   function handleShowTooltip() {
     if (!Tooltip) {
       Tooltip = new Component({
         target: document.body,
-        props: { content, trigger: element, offset, direction },
+        props: { content, trigger: element, offset, placement, alignment },
       })
     }
   }
@@ -35,7 +42,7 @@ export default function tooltip(element: HTMLElement, options: Options): SvelteA
 
   return {
     update(newOptions: Options) {
-      ;({ Component = TooltipCompnent, content, offset, direction } = newOptions)
+      ;({ Component = TooltipCompnent, content, offset, placement, alignment } = newOptions)
       if (Tooltip) {
         Tooltip.$set({ content })
       }

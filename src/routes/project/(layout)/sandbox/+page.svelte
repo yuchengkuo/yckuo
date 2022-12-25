@@ -14,10 +14,10 @@
   class="place-items-center mt-16 mb-40"
   md="grid grid-cols-2"
   xl="grid-cols-3"
-  children="min-h-24rem w-full grid place-items-center relative hover:bg-light-400 dark:hover:bg-dark-700"
+  children="min-h-24rem w-full grid place-items-center relative"
 >
   {#each Object.keys(boxes) as key}
-    <li>
+    <li hover="bg-light-400 dark:bg-dark-700" focus="bg-light-400 dark:bg-dark-700">
       <small
         class="text-xs text-fg-secondary font-600 opacity-0 transition absolute right-1 bottom-1 py-px px-2 bg-surface rounded-full"
         >{key.split('/').at(-1).split('.').at(0)}</small

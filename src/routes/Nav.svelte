@@ -29,12 +29,12 @@
 <nav
   data-sveltekit-preload-code
   data-sveltekit-preload-data
-  class="fixed left-10 top-1/4 flex items-center gap-4 lt-lg:hidden"
+  class="fixed left-10 top-1/4 flex items-center gap-4 lt-lg:hidden no-js:hidden"
   on:mouseenter={() => (menuVisible = true)}
   use:motion={{
     animate: menuVisible
       ? { transform: 'rotateX(0deg)' }
-      : { transform: 'translateX(-64px) rotateY(-15deg)' },
+      : { transform: 'translateX(-72px) rotateY(-15deg)' },
     transition: { duration: 0.5 },
   }}
 >
@@ -51,7 +51,7 @@
   <button
     on:click={() => (menuVisible = !menuVisible)}
     use:motion={{
-      animate: menuVisible ? { transform: 'rotateY(180deg)' } : { transform: 'none' },
+      animate: menuVisible ? { transform: 'rotateY(180deg)' } : { transform: 'translateX(-16px)' },
       transition: { duration: 0.5 },
     }}
   >
@@ -65,7 +65,7 @@
 <nav
   data-sveltekit-preload-code
   data-sveltekit-preload-data
-  class="overflow-scroll max-w-640px mx-auto mb-20"
+  class="overflow-scroll max-w-640px mx-auto mb-20 no-js:block"
   lg="hidden"
 >
   <ul class="flex gap-1 w-fit">
