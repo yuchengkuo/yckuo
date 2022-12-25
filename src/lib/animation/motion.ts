@@ -6,13 +6,13 @@ import {
 } from '@motionone/dom'
 
 export function motion(
-  element: Element,
+  element: HTMLElement,
   initialOptions: Options & { exit?: VariantDefinition } = {}
 ): SvelteActionReturnType {
   const state = createMotionState(initialOptions)
 
   const initialStyle = createStyleString(state.getTarget())
-  element.setAttribute('style', initialStyle)
+  element.style.cssText += initialStyle
 
   const destroy = state.mount(element)
   state.update(initialOptions)

@@ -10,12 +10,12 @@
   $: width = (38 + textWidth).toFixed(4) + 'px'
 </script>
 
-<avatar class="h-fit shadow-md w-16 block relative">
+<div class="drop-shadow-md relative shrink-0 w-16">
   <Image
     id="about_avatar_cq1ocu"
     alt="YuCheng Kuo"
-    aspectRatio="100/100"
-    class="bg-bg bg-blend-multiply rounded-xl shadow-md pointer-events-none overflow-hidden filter"
+    aspectRatio="1/1"
+    class="bg-bg bg-blend-multiply rounded-xl pointer-events-none overflow-hidden"
   />
 
   <emoji
@@ -42,4 +42,4 @@
       >Nice meeting you :)</span
     >
   </emoji>
-</avatar>
+</div>

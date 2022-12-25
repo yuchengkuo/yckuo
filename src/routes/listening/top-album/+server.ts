@@ -14,6 +14,7 @@ export const GET: RequestHandler = async function ({ url }) {
       const { items } = await res.json()
 
       for await (const item of items) {
+        if (albums.length >= (url.searchParams.get('limit') || 12)) break
         if (!albums.map((album) => album.name).includes(item.album.name))
           albums.push({
             type: item.album.album_type,

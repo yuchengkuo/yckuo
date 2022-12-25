@@ -113,10 +113,12 @@
         on:mousemove={(e) => setHoverCardCords(e)}
       >
         <a
-          class="transition overflow-hidden block filte shadow-md"
-          hover="scale-101 rounded -translate-y-1 rotate-0.5 shadow-lg"
+          class="transition overflow-hidden block shadow-md rounded"
+          md="rounded-md"
+          lg="rounded-lg"
+          hover="scale-101 -translate-y-1 rotate-0.5 shadow-lg"
           active="scale-99"
-          focus="scale-101 rounded -translate-y-1 rotate-0.5 shadow-md"
+          focus="scale-101 -translate-y-1 rotate-0.5 shadow-lg"
           href="https://www.themoviedb.org/{item.type}/{item.id}"
           class:contrast-85={hoverId !== undefined && hoverId !== index}
           tabindex="0"

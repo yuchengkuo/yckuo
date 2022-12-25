@@ -105,7 +105,6 @@
         {alt}
         {srcset}
         {sizes}
-        loading="lazy"
         class="bg-surface h-full object-cover object-center w-full transition-opacity ease-out duration-300"
         class:opacity-0={!visible}
       />

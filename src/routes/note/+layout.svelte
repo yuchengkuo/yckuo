@@ -18,6 +18,6 @@
   </script>
 </Head>
 
-<main class="text-fg-secondary max-w-640px mx-auto" use:motion={fadeupConfig}>
+<div class="text-fg-secondary layout-center" use:motion={fadeupConfig}>
   <slot />
-</main>
+</div>

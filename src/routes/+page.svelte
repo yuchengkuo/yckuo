@@ -3,7 +3,7 @@
 
   import Head from '$lib/seo/Head.svelte'
   import { motion } from '$lib/animation/motion'
-  import tooltip from '$lib/tooltip/tooltip'
+  import tooltip from '$lib/action/tooltip/action'
 
   import type { PageServerData } from './$types'
 
@@ -68,7 +68,7 @@
               <h3>{project.title}</h3>
               <time class="text-xs tabular-nums slashed-zero">{project.time.substring(0, 4)}</time>
             </div>
-            <p class="mt-3 text-fg-secondary">
+            <p class="mt-1.5 text-fg-secondary">
               {project.excerpt}
             </p>
           </a>

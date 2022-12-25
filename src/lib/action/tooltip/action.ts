@@ -4,19 +4,28 @@ import TooltipCompnent from './Tooltip.svelte'
 interface Options {
   content: string
   Component?: typeof TooltipCompnent
+  offset?: number
+  placement?: 'top' | 'bottom' | 'left' | 'right'
+  alignment?: 'start' | 'end' | 'center'
 }
 
 export default function tooltip(element: HTMLElement, options: Options): SvelteActionReturnType {
   element.style.position = 'relative'
 
-  let { Component = TooltipCompnent, content } = options
+  let {
+    Component = TooltipCompnent,
+    content,
+    offset = 12,
+    placement = 'top',
+    alignment = 'center',
+  } = options
   let Tooltip: SvelteComponent
 
   function handleShowTooltip() {
     if (!Tooltip) {
       Tooltip = new Component({
-        target: element,
-        props: { content },
+        target: document.body,
+        props: { content, trigger: element, offset, placement, alignment },
       })
     }
   }
@@ -33,7 +42,7 @@ export default function tooltip(element: HTMLElement, options: Options): SvelteA
 
   return {
     update(newOptions: Options) {
-      ;({ Component = TooltipCompnent, content } = newOptions)
+      ;({ Component = TooltipCompnent, content, offset, placement, alignment } = newOptions)
       if (Tooltip) {
         Tooltip.$set({ content })
       }

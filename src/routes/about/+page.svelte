@@ -4,9 +4,6 @@
   import Head from '$lib/seo/Head.svelte'
   import { components } from '$lib/content/components'
 
-  import Palette from './Palette.svelte'
-  import About from './About.svelte'
-
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
@@ -18,9 +15,6 @@
   </script>
 </Head>
 
-<section class="text-fg-secondary max-w-640px mx-auto">
-  <h1 class="mb-8">{data.about.title}</h1>
-  <Markdoc content={data.about.content} components={{ ...components, About }} />
+<section class="text-fg-secondary layout-center">
+  <Markdoc content={data.about.content} {components} />
 </section>
-
-<Palette />

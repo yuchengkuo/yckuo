@@ -13,12 +13,15 @@
   import Header from './Header.svelte'
   import Footer from './Footer.svelte'
   import Layer from './Layer.svelte'
+  import Nav from './Nav.svelte'
+
+  import type { Options } from 'motion'
 
   beforeNavigate(() => NProgress.start())
   afterNavigate(() => NProgress.done())
 
   let withTransition = true
-  const fadeInConfig = {
+  const fadeInConfig: Options = {
     initial: { opacity: 0.001 },
     animate: { opacity: 1 },
     transition: { delay: 0.4, duration: 0.4 },
@@ -51,23 +54,7 @@
   </main>
 {/key}
 
-<nav
-  data-sveltekit-preload
-  class="max-w-640px mx-auto flex flex-wrap gap-4 font-Azeret font-550 text-sm tracking-tighter"
->
-  <a href="/about">About</a>
-  <a href="/project">Project</a>
-  <a href="/bookmark">Bookmark</a>
-  <a href="/listening">Listening</a>
-  <a href="/watching">Watching</a>
-  <a href="/note">Note</a>
-</nav>
+<Nav />
 
 <Footer />
 <Layer />
-
-<style>
-  a {
-    --uno: attr;
-  }
-</style>
