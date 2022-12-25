@@ -3,7 +3,7 @@
 </script>
 
 <a
-  href="https://github.com"
+  href="https://github.com/yuchengkuo"
   class="p-1 w-8 block"
   data-splitbee-event="Open Link"
   data-splitbee-target="Github"
