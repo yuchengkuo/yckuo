@@ -70,6 +70,10 @@ html {
   --uno: bg-bg mx-auto min-h-screen max-w-9xl antialiased;
 }
 
+html.dark {
+  color-scheme: dark;
+}
+
 @screen 2xl {
   html {
     --uno: bg-bg;
