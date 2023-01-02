@@ -38,7 +38,10 @@ export default function tooltip(element: HTMLElement, options: Options): SvelteA
   }
 
   element.addEventListener('mouseenter', handleShowTooltip)
+  element.addEventListener('focusin', handleShowTooltip)
+
   element.addEventListener('mouseleave', hadnleHideTooltip)
+  element.addEventListener('focusout', hadnleHideTooltip)
 
   return {
     update(newOptions: Options) {
@@ -49,7 +52,9 @@ export default function tooltip(element: HTMLElement, options: Options): SvelteA
     },
     destroy() {
       element.removeEventListener('mouseenter', handleShowTooltip)
+      element.removeEventListener('focusin', handleShowTooltip)
       element.removeEventListener('mouseleave', hadnleHideTooltip)
+      element.removeEventListener('focusout', hadnleHideTooltip)
     },
   }
 }

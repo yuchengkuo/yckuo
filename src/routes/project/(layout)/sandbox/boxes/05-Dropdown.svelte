@@ -4,27 +4,62 @@
   import { outro } from '$lib/animation/out'
   import portal from '$lib/action/portal/action'
   import placePopover from '$lib/action/placePopover'
+  import { clamp } from 'popmotion'
+  import { tick } from 'svelte'
 
   let menuOpen = false
-  let focusIndex = -1
+  let highlighted = -1
 
   let trigger: HTMLElement
 
   const items = [
-    { label: 'Duplicate', icon: 'i-bxs-duplicate' },
-    { label: 'Rename', icon: 'i-bxs-rename' },
-    { label: 'Delete', icon: 'i-bxs-trash' },
+    { label: 'Duplicate', icon: 'i-bxs-duplicate', destructive: false },
+    { label: 'Rename', icon: 'i-bxs-rename', destructive: false },
+    { label: 'Delete', icon: 'i-bxs-trash', destructive: true },
   ]
 
   function onClose(e: Event) {
-    if (!trigger.contains(e.target as HTMLElement)) menuOpen = false
+    if (!trigger.contains(e.target as HTMLElement)) {
+      menuOpen = false
+      highlighted = -1
+    }
+  }
+
+  async function onSelect() {
+    menuOpen = false
+    highlighted = -1
+    await tick()
+    trigger.focus()
+  }
+
+  async function onKeydown(e: KeyboardEvent) {
+    if (document.activeElement === trigger && e.key === 'ArrowDown') {
+      e.preventDefault()
+      if (!menuOpen) menuOpen = !menuOpen
+    }
+    await tick()
+
+    if (menuOpen) {
+      if (e.key === 'Enter') return
+
+      e.preventDefault()
+      if (e.key === 'ArrowDown') highlighted++
+      if (e.key === 'ArrowUp') highlighted--
+      if (e.key === 'Escape') onSelect()
+
+      highlighted = clamp(0, items.length - 1, highlighted)
+      await tick()
+      ;(document.querySelector('[role="menu"] [data-highlighted]') as HTMLElement)?.focus()
+    }
   }
 </script>
+
+<svelte:window on:keydown={onKeydown} />
 
 <button
   class="pl-4 pr-3 py-1 bg-surface rounded-lg transition"
   hover="bg-fg-secondary/10"
-  focus="bg-fg-secondary/10 ring-1 ring-border"
+  focus-visible="bg-fg-secondary/10 ring-1 ring-border outline-none"
   aria-haspopup="menu"
   aria-expanded={menuOpen}
   bind:this={trigger}
@@ -38,20 +73,36 @@
     class="flex flex-col rounded-lg p-1 shadow-xl bg-surface min-w-40"
     children="px-2 py-2.5 text-sm text-left whitespace-nowrap leading-none"
     role="menu"
-    out:outro|local
+    out:outro
     use:portal
     use:placePopover={{ trigger, alignment: 'end' }}
     use:clickOutside={onClose}
     use:motion={{
-      initial: { y: -16, scale: 0.9, opacity: 0 },
-      animate: { y: 0, scale: 1, opacity: 1 },
-      exit: { y: -16, scale: 0.9, opacity: 0 },
+      initial: { transform: 'translateY(-8px) scale(0.95)', opacity: 0 },
+      animate: { transform: 'none', opacity: 1 },
+      exit: { transform: 'translateY(-8px) scale(0.95)', opacity: 0 },
+      transition: { duration: 0.3, allowWebkitAcceleration: true },
     }}
   >
-    {#each items as item}
-      <button class="transition" hover="bg-fg/8 rounded-md"
-        ><span class="{item.icon} align-top mr-2 text-fg-secondary" />{item.label}</button
+    {#each items as item, index}
+      <button
+        role="menuitem"
+        class="transition"
+        hover="bg-fg/8 rounded-md {item.destructive && 'text-red-600 children:text-red-600'}"
+        focus="outline-none {item.destructive && 'text-red-600 children:text-red-600'}"
+        data-highlighted={highlighted === index ? '' : null}
+        tabindex={highlighted === index ? 0 : -1}
+        on:click={onSelect}
+        ><span
+          class="{item.icon} align-top mr-2 transition text-fg-secondary"
+        />{item.label}</button
       >
     {/each}
   </div>
 {/if}
+
+<style>
+  [data-highlighted] {
+    --uno: bg-fg/8 rounded-md;
+  }
+</style>

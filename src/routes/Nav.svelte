@@ -96,7 +96,7 @@
       -webkit-mask: linear-gradient(to right, black, transparent);
     }
   
-    nav:hover button span {
+    nav:hover button span, nav button:focus span {
       --uno: opacity-100;
     }
 </style>

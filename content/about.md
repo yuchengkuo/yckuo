@@ -9,7 +9,7 @@ links:
     url: https://savee.com/yuchengkuo
 ---
 
-## {% $frontmatter.title %} {% link=false class="lev1" %}
+# {% $frontmatter.title %} {% link=false %}
 
 My name is YuCheng Kuo. I am a product designer and UI developer from Taiwan. Currently working as a designer/engineer at [Oen Tech](https://oen.tw), helping building the software that brings engagement, fundraising, and payment together for Nonprofits, campaigns and all kinds of orgs.
 
