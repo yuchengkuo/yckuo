@@ -47,7 +47,7 @@
     "@iconify-json/bxs": "^1.1.5",
     "@iconify-json/ri": "^1.1.4",
     "@sveltejs/adapter-auto": "1.0.0",
-    "@sveltejs/kit": "1.0.1",
+    "@sveltejs/kit": "1.0.7",
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.191",
     "@types/lodash.throttle": "^4.1.7",
