@@ -11,8 +11,8 @@
   </script>
 </Head>
 
-<section md="gap-x-10 grid grid-cols-[1fr_640px_1fr]" children="col-start-2">
-  <h1 class="mb-8">{$page.data.title}</h1>
+<section md="gap-x-10 grid grid-cols-[1fr_56ch_1fr]" children="col-start-2">
+  <h1 class="mb-4">{$page.data.title}</h1>
 
   <div
     use:motion={{ initial: { scale: 0.8 }, animate: { scale: 1 }, transition: { delay: 0.3 } }}
@@ -31,8 +31,8 @@
     {/if}
   </div>
 
-  <div class="mt-6 text-fg-secondary" md="mt-10">
-    <ul class="grid grid-cols-2 gap-6" md="gap-10">
+  <div class="mt-6 text-fg-secondary" md="mt-6">
+    <ul class="grid grid-cols-2 gap-6" md="gap-6">
       <li class="col-span-full">
         <small>Description</small>
         <p>{$page.data.excerpt}</p>
@@ -52,7 +52,7 @@
         </li>
       {/if}
 
-      <div class="flex flex-wrap col-span-full pt-6 gap-4" md="pt-12 gap-6">
+      <div class="flex flex-wrap col-span-full pt-6 gap-4" md="gap-6">
         {#each $page.data.action ?? [] as link}
           <a
             href={link.url}
@@ -71,10 +71,6 @@
 <slot />
 
 <style>
-  h1 {
-    font-variation-settings: 'slnt' 2;
-  }
-
   small {
     --uno: font-700 text-sm text-fg uppercase;
   }

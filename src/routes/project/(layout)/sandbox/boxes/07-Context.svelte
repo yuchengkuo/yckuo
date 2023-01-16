@@ -22,29 +22,32 @@
   ]
 
   async function onClose(e: Event) {
-    if (!trigger.contains(e.target as HTMLElement)) {
-      menuOpen = false
-      highlighted = -1
-    }
+    menuOpen = !menuOpen
   }
 
   async function onSelect() {
     menuOpen = false
     highlighted = -1
-    await tick()
-    trigger.focus()
   }
 
   async function onKeydown(e: KeyboardEvent) {
     await tick()
-
     if (menuOpen) {
-      if (e.key === 'Enter') return
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault()
+          highlighted++
+          break
 
-      e.preventDefault()
-      if (e.key === 'ArrowDown') highlighted++
-      if (e.key === 'ArrowUp') highlighted--
-      if (e.key === 'Escape') onSelect()
+        case 'ArrowUp':
+          e.preventDefault()
+          highlighted--
+          break
+
+        case 'Escape':
+          onSelect()
+          break
+      }
 
       highlighted = clamp(0, items.length - 1, highlighted)
       await tick()
@@ -61,10 +64,10 @@
   aria-expanded={menuOpen}
   bind:this={trigger}
   on:contextmenu|preventDefault={() => {}}
-  on:pointerdown={(e) => {
-    if (e.buttons === 2 || (e.button === 0 && e.ctrlKey === true)) {
+  on:mousedown|stopPropagation={(e) => {
+    if (e.buttons === 2 || (e.buttons === 1 && e.ctrlKey)) {
       ;({ clientX: left, clientY: top } = e)
-      menuOpen = true
+      menuOpen = !menuOpen
     }
   }}
 >

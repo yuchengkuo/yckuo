@@ -34,13 +34,17 @@ export async function getAllContentMeta<T extends Record<string, unknown>>(
  */
 export async function getContentBySlug<T extends Record<string, unknown>>(
   params: string,
-  folder = ''
+  folder = '',
+  variables = {}
 ) {
   const dirs = readdirSync(`${contentPath}/${folder}`, { withFileTypes: true })
   const file = dirs.find((f) => f.isFile() && f.name === `${params}.md`)
 
   if (file) {
-    return await parseContent<T>(readFileSync(`${contentPath}/${folder}/${file.name}`, 'utf-8'))
+    return await parseContent<T>(
+      readFileSync(`${contentPath}/${folder}/${file.name}`, 'utf-8'),
+      variables
+    )
   }
   throw error(404, `File ${params}.md does not exist`)
 }
@@ -56,16 +60,18 @@ async function parseFrontmatter<T extends Record<string, unknown>>(raw: string) 
 }
 
 /**
- * Parse provided markdown raw string with Markdoc and return RenderalbeTree and frontmatter
+ * Parse provided markdown raw string with Markdoc and return RenderalbeTree and frontmatter,
+ * with additional variables to pass to Markdoc
  */
-async function parseContent<T extends Record<string, unknown>>(raw: string) {
+async function parseContent<T extends Record<string, unknown>>(raw: string, variables = {}) {
   const ast = Markdoc.parse(raw)
+
+  const frontmatter = await parseFrontmatter<T>(raw)
+  config.variables = { frontmatter, ...variables, ...config.variables }
+
   const error = Markdoc.validate(ast, config)
 
   if (error.length) console.error('Error while validating content', error)
-
-  const frontmatter = await parseFrontmatter<T>(raw)
-  config.variables = { frontmatter, ...config.variables }
 
   const content = await Markdoc.transform(ast, config)
   return {

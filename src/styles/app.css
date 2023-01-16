@@ -81,34 +81,30 @@ html.dark {
 }
 
 body {
-  --uno: bg-bg text-fg font-Uncut font-500 -tracking-2%;
+  --uno: bg-bg text-fg font-Uncut font-475 -tracking-2%;
   --uno: min-h-screen overflow-x-hidden lt-md:px-4;
   --uno: transition-colors ease-out duration-500 delay-25;
-  font-variation-settings: 'slnt' 0;
   word-spacing: -0.04em;
 }
 
 h1,
 .lev1 {
-  --uno: font-Uncut font-700 text-fg text-3xl -tracking-0.05em;
-  font-variation-settings: 'slnt' 0;
+  --uno: font-Uncut font-700 text-fg text-6.4 -tracking-0.03em;
 }
 
 h2,
 .lev2 {
-  --uno: font-Uncut font-650 text-fg text-2xl -tracking-0.03em;
+  --uno: font-Uncut font-600 text-fg text-2xl -tracking-0.03em;
 }
 
 h3,
 .lev3 {
   --uno: font-Uncut font-550 text-fg text-xl -tracking-0.02em;
-  font-variation-settings: 'slnt' 0;
 }
 
 h4,
 .lev4 {
   --uno: font-Uncut font-550 text-fg text-lg -tracking-0.02em;
-  font-variation-settings: 'slnt' 0;
 }
 
 code {

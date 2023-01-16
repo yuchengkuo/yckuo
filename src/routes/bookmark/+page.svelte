@@ -41,8 +41,8 @@
   </script>
 </Head>
 
-<section class="max-w-640px mx-auto mb-20">
-  <h1 class="mb-4">Bookmarks</h1>
+<section class="max-w-56ch mx-auto mb-20">
+  <h1>Bookmarks</h1>
   <p class="text-fg-secondary">A curated list of interesting things on the web.</p>
 </section>
 
@@ -50,9 +50,9 @@
   <ul class="flex flex-col">
     {#each data.bookmarks as item}
       <li
-        class="relative group items-baseline py-6 mx-none sm:mx-auto lt-xl:max-w-640px"
+        class="relative group items-baseline py-6 mx-none sm:mx-auto lt-xl:max-w-56ch"
         sm="grid grid-cols-[2fr_1fr] gap-x-4"
-        xl="grid-cols-[1fr_640px_1fr] mx-unset gap-x-10"
+        xl="grid-cols-[1fr_56ch_1fr] mx-unset gap-x-10"
         on:mouseenter={() => snd.play(Snd.SOUNDS.TYPE)}
         use:motion={{
           initial: { y: downscroll ? scrollOffset : -scrollOffset },

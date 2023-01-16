@@ -1,5 +1,5 @@
 .layout-center > article > section {
-  --uno: gap-x-10 items-baseline md:grid md:grid-cols-[1fr_640px_1fr] children:col-start-2;
+  --uno: gap-x-10 items-baseline md:grid md:grid-cols-[1fr_56ch_1fr] children:col-start-2;
 }
 
 .layout-center.loose > article > section {

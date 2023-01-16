@@ -20,8 +20,8 @@
   </script>
 </Head>
 
-<section class="text-fg-secondary max-w-640px mx-auto mb-20">
-  <h1 class="mb-4">Listening</h1>
+<section class="text-fg-secondary max-w-56ch mx-auto mb-20">
+  <h1>Listening</h1>
   <p>A collection of recent favorite music.</p>
 </section>
 

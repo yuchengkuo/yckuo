@@ -8,6 +8,6 @@
   export let data: LayoutServerData
 </script>
 
-<section class="text-fg-secondary layout-center loose">
+<section class="layout-center loose text-fg-secondary">
   <Markdoc content={data.content} {components} />
 </section>

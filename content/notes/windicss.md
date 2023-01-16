@@ -26,7 +26,7 @@ Variants in utility classes are often used multiple times each time, being able 
 Value auto-info is useful when in need of one-time-use styles. In Windi CSS it's both supported with or without the `[]`, but personally I think it's much cleaner without it.
 
 ```tsx
-<section class="bg-$colors-bg mt-8rem mb-12px max-w-55ch text-hex-121212">
+<section class="bg-$colors-bg mt-8rem mb-12px max-w-56ch text-hex-121212">
   <Content />
 </section>
 ```
