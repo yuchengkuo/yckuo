@@ -38,7 +38,7 @@
 </script>
 
 <div
-  class="bg-surface flex flex-wrap rounded-3xl mt-32 p-6 gap-6 justify-between items-start relative lt-sm:(p-4 grid grid-cols-2)"
+  class="bg-surface flex flex-wrap rounded-3xl mt-32 p-4 gap-4 justify-between items-start relative lt-sm:(p-4 grid grid-cols-2)"
 >
   {#each themes.filter((t) => t.dark === $dark) as theme, index (theme.name + $dark)}
     <palette

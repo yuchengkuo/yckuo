@@ -6,14 +6,14 @@ export default function clickOutside(element: Element, callback: (evnet?: Event)
   }
 
   const doc = element.ownerDocument ?? document
-  doc.addEventListener('mouseup', onClick, true)
+  doc.addEventListener('mousedown', onClick)
 
   return {
     update(newCallback: () => void) {
       callback = newCallback
     },
     destroy() {
-      doc.removeEventListener('mouseup', onClick, true)
+      doc.removeEventListener('mousedown', onClick)
     },
   }
 }

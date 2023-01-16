@@ -15,14 +15,14 @@
   </script>
 </Head>
 
-<section class="mb-20 max-w-640px mx-auto">
-  <h1 class="mb-4">Projects</h1>
+<section class="mb-12 max-w-56ch mx-auto">
+  <h1>Projects</h1>
   <p class="text-fg-secondary">Lists of fun experiments, works and explorations.</p>
 </section>
 
 <ul>
   {#each data.allProjects as project}
-    <li md="grid gap-x-6 grid-cols-[1fr_640px_1fr]">
+    <li md="grid gap-x-6 grid-cols-[1fr_56ch_1fr]">
       <a
         class="block py-4 col-start-2 transition"
         sm="pb-8"

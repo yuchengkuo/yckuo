@@ -38,10 +38,8 @@ Aside from above, I'm an avid music listener and tv/film enthusiast. My favorite
 A [Now](https://nownownow.com/about) section. Current areas of fucus, interests and attempts,
 
 - Learning to \_\_\_\_\_\_\_\_\_
-- Prioritize myself
-- Thinking about ways to write interactive document easily
-- Document what happened
-- Picking up excercise again
+- Read one book per week
+- Building a minial, diverse web editor
 
 Thanks for stopping by, [have a great day](https://youtu.be/5PYzrhtDBrA)! ヅ
 

@@ -8,7 +8,7 @@
 
 <Head title={$page.status.toString()} />
 
-<div class="max-w-640px mx-auto">
+<div class="max-w-56ch mx-auto">
   <h1 class="mb-4">{$page.status}</h1>
 
   <p>Failed accessing <code>{$page.url.pathname}</code></p>

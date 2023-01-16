@@ -15,12 +15,12 @@
 
 {#if $page.url.pathname !== '/'}
   <header
-    class="pt-20 mb-4 relative text-sm text-fg-secondary"
+    class="pt-20 mb-4"
     data-sveltekit-preload-data
     data-sveltekit-preload-code
     use:motion={fadeInConfig}
   >
-    <div class="flex items-center gap-2 max-w-640px mx-auto py-2">
+    <div class="w-full flex items-center gap-2 max-w-56ch mx-auto py-2" children="text-sm">
       {#each pathnames as path, index}
         <a
           class="h-fit attr font-Azeret font-500 tracking-tighter"

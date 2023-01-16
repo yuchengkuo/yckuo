@@ -7,11 +7,11 @@
   let showConfetti = false
 
   const { dark, colorized, toggleMode, toggleColor } = useTheme()
+  const now = new Date().getFullYear()
 </script>
 
 <footer
-  class="max-w-640px mx-auto flex flex-wrap items-baseline justify-between border-t border-border"
-  text="xs fg-secondary"
+  class="max-w-56ch mx-auto flex flex-wrap items-baseline justify-between border-t border-border"
   gap="3 sm:6"
   p="t-20 b-20 md:b-40"
 >
@@ -40,12 +40,12 @@
       </div>
     {/if}
   </button>
-  <p class="font-Azeret font-475 tracking-tighter slashed-zero">v3 (C)2019-2022</p>
+  <p class="font-Azeret font-475 text-xs tracking-tighter slashed-zero">v3 (C)2019-{now}</p>
 </footer>
 
 <style>
   button {
-    --uno: font-Azeret;
+    --uno: font-Azeret text-xs;
   }
   p {
     font-feature-settings: 'calt' on;

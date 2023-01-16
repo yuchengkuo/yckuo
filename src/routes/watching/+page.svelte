@@ -66,7 +66,7 @@
 
 <svelte:window bind:outerWidth />
 
-<section class="text-fg-secondary max-w-640px mx-auto mb-20">
+<section class="text-fg-secondary max-w-56ch mx-auto mb-20">
   <h1
     use:motion={{
       initial: { y: '20%', opacity: 0 },

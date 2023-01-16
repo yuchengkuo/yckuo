@@ -40,12 +40,21 @@
     await tick()
 
     if (menuOpen) {
-      if (e.key === 'Enter') return
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault()
+          highlighted++
+          break
 
-      e.preventDefault()
-      if (e.key === 'ArrowDown') highlighted++
-      if (e.key === 'ArrowUp') highlighted--
-      if (e.key === 'Escape') onSelect()
+        case 'ArrowUp':
+          e.preventDefault()
+          highlighted--
+          break
+
+        case 'Escape':
+          onSelect()
+          break
+      }
 
       highlighted = clamp(0, items.length - 1, highlighted)
       await tick()

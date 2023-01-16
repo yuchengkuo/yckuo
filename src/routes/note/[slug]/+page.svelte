@@ -11,7 +11,7 @@
 
 <Head title={data.title} />
 
-<div class="mb-12 max-w-640px mx-auto">
+<div class="mb-12 max-w-56ch mx-auto">
   <h1>{data.title}</h1>
 
   <!-- <time class="font-Azeret text-sm">{lightFormat(new Date(data.date), 'yyyy-MM-dd')}</time> -->

@@ -5,12 +5,12 @@
 </script>
 
 <div
-  class="block lt-md:(max-w-640px mx-auto)"
-  md="grid grid-cols-[1fr_640px_1fr] gap-x-10"
+  class="block lt-md:(max-w-56ch mx-auto)"
+  md="grid grid-cols-[1fr_56ch_1fr] gap-x-10"
   children="col-start-2"
 >
   <section class="mb-10">
-    <h1 class="mb-4">Notes</h1>
+    <h1>Notes</h1>
     <p class="text-fg-secondary">Notes, thoughts, journals, snippets, etc.</p>
   </section>
 

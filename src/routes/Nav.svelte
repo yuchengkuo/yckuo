@@ -65,7 +65,7 @@
 <nav
   data-sveltekit-preload-code
   data-sveltekit-preload-data
-  class="overflow-scroll max-w-640px mx-auto mb-20 no-js:block"
+  class="overflow-scroll max-w-56ch mx-auto mb-20 no-js:block"
   lg="hidden"
 >
   <ul class="flex gap-1 w-fit">
