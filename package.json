@@ -56,7 +56,7 @@
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "@unocss/reset": "^0.48.4",
-    "contentlayer": "0.2.9",
+    "contentlayer": "0.3.0",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-svelte3": "^4.0.0",
