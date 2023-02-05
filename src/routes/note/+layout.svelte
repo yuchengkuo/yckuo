@@ -12,11 +12,7 @@
   }
 </script>
 
-<Head title="Notes" description="Notes, thoughts, journals, snippets, etc." {openGraph}>
-  <script>
-    document.documentElement.setAttribute('data-theme', 'note')
-  </script>
-</Head>
+<Head title="Notes" description="Notes, thoughts, journals, snippets, etc." {openGraph} />
 
 <div class="text-fg-secondary layout-center" use:motion={fadeupConfig}>
   <slot />

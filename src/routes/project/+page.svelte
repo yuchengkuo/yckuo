@@ -1,51 +1,62 @@
 <script lang="ts">
   import Head from '$lib/seo/Head.svelte'
-  import Stack from './Stack.svelte'
+  import Image from '$lib/image/Image.svelte'
+  import { tagColors } from '$lib/config'
+  import Header from '../Header.svelte'
 
-  import type { PageServerData } from './$types'
+  import type { LayoutServerData } from './$types'
 
-  export let data: PageServerData
+  export let data: LayoutServerData
 
   const openGraph = { images: [{ url: 'project.png' }], url: 'projects' }
 </script>
 
-<Head title="Projects" {openGraph}>
-  <script>
-    document.documentElement.setAttribute('data-theme', 'project')
-  </script>
-</Head>
+<Head title="Projects" {openGraph} />
 
-<section class="mb-12 max-w-56ch mx-auto">
-  <h1>Projects</h1>
-  <p class="text-fg-secondary">Lists of fun experiments, works and explorations.</p>
-</section>
+<Header
+  title="Projects"
+  desc="Experiments, fun works and explorations. These are mostly personal projects that are for learning and practicing."
+/>
 
-<ul>
-  {#each data.allProjects as project}
-    <li md="grid gap-x-6 grid-cols-[1fr_56ch_1fr]">
-      <a
-        class="block py-4 col-start-2 transition"
-        sm="pb-8"
-        hover="invert-50 dark:(invert-none brightness-85)"
-        active="invert-70 dark:(invert-none brightness-60)"
-        href={project.link || `/project/${project.slug}`}
-      >
-        <div class="lt-sm:mb-8">
-          <div class="flex justify-between items-baseline">
-            <h2 class="lev3">
-              {project.title}
-              {#if project.link}↗{/if}
-            </h2>
-            <time class="text-xs tabular-nums slashed-zero">{project.time.substring(0, 4)}</time>
-          </div>
-          <p class="mt-1.5 text-fg-secondary">
-            {project.excerpt}
-          </p>
+<div class="max-w">
+  <ul class="mt-20 lt-sm:mt-10">
+    {#each data.allProjects as project}
+      <li class="not-last:(mb-10 lt-sm:mb-4) relative">
+        <time class="text-xs text-fg-secondary absolute top-5 right-[105%] whitespace-nowrap"
+          >{project.time}</time
+        >
+        <div
+          class="rounded-lg transition p-4 -m-4 lt-sm:(p-3 -m-3) bg-surface border border-border-subtle relative"
+          hover="bg-surface"
+        >
+          <a class="block" href={project.link || `/project/${project.slug}`}>
+            <div class="flex justify-between items-baseline">
+              <h2 class="text-base">
+                {project.title}
+                {#if project.link}↗{/if}
+              </h2>
+            </div>
+            <p class="text-fg-secondary">
+              {project.excerpt}
+            </p>
+
+            <div class="flex gap-2 mt-2">
+              {#each project.tag ?? [''] as tag}
+                {@const index = Object.keys(Object.fromEntries(data.tags)).indexOf(tag)}
+                <p class="{tagColors[index] || 'tag-gray'} shrink-0">{tag}</p>
+              {/each}
+              <p />
+            </div>
+          </a>
+          {#if project.image}
+            <div class="mt-4 flex gap-4">
+              {#each project.image as img}
+                <Image {...img} class="basis-[calc(25%-12px)] grow shrink-0" />
+              {/each}
+            </div>
+          {/if}
         </div>
-        <div class="hidden">
-          <Stack images={project.image} />
-        </div>
-      </a>
-    </li>
-  {/each}
-</ul>
+      </li>
+    {/each}
+  </ul>
+</div>

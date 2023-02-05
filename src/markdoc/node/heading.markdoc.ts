@@ -17,7 +17,8 @@ export const heading: Schema = {
 
     return new Tag(`h${node.attributes['level']}`, { ...attributes, id }, [
       ...children,
-      attributes['link'] && new Tag('a', { href: `#${id}` }, ['#']),
+      attributes['link'] &&
+        new Tag('a', { href: `#${id}`, 'aria-hidden': '', tabIndex: '-1' }, ['#']),
     ])
   },
 }

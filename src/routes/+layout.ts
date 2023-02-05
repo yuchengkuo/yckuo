@@ -1,1 +1,3 @@
-export const prerender = true
+import { dev } from '$app/environment'
+
+export const prerender = !dev

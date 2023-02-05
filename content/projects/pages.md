@@ -1,5 +1,5 @@
 ---
-title: Pages Figma plugin
+title: Pages
 excerpt: A Figma plugin to help organizing pages in design file easy and neat!
 tag:
   - Figma
@@ -18,6 +18,6 @@ meta:
   - title: Timeline
     content: '2022'
 action:
-  - label: See plugin on Figma ↗
+  - label: View Plugin ↗
     url: https://www.figma.com/c/plugin/1107319011917873959
 ---

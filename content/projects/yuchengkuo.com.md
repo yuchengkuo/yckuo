@@ -5,19 +5,16 @@ tag:
   - Portfolio
   - Personal Website
   - SvelteKit
-time: 2022-09
+time: 2023-01
 image:
-  - id: project/project-list
-    alt: project list page
-    isVideo: true
-  - id: project/bookmark
-    alt: bookmarks page
-    isVideo: true
-  - id: project/project-article
+  - id: project/d3jnlmnoylq0jichw4n3
     alt: project article page
     isVideo: true
-  - id: project/home
+  - id: project/tf3c9r1ddm5megvgah1k
     alt: home page
+    isVideo: true
+  - id: project/rfndx9xdfimtlx7x0hzv
+    alt: bookmark links page
     isVideo: true
 hideCover: true
 meta:

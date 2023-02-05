@@ -10,8 +10,6 @@ interface Options {
 }
 
 export default function tooltip(element: HTMLElement, options: Options): SvelteActionReturnType {
-  element.style.position = 'relative'
-
   let {
     Component = TooltipCompnent,
     content,

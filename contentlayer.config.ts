@@ -74,6 +74,17 @@ const Project = defineDocumentType(() => ({
   computedFields,
 }))
 
+const Work = defineDocumentType(() => ({
+  name: 'Work',
+  filePathPattern: 'work/*.md',
+  fields: {
+    title: { type: 'string', required: true },
+    url: { type: 'string' },
+    duration: { type: 'string', required: true },
+    excerpt: { type: 'string' },
+  },
+}))
+
 const About = defineDocumentType(() => ({
   name: 'About',
   filePathPattern: 'about.md',
@@ -113,6 +124,6 @@ const Image = defineNestedType(() => ({
 
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Project, About, Post, Micro, Note],
+  documentTypes: [Project, About, Note, Work],
   disableImportAliasWarning: true,
 })

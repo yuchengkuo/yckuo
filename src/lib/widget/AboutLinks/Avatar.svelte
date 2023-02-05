@@ -10,7 +10,7 @@
   $: width = (38 + textWidth).toFixed(4) + 'px'
 </script>
 
-<div class="drop-shadow-md relative shrink-0 w-16">
+<div class="drop-shadow-md relative shrink-0 w-14 lt-sm:order-first">
   <Image
     id="about_avatar_cq1ocu"
     alt="YuCheng Kuo"
@@ -19,7 +19,7 @@
   />
 
   <emoji
-    class="rounded-full cursor-pointer flex bg-gray-200 border-1 border-cool-gray-300 shadow-md text-base px-2 -top-3 right-7/10 gap-1 items-center block absolute no-js:hidden dark:bg-gray-600 dark:border-cool-gray-500"
+    class="rounded-full cursor-pointer flex bg-rx-gray-4 border border-rx-gray-7 shadow-md text-base px-2 -top-3 right-7/10 gap-1 items-center block absolute no-js:hidden"
     role="presentation"
     on:mouseenter={() => (hover = true)}
     on:mouseleave={() => (hover = false)}
@@ -38,7 +38,7 @@
       aria-label="hidden"
       bind:clientWidth={textWidth}
       class:invisible={!hover}
-      class="font-700 text-xs text-orange-700 block whitespace-nowrap lt-lg:hidden dark:text-orange-300"
+      class="font-700 text-xs text-rx-orange-11 block whitespace-nowrap lt-lg:hidden dark:text-orange-300"
       >Nice meeting you :)</span
     >
   </emoji>

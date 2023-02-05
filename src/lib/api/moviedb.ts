@@ -11,7 +11,7 @@ const FAVTV_ENDPOINT = `4/account/${user_id}/tv/favorites`
 const LIST_ENDPOINT = `4/list`
 const TV_ENPOINT = '3/tv'
 
-export async function getTMDBList(page = '1', list_id = 8210272) {
+export async function getTMDBList({ page = '1', list_id = 8210272 }) {
   const url = new URL(LIST_ENDPOINT + `/${list_id}`, BASE_ENDPOINT)
   const query = new URLSearchParams({
     page: page,

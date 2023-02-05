@@ -1,5 +1,5 @@
 ---
-title: Use Shiki in Markdoc
+title: Shiki syntax highlighting in Markdoc
 date: 2022-11-08
 tag:
   - Shiki
@@ -184,7 +184,7 @@ With the help of Markdoc [attributes](https://markdoc.dev/docs/attributes), we c
 
 Update `fence` tag attributes to add `.hightlight` class for highlighted code inside Markdoc schema,
 
-```ts {% highlight=[11,29,34,35,[55,65],[69,79],82] %}
+```ts {% highlight=[11,29,34,35,[57,64],[69,79],82] %}
 // fence.markdoc.ts
 import { Tag, type Schema } from '@markdoc/markdoc'
 import shiki, { FontStyle } from 'shiki'

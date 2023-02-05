@@ -13,7 +13,7 @@
   let className = ''
   export { className as class }
 
-  let imgEl: HTMLDivElement
+  let imgEl: HTMLElement
   let snd: Snd
   let cords = { x: 0, y: 0 }
 
@@ -40,7 +40,7 @@
     const offsetX = el[target].clientWidth * 0.9
     const offsetY = -el[target].clientHeight * 0.4
     const scale = 0.8
-    const rotateZ = Math.floor(Math.random() * 20 - 10) % 10
+    const rotateZ = Math.floor(Math.random() * 20 - 10) % 8
 
     await animate(
       el[target],
@@ -62,18 +62,19 @@
   const singular = images && images.length === 1
 </script>
 
-<div
+<button
   bind:this={imgEl}
-  class="h-fit grid place-items-center relative children:(col-start-1 row-start-1)"
+  class="w-full grid place-items-center relative children:(col-start-1 row-start-1)"
   class:cursor-pointer={!singular}
   after="no-js:hidden whitespace-nowrap -rotate-4 -translate-x-1/2 -translate-y-110% origin-bottom-center {singular &&
     'hidden'}"
   data-splitbee-event="Swap stack"
   style="--x: {cords.x}px; --y: {cords.y}px;"
-  on:mouseup={swap}
+  on:click|preventDefault={swap}
   on:mousemove={(e) => (cords = { x: e.offsetX, y: e.offsetY })}
   use:motion={{
     hover: { scale: 1.01, rotateZ: 1 },
+    press: { scale: 0.99 },
     transition: { easing: 'ease-out' },
   }}
 >
@@ -86,15 +87,16 @@
       {aspectRatio}
       {blurDataUrl}
       {isVideo}
-      class="rounded-sm w-full sm:w-240px lg:w-320px z-10 shadow-md transform rotate-{deg} {className}"
+      class="rounded-sm w-full z-10 shadow-md {className}"
     />
   {/each}
-</div>
+</button>
 
 <style>
-  div:hover::after {
-    @apply text-bg bg-fg/75 text-xs font-Azeret uppercase font-650 py-1 px-2 rounded backdrop-filter backdrop-blur z-99;
-    content: 'Next->';
+  button:hover::after {
+    --uno: bg-bg/60 text-xs whitespace-nowrap font-650 py-1 px-2 rounded-md backdrop-filter
+      backdrop-blur z-99;
+    content: 'Click to ↩';
     pointer-events: none;
     position: absolute;
     left: var(--x);

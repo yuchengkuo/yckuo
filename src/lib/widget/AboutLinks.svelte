@@ -1,18 +1,21 @@
 <script lang="ts">
-  import Arena from './AboutLinks/Arena.svelte'
+  import { aboutLinks } from '$lib/config'
   import Avatar from './AboutLinks/Avatar.svelte'
-  import Figma from './AboutLinks/Figma.svelte'
-  import Github from './AboutLinks/Github.svelte'
-  import Readcv from './AboutLinks/Readcv.svelte'
-  import Savee from './AboutLinks/Savee.svelte'
 </script>
 
-<div class="my-8 flex gap-6 justify-end items-end lt-sm:gap-4 lt-md:flex-row-reverse">
+<div class="mt-8 flex flex-wrap gap-6 justify-end items-end lt-sm:gap-4 lt-md:flex-row-reverse">
   <small class="mb-0 xl:mr-auto">ヅ</small>
-  <Readcv />
-  <Github />
-  <Figma />
-  <Arena />
-  <Savee />
+
+  {#each aboutLinks as link}
+    <a
+      href={link.url}
+      data-splitbee-event="Open Link"
+      data-splitbee-target={link.label}
+      class="font-600 shrink-0"
+    >
+      <span class="{link.icon} mr-2 w-5 h-5 text-fg-secondary" />{link.label}
+    </a>
+  {/each}
+
   <Avatar />
 </div>

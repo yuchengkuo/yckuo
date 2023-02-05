@@ -3,25 +3,31 @@
 
   import Head from '$lib/seo/Head.svelte'
   import { components } from '$lib/content/components'
+  import { tagColors } from '$lib/config'
+  import Header from '../../Header.svelte'
 
   import type { PageServerData } from './$types'
+  import { page } from '$app/stores'
 
   export let data: PageServerData
 </script>
 
-<Head title={data.title} />
+<Head title={data.note.title} />
 
-<div class="mb-12 max-w-56ch mx-auto">
-  <h1>{data.title}</h1>
+<Header title={data.note.title} />
 
-  <!-- <time class="font-Azeret text-sm">{lightFormat(new Date(data.date), 'yyyy-MM-dd')}</time> -->
-  {#if data.tag}
-    <div class="flex mt-4 gap-2">
-      {#each data.tag ?? [] as tag}
-        <p
-          class="bg-fg-secondary/8 rounded-full py-px font-600 text-fg-secondary text-sm px-2"
-          dark="bg-fg-secondary/20"
-        >
+<div class="mb-8 max-w flex gap-2">
+  <time class="text-sm font-500"
+    >{new Intl.DateTimeFormat('en-US', {
+      dateStyle: 'medium',
+      timeZone: 'Asia/Taipei',
+    }).format(new Date(data.note.date))}</time
+  >
+  {#if data.note.tag}
+    <div class="flex gap-2">
+      {#each data.note.tag ?? [] as tag}
+        {@const index = Object.keys(Object.fromEntries(data.tags)).indexOf(tag)}
+        <p class={tagColors[index] || 'tag-gray'}>
           {tag}
         </p>
       {/each}
@@ -29,4 +35,4 @@
   {/if}
 </div>
 
-<Markdoc content={data.content} {components} />
+<Markdoc content={data.note.content} {components} />
