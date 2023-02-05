@@ -21,7 +21,7 @@
       use:placePopover={{ trigger, offset, placement, alignment }}
     >
       <span
-        class="block relative rounded font-Uncut text-xs font-700 leading-none bg-fg-secondary/90 text-bg shadow-lg w-max h-fit py-2 px-2.5 backdrop-blur border-1 border-fg-secondary/50"
+        class="block relative rounded font-Uncut text-xs font-700 leading-none bg-surface/30 shadow-lg w-max h-fit py-2 px-2.5 backdrop-blur border border-border-subtle"
         use:motion={{
           initial: { transform: 'translateY(2px) rotateX(1deg)', filter: 'blur(1px)', opacity: 0 },
           animate: { transform: 'none', opacity: 1, filter: 'none' },

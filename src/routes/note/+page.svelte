@@ -1,19 +1,13 @@
 <script lang="ts">
+  import Header from '../Header.svelte'
   import type { PageData } from './$types'
 
   export let data: PageData
 </script>
 
-<div
-  class="block lt-md:(max-w-56ch mx-auto)"
-  md="grid grid-cols-[1fr_56ch_1fr] gap-x-10"
-  children="col-start-2"
->
-  <section class="mb-10">
-    <h1>Notes</h1>
-    <p class="text-fg-secondary">Notes, thoughts, journals, snippets, etc.</p>
-  </section>
+<Header title="Notes" desc="Random notes. Documenting things that I learned for now." />
 
+<div class="lt-md:(block max-w)" md="max-w-grid" children="col-start-2">
   <section>
     <ul>
       {#each data.notes as note}
@@ -27,7 +21,7 @@
             hover="invert-50 dark:(invert-none brightness-80)"
             href="/note/{note.slug}"
           >
-            {note.title}<span class="text-xs tabular-nums slashed-zero">{date}</span>
+            {note.title}<span class="text-xs">{date}</span>
           </a>
         </li>
       {/each}

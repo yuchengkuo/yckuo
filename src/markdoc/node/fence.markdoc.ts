@@ -44,18 +44,14 @@ export const fence: Schema = {
 
     const lightTree = getRenderableTree(tokens, highlight)
     const darkTree = getRenderableTree(darkTokens, highlight)
-    const lightBG = highlighter.getBackgroundColor()
-    const darkBG = highlighter.getBackgroundColor(theme.dark)
 
     const lightAttr = {
       ...attributes,
       class: 'shiki shiki-light',
-      style: `background-color: ${lightBG};`,
     }
     const darkAttr = {
       ...attributes,
       class: 'shiki shiki-dark',
-      style: `background-color: ${darkBG};`,
     }
 
     return new Tag('div', { ...attributes, class: 'shiki-container' }, [

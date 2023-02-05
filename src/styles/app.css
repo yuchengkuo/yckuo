@@ -59,19 +59,24 @@
 }
 
 ::selection {
-  --uno: bg-surface;
+  --uno: bg-rx-grass-5;
 }
 
 * {
-  scrollbar-color: rgba(var(--colors-fg), 0.5) rgb(var(--colors-bg));
+  scrollbar-color: var(--foreground) hsl(var(--background));
 }
 
 html {
   --uno: bg-bg mx-auto min-h-screen max-w-9xl antialiased;
 }
 
-html.dark {
+html.dark-theme {
   color-scheme: dark;
+}
+
+html, body, * {
+  --uno:  transition-colors ease-out duration-500 delay-25;
+  font-variation-settings: 'slnt' 0;
 }
 
 @screen 2xl {
@@ -81,37 +86,35 @@ html.dark {
 }
 
 body {
-  --uno: bg-bg text-fg font-Uncut font-475 -tracking-2%;
+  --uno: bg-bg text-fg font-Uncut font-460 -tracking-2%;
   --uno: min-h-screen overflow-x-hidden lt-md:px-4;
-  --uno: transition-colors ease-out duration-500 delay-25;
-  word-spacing: -0.04em;
+  word-spacing: -0.01em;
 }
 
 h1,
 .lev1 {
-  --uno: font-Uncut font-700 text-fg text-6.4 -tracking-0.03em;
+  --uno: font-700 text-fg text-2xl -tracking-0.04em;
 }
 
 h2,
 .lev2 {
-  --uno: font-Uncut font-600 text-fg text-2xl -tracking-0.03em;
+  --uno: font-650 text-fg text-xl;
 }
 
 h3,
 .lev3 {
-  --uno: font-Uncut font-550 text-fg text-xl -tracking-0.02em;
+  --uno: font-600 text-fg text-lg;
 }
 
 h4,
 .lev4 {
-  --uno: font-Uncut font-550 text-fg text-lg -tracking-0.02em;
+  --uno: font-550 text-fg text-lg;
 }
 
 code {
-  --uno: bg-surface text-fg rounded font-Azeret font-600 -my-1 p-1 text-0.8em;
+  --uno: bg-rx-gray-5 text-fg rounded font-Azeret py-px px-1 mx-0.5 text-0.75em shadow-sm;
 }
 
 kbd {
-  --uno: bg-surface rounded font-Azeret border-b-2 border-fg-secondary/30 border-x-1 border-t-1
-    font-650 text-sm leading-none py-1 px-1.5 inline-block;
+  --uno: inline-block bg-surface rounded font-Azeret font-650 text-xs leading-none py-1 px-1.5 border-b-2 border-fg-secondary/28 border-x-1 border-t-1;
 }

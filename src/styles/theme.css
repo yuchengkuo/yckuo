@@ -1,209 +1,23 @@
-:root,
-[data-theme='default'] {
-  --colors-bg: 230, 250, 230;
+:root {
+  --background: 0, 0%, 97%;
 
-  --colors-fg: 52, 72, 9;
-  --colors-fg-secondary: 37, 27, 78;
+  --foreground: 0, 0%, 10%;
+  --foreground-secondary: 0, 0%, 44%;
 
-  --colors-surface: 37, 27, 78;
-  --colors-border: 37, 27, 78;
+  --surface: 0, 0%, 100%;
+  --surface-subtle: 0, 0%, 98%;
+  --border: 0, 0%, 90%;
+  --border-subtle: 0, 0%, 94%;
 }
 
-.dark,
-.dark[data-theme='default'] {
-  --colors-bg: 64, 78, 24;
+.dark-theme {
+  --background: 0, 0%, 6%;
 
-  --colors-fg: 249, 232, 166;
-  --colors-fg-secondary: 222, 247, 208;
+  --foreground: 0, 0%, 90%;
+  --foreground-secondary: 0, 0%, 70%;
 
-  --colors-surface: 222, 247, 208;
-  --colors-border: 222, 247, 208;
-}
-
-.no-js,
-.decolorize,
-.decolorize[data-theme],
-.no-js[data-theme],
-[data-theme='gray'] {
-  --colors-bg: 255, 255, 255;
-
-  --colors-fg: 16, 16, 16;
-  --colors-fg-secondary: 96, 96, 96;
-
-  --colors-surface: 96, 96, 96;
-  --colors-border: 96, 96, 96;
-}
-
-.no-js.dark,
-.decolorize.dark,
-.dark .decolorize,
-.decolorize[data-theme].dark,
-[data-theme='gray'].dark {
-  --colors-bg: 24, 24, 24;
-
-  --colors-fg: 235, 235, 235;
-  --colors-fg-secondary: 180, 180, 180;
-
-  --colors-surface: 255, 255, 255;
-  --colors-border: 255, 255, 255;
-}
-
-[data-theme='about'] {
-  --colors-bg: 249, 242, 166;
-
-  --colors-fg: 103, 25, 17;
-  --colors-fg-secondary: 45, 32, 71;
-
-  --colors-surface: 45, 32, 71;
-  --colors-border: 45, 32, 71;
-}
-
-[data-theme='about'].dark {
-  --colors-bg: 75, 69, 30;
-
-  --colors-fg: 233, 223, 132;
-  --colors-fg-secondary: 208, 222, 200;
-
-  --colors-surface: 208, 222, 200;
-  --colors-border: 208, 222, 200;
-}
-
-[data-theme='project'] {
-  --colors-bg: 236, 248, 225;
-
-  --colors-fg: 75, 35, 35;
-  --colors-fg-secondary: 37, 14, 94;
-
-  --colors-surface: 37, 14, 94;
-  --colors-border: 37, 14, 94;
-}
-
-[data-theme='project'].dark {
-  --colors-bg: 59, 77, 51;
-
-  --colors-fg: 240, 211, 116;
-  --colors-fg-secondary: 235, 231, 208;
-
-  --colors-surface: 235, 231, 208;
-  --colors-border: 235, 231, 208;
-}
-
-[data-theme='project_id'] {
-  --colors-bg: 253, 248, 240;
-
-  --colors-fg: 71, 45, 48;
-  --colors-fg-secondary: 78, 41, 62;
-
-  --colors-surface: 78, 41, 62;
-  --colors-border: 78, 41, 62;
-}
-
-[data-theme='project_id'].dark {
-  --colors-bg: 26, 2, 29;
-
-  --colors-fg: 233, 229, 205;
-  --colors-fg-secondary: 211, 223, 225;
-
-  --colors-surface: 211, 223, 225;
-  --colors-border: 211, 223, 225;
-}
-
-[data-theme='bookmark'] {
-  --colors-bg: 245, 254, 254;
-
-  --colors-fg: 1, 70, 230;
-  --colors-fg-secondary: 8, 65, 100;
-
-  --colors-surface: 8, 65, 100;
-  --colors-border: 8, 65, 100;
-}
-
-[data-theme='bookmark'].dark {
-  --colors-bg: 35, 32, 92;
-
-  --colors-fg: 183, 247, 228;
-  --colors-fg-secondary: 201, 205, 193;
-
-  --colors-surface: 201, 205, 193;
-  --colors-border: 201, 205, 193;
-}
-
-[data-theme='listening'] {
-  --colors-bg: 254, 234, 246;
-
-  --colors-fg: 123, 29, 38;
-  --colors-fg-secondary: 45, 30, 73;
-
-  --colors-surface: 45, 30, 73;
-  --colors-border: 45, 30, 73;
-}
-
-[data-theme='listening'].dark {
-  --colors-bg: 94, 37, 39;
-
-  --colors-fg: 224, 210, 224;
-  --colors-fg-secondary: 216, 213, 205;
-
-  --colors-surface: 216, 213, 205;
-  --colors-border: 216, 213, 205;
-}
-
-[data-theme='watching'] {
-  --colors-bg: 254, 236, 220;
-
-  --colors-fg: 102, 37, 48;
-  --colors-fg-secondary: 0, 1, 54;
-
-  --colors-surface: 0, 1, 54;
-  --colors-border: 0, 1, 54;
-}
-
-[data-theme='watching'].dark {
-  --colors-bg: 92, 52, 27;
-
-  --colors-fg: 254, 200, 74;
-  --colors-fg-secondary: 190, 198, 184;
-
-  --colors-surface: 190, 198, 184;
-  --colors-border: 190, 198, 184;
-}
-
-[data-theme='note'] {
-  --colors-bg: 250, 251, 232;
-
-  --colors-fg: 33, 84, 64;
-  --colors-fg-secondary: 45, 32, 71;
-
-  --colors-surface: 45, 32, 71;
-  --colors-border: 45, 32, 71;
-}
-
-[data-theme='note'].dark {
-  --colors-bg: 17, 4, 57;
-
-  --colors-fg: 237, 196, 175;
-  --colors-fg-secondary: 186, 199, 185;
-
-  --colors-surface: 186, 199, 185;
-  --colors-border: 186, 199, 185;
-}
-
-[data-theme='amour'] {
-  --colors-bg: 251, 240, 244;
-
-  --colors-fg: 20, 60, 123;
-  --colors-fg-secondary: 68, 35, 52;
-
-  --colors-surface: 68, 35, 52;
-  --colors-border: 68, 35, 52;
-}
-
-[data-theme='amour'].dark {
-  --colors-bg: 251, 240, 244;
-
-  --colors-fg: 20, 60, 123;
-  --colors-fg-secondary: 68, 35, 52;
-
-  --colors-surface: 68, 35, 52;
-  --colors-border: 68, 35, 52;
+  --surface: 0, 0%, 9%;
+  --surface-subtle: 0, 0%, 8%;
+  --border: 0, 0%, 14%;
+  --border-subtle: 0, 0%, 10%;
 }

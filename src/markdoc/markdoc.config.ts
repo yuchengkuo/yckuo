@@ -6,6 +6,7 @@ import { grid } from './tag/grid.markdoc'
 import { heading } from './node/heading.markdoc'
 import { image } from './tag/image.markdoc'
 import { widget } from './tag/widget.markdoc'
+import { carousel } from './tag/carousel.markdoc'
 
 export const config: ConfigType = {
   functions: {},
@@ -17,6 +18,7 @@ export const config: ConfigType = {
   partials: {},
   tags: {
     about: { render: 'About' },
+    carousel,
     gallery,
     grid,
     image,

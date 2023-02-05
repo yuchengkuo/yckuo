@@ -34,7 +34,7 @@ This project is about discovery, teamwork, and passion. As new technology evolve
 
 ### Project Goal
 
-The primary goal was to build a small formula-style racecar to compete in the Formula Student event, as an attempt to closer the gap between undergrad and the industry.
+The primary goal was to build a small formula-style racecar to compete in the Formula Student event, which is somewhat challenging for a first year team.
 
 {% image
   id="project/building-the-racecar/team-photo_fkcqkm"
@@ -88,7 +88,7 @@ We learned that most of the team spent 1+ years for their first attempt, so sett
 
 At the same time, we also visited other experienced team in Taiwan, [NTHU Racing](https://www.facebook.com/NTHU.Racing), [STUST Racing](https://www.facebook.com/ST.RacingTeam2005), and [Taipei Tech Racing](https://www.facebook.com/TaipeiTechRacing). Seeing what they've built and listening to their stories really taught us a lot (and realized it's going to be tough.🤞🏼)
 
-{% gallery %}
+{% carousel %}
 
 {%image
   id="project/building-the-racecar/res-1_bxehd4"
@@ -108,7 +108,7 @@ At the same time, we also visited other experienced team in Taiwan, [NTHU Racing
   showcap=true
 /%}
 
-{% /gallery %}
+{% /carousel %}
 
 ## Early Stage Challenges
 
@@ -152,7 +152,7 @@ Even though the purpose of the event is to let students develop the vehicles on 
 
 Working with the industry taught us more about professional workflow, and also started to understand the industry standards. Really appreciated the assistance and advice the industry gave.
 
-{% gallery %}
+{% carousel %}
 
 {%image
   id="project/building-the-racecar/dev-3_njgbvp"
@@ -178,7 +178,7 @@ Working with the industry taught us more about professional workflow, and also s
   showcap=true
 /%}
 
-{% /gallery %}
+{% /carousel %}
 
 ## Preparing for competition
 
@@ -188,7 +188,7 @@ As a matter of fact, we rarely had time for vehicle testing due to lack of exper
 
 As for the vehicle transportation from Taiwan to Japan, we needed to make sure the packaing and documentation were fully prepared. These procedures seemed trivial but turned out to be lessons in the operational side. And for overseas teams around the world, shipment of the vehicle tightened up the project timeline even more.
 
-{% gallery %}
+{% carousel %}
 
 {%image
   id="project/building-the-racecar/test-2_wa3pwy"
@@ -214,7 +214,7 @@ As for the vehicle transportation from Taiwan to Japan, we needed to make sure t
   showcap=true
 /%}
 
-{% /gallery %}
+{% /carousel %}
 
 ## FS Japan 2019
 

@@ -1,5 +1,5 @@
 ---
-title: Windi CSS features
+title: WindiCSS features
 date: 2022-11-11
 tag:
   - Windicss
@@ -18,7 +18,7 @@ Variants in utility classes are often used multiple times each time, being able 
 </button>
 
 <!-- with variant groups -->
-<button class="bg-black text-white hover:(bg-white rounded text-black) ">Next Step -></button>
+<button class="bg-black text-white hover:(bg-white rounded text-black)">Next Step -></button>
 ```
 
 ## Value Auto-infer
@@ -33,7 +33,7 @@ Value auto-info is useful when in need of one-time-use styles. In Windi CSS it's
 
 ## Attributify Mode
 
-Attributify mode is the most interesting one, it enables us to write utility class in html attributes.
+Attributify mode is the most interesting one, it enables us to write utility class in html attributes. This could be useful to seperate utilities in different breakpoints.
 
 ```svelte
 <button

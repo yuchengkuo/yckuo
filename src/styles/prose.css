@@ -1,47 +1,60 @@
 .prose p {
-  --uno: mb-8 leading-8 lt-sm:(mb-6 leading-7);
+  --uno: mt-4 leading-8 lt-sm:(mt-3 leading-7);
 }
 
 .prose h1 {
-  --uno: mb-8;
+  --uno: not-first:(mt-10 lt-sm:mt-8);
 }
 
 .prose h2 {
-  --uno: mb-2 py-2 md:not-first:mt-4 lg:mb-4;
+  --uno: not-first:(mt-10 lt-sm:mt-8);
 }
 
 .prose h3 {
-  --uno: my-2 lg:mb-3 font-625;
+  --uno: mt-10 lt-sm:mt-6;
 }
 
 .prose h4 {
-  --uno: my-2 lg:mb-3 font-600;
+  --uno: mt-6 lt-sm:mt-4;
 }
 
 .prose h1[id],
 .prose h2[id],
 .prose h3[id],
 .prose h4[id] {
-  --uno: children:hover:opacity-100 children:focus:opacity-100;
   scroll-margin-top: 56px;
 }
-.prose h1[id] a,
-.prose h2[id] a,
-.prose h3[id] a,
-.prose h4[id] a {
-  --uno: font-semibold ml-2 opacity-0 text-0.8em;
+.prose h1[id] a[aria-hidden],
+.prose h2[id] a[aria-hidden],
+.prose h3[id] a[aria-hidden],
+.prose h4[id] a[aria-hidden] {
+  --uno: font-semibold ml-2 opacity-0 text-0.8em select-none;
+}
+.prose h1[id]:hover a[aria-hidden],
+.prose h2[id]:hover a[aria-hidden],
+.prose h3[id]:hover a[aria-hidden],
+.prose h4[id]:hover a[aria-hidden] {
+  --uno: opacity-100;
 }
 
 .prose a {
-  --uno: text-fg attr;
+  --uno: attr text-fg;
 }
 
 hr {
   --uno: border-t border-border my-8;
 }
 
+.prose strong{
+  --uno: text-fg;
+}
+
+.prose em {
+  --uno: font-Newsreader font-550;
+}
+
 .prose blockquote {
-  --uno: bg-surface border-border rounded-sm border-l-2 shadow-sm -my-2 mx-0 -mx-5 -mx-3 mb-10 py-2 px-5 lt-sm:(-mx-2.5 px-2.5 -my-1 py-1 mb-6);
+  --uno: bg-rx-grass1 border-rx-grass9 rounded-r border-l-3 shadow-sm py-2 px-5 -mx-5 my-10 lt-sm:(-mx-2.5 px-2.5 -my-1 py-1 mt-6);
 }
 .prose blockquote * {
   --uno: font-Newsreader font-550 text-base mb-0 leading-9 italic lt-sm:leading-7;
@@ -53,34 +66,41 @@ hr {
 }
 
 .prose li {
-  --uno: mb-1 xl:mb-2;
+  --uno: mb-1 xl:mb-2 pl-1 -ml-1 lt-sm:list-inside marker:(text-base text-fg-secondary);
 }
 
-.prose ul {
-  --uno: mb-8;
+.prose ul, ol {
+  --uno: mt-6;
 }
+
 .prose ul li {
- --uno: list-outside before:(content-['—'] inline-block mr-2 font-700 text-base text-border);
+ list-style-type: '-  ';
+}
+@screen sm {
+  .prose ul li {
+    list-style-type: '–';
+  }
 }
 
-.prose ol {
-  --uno: mb-8 pl-6;
-}
 .prose ol li {
-  --uno: marker:(text-base font-400 tabular-nums);
+  --uno: list-decimal;
+}
+
+.prose > figure {
+  --uno: mt-12;
 }
 
 .prose .shiki-container {
-  --uno: bg-surface rounded-xl border-1 border-fg/6 mb-8 overflow-x-auto dark:(bg-surface border-fg/6);
+  --uno: bg-surface rounded-lg border-1 border-border mt-4 overflow-x-auto drop-shadow-sm;
   counter-reset: line;
 }
 
 .prose .shiki-container pre {
-  @apply font-Azeret min-w-full my-0 w-fit py-4 pl-2 pr-4 !bg-transparent lt-md:(py-3 px-4);
+  --uno: font-Azeret min-w-full my-0 w-fit py-3 px-1.5 bg-transparent lt-md:(py-3 px-4);
 }
 
 .prose .shiki-container code {
-  --uno: bg-transparent font-525 m-0 text-xs leading-5 p-0;
+  --uno: bg-transparent font-500 m-0 text-xs leading-5 p-0;
 }
 
 .prose .shiki-container .line {
@@ -90,11 +110,15 @@ hr {
 .prose .shiki-container .line::before {
   counter-increment: line;
   content: counter(line);
-  --uno: inline-block w-4 mr-4 text-fg-secondary/50 text-right;
+  --uno: inline-block min-w-4 mr-3 text-fg-secondary/50 text-right;
 }
 
-.prose .shiki-container .no-highlight span {
-  @apply !text-gray-500 !dark:text-gray-400;
+.prose .shiki-container .highlight {
+  --uno: bg-rx-gray-3 px-4 -mx-4;
+}
+
+.prose .shiki-container .no-highlight {
+  --uno: saturate-0;
 }
 
 .prose .shiki-light {

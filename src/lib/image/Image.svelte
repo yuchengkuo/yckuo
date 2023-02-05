@@ -1,6 +1,5 @@
 <script lang="ts">
   import { beforeUpdate, onMount, tick } from 'svelte'
-  import { inView } from 'motion'
 
   import { getAWebpProps, getImgProps } from './getImgProps'
 
@@ -26,9 +25,7 @@
   export { className as class }
 
   let imgEl: HTMLImageElement
-  let container: HTMLElement
   let visible = false
-  let inview = false
   let current = false
 
   let src = ''
@@ -71,44 +68,44 @@
   })
 
   onMount(() => {
-    inView(container, () => {
-      inview = true
-    })
     return () => (current = false)
   })
 </script>
 
-<figure on:click bind:this={container} class="{className} overflow-hidden block" {...$$restProps}>
+<figure
+  on:click
+  class="overflow-hidden block isolate all:isolate @container-normal {className}"
+  {...$$restProps}
+>
   <div
-    class="rounded md:rounded-md lg:rounded-lg relative overflow-hidden no-js:hidden"
+    class="rounded @md:rounded-md @lg:rounded-lg relative overflow-hidden no-js:hidden"
     style="aspect-ratio: {aspectRatio}"
   >
-    <div class="bg-surface inset-0 absolute" class:hidden={visible} />
+    <div class="bg-surface-subtle inset-0 absolute select-none" class:hidden={visible} />
 
     {#if blurDataUrl}
       <img
         src={blurDataUrl}
         {alt}
-        class="h-full object-cover w-full inset-0 transition-opacity ease-out duration-300 absolute"
         class:opacity-0={visible}
+        class="h-full object-cover w-full inset-0 transition-opacity ease-out duration-300 absolute select-none"
       />
       <div
-        class="inset-0 transition-opacity ease-out duration-300 absolute backdrop-filter backdrop-blur-xl"
         class:opacity-0={visible}
+        class="inset-0 transition-opacity ease-out duration-300 absolute backdrop-filter backdrop-blur-xl select-none"
       />
     {/if}
 
-    {#if inview}
-      <img
-        bind:this={imgEl}
-        {src}
-        {alt}
-        {srcset}
-        {sizes}
-        class="bg-surface h-full object-cover object-center w-full transition-opacity ease-out duration-300"
-        class:opacity-0={!visible}
-      />
-    {/if}
+    <img
+      bind:this={imgEl}
+      {src}
+      {alt}
+      {srcset}
+      {sizes}
+      loading="lazy"
+      class:opacity-0={!visible}
+      class="bg-surface h-full object-cover object-center w-full transition-opacity ease-out duration-300"
+    />
   </div>
 
   <noscript>
@@ -130,10 +127,6 @@
 </figure>
 
 <style>
-  figure,
-  figure * {
-    isolation: isolate;
-  }
   figcaption {
     font-variation-settings: 'slnt' 10;
   }

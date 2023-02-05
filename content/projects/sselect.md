@@ -1,5 +1,5 @@
 ---
-title: SSelect Figma plugin
+title: SSelect
 excerpt: A little Figma plugin to make quick selections happen in Quick Actions.
 tag:
   - Figma
@@ -18,6 +18,6 @@ meta:
   - title: Timeline
     content: '2022'
 action:
-  - label: See plugin on Figma ↗
+  - label: View Plugin ↗
     url: https://figma.com/c/plugin/1087207671419748735
 ---
