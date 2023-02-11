@@ -5,12 +5,13 @@
 
   import NProgress from 'nprogress'
 
-  import { afterNavigate, beforeNavigate } from '$app/navigation'
+  import { afterNavigate, beforeNavigate, goto } from '$app/navigation'
   import { page } from '$app/stores'
   import { dev } from '$app/environment'
   import { motion } from '$lib/animation/motion'
   import Head from '$lib/seo/Head.svelte'
   import useTheme from '$lib/theme/useTheme'
+  import { routes } from '$lib/config'
 
   import Layer from './Layer.svelte'
 
@@ -18,6 +19,16 @@
 
   beforeNavigate(() => NProgress.start())
   afterNavigate(() => NProgress.done())
+
+  function navigate(e: KeyboardEvent) {
+    if (e.key === '0') goto('/')
+    if (e.key === '1') goto(routes[0].url)
+    if (e.key === '2') goto(routes[1].url)
+    if (e.key === '3') goto(routes[2].url)
+    if (e.key === '4') goto(routes[3].url)
+    if (e.key === '5') goto(routes[4].url)
+    if (e.key === '6') goto(routes[5].url)
+  }
 
   let withTransition = true
   const { dark, toggleMode } = useTheme()
@@ -37,6 +48,8 @@
   ]
   $: withTransition = noTransitionRoutes.every((r) => !$page.url.pathname.includes(r))
 </script>
+
+<svelte:window on:keydown={navigate} />
 
 <Head>
   {#if !dev}

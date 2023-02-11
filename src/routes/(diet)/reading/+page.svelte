@@ -22,8 +22,9 @@
               hover="translate-z-2 drop-shadow-xl"
               ><Image
                 id={item.cover}
-                class="bg-surface-subtle drop-shadow-md min-h-32"
+                class="bg-surface-subtle drop-shadow-md min-h-48"
                 children="rounded-none"
+                widths={[120, 240]}
               /></a
             >
             <div class="row-start-2 mt-2">

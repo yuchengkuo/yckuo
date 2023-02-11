@@ -31,6 +31,7 @@
               id={item.posterUrl}
               alt="Poster of {item.type}, {item.title}"
               aspectRatio="100/152"
+              widths={[160, 400]}
             />
           </a>
         </li>
