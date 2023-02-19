@@ -8,7 +8,11 @@
   export let data: PageServerData
 </script>
 
-<Head title="Blogrolls" description="A little collection of interesting things on the internet." />
+<Head
+  title="Blogrolls"
+  description="Newsletters and blogs that I enjoy."
+  openGraph={{ url: 'blogroll' }}
+/>
 
 <section class="max-w">
   <ul>

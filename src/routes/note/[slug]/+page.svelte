@@ -7,12 +7,11 @@
   import Header from '../../Header.svelte'
 
   import type { PageServerData } from './$types'
-  import { page } from '$app/stores'
 
   export let data: PageServerData
 </script>
 
-<Head title={data.note.title} />
+<Head title={data.note.title} openGraph={{ url: `note/${data.note.slug}` }} />
 
 <Header title={data.note.title} />
 

@@ -1,12 +1,19 @@
 <script lang="ts">
   import tooltip from '$lib/action/tooltip/action'
   import Image from '$lib/image/Image.svelte'
+  import Head from '$lib/seo/Head.svelte'
 
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
   const items = { 'Currently Reading': data.reading, 'Recently Read': data.recent }
 </script>
+
+<Head
+  title="Reading"
+  description="Currently reading and reading goals."
+  openGraph={{ url: 'reading' }}
+/>
 
 <div class="bg-surface rounded-3xl py-12 lt-sm:(p-4 -mx-4)">
   {#each Object.entries(items) as [key, value]}

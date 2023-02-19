@@ -7,11 +7,13 @@
   import type { LayoutServerData } from './$types'
 
   export let data: LayoutServerData
-
-  const openGraph = { images: [{ url: 'project.png' }], url: 'projects' }
 </script>
 
-<Head title="Projects" {openGraph} />
+<Head
+  title="Projects"
+  description="Experiments, fun works and explorations."
+  openGraph={{ url: 'project' }}
+/>
 
 <Header
   title="Projects"

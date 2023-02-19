@@ -10,7 +10,11 @@
   export let data: LayoutServerData
 </script>
 
-<Head title={data.project.title} description={data.project.excerpt} />
+<Head
+  title={data.project.title}
+  description={data.project.excerpt}
+  openGraph={{ url: `project/${data.project.slug}` }}
+/>
 
 <Header title={data.project.title} />
 
