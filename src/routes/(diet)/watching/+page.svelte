@@ -5,11 +5,13 @@
   import type { PageServerData } from './$types'
 
   export let data: PageServerData
-
-  const openGraph = { images: [{ url: 'watching.png' }], url: 'watching' }
 </script>
 
-<Head title="Watching" description="A list of series and films that I find great." {openGraph} />
+<Head
+  title="Watching"
+  description="A list of series and films that I find great."
+  openGraph={{ url: 'watching' }}
+/>
 
 <div class="bg-surface py-12 rounded-3xl lt-sm:(py-4 -mx-4)">
   <section class="max-w-grid mb-24 lt-sm:(mb-12 px-4)">

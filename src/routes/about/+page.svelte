@@ -10,7 +10,7 @@
   export let data: PageServerData
 </script>
 
-<Head title="About" />
+<Head title="About" openGraph={{ url: 'about' }} />
 
 <Header title={data.about.title} class="!mb-0" />
 

@@ -1,12 +1,6 @@
-import { getContentBySlug } from '$lib/content/utils'
 import type { PageServerLoad } from './$types'
-import type { Changelog } from '$contentlayer'
 import { redirect } from '@sveltejs/kit'
 
-export const load: PageServerLoad = async function ({ setHeaders }) {
+export const load: PageServerLoad = async function () {
   throw redirect(307, '/')
-  const changelog = await getContentBySlug<Changelog>('changelog')
-
-  setHeaders({ 'cache-control': 'public, max-age=259200' })
-  return changelog
 }

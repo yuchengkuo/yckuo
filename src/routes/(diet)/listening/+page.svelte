@@ -6,11 +6,10 @@
 
   export let data: PageData
 
-  const openGraph = { images: [{ url: 'listening.png' }], url: 'listening' }
   const items = { 'Recent top': data.albums, 'Recent saved': data.saved }
 </script>
 
-<Head title="Listening" description="A collection of jam." {openGraph} />
+<Head title="Listening" description="A collection of jam." openGraph={{ url: 'listening' }} />
 
 <div class="bg-surface px-6 py-12 rounded-3xl lt-sm:(p-4 -mx-4)">
   {#each Object.keys(items) as key}

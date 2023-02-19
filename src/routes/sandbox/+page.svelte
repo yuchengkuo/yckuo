@@ -5,7 +5,7 @@
   const boxes = import.meta.glob<any>('./boxes/*.svelte')
 </script>
 
-<Head title="Sandbox" description="A little playground." />
+<Head title="Sandbox" description="A little playground." openGraph={{ url: 'sandbox' }} />
 
 <Header
   title="Sandbox"

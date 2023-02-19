@@ -12,8 +12,6 @@
   const scrollOffset = 24
   let initialScrollTop = 0
   let downscroll = true
-
-  const openGraph = { images: [{ url: 'bookmarks.png' }], url: 'bookmark' }
 </script>
 
 <svelte:window
@@ -27,7 +25,7 @@
 <Head
   title="Bookmarks"
   description="A little collection of interesting things on the internet."
-  {openGraph}
+  openGraph={{ url: 'bookmark' }}
 />
 
 <section class="max-w">
