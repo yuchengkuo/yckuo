@@ -11,12 +11,30 @@ const FAVTV_ENDPOINT = `4/account/${user_id}/tv/favorites`
 const LIST_ENDPOINT = `4/list`
 const TV_ENPOINT = '3/tv'
 
-export async function getTMDBList({ page = '1', list_id = 8210272 }) {
+type SortBy =
+  | 'original_order.asc'
+  | 'original_order.desc'
+  | 'release_date.asc'
+  | 'release_date.desc'
+  | 'title.asc'
+  | 'title.desc'
+  | 'vote_average.asc'
+  | 'vote_average.desc'
+
+export async function getTMDBList({
+  page = '1',
+  list_id = 8210272,
+  sort_by = 'release_date.desc',
+}: {
+  page?: string
+  list_id?: number
+  sort_by?: SortBy
+}) {
   const url = new URL(LIST_ENDPOINT + `/${list_id}`, BASE_ENDPOINT)
   const query = new URLSearchParams({
     page: page,
     api_key,
-    sort_by: 'release_date.desc',
+    sort_by,
   })
 
   return fetch(getFullUrl(url, query), {

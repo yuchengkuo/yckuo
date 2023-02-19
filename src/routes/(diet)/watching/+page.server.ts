@@ -17,7 +17,9 @@ export const load: PageServerLoad = async function ({ setHeaders, url }) {
   setHeaders({ 'cache-control': 'public, s-maxage=86400, stale-while-revalidate=43200' })
   const page = url.searchParams.get('page')
   try {
-    const { results: toRecent } = await (await getTMDBList({ list_id: 8238723 })).json()
+    const { results: toRecent } = await (
+      await getTMDBList({ list_id: 8238723, sort_by: 'original_order.asc' })
+    ).json()
     const recent = toRecent.map(mapItems) as Item[]
 
     const res = await getTMDBList({ page })

@@ -13,7 +13,8 @@
     <section class="max-w-grid">
       <div class="text-sm font-600 text-right lt-lg:(col-start-2 text-left mb-4)">{key}</div>
       <ul class="col-start-2 grid grid-cols-5 gap-4 lt-sm:grid-cols-3 items-end font-Newsreader">
-        {#each value as item}
+        {#each value as item (item.id)}
+          {@const progress = data.progress.find((p) => p.bookId === item.id)?.progress}
           <li class="perspective-400">
             <a
               href="https://literal.club/book/{item.slug}"
@@ -22,10 +23,13 @@
               hover="translate-z-2 drop-shadow-xl"
               ><Image
                 id={item.cover}
-                class="bg-surface-subtle drop-shadow-md min-h-48"
+                class="bg-surface-subtle drop-shadow-md"
                 children="rounded-none"
                 widths={[120, 240]}
-              /></a
+              />{#if progress}<span
+                  class="absolute h-0.5 bg-rx-grass-9"
+                  style="width: {progress}%;"
+                />{/if}</a
             >
             <div class="row-start-2 mt-2">
               <h2 class="text-sm line-clamp-1">{item.title}</h2>
