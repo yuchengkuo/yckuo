@@ -49,6 +49,7 @@
               id={item.posterUrl}
               alt="Poster of {item.type}, {item.title}"
               aspectRatio="100/152"
+              widths={[160, 240]}
             />
           </a>
           <div class="mt-1 text-xs font-500 line-clamp-2">

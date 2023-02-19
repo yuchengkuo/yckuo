@@ -22,13 +22,13 @@ export type LiteralBook = {
 
 export type ReadingProgress = {
   bookId: string
-  capacity: string
+  capacity: number
   createdAt: string
   id: string
   profileId: string
-  progress: string
+  progress: number
   unit: string
-  completed: string
+  completed: boolean
 }
 
 export type ReadingGoal = {
