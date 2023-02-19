@@ -24,6 +24,7 @@
                 id={item.cover}
                 alt="Url cover image of {item.title}"
                 class="object-cover children:(size-10 lt-sm:size-8)"
+                widths={[120, 240]}
               />
             </div>
 

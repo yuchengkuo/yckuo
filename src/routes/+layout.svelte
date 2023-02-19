@@ -82,7 +82,8 @@
         <p class="text-xs font-600">YuCheng Kuo</p>
         <button
           on:click={() => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })}
-          class="btn-pill text-0.75em">↑ Top</button
+          class="btn-pill text-0.75em"
+          aria-label="Go to top">↑ Top</button
         >
         <p class="text-2.5 text-fg-secondary font-500">v3 ©2019–2023</p>
       </footer>

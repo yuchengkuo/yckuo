@@ -70,6 +70,7 @@
     'hidden'}"
   data-splitbee-event="Swap stack"
   style="--x: {cords.x}px; --y: {cords.y}px;"
+  aria-label="Next image"
   on:click|preventDefault={swap}
   on:mousemove={(e) => (cords = { x: e.offsetX, y: e.offsetY })}
   use:motion={{
@@ -87,6 +88,7 @@
       {aspectRatio}
       {blurDataUrl}
       {isVideo}
+      widths={[120, 240]}
       class="rounded-sm w-full z-10 shadow-md {className}"
     />
   {/each}
