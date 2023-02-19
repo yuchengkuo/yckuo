@@ -51,7 +51,7 @@
           {#if project.image}
             <div class="mt-4 flex gap-4">
               {#each project.image as img}
-                <Image {...img} class="basis-[calc(25%-12px)] grow shrink-0" />
+                <Image {...img} class="basis-[calc(25%-12px)] grow shrink-0" widths={[600, 1600]} />
               {/each}
             </div>
           {/if}

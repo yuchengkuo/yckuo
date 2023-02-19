@@ -126,7 +126,7 @@
         <a href="mailto:hey@yuchengkuo.com" class="btn-pill"
           ><span class="i-ri-send-plane-fill size-3 text-fg-secondary mr-1" />Send</a
         >
-        <button on:click={copy} class="btn-pill"
+        <button on:click={copy} class="btn-pill" aria-label="Copy email"
           ><span class="i-ri-file-copy-fill size-3 text-fg-secondary mr-1" />{copied
             ? copied
             : 'Copy'}</button
