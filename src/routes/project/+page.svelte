@@ -27,11 +27,11 @@
         <time class="text-xs text-fg-secondary absolute top-5 right-[105%] whitespace-nowrap"
           >{project.time}</time
         >
-        <div
-          class="rounded-lg transition p-4 -m-4 lt-sm:(p-3 -m-3) bg-surface border border-border-subtle relative"
-          hover="bg-surface"
-        >
-          <a class="block" href={project.link || `/project/${project.slug}`}>
+        <a class="block" href={project.link || `/project/${project.slug}`}>
+          <div
+            class="rounded-lg transition p-4 -m-4 lt-sm:(p-3 -m-3) bg-surface border border-border-subtle relative shadow-sm"
+            hover="bg-surface-subtle"
+          >
             <div class="flex justify-between items-baseline">
               <h2 class="text-base">
                 {project.title}
@@ -49,15 +49,20 @@
               {/each}
               <p />
             </div>
-          </a>
-          {#if project.image}
-            <div class="mt-4 flex gap-4">
-              {#each project.image as img}
-                <Image {...img} class="basis-[calc(25%-12px)] grow shrink-0" widths={[600, 1600]} />
-              {/each}
-            </div>
-          {/if}
-        </div>
+
+            {#if project.image}
+              <div class="mt-4 flex gap-4">
+                {#each project.image as img}
+                  <Image
+                    {...img}
+                    class="basis-[calc(25%-12px)] grow shrink-0"
+                    widths={[600, 1600]}
+                  />
+                {/each}
+              </div>
+            {/if}
+          </div>
+        </a>
       </li>
     {/each}
   </ul>

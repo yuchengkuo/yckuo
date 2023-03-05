@@ -20,8 +20,7 @@
 >
   {#each Object.keys(boxes) as key}
     <li class="bg-surface rounded-md drop-shadow-sm">
-      <small
-        class="tag-gray text-xs text-fg-secondary font-600 transition absolute right-1 bottom-1 py-px px-2 bg-surface rounded-full"
+      <small class="tag-olive absolute right-1 bottom-1"
         >{key.split('/').at(-1).split('.').at(0)}</small
       >
       {#await boxes[key]() then component}
