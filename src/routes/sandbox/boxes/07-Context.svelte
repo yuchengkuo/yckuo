@@ -93,7 +93,7 @@
         <li>
           <button
             class="px-4 py-1 w-full text-left rounded-md text-sm outline-none"
-            hover="bg-rx-gray-8"
+            hover="bg-rx-gray-7"
             data-highlighted={highlighted === index ? '' : null}
             tabindex={highlighted === index ? 0 : -1}
             on:click={onSelect}>{item.label}</button
@@ -106,6 +106,6 @@
 
 <style>
   [data-highlighted] {
-    --uno: bg-rx-gray-8;
+    --uno: bg-rx-gray-7;
   }
 </style>

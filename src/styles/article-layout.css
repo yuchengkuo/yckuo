@@ -23,7 +23,7 @@
 }
 
 .layout-center > article > section > gallery {
-  --uno: mt-10 col-start-1 col-span-full grid grid-cols-2 gap-6 px-20;
+  --uno: mt-10 col-start-1 col-span-full grid gap-4 lg:(grid-cols-2 gap-6 px-20);
 }
 
 .layout-center > article > section > carousel {
@@ -37,5 +37,5 @@
 }
 
 .layout-center > article > section > carousel > figure > :first-child {
-  --uno: h-112;
+  --uno: lg:h-112;
 }
