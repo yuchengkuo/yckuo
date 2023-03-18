@@ -1,9 +1,12 @@
 <script lang="ts">
   import SvelteSeo from 'svelte-seo'
   import { dev } from '$app/environment'
-  import type { SvelteSeoProps } from 'svelte-seo/types/SvelteSeo'
+  import type { SvelteSeo as SvelteSeoProps } from 'svelte-seo/types'
 
-  type $$Props = SvelteSeoProps
+  type $$Props = Omit<
+    SvelteSeoProps,
+    'nofollow' | 'noindex' | 'nositelinkssearchbox' | 'notranslate'
+  >
 
   const baseUrl = dev ? '' : 'https://yuchengkuo.com'
 
@@ -14,6 +17,10 @@
   export let title = ''
   export let description = ''
   export let openGraph: SvelteSeoProps['openGraph'] = {}
+  export let nofollow = false
+  export let noindex = false
+  export let nositelinkssearchbox = false
+  export let notranslate = false
 
   title = title ? title + ' – ' + 'YuCheng Kuo' : defaultTitle
   description = description || defaultDescription
@@ -41,6 +48,16 @@
   }
 </script>
 
-<SvelteSeo {title} {description} canonical="https://yuchengkuo.com/" {openGraph} {...$$restProps}>
+<SvelteSeo
+  {title}
+  {description}
+  canonical="https://yuchengkuo.com/"
+  {openGraph}
+  {nofollow}
+  {noindex}
+  {nositelinkssearchbox}
+  {notranslate}
+  {...$$restProps}
+>
   <slot />
 </SvelteSeo>

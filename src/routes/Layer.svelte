@@ -1,10 +1,10 @@
 <script lang="ts">
   import useTheme from '$lib/theme/useTheme'
 
-  const { dark, theme, colorized } = useTheme()
+  const { dark } = useTheme()
 </script>
 
-{#key $dark + $theme + $colorized}
+{#key $dark}
   <div
     role="presentation"
     class="fixed inset-0 pointer-events-none select-none z-0 no-js:hidden"

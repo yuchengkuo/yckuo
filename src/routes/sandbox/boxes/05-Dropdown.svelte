@@ -66,9 +66,8 @@
 <svelte:window on:keydown={onKeydown} />
 
 <button
-  class="pl-4 pr-3 py-1 bg-rx-gray-3 rounded-lg transition"
+  class="pl-4 pr-3 py-1 bg-rx-gray-3 rounded-lg transition focus-visible:(bg-rx-gray-5 ring-1 ring-border outline-none)"
   hover="bg-rx-gray-5"
-  focus-visible="bg-rx-gray-5 ring-1 ring-border outline-none"
   aria-haspopup="menu"
   aria-expanded={menuOpen}
   bind:this={trigger}
@@ -97,8 +96,8 @@
       <button
         role="menuitem"
         class="transition outline-none rounded-md"
-        hover="bg-rx-gray-6 {item.destructive && 'text-rx-red-9 children:text-rx-red-9'}"
-        focus-visible={item.destructive && 'text-rx-red-9 children:text-rx-red-9'}
+        hover="bg-rx-gray-6 {item.destructive &&
+          'text-rx-red-9 children:text-rx-red-9 focus-visible:(text-rx-red-9 children:text-rx-red-9)'}"
         data-highlighted={highlighted === index ? '' : null}
         tabindex={highlighted === index ? 0 : -1}
         on:click={onSelect}
