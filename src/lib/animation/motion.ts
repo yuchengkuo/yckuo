@@ -6,7 +6,7 @@ import {
 } from '@motionone/dom'
 
 export function motion(
-  element: HTMLElement,
+  element: HTMLElement | SVGElement,
   initialOptions: Options & { exit?: VariantDefinition } = {}
 ): SvelteActionReturnType {
   const state = createMotionState(initialOptions)
