@@ -33,9 +33,9 @@
   }
 
   async function onKeydown(e: KeyboardEvent) {
-    if (document.activeElement === trigger && e.key === 'ArrowDown') {
+    if (document.activeElement === trigger && (e.key === 'ArrowDown' || e.key === 'Enter')) {
       e.preventDefault()
-      if (!menuOpen) menuOpen = !menuOpen
+      if (!menuOpen) menuOpen = true
     }
     await tick()
 
@@ -66,7 +66,7 @@
 <svelte:window on:keydown={onKeydown} />
 
 <button
-  class="pl-4 pr-3 py-1 bg-rx-gray-3 rounded-lg transition focus-visible:(bg-rx-gray-5 ring-1 ring-border outline-none)"
+  class="pl-4 pr-3 py-1 bg-rx-gray-3 rounded-lg transition outline-none focus-visible:bg-rx-gray-5"
   hover="bg-rx-gray-5"
   aria-haspopup="menu"
   aria-expanded={menuOpen}
@@ -96,11 +96,11 @@
       <button
         role="menuitem"
         class="transition outline-none rounded-md"
-        hover="bg-rx-gray-6 {item.destructive &&
-          'text-rx-red-9 children:text-rx-red-9 focus-visible:(text-rx-red-9 children:text-rx-red-9)'}"
+        class:destructive={item.destructive}
         data-highlighted={highlighted === index ? '' : null}
         tabindex={highlighted === index ? 0 : -1}
         on:click={onSelect}
+        on:mouseenter={() => (highlighted = index)}
         ><span
           class="{item.icon} align-top mr-2 transition text-fg-secondary"
         />{item.label}</button
@@ -111,6 +111,9 @@
 
 <style>
   [data-highlighted] {
-    --uno: bg-rx-gray-6 rounded-md;
+    --uno: bg-rx-gray-5 rounded-md;
+  }
+  [data-highlighted].destructive {
+    --uno: text-rx-red-9 children:text-rx-red-9 focus-visible:(text-rx-red-9 children:text-rx-red-9);
   }
 </style>

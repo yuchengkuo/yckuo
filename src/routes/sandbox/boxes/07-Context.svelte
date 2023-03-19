@@ -8,7 +8,6 @@
   import { tick } from 'svelte'
 
   let menuOpen = false
-  let trigger: HTMLElement
   let left = 0
   let top = 0
   let highlighted = -1
@@ -62,7 +61,6 @@
   class="w-1/2 h-1/3 bg-rx-gray-2 text-fg-secondary text-xs border-2 border-border border-dashed rounded-xl grid place-items-center"
   aria-haspopup="menu"
   aria-expanded={menuOpen}
-  bind:this={trigger}
   on:contextmenu|preventDefault={() => {}}
   on:mousedown|stopPropagation={(e) => {
     if (e.buttons === 2 || (e.buttons === 1 && e.ctrlKey)) {
@@ -71,7 +69,7 @@
     }
   }}
 >
-  Right click.
+  Right click here...
 </div>
 
 {#if menuOpen}
@@ -93,10 +91,10 @@
         <li>
           <button
             class="px-4 py-1 w-full text-left rounded-md text-sm outline-none"
-            hover="bg-rx-gray-7"
             data-highlighted={highlighted === index ? '' : null}
             tabindex={highlighted === index ? 0 : -1}
-            on:click={onSelect}>{item.label}</button
+            on:click={onSelect}
+            on:mouseenter={() => (highlighted = index)}>{item.label}</button
           >
         </li>
       {/each}

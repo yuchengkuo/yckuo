@@ -24,7 +24,14 @@
 >
   <button class="pl-5 pr-3 rounded-r-none font-Azeret" on:click={upvote}>
     {#if up}
-      <Confetti amount="15" x={[-0.4, 0.4]} y={[-0.1, 0.3]} fallDistance="4px" rounded />
+      <Confetti
+        amount="15"
+        x={[-0.4, 0.4]}
+        y={[-0.1, 0.3]}
+        duration={1700}
+        fallDistance="4px"
+        rounded
+      />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -39,7 +46,7 @@
               'none',
             ],
           },
-          transition: { easing: spring({ damping: 80, stiffness: 100 }) },
+          transition: { easing: spring({ damping: 60, stiffness: 100 }) },
         }}
       >
         <path fill="none" d="M0 0h24v24H0z" />
@@ -47,8 +54,10 @@
           d="M2 9h3v12H2a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1zm5.293-1.293l6.4-6.4a.5.5 0 0 1 .654-.047l.853.64a1.5 1.5 0 0 1 .553 1.57L14.6 8H21a2 2 0 0 1 2 2v2.104a2 2 0 0 1-.15.762l-3.095 7.515a1 1 0 0 1-.925.619H8a1 1 0 0 1-1-1V8.414a1 1 0 0 1 .293-.707z"
           fill="currentColor"
           use:motion={{
-            animate: { fill: ['pink', 'yellow', 'lightgreen', 'pink', 'currentColor'] },
-            transition: { duration: 1.2 },
+            animate: {
+              fill: ['pink', 'yellow', 'lightgreen', 'lightblue', 'pink', 'currentColor'],
+            },
+            transition: { duration: 2 },
           }}
         />
       </svg>
