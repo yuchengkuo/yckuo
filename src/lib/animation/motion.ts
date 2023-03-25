@@ -9,6 +9,9 @@ export function motion(
   element: HTMLElement | SVGElement,
   initialOptions: Options & { exit?: VariantDefinition } = {}
 ): SvelteActionReturnType {
+  const prefers = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (prefers) return
+
   const state = createMotionState(initialOptions)
 
   const initialStyle = createStyleString(state.getTarget())
