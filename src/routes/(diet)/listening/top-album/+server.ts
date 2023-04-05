@@ -6,7 +6,7 @@ export const GET: RequestHandler = async function ({ url }) {
     let limit = 0
     const albums = []
 
-    while (albums.length < (url.searchParams.get('limit') || 12)) {
+    while (albums.length < (parseInt(url.searchParams.get('limit')) || 12)) {
       const offset = limit
       limit += 20
       const res = await getTopTracks(limit.toString(), offset.toString())
@@ -14,7 +14,7 @@ export const GET: RequestHandler = async function ({ url }) {
       const { items } = await res.json()
 
       for (const item of items) {
-        if (albums.length >= (url.searchParams.get('limit') || 12)) break
+        if (albums.length >= (parseInt(url.searchParams.get('limit')) || 12)) break
         if (!albums.map((album) => album.name).includes(item.album.name))
           albums.push({
             type: item.album.album_type,
