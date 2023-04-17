@@ -2,11 +2,11 @@ import {
   defineConfig,
   presetUno,
   presetIcons,
-  extractorSvelte,
   transformerDirectives,
   transformerVariantGroup,
   presetAttributify,
 } from 'unocss'
+import extractorSvelte from '@unocss/extractor-svelte'
 import * as Radix from '@radix-ui/colors'
 import type { Theme } from '@unocss/preset-mini'
 
@@ -36,7 +36,7 @@ export default defineConfig<Theme>({
   ],
   theme: {
     fontFamily: {
-      Uncut: 'Uncut Sans, ui-sans-serif, system-ui, -apple-system',
+      Anek: 'Anek, ui-sans-serif, system-ui, -apple-system',
       Newsreader: 'Newsreader, ui-serif, Georgia, Cambria',
       Azeret: 'Azeret Mono, ui-monospace, SFMono-Regular, Menlo',
     },
@@ -112,7 +112,10 @@ export default defineConfig<Theme>({
       },
     },
   ],
-  rules: [['max-w-9xl', { 'max-width': '96rem' }]],
+  rules: [
+    ['max-w-9xl', { 'max-width': '96rem' }],
+    [/^stretch-(.*)$/, ([, s]) => ({ 'font-stretch': s })],
+  ],
   layers: {
     default: 1,
     shortcuts: 2,

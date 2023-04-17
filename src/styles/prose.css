@@ -3,11 +3,11 @@
 }
 
 .prose h1 {
-  --uno: not-first:(mt-10 lt-sm:mt-8);
+  --uno: not-first:(mt-12 lt-sm:mt-8);
 }
 
 .prose h2 {
-  --uno: not-first:(mt-10 lt-sm:mt-8);
+  --uno: not-first:(mt-12 lt-sm:mt-8);
 }
 
 .prose h3 {
@@ -46,19 +46,19 @@ hr {
 }
 
 .prose strong{
-  --uno: text-fg;
+  --uno: text-fg font-600;
 }
 
 .prose em {
-  --uno: font-Newsreader font-550;
+  --uno: font-Newsreader font-500;
 }
 
 .prose blockquote {
   --uno: bg-rx-grass1 border-rx-grass9 rounded-r border-l-3 shadow-sm py-2 px-5 -mx-5 my-10 lt-sm:(-mx-2.5 px-2.5 -my-1 py-1 mt-6);
 }
 .prose blockquote * {
-  --uno: font-Newsreader font-550 text-base mb-0 leading-9 italic lt-sm:leading-7;
-  font-variation-settings: 'opsz' 8;
+  --uno: font-Newsreader font-550 mb-0 leading-9 italic lt-sm:leading-7;
+  font-variation-settings: 'opsz' 12;
 }
 
 .prose blockquote p {

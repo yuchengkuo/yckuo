@@ -51,7 +51,7 @@
           />
         </div>
         <main class="grow">
-          <h2 class="lev3">{item.title}</h2>
+          <h2 class="lev4">{item.title}</h2>
           <p text="fg-secondary">{item.excerpt}</p>
 
           <div class="flex flex-wrap gap-2 mt-2 justify-end lt-sm:justify-start">

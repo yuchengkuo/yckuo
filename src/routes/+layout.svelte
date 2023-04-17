@@ -69,7 +69,7 @@
 >
   {#key $page.url.pathname}
     <main
-      class="py-40 no-js:opacity-100 lt-sm:py-10"
+      class="py-52 no-js:opacity-100 lt-sm:py-10"
       class:opacity-0={withTransition}
       class:opacity-100={!withTransition}
       data-sveltekit-preload-data
@@ -79,13 +79,13 @@
       <slot />
 
       <footer class="max-w mt-20 flex justify-between items-baseline">
-        <p class="text-xs font-600">YuCheng Kuo</p>
+        <p class="text-sm font-700 -tracking-0.04em stretch-semi-expanded">YuCheng Kuo</p>
         <button
           on:click={() => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })}
-          class="btn-pill text-0.75em"
+          class="btn-pill"
           aria-label="Go to top">↑ Top</button
         >
-        <p class="text-2.5 text-fg-secondary font-500">v3 ©2019–2023</p>
+        <p class="text-xs text-fg-secondary font-550 slashed-zero">v3 ©2019–2023</p>
       </footer>
     </main>
   {/key}
