@@ -70,7 +70,8 @@
           class="flex sm:gap-6 transition items-baseline lt-sm:grid"
           href={project.link || `/project/${project.slug}`}
         >
-          <time class="sm:basis-20 shrink-0 text-xs text-fg-secondary font-500">{project.time}</time
+          <time class="sm:basis-20 shrink-0 text-sm slashed-zero text-fg-secondary font-500"
+            >{project.time}</time
           >
           <div class="lt-sm:col-start-1">
             <p class="font-600">{project.title}</p>
@@ -102,7 +103,9 @@
 
   {#each data.works as work}
     <div class="flex sm:gap-6 transition items-baseline lt-sm:flex-col">
-      <time class="sm:basis-20 shrink-0 text-xs text-fg-secondary font-500">{work.duration}</time>
+      <time class="sm:basis-20 shrink-0 text-sm slashed-zero text-fg-secondary font-500"
+        >{work.duration}</time
+      >
       <div>
         <a href={work.url} class="font-600">{work.title} ↗</a>
         <p class="text-fg-secondary">{work.excerpt}</p>

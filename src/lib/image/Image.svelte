@@ -125,9 +125,3 @@
     </figcaption>
   {/if}
 </figure>
-
-<style>
-  figcaption {
-    font-variation-settings: 'slnt' 10;
-  }
-</style>

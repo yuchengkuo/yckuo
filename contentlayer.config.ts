@@ -82,7 +82,13 @@ const Work = defineDocumentType(() => ({
     url: { type: 'string' },
     duration: { type: 'string', required: true },
     excerpt: { type: 'string' },
+    tag: { type: 'list', of: { type: 'string' } },
+    image: { type: 'list', of: Image },
+    featured: { type: 'boolean' },
+    action: { type: 'list', of: Link },
+    meta: { type: 'list', of: Meta },
   },
+  computedFields,
 }))
 
 const About = defineDocumentType(() => ({

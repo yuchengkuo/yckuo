@@ -20,7 +20,7 @@
 
 <section class="max-w-grid" children="col-start-2">
   <div class="mb-10">
-    <ul class="flex flex-col gap-4" children="flex gap-4 items-baseline lt-sm:(block)">
+    <ul class="flex flex-col gap-4" children="flex gap-4 items-baseline lt-sm:block">
       <li>
         <small>Description</small>
         <p>{data.project.excerpt}</p>
@@ -86,6 +86,6 @@
 
 <style>
   small {
-    --uno: font-600 text-xs text-fg-secondary uppercase basis-24 shrink-0;
+    --uno: font-600 text-xs tracking-wide text-fg-secondary uppercase basis-24 shrink-0;
   }
 </style>

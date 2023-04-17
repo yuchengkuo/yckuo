@@ -236,7 +236,7 @@ export async function getReadingGoals(handle = 'yuchengkuo', limit = 20, offset 
   return goals
 }
 
-export async function getBooksInGoal(participantId: string, limit = 20, offset = 0) {
+export async function getBooksInGoal(participantId: string, limit = 50, offset = 0) {
   const res = await fetch(LITERAL_ENDPOINT, {
     method: 'POST',
     headers: {

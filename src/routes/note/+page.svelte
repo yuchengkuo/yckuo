@@ -1,8 +1,9 @@
 <script lang="ts">
   import Header from '../Header.svelte'
-  import type { PageData } from './$types'
 
   export let data: PageData
+
+  import type { PageData } from './$types'
 </script>
 
 <Header title="Notes" desc="Random notes. Documenting things that I learned for now." />
@@ -17,11 +18,12 @@
         }).format(new Date(note.date))}
         <li>
           <a
-            class="lev4 !text-fg-secondary py-4 transition flex justify-between items-baseline"
+            class="py-3 transition flex justify-between items-baseline"
             hover="invert-50 dark:(invert-none brightness-80)"
             href="/note/{note.slug}"
           >
-            {note.title}<span class="text-xs">{date}</span>
+            <h2 class="text-base">{note.title}</h2>
+            <span class="text-sm">{date}</span>
           </a>
         </li>
       {/each}

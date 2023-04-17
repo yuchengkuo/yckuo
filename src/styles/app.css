@@ -3,9 +3,9 @@
 @import './article-layout.css';
 
 @font-face {
-  font-family: 'Uncut Sans';
-  src: url('/fonts/Uncut-Sans-Variable.woff2') format('woff2-variations');
-  font-style: normal italic;
+  font-family: 'Anek';
+  src: url('/fonts/AnekLatin[wdth,wght].woff2') format('woff2-variations');
+  font-style: normal;
   font-display: block;
   font-weight: 100 900;
 }
@@ -76,7 +76,6 @@ html.dark-theme {
 
 html, body, * {
   --uno:  transition-colors ease-out duration-500 delay-25;
-  font-variation-settings: 'slnt' 0;
 }
 
 @screen 2xl {
@@ -86,19 +85,19 @@ html, body, * {
 }
 
 body {
-  --uno: bg-bg text-fg font-Uncut font-460 -tracking-2%;
+  --uno: bg-bg text-fg font-Anek font-420;
   --uno: min-h-screen overflow-x-hidden lt-md:px-4;
   word-spacing: -0.01em;
 }
 
 h1,
 .lev1 {
-  --uno: font-700 text-fg text-2xl -tracking-0.04em;
+  --uno: font-750 text-fg text-7 leading-8 -tracking-0.04em stretch-semi-expanded;
 }
 
 h2,
 .lev2 {
-  --uno: font-650 text-fg text-xl;
+  --uno: font-600 text-fg text-xl;
 }
 
 h3,
@@ -108,7 +107,7 @@ h3,
 
 h4,
 .lev4 {
-  --uno: font-550 text-fg text-lg;
+  --uno: font-600 text-fg text-lg;
 }
 
 code {

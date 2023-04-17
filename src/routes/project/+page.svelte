@@ -42,7 +42,7 @@
               {project.excerpt}
             </p>
 
-            <div class="flex gap-2 mt-2">
+            <div class="flex gap-2 mt-2 lt-sm:gap-1">
               {#each project.tag ?? [''] as tag}
                 {@const index = Object.keys(Object.fromEntries(data.tags)).indexOf(tag)}
                 <p class="{tagColors[index] || 'tag-gray'} shrink-0">{tag}</p>
@@ -51,7 +51,7 @@
             </div>
 
             {#if project.image}
-              <div class="mt-4 flex gap-4">
+              <div class="mt-4 flex gap-4 lt-sm:gap-2">
                 {#each project.image as img}
                   <Image
                     {...img}
