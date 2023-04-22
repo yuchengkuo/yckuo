@@ -3,11 +3,11 @@
 
   import { components } from '$lib/content/components'
 
-  import type { LayoutServerData } from './$types'
-
   export let data: LayoutServerData
+
+  import type { LayoutServerData } from './$types'
 </script>
 
-<section class="layout-center loose text-fg-secondary">
+<section class="layout-center loose mt-40 text-fg-secondary">
   <Markdoc content={data.project.content} {components} />
 </section>

@@ -92,7 +92,7 @@ body {
 
 h1,
 .lev1 {
-  --uno: font-750 text-fg text-7 leading-8 -tracking-0.04em stretch-semi-expanded;
+  --uno: font-750 text-fg text-7 leading-8 tracking-tight stretch-semi-expanded;
 }
 
 h2,
@@ -115,5 +115,9 @@ code {
 }
 
 kbd {
-  --uno: inline-block bg-surface rounded font-Azeret font-650 text-xs leading-none py-1 px-1.5 border-b-2 border-fg-secondary/28 border-x-1 border-t-1;
+  --uno: inline-block bg-surface rounded font-Azeret font-650 text-xs leading-none py-1 px-1.5 border-b-2 border-fg-secondary/28 border-x-1 border-t-1 hover:bg-bg-secondary;
+}
+
+time {
+  --uno: slashed-zero;
 }

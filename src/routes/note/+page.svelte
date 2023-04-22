@@ -23,7 +23,7 @@
             href="/note/{note.slug}"
           >
             <h2 class="text-base">{note.title}</h2>
-            <span class="text-sm">{date}</span>
+            <time class="text-sm">{date}</time>
           </a>
         </li>
       {/each}

@@ -68,6 +68,7 @@
       <li class="mb-10 group">
         <a
           class="flex sm:gap-6 transition items-baseline lt-sm:grid"
+          hover="invert-50 dark:(invert-none brightness-80)"
           href={project.link || `/project/${project.slug}`}
         >
           <time class="sm:basis-20 shrink-0 text-sm slashed-zero text-fg-secondary font-500"

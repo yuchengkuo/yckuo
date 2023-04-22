@@ -18,6 +18,7 @@
   {#each diets as route}
     <a
       class="relative text-fg-secondary transition-all ease-in-out duration-100"
+      hover="text-fg"
       class:active={$page.url.pathname === route.url}
       active="scale-96 origin-bc"
       href={route.url}

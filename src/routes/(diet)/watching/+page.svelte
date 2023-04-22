@@ -2,9 +2,9 @@
   import Head from '$lib/seo/Head.svelte'
   import Image from '$lib/media/Image.svelte'
 
-  import type { PageServerData } from './$types'
-
   export let data: PageServerData
+
+  import type { PageServerData } from './$types'
 </script>
 
 <Head
@@ -66,12 +66,18 @@
 <style>
   ul[data-carousel] {
     padding: 0 calc((100vw - 40rem) / 2);
+    scroll-padding-inline: calc((100vw - 40rem) / 2);
     scrollbar-width: none;
+    scroll-snap-type: x mandatory;
     --uno: lt-sm:px-4;
   }
 
   ul[data-carousel]::-webkit-scrollbar {
     display: none;
+  }
+
+  ul[data-carousel] li {
+    scroll-snap-align: start
   }
 
   ul[data-carousel] li:first-child {

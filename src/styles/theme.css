@@ -1,8 +1,8 @@
 :root {
-  --background: 0, 0%, 97%;
+  --background: 0, 0%, 98%;
 
   --foreground: 0, 0%, 10%;
-  --foreground-secondary: 0, 0%, 38%;
+  --foreground-secondary: 0, 0%, 32%;
 
   --surface: 0, 0%, 100%;
   --surface-subtle: 0, 0%, 98%;
@@ -14,7 +14,7 @@
   --background: 0, 0%, 6%;
 
   --foreground: 0, 0%, 90%;
-  --foreground-secondary: 0, 0%, 70%;
+  --foreground-secondary: 0, 0%, 76%;
 
   --surface: 0, 0%, 9%;
   --surface-subtle: 0, 0%, 8%;
