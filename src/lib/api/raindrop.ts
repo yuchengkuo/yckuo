@@ -1,6 +1,6 @@
 import { RAINDROP_ACCESS_TOKEN as access_token } from '$env/static/private'
-import { getAspectRatio } from '$lib/image/getAspectRatio'
-import { getBlurDataUrl } from '$lib/image/getBlurDataUrl'
+import { getAspectRatio } from '$lib/media/getAspectRatio'
+import { getBlurDataUrl } from '$lib/media/getBlurDataUrl'
 import { getFullUrl } from './util'
 
 const RAINDROPS_ENDPOINT = `https://api.raindrop.io/rest/v1/raindrops/`

@@ -1,12 +1,12 @@
 <script lang="ts">
   import Head from '$lib/seo/Head.svelte'
-  import Image from '$lib/image/Image.svelte'
+  import Image from '$lib/media/Image.svelte'
   import { tagColors } from '$lib/config'
   import Header from '../Header.svelte'
 
-  import type { LayoutServerData } from './$types'
-
   export let data: LayoutServerData
+
+  import type { LayoutServerData } from './$types'
 </script>
 
 <Head

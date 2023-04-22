@@ -4,7 +4,7 @@
   import throttle from 'lodash.throttle'
   import Snd from 'snd-lib'
 
-  import Image from '$lib/image/Image.svelte'
+  import Image from '$lib/media/Image.svelte'
   import { motion } from '$lib/animation/motion'
 
   import type { Image as ImageType } from '$contentlayer'
@@ -80,7 +80,7 @@
   }}
 >
   {#each images ?? [] as img (img.id)}
-    {@const deg = Math.floor(Math.random() * 20 - 10) % 10}
+    {@const deg = Math.floor(Math.random() * 20 - 10) % 5}
     {@const { id, alt, aspectRatio = '', blurDataUrl = '', isVideo } = img}
     <Image
       {id}

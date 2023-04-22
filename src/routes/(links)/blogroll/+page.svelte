@@ -1,6 +1,6 @@
 <script lang="ts">
   import { tagColors } from '$lib/config'
-  import Image from '$lib/image/Image.svelte'
+  import Image from '$lib/media/Image.svelte'
   import Head from '$lib/seo/Head.svelte'
 
   import type { PageServerData } from './$types'

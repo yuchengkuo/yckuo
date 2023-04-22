@@ -5,7 +5,7 @@ export const handle: Handle = async function ({ event, resolve }) {
 
   response.headers.set(
     'content-security-policy',
-    `default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src * blob: data:; media-src 'none'; connect-src *; font-src 'self';`
+    `default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src * blob: data:; media-src res.cloudinary.com/; connect-src *; font-src 'self';`
   )
   response.headers.set('Referrer-Policy', 'origin-when-cross-origin')
   response.headers.set('X-Frame-Options', 'DENY')

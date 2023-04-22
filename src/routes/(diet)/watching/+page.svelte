@@ -1,6 +1,6 @@
 <script lang="ts">
   import Head from '$lib/seo/Head.svelte'
-  import Image from '$lib/image/Image.svelte'
+  import Image from '$lib/media/Image.svelte'
 
   import type { PageServerData } from './$types'
 
