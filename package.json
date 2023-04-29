@@ -47,7 +47,7 @@
     "@iconify-json/bxs": "^1.1.6",
     "@iconify-json/ri": "^1.1.7",
     "@radix-ui/colors": "^0.1.8",
-    "@sveltejs/adapter-auto": "2.0.0",
+    "@sveltejs/adapter-auto": "2.0.1",
     "@sveltejs/kit": "1.15.7",
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.194",
