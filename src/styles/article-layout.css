@@ -12,7 +12,7 @@
 
 .layout-center > article > section > figure,
 .layout-center > article > section > videoplayer {
-  --uno: justify-self-center mt-6 lg:w-11/10 xl:(mt-10 col-start-2);
+  --uno: justify-self-center my-6 lg:w-11/10 xl:(mt-10 col-start-2);
 }
 
 .layout-center > article > section > figure[full='true'],

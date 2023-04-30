@@ -85,7 +85,7 @@ html, body, * {
 }
 
 body {
-  --uno: bg-bg text-fg font-Anek font-420;
+  --uno: bg-bg text-fg text-base font-Anek font-425;
   --uno: min-h-screen overflow-x-hidden lt-md:px-4;
   word-spacing: -0.01em;
 }

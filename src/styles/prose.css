@@ -46,8 +46,8 @@
   --uno: attr text-fg;
 }
 
-hr {
-  --uno: border-t border-border my-8;
+.prose hr {
+  --uno: border-t border-border mt-8;
 }
 
 .prose strong{
@@ -75,12 +75,13 @@ hr {
 }
 
 .prose ul, ol {
-  --uno: mt-6;
+  --uno: mt-4;
 }
 
 .prose ul li {
- list-style-type: '-  ';
+ list-style-type: '–  ';
 }
+
 @screen sm {
   .prose ul li {
     list-style-type: '–';
