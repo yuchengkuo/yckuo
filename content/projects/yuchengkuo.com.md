@@ -23,5 +23,5 @@ meta:
   - title: Tool
     content: Figma, VS Code, SvelteKit
   - title: Timeline
-    content: 2019—??
+    content: 2019–TBD
 ---

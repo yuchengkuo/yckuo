@@ -26,9 +26,9 @@ Outside of history, I'm an avid music listener, broadly listening to indie, r&b,
 
 This site is built with [SvelteKit](https://kit.svelte.dev), styled with [Unocss](https://uno.antfu.me/), animated with CSS/[Motion One](https://motion.dev), and hosted on [Vercel](https://vercel.com). The [source](https://github.com/yuchengkuo/yckuo) of this website can be found on Github.
 
-Most content is written in markdown with [Markdoc](https://markdoc.io) and typed with [Contentlayer](https://contentlayer.dev) stored on Github, other data sources are coming from Spotify, TMDB, Raindrop and Literal.
+Most content is written in markdown with [Markdoc](https://markdoc.io) and typed with [Contentlayer](https://contentlayer.dev) stored on Github and Cloudinary, other data sources are coming from Spotify, TMDB, Raindrop and Literal.
 
-Types used on this website are mainly [Anek](https://ektype.in), [Azeret Mono](https://azeret.displaay.net/) and [Newsreader](https://www.productiontype.com/family/newsreader). Colors are from [Radix](https://radix-ui.com/colors).
+Types used on this website are mainly [Anek](https://ektype.in), [Azeret Mono](https://azeret.displaay.net/) and [Newsreader](https://www.productiontype.com/family/newsreader). Colors from [Radix](https://radix-ui.com/colors).
 
 ## [Now](https://nownownow.com/about)
 
