@@ -1,3 +1,10 @@
+<script context="module">
+  export const meta = {
+    title: 'Context menu',
+    date: '2022/12/25',
+  }
+</script>
+
 <script lang="ts">
   import clickOutside from '$lib/action/clickoutside'
   import placePopover from '$lib/action/placePopover'
@@ -58,7 +65,7 @@
 <svelte:window on:keydown={onKeydown} />
 
 <div
-  class="w-1/2 h-1/3 bg-rx-gray-2 text-fg-secondary text-xs border-2 border-border border-dashed rounded-xl grid place-items-center"
+  class="w-1/2 h-40 my-20 bg-rx-gray-2 text-fg-secondary text-xs border-2 border-border border-dashed rounded-xl grid place-items-center"
   aria-haspopup="menu"
   aria-expanded={menuOpen}
   on:contextmenu|preventDefault={() => {}}

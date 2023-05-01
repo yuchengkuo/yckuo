@@ -1,3 +1,10 @@
+<script context="module">
+  export const meta = {
+    title: 'Like button',
+    date: '2022/11/27',
+  }
+</script>
+
 <script lang="ts">
   import { spring } from 'motion'
   import { Confetti } from 'svelte-confetti'
@@ -19,7 +26,7 @@
 </script>
 
 <div
-  class="rounded-full bg-rx-gray-3 flex items-center divide-x divide-border"
+  class="rounded-full my-20 bg-rx-gray-3 flex items-center divide-x divide-border"
   children="py-2 hover:bg-rx-gray-4 active:bg-rx-gray-5 rounded-inherit"
 >
   <button class="pl-5 pr-3 rounded-r-none font-Azeret" on:click={upvote}>

@@ -1,3 +1,10 @@
+<script context="module">
+  export const meta = {
+    title: 'Simple Tabs',
+    date: '2022/11/27',
+  }
+</script>
+
 <script lang="ts">
   import { motion } from '$lib/animation/motion'
   import { spring } from 'motion'
@@ -18,7 +25,7 @@
   }
 </script>
 
-<div>
+<nav class="my-40">
   <div
     class="py-1.5 flex rounded relative"
     children="font-500 px-2.5 py-1 rounded hover:bg-surface-subtle transition duration-300"
@@ -46,4 +53,4 @@
       }}
     />
   </div>
-</div>
+</nav>

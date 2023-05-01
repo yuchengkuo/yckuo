@@ -1,3 +1,10 @@
+<script context="module">
+  export const meta = {
+    title: 'Polar',
+    date: '2022/11/27',
+  }
+</script>
+
 <script lang="ts">
   import { spring } from 'svelte/motion'
   import { interpolate } from 'popmotion'
@@ -18,7 +25,7 @@
 </script>
 
 <div
-  class="w-full h-full grid place-items-center filter blur-md"
+  class="w-full h-100 grid place-items-center filter blur-md"
   style="--x: {$x}px; --y: {$y}px; --hue: {$hue}; --sat: {$sat}%;"
   bind:this={outer}
   on:mousemove={handleMousemove}

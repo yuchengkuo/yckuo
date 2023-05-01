@@ -1,3 +1,10 @@
+<script context="module">
+  export const meta = {
+    title: 'Selection Toolbar',
+    date: '2023/01/02',
+  }
+</script>
+
 <script lang="ts">
   import clickOutside from '$lib/action/clickoutside'
   import placePopover from '$lib/action/placePopover'
@@ -93,7 +100,7 @@
   }
 </script>
 
-<div>
+<div class="my-16">
   <div
     class="flex items-start gap-2"
     children="p-2 rounded bg-rx-gray-1 border-1 border-border outline-none transition focus:border-rx-gray-6"

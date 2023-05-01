@@ -1,10 +1,10 @@
 import { tick } from 'svelte'
 
 export default function portal(
-  element: Element,
-  target: string | Element = 'body'
+  element: HTMLElement,
+  target: string | HTMLElement = 'body'
 ): SvelteActionReturnType {
-  async function update(newTarget: string | Element) {
+  async function update(newTarget: string | HTMLElement) {
     target = newTarget
 
     await tick()
