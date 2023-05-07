@@ -1,6 +1,6 @@
 <script context="module">
   export const meta = {
-    title: 'Simple Tabs',
+    title: 'Action Button',
     date: '2022/12/18',
   }
 </script>
