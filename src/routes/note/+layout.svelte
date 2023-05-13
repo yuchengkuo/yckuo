@@ -1,14 +1,8 @@
 <script lang="ts">
-  import { motion } from '$lib/animation/motion'
   import Head from '$lib/seo/Head.svelte'
 
   import type { Options } from 'motion'
-
-  const fadeupConfig: Options = {
-    initial: { y: 8, opacity: 0 },
-    animate: { y: 0, opacity: 1 },
-    transition: { duration: 0.6, easing: 'ease-out' },
-  }
+  import { fly } from 'svelte/transition'
 </script>
 
 <Head
@@ -17,6 +11,6 @@
   openGraph={{ url: 'note' }}
 />
 
-<div class="text-fg-secondary layout-center" use:motion={fadeupConfig}>
+<div class="text-fg-secondary layout-center" in:fly={{ y: 8, opacity: 0, duration: 600 }}>
   <slot />
 </div>

@@ -5,8 +5,8 @@ import { load } from 'js-yaml'
 import readingTime from 'reading-time'
 import { instanceToPlain } from 'class-transformer'
 import { error } from '@sveltejs/kit'
-import { getBlurDataUrl } from '$lib/image/getBlurDataUrl'
-import { getAspectRatio } from '$lib/image/getAspectRatio'
+import { getBlurDataUrl } from '$lib/media/getBlurDataUrl'
+import { getAspectRatio } from '$lib/media/getAspectRatio'
 
 const contentPath = './content'
 

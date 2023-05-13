@@ -120,7 +120,7 @@
   </noscript>
 
   {#if showcap}
-    <figcaption class="block w-fit h-fit mt-2 font-550 text-sm text-fg-secondary">
+    <figcaption class="block w-fit h-fit mt-2 font-550 text-sm text-fg-secondary stretch-102%">
       — {alt}
     </figcaption>
   {/if}

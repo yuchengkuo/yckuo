@@ -17,7 +17,8 @@
 <div class="max-w flex gap-6 relative" children="text-sm font-600 px-1 py-3">
   {#each links as link}
     <a
-      class="relative text-fg-secondary transition-all ease-in-out duration-100"
+      class="relative text-fg-secondary transition-all ease-in-out duration-200"
+      hover="text-fg"
       class:active={$page.url.pathname === link.url}
       active="scale-96 origin-bc"
       href={link.url}

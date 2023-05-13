@@ -8,6 +8,6 @@
   import type { LayoutServerData } from './$types'
 </script>
 
-<section class="layout-center loose mt-40 text-fg-secondary">
-  <Markdoc content={data.project.content} {components} />
+<section class="layout-center text-fg-secondary mt-20">
+  <Markdoc content={data.work.content} {components} />
 </section>

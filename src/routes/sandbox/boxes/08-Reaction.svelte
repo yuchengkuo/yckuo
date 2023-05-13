@@ -1,3 +1,10 @@
+<script context="module">
+  export const meta = {
+    title: 'Reactions',
+    date: '2022/12/25',
+  }
+</script>
+
 <script lang="ts">
   import clickOutside from '$lib/action/clickoutside'
   import placePopover from '$lib/action/placePopover'
@@ -24,7 +31,7 @@
   ]
 </script>
 
-<div class="flex gap-1 items-center">
+<div class="my-16 flex gap-1 items-center">
   <button
     class="p-1"
     aria-haspopup="menu"

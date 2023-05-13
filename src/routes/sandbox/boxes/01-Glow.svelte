@@ -1,3 +1,10 @@
+<script context="module">
+  export const meta = {
+    title: 'Glow',
+    date: '2022/11/27',
+  }
+</script>
+
 <script lang="ts">
   import { tweened } from 'svelte/motion'
   import useTheme from '$lib/theme/useTheme'
@@ -14,7 +21,7 @@
 </script>
 
 <div
-  class="w-full h-full grid place-items-center"
+  class="w-full h-80 grid place-items-center"
   on:mousemove={handleMousemove}
   on:mouseleave={handleMousemove}
   style="--x: {$x}px; --y: {$y}px; --bg: {$dark

@@ -22,12 +22,9 @@
 
   function navigate(e: KeyboardEvent) {
     if (e.key === '0') goto('/')
-    if (e.key === '1') goto(routes[0].url)
-    if (e.key === '2') goto(routes[1].url)
-    if (e.key === '3') goto(routes[2].url)
-    if (e.key === '4') goto(routes[3].url)
-    if (e.key === '5') goto(routes[4].url)
-    if (e.key === '6') goto(routes[5].url)
+    routes.forEach(({ kbd, url }) => {
+      if (e.key === kbd) goto(url)
+    })
   }
 
   let withTransition = true
@@ -78,14 +75,14 @@
     >
       <slot />
 
-      <footer class="max-w mt-20 flex justify-between items-baseline">
+      <footer class="max-w mt-20 flex gap-2 items-baseline">
         <p class="text-sm font-700 -tracking-0.04em stretch-semi-expanded">YuCheng Kuo</p>
+        <p class="text-xs text-fg-secondary font-550 slashed-zero">v3 ©2019–2023</p>
         <button
           on:click={() => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })}
-          class="btn-pill"
-          aria-label="Go to top">↑ Top</button
+          class="btn-pill ml-auto"
+          aria-label="Go to top"><span class="i-ri-arrow-up-line" />Top</button
         >
-        <p class="text-xs text-fg-secondary font-550 slashed-zero">v3 ©2019–2023</p>
       </footer>
     </main>
   {/key}

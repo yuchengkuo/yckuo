@@ -14,7 +14,7 @@ time: 2019-08
 featured: true
 meta:
   - title: Context
-    content: A multi-displicinary project with a focus on learning. I joined during my junior year and helped the team evolve in the early time, later participated in the Formula Student event held at Japan 2019.
+    content: A multidisciplinary project with a focus on learning. I joined during my junior year and helped the team evolve in the early time, later participated in the Formula Student event held at Japan 2019.
   - title: Role
     content: Frame & Body Lead (2019),  Vice Captain (2020)
   - title: Timeline

@@ -24,7 +24,7 @@
   }
 
   const desc = `
-  _Hello_, I'm YuCheng, a product designer/engineer from Taiwan, now based in Kaohsiung, Taiwan. Currently working as UI/UX designer at [Oen Tech](https://oen.tw).
+  _Hello_, I'm YuCheng, a design engineer from Taiwan, now based in Kaohsiung, Taiwan. Currently working as UI/UX designer at [Oen Tech](https://oen.tw).
   
   Can find more [about me](/about) or take a look at some of my previous [personal projects](/project), which are mostly about learning something and keeping myself entertained.
 
@@ -68,6 +68,7 @@
       <li class="mb-10 group">
         <a
           class="flex sm:gap-6 transition items-baseline lt-sm:grid"
+          hover="opacity-60"
           href={project.link || `/project/${project.slug}`}
         >
           <time class="sm:basis-20 shrink-0 text-sm slashed-zero text-fg-secondary font-500"
@@ -102,16 +103,20 @@
   <h2>Work</h2>
 
   {#each data.works as work}
-    <div class="flex sm:gap-6 transition items-baseline lt-sm:flex-col">
+    <a
+      href={work.slug ? `/work/${work.slug}` : work.url}
+      class="flex sm:gap-6 transition items-baseline lt-sm:flex-col"
+      hover="opacity-60"
+    >
       <time class="sm:basis-20 shrink-0 text-sm slashed-zero text-fg-secondary font-500"
         >{work.duration}</time
       >
       <div>
-        <a href={work.url} class="font-600">{work.title} ↗</a>
+        <p class="font-600">{work.title}</p>
         <p class="text-fg-secondary">{work.excerpt}</p>
       </div>
       <div />
-    </div>
+    </a>
   {/each}
 </section>
 

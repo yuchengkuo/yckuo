@@ -1,5 +1,12 @@
+<script context="module">
+  export const meta = {
+    title: 'Action Button',
+    date: '2022/12/18',
+  }
+</script>
+
 <button
-  class="py-3 px-4 leading-none bg-rx-cyan-9 text-white rounded-lg font-700 relative"
+  class="my-16 py-3 px-4 leading-none bg-rx-cyan-9 text-white rounded-lg font-700 relative"
   dark="bg-green-900"
   before="transition opacity-0"
 >

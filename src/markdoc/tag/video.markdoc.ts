@@ -1,11 +1,11 @@
+import { getAspectRatio } from '$lib/media/getAspectRatio'
+import { getBlurDataUrl } from '$lib/media/getBlurDataUrl'
 import pkg from '@markdoc/markdoc'
 const { Tag } = pkg
 import type { Schema } from '@markdoc/markdoc'
-import { getBlurDataUrl } from '$lib/media/getBlurDataUrl'
-import { getAspectRatio } from '$lib/media/getAspectRatio'
 
-export const image: Schema = {
-  render: 'Image',
+export const video: Schema = {
+  render: 'Video',
   attributes: {
     id: { required: true, type: String },
     alt: { type: String, default: '' },
@@ -13,7 +13,6 @@ export const image: Schema = {
     height: { type: Number },
     showcap: { type: Boolean, default: false },
     full: { type: Boolean, default: false },
-    isVideo: { type: Boolean, default: false },
   },
   selfClosing: true,
   async transform(node, config) {
@@ -22,8 +21,8 @@ export const image: Schema = {
 
     const id = attributes['id']
 
-    const blurDataUrl = await getBlurDataUrl(id)
-    const aspectRatio = await getAspectRatio(id)
+    const blurDataUrl = await getBlurDataUrl(id, true)
+    const aspectRatio = await getAspectRatio(id, true)
 
     return new Tag(this.render, { blurDataUrl, aspectRatio, ...attributes }, children)
   },

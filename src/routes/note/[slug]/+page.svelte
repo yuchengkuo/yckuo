@@ -7,6 +7,7 @@
   import Header from '../../Header.svelte'
 
   import type { PageServerData } from './$types'
+  import { formatDate } from '$lib/util'
 
   export let data: PageServerData
 </script>
@@ -16,12 +17,7 @@
 <Header title={data.note.title} />
 
 <div class="mb-8 max-w flex gap-2">
-  <time class="text-sm font-500"
-    >{new Intl.DateTimeFormat('en-US', {
-      dateStyle: 'medium',
-      timeZone: 'Asia/Taipei',
-    }).format(new Date(data.note.date))}</time
-  >
+  <time class="text-sm font-500">{formatDate(data.note.date)}</time>
   {#if data.note.tag}
     <div class="flex gap-2">
       {#each data.note.tag ?? [] as tag}

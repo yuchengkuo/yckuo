@@ -10,9 +10,9 @@
 
   const baseUrl = dev ? '' : 'https://yuchengkuo.com'
 
-  const defaultTitle = 'YuCheng Kuo – Designer & Engingeer'
+  const defaultTitle = 'YuCheng Kuo – Design Engingeer'
   const defaultDescription =
-    'Personal website, portfolio, little corner on the internet of YuCheng Kuo, a product designer and UI developer'
+    'Personal website, portfolio and the corner on the internet of YuCheng Kuo, a design engineer from Taiwan.'
 
   export let title = ''
   export let description = ''

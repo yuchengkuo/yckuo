@@ -1,3 +1,10 @@
+<script context="module">
+  export const meta = {
+    title: 'Simple Dropdown Menu',
+    date: '2022/12/11',
+  }
+</script>
+
 <script lang="ts">
   import clickOutside from '$lib/action/clickoutside'
   import { motion } from '$lib/animation/motion'
@@ -66,7 +73,7 @@
 <svelte:window on:keydown={onKeydown} />
 
 <button
-  class="pl-4 pr-3 py-1 bg-rx-gray-3 rounded-lg transition outline-none focus-visible:bg-rx-gray-5"
+  class="my-24 pl-4 pr-3 py-1 bg-rx-gray-3 rounded-lg transition outline-none focus-visible:bg-rx-gray-5"
   hover="bg-rx-gray-5"
   aria-haspopup="menu"
   aria-expanded={menuOpen}
@@ -95,7 +102,7 @@
     {#each items as item, index}
       <button
         role="menuitem"
-        class="transition outline-none rounded-md"
+        class="transition outline-none rounded-md font-500"
         class:destructive={item.destructive}
         data-highlighted={highlighted === index ? '' : null}
         tabindex={highlighted === index ? 0 : -1}
