@@ -10,7 +10,7 @@
 
   const baseUrl = dev ? '' : 'https://yuchengkuo.com'
 
-  const defaultTitle = 'YuCheng Kuo – Design Engingeer'
+  const defaultTitle = 'YuCheng Kuo – Design Engineer'
   const defaultDescription =
     'Personal website, portfolio and the corner on the internet of YuCheng Kuo, a design engineer from Taiwan.'
 
