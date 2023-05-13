@@ -102,7 +102,7 @@
     {#each items as item, index}
       <button
         role="menuitem"
-        class="transition outline-none rounded-md"
+        class="transition outline-none rounded-md font-500"
         class:destructive={item.destructive}
         data-highlighted={highlighted === index ? '' : null}
         tabindex={highlighted === index ? 0 : -1}

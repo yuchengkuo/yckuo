@@ -97,7 +97,7 @@
       {#each items as item, index}
         <li>
           <button
-            class="px-4 py-1 w-full text-left rounded-md text-sm outline-none"
+            class="px-4 py-1 w-full text-left font-500 rounded-md text-sm outline-none"
             data-highlighted={highlighted === index ? '' : null}
             tabindex={highlighted === index ? 0 : -1}
             on:click={onSelect}

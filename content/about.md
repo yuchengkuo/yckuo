@@ -2,7 +2,7 @@
 title: 嗨
 ---
 
-My name is YuCheng Kuo. I am a self-taught product designer/engineer from Taiwan. Currently working as a UI/UX designer at [Oen Tech](https://oen.tw), helping building the software that brings engagement, fundraising, and payment together for nonprofits, campaigns and all kinds of orgs.
+My name is YuCheng Kuo. I am a self-taught design engineer from Taiwan. Currently working as a UI/UX designer at [Oen Tech](https://oen.tw), helping building the software that brings engagement, fundraising, and payment together for nonprofits, campaigns and all kinds of orgs.
 
 I am always fascinated by the connection between how technologies reshape our daily lives and how we then reshape new technologies in the future.
 

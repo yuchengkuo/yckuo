@@ -1,5 +1,6 @@
 <script lang="ts">
   import Header from '../Header.svelte'
+  import { formatDate } from '$lib/util'
 
   export let data: PageData
 
@@ -12,10 +13,7 @@
   <section>
     <ul>
       {#each data.notes as note}
-        {@const date = new Intl.DateTimeFormat('en-US', {
-          dateStyle: 'medium',
-          timeZone: 'Asia/Taipei',
-        }).format(new Date(note.date))}
+        {@const date = formatDate(note.date)}
         <li>
           <a
             class="py-3 transition flex justify-between items-baseline"

@@ -1,6 +1,7 @@
 <script lang="ts">
-  import Head from '$lib/seo/Head.svelte'
   import Header from '../Header.svelte'
+  import Head from '$lib/seo/Head.svelte'
+  import { formatDate } from '$lib/util'
 
   import { afterNavigate } from '$app/navigation'
   import { onMount } from 'svelte'
@@ -97,10 +98,7 @@
                       {meta.title}
                     </h2>
                     <time class="block text-xs text-fg-secondary font-450"
-                      >{new Intl.DateTimeFormat('en-US', {
-                        dateStyle: 'medium',
-                        timeZone: 'Asia/Taipei',
-                      }).format(new Date(meta.date))}
+                      >{formatDate(meta.date)}
                       <small class="ordinal text-fg-secondary ml-1"
                         >No. {key.split('/').at(-1).split('.').at(0).split('-').at(0)}</small
                       ></time

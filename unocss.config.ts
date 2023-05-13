@@ -8,7 +8,7 @@ import {
 } from 'unocss'
 import extractorSvelte from '@unocss/extractor-svelte'
 import * as Radix from '@radix-ui/colors'
-import type { Theme } from '@unocss/preset-mini'
+import type { Theme } from 'unocss/preset-mini'
 
 const radixThemes = Object.fromEntries(Object.entries(Radix).filter(([k]) => !k.match(/Dark/)))
 const radixThemesDark = Object.fromEntries(Object.entries(Radix).filter(([k]) => k.match(/Dark/)))

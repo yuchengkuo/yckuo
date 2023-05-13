@@ -24,7 +24,7 @@
   }
 
   const desc = `
-  _Hello_, I'm YuCheng, a product designer/engineer from Taiwan, now based in Kaohsiung, Taiwan. Currently working as UI/UX designer at [Oen Tech](https://oen.tw).
+  _Hello_, I'm YuCheng, a design engineer from Taiwan, now based in Kaohsiung, Taiwan. Currently working as UI/UX designer at [Oen Tech](https://oen.tw).
   
   Can find more [about me](/about) or take a look at some of my previous [personal projects](/project), which are mostly about learning something and keeping myself entertained.
 
