@@ -27,7 +27,7 @@
     "url": "https://github.com/yuchengkuo/yckuo"
   },
   "dependencies": {
-    "@markdoc/markdoc": "^0.2.2",
+    "@markdoc/markdoc": "^0.3.0",
     "@motionone/dom": "^10.15.5",
     "@splitbee/web": "^0.3.0",
     "class-transformer": "^0.5.1",
