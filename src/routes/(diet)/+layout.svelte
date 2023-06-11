@@ -1,41 +1,45 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  import { diets } from '$lib/config'
-  import Header from '../Header.svelte'
 
-  const desc = `
-  My media consumption are mostly from music, films, TV shows and books, and this is a place to share them: 
+  import Intro from '../Intro.svelte'
 
-  - My recent most streamed and saved albums lives in _Listen_. Stats are pulled from [Spotify](httsp://spotify.com)
-  - Films and TV shows are my getaway. _Watch_ lists some of my favorites and and the data comes from [TMDB](https://themoviedb.org).
-  - Getting the habit to read, can find what I am currently reading and yearly goals in _Read_. Tracking reading progress with [Literal](https://literal.club).
-  `
+  import type { LayoutData } from './$types'
+
+  export let data: LayoutData
+
+  let route = data.routes.find((r) => r.label === 'DDiet')
 </script>
 
-<Header title="Digital Diet" {desc} />
+<Intro {route} />
 
-<div class="max-w flex gap-6 relative" children="text-sm font-600 px-1 py-3">
-  {#each diets as route}
+<nav>
+  {#each route.group as group}
     <a
-      class="relative text-fg-secondary transition-all ease-in-out duration-100"
-      hover="text-fg"
-      class:active={$page.url.pathname === route.url}
-      active="scale-96 origin-bc"
-      href={route.url}
-      aria-label={route.label}
-      aria-selected={$page.url.pathname === route.url}
-      tabindex={$page.url.pathname === route.url ? 0 : -1}
+      class:active={$page.url.pathname === group.url}
+      href={group.url}
+      aria-label={group.label}
+      aria-selected={$page.url.pathname === group.url}
+      tabindex={$page.url.pathname === group.url ? 0 : -1}
       role="tab"
       data-sveltekit-noscroll
-      ><span class="{route.icon} w-3.5 h-3.5 align-sub mr-1 bg-fg-secondary" />{route.label}</a
+      ><span class="{group.icon} size-3 mr-1 bg-fg-secondary" />{group.label}</a
     >
   {/each}
+</nav>
+
+<div class="bg-surface border-dash border-t py-10 lt-sm:(-mx-4 px-4)">
+  <slot />
 </div>
 
-<slot />
-
 <style>
-    .active {
-      --uno: text-fg after:(absolute block content-none bottom-0 left-1/6 w-2/3 h-3px bg-rx-grass-9);
-    }
+  nav {
+    --uno: 'max-w flex gap-6 overflow-x-scroll lt-sm:(-mx-4 px-4)';
+  }
+
+  a {
+    --uno: 'text-sm px-1 py-3 shrink-0 relative text-fg-muted transition-all ease-in-out duration-100 hover:text-fg active:(scale-96 origin-bc)';
+  }
+  .active {
+    --uno: 'font-medium text-fg after:(absolute block content-empty bottom-0 z-10 left-1/6 w-2/3 h-3px bg-primary)';
+  }
 </style>

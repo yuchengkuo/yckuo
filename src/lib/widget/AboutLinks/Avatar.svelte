@@ -18,7 +18,7 @@
   />
 
   <emoji
-    class="rounded-full cursor-pointer flex bg-rx-gray-4 border border-rx-gray-7 shadow-md text-base px-2 -top-3 right-7/10 gap-1 items-center block absolute no-js:hidden"
+    class="rounded-full cursor-pointer flex bg-rx-gray-4 border border-rx-gray-7 shadow-md text-base px-2 -top-3 left-7/10 gap-1 items-center block absolute no-js:hidden"
     role="presentation"
     on:mouseenter={() => {
       isVisible = true

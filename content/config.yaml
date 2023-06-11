@@ -1,0 +1,111 @@
+# @unocss-include
+routes:
+  - label: Home
+    title: YuCheng Kuo
+    description: Design Engineer, based in Kaohsiung, Taiwan.
+    url: /
+    kbd: 0
+    excerpt: |
+      Hello, I'm YuCheng, a design engineer from Taiwan, now based in Kaohsiung, Taiwan. Currently working as UI/UX designer at [Oen Tech](https://oen.tw).
+
+      You can find more [about me](/about) or take a look at some of my previous [personal projects](/project), which are mostly about learning something and keeping myself entertained.
+
+      I enjoy music, films and had picked up the habits to read books. I also surf around the internet learning and taking inspirations, you can find more curation in [DDiet](/bookmark).
+
+      Reachable through hey[at]yuchengkuo.com. ヅ
+
+  - label: About
+    title: 嗨
+    description: ':wave:'
+    url: /about
+    kbd: 1
+
+  - label: Projects
+    title: Project
+    url: /project
+    kbd: 2
+    excerpt: |
+      Experiments and explorations. These are mostly personal projects that are for learning and practicing.
+
+  - label: DDiet
+    title: Digital Diet
+    description: Consumption in digital form
+    url: /bookmark
+    kbd: 3
+    group:
+      - label: Bookmark
+        title: Bookmark
+        url: /bookmark
+        icon: i-ri-global-fill
+        kbd: 3
+      - label: Blogroll
+        title: Blogroll
+        url: /blogroll
+        icon: i-ri-newspaper-fill
+        kbd: 4
+      - label: Music
+        title: Listening
+        url: /listening
+        icon: i-ri-speaker-fill
+        kbd: 5
+      - label: Film
+        title: Watching
+        url: /watching
+        icon: i-ri-projector-2-fill
+        kbd: 6
+      - label: Book
+        title: Reading
+        url: /reading
+        icon: i-ri-book-2-fill
+        kbd: 7
+    excerpt: |
+      A curation of bookmarks, enjoyed newsletter, music, films, books and interesting things around the world wide web.
+
+      - *Bookmarks* are the links that I find interesting, they mostly consists of portfolios, typefaces, products, tools and tech in use.
+      - *Blogrolls* are newsletter and blog that I read and enjoy, including design, engineering and general inspiration. They are randomly sorted each build.
+      - My recent most streamed and saved albums can be found in *Music*. Stats and data pulled from [Spotify](https://spotify.com)
+      - *Film* shares my (recent) favorite TV shows and films, they serve as getaway during overload.
+      - Building the habit to read books, you can find what I am currently reading and yearly goals in *Book*. Tracking reading progress with [Literal](https://literal.club).
+
+  - label: Notes
+    title: Note
+    description: Thoughts and learnings
+    url: /note
+    kbd: 8
+    excerpt: |
+      Random notes. Documenting things that I learned for now.
+
+  # - label: Timeline
+  #   title: Timeline
+  #   description: Feeds
+  #   url: /timeline
+  #   kbd: 9
+  #   excerpt: |
+  #     Feed of mine.
+
+  - label: Sandbox
+    title: Sandbox
+    description: ''
+    url: /sandbox
+    kbd: 9
+    excerpt: |
+      A little playground.
+
+connect:
+  - label: Read.cv
+    url: https://read.cv/yuchengkuo
+
+  - label: Email
+    url: mailto:hey@yuchengkuo.com
+
+  - label: Figma
+    url: https://figma.com/@yuchengkuo
+
+  - label: Github
+    url: https://github.com/yuchengkuo
+
+  - label: Savee
+    url: https://savee.it/yuchengkuo
+
+  - label: LinkedIn
+    url: https://linkedin.com/in/yucheng-kuo

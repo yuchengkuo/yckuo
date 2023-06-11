@@ -3,11 +3,11 @@
 @import './article-layout.css';
 
 @font-face {
-  font-family: 'Anek';
-  src: url('/fonts/AnekLatin[wdth,wght].woff2') format('woff2-variations');
-  font-style: normal;
+  font-family: 'Instrument';
+  src: url('/fonts/InstrumentSans[wdth,wght].woff2') format('woff2-variations');
+  font-style: normal italic;
   font-display: block;
-  font-weight: 100 900;
+  font-weight: 300 700;
 }
 
 @font-face {
@@ -55,69 +55,75 @@
   width: 100%;
   height: 3px;
   border-radius: 8px;
-  --uno: bg-fg shadow-current shadow-lg;
+  --uno: 'bg-fg shadow-current shadow-lg';
 }
 
 ::selection {
-  --uno: bg-rx-grass-5;
-}
-
-* {
-  scrollbar-color: var(--foreground) hsl(var(--background));
+  background-color: oklch(var(--select));
 }
 
 html {
-  --uno: bg-bg mx-auto min-h-screen max-w-9xl antialiased;
+  --uno: 'bg-bg mx-auto min-h-screen max-w-9xl antialiased';
 }
 
 html.dark-theme {
   color-scheme: dark;
 }
 
-html, body, * {
-  --uno:  transition-colors ease-out duration-500 delay-25;
+html,
+body,
+* {
+  --uno: ' transition-colors ease-out duration-500 delay-25';
 }
 
 @screen 2xl {
   html {
-    --uno: bg-bg;
+    --uno: 'bg-bg';
   }
 }
 
 body {
-  --uno: bg-bg text-fg text-base font-Anek font-425;
-  --uno: min-h-screen overflow-x-hidden lt-md:px-4;
+  --uno: 'bg-bg text-fg text-base font-Instrument';
+  --uno: 'min-h-screen overflow-x-hidden lt-md:px-4';
   word-spacing: -0.01em;
 }
 
 h1,
 .lev1 {
-  --uno: font-750 text-fg text-7 leading-8 tracking-tight stretch-semi-expanded;
+  --uno: 'font-medium text-xl';
 }
 
 h2,
 .lev2 {
-  --uno: font-600 text-fg text-xl;
+  --uno: 'font-medium text-lg';
 }
 
 h3,
 .lev3 {
-  --uno: font-600 text-fg text-lg;
+  --uno: 'font-medium';
 }
 
 h4,
 .lev4 {
-  --uno: font-600 text-fg text-lg;
+  --uno: 'font-medium';
+}
+
+strong {
+  --uno: 'text-fg font-medium';
 }
 
 code {
-  --uno: bg-rx-gray-5 text-fg rounded font-Azeret py-px px-1 mx-0.5 text-0.75em shadow-sm;
+  --uno: 'bg-rx-gray-5 text-fg rounded font-Azeret py-px px-0.5 mx-0.5 text-0.75em shadow-sm';
 }
 
 kbd {
-  --uno: inline-block bg-surface rounded font-Azeret font-650 text-xs leading-none py-1 px-1.5 border-b-2 border-fg-secondary/28 border-x-1 border-t-1 hover:bg-bg-secondary;
+  --uno: 'inline-block bg-surface rounded font-Azeret font-650 text-xs leading-none py-1 px-1.5 border-b-2 border-fg-secondary/28 border-x-1 border-t-1 hover:bg-bg-secondary';
 }
 
 time {
-  --uno: slashed-zero;
+  --uno: 'slashed-zero';
+}
+
+button {
+  --uno: 'bg-transparent';
 }

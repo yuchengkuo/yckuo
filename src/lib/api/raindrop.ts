@@ -1,7 +1,10 @@
 import { RAINDROP_ACCESS_TOKEN as access_token } from '$env/static/private'
 import { getAspectRatio } from '$lib/media/getAspectRatio'
 import { getBlurDataUrl } from '$lib/media/getBlurDataUrl'
+import { parseContent } from '$lib/content/utils'
 import { getFullUrl } from './util'
+
+import type { RenderableTreeNode } from '@markdoc/markdoc'
 
 const RAINDROPS_ENDPOINT = `https://api.raindrop.io/rest/v1/raindrops/`
 
@@ -27,6 +30,7 @@ type GetBookmarkParam = {
 export type Raindrop = {
   title: string
   tags: string[]
+  note?: RenderableTreeNode | undefined
   excerpt: string
   link: string
   domain: string
@@ -55,6 +59,7 @@ export async function getBookmarks(param: GetBookmarkParam): Promise<Raindrop[]>
     items.map(async (item) => ({
       title: item.title,
       tags: item.tags,
+      note: item.note.length ? (await parseContent(item.note)).content : undefined,
       excerpt: item.excerpt,
       link: item.link,
       domain: item.domain,

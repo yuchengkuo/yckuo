@@ -26,10 +26,7 @@
 </script>
 
 <nav class="my-40">
-  <div
-    class="py-1.5 flex rounded relative"
-    children="font-500 px-2.5 py-1 rounded hover:bg-surface-subtle transition duration-300"
-  >
+  <ul>
     {#each tabs as tab, index}
       <button
         bind:clientWidth={widths[index]}
@@ -37,16 +34,19 @@
           tabs.find((t) => t.active).active = false
           tabs[index].active = true
         }}
-        class:font-575={index === activeIndex}
-        class:text-fg-secondary={index !== activeIndex}
+        class:active={index === activeIndex}
+        role="tab"
+        aria-label={tab.label}
+        aria-selected={index === activeIndex}
+        tabIndex={index === activeIndex ? 0 : -1}
       >
         {tab.label}
       </button>
     {/each}
-  </div>
-  <div role="presentation" class="bg-rx-gray-6 h-0.5 w-full rounded relative">
+  </ul>
+  <div role="presentation">
     <div
-      class="absolute bg-rx-orange-9 h-full rounded"
+      data-indicator
       use:motion={{
         animate: { width: `${widths[activeIndex]}px`, left: `${leftOffset}px` },
         transition: { easing: spring({ damping: 40, stiffness: 600 }) },
@@ -54,3 +54,23 @@
     />
   </div>
 </nav>
+
+<style>
+  ul {
+    --uno: 'py-1.5 flex rounded relative';
+  }
+  button {
+    --uno: 'text-fg-muted block font-medium px-2.5 py-1 rounded transition duration-300';
+    --uno: 'hover:bg-rx-gray3 active:bg-rx-gray2';
+  }
+  button.active {
+    --uno: 'font-semibold text-fg';
+  }
+
+  div[role='presentation'] {
+    --uno: 'bg-rx-gray-6 h-0.5 w-full rounded relative';
+  }
+  div[data-indicator] {
+    --uno: 'absolute bg-rx-orange-9 h-full rounded';
+  }
+</style>

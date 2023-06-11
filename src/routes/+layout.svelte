@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '@unocss/reset/tailwind.css'
+  import '@unocss/reset/tailwind-compat.css'
   import 'uno.css'
   import '../styles/app.css'
 
@@ -10,25 +10,30 @@
   import { dev } from '$app/environment'
   import { motion } from '$lib/animation/motion'
   import Head from '$lib/seo/Head.svelte'
-  import useTheme from '$lib/theme/useTheme'
-  import { routes } from '$lib/config'
+  import { formatDate } from '$lib/util'
 
   import Layer from './Layer.svelte'
 
   import type { Options } from 'motion'
+  import type { PageData } from './$types'
+
+  export let data: PageData
 
   beforeNavigate(() => NProgress.start())
   afterNavigate(() => NProgress.done())
 
   function navigate(e: KeyboardEvent) {
-    if (e.key === '0') goto('/')
-    routes.forEach(({ kbd, url }) => {
-      if (e.key === kbd) goto(url)
+    data.routes.forEach(({ kbd, url, group }) => {
+      if (e.key === kbd.toString()) goto(url)
+      if (group) {
+        group.forEach(({ kbd, url }) => {
+          if (e.key === kbd.toString()) goto(url, { noScroll: true })
+        })
+      }
     })
   }
 
   let withTransition = true
-  const { dark, toggleMode } = useTheme()
   const fadeInConfig: Options = {
     initial: { opacity: 0.001 },
     animate: { opacity: 1 },
@@ -66,7 +71,6 @@
 >
   {#key $page.url.pathname}
     <main
-      class="py-52 no-js:opacity-100 lt-sm:py-10"
       class:opacity-0={withTransition}
       class:opacity-100={!withTransition}
       data-sveltekit-preload-data
@@ -75,13 +79,13 @@
     >
       <slot />
 
-      <footer class="max-w mt-20 flex gap-2 items-baseline">
-        <p class="text-sm font-700 -tracking-0.04em stretch-semi-expanded">YuCheng Kuo</p>
-        <p class="text-xs text-fg-secondary font-550 slashed-zero">v3 ©2019–2023</p>
+      <footer>
+        <p class="font-medium">YuCheng Kuo</p>
+        <p class="text-fg-muted">©2019–2023</p>
+        <p class="text-fg-muted mr-auto">Upd. {formatDate(data.updated_at)}</p>
         <button
           on:click={() => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })}
-          class="btn-pill ml-auto"
-          aria-label="Go to top"><span class="i-ri-arrow-up-line" />Top</button
+          aria-label="Go to top">Top ↑</button
         >
       </footer>
     </main>
@@ -89,3 +93,15 @@
 </div>
 
 <Layer />
+
+<style>
+  main {
+    --uno: 'py-40 no-js:opacity-100 lt-sm:py-10';
+  }
+  footer {
+    --uno: 'max-w mt-20 flex gap-2 items-baseline text-xs';
+  }
+  button {
+    --uno: 'button';
+  }
+</style>

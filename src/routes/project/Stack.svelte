@@ -96,8 +96,7 @@
 
 <style>
   button:hover::after {
-    --uno: bg-bg/60 text-xs whitespace-nowrap font-650 py-1 px-2 rounded-md backdrop-filter
-      backdrop-blur z-99;
+    --uno: 'bg-bg/60 text-xs whitespace-nowrap font-650 py-1 px-2 rounded-md backdrop-filter backdrop-blur z-99';
     content: 'Click to ↩';
     pointer-events: none;
     position: absolute;

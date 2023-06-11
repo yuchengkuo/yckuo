@@ -1,6 +1,7 @@
 ---
 title: Parent data in SvelteKit load function
-date: 2023-01-27
+time: 2023-01-27
+excerpt: Learning when using parent data inside SvelteKit load function.
 tag:
   - SvelteKit
 ---

@@ -4,20 +4,21 @@
   import Head from '$lib/seo/Head.svelte'
   import { components } from '$lib/content/components'
   import { tagColors } from '$lib/config'
-  import Header from '../../Header.svelte'
-
-  import type { PageServerData } from './$types'
   import { formatDate } from '$lib/util'
 
-  export let data: PageServerData
+  import Intro from '../../Intro.svelte'
+
+  import type { PageData } from './$types'
+
+  export let data: PageData
 </script>
 
 <Head title={data.note.title} openGraph={{ url: `note/${data.note.slug}` }} />
 
-<Header title={data.note.title} />
+<Intro title={data.note.title} />
 
-<div class="mb-8 max-w flex gap-2">
-  <time class="text-sm font-500">{formatDate(data.note.date)}</time>
+<div class="mb-10 max-w flex gap-2">
+  <time class="text-sm font-500">{formatDate(data.note.time)}</time>
   {#if data.note.tag}
     <div class="flex gap-2">
       {#each data.note.tag ?? [] as tag}

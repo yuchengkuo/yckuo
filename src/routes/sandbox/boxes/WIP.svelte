@@ -14,6 +14,6 @@
   })
 </script>
 
-<div class="my-40 text-fg-secondary">
+<div class="text-fg-muted">
   WIP{#each new Array(wrap(0, 4, amount)).fill('.') as dot}{dot}{/each}
 </div>

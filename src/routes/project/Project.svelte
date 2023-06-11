@@ -1,0 +1,46 @@
+<script lang="ts">
+  import { page } from '$app/stores'
+
+  import Image from '$lib/media/Image.svelte'
+  import { tagColors } from '$lib/config'
+
+  import type { Project } from '$contentlayer'
+
+  export let project: Project
+</script>
+
+<li class="not-last:(mb-10 lt-sm:mb-4)">
+  <a class="block" href={project.link || `/project/${project.slug}`}>
+    <main>
+      <time class="text-xs text-fg-muted">{project.time}</time>
+      <div class="flex justify-between items-baseline">
+        <h2 class="text-base">
+          {project.title}
+          {#if project.link}↗{/if}
+        </h2>
+      </div>
+      <p class="text-fg-muted">{project.excerpt}</p>
+
+      <div class="flex gap-2 mt-2 lt-sm:gap-1">
+        {#each project.tag ?? [''] as tag}
+          {@const index = Object.keys(Object.fromEntries($page.data.tags)).indexOf(tag)}
+          <p class="{tagColors[index] || 'tag-gray'} shrink-0">{tag}</p>
+        {/each}
+      </div>
+
+      {#if project.image}
+        <div class="mt-4 flex gap-4 lt-sm:gap-2">
+          {#each project.image as img}
+            <Image {...img} class="basis-[calc(25%-12px)] grow shrink-0" widths={[600, 1600]} />
+          {/each}
+        </div>
+      {/if}
+    </main>
+  </a>
+</li>
+
+<style>
+  main {
+    --uno: 'rounded-lg transition p-4 -m-4 lt-sm:(p-3 -m-3) bg-surface shadow-sm hover:bg-surface-muted active:bg-bg-muted';
+  }
+</style>

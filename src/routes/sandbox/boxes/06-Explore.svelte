@@ -5,16 +5,15 @@
   }
 </script>
 
-<button
-  class="my-16 py-3 px-4 leading-none bg-rx-cyan-9 text-white rounded-lg font-700 relative"
-  dark="bg-green-900"
-  before="transition opacity-0"
->
-  Start Exploring<span class="i-bxs-chevron-right align-mid ml-1 transition" /></button
->
+<button> Start Exploring<span class="i-bxs-chevron-right ml-1 transition" /></button>
 
 <style>
+  button {
+    --uno: 'my-16 py-3 px-4 leading-none bg-rx-cyan-9 dark:bg-rx-green9 text-white rounded-lg font-700'
+      relative;
+  }
   button::before {
+    --uno: 'transition opacity-0';
     content: '';
     position: absolute;
     inset: 0;
@@ -23,15 +22,15 @@
     background-blend-mode: normal;
   }
   button:hover::before {
-    --uno: shadow-lg opacity-100;
+    --uno: 'shadow-lg opacity-100';
   }
   button:active::before {
-    --uno: shadow-md opacity-50;
+    --uno: 'shadow-md opacity-50';
   }
   button:hover span {
-    --uno: translate-x-0.75;
+    --uno: 'translate-x-0.75';
   }
   button:active span {
-    --uno: translate-x-1;
+    --uno: 'translate-x-1';
   }
 </style>

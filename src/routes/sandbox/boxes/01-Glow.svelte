@@ -28,19 +28,19 @@
     ? 'rgba(225, 225, 225, 0.7)'
     : 'rgba(239, 215, 0, 0.7)'}"
 >
-  <button
-    bind:this={button}
-    class="w-fit h-fit px-4 py-1.5 font-575 rounded-lg"
-    bg="light-600 dark:dark-400"
-    transition="transition duration-300"
-    pos="relative"
-    active="translate-y-0.5"
-  >
-    Glow ✨
-  </button>
+  <button bind:this={button}> Glow ✨ </button>
 </div>
 
 <style>
+  div {
+    --uno: 'w-full h-80 grid place-items-center';
+  }
+  button {
+    --uno: 'w-fit h-fit px-4 py-1.5 font-575 rounded-lg transition duration-300 relative';
+    --uno: 'bg-light-600 dark:bg-dark-400';
+    --uno: 'active:translate-y-0.5';
+  }
+
   button::before {
     content: '';
     position: absolute;

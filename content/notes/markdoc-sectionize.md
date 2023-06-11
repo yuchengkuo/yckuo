@@ -1,6 +1,6 @@
 ---
 title: Sectionize Markdoc document
-date: 2022-07-22
+time: 2022-07-22
 tag:
   - Markdoc
   - Snippet
