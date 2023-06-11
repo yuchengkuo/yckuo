@@ -6,13 +6,14 @@
 </script>
 
 <script lang="ts">
+  import { tick } from 'svelte'
+  import { clamp } from 'popmotion'
+
   import clickOutside from '$lib/action/clickoutside'
   import { motion } from '$lib/animation/motion'
   import { outro } from '$lib/animation/out'
   import portal from '$lib/action/portal/action'
   import placePopover from '$lib/action/placePopover'
-  import { clamp } from 'popmotion'
-  import { tick } from 'svelte'
 
   let menuOpen = false
   let highlighted = -1
@@ -73,20 +74,16 @@
 <svelte:window on:keydown={onKeydown} />
 
 <button
-  class="my-24 pl-4 pr-3 py-1 bg-rx-gray-3 rounded-lg transition outline-none focus-visible:bg-rx-gray-5"
-  hover="bg-rx-gray-5"
   aria-haspopup="menu"
   aria-expanded={menuOpen}
   bind:this={trigger}
   on:click={() => (menuOpen = !menuOpen)}
 >
-  More<span class="i-ri-arrow-down-s-fill align-mid" />
+  More<span class="i-ri-arrow-down-s-fill" />
 </button>
 
 {#if menuOpen}
   <div
-    class="flex flex-col rounded-lg p-1 shadow-xl bg-rx-gray-2 min-w-40"
-    children="px-2 py-2.5 text-sm text-left whitespace-nowrap leading-none"
     role="menu"
     out:outro
     use:portal
@@ -102,25 +99,37 @@
     {#each items as item, index}
       <button
         role="menuitem"
-        class="transition outline-none rounded-md font-500"
         class:destructive={item.destructive}
         data-highlighted={highlighted === index ? '' : null}
         tabindex={highlighted === index ? 0 : -1}
         on:click={onSelect}
         on:mouseenter={() => (highlighted = index)}
-        ><span
-          class="{item.icon} align-top mr-2 transition text-fg-secondary"
-        />{item.label}</button
+        ><span class="{item.icon} mr-2 transition text-fg-muted" />{item.label}</button
       >
     {/each}
   </div>
 {/if}
 
 <style>
-  [data-highlighted] {
-    --uno: bg-rx-gray-5 rounded-md;
+  button[aria-haspopup='menu'] {
+    --uno: 'my-24 pl-4 pr-3 py-1 bg-rx-gray-3 rounded-lg transition outline-none focus-visible:bg-rx-gray-5';
+    --uno: 'hover:bg-rx-gray-5';
   }
+
+  div[role='menu'] {
+    --uno: 'flex flex-col rounded-lg p-1 shadow-xl bg-rx-gray-2 min-w-40';
+  }
+
+  button[role='menuitem'] {
+    --uno: 'px-2 py-2.5 text-sm text-left whitespace-nowrap leading-none';
+    --uno: 'transition outline-none rounded-md font-500';
+  }
+
+  [data-highlighted] {
+    --uno: 'bg-rx-gray-5 rounded-md';
+  }
+
   [data-highlighted].destructive {
-    --uno: text-rx-red-9 children:text-rx-red-9 focus-visible:(text-rx-red-9 children:text-rx-red-9);
+    --uno: 'text-rx-red-9 children:text-rx-red-9 focus-visible:(text-rx-red-9 children:text-rx-red-9)';
   }
 </style>

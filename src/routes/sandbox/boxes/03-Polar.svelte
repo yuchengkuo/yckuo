@@ -25,7 +25,7 @@
 </script>
 
 <div
-  class="w-full h-100 grid place-items-center filter blur-md"
+  data-outer
   style="--x: {$x}px; --y: {$y}px; --hue: {$hue}; --sat: {$sat}%;"
   bind:this={outer}
   on:mousemove={handleMousemove}
@@ -34,11 +34,15 @@
     y.set(e.clientY - div.getBoundingClientRect().y)
   }}
 >
-  <div class="w-28 h-28 rounded-full" bind:this={div} />
+  <div data-inner bind:this={div} />
 </div>
 
 <style>
-  div > div {
+  div[data-outer] {
+    --uno: 'w-full h-100 grid place-items-center filter blur-md';
+  }
+  div[data-inner] {
+    --uno: 'w-28 h-28 rounded-full';
     background-image: radial-gradient(
         circle at var(--x) var(--y),
         rgba(255, 255, 255, 0.5),

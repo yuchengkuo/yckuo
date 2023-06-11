@@ -1,9 +1,9 @@
 import { sveltekit } from '@sveltejs/kit/vite'
-import unocss from 'unocss/vite'
+import UnoCSS from 'unocss/vite'
 
 /** @type {import('vite').UserConfig} */
 const config = {
-  plugins: [unocss({ transformCSS: 'pre' }), sveltekit()],
+  plugins: [UnoCSS(), sveltekit()],
   define: { 'process.env': process.env },
 
   server: {

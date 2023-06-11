@@ -78,7 +78,7 @@
   </div>
 
   {#if showcap}
-    <small class="block w-fit h-fit mt-2 font-550 text-sm text-fg-secondary">
+    <small class="block w-fit h-fit mt-2 font-550 text-sm text-fg-muted">
       — {alt}
     </small>
   {/if}

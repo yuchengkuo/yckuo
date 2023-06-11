@@ -1,6 +1,6 @@
 <script context="module">
   export const meta = {
-    title: 'Like button',
+    title: 'Like Button',
     date: '2022/11/27',
   }
 </script>
@@ -25,11 +25,8 @@
   }
 </script>
 
-<div
-  class="rounded-full my-20 bg-rx-gray-3 flex items-center divide-x divide-border"
-  children="py-2 hover:bg-rx-gray-4 active:bg-rx-gray-5 rounded-inherit"
->
-  <button class="pl-5 pr-3 rounded-r-none font-Azeret" on:click={upvote}>
+<div>
+  <button on:click={upvote}>
     {#if up}
       <Confetti
         amount="15"
@@ -44,7 +41,6 @@
         viewBox="0 0 24 24"
         width="20"
         height="20"
-        class="inline"
         use:motion={{
           animate: {
             transform: [
@@ -69,13 +65,7 @@
         />
       </svg>
     {:else}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        class="inline"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
         <path fill="none" d="M0 0h24v24H0z" />
         <path
           d="M14.6 8H21a2 2 0 0 1 2 2v2.104a2 2 0 0 1-.15.762l-3.095 7.515a1 1 0 0 1-.925.619H2a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1h3.482a1 1 0 0 0 .817-.423L11.752.85a.5.5 0 0 1 .632-.159l1.814.907a2.5 2.5 0 0 1 1.305 2.853L14.6 8zM7 10.588V19h11.16L21 12.104V10h-6.4a2 2 0 0 1-1.938-2.493l.903-3.548a.5.5 0 0 0-.261-.571l-.661-.33-4.71 6.672c-.25.354-.57.644-.933.858zM5 11H3v8h2v-8z"
@@ -86,7 +76,7 @@
     {count}
   </button>
 
-  <button class="pl-3 pr-5 rounded-l-none" on:click={downvote}>
+  <button on:click={downvote}>
     {#if down}
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
         <path fill="none" d="M0 0h24v24H0z" />
@@ -106,3 +96,21 @@
     {/if}
   </button>
 </div>
+
+<style>
+  div {
+    --uno: 'rounded-full my-20 bg-rx-gray-3 flex items-center divide-x divide-border';
+  }
+  button {
+    --uno: 'py-2 hover:bg-rx-gray-4 active:bg-rx-gray-5 rounded-inherit';
+  }
+  button:first-child {
+    --uno: 'pl-5 pr-3 rounded-r-none font-Azeret';
+  }
+  button:last-child {
+    --uno: 'pl-3 pr-5 rounded-l-none';
+  }
+  svg {
+    --uno: 'inline';
+  }
+</style>

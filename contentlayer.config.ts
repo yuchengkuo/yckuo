@@ -1,106 +1,29 @@
 import {
-  defineDocumentType,
   makeSource,
-  ComputedFields,
+  defineDocumentType,
   defineNestedType,
+  defineComputedFields,
+  defineFields,
 } from 'contentlayer/source-files'
 import readingTime from 'reading-time'
+import { getBlurDataUrl } from './src/lib/media/getBlurDataUrl'
+import { getAspectRatio } from './src/lib/media/getAspectRatio'
 
-const computedFields: ComputedFields = {
-  readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
-  slug: { type: 'string', resolve: (doc) => doc._raw.sourceFileName.replace(/\.md/, '') },
-}
+/**
+ * Nested items
+ */
 
-const Post = defineDocumentType(() => ({
-  name: 'Post',
-  filePathPattern: 'posts/*.md',
+const Route = defineNestedType(() => ({
+  name: 'Route',
   fields: {
+    label: { type: 'string', required: true },
     title: { type: 'string', required: true },
-    date: { type: 'date', required: true },
-    cover: { type: 'string' },
-    tag: { type: 'list', of: { type: 'string' } },
-  },
-  computedFields,
-}))
-
-const Note = defineDocumentType(() => ({
-  name: 'Note',
-  filePathPattern: 'notes/*.md',
-  fields: {
-    title: { type: 'string', required: true },
-    date: { type: 'date', required: true },
-    tag: { type: 'list', of: { type: 'string' } },
-    feature: { type: 'boolean' },
-    meta: { type: 'list', of: Meta },
-  },
-  computedFields,
-}))
-
-const Micro = defineDocumentType(() => ({
-  name: 'Micro',
-  filePathPattern: 'posts/*.yaml',
-  contentType: 'data',
-  fields: {
-    micro: { type: 'list', of: MicroBlog },
-  },
-  isSingleton: true,
-}))
-
-const MicroBlog = defineNestedType(() => ({
-  name: 'MicroBlog',
-  fields: {
-    date: { type: 'date', required: true },
-    title: { type: 'string' },
-    tag: { type: 'list', of: { type: 'string' } },
-    content: { type: 'markdown', required: true },
-  },
-}))
-
-const Project = defineDocumentType(() => ({
-  name: 'Project',
-  filePathPattern: 'projects/*.md',
-  fields: {
-    title: { type: 'string', required: true },
-    excerpt: { type: 'string', required: true },
-    tag: { type: 'list', of: { type: 'string' } },
-    image: { type: 'list', of: Image },
-    hideCover: { type: 'boolean', default: false },
-    time: { type: 'date', required: true },
-    link: { type: 'string', description: 'Provide link for project without page.' },
-    featured: { type: 'boolean' },
-    action: { type: 'list', of: Link },
-    meta: { type: 'list', of: Meta },
-  },
-  computedFields,
-}))
-
-const Work = defineDocumentType(() => ({
-  name: 'Work',
-  filePathPattern: 'work/*.md',
-  fields: {
-    title: { type: 'string', required: true },
+    description: { type: 'string' },
+    excerpt: { type: 'markdown' },
     url: { type: 'string', required: true },
-    tagline: { type: 'string', required: true },
-    duration: { type: 'string', required: true },
-    role: { type: 'string', required: true },
-    excerpt: { type: 'string' },
-    brief: { type: 'string' },
-    highlight: { type: 'list', of: Link },
-    tag: { type: 'list', of: { type: 'string' } },
-    image: { type: 'list', of: Image },
-    featured: { type: 'boolean' },
-    action: { type: 'list', of: Link },
-  },
-  computedFields,
-}))
-
-const About = defineDocumentType(() => ({
-  name: 'About',
-  filePathPattern: 'about.md',
-  isSingleton: true,
-  fields: {
-    title: { type: 'string', required: true },
-    links: { type: 'list', of: Link },
+    icon: { type: 'string' },
+    kbd: { type: 'number', required: true },
+    group: { type: 'list', of: Route },
   },
 }))
 
@@ -131,8 +54,120 @@ const Image = defineNestedType(() => ({
   },
 }))
 
+/**
+ * (Computed) field items
+ */
+
+const computedFields = defineComputedFields({
+  readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
+  slug: { type: 'string', resolve: (doc) => doc._raw.sourceFileName.replace(/\.md/, '') },
+  // Append props to image field
+  image: {
+    type: 'list',
+    resolve: async (doc) =>
+      Promise.all(
+        Array.from<typeof Image>(doc.image ?? []).map(async (img) => {
+          const id = img['id'] as string
+          const isVideo = img['isVideo'] as boolean
+          if (!id) return img
+          img['blurDataUrl'] = await getBlurDataUrl(id, isVideo)
+          img['aspectRatio'] = await getAspectRatio(id, isVideo)
+          return img
+        })
+      ),
+  },
+})
+
+const sharedFields = defineFields({
+  title: { type: 'string', required: true },
+  time: { type: 'date', required: true },
+  featured: { type: 'boolean', default: false },
+  image: { type: 'list', of: Image },
+  excerpt: { type: 'string', default: '' },
+})
+
+/**
+ * Document items
+ */
+
+const Config = defineDocumentType(() => ({
+  name: 'Config',
+  filePathPattern: 'config.yaml',
+  contentType: 'data',
+  isSingleton: true,
+  fields: {
+    routes: { type: 'list', of: Route, required: true },
+    connect: { type: 'list', of: Link, required: true },
+  },
+}))
+
+const Post = defineDocumentType(() => ({
+  name: 'Post',
+  filePathPattern: 'posts/*.md',
+  fields: {
+    ...sharedFields,
+    cover: { type: 'nested', of: Image },
+    tag: { type: 'list', of: { type: 'string' } },
+  },
+  computedFields,
+}))
+
+const Note = defineDocumentType(() => ({
+  name: 'Note',
+  filePathPattern: 'notes/*.md',
+  fields: {
+    ...sharedFields,
+    tag: { type: 'list', of: { type: 'string' } },
+    meta: { type: 'list', of: Meta },
+  },
+  computedFields,
+}))
+
+const Project = defineDocumentType(() => ({
+  name: 'Project',
+  filePathPattern: 'projects/*.md',
+  fields: {
+    ...sharedFields,
+    tag: { type: 'list', of: { type: 'string' } },
+    image: { type: 'list', of: Image },
+    hideCover: { type: 'boolean', default: false },
+    link: { type: 'string', description: 'Provide link for project without page.' },
+    action: { type: 'list', of: Link },
+    meta: { type: 'list', of: Meta },
+  },
+  computedFields,
+}))
+
+const Work = defineDocumentType(() => ({
+  name: 'Work',
+  filePathPattern: 'work/*.md',
+  fields: {
+    ...sharedFields,
+    url: { type: 'string', required: true },
+    tagline: { type: 'string', required: true },
+    duration: { type: 'string', required: true },
+    role: { type: 'string', required: true },
+    brief: { type: 'string' },
+    highlight: { type: 'list', of: Link },
+    tag: { type: 'list', of: { type: 'string' } },
+    image: { type: 'list', of: Image },
+    action: { type: 'list', of: Link },
+  },
+  computedFields,
+}))
+
+const About = defineDocumentType(() => ({
+  name: 'About',
+  filePathPattern: 'about.md',
+  isSingleton: true,
+  fields: {
+    title: { type: 'string', required: true },
+    links: { type: 'list', of: Link },
+  },
+}))
+
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Project, About, Note, Work],
+  documentTypes: [Config, Project, About, Note, Work, Post],
   disableImportAliasWarning: true,
 })

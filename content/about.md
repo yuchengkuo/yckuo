@@ -12,7 +12,7 @@ I value multi-disciplined skills that could help people achieve their goals in a
 
 ## Me
 
-I first got into digital design and web tech with the attempt to make school presentations more enjoyable for the audience. Due to the findings that most of the presentations are made in a relatively one-directional way, I attempted to raise the engagement by:
+I first got into digital design and web technologies with the attempt to make school presentations more enjoyable for the audience. Due to the findings that most of the presentations are made in a relatively one-directional way, I attempted to raise the engagement by:
 
 - _making it eye-catching_ (learning more about layout, typography without knowing what them were)
 - _bringing in meaningful animations_ (discovring motion graphics through this)
@@ -20,23 +20,24 @@ I first got into digital design and web tech with the attempt to make school pre
 
 After those, with the lead of passionate curiosity and constant learning, I had accquired strong love of both desiging feasible solutions and developing with good design.
 
-Outside of history, I'm an avid music listener, broadly listening to indie, r&b, alternative and some electronic. Often intended to feel when listening to music. Also a lil tv/film enthusiast.
+Outside of history, I'm an music listener, broadly listening to indie, r&b, alternative and some electronic. Often intended to feel when listening to music. I also loves tv/film that get me smile from the bottom of my heart. Additionally, I had picked up the habits to read books (mostly non-fiction) starting in 2023 and are feeling refreshed.
 
 ## This website
 
 This site is built with [SvelteKit](https://kit.svelte.dev), styled with [Unocss](https://uno.antfu.me/), animated with CSS/[Motion One](https://motion.dev), and hosted on [Vercel](https://vercel.com). The [source](https://github.com/yuchengkuo/yckuo) of this website can be found on Github.
 
-Most content is written in markdown with [Markdoc](https://markdoc.io) and typed with [Contentlayer](https://contentlayer.dev) stored on Github and Cloudinary, other data sources are coming from Spotify, TMDB, Raindrop and Literal.
+Most content is written in markdown parsed with [Markdoc](https://markdoc.io) and transformed with [Contentlayer](https://contentlayer.dev) stored on Github. Images are stored on [Cloudinary](https://cloudinary.com), other data sources are Spotify, [TMDB](https://themoviedb.org), [Raindrop](https://raindrop.io) and [Literal](https://literal.club).
 
-Types used on this website are mainly [Anek](https://ektype.in), [Azeret Mono](https://azeret.displaay.net/) and [Newsreader](https://www.productiontype.com/family/newsreader). Colors from [Radix](https://radix-ui.com/colors).
+Types used on this website are mainly [Instrument](https://www.instrument.com), [Azeret Mono](https://azeret.displaay.net/) and [Newsreader](https://www.productiontype.com/family/newsreader). Part of the colors are from [Radix](https://radix-ui.com/colors).
 
 ## [Now](https://nownownow.com/about)
 
 Current areas of fucus, interests and attempts,
 
-- Keep learning topics that are related to web technologies, user interface, design engineering and so on.
-- Getting the habit of reading _books_, have set a goal of reading one per week.
+- Keep learning.
+- Reading _books_.
 - Learning more about color specification in CSS, trying out [CSS Color 4](https://www.w3.org/TR/css-color-4/) specification `oklch()`, which supports P3 Colors.
-- Learning and building a minial, diverse web editor.
+- Learning and building a web rich content editor.
+- Learning and exploring [Prisma](https://prisma.io)
 
-Thanks for stopping by, [have a great day](https://youtu.be/5PYzrhtDBrA), feel free to reach out if you like! ヅ
+Thanks for stopping by, [have a great day](https://youtu.be/5PYzrhtDBrA)! ヅ

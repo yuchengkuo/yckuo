@@ -1,6 +1,6 @@
 ---
 title: Figma Shortcut
-date: 2022-10-08
+time: 2022-10-08
 tag:
   - Figma
 ---

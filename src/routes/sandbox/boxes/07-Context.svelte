@@ -65,7 +65,6 @@
 <svelte:window on:keydown={onKeydown} />
 
 <div
-  class="w-1/2 h-40 my-20 bg-rx-gray-2 text-fg-secondary text-xs border-2 border-border border-dashed rounded-xl grid place-items-center"
   aria-haspopup="menu"
   aria-expanded={menuOpen}
   on:contextmenu|preventDefault={() => {}}
@@ -81,7 +80,6 @@
 
 {#if menuOpen}
   <div
-    class="min-w-48 min-h-20 bg-rx-gray-3 backdrop-blur-lg border-1 border-fg-secondary/10 rounded-lg shadow-lg p-1"
     role="menu"
     use:placePopover={{ left, top }}
     use:portal
@@ -97,7 +95,7 @@
       {#each items as item, index}
         <li>
           <button
-            class="px-4 py-1 w-full text-left font-500 rounded-md text-sm outline-none"
+            role="menuitem"
             data-highlighted={highlighted === index ? '' : null}
             tabindex={highlighted === index ? 0 : -1}
             on:click={onSelect}
@@ -110,7 +108,18 @@
 {/if}
 
 <style>
+  div[aria-haspopup='menu'] {
+    --uno: 'w-1/2 h-40 my-20 bg-rx-gray-2 text-rx-gray-11 text-xs border-2 border-borde' r
+      border-dashed rounded-xl grid place-items-center;
+  }
+  div[role='menu'] {
+    --uno: 'min-w-48 min-h-20 bg-rx-gray-3 backdrop-blur-lg border-1 border-rx-gray-4 rounded-l' g
+      shadow-lg p-1;
+  }
+  button[role='menuitem'] {
+    --uno: 'px-4 py-1 w-full text-left font-500 rounded-md text-sm outline-none';
+  }
   [data-highlighted] {
-    --uno: bg-rx-gray-7;
+    --uno: 'bg-rx-gray-7';
   }
 </style>

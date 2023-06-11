@@ -2,18 +2,19 @@
   import Markdoc from 'sveltejs-markdoc'
 
   import Head from '$lib/seo/Head.svelte'
-  import Header from '../Header.svelte'
   import { components } from '$lib/content/components'
 
-  import type { PageServerData } from './$types'
+  import Intro from '../Intro.svelte'
 
-  export let data: PageServerData
+  import type { PageData } from './$types'
+
+  export let data: PageData
 </script>
 
 <Head title="About" openGraph={{ url: 'about' }} />
 
-<Header title={data.about.title} class="!mb-0" />
+<Intro route={data.routes.find((r) => r.label === 'About')} />
 
-<section class="text-fg-secondary layout-center">
+<section class="layout-center">
   <Markdoc content={data.about.content} {components} />
 </section>

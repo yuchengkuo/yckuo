@@ -1,6 +1,6 @@
 ---
 title: WindiCSS features
-date: 2022-11-11
+time: 2022-11-11
 tag:
   - Windicss
 ---

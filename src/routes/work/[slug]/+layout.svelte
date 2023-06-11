@@ -3,13 +3,14 @@
   import { scale } from 'svelte/transition'
   import { wrap } from 'popmotion'
 
-  import Header from '../../Header.svelte'
   import Image from '$lib/media/Image.svelte'
   import Head from '$lib/seo/Head.svelte'
 
-  export let data: LayoutServerData
+  import Intro from '../../Intro.svelte'
 
-  import type { LayoutServerData } from './$types'
+  import type { LayoutData } from './$types'
+
+  export let data: LayoutData
 
   let current = -1
   onMount(() => {
@@ -31,10 +32,12 @@
 
 <Head title={data.work.title} description={data.work.excerpt} />
 
-<Header title={data.work.title} desc={data.work.tagline} />
+<Intro title={data.work.title} />
+
+<p class="max-w mb-8">{data.work.tagline}</p>
 
 <section class="max-w-grid" children="col-start-2">
-  <ul class="flex gap-8 items-baseline" children="flex flex-col gap-4">
+  <ul children="flex flex-col gap-4">
     <div>
       <li>
         <small>Brief</small>
@@ -67,13 +70,15 @@
         <small>Role</small>
         <p>{data.work.role}</p>
       </li>
-      <nav class="px-3 -mx-3 py-2 border-1 border-border rounded bg-surface-subtle shadow-sm">
+      <nav>
         {#each data.work.highlight as link}
-          <a
-            href={link.url}
-            class="block text-sm mb-px font-500 text-fg-secondary underline"
-            hover="text-fg">{link.label}</a
-          >
+          <li>
+            <a
+              href={link.url}
+              class="attr text-sm text-fg-muted underline-fg-muted/20"
+              hover="text-fg">{link.label}</a
+            >
+          </li>
         {/each}
       </nav>
     </div>
@@ -86,18 +91,15 @@
       md="w-11/10 justify-self-center"
       children="col-start-1 col-span-1 row-start-1 row-span-1"
     >
-      {#each data.work.image as image, index}
+      {#each data.work.image as image, index (image.id)}
         <Image
           class="shadow-md rounded-lg {current !== index ? 'opacity-0' : ''}"
-          id={image.id}
-          aspectRatio={image.aspectRatio}
-          blurDataUrl={image.blurDataUrl}
           alt="{data.work.title} project cover image"
-          isVideo={image.isVideo}
+          {...image}
         />
       {/each}
-      <p class="row-start-2 mt-2 font-550 text-sm text-fg-secondary">
-        — Some highlights of work at Oen
+      <p class="row-start-2 mt-2 font-550 text-sm text-fg-muted">
+        — Some highlights of work at {data.work.title}
       </p>
     </div>
   {/if}
@@ -106,7 +108,13 @@
 <slot />
 
 <style>
+  ul {
+    --uno: flex gap-8 items-baseline;
+  }
   small {
     --uno: uppercase font-600 text-xs inline-block mb-1;
+  }
+  nav {
+    --uno: px-3 -mx-3 py-2 border-1 border-border rounded bg-surface-muted shadow-sm;
   }
 </style>

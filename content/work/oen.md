@@ -2,6 +2,8 @@
 title: Oen Tech
 url: https://oen.tw
 tagline: CRM-driven payment platform
+time: 2021-11
+featured: true
 duration: 2021–Present
 excerpt: As UI/UX designer. Design experiences on CRM-driven payment platform across web, and mobile use-cases for nonprofits, campaigns and other orgs. Also contribute to various custom website projects.
 role: UI/UX Designer, Engineer
@@ -35,8 +37,6 @@ I joined the team in 2021 as the first and sole UI/UX designer. Over the time, I
 
 The following are some selective of the projects that I have worked on:
 
----
-
 ## Event attendees check-in
 
 This was one of the first major projects after joining the team. At that time, event organizers could already create events and open to registration on Oen. However, it was also critical for organizers to be able to efficiently check-in participants because it allows them to track attendance, manage capacity, and ensure everyone who has registered or purchased a ticket is accounted for.
@@ -52,8 +52,6 @@ This update had proven to be very essential for ensuring a smooth and organized 
 - [Megaport Festival](https://megaportfest.oen.tw)
 - [Kuma Academy](https://kuma-academy.orn.tw)
 
----
-
 ## Payment statistic dashboard
 
 For businesses and organizations, it's critical to be able to gain insights into key payment metrics on a payment platform in order to make data-driven decisions. The payment statistics dashboard pioneered to provide these information inside Oen to help make informed decisions about fundraising and engagement strategies.
@@ -66,8 +64,6 @@ The final dashboard featured clear visualizations of important metrics such as p
 
 {% image id="work/judllls5v4cme0fvkwdo" alt="Responsive dashboard of donor demographics" showcap=true /%}
 
----
-
 ## New checkout experience
 
 In the past, it was necessary for users to travel across domains to complete purchases because it enabled users to easily browse and shop merchandise from different organizations at the same place to manage orders and track status. However, several findings had stated that users mostly entered the organizations’ site to make the target purchases instead of browsing. The journey across domains not only increased the time and resistance to finish purchases for users, but lost the audience insights and metrics for the organizations too.
@@ -79,8 +75,6 @@ This update considerably reduce the effort to make purchases and allowed the org
 {% image id="work/qdatybrzm0x0awo4fmmh" alt="Product details and recipient form with order details" showcap=true /%}
 
 Several additional features were also implemented after the initial release: promotion codes, member-only products, subscription, and bidding. These empower organizations to even better engage with their audience in their chosen approach.
-
----
 
 ## Other websites projects
 

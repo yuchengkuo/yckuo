@@ -1,12 +1,16 @@
 <script lang="ts">
-  import Header from '../Header.svelte'
-  import Head from '$lib/seo/Head.svelte'
-  import { formatDate } from '$lib/util'
-
-  import { afterNavigate } from '$app/navigation'
   import { onMount } from 'svelte'
 
+  import { afterNavigate } from '$app/navigation'
+  import Head from '$lib/seo/Head.svelte'
+  import { formatDate } from '$lib/util'
   import tooltip from '$lib/action/tooltip/action'
+
+  import Intro from '../Intro.svelte'
+
+  import type { PageData } from './$types'
+
+  export let data: PageData
 
   const boxes = import.meta.glob<{
     default: ConstructorOfATypedSvelteComponent
@@ -58,10 +62,7 @@
 
 <Head title="Sandbox" description="A little playground." openGraph={{ url: 'sandbox' }} />
 
-<Header
-  title="Sandbox"
-  desc="This is a little playground mainly for playing around and learning what's behind interesting UI elements seen on the web."
-/>
+<Intro route={data.routes.find((r) => r.label === 'Sandbox')} />
 
 <ul
   class="grid gap-4 mt-10"
@@ -94,12 +95,10 @@
               {#if meta}
                 <footer class="flex gap-2 items-center bg-bg shadow-sm rounded-md px-3 py-2">
                   <div class="grow">
-                    <h2 class="text-lg leading-6">
-                      {meta.title}
-                    </h2>
-                    <time class="block text-xs text-fg-secondary font-450"
+                    <h2 class="text-base">{meta.title}</h2>
+                    <time class="block text-xs text-fg-muted font-450"
                       >{formatDate(meta.date)}
-                      <small class="ordinal text-fg-secondary ml-1"
+                      <small class="ordinal text-fg-muted ml-1"
                         >No. {key.split('/').at(-1).split('.').at(0).split('-').at(0)}</small
                       ></time
                     >
@@ -136,6 +135,6 @@
   }
 
   li:hover [data-action] {
-    --uno: scale-100 opacity-100;
+    --uno: 'scale-100 opacity-100';
   }
 </style>

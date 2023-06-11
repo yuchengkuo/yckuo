@@ -1,6 +1,6 @@
 ---
 title: Shiki syntax highlighting in Markdoc
-date: 2022-11-08
+time: 2022-11-08
 tag:
   - Shiki
   - Markdoc

@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { motion } from '$lib/animation/motion'
+  import { scale } from 'svelte/transition'
+
   import { tagColors } from '$lib/config'
   import Image from '$lib/media/Image.svelte'
   import Head from '$lib/seo/Head.svelte'
-  import { scale } from 'svelte/transition'
-  import Header from '../../Header.svelte'
 
-  export let data: LayoutServerData
+  import Intro from '../../Intro.svelte'
 
   import type { LayoutServerData } from './$types'
+
+  export let data: LayoutServerData
 </script>
 
 <Head
@@ -17,7 +18,7 @@
   openGraph={{ url: `project/${data.project.slug}` }}
 />
 
-<Header title={data.project.title} />
+<Intro title={data.project.title} />
 
 <section class="max-w-grid" children="col-start-2">
   <div>
@@ -86,6 +87,6 @@
 
 <style>
   small {
-    --uno: font-600 text-xs tracking-wide text-fg-secondary uppercase basis-24 shrink-0;
+    --uno: 'font-600 text-xs tracking-wide text-fg-muted uppercase basis-24 shrink-0';
   }
 </style>

@@ -13,6 +13,17 @@ const PLAYLIST_ENPOINT = `https://api.spotify.com/v1/playlists`
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`
 const SEARCH_ENDPOINT = `https://api.spotify.com/v1/search`
 
+export type Album = {
+  type: string
+  total_tracks: string
+  url: string
+  id: string
+  image: string
+  name: string
+  release_date: string
+  artist: string
+}
+
 async function getAccessToken() {
   const response = await fetch(TOKEN_ENDPOINT, {
     method: 'POST',

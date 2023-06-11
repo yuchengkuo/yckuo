@@ -2,13 +2,14 @@
   import { page } from '$app/stores'
 
   import Head from '$lib/seo/Head.svelte'
-  import Header from './Header.svelte'
+
+  import Intro from './Intro.svelte'
 
   console.error($page.error.message)
-
-  const desc = `Failed accessing \`${$page.url.pathname}\`, try again later!`
 </script>
 
 <Head title={$page.status.toString()} />
 
-<Header title={$page.status.toString()} {desc} />
+<Intro title={$page.status.toString()} />
+
+<p class="max-w">Failed accessing <code>{$page.url.pathname}</code>, try again later!</p>

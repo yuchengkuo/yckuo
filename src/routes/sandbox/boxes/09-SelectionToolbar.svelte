@@ -100,13 +100,9 @@
   }
 </script>
 
-<div class="my-16">
-  <div
-    class="flex items-start gap-2"
-    children="p-2 rounded bg-rx-gray-1 border-1 border-border outline-none transition focus:border-rx-gray-6"
-  >
+<div data-wrapper>
+  <div>
     <textarea
-      class="resize-none selection-text-rx-gray-1 selection-bg-rx-gray-12"
       rows="3"
       cols="32"
       placeholder="Start typing..."
@@ -115,20 +111,15 @@
       on:selectionchange={onSelectionChange}
       use:clickOutside={resetSelection}
     />
-    <button
-      class="leading-none"
-      hover="bg-rx-gray-4 shadow-sm"
-      active="translate-x-px"
-      on:click={onSend}><span class="i-bxs-send align-mid" /></button
+    <button data-submit hover="bg-rx-gray-4 shadow-sm" active="translate-x-px" on:click={onSend}
+      ><span class="i-bxs-send align-mid" /></button
     >
   </div>
-  <div class="font-500 text-xs text-fg-secondary mt-2">Only works on Firefox now...</div>
+  <p>Only works on Firefox now...</p>
 </div>
 
 {#if selectionEnd - selectionStart !== 0}
   <div
-    class="p-1 bg-rx-gray-2 border-1 border-rx-gray-5 rounded-md shadow-md"
-    children="inline-block w-8 h-8 rounded leading-none hover:bg-rx-gray-6"
     role="menu"
     bind:this={menu}
     out:outro
@@ -142,9 +133,37 @@
     }}
   >
     {#each items as item}
-      <button on:click={item.onClick} title={item.label}
-        ><span class="{item.icon} align-mid" /></button
+      <button role="menuitem" on:click={item.onClick} title={item.label}
+        ><span class={item.icon} /></button
       >
     {/each}
   </div>
 {/if}
+
+<style>
+  [data-wrapper] {
+    --uno: 'my-16';
+  }
+  [data-wrapper] > div {
+    --uno: 'flex items-start gap-2';
+  }
+  textarea,
+  [data-submit] {
+    --uno: 'p-2 rounded bg-rx-gray-1 border-1 border-border outline-none transition focus:border-rx-gray-6';
+  }
+  textarea {
+    --uno: 'resize-none selection-text-rx-gray-1 selection-bg-rx-gray-12';
+  }
+  [data-submit] {
+    --uno: 'leading-none';
+  }
+  p {
+    --uno: 'font-medium text-xs text-fg-muted mt-2';
+  }
+  div[role='menu'] {
+    --uno: 'p-1 bg-rx-gray-2 border-1 border-rx-gray-5 rounded-md shadow-md';
+  }
+  button[role='menuitem'] {
+    --uno: 'inline-block w-8 h-8 rounded leading-none hover:bg-rx-gray-6';
+  }
+</style>

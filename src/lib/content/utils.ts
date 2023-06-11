@@ -63,7 +63,7 @@ async function parseFrontmatter<T extends Record<string, unknown>>(raw: string) 
  * Parse provided markdown raw string with Markdoc and return RenderalbeTree and frontmatter,
  * with additional variables to pass to Markdoc
  */
-async function parseContent<T extends Record<string, unknown>>(raw: string, variables = {}) {
+export async function parseContent<T extends Record<string, unknown>>(raw: string, variables = {}) {
   const ast = Markdoc.parse(raw)
 
   const frontmatter = await parseFrontmatter<T>(raw)
@@ -73,9 +73,9 @@ async function parseContent<T extends Record<string, unknown>>(raw: string, vari
 
   if (error.length) console.error('Error while validating content', error)
 
+  // async transform for Markdoc
   const content = await Markdoc.transform(ast, config)
   return {
-    // async transform for Markdoc
     content: instanceToPlain(content) as RenderableTreeNode,
     readingTime: readingTime(raw),
     ...frontmatter,
@@ -107,6 +107,25 @@ async function parseImage(frontmatter: Record<string, unknown>) {
 
     if (typeof value === 'object') {
       await parseImage(value[key])
+    }
+  }
+}
+
+/**
+ * Parse markdown inside yaml data
+ */
+export async function parseMarkdown(
+  frontmatter: Record<string, unknown> | Array<Record<string, unknown>>
+) {
+  if (!frontmatter) return
+
+  if (Array.isArray(frontmatter)) {
+    frontmatter.forEach(parseMarkdown)
+  } else {
+    for (const [key, value] of Object.entries(frontmatter)) {
+      if (typeof value === 'object' && 'html' in value && 'raw' in value) {
+        frontmatter[key]['html'] = (await parseContent<typeof value>(value.raw as string)).content
+      }
     }
   }
 }

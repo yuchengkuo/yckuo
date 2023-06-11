@@ -8,10 +8,12 @@ import { image } from './tag/image.markdoc'
 import { widget } from './tag/widget.markdoc'
 import { carousel } from './tag/carousel.markdoc'
 import { video } from './tag/video.markdoc'
+import { code } from './node/code.markdoc'
 
 export const config: ConfigType = {
   functions: {},
   nodes: {
+    code,
     document,
     heading,
     fence,
