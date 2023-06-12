@@ -58,6 +58,8 @@ export default defineConfig<Theme>({
       primary: {
         DEFAULT: 'oklch(var(--primary))',
       },
+      tag: 'oklch(var(--tag))',
+      ontag: 'oklch(var(--ontag))',
       radix: {
         ...transformRadixColors(radixThemes),
         dark: {
@@ -74,6 +76,7 @@ export default defineConfig<Theme>({
       'border-dash': 'border-b border-dashed border-border',
       button:
         'bg-transparent hover:(bg-fg-muted text-bg-muted) duration-100 px-1 -mx-1 rounded-2px',
+      tag: 'w-fit text-xs leading-none font-medium p-1 rounded shadow-sm bg-tag text-ontag dark:(bg-ontag text-tag)',
     },
     [/^size-(.*)$/, ([, s]) => `w-${s} h-${s}`],
     [

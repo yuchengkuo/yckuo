@@ -81,7 +81,7 @@
     class="rounded @md:rounded-md @lg:rounded-lg relative overflow-hidden no-js:hidden"
     style="aspect-ratio: {aspectRatio}"
   >
-    <div class="bg-surface-subtle inset-0 absolute select-none" class:hidden={visible} />
+    <div class="bg-surface-muted inset-0 absolute select-none" class:hidden={visible} />
 
     {#if blurDataUrl}
       <img
