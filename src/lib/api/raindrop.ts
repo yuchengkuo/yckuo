@@ -7,6 +7,7 @@ import { getFullUrl } from './util'
 import type { RenderableTreeNode } from '@markdoc/markdoc'
 
 const RAINDROPS_ENDPOINT = `https://api.raindrop.io/rest/v1/raindrops/`
+const COLLECTION_ENDPOINT = `https://api.raindrop.io/rest/v1/collections`
 
 // "-" means descending
 type SortParam =
@@ -18,6 +19,7 @@ type SortParam =
   | '-title'
   | 'domain'
   | '-domain'
+
 type GetBookmarkParam = {
   collection: string
   search?: string
@@ -28,6 +30,7 @@ type GetBookmarkParam = {
 }
 
 export type Raindrop = {
+  id: number
   title: string
   tags: string[]
   note?: RenderableTreeNode | undefined
@@ -37,6 +40,16 @@ export type Raindrop = {
   cover: string
   blurDataUrl: string
   aspectRatio: string
+  collectionId: number
+  created_at: string
+}
+
+export type Collection = {
+  title: string
+  description: string
+  id: number
+  udpated_at: string
+  count: number
 }
 
 export async function getBookmarks(param: GetBookmarkParam): Promise<Raindrop[]> {
@@ -48,15 +61,15 @@ export async function getBookmarks(param: GetBookmarkParam): Promise<Raindrop[]>
   if (perpage) query.set('perpage', perpage.toString())
   if (page) query.set('page', page.toString())
 
-  const res = await fetch(getFullUrl(url, query), {
+  const { items } = await fetch(getFullUrl(url, query), {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
-  })
-  const { items } = await res.json()
+  }).then((res) => res.json())
 
   return await Promise.all(
     items.map(async (item) => ({
+      id: item._id,
       title: item.title,
       tags: item.tags,
       note: item.note.length ? (await parseContent(item.note)).content : undefined,
@@ -66,6 +79,28 @@ export async function getBookmarks(param: GetBookmarkParam): Promise<Raindrop[]>
       cover: item.cover,
       blurDataUrl: await getBlurDataUrl(item.cover),
       aspectRatio: await getAspectRatio(item.cover),
+      collectionId: item.collectionId,
+      created_at: item.created,
     }))
   )
+}
+
+export async function getChildCollections(collection: string): Promise<Collection[]> {
+  const url = new URL(COLLECTION_ENDPOINT + '/childrens')
+
+  const { items } = await fetch(url.toString(), {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  }).then((res) => res.json())
+
+  return items
+    .filter((i) => Number(collection) === Number(i.parent.$id))
+    .map((i) => ({
+      id: i._id,
+      title: i.title,
+      description: i.description,
+      updated_at: i.lastAction,
+      count: i.count,
+    }))
 }

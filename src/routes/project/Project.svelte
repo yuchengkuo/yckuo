@@ -2,7 +2,7 @@
   import { page } from '$app/stores'
 
   import Image from '$lib/media/Image.svelte'
-  import { tagColors } from '$lib/config'
+  import { formatDate } from '$lib/util'
 
   import type { Project } from '$contentlayer'
 
@@ -12,7 +12,9 @@
 <li class="not-last:(mb-10 lt-sm:mb-4)">
   <a class="block" href={project.link || `/project/${project.slug}`}>
     <main>
-      <time class="text-xs text-fg-muted">{project.time}</time>
+      <time class="text-xs text-fg-muted"
+        >{formatDate(project.time, { year: 'numeric', month: 'long' })}</time
+      >
       <div class="flex justify-between items-baseline">
         <h2 class="text-base">
           {project.title}
@@ -23,8 +25,9 @@
 
       <div class="flex gap-2 mt-2 lt-sm:gap-1">
         {#each project.tag ?? [''] as tag}
-          {@const index = Object.keys(Object.fromEntries($page.data.tags)).indexOf(tag)}
-          <p class="{tagColors[index] || 'tag-gray'} shrink-0">{tag}</p>
+          {@const index = $page.data.tags.findIndex((t) => t[0] === tag)}
+          {@const hue = (360 / $page.data.tags.length) * index + 160}
+          <p style="--tag: 88% 0.02 {hue}; --ontag: 28% 0.15 {hue};" class="tag shrink-0">{tag}</p>
         {/each}
       </div>
 

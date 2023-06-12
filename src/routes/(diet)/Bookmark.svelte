@@ -1,6 +1,7 @@
 <script lang="ts">
   import Markdoc from 'sveltejs-markdoc'
 
+  import { page } from '$app/stores'
   import Image from '$lib/media/Image.svelte'
 
   import type { Raindrop } from '$lib/api/raindrop'
@@ -15,6 +16,7 @@
       alt="Url cover image of {bookmark.title}"
       class="object-cover rounded shrink-0 shadow children:(size-8 shrink-0)"
       widths={[120, 240]}
+      blurDataUrl={bookmark.blurDataUrl}
     />
 
     <main>
@@ -28,8 +30,10 @@
       </p>
 
       <div class="flex flex-wrap gap-2 mt-2 items-center">
-        {#each bookmark.tags as tag}
-          <p class="tag-gray">
+        {#each bookmark.tags as tag (tag)}
+          {@const index = $page.data.tags.findIndex((t) => t[0] === tag)}
+          {@const hue = (360 / $page.data.tags.length) * index + 160}
+          <p style="--tag: 88% 0.02 {hue}; --ontag: 28% 0.15 {hue};" class="tag">
             {tag}
           </p>
         {/each}
