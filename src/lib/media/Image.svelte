@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { beforeUpdate, onMount, tick } from 'svelte'
+  import { beforeUpdate, tick } from 'svelte'
 
   import { getAWebpProps, getImgProps } from './getImgProps'
 
@@ -26,7 +26,6 @@
 
   let imgEl: HTMLImageElement
   let visible = false
-  let current = false
 
   let src = ''
   let srcset = ''
@@ -60,68 +59,55 @@
 
     if (!imgEl) return
     if (imgEl.complete) return
-    current = true
     imgEl.addEventListener('load', () => {
-      if (!current || !imgEl) return
+      if (!imgEl) return
       setTimeout(() => (visible = true), 0)
     })
   })
-
-  onMount(() => {
-    return () => (current = false)
-  })
 </script>
 
-<figure
-  on:click
-  class="overflow-hidden block isolate all:isolate @container-normal {className}"
-  {...$$restProps}
->
-  <div
-    class="rounded @md:rounded-md @lg:rounded-lg relative overflow-hidden no-js:hidden"
-    style="aspect-ratio: {aspectRatio}"
-  >
-    <div class="bg-surface-muted inset-0 absolute select-none" class:hidden={visible} />
-
+<figure on:click class={className} {...$$restProps}>
+  <div style="aspect-ratio: {aspectRatio}">
+    <!-- Blurred placeholder -->
     {#if blurDataUrl}
       <img
         src={blurDataUrl}
-        {alt}
+        alt=""
         class:opacity-0={visible}
-        class="h-full object-cover w-full inset-0 transition-opacity ease-out duration-300 absolute select-none"
+        class="absolute inset-0 select-none"
       />
-      <div
-        class:opacity-0={visible}
-        class="inset-0 transition-opacity ease-out duration-300 absolute backdrop-filter backdrop-blur-xl select-none"
-      />
+      <div role="presentation" class:opacity-0={visible} />
     {/if}
 
-    <img
-      bind:this={imgEl}
-      {src}
-      {alt}
-      {srcset}
-      {sizes}
-      loading="lazy"
-      class:opacity-0={!visible}
-      class="bg-surface h-full object-cover object-center w-full transition-opacity ease-out duration-300"
-    />
+    <!-- Actual img element -->
+    <img bind:this={imgEl} {src} {alt} {srcset} {sizes} loading="lazy" class:opacity-0={!visible} />
   </div>
 
   <noscript>
-    <img
-      {src}
-      {alt}
-      {srcset}
-      {sizes}
-      loading="lazy"
-      class="bg-surface h-full object-cover object-center w-full transition-opacity duration-300"
-    />
+    <img {src} {alt} {srcset} {sizes} loading="lazy" />
   </noscript>
 
   {#if showcap}
-    <figcaption class="block w-fit h-fit mt-2 font-550 text-sm text-fg-muted">
-      — {alt}
-    </figcaption>
+    <figcaption>— {alt}</figcaption>
   {/if}
 </figure>
+
+<style>
+  figure {
+    --uno: 'overflow-hidden block isolate all:isolate @container-normal';
+  }
+  /* Wrapper */
+  figure > div {
+    --uno: 'rounded @md:rounded-md @lg:rounded-lg bg-surface-muted relative overflow-hidden no-js:hidden';
+  }
+  /* Blurred overlay */
+  div[role='presentation'] {
+    --uno: 'absolute inset-0 transition-opacity ease-out duration-300 backdrop-filter backdrop-blur-xl select-none';
+  }
+  img {
+    --uno: 'w-full h-full object-cover object-center transition-opacity ease-out duration-300';
+  }
+  figcaption {
+    --uno: 'block w-fit h-fit mt-2 font-medium text-sm text-fg-muted';
+  }
+</style>

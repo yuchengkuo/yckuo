@@ -10,6 +10,6 @@
   openGraph={{ url: 'note' }}
 />
 
-<div class="text-fg-muted layout-center" in:fly={{ y: 8, opacity: 0, duration: 600 }}>
+<div class="layout-center" in:fly={{ y: 8, opacity: 0, duration: 600 }}>
   <slot />
 </div>

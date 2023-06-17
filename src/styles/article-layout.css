@@ -1,5 +1,5 @@
 .prose section {
-  --uno: 'not-last:(pb-12 mb-12) lt-sm:(pb-8 mb-8)';
+  --uno: 'not-last:(pb-12 lt-sm:pb-6 mb-12 lt-sm:mb-6)';
 }
 
 .layout-center > article > section {

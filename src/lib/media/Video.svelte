@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getVideoProps } from './getVideoProps'
-  import { beforeUpdate, onMount, tick } from 'svelte'
+  import { beforeUpdate, tick } from 'svelte'
 
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
@@ -31,7 +31,6 @@
 
   let videoEl: HTMLVideoElement
   let visible = false
-  let current = false
 
   beforeUpdate(async () => {
     // 0 if no media is available yet
@@ -41,24 +40,15 @@
 
     if (!videoEl) return
     if (videoEl.videoWidth) return
-    current = true
     videoEl.addEventListener('loadeddata', () => {
-      if (!current || !videoEl) return
+      if (!videoEl) return
       setTimeout(() => (visible = true), 0)
     })
   })
-
-  onMount(() => {
-    return () => (current = false)
-  })
 </script>
 
-<videoplayer
-  class="block @container-normal {className}"
-  style="aspect-ratio: {aspectRatio}"
-  {...$$restProps}
->
-  <div class="relative overflow-hidden rounded @md:rounded-md @lg:rounded-lg">
+<videoplayer class={className} style="aspect-ratio: {aspectRatio}" {...$$restProps}>
+  <div>
     <video
       bind:this={videoEl}
       {autoplay}
@@ -67,19 +57,36 @@
       {playsinline}
       disablepictureinpicture={false}
       poster={blurDataUrl}
-      class="w-full bg-surface-subtle"
     >
       <source {src} />
     </video>
-    <div
-      class:opacity-0={visible}
-      class="inset-0 transition-opacity ease-out duration-300 absolute backdrop-filter backdrop-blur-xl select-none"
-    />
+    <div role="presentation" class:opacity-0={visible} />
   </div>
 
   {#if showcap}
-    <small class="block w-fit h-fit mt-2 font-550 text-sm text-fg-muted">
+    <small>
       — {alt}
     </small>
   {/if}
 </videoplayer>
+
+<style>
+  videoplayer {
+    --uno: 'block @container-normal';
+  }
+  /* Wrapper */
+  videoplayer > div {
+    --uno: 'relative overflow-hidden rounded @md:rounded-md @lg:rounded-lg';
+  }
+
+  video {
+    --uno: 'w-full bg-surface-muted';
+  }
+  div[role='presentation'] {
+    --uno: 'absolute inset-0 transition-opacity ease-out duration-300 backdrop-filter backdrop-blur-xl select-none';
+  }
+
+  small {
+    --uno: 'block w-fit h-fit mt-2 font-550 text-sm text-fg-muted';
+  }
+</style>

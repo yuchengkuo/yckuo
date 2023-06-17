@@ -45,12 +45,16 @@
   }
 
   a {
-    --uno: 'attr decoration-none inline-block mb-4 text-fg-muted';
-    --uno: 'after:(transition-all duration-100 opacity-0 hover:opacity-100)';
+    --uno: 'attr decoration-none inline-block mb-4 text-fg-muted select-none';
+    --uno: 'after:(opacity-0 hover:opacity-100)';
   }
 
   a::after {
     content: ' Back';
+  }
+
+  h1 {
+    --uno: 'w-fit bg-gradient-linear bg-gradient-shape-rb bg-gradient-from-fg bg-gradient-to-fg-muted bg-clip-text text-transparent';
   }
 
   div {

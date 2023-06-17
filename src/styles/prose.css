@@ -43,7 +43,13 @@
 }
 
 .prose a {
-  --uno: 'attr text-fg';
+  --uno: 'attr';
+}
+
+.prose a[href^='http']::after,
+.prose a[href^='mailto']::after {
+  --uno: 'font-medium text-0.6em align-super';
+  content: '  ↗';
 }
 
 .prose hr {
@@ -55,11 +61,11 @@
 }
 
 .prose blockquote {
-  --uno: 'border-rx-grass9 rounded-r border-l-3 px-4 py-2 my-10 lt-sm:(-mx-2.5 px-2.5 -my-1 py-1 mt-6)';
+  --uno: 'border-fg-muted rounded-r border-l-2 px-4 my-16';
 }
 .prose blockquote * {
-  --uno: 'font-Newsreader font-550 mb-0 italic';
-  font-variation-settings: 'opsz' 15;
+  --uno: 'font-Newsreader text-lg mb-0';
+  font-variation-settings: 'opsz' auto;
 }
 
 .prose blockquote p {
@@ -94,7 +100,7 @@ ol {
 }
 
 .prose .shiki-container {
-  --uno: 'bg-surface rounded-lg border-1 border-border mt-4 overflow-x-auto drop-shadow-sm';
+  --uno: 'bg-surface rounded-lg border-1 border-border-muted mt-4 overflow-x-auto drop-shadow-sm';
   counter-reset: line;
 }
 

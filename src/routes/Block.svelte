@@ -5,18 +5,21 @@
   type Block = Project | Work | Note | Post
 
   export let block: Block
+
+  const type = block.type.toLowerCase()
 </script>
 
 <section>
-  <h2><a href="/{block.type.toLowerCase()}/{block.slug}">{block.title}</a></h2>
+  <h2><a href="/{type}/{block.slug}">{block.title}</a></h2>
   <small
-    ><i class="i-ri-corner-down-right-fill align-baseline mr-1" /><a
-      href={block.type.toLocaleLowerCase()}>{block.type}</a
+    ><i class="i-ri-corner-down-right-fill align-baseline mr-1" /><a href={type}>{block.type}</a
     ></small
   >
 
   {#if block.image}
-    <Image {...block.image[0]} class="shadow" />
+    <a data-image href="/{type}/{block.slug}">
+      <Image {...block.image[0]} class="shadow" />
+    </a>
   {/if}
 
   <p>{block.excerpt}</p>
@@ -27,7 +30,7 @@
     --uno: 'max-w py-16 lt-sm:py-12 border-dash';
   }
 
-  a {
+  a:not([data-image]) {
     --uno: 'attr inline-block underline-fg-muted/20';
   }
 
