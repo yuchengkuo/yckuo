@@ -12,15 +12,13 @@
 
 <Head title="Listening" description="A collection of jam." openGraph={{ url: 'listening' }} />
 
-<section class="max-w">
-  {#each Object.keys(items) as key}
-    <div class="mb-16">
-      <p class="mb-6">{key}</p>
-      <ul>
-        {#each items[key] as album (album.url)}
-          <Album {album} />
-        {/each}
-      </ul>
-    </div>
-  {/each}
-</section>
+{#each Object.keys(items) as key}
+  <section class="max-w not-last:mb-16">
+    <h2 class="text-base font-normal mb-6">{key}</h2>
+    <ul>
+      {#each items[key] as album (album.url)}
+        <Album {album} />
+      {/each}
+    </ul>
+  </section>
+{/each}

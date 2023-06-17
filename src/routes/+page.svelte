@@ -20,14 +20,14 @@
   <!-- Routes -->
   <ul>
     {#each data.routes.filter((r) => r.label !== 'Home') as route (route.url)}
-      <li><a href={route.url}>{route.label} <span>→</span></a></li>
+      <li><a href={route.url}>{route.label} <span aria-hidden="true">→</span></a></li>
     {/each}
   </ul>
 
   <!-- Links -->
   <ul>
     {#each data.connect as link (link.url)}
-      <li><a href={link.url}>{link.label} <span>↗</span></a></li>
+      <li><a href={link.url}>{link.label} <span aria-hidden="true">↗</span></a></li>
     {/each}
   </ul>
 </nav>
@@ -50,9 +50,9 @@
     --uno: 'mb-2';
   }
   a {
-    --uno: 'attr underline-fg-muted/10';
+    --uno: 'attr underline-fg-muted/20';
   }
   span {
-    --uno: 'duration-100 text-xs';
+    --uno: 'text-0.6em align-super select-none';
   }
 </style>

@@ -5,6 +5,7 @@
   import Book from '../Book.svelte'
 
   import type { PageServerData } from './$types'
+  import BookDot from './BookDot.svelte'
 
   export let data: PageServerData
 
@@ -19,7 +20,7 @@
 
 {#each Object.entries(items) as [key, value]}
   <section class="max-w mb-16">
-    <p class="mb-6">{key}</p>
+    <h2 class="text-base font-normal mb-6">{key}</h2>
 
     <ul class="grid grid-cols-5 gap-4 lt-sm:grid-cols-3 items-end font-Newsreader">
       {#each value as book (book.id)}
@@ -30,36 +31,14 @@
   </section>
 {/each}
 
-<section class="max-w">
-  <p class="mb-6">Reading Goal</p>
-  <div class="font-Newsreader">
-    <h2>2023 Reading Goal</h2>
-    <p class="text-fg-muted">{data.goals[0].progress}/{data.goals[0].goal.target}</p>
+<section class="max-w font-Newsreader">
+  <h2>2023 Reading Goal</h2>
+  <p class="text-fg-muted">{data.goals[0].progress}/{data.goals[0].goal.target}</p>
 
-    <ul class="mt-4 flex flex-wrap gap-2" children="basis-4 shrink-0 h-4 rounded-full">
-      {#each new Array(data.goals[0].goal.target) as _, index}
-        {@const book = data.booksInGoal[index]?.book ?? null}
-        {#if book}
-          <div
-            class=" bg-rx-grass-9 hover:bg-rx-grass-10 flex justify-center items-center"
-            use:tooltip={{
-              content: book.title + '—' + book.authors.map((a) => a.name).join(', '),
-            }}
-          >
-            <a href="https://literal.club/book/{book.slug}"
-              ><span class="i-ri-check-fill inline-block w-3 h-3 text-white" /></a
-            >
-          </div>
-        {:else}
-          <div class="border border-fg-secondary border-dashed" />
-        {/if}
-      {/each}
-    </ul>
-  </div>
+  <ul class="mt-4 flex flex-wrap gap-2" children="shrink-0">
+    {#each new Array(data.goals[0].goal.target) as _, index}
+      {@const book = data.booksInGoal[index]?.book ?? null}
+      <BookDot {book} />
+    {/each}
+  </ul>
 </section>
-
-<style>
-  section {
-    --uno: 'not-last:(mb-24 lt-sm:mb-12)';
-  }
-</style>

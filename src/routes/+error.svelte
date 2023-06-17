@@ -12,4 +12,6 @@
 
 <Intro title={$page.status.toString()} />
 
-<p class="max-w">Failed accessing <code>{$page.url.pathname}</code>, try again later!</p>
+<p class="max-w">
+  Failed accessing <code>{$page.url.pathname}</code>, page might not exists!
+</p>

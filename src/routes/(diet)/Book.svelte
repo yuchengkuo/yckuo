@@ -5,23 +5,39 @@
 
   export let book: LiteralBook
   export let progress: number = undefined
+
+  const authors = book.authors.map((a) => a.name).join(', ')
 </script>
 
-<li class="perspective-400">
-  <a
-    href="https://literal.club/book/{book.slug}"
-    class="transition block transform-gpu relative"
-    after="absolute content-none w-px top-0 bottom-0 left-1.5 blur-1 bg-black/16"
-    hover="translate-z-2 drop-shadow-xl"
-    ><Image
-      id={book.cover}
-      class="bg-surface-subtle drop-shadow-md"
-      children="rounded-none"
-      widths={[120, 240]}
-    />{#if progress}<span class="absolute h-0.5 bg-primary" style="width: {progress}%;" />{/if}</a
+<li>
+  <a href="https://literal.club/book/{book.slug}" title="{book.title} by {authors}"
+    ><Image id={book.cover} class="!children:rounded-none" widths={[120, 240]} />{#if progress}<span
+        style="width: {progress}%;"
+      />{/if}</a
   >
-  <div class="row-start-2 mt-2">
-    <h2 class="text-sm line-clamp-1">{book.title}</h2>
-    <p class="text-xs line-clamp-1">{book.authors.map((a) => a.name).join(', ')}</p>
-  </div>
+
+  <h3>{book.title}</h3>
+  <p>{authors}</p>
 </li>
+
+<style>
+  li {
+    --uno: 'perspective-400';
+  }
+  a {
+    --uno: 'block mb-2 transition transform-gpu relative hover:(translate-z-2 drop-shadow-xl) active:-translate-z-1';
+  }
+  a::after {
+    --uno: 'absolute content-empty w-px top-0 bottom-0 left-1 blur-1 bg-black/24';
+  }
+  /* Progress */
+  span {
+    --uno: 'absolute h-0.5 bg-primary';
+  }
+  h3 {
+    --uno: 'text-sm line-clamp-1';
+  }
+  p {
+    --uno: 'text-xs line-clamp-1';
+  }
+</style>

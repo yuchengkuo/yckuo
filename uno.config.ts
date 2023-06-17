@@ -74,8 +74,7 @@ export default defineConfig<Theme>({
       'max-w': 'max-w-34rem mx-auto',
       'max-w-grid': 'grid gap-x-10 grid-cols-[1fr_max(34rem)_1fr] lt-lg:gap-x-4 lt-sm:block',
       'border-dash': 'border-b border-dashed border-border',
-      button:
-        'bg-transparent hover:(bg-fg-muted text-bg-muted) duration-100 px-1 -mx-1 rounded-2px',
+      button: 'bg-transparent hover:(bg-fg-muted text-bg-muted) duration-100 active:bg-fg',
       tag: 'w-fit text-xs leading-none font-medium p-1 rounded shadow-sm bg-tag text-ontag dark:(bg-ontag text-tag)',
     },
     [/^size-(.*)$/, ([, s]) => `w-${s} h-${s}`],

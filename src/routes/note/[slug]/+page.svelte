@@ -3,7 +3,7 @@
 
   import Head from '$lib/seo/Head.svelte'
   import { components } from '$lib/content/components'
-  import { tagColors } from '$lib/config'
+  import { page } from '$app/stores'
   import { formatDate } from '$lib/util'
 
   import Intro from '../../Intro.svelte'
@@ -22,8 +22,9 @@
   {#if data.note.tag}
     <div class="flex gap-2">
       {#each data.note.tag ?? [] as tag}
-        {@const index = Object.keys(Object.fromEntries(data.tags)).indexOf(tag)}
-        <p class={tagColors[index] || 'tag-gray'}>
+        {@const index = $page.data.tags.findIndex((t) => t[0] === tag)}
+        {@const hue = (360 / $page.data.tags.length) * index + 160}
+        <p style="--tag: 88% 0.035 {hue}; --ontag: 28% 0.15 {hue};" class="tag">
           {tag}
         </p>
       {/each}

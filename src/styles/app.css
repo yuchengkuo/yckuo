@@ -59,6 +59,7 @@
 }
 
 ::selection {
+  --uno: 'text-fg';
   background-color: oklch(var(--select));
 }
 
@@ -72,14 +73,11 @@ html.dark-theme {
 
 html,
 body,
-* {
-  --uno: ' transition-colors ease-out duration-500 delay-25';
-}
-
-@screen 2xl {
-  html {
-    --uno: 'bg-bg';
-  }
+section,
+div,
+li {
+  --uno: 'duration-400 delay-25';
+  transition-property: background-color;
 }
 
 body {
@@ -88,23 +86,19 @@ body {
   word-spacing: -0.01em;
 }
 
-h1,
-.lev1 {
+h1 {
   --uno: 'font-medium text-xl';
 }
 
-h2,
-.lev2 {
+h2 {
   --uno: 'font-medium text-lg';
 }
 
-h3,
-.lev3 {
+h3 {
   --uno: 'font-medium';
 }
 
-h4,
-.lev4 {
+h4 {
   --uno: 'font-medium';
 }
 
@@ -113,11 +107,14 @@ strong {
 }
 
 code {
-  --uno: 'bg-rx-gray-5 text-fg rounded font-Azeret py-px px-0.5 mx-0.5 text-0.75em shadow-sm';
+  --uno: 'bg-rx-gray-5 text-fg rounded font-Azeret py-px px-px mx-0.5 text-0.75em shadow-sm';
+}
+:where(a:hover) code {
+  --uno: 'bg-rx-gray-11 text-bg transition-color duration-100 delay-25';
 }
 
 kbd {
-  --uno: 'inline-block bg-surface rounded font-Azeret font-650 text-xs leading-none py-1 px-1.5 border-b-2 border-fg-secondary/28 border-x-1 border-t-1 hover:bg-bg-secondary';
+  --uno: 'inline-block bg-surface rounded font-Azeret font-650 text-xs leading-none py-1 px-1.5 border-b-2 border-border border-x-1 border-t-1 hover:bg-bg-muted transition-colors duration-200';
 }
 
 time {
@@ -126,4 +123,16 @@ time {
 
 button {
   --uno: 'bg-transparent';
+}
+
+table {
+  --uno: 'mt-8';
+}
+
+th {
+  --uno: 'p-2 border-border-muted border-1 font-medium';
+}
+
+td {
+  --uno: 'p-3 border-border-muted border-1 text-sm';
 }

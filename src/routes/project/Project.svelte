@@ -27,7 +27,7 @@
         {#each project.tag ?? [''] as tag}
           {@const index = $page.data.tags.findIndex((t) => t[0] === tag)}
           {@const hue = (360 / $page.data.tags.length) * index + 160}
-          <p style="--tag: 88% 0.02 {hue}; --ontag: 28% 0.15 {hue};" class="tag shrink-0">{tag}</p>
+          <p style="--tag: 88% 0.035 {hue}; --ontag: 28% 0.15 {hue};" class="tag shrink-0">{tag}</p>
         {/each}
       </div>
 

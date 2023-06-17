@@ -11,6 +11,7 @@
   import { motion } from '$lib/animation/motion'
   import Head from '$lib/seo/Head.svelte'
   import { formatDate } from '$lib/util'
+  import useTheme from '$lib/theme/useTheme'
 
   import Layer from './Layer.svelte'
 
@@ -36,6 +37,7 @@
   }
 
   let withTransition = true
+  const { dark, toggleMode } = useTheme()
   const fadeInConfig: Options = {
     initial: { opacity: 0.001 },
     animate: { opacity: 1 },
@@ -83,11 +85,20 @@
 
       <footer>
         <p class="font-medium">YuCheng Kuo</p>
-        <p class="text-fg-muted">©2019–2023</p>
-        <p class="text-fg-muted mr-auto">Upd. {formatDate(data.updated_at)}</p>
+        <p class="text-fg-muted">©2019–{new Date(Date.now()).getFullYear()}</p>
+        <p class="text-fg-muted mr-auto">
+          Upd. <a href="https://github.com/yuchengkuo/yckuo/commit/{data.commit_sha}"
+            >{formatDate(data.updated_at)}</a
+          >
+        </p>
         <button
           on:click={() => window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })}
           aria-label="Go to top">Top ↑</button
+        >
+        <button on:click={toggleMode} aria-label="Toggle theme mode"
+          >{#if $dark}On <i class="i-ri-lightbulb-line" />{:else}Off <i
+              class="i-ri-lightbulb-fill"
+            />{/if}</button
         >
       </footer>
     </main>
@@ -103,7 +114,15 @@
   footer {
     --uno: 'max-w mt-20 flex gap-2 items-baseline text-xs';
   }
-  button {
+  button,
+  a {
     --uno: 'button';
+  }
+  a::after {
+    --uno: 'text-2 align-super';
+    content: ' ↗';
+  }
+  i {
+    vertical-align: -1px;
   }
 </style>

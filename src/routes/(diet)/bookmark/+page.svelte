@@ -56,10 +56,10 @@
   }
 
   li {
-    --uno: 'text-sm px-3 mb-2 border-l-2 border-transparent';
+    --uno: 'text-sm text-fg-muted px-3 mb-2 border-l-2 border-transparent hover:text-fg active:scale-99';
   }
 
   li.selected {
-    --uno: 'border-primary font-medium';
+    --uno: 'border-primary text-fg font-medium';
   }
 </style>
