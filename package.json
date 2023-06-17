@@ -59,7 +59,7 @@
     "@unocss/extractor-svelte": "^0.53.1",
     "@unocss/reset": "^0.53.1",
     "contentlayer": "0.3.3",
-    "eslint": "^8.42.0",
+    "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "js-yaml": "^4.1.0",
