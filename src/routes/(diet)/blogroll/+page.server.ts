@@ -19,6 +19,6 @@ export const load: PageServerLoad = async function ({ setHeaders }) {
     return { blogrolls, tags }
   } catch (err) {
     console.error('Error: ', err)
-    throw error(404, 'Error while getting bookmarks')
+    throw error(500, 'Error while getting bookmarks')
   }
 }

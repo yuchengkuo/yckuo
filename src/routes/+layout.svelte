@@ -20,9 +20,7 @@
 
   export let data: PageData
 
-  beforeNavigate(({ from, to }) => {
-    if (from.url.pathname !== to.url.pathname) NProgress.start()
-  })
+  beforeNavigate(() => NProgress.start())
   afterNavigate(() => NProgress.done())
 
   function navigate(e: KeyboardEvent) {
