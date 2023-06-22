@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit'
 import { compareDesc } from 'date-fns'
 import countBy from 'lodash/countBy'
 
-import { getBookmarks, getChildCollections } from '$lib/api/raindrop'
+import { getBookmarks, getChildCollections, type Raindrop } from '$lib/api/raindrop'
 
 import type { PageServerLoad } from './$types'
 
@@ -14,28 +14,30 @@ export const load: PageServerLoad = async function ({ setHeaders, url }) {
   setHeaders({ 'cache-control': 'public, s-maxage=86400, stale-while-revalidate=43200' })
 
   try {
+    let bookmarks: Raindrop[]
+
     const collections = await getChildCollections(collection)
-
-    const bookmarksInParent = await getBookmarks({ collection, sort: '-created' })
-
-    const allBookmarks = (
-      await Promise.all(
-        collections.map(
-          async (c) => await getBookmarks({ collection: c.id.toString(), sort: '-created' })
-        )
-      )
-    )
-      .flat()
-      .concat(bookmarksInParent)
-      .sort((a, b) => compareDesc(new Date(a.created_at), new Date(b.created_at)))
 
     const category = collections.find(
       (c) => c.title.toLowerCase() === url.searchParams.get('category')
     )
 
-    const bookmarks = category
-      ? allBookmarks.filter((b) => b.collectionId === category?.id)
-      : allBookmarks
+    if (category) {
+      bookmarks = await getBookmarks({ collection: category.id.toString(), sort: '-created' })
+    } else {
+      const bookmarksInParent = await getBookmarks({ collection, sort: '-created' })
+
+      bookmarks = (
+        await Promise.all(
+          collections.map(
+            async (c) => await getBookmarks({ collection: c.id.toString(), sort: '-created' })
+          )
+        )
+      )
+        .flat()
+        .concat(bookmarksInParent)
+        .sort((a, b) => compareDesc(new Date(a.created_at), new Date(b.created_at)))
+    }
 
     const tags = Object.entries(countBy(bookmarks.flatMap((b) => b.tags))).sort(
       (a, b) => b[1] - a[1]

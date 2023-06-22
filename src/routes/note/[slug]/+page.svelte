@@ -21,7 +21,7 @@
   <time class="text-sm font-500">{formatDate(data.note.time)}</time>
   {#if data.note.tag}
     <div class="flex gap-2">
-      {#each data.note.tag ?? [] as tag}
+      {#each data.note.tag ?? [] as tag (tag)}
         {@const index = $page.data.tags.findIndex((t) => t[0] === tag)}
         {@const hue = (360 / $page.data.tags.length) * index + 160}
         <p style="--tag: 88% 0.035 {hue}; --ontag: 28% 0.15 {hue};" class="tag">

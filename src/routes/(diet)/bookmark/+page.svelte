@@ -16,29 +16,32 @@
 />
 
 <section class="max-w-grid">
-  <nav>
+  <aside>
     <ul>
       <li class:selected={!$page.url.searchParams.get('category')}>
         <a
           role="tab"
           aria-selected={!$page.url.searchParams.get('category')}
           href="?category="
-          data-sveltekit-noscroll>All</a
+          data-sveltekit-noscroll
+          data-sveltekit-replacestate>All</a
         >
       </li>
-      {#each data.collections as collection}
+      {#each data.collections as collection (collection.id)}
         {@const { title } = collection}
-        <li class:selected={$page.url.searchParams.get('category') === title.toLowerCase()}>
+        {@const selected = $page.url.searchParams.get('category') === title.toLowerCase()}
+        <li class:selected>
           <a
             role="tab"
-            aria-selected={$page.url.searchParams.get('category') === title.toLowerCase()}
+            aria-selected={selected}
             href="?category={title.toLowerCase()}"
-            data-sveltekit-noscroll>{title}</a
+            data-sveltekit-noscroll
+            data-sveltekit-replacestate>{title}</a
           >
         </li>
       {/each}
     </ul>
-  </nav>
+  </aside>
 
   <ul>
     {#each data.bookmarks as bookmark (bookmark.id)}
@@ -48,10 +51,10 @@
 </section>
 
 <style>
-  nav {
+  aside {
     --uno: 'flex justify-end items-start lt-sm:hidden';
   }
-  nav ul {
+  aside ul {
     --uno: 'flex-col justify-end grow max-w-40 sticky top-12';
   }
 

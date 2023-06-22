@@ -37,51 +37,38 @@
 <p class="max-w mb-8">{data.work.tagline}</p>
 
 <section class="max-w-grid" children="col-start-2">
-  <ul children="flex flex-col gap-4">
-    <div>
-      <li>
-        <small>Brief</small>
-        <p>{data.work.brief}</p>
-      </li>
-
-      {#if data.work.action}
-        <li>
-          <div class="flex flex-wrap gap-4">
-            {#each data.work.action ?? [] as link}
-              <a
-                href={link.url}
-                class="block bg-fg border-border rounded-lg border text-sm font-700 text-bg text-center py-2.5 px-4.5 transition-all drop-shadow"
-                hover="drop-shadow-md"
-                data-splitbee-event="Open Link"
-                data-splitbee-target={link.url}>{link.label}</a
-              >
-            {/each}
-          </div>
-        </li>
-      {/if}
-    </div>
-
-    <div class="shrink-0">
-      <li>
-        <small>Duration</small>
-        <time class="block">{data.work.duration}</time>
-      </li>
-      <li>
-        <small>Role</small>
-        <p>{data.work.role}</p>
-      </li>
-      <nav>
-        {#each data.work.highlight as link}
-          <li>
-            <a
-              href={link.url}
-              class="attr text-sm text-fg-muted underline-fg-muted/20"
-              hover="text-fg">{link.label}</a
-            >
-          </li>
-        {/each}
-      </nav>
-    </div>
+  <ul>
+    {#if data.work}
+      {@const { brief, action, duration, role, highlight } = data.work}
+      {@const items = [
+        { brief, action },
+        { duration, role, highlight },
+      ]}
+      {#each items as item}
+        <div>
+          {#each Object.entries(item) as [key, value]}
+            {#if Array.isArray(value)}
+              <li>
+                <nav class:action={key === 'action'}>
+                  {#each value ?? [] as link (link.url)}
+                    <a
+                      href={link.url}
+                      data-splitbee-event="Open Link"
+                      data-splitbee-target={link.url}>{link.label}</a
+                    >
+                  {/each}
+                </nav>
+              </li>
+            {:else}
+              <li>
+                <small>{key}</small>
+                <p>{value}</p>
+              </li>
+            {/if}
+          {/each}
+        </div>
+      {/each}
+    {/if}
   </ul>
 
   {#if data.work.image}
@@ -109,12 +96,22 @@
 
 <style>
   ul {
-    --uno: flex gap-8 items-baseline;
+    --uno: 'flex gap-8 items-baseline';
+    --uno: 'child-last:(shrink-0) children:(flex flex-col gap-4)';
   }
   small {
-    --uno: uppercase font-600 text-xs inline-block mb-1;
+    --uno: 'uppercase font-600 text-xs inline-block mb-1';
   }
-  nav {
-    --uno: px-3 -mx-3 py-2 border-1 border-border rounded bg-surface-muted shadow-sm;
+  nav.action {
+    --uno: 'flex flex-wrap gap-4';
+  }
+  nav.action a {
+    --uno: 'block bg-fg border-border rounded-lg border text-sm font-700 text-bg text-center py-2.5 px-4.5 transition-all drop-shadow';
+  }
+  nav:not(.action) {
+    --uno: 'px-3 -mx-3 py-2 border-1 border-border rounded bg-surface-muted shadow-sm';
+  }
+  nav:not(.action) a {
+    --uno: 'block attr w-fit mt-1 text-sm text-fg-muted underline-fg-muted/40';
   }
 </style>

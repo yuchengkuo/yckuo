@@ -15,12 +15,12 @@
   openGraph={{ url: 'watching' }}
 />
 
-{#each Object.entries(items) as [key, value], index}
+{#each Object.entries(items) as [key, value], index (key)}
   <section class="not-last:mb-16">
     <h2 class="max-w text-base font-normal">{key}</h2>
 
     <ul class:carousel={index}>
-      {#each value as item}
+      {#each value as item (item.id)}
         {@const { type, title, id, posterUrl, time } = item}
         <li>
           <a

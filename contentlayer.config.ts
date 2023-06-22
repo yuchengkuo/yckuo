@@ -65,16 +65,18 @@ const computedFields = defineComputedFields({
   image: {
     type: 'list',
     resolve: async (doc) =>
-      Promise.all(
-        Array.from<typeof Image>(doc.image ?? []).map(async (img) => {
-          const id = img['id'] as string
-          const isVideo = img['isVideo'] as boolean
-          if (!id) return img
-          img['blurDataUrl'] = await getBlurDataUrl(id, isVideo)
-          img['aspectRatio'] = await getAspectRatio(id, isVideo)
-          return img
-        })
-      ),
+      doc.image
+        ? Promise.all(
+            Array.from<typeof Image>(doc.image).map(async (img) => {
+              const id = img['id'] as string
+              const isVideo = img['isVideo'] as boolean
+              if (!id) return img
+              img['blurDataUrl'] = await getBlurDataUrl(id, isVideo)
+              img['aspectRatio'] = await getAspectRatio(id, isVideo)
+              return img
+            })
+          )
+        : undefined,
   },
 })
 

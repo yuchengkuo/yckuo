@@ -16,7 +16,7 @@
 
 <section class="max-w">
   <ul>
-    {#each data.blogrolls as bookmark}
+    {#each data.blogrolls as bookmark (bookmark.id)}
       <Bookmark {bookmark} />
     {/each}
   </ul>

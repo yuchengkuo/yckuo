@@ -9,8 +9,7 @@
 
 <style>
   button {
-    --uno: 'my-16 py-3 px-4 leading-none bg-rx-cyan-9 dark:bg-rx-green9 text-white rounded-lg font-700'
-      relative;
+    --uno: 'block my-16 py-3 px-4 leading-none bg-rx-cyan-9 dark:bg-rx-green9 text-white rounded-lg font-700 relative';
   }
   button::before {
     --uno: 'transition opacity-0';
