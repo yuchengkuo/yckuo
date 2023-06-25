@@ -10,7 +10,7 @@ specifiers:
   '@radix-ui/colors': ^1.0.0
   '@splitbee/web': ^0.3.0
   '@sveltejs/adapter-vercel': ^3.0.1
-  '@sveltejs/kit': 1.20.4
+  '@sveltejs/kit': 1.20.5
   '@types/js-yaml': ^4.0.5
   '@types/lodash': ^4.14.195
   '@types/lodash.throttle': ^4.1.7
@@ -72,8 +72,8 @@ devDependencies:
   '@iconify-json/bxs': 1.1.6
   '@iconify-json/ri': 1.1.10
   '@radix-ui/colors': 1.0.0
-  '@sveltejs/adapter-vercel': 3.0.1_@sveltejs+kit@1.20.4
-  '@sveltejs/kit': 1.20.4_svelte@4.0.0+vite@4.3.9
+  '@sveltejs/adapter-vercel': 3.0.1_@sveltejs+kit@1.20.5
+  '@sveltejs/kit': 1.20.5_svelte@4.0.0+vite@4.3.9
   '@types/js-yaml': 4.0.5
   '@types/lodash': 4.14.195
   '@types/lodash.throttle': 4.1.7
@@ -1152,12 +1152,12 @@ packages:
     resolution: {integrity: sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==}
     dev: false
 
-  /@sveltejs/adapter-vercel/3.0.1_@sveltejs+kit@1.20.4:
+  /@sveltejs/adapter-vercel/3.0.1_@sveltejs+kit@1.20.5:
     resolution: {integrity: sha512-PBY3YRm7Q7Prax07mxD/rvcho2CntGkYncAIkz2DtG5NTcVG5JZ1RM627it5zYYtc2/RB3YjMkZuCMBqDCiPkA==}
     peerDependencies:
       '@sveltejs/kit': ^1.5.0
     dependencies:
-      '@sveltejs/kit': 1.20.4_svelte@4.0.0+vite@4.3.9
+      '@sveltejs/kit': 1.20.5_svelte@4.0.0+vite@4.3.9
       '@vercel/nft': 0.22.6
       esbuild: 0.17.19
     transitivePeerDependencies:
@@ -1165,8 +1165,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.20.4_svelte@4.0.0+vite@4.3.9:
-    resolution: {integrity: sha512-MmAzIuMrP7A+8fqDVbxm6ekGHRHL/+Fk8sQPAzPG4G2TxUDtHdn/WcIxeEqHzARMf0OtGSC+VPyOSFuw2Cy2Mg==}
+  /@sveltejs/kit/1.20.5_svelte@4.0.0+vite@4.3.9:
+    resolution: {integrity: sha512-8rJYZ2boRlO75lwpbpB+DlSzIwmTuamXTpVlDtw4dBk86o3UaDe/+Ro4xCsV/4FtTw2U8xPHyV83edAWbQHG0w==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
     requiresBuild: true
