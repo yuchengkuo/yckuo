@@ -48,7 +48,7 @@
     "@iconify-json/ri": "^1.1.10",
     "@radix-ui/colors": "^1.0.0",
     "@sveltejs/adapter-vercel": "^3.0.1",
-    "@sveltejs/kit": "1.20.4",
+    "@sveltejs/kit": "1.20.5",
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.195",
     "@types/lodash.throttle": "^4.1.7",
