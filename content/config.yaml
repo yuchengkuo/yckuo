@@ -75,21 +75,12 @@ routes:
     excerpt: |
       Random notes. Documenting things that I learned for now.
 
-  # - label: Timeline
-  #   title: Timeline
-  #   description: Feeds
-  #   url: /timeline
-  #   kbd: 9
-  #   excerpt: |
-  #     Feed of mine.
-
   - label: Sandbox
     title: Sandbox
-    description: ''
+    description: A little playground of interfaces and interactions.
     url: /sandbox
     kbd: 9
-    excerpt: |
-      A little playground.
+    excerpt: ''
 
 connect:
   - label: Read.cv

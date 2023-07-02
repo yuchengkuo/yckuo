@@ -21,7 +21,7 @@
 </script>
 
 <div
-  class="w-full h-80 grid place-items-center"
+  role="banner"
   on:mousemove={handleMousemove}
   on:mouseleave={handleMousemove}
   style="--x: {$x}px; --y: {$y}px; --bg: {$dark
