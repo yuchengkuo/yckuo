@@ -18,7 +18,7 @@
   <!-- Navigation link -->
   {#if $page.url.pathname !== '/'}<a
       href={pathnames.length > 2 ? pathnames.slice(0, -1).join('/') : '/'}
-      aria-label="Go upper level">←</a
+      aria-label="Go upper level"><span class="i-ri-corner-up-left-fill" /></a
     >{/if}
 
   <!-- Title -->
