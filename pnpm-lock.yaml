@@ -19,7 +19,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.60.0
   '@typescript-eslint/parser': ^5.60.0
   '@unocss/extractor-svelte': ^0.53.3
-  '@unocss/reset': ^0.53.3
+  '@unocss/reset': ^0.53.4
   class-transformer: ^0.5.1
   cloudinary-build-url: ^0.2.4
   contentlayer: 0.3.4
@@ -82,7 +82,7 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 5.60.0_tuo2vtzaqm3mln5qset5m5vwbq
   '@typescript-eslint/parser': 5.60.0_jcnlt2zf7uarybpvrdw2sorxke
   '@unocss/extractor-svelte': 0.53.3
-  '@unocss/reset': 0.53.3
+  '@unocss/reset': 0.53.4
   contentlayer: 0.3.4
   eslint: 8.44.0
   eslint-config-prettier: 8.8.0_eslint@8.44.0
@@ -1624,6 +1624,10 @@ packages:
 
   /@unocss/reset/0.53.3:
     resolution: {integrity: sha512-DilchevgPVH7Kiiwg/yU8xV6admL/FeV1rwf5sFBEd4THiQSasQXYiqE0e9RyOAF4bJA4c3ZGE9x0cb8T37Fwg==}
+    dev: true
+
+  /@unocss/reset/0.53.4:
+    resolution: {integrity: sha512-NMqntd9CE9EpdtI2ELGCZg9Z2ySMdo/ljepP8QwfRmWbYaXUf3T/GJsOTqewbhNgJUGYinbs1OtiN0yG5xZjJQ==}
     dev: true
 
   /@unocss/scope/0.53.3:
