@@ -41,7 +41,7 @@ specifiers:
   snd-lib: ^1.1.2
   svelte: ^4.0.0
   svelte-check: ^3.4.4
-  svelte-confetti: ^1.2.2
+  svelte-confetti: ^1.2.4
   svelte-inview: ^4.0.0
   svelte-preprocess: ^5.0.4
   svelte-seo: ^1.5.3
@@ -95,7 +95,7 @@ devDependencies:
   reading-time: 1.5.0
   svelte: 4.0.0
   svelte-check: 3.4.4_svelte@4.0.0
-  svelte-confetti: 1.2.2
+  svelte-confetti: 1.2.4
   svelte-inview: 4.0.0_svelte@4.0.0
   svelte-preprocess: 5.0.4_rydvusnd4biuws73vnz24j3wlu
   svelte-seo: 1.5.3
@@ -5141,8 +5141,8 @@ packages:
       - sugarss
     dev: true
 
-  /svelte-confetti/1.2.2:
-    resolution: {integrity: sha512-LkvWO732jRNmYykWi0IOK7xoBX241p+p+tC7Ef1EcO3TK9b9lpB/vYqKkcwVya+onG2SgQsX2g+JVbVKxq5ixQ==}
+  /svelte-confetti/1.2.4:
+    resolution: {integrity: sha512-2ut7fEjfHIQ5foXuBaVwalUdl7JlyhgEkFbepGYpOx2dOGC2vjj4kkepcYr/Fl3+CyqfnVmXre1owM+3rpfJEg==}
     dev: true
 
   /svelte-eslint-parser/0.32.0_svelte@4.0.0:
