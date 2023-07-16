@@ -10,17 +10,13 @@
 
 <Intro route={data.routes.find((r) => r.label === 'Notes')} />
 
-<div class="lt-md:(block max-w)" md="max-w-grid py-5" children="col-start-2">
+<div>
   <section>
-    <ul class="divide-y divide-border">
+    <ul>
       {#each data.notes as note}
         {@const date = formatDate(note.time)}
-        <li class="border-dashed">
-          <a
-            class="py-3 transition flex justify-between items-baseline"
-            hover="invert-50 dark:(invert-none brightness-80)"
-            href="/note/{note.slug}"
-          >
+        <li>
+          <a href="/note/{note.slug}">
             <h2 class="text-base">{note.title}</h2>
             <time class="text-xs">{date}</time>
           </a>
@@ -29,3 +25,19 @@
     </ul>
   </section>
 </div>
+
+<style>
+  div{
+    --uno: 'max-w-grid py-5 children:col-start-2';
+  }
+  ul {
+    --uno: 'divide-y divide-border';
+  }
+  li {
+    --uno: 'border-dashed';
+  }
+  a {
+    --uno: 'py-3 transition flex justify-between items-baseline';
+    --uno: 'hover:text-fg-muted active:(text-fg scale-99.5)';
+  }
+</style>

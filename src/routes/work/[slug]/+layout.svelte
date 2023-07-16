@@ -75,7 +75,7 @@
     <div
       in:scale={{ start: 0.8, delay: 400 }}
       class="bg-surface grid grid-cols-1 grid-rows-1 mt-10 place-content-center"
-      md="w-11/10 justify-self-center"
+      md="w-14/10 justify-self-center"
       children="col-start-1 col-span-1 row-start-1 row-span-1"
     >
       {#each data.work.image as image, index (image.id)}
@@ -86,7 +86,7 @@
         />
       {/each}
       <p class="row-start-2 mt-2 font-550 text-sm text-fg-muted">
-        — Some highlights of work at {data.work.title}
+        <i class="i-ri-arrow-right-double-line" /> Some highlights of work at {data.work.title}
       </p>
     </div>
   {/if}

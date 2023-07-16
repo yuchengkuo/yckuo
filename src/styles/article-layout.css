@@ -12,12 +12,12 @@
 
 .layout-center > article > section > figure,
 .layout-center > article > section > videoplayer {
-  --uno: 'justify-self-center my-6 lg:w-11/10 xl:(mt-10 col-start-2)';
+  --uno: 'justify-self-center mt-6 lg:w-14/10 xl:(mt-10 col-start-2)';
 }
 
 .layout-center > article > section > figure[full='true'],
 .layout-center > article > section > videoplayer[full='true'] {
-  --uno: 'rounded-lg my-10 col-span-full col-start-1 justify-self-center sm:my-10 lg:w-8/10 xl:my-20';
+  --uno: 'my-10 col-span-full w-full col-start-1 justify-self-center sm:my-10 lg:px-20 xl:my-20';
 }
 
 .layout-center > article > section > grid {
@@ -25,7 +25,7 @@
 }
 
 .layout-center > article > section > gallery {
-  --uno: 'mt-10 col-start-1 col-span-full grid gap-4 lg:(grid-cols-2 px-20)';
+  --uno: 'my-10 col-start-1 col-span-full grid gap-8 lg:(grid-cols-2 px-20)';
 }
 
 .layout-center > article > section > carousel {

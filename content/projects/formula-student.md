@@ -51,12 +51,6 @@ The teams shall think themselves as small-scale vehicle manufacturers to design,
 
 > We participated in [Formula Student Japan 2019](https://www.jsae.or.jp/formula/en/17th/eventoutline.php), which was held at late Aug.
 
-**There are three main classes in the competition, combustion, electric and autonomous.** Combustion started in the 1980s, which has the longest history and most resources, therefore it’s easiest to begin and has the largest amount of teams. Electric was introduced in the 2010s, with the increase of difficulty, resources-taken, and the issue of safety, while the project aspects are wider than combustion gasoline. Autonomous started in 2019, which is the most advanced, now teams and competitions are mostly in Europe and the US.
-
-> We aimed for electric class for broader diversity and promising trend of EV.⚡️
-
-{% gallery %}
-
 {%image
   id="project/building-the-racecar/comp-1_atkmbv"
   alt="Static inspection at Formula Student Japan 2019."
@@ -67,6 +61,11 @@ The teams shall think themselves as small-scale vehicle manufacturers to design,
   alt="Dynamic event at Formula Student Japan 2019."
   showcap=true
 /%}
+
+**There are three main classes in the competition, combustion, electric and autonomous.** Combustion started in the 1980s, which has the longest history and most resources, therefore it’s easiest to begin and has the largest amount of teams. Electric was introduced in the 2010s, with the increase of difficulty, resources-taken, and the issue of safety, while the project aspects are wider than combustion gasoline. Autonomous started in 2019, which is the most advanced, now teams and competitions are mostly in Europe and the US.
+
+> We aimed for electric class for broader diversity and promising trend of EV.⚡️
+
 {%image
   id="project/building-the-racecar/comp-3_qydpmy"
   alt="Static inspection at Formula Student Japan 2019."
@@ -78,23 +77,11 @@ The teams shall think themselves as small-scale vehicle manufacturers to design,
   showcap=true
 /%}
 
-{% /gallery %}
-
 ## Before We Begin
 
 We started with getting familiar with the competition and did some research about how an entry-year team should be aiming in the first attempt. From reading the [competition rules](https://www.fsaeonline.com/cdsweb/gen/DocumentResources.aspx), learning from documentations, and looking for advice from experienced teams, **the idea was to build up the necessary knowledge as soon as possible.**
 
 We learned that most of the team spent 1+ years for their first attempt, so setting an appropriate goal would be crucial for us. And **FS is usually viewed as a degree-level project, sometimes considered a standard by the automobile industry for engineering students to transition from university to workspace.** As a student-centric event, safety is undoubtedly the top priority and first concern, therefore strictness of the inspection could be expected and it won’t be easy for first-year university/students.
-
-At the same time, we also visited other experienced team in Taiwan, [NTHU Racing](https://www.facebook.com/NTHU.Racing), [STUST Racing](https://www.facebook.com/ST.RacingTeam2005), and [Taipei Tech Racing](https://www.facebook.com/TaipeiTechRacing). Seeing what they've built and listening to their stories really taught us a lot (and realized it's going to be tough.🤞🏼)
-
-{% carousel %}
-
-{%image
-  id="project/building-the-racecar/res-1_bxehd4"
-  alt="Visited Taipei Tech Team (2018 Jul)"
-  showcap=true
-/%}
 
 {%image
   id="project/building-the-racecar/res-2_l20r5d"
@@ -102,13 +89,18 @@ At the same time, we also visited other experienced team in Taiwan, [NTHU Racing
   showcap=true
 /%}
 
+At the same time, we also visited other experienced team in Taiwan, [NTHU Racing](https://www.facebook.com/NTHU.Racing), [STUST Racing](https://www.facebook.com/ST.RacingTeam2005), and [Taipei Tech Racing](https://www.facebook.com/TaipeiTechRacing). Seeing what they've built and listening to their stories really taught us a lot (and realized it's going to be tough.🤞🏼)
+
 {%image
   id="project/building-the-racecar/res-3_hbcx9s"
   alt="Visited NTHU Racing team (2018 Oct)"
   showcap=true
 /%}
-
-{% /carousel %}
+{%image
+  id="project/building-the-racecar/res-1_bxehd4"
+  alt="Visited Taipei Tech Team (2018 Jul)"
+  showcap=true
+/%}
 
 ## Early Stage Challenges
 
@@ -152,8 +144,6 @@ Even though the purpose of the event is to let students develop the vehicles on 
 
 Working with the industry taught us more about professional workflow, and also started to understand the industry standards. Really appreciated the assistance and advice the industry gave.
 
-{% carousel %}
-
 {%image
   id="project/building-the-racecar/dev-3_njgbvp"
   alt="Welding jigs for frame"
@@ -178,43 +168,35 @@ Working with the industry taught us more about professional workflow, and also s
   showcap=true
 /%}
 
-{% /carousel %}
-
 ## Preparing for competition
 
 Before getting into the competition, teams have to submit a video of the vehicle in operation (which is called Shakedown Certificate) as a qualification for participation. If the teams couldn't pass Shakedown Certificate, they will only be able to join the static event of the competition.
 
 As a matter of fact, we rarely had time for vehicle testing due to lack of experience and countless incidents happened along the way. Despite that, we still managed to had a couple of testing session before packing to Japan. All we remembered was the undescribable fulfillment when the vehicle first landed on the ground and driven around the parking lot in the basement.
 
-As for the vehicle transportation from Taiwan to Japan, we needed to make sure the packaing and documentation were fully prepared. These procedures seemed trivial but turned out to be lessons in the operational side. And for overseas teams around the world, shipment of the vehicle tightened up the project timeline even more.
-
-{% carousel %}
-
 {%image
   id="project/building-the-racecar/test-2_wa3pwy"
   alt="Shakedown certificate completion"
   showcap=true
 /%}
-
-{%image
-  id="project/building-the-racecar/test-1_hjek5e"
-  alt="Heading to vehicle testing site"
-  showcap=true
-/%}
-
-{%image
-  id="project/building-the-racecar/test-5_tnniau"
-  alt="Ready for the shipment to Japan"
-  showcap=true
-/%}
-
 {%image
   id="project/building-the-racecar/test-4_e5s3cd"
   alt="Vehicle testing session photo"
   showcap=true
 /%}
 
-{% /carousel %}
+As for the vehicle transportation from Taiwan to Japan, we needed to make sure the packaing and documentation were fully prepared. These procedures seemed trivial but turned out to be lessons in the operational side. And for overseas teams around the world, shipment of the vehicle tightened up the project timeline even more.
+
+{%image
+  id="project/building-the-racecar/test-1_hjek5e"
+  alt="Heading to vehicle testing site"
+  showcap=true
+/%}
+{%image
+  id="project/building-the-racecar/test-5_tnniau"
+  alt="Ready for the shipment to Japan"
+  showcap=true
+/%}
 
 ## FS Japan 2019
 
@@ -223,8 +205,6 @@ As for the vehicle transportation from Taiwan to Japan, we needed to make sure t
 ### Vehicle Examination
 
 The schedule of the event is quite tight, the team would have to quickly get through all the Static Events in order to join the Dynamic. We as a first-year team, needed to get familiar with the event and also made sure the vehicle is operating correctly. As we progress step by step, we were stuck at the end of examination and therefore missed the deadline to get into the dynamic events. But we still succed to pass all the examinations before the event ended, which was a rewarding accomplishment for us.
-
-{% gallery %}
 
 {%image
   id="project/building-the-racecar/compete-1_eku8ie"
@@ -250,43 +230,35 @@ The schedule of the event is quite tight, the team would have to quickly get thr
   showcap=true
 /%}
 
-{% /gallery %}
-
 ### Static Events
 
 Static events, excluding the safety inspection, are more about how and why we built the vehicle/what the business plan was. There are Design, Cost, Business Presentation in the static events.
-
-### Dynamic Events
-
-Dynamic events are about understanding the performance the vehicle. There are Acceleration, Skid-pad, Autocross, Endurance and Efficiency in the dynamic events.
-
-{% gallery %}
 
 {%image
   id="project/building-the-racecar/compete-5_lsrdc3"
   alt="Acceleration event"
   showcap=true
 /%}
-
 {%image
   id="project/building-the-racecar/compete-6_n4xi1q"
   alt="Driver escape test"
   showcap=true
 /%}
 
+### Dynamic Events
+
+Dynamic events are about understanding the performance the vehicle. There are Acceleration, Skid-pad, Autocross, Endurance and Efficiency in the dynamic events.
+
 {%image
   id="project/building-the-racecar/compete-7_tha6dr"
   alt="Vehicle tilt test"
   showcap=true
 /%}
-
 {%image
   id="project/building-the-racecar/compete-8_yzkqgu"
   alt="Vehicle rain test (for EV)"
   showcap=true
 /%}
-
-{% /gallery %}
 
 ## Achievements
 

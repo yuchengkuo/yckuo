@@ -41,15 +41,7 @@
     animate: { opacity: 1 },
     transition: { delay: 0.4, duration: 0.4 },
   }
-  const noTransitionRoutes = [
-    '/note/',
-    '/bookmark',
-    '/blogroll',
-    '/hero',
-    '/listening',
-    '/watching',
-    '/reading',
-  ]
+  const noTransitionRoutes = ['/bookmark', '/blogroll', '/listening', '/watching', '/reading']
   $: withTransition = noTransitionRoutes.every((r) => !$page.url.pathname.includes(r))
 </script>
 

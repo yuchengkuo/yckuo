@@ -66,7 +66,7 @@
   })
 </script>
 
-<figure on:click class={className} {...$$restProps}>
+<figure class={className} {...$$restProps}>
   <div style="aspect-ratio: {aspectRatio}">
     <!-- Blurred placeholder -->
     {#if blurDataUrl}
@@ -88,17 +88,17 @@
   </noscript>
 
   {#if showcap}
-    <figcaption>— {alt}</figcaption>
+    <figcaption><i class="i-ri-arrow-right-double-line" /> {alt}</figcaption>
   {/if}
 </figure>
 
 <style>
   figure {
-    --uno: 'overflow-hidden block isolate all:isolate @container-normal';
+    --uno: 'overflow-hidden block isolate all:isolate';
   }
   /* Wrapper */
   figure > div {
-    --uno: 'rounded @md:rounded-md @lg:rounded-lg bg-surface-muted relative overflow-hidden no-js:hidden';
+    --uno: 'rounded bg-surface-muted relative overflow-hidden no-js:hidden';
   }
   /* Blurred overlay */
   div[role='presentation'] {

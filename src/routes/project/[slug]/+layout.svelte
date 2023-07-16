@@ -71,14 +71,11 @@
 
   {#if data.project.image && !data.project.hideCover}
     {@const image = data.project.image[0]}
-    <div class="mt-10" in:scale={{ start: 0.8, delay: 300 }} md="w-11/10 justify-self-center">
+    <div class="mt-10" in:scale={{ start: 0.8, delay: 300 }} md="w-14/10 justify-self-center">
       <Image
         class="shadow-md rounded-lg"
-        id={image.id}
-        aspectRatio={image.aspectRatio}
-        blurDataUrl={image.blurDataUrl}
+        {...image}
         alt="{data.project.title} project cover image"
-        isVideo={image.isVideo}
       />
     </div>
   {/if}

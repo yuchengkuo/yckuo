@@ -6,4 +6,6 @@
   <div>Loading</div>
 {:then component}
   <svelte:component this={component.default} />
+{:catch e}
+  <p>Failed importing Widget. {e}</p>
 {/await}
