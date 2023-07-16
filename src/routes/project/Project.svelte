@@ -9,12 +9,13 @@
   export let project: Project
 </script>
 
-<li class="not-last:(mb-10 lt-sm:mb-4)">
-  <a class="block" href={project.link || `/project/${project.slug}`}>
+<li>
+  <a href={project.link || `/project/${project.slug}`}>
     <main>
-      <time class="text-xs text-fg-muted"
+      <time class="block text-xs text-fg-muted"
         >{formatDate(project.time, { year: 'numeric', month: 'long' })}</time
       >
+
       <div class="flex justify-between items-baseline">
         <h2 class="text-base">
           {project.title}
@@ -43,7 +44,11 @@
 </li>
 
 <style>
+  li {
+    --uno: 'not-last:(mb-10 lt-sm:mb-4)';
+  }
   main {
-    --uno: 'rounded-lg transition p-4 -m-4 lt-sm:(p-3 -m-3) bg-surface shadow-sm hover:bg-surface-muted active:bg-bg-muted';
+    --uno: 'bg-surface shadow-sm rounded-lg p-4 -m-4 lt-sm:(p-3 -m-3)';
+    --uno: 'transition border border-transparent hover:(bg-surface-muted border-border-muted) active:bg-bg-muted';
   }
 </style>

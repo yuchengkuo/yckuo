@@ -2,7 +2,7 @@
 routes:
   - label: Home
     title: YuCheng Kuo
-    description: Design Engineer, based in Kaohsiung, Taiwan.
+    description: Design Engineer, based in Kaohsiung, Taiwan. (GMT+8)
     url: /
     kbd: 0
     excerpt: |

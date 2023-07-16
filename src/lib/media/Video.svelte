@@ -65,18 +65,19 @@
 
   {#if showcap}
     <small>
-      — {alt}
+      <i class="i-ri-arrow-right-double-line" />
+      {alt}
     </small>
   {/if}
 </videoplayer>
 
 <style>
   videoplayer {
-    --uno: 'block @container-normal';
+    --uno: 'block';
   }
   /* Wrapper */
   videoplayer > div {
-    --uno: 'relative overflow-hidden rounded @md:rounded-md @lg:rounded-lg';
+    --uno: 'relative overflow-hidden rounded';
   }
 
   video {

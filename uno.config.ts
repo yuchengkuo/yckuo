@@ -70,7 +70,7 @@ export default defineConfig<Theme>({
   },
   shortcuts: [
     {
-      attr: 'transition-colors duration-100 underline underline-fg-muted/50 decoration-1.4px px-px -mx-px hover:(underline-transparent bg-fg-muted text-bg-muted) active:bg-fg',
+      attr: 'transition-colors duration-100 underline underline-border decoration-1.4px px-px -mx-px hover:(underline-transparent bg-fg-muted text-bg-muted) active:bg-fg',
       'max-w': 'max-w-34rem mx-auto',
       'max-w-grid': 'grid gap-x-10 grid-cols-[1fr_max(34rem)_1fr] lt-lg:gap-x-4 lt-sm:block',
       'border-dash': 'border-b border-dashed border-border',

@@ -1,9 +1,13 @@
 .prose p {
-  --uno: 'not-first:(mt-4 lt-sm:mt-3)';
+  --uno: 'mt-4 lt-sm:mt-3 first:mt-0';
 }
 
 .prose :is(h1, h2, h3, h4) + p {
   --uno: 'mt-2';
+}
+
+.prose :is(figure, videoplayer) + p {
+  --uno: 'mt-6 xl:(mt-10)';
 }
 
 .prose h1 {
@@ -61,7 +65,7 @@
 }
 
 .prose blockquote {
-  --uno: 'border-fg-muted rounded-r border-l-2 px-4 my-16';
+  --uno: 'border-fg-muted rounded-r border-l-2 px-4 my-8';
 }
 .prose blockquote * {
   --uno: 'font-Newsreader text-lg mb-0';
