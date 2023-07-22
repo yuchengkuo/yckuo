@@ -18,7 +18,7 @@ specifiers:
   '@types/nprogress': ^0.2.0
   '@typescript-eslint/eslint-plugin': ^5.62.0
   '@typescript-eslint/parser': ^5.62.0
-  '@unocss/extractor-svelte': ^0.53.5
+  '@unocss/extractor-svelte': ^0.53.6
   '@unocss/reset': ^0.53.4
   class-transformer: ^0.5.1
   cloudinary-build-url: ^0.2.4
@@ -81,7 +81,7 @@ devDependencies:
   '@types/nprogress': 0.2.0
   '@typescript-eslint/eslint-plugin': 5.62.0_l3h7p4bxv72z3fumgmc6kvfciu
   '@typescript-eslint/parser': 5.62.0_iqf7tbmerllfqanu4l3d6aqdn4
-  '@unocss/extractor-svelte': 0.53.5
+  '@unocss/extractor-svelte': 0.53.6
   '@unocss/reset': 0.53.4
   contentlayer: 0.3.4
   eslint: 8.44.0
@@ -1739,8 +1739,8 @@ packages:
       '@unocss/core': 0.53.4
     dev: true
 
-  /@unocss/extractor-svelte/0.53.5:
-    resolution: {integrity: sha512-hgb7+2JC6M88IkvftyPnWWLtW7vaqXEHtnK98MaI1F308rH7XCv9slH+piv25APN8lhP3ix+Q76b3NUNrc7zXw==}
+  /@unocss/extractor-svelte/0.53.6:
+    resolution: {integrity: sha512-2/sUALLcaq9u/R2gDGNADW12QPv5juYZgIvEqBYTqact7SM/rPguEILCiFOKc+jqLIdQ182BNx+A+mH8ScFsJw==}
     dev: true
 
   /@unocss/inspector/0.53.4:
