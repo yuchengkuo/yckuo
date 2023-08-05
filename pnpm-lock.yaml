@@ -4,7 +4,7 @@ specifiers:
   '@cld-apis/types': ^0.1.6
   '@iconify-json/bx': ^1.1.6
   '@iconify-json/bxs': ^1.1.6
-  '@iconify-json/ri': ^1.1.10
+  '@iconify-json/ri': ^1.1.11
   '@markdoc/markdoc': ^0.3.0
   '@motionone/dom': ^10.16.2
   '@radix-ui/colors': ^1.0.1
@@ -70,7 +70,7 @@ devDependencies:
   '@cld-apis/types': 0.1.6
   '@iconify-json/bx': 1.1.6
   '@iconify-json/bxs': 1.1.6
-  '@iconify-json/ri': 1.1.10
+  '@iconify-json/ri': 1.1.11
   '@radix-ui/colors': 1.0.1
   '@sveltejs/adapter-vercel': 3.0.2_@sveltejs+kit@1.22.1
   '@sveltejs/kit': 1.22.1_svelte@4.0.4+vite@4.4.7
@@ -653,8 +653,8 @@ packages:
       '@iconify/types': 2.0.0
     dev: true
 
-  /@iconify-json/ri/1.1.10:
-    resolution: {integrity: sha512-fsJuXLfpdxb9pfn8LFcfM6LS82j358HaI29Y1qcH1UDnt/V439rTivV6v/YSLkd4z/dZIbh5iOR8+Cg4qtu5Rw==}
+  /@iconify-json/ri/1.1.11:
+    resolution: {integrity: sha512-1jHNoEslFk7l9Wh5qWhV2kV4ArEc3WB88wmwy3Hz93hlqGacXd5ufJe1lJW69Ej5BQeZVSnaP9pCOX/z311aUw==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
