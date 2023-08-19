@@ -14,7 +14,7 @@ specifiers:
   '@types/js-yaml': ^4.0.5
   '@types/lodash': ^4.14.195
   '@types/lodash.throttle': ^4.1.7
-  '@types/node': ^20.4.0
+  '@types/node': ^20.5.1
   '@types/nprogress': ^0.2.0
   '@typescript-eslint/eslint-plugin': ^5.62.0
   '@typescript-eslint/parser': ^5.62.0
@@ -77,7 +77,7 @@ devDependencies:
   '@types/js-yaml': 4.0.5
   '@types/lodash': 4.14.195
   '@types/lodash.throttle': 4.1.7
-  '@types/node': 20.4.0
+  '@types/node': 20.5.1
   '@types/nprogress': 0.2.0
   '@typescript-eslint/eslint-plugin': 5.62.0_l3h7p4bxv72z3fumgmc6kvfciu
   '@typescript-eslint/parser': 5.62.0_iqf7tbmerllfqanu4l3d6aqdn4
@@ -102,7 +102,7 @@ devDependencies:
   tslib: 2.6.0
   typescript: 5.1.6
   unocss: 0.53.4_vite@4.4.7
-  vite: 4.4.7_@types+node@20.4.0
+  vite: 4.4.7_@types+node@20.5.1
 
 packages:
 
@@ -606,7 +606,7 @@ packages:
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
       '@grpc/proto-loader': 0.7.7
-      '@types/node': 20.4.0
+      '@types/node': 20.5.1
     dev: true
 
   /@grpc/proto-loader/0.7.7:
@@ -1192,7 +1192,7 @@ packages:
       sirv: 2.0.3
       svelte: 4.0.4
       undici: 5.22.1
-      vite: 4.4.7_@types+node@20.4.0
+      vite: 4.4.7_@types+node@20.5.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1208,7 +1208,7 @@ packages:
       '@sveltejs/vite-plugin-svelte': 2.4.2_svelte@4.0.4+vite@4.4.7
       debug: 4.3.4
       svelte: 4.0.4
-      vite: 4.4.7_@types+node@20.4.0
+      vite: 4.4.7_@types+node@20.5.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1227,7 +1227,7 @@ packages:
       magic-string: 0.30.1
       svelte: 4.0.4
       svelte-hmr: 0.15.2_svelte@4.0.4
-      vite: 4.4.7_@types+node@20.4.0
+      vite: 4.4.7_@types+node@20.5.1
       vitefu: 0.2.4_vite@4.4.7
     transitivePeerDependencies:
       - supports-color
@@ -1324,8 +1324,8 @@ packages:
     resolution: {integrity: sha512-soGmOpVBUq+gaBMwom1M+krC/NNbWlosh4AtGA03SyWNDiqSKtwp7OulO1M6+mg8YkHMvJ/y0AkCeO8d1hNb7A==}
     dev: true
 
-  /@types/node/20.4.0:
-    resolution: {integrity: sha512-jfT7iTf/4kOQ9S7CHV9BIyRaQqHu67mOjsIQBC3BKZvzvUB6zLxEwJ6sBE3ozcvP8kF6Uk5PXN0Q+c0dfhGX0g==}
+  /@types/node/20.5.1:
+    resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -1676,7 +1676,7 @@ packages:
       chokidar: 3.5.3
       fast-glob: 3.3.0
       magic-string: 0.30.1
-      vite: 4.4.7_@types+node@20.4.0
+      vite: 4.4.7_@types+node@20.5.1
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -4564,7 +4564,7 @@ packages:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.4.0
+      '@types/node': 20.5.1
       long: 5.2.3
     dev: true
 
@@ -4750,7 +4750,7 @@ packages:
     hasBin: true
     dependencies:
       '@types/estree': 1.0.1
-      '@types/node': 20.4.0
+      '@types/node': 20.5.1
       acorn: 7.4.1
     dev: true
 
@@ -5537,7 +5537,7 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /vite/4.4.7_@types+node@20.4.0:
+  /vite/4.4.7_@types+node@20.5.1:
     resolution: {integrity: sha512-6pYf9QJ1mHylfVh39HpuSfMPojPSKVxZvnclX1K1FyZ1PXDOcLBibdq5t1qxJSnL63ca8Wf4zts6mD8u8oc9Fw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -5565,7 +5565,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.4.0
+      '@types/node': 20.5.1
       esbuild: 0.18.11
       postcss: 8.4.27
       rollup: 3.26.1
@@ -5581,7 +5581,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.4.7_@types+node@20.4.0
+      vite: 4.4.7_@types+node@20.5.1
     dev: true
 
   /vscode-oniguruma/1.7.0:
