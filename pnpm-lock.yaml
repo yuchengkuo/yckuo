@@ -42,7 +42,7 @@ specifiers:
   svelte: ^4.0.4
   svelte-check: ^3.4.6
   svelte-confetti: ^1.2.4
-  svelte-inview: ^4.0.0
+  svelte-inview: ^4.0.1
   svelte-preprocess: ^5.0.4
   svelte-seo: ^1.5.3
   sveltejs-markdoc: ^0.2.0
@@ -96,7 +96,7 @@ devDependencies:
   svelte: 4.0.4
   svelte-check: 3.4.6_svelte@4.0.4
   svelte-confetti: 1.2.4
-  svelte-inview: 4.0.0_svelte@4.0.4
+  svelte-inview: 4.0.1_svelte@4.0.4
   svelte-preprocess: 5.0.4_ptqxd7fapy3kjvolbegm3kguim
   svelte-seo: 1.5.3
   tslib: 2.6.0
@@ -5160,10 +5160,10 @@ packages:
       svelte: 4.0.4
     dev: true
 
-  /svelte-inview/4.0.0_svelte@4.0.4:
-    resolution: {integrity: sha512-2lvfkJRkmHt19RvDe5MrIK/pFiPJhyXbKL6JrEyRNC73EYTmFSMBc7481UIw01s5+/+uRQXRPvrtC0zA45HLaA==}
+  /svelte-inview/4.0.1_svelte@4.0.4:
+    resolution: {integrity: sha512-8NuT/DKFiZAccDw1Z16cIsdZ7K6/BGxrUfDaFaWTCEdn3YqMj1TUAkfmQ08FQ1+INl1G+TQS+ImXIBiiISgXog==}
     peerDependencies:
-      svelte: ^3.0.0
+      svelte: ^3.0.0 || ^4.0.0
     dependencies:
       svelte: 4.0.4
     dev: true
