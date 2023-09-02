@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@cld-apis/types": "^0.1.6",
-    "@iconify-json/bx": "^1.1.6",
+    "@iconify-json/bx": "^1.1.7",
     "@iconify-json/bxs": "^1.1.6",
     "@iconify-json/ri": "^1.1.12",
     "@radix-ui/colors": "^1.0.1",
