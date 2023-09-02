@@ -7,7 +7,7 @@ specifiers:
   '@iconify-json/ri': ^1.1.12
   '@markdoc/markdoc': ^0.3.0
   '@motionone/dom': ^10.16.2
-  '@radix-ui/colors': ^1.0.1
+  '@radix-ui/colors': ^2.1.0
   '@splitbee/web': ^0.3.0
   '@sveltejs/adapter-vercel': ^3.0.3
   '@sveltejs/kit': 1.22.1
@@ -71,7 +71,7 @@ devDependencies:
   '@iconify-json/bx': 1.1.6
   '@iconify-json/bxs': 1.1.6
   '@iconify-json/ri': 1.1.12
-  '@radix-ui/colors': 1.0.1
+  '@radix-ui/colors': 2.1.0
   '@sveltejs/adapter-vercel': 3.0.3_@sveltejs+kit@1.22.1
   '@sveltejs/kit': 1.22.1_svelte@4.0.4+vite@4.4.9
   '@types/js-yaml': 4.0.5
@@ -1127,8 +1127,8 @@ packages:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
     dev: true
 
-  /@radix-ui/colors/1.0.1:
-    resolution: {integrity: sha512-xySw8f0ZVsAEP+e7iLl3EvcBXX7gsIlC1Zso/sPBW9gIWerBTgz6axrjU+MZ39wD+WFi5h5zdWpsg3+hwt2Qsg==}
+  /@radix-ui/colors/2.1.0:
+    resolution: {integrity: sha512-gcBnxjS2u2c6thQz/9K1+Pt2ZYcm5WKU4SLi0emYkRmYbVUw+37rlc5wgLtYOsSsRP9nxVtbJJYj6WVO7UUmZg==}
     dev: true
 
   /@rollup/pluginutils/4.2.1:

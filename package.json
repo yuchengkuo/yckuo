@@ -46,7 +46,7 @@
     "@iconify-json/bx": "^1.1.6",
     "@iconify-json/bxs": "^1.1.6",
     "@iconify-json/ri": "^1.1.12",
-    "@radix-ui/colors": "^1.0.1",
+    "@radix-ui/colors": "^2.1.0",
     "@sveltejs/adapter-vercel": "^3.0.3",
     "@sveltejs/kit": "1.22.1",
     "@types/js-yaml": "^4.0.5",
