@@ -40,7 +40,7 @@ specifiers:
   shiki: ^0.14.3
   snd-lib: ^1.1.2
   svelte: ^4.0.4
-  svelte-check: ^3.4.6
+  svelte-check: ^3.5.2
   svelte-confetti: ^1.2.4
   svelte-inview: ^4.0.1
   svelte-preprocess: ^5.0.4
@@ -94,7 +94,7 @@ devDependencies:
   prettier-plugin-svelte: 3.0.3_rarv7uinzvaqk5bhbel3gylb34
   reading-time: 1.5.0
   svelte: 4.0.4
-  svelte-check: 3.4.6_svelte@4.0.4
+  svelte-check: 3.5.2_svelte@4.0.4
   svelte-confetti: 1.2.4
   svelte-inview: 4.0.1_svelte@4.0.4
   svelte-preprocess: 5.0.4_ptqxd7fapy3kjvolbegm3kguim
@@ -5103,8 +5103,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /svelte-check/3.4.6_svelte@4.0.4:
-    resolution: {integrity: sha512-OBlY8866Zh1zHQTkBMPS6psPi7o2umTUyj6JWm4SacnIHXpWFm658pG32m3dKvKFL49V4ntAkfFHKo4ztH07og==}
+  /svelte-check/3.5.2_svelte@4.0.4:
+    resolution: {integrity: sha512-5a/YWbiH4c+AqAUP+0VneiV5bP8YOk9JL3jwvN+k2PEPLgpu85bjQc5eE67+eIZBBwUEJzmO3I92OqKcqbp3fw==}
     hasBin: true
     peerDependencies:
       svelte: ^3.55.0 || ^4.0.0-next.0 || ^4.0.0
