@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@cld-apis/types': ^0.1.6
-  '@iconify-json/bx': ^1.1.6
+  '@iconify-json/bx': ^1.1.7
   '@iconify-json/bxs': ^1.1.6
   '@iconify-json/ri': ^1.1.12
   '@markdoc/markdoc': ^0.3.0
@@ -68,7 +68,7 @@ dependencies:
 
 devDependencies:
   '@cld-apis/types': 0.1.6
-  '@iconify-json/bx': 1.1.6
+  '@iconify-json/bx': 1.1.7
   '@iconify-json/bxs': 1.1.6
   '@iconify-json/ri': 1.1.12
   '@radix-ui/colors': 1.0.1
@@ -641,8 +641,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@iconify-json/bx/1.1.6:
-    resolution: {integrity: sha512-Wxf0UYZG95nkSdDv3OOCJLq46SVKtiUZaRJk5b+azoLthiHR/vfpubsUPnP4CGk/8kN1fkrD6PwADn2Ybj5Ouw==}
+  /@iconify-json/bx/1.1.7:
+    resolution: {integrity: sha512-Ugh8uUU9VtK8fI9BBnhLA7VvhPh7erSmJz+eqjvl8HCRRjkz5mbMO5/KYpCOriUVdiiKB9Yv1ObMqS73WLMSwA==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
