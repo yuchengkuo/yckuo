@@ -34,7 +34,7 @@ specifiers:
   npm-run-all: ^4.1.5
   nprogress: ^0.2.0
   popmotion: ^11.0.5
-  prettier: ^3.0.0
+  prettier: ^3.0.3
   prettier-plugin-svelte: ^3.0.3
   reading-time: ^1.5.0
   shiki: ^0.14.3
@@ -90,8 +90,8 @@ devDependencies:
   js-yaml: 4.1.0
   lodash: 4.17.21
   npm-run-all: 4.1.5
-  prettier: 3.0.0
-  prettier-plugin-svelte: 3.0.3_rarv7uinzvaqk5bhbel3gylb34
+  prettier: 3.0.3
+  prettier-plugin-svelte: 3.0.3_sz3dhfciicbwampy477rq6ermi
   reading-time: 1.5.0
   svelte: 4.0.4
   svelte-check: 3.5.2_svelte@4.0.4
@@ -4541,18 +4541,18 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-svelte/3.0.3_rarv7uinzvaqk5bhbel3gylb34:
+  /prettier-plugin-svelte/3.0.3_sz3dhfciicbwampy477rq6ermi:
     resolution: {integrity: sha512-dLhieh4obJEK1hnZ6koxF+tMUrZbV5YGvRpf2+OADyanjya5j0z1Llo8iGwiHmFWZVG/hLEw/AJD5chXd9r3XA==}
     peerDependencies:
       prettier: ^3.0.0
       svelte: ^3.2.0 || ^4.0.0-next.0
     dependencies:
-      prettier: 3.0.0
+      prettier: 3.0.3
       svelte: 4.0.4
     dev: true
 
-  /prettier/3.0.0:
-    resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
+  /prettier/3.0.3:
+    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
