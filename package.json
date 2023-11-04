@@ -76,7 +76,7 @@
     "svelte-seo": "^1.5.3",
     "tslib": "^2.6.0",
     "typescript": "^5.1.6",
-    "unocss": "^0.53.4",
+    "unocss": "^0.57.2",
     "vite": "4.4.9"
   }
 }
