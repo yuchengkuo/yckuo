@@ -1,4 +1,4 @@
-import pkg, { type Schema } from '@markdoc/markdoc'
+import pkg, { type Schema } from 'npm:@markdoc/markdoc'
 const { Tag } = pkg
 
 export const code: Schema = {

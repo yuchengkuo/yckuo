@@ -1,6 +1,6 @@
-import pkg from '@markdoc/markdoc'
+import pkg from 'npm:@markdoc/markdoc'
 const { Tag } = pkg
-import type { RenderableTreeNode, Schema } from '@markdoc/markdoc'
+import type { RenderableTreeNode, Schema } from 'npm:@markdoc/markdoc'
 
 export const heading: Schema = {
   children: ['inline'],
@@ -18,12 +18,17 @@ export const heading: Schema = {
     return new Tag(`h${node.attributes['level']}`, { ...attributes, id }, [
       ...children,
       attributes['link'] &&
-        new Tag('a', { href: `#${id}`, 'aria-hidden': '', tabIndex: '-1' }, ['#']),
+        new Tag('a', { href: `#${id}`, 'aria-hidden': '', tabIndex: '-1' }, [
+          '#',
+        ]),
     ])
   },
 }
 
-function generateID(children: Array<RenderableTreeNode>, attributes: Record<string, unknown>) {
+function generateID(
+  children: Array<RenderableTreeNode>,
+  attributes: Record<string, unknown>
+) {
   if (attributes.id && typeof attributes.id === 'string') {
     return attributes.id
   }

@@ -1,7 +1,7 @@
-import pkg from '@markdoc/markdoc'
+import pkg from 'npm:@markdoc/markdoc'
 const { Tag } = pkg
-import type { Schema } from '@markdoc/markdoc'
-import { sectionize, visit } from '../utils'
+import type { Schema } from 'npm:@markdoc/markdoc'
+import { sectionize, visit } from '../utils.ts'
 
 export const grid: Schema = {
   render: 'grid',

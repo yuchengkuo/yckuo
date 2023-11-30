@@ -1,6 +1,6 @@
-import pkg from '@markdoc/markdoc'
+import pkg from 'npm:@markdoc/markdoc'
 const { Tag } = pkg
-import type { Schema } from '@markdoc/markdoc'
+import type { Schema } from 'npm:@markdoc/markdoc'
 
 export const gallery: Schema = {
   render: 'gallery',

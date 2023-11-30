@@ -1,8 +1,8 @@
-import pkg from '@markdoc/markdoc'
+import pkg from 'npm:@markdoc/markdoc'
 const { Tag } = pkg
-import type { Schema } from '@markdoc/markdoc'
-import { getBlurDataUrl } from '$lib/media/getBlurDataUrl'
-import { getAspectRatio } from '$lib/media/getAspectRatio'
+import type { Schema } from 'npm:@markdoc/markdoc'
+import { getBlurDataUrl } from '../../lib/media/getBlurDataUrl.ts'
+import { getAspectRatio } from '../../lib/media/getAspectRatio.ts'
 
 export const image: Schema = {
   render: 'Image',
@@ -22,9 +22,13 @@ export const image: Schema = {
 
     const id = attributes['id']
 
-    const blurDataUrl = await getBlurDataUrl(id)
+    const blurDataUrl = await getBlurDataUrl.ts(id)
     const aspectRatio = await getAspectRatio(id)
 
-    return new Tag(this.render, { blurDataUrl, aspectRatio, ...attributes }, children)
+    return new Tag(
+      this.render,
+      { blurDataUrl, aspectRatio, ...attributes },
+      children
+    )
   },
 }

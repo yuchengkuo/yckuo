@@ -1,4 +1,4 @@
-import type { Schema } from '@markdoc/markdoc'
+import type { Schema } from 'npm:@markdoc/markdoc'
 
 export const widget: Schema = {
   render: 'Widget',
