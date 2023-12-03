@@ -17,9 +17,6 @@ const radixThemesDark = Object.fromEntries(
 )
 
 export default defineConfig({
-  content: {
-    filesystem: ['src/**/*.css'],
-  },
   transformers: [transformerDirectives(), transformerVariantGroup()],
   presets: [
     presetAttributify(),

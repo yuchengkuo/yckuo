@@ -1,6 +1,7 @@
 /// <reference lib="deno.ns"/>
 import lume from 'lume/mod.ts'
 import lightningCss from 'lume/plugins/lightningcss.ts'
+import metas from 'lume/plugins/metas.ts'
 
 import unocss from './plugins/unocss.ts'
 import lastModified from './plugins/lastModified.ts'
@@ -13,7 +14,7 @@ import { getHighlighter } from 'npm:shikiji'
 import unoConfig from './uno.config.ts'
 
 const site = lume(
-  { src: 'src', dest: '.output' },
+  { src: 'src', dest: '.output', server: { page404: '/404/' } },
   { search: { returnPageData: true } }
 )
 
@@ -22,8 +23,7 @@ const site = lume(
  */
 site.hooks.addMarkdownItPlugin(section)
 site.hooks.addMarkdownItPlugin(anchor, {
-  slugify: (s: string) => s.replace(' ', '-').toLowerCase(),
-  permalink: anchor.permalink['ariaHidden']({ placement: 'after' }),
+  permalink: anchor.permalink['ariaHidden']({ placement: 'before' }),
 })
 site.hooks.addMarkdownItPlugin(shiki, {
   theme: { light: 'tomorrow', dark: 'tomorrow-night' },
@@ -59,6 +59,7 @@ site
   )
   .use(lightningCss())
   .use(lastModified())
+  .use(metas())
 
 site.helper(
   'fmtDate',
