@@ -25,7 +25,7 @@ specifiers:
   contentlayer: 0.3.4
   date-fns: ^2.30.0
   eslint: ^8.50.0
-  eslint-config-prettier: ^8.8.0
+  eslint-config-prettier: ^9.1.0
   eslint-plugin-svelte: ^2.33.2
   js-yaml: ^4.1.0
   lodash: ^4.17.21
@@ -85,7 +85,7 @@ devDependencies:
   '@unocss/reset': 0.53.4
   contentlayer: 0.3.4
   eslint: 8.50.0
-  eslint-config-prettier: 8.8.0_eslint@8.50.0
+  eslint-config-prettier: 9.1.0_eslint@8.50.0
   eslint-plugin-svelte: 2.33.2_eslint@8.50.0+svelte@4.0.4
   js-yaml: 4.1.0
   lodash: 4.17.21
@@ -2420,8 +2420,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /eslint-config-prettier/8.8.0_eslint@8.50.0:
-    resolution: {integrity: sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==}
+  /eslint-config-prettier/9.1.0_eslint@8.50.0:
+    resolution: {integrity: sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
