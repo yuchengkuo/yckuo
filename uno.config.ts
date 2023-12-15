@@ -62,6 +62,9 @@ export default defineConfig({
       primary: {
         DEFAULT: 'oklch(var(--primary))',
       },
+      underline: {
+        DEFAULT: 'oklch(var(--underline))',
+      },
       tag: 'oklch(var(--tag))',
       ontag: 'oklch(var(--ontag))',
       radix: {

@@ -13,7 +13,7 @@
       "npm:markdown-it-anchor": "npm:markdown-it-anchor@8.6.7_@types+markdown-it@13.0.7_markdown-it@13.0.2",
       "npm:markdown-it-attrs@4.1.6": "npm:markdown-it-attrs@4.1.6_markdown-it@13.0.2",
       "npm:markdown-it-deflist@2.1.0": "npm:markdown-it-deflist@2.1.0",
-      "npm:markdown-it-header-sections": "npm:markdown-it-header-sections@1.0.0",
+      "npm:markdown-it-kbd": "npm:markdown-it-kbd@2.2.2",
       "npm:markdown-it-shiki": "npm:markdown-it-shiki@0.9.0",
       "npm:markdown-it@13.0.2": "npm:markdown-it@13.0.2",
       "npm:nunjucks@3.2.4": "npm:nunjucks@3.2.4",
@@ -1320,8 +1320,8 @@
         "integrity": "sha512-3OuqoRUlSxJiuQYu0cWTLHNhhq2xtoSFqsZK8plANg91+RJQU1ziQ6lA2LzmFAEes18uPBsHZpcX6We5l76Nzg==",
         "dependencies": {}
       },
-      "markdown-it-header-sections@1.0.0": {
-        "integrity": "sha512-GndZbs+iTo7NkNRf00VmT4mtFql7VoJNnSwB7hP5xkomGUTdQ78siVZIuRco4fbiWJd45JUemLxUS9vO8luPSA==",
+      "markdown-it-kbd@2.2.2": {
+        "integrity": "sha512-J5qVHtLuxh1HTJcl5xhopiFpf6fnHIBY0OO1akGHf2KW0VwQLYhsip/bkiTJFoEZqhssxQuUBY1LO5/SbCrB6g==",
         "dependencies": {}
       },
       "markdown-it-shiki@0.9.0": {
@@ -2190,6 +2190,7 @@
     "https://deno.land/x/lume@v1.19.3/plugins/markdown.ts": "c9964181ff61f15c9820cba7e98292973fae3ace9ea4cfe460b648ae3c6e4ae2",
     "https://deno.land/x/lume@v1.19.3/plugins/metas.ts": "1036c93ae4c99953358496360bae00a4f3b726d5ad7d80b7406652ddbd3cd6ba",
     "https://deno.land/x/lume@v1.19.3/plugins/modules.ts": "d31ababab5e35b47fc207685765c9431ddc7bec019061e18b1d36f527e13029d",
+    "https://deno.land/x/lume@v1.19.3/plugins/nav.ts": "f417de5ab06c9ecaf500a5e538fe6774028e421b86edda920ffd0571bf1edda5",
     "https://deno.land/x/lume@v1.19.3/plugins/nunjucks.ts": "8382c559a416816074c0507a430f39b86be16d4ae2afddedfa0d10110d068a57",
     "https://deno.land/x/lume@v1.19.3/plugins/paginate.ts": "e997b33da12da9d68b72d0c7615ec49d0e187012e8ffc78dac2b558edf27f795",
     "https://deno.land/x/lume@v1.19.3/plugins/search.ts": "7964988b54a03acb94e6e0d2362fd1c38cceec9a6e31c6156a850f9e52404b09",

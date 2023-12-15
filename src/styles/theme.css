@@ -1,20 +1,22 @@
 :root {
-  --sans: Instrument, sans-serif;
-  --serif: Iowan Old Style, Newsreader, Charter, Georgia, serif;
-  --mono: Azeret Mono, monospace;
+  --sans: AG, ui-sans-serif, sans-serif;
+  --serif: Newsreader, Iowan Old Style, ui-serif, Charter, Georgia, serif;
+  --mono: Azeret Mono, ui-monospace, monospace;
 
   --background: 98% 0 0;
   --background-muted: 96% 0 0;
 
   --foreground: 16% 0 0;
-  --foreground-muted: 48% 0 0;
-  --foreground-subtle: 70% 0 0;
+  --foreground-muted: 42% 0 0;
+  --foreground-subtle: 60% 0 0;
 
   --surface: 99% 0 0;
   --surface-muted: 98% 0 0;
 
   --border: 85% 0 0;
   --border-muted: 94% 0 0;
+
+  --underline: 70% 0 0;
 
   --primary: 63% 0.2 147;
 
@@ -38,10 +40,20 @@
     --border: 36% 0 0;
     --border-muted: 26% 0 0;
 
+    --underline: 56% 0 0;
+
     --primary: 93% 0.2 147;
 
     --select: 50% 0.14 152.2;
   }
+}
+
+@font-face {
+  font-family: 'AG';
+  src: url('/fonts/AG57-Regular.woff2') format('woff2');
+  font-style: normal italic;
+  font-display: block;
+  font-weight: 400;
 }
 
 @font-face {

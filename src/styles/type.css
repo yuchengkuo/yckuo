@@ -1,0 +1,64 @@
+/*
+ * Typography
+ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  --uno: 'text-fg';
+
+  &[id] {
+    scroll-margin-top: 56px;
+    --uno: 'relative';
+
+    a[aria-hidden] {
+      --uno: 'opacity-0 text-0.8em underline-transparent select-none';
+      --uno: 'absolute pr-2 -ml-4 align-base';
+    }
+  }
+
+  &[id]:hover {
+    a[aria-hidden] {
+      --uno: 'opacity-100';
+    }
+  }
+}
+
+a {
+  --uno: 'transition-color transition-100 underline underline-underline decoration-1.4px w-fit';
+  --uno: 'hover:(underline-border text-fg-subtle all:text-fg-subtle)';
+
+  &[href^='http']::after,
+  &[href^='mailto']::after {
+    --uno: 'content-empty i-tabler:arrow-up-right size-2.5 align-text-top';
+  }
+}
+
+strong {
+  --uno: 'text-fg font-medium';
+}
+
+code {
+  --uno: 'font-mono text-xs';
+}
+
+:not(pre) > code {
+  --uno: 'bg-rx-gray-4 text-fg rounded p-px mx-0.5 shadow-sm';
+
+  &::before,
+  &::after {
+    content: '`';
+    --uno: 'text-fg-subtle';
+  }
+}
+
+em:not(:has(> code)) {
+  --uno: 'font-serif text-1.16em';
+}
+
+blockquote {
+  --uno: 'italic border-border-muted border-l-2 pl-4 py-1 my-10';
+}

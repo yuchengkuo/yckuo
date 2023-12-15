@@ -18,10 +18,37 @@ description: Designer and developer building websites.
     <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon.png"/>
     <link rel="stylesheet" href="/styles/uno.css"/>
     <link rel="stylesheet" href="/styles/main.css"/>
+    <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
   </head>
   <body>
+    <header>
+      <a href="/" class="index">YuCheng Kuo</a>
+      <nav>
+        <ul>
+          {% for p in nav.menu().children %}
+            <li>
+              <a href="/{{ p.slug }}">{{ p.data.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </header>
     <main>
-      {{ content | safe }}
+      <article>
+        {% if url!='/' %}
+          <h1>
+            <em>{{ title }}</em>
+          </h1>
+        {% endif %}
+        {{ content | safe }}
+      </article>
     </main>
+    <footer>
+      <time>2023</time>
+      <p class="mod">Last modified at {{ lastModified | fmtDate }}</p>
+      <p>{{ footer | random }}</p>
+    </footer>
+    <div role="presentation" aria-hidden="true" data-layer></div>
   </body>
 </html>
