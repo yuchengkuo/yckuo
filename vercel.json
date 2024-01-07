@@ -9,6 +9,6 @@
       "destination": "https://hive.splitbee.io/:slug"
     }
   ],
-  "buildCommand": "curl -fsSL https://deno.land/x/install/install.sh | sh && /opt/buildhome/.deno/bin/deno task build",
+  "buildCommand": "curl -fsSL https://deno.land/x/install/install.sh | sh && /vercel/.deno/bin/deno task build",
   "outputDirectory": ".output"
 }
