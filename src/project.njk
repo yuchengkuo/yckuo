@@ -1,0 +1,9 @@
+---
+layout: layouts/list.njk
+
+title: Project
+hideLastModified: true
+---
+
+{% set projects = search.pages('category=project', 'date=desc') %}
+{{ comp.list({ arr: projects, formatDate: 'month' }) | safe }}
