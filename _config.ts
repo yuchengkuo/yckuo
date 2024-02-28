@@ -63,6 +63,13 @@ site
   .use(metas())
   .use(nav())
 
+// Transform <img> tag
+site.process(['.html'], (page) => {
+  for (const img of page.document.querySelectorAll('img')) {
+    img.setAttribute('loading', 'lazy')
+  }
+})
+
 // Remove all .css files excluding 'main.css' and 'uno.css' inside styles dir
 site.process(['.css'], (page) => {
   const { url } = page.data
@@ -72,13 +79,19 @@ site.process(['.css'], (page) => {
 
 site.helper(
   'fmtDate',
-  (v) =>
-    new Intl.DateTimeFormat('en-US', {
+  (v, o) => {
+    let formatOptions: Intl.DateTimeFormatOptions = {
       timeZone: 'Asia/Taipei',
-      dateStyle: 'medium',
-    })
+    }
+
+    if (o === 'month')
+      formatOptions = { ...formatOptions, year: 'numeric', month: 'short' }
+    else formatOptions = { ...formatOptions, dateStyle: 'medium' }
+
+    return new Intl.DateTimeFormat('en-US', formatOptions)
       .format(new Date(v))
-      .toString(),
+      .toString()
+  },
   { type: 'filter' }
 )
 
