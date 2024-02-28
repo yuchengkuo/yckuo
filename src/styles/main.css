@@ -16,27 +16,28 @@ html {
 }
 
 ::selection {
-  --uno: 'text-fg';
+  color: oklch(var(--on-select));
   background-color: oklch(var(--select));
 }
 
 body {
   --uno: 'min-h-100vh';
-  --uno: 'text-fg-muted text-3.75 leading-7 font-sans';
-  --uno: 'p-4';
+  --uno: 'text-fg-muted text-3.75 leading-6.5 font-sans';
+  --uno: 'p-3 md:p-4';
 
   /* Main grid layouts */
   --uno: 'grid grid-cols-8 gap-x-4 items-baseline';
+
   /* header, main, footer */
   grid-template-rows: min-content min-content 1fr;
 
   word-spacing: -0.02em;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.005em;
   text-rendering: optimizeLegibility;
 }
 
-header {
-  --uno: 'col-span-full mb-12';
+body > header {
+  --uno: 'col-span-full mb-6 md:mb-12';
 
   /* Subgrid */
   &,
@@ -49,26 +50,28 @@ header {
   }
 
   ul {
-    --uno: 'flex gap-6';
+    --uno: 'col-span-full flex gap-3 md:gap-6';
   }
 
   a {
-    --uno: 'decoration-none';
+    --uno: 'first-of-type:col-span-2'; /* Home link */
+    --uno: 'decoration-none text-fg';
   }
 }
 
 main {
   /* Subgrid */
-  --uno: 'md:(col-span-full grid grid-cols-subgrid mb-30)';
+  --uno: 'col-span-full md:(grid grid-cols-subgrid) mb-20 md:mb-30';
 
   > :not(article) {
-    --uno: 'md:(col-start-3 col-span-3)';
+    --uno: 'col-start-3';
   }
 
   /* Subgrid */
   > article {
-    --uno: 'md:(col-span-full grid grid-cols-subgrid items-baseline)';
-    --uno: 'md:children:(col-start-3 col-span-3)';
+    --uno: 'col-span-full md:(grid grid-cols-subgrid items-baseline)';
+    --uno: 'md:children:(col-start-3 col-span-5)';
+    --uno: 'lg:children:(col-start-3 col-span-3)';
   }
 }
 
@@ -80,11 +83,12 @@ footer {
   --uno: 'grid grid-cols-subgrid';
 
   .mod {
-    --uno: 'col-start-3 col-span-3';
+    --uno: 'col-start-2';
+    --uno: 'md:col-start-3 col-span-3';
   }
 
   :last-child {
-    --uno: 'col-span-3 justify-self-end';
+    --uno: 'col-span-4 md:col-span-3 justify-self-end';
   }
 }
 
@@ -110,18 +114,22 @@ hr {
   --uno: 'border-t border-border border-dashed my-12';
 }
 
+img {
+  --uno: 'bg-surface';
+}
+
 div[data-layer] {
   --uno: 'fixed inset-0 pointer-events-none select-none z-0 no-js:hidden';
   animation: 1000ms scale;
   background-image: linear-gradient(
     oklch(var(--background)) 0%,
-    transparent 2%,
-    transparent 98%,
+    transparent 1rem,
+    transparent calc(100% - 1rem),
     oklch(var(--background)) 100%
   );
 
   &::before {
-    --uno: 'content-empty fixed inset-0 h-2 bg-black/1 backdrop-blur-md';
+    --uno: 'content-empty fixed inset-0 h-6 bg-black/1 backdrop-blur-md';
     mask: linear-gradient(black, transparent);
     -webkit-mask: linear-gradient(black, transparent);
   }

@@ -22,7 +22,7 @@ description: Designer and developer building websites.
   </head>
   <body>
     <header>
-      <a href="/" class="index">YuCheng Kuo</a>
+      <a href="/">YuCheng Kuo</a>
       <nav>
         <ul>
           {% for p in nav.menu().children %}
@@ -35,18 +35,16 @@ description: Designer and developer building websites.
       </nav>
     </header>
     <main>
-      <article>
-        {% if url!='/' %}
-          <h1>
-            <em>{{ title }}</em>
-          </h1>
-        {% endif %}
-        {{ content | safe }}
-      </article>
+      {{ content | safe }}
     </main>
     <footer>
-      <time>2023</time>
-      <p class="mod">Last modified at {{ lastModified | fmtDate }}</p>
+      <time>2024</time>
+      <p class="mod">
+        {% if hideLastModified %}
+          {% else %}
+            Last modified at {{ lastModified | fmtDate }}
+        {% endif %}
+      </p>
       <p>{{ footer | random }}</p>
     </footer>
     <div role="presentation" aria-hidden="true" data-layer></div>

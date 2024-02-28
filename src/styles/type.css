@@ -29,7 +29,7 @@ h6 {
 
 a {
   --uno: 'transition-color transition-100 underline underline-underline decoration-1.4px w-fit';
-  --uno: 'hover:(underline-border text-fg-subtle all:text-fg-subtle)';
+  --uno: 'hover:(text-fg-subtle all:text-fg-subtle)';
 
   &[href^='http']::after,
   &[href^='mailto']::after {
@@ -60,5 +60,5 @@ em:not(:has(> code)) {
 }
 
 blockquote {
-  --uno: 'italic border-border-muted border-l-2 pl-4 py-1 my-10';
+  --uno: 'italic border-border-muted border-l-2 pl-4 py-1 my-8';
 }
