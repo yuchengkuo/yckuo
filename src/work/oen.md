@@ -2,6 +2,7 @@
 layout: layouts/page.njk
 title: Oen Tech
 description: All-in-one platform for businesses, nonprofits and campaigns
+lastUpdated: 2024-02-03
 ---
 
 ## All-in-one platform for businesses, nonprofits and campaigns
