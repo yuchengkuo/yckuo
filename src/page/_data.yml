@@ -1,0 +1,4 @@
+layout: layouts/page.njk
+templateEngine: njk,md
+
+category: page

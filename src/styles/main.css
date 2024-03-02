@@ -1,0 +1,178 @@
+@import './theme.css';
+@import './prose.css';
+@import './type.css';
+
+/* * {
+  --uno: 'outline-1 outline-blue outline-solid';
+} */
+
+/* 
+ * Base layout styles
+ */
+
+html {
+  --uno: 'bg-bg antialiased';
+  --uno: 'min-h-100vh';
+}
+
+::selection {
+  color: oklch(var(--on-select));
+  background-color: oklch(var(--select));
+}
+
+body {
+  --uno: 'min-h-100vh';
+  --uno: 'text-fg-muted text-3.75 leading-6.5 font-sans';
+  --uno: 'p-3 md:p-4';
+
+  /* Main grid layouts */
+  --uno: 'grid grid-cols-8 gap-x-4 items-baseline';
+
+  /* header, main, footer */
+  grid-template-rows: min-content min-content 1fr;
+
+  word-spacing: -0.02em;
+  letter-spacing: -0.005em;
+  text-rendering: optimizeLegibility;
+}
+
+body > header {
+  --uno: 'col-span-full mb-6 md:mb-12';
+
+  /* Subgrid */
+  &,
+  nav {
+    --uno: 'grid grid-cols-subgrid';
+  }
+
+  nav {
+    --uno: 'col-start-3 col-end--1';
+  }
+
+  ul {
+    --uno: 'col-span-full flex gap-3 md:gap-6';
+  }
+
+  a {
+    --uno: 'first-of-type:col-span-2'; /* Home link */
+    --uno: 'decoration-none text-fg';
+  }
+}
+
+main {
+  /* Subgrid */
+  --uno: 'col-span-full md:(grid grid-cols-subgrid) mb-20 md:mb-30';
+
+  > :not(article) {
+    --uno: 'col-start-3';
+  }
+
+  /* Subgrid */
+  > article {
+    --uno: 'col-span-full md:(grid grid-cols-subgrid items-baseline)';
+    --uno: 'md:children:(col-start-3 col-span-5)';
+    --uno: 'lg:children:(col-start-3 col-span-3)';
+  }
+}
+
+footer {
+  --uno: 'text-xs text-fg-subtle';
+  --uno: 'col-start-1 col-span-full self-end';
+
+  /* Subgrid */
+  --uno: 'grid grid-cols-subgrid';
+
+  .mod {
+    --uno: 'col-start-2';
+    --uno: 'md:col-start-3 col-span-3';
+  }
+
+  :last-child {
+    --uno: 'col-span-4 md:col-span-3 justify-self-end';
+  }
+}
+
+table {
+  --uno: 'mt-8 text-sm';
+}
+
+th {
+  --uno: 'py-2 border-border-muted border-b text-left font-400';
+}
+
+td {
+  --uno: 'py-2 border-border-muted border-y';
+}
+
+kbd {
+  --uno: 'font-mono font-500 text-xs leading-none';
+  --uno: 'inline-block bg-surface hover:bg-bg-muted rounded py-0.5 px-1 transition-colors duration-200';
+  --uno: 'border-b-2 border-border border-x-1 border-t-1';
+}
+
+hr {
+  --uno: 'border-t border-border border-dashed my-12';
+}
+
+img {
+  --uno: 'bg-surface';
+}
+
+div[data-layer] {
+  --uno: 'fixed inset-0 pointer-events-none select-none z-0 no-js:hidden';
+  animation: 1000ms scale;
+  background-image: linear-gradient(
+    oklch(var(--background)) 0%,
+    transparent 1rem,
+    transparent calc(100% - 1rem),
+    oklch(var(--background)) 100%
+  );
+
+  &::before {
+    --uno: 'content-empty fixed inset-0 h-6 bg-black/1 backdrop-blur-md';
+    mask: linear-gradient(black, transparent);
+    -webkit-mask: linear-gradient(black, transparent);
+  }
+}
+
+/* 
+ *
+ *** Animation
+ *
+ */
+
+@keyframes scale {
+  from {
+    transform: scaleY(120%);
+  }
+  to {
+    transform: scaleY(100%);
+  }
+}
+
+@keyframes slide {
+  0% {
+    opacity: 0%;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: none;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  main {
+    animation: fade 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) both;
+  }
+}

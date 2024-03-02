@@ -4,6 +4,11 @@
   },
   "rewrites": [
     { "source": "/bee.js", "destination": "https://cdn.splitbee.io/sb.js" },
-    { "source": "/_hive/:slug", "destination": "https://hive.splitbee.io/:slug" }
-  ]
+    {
+      "source": "/_hive/:slug",
+      "destination": "https://hive.splitbee.io/:slug"
+    }
+  ],
+  "buildCommand": "curl -fsSL https://deno.land/x/install/install.sh | sh && /vercel/.deno/bin/deno task build",
+  "outputDirectory": ".output"
 }

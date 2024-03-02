@@ -1,0 +1,55 @@
+---
+title: YuCheng Kuo
+description: Designer and developer building websites.
+---
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+  <head>
+    <meta charset="utf-8"/>
+    <title>{{ title }}</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"/>
+    <link rel="manifest" href="/favicons/manifest.json"/>
+    <link rel="mask-icon" href="/favicons/mask-icon.svg" color="#1D1E22"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="msapplication-TileColor" content="currentColor"/>
+    <link rel="webmention" href="https://webmention.io/www.yuchengkuo.com/webmention"/>
+    <link rel="pingback" href="https://webmention.io/www.yuchengkuo.com/xmlrpc"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon.png"/>
+    <link rel="stylesheet" href="/styles/uno.css" inline/>
+    <link rel="stylesheet" href="/styles/main.css" inline/>
+    <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <a href="/">YuCheng Kuo</a>
+      <nav>
+        <ul>
+          {% for p in nav.menu().children %}
+            <li>
+              <a href="/{{ p.slug }}">{{ p.data.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      {{ content | safe }}
+    </main>
+
+    <footer>
+      <time>2024</time>
+      <p class="mod">
+        {% if hideLastUpdated %}
+          {% else %}
+            Last modified at {{ lastUpdated | fmtDate }}
+        {% endif %}
+      </p>
+      <p>{{ footer | random }}</p>
+    </footer>
+    <div role="presentation" aria-hidden="true" data-layer></div>
+  </body>
+</html>

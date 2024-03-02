@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A -",
+    "build": "deno task lume",
+    "serve": "deno task lume -s --quiet"
+  },
+  "imports": {
+    "lume/": "https://deno.land/x/lume@v1.19.3/",
+    "unocss": "npm:unocss",
+    "@radix-ui/colors": "npm:@radix-ui/colors"
+  }
+}
