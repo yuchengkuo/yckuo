@@ -6,6 +6,7 @@ tags:
   - FSAE
   - Team Building
 date: 2020-09
+lastUpdated: 2024/02/04
 
 info:
   year: 2019-2020

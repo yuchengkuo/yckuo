@@ -3,6 +3,7 @@ layout: layouts/page.njk
 
 title: YuCheng Kuo
 description: Designer and developer building websites.
+lsatUpdated: 2024-01-07
 ---
 
 At the intersection of product design and web development. Currently working on UI/UX and engineering at [Oen Tech](https://oen.tw).

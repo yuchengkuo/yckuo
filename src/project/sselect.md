@@ -7,6 +7,7 @@ tags:
   - Plugin
   - Commnand
 date: 2022-04
+lastUpdated: 2024-02-04
 
 links:
   - '[View on Figma](https://figma.com/c/plugin/1087207671419748735)'

@@ -7,6 +7,7 @@ tags:
   - Shiki
   - Markdoc
   - Snippet
+lastUpdated: 2024-02-03
 ---
 
 [Shiki](https://shiki.matsu.io/) is a simple and beautiful syntax highlighter using TextMate grammar to tokenize strings. To use it in [Markdoc](https://markdoc.dev) we need to transform Shiki themed tokens into Markdoc renderable tree.

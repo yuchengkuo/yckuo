@@ -20,6 +20,7 @@ description: Designer and developer building websites.
     <link rel="stylesheet" href="/styles/main.css" inline/>
     <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
   </head>
+
   <body>
     <header>
       <a href="/">YuCheng Kuo</a>
@@ -34,15 +35,17 @@ description: Designer and developer building websites.
         </ul>
       </nav>
     </header>
+
     <main>
       {{ content | safe }}
     </main>
+
     <footer>
       <time>2024</time>
       <p class="mod">
-        {% if hideLastModified %}
+        {% if hideLastUpdated %}
           {% else %}
-            Last modified at {{ lastModified | fmtDate }}
+            Last modified at {{ lastUpdated | fmtDate }}
         {% endif %}
       </p>
       <p>{{ footer | random }}</p>

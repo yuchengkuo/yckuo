@@ -5,6 +5,7 @@ date: 2023-01-26
 tags:
   - UnoCSS
   - css
+lastUpdated: 2024-01-03
 ---
 
 ## UnoCSS utilities scanning

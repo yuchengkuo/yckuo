@@ -6,6 +6,7 @@ date: 2022-07-22
 tags:
   - Markdoc
   - Snippet
+lastUpdated: 2024-02-03
 ---
 
 Visit the [Markdoc](https://markdoc.dev) document and wrap each heading and the content following it in a `<section>` tag.

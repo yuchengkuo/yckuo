@@ -7,6 +7,7 @@ tags:
   - Plugin
   - Svelte
 date: 2022-05
+lastUpdated: 2024-02-04
 
 links:
   - '[View on Figma](https://www.figma.com/c/plugin/1107319011917873959)'

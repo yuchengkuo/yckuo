@@ -4,6 +4,7 @@ description: In SvelteKit application, you can fetch data inside `+page.js` file
 date: 2023-01-27
 tags:
   - SvelteKit
+lastUpdated: 2024-01-07
 ---
 
 Inside `+page.ts` and `+layout.ts` [SvelteKit](https://kit.svelte.dev) provides `parent` function to access the data returned from a parent `load` function, a couple of things to notice when using the `parent` function.

@@ -1,5 +1,6 @@
 ---
 title: About
+lastUpdated: 2024-02-28
 ---
 
 :wave:

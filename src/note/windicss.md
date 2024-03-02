@@ -5,6 +5,7 @@ date: 2022-11-11
 tags:
   - Windicss
   - css
+lastUpdated: 2024-02-03
 ---
 
 A couple of features that I like from [WindiCSS](https://windicss.org).

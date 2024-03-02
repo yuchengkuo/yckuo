@@ -4,6 +4,7 @@ description: Top Figma shortcuts that are used on my daily basis.
 date: 2022-10-08
 tags:
   - Figma
+lastUpdated: 2024-01-07
 ---
 
 Top Figma shortcuts that are used on my daily basis.
