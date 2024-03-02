@@ -3,6 +3,7 @@ import lume from 'lume/mod.ts'
 import lightningCss from 'lume/plugins/lightningcss.ts'
 import metas from 'lume/plugins/metas.ts'
 import nav from 'lume/plugins/nav.ts'
+import inline from 'lume/plugins/inline.ts'
 
 import unocss from './plugins/unocss.ts'
 import lastModified from './plugins/lastModified.ts'
@@ -62,6 +63,7 @@ site
   .use(lastModified())
   .use(metas())
   .use(nav())
+  .use(inline())
 
 // Transform <img> tag
 site.process(['.html'], (page) => {
