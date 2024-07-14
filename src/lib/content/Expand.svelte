@@ -15,9 +15,9 @@
   }
 
   summary {
-    --uno: 'w-fit cursor-pointer underline mb-4';
     --uno: 'hover:(bg-bg-muted underline-border)';
     --uno: 'active:(bg-surface)';
+    --uno: 'w-fit cursor-pointer underline mb-4';
   }
 
   details[open] summary {
