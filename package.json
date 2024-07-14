@@ -24,7 +24,7 @@
   "devDependencies": {
     "@cld-apis/types": "^0.1.6",
     "@iconify-json/ri": "^1.1.21",
-    "@iconify-json/tabler": "^1.1.116",
+    "@iconify-json/tabler": "^1.1.117",
     "@markdoc/markdoc": "^0.4.0",
     "@radix-ui/colors": "^3.0.0",
     "@sveltejs/adapter-auto": "^3.2.2",
@@ -37,12 +37,12 @@
     "svelte-seo": "^1.6.1",
     "tslib": "^2.6.3",
     "typescript": "^5.5.3",
-    "unocss": "^0.59.4",
-    "velite": "0.1.0-beta.13",
+    "unocss": "^0.61.3",
+    "velite": "0.1.1",
     "vite": "^5.3.3"
   },
   "dependencies": {
-    "@unocss/reset": "^0.59.4",
+    "@unocss/reset": "^0.61.3",
     "cloudinary-build-url": "^0.2.4",
     "sveltejs-markdoc": "^0.2.0"
   }
