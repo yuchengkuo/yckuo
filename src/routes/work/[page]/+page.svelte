@@ -31,7 +31,7 @@
       {/if}
     {/each}
     <dt>Updated</dt>
-    <dd><time>{formatDate(data.updated)}</time></dd>
+    <dd><time datetime={data.updated}>{formatDate(data.updated)}</time></dd>
   </dl>
 </header>
 

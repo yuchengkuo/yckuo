@@ -30,7 +30,7 @@
   {@html data.description}
 
   <p class="text-sm text-fg-subtle mt-8">
-    Updated on {formatDate(data.updated)}
+    Updated on <time datetime={data.updated}>{formatDate(data.updated)}</time>
   </p>
 
   <h2>Work</h2>

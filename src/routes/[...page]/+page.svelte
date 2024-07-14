@@ -14,5 +14,5 @@
 <Content content={data.content} />
 
 <p class="text-sm text-fg-subtle mt-4">
-  <time datetime={data.updated}>Updated on {formatDate(data.updated)}</time>
+  Updated on <time datetime={data.updated}>{formatDate(data.updated)}</time>
 </p>
