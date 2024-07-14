@@ -10,13 +10,15 @@ h5,
 h6 {
   --uno: 'text-fg';
 
+  /* Heading with id */
   &[id] {
-    scroll-margin-top: 56px;
+    scroll-margin-top: 80px;
     --uno: 'relative';
 
+    /* The anchor link */
     a[aria-hidden] {
-      --uno: 'opacity-0 text-0.8em underline-transparent select-none';
-      --uno: 'absolute pr-2 -ml-4 align-base';
+      --uno: 'opacity-0 text-0.9em leading-1.5em underline-transparent select-none';
+      --uno: 'absolute left-0 px-1 -ml-4 top-1/2 -transform-translate-y-1/2';
     }
   }
 
@@ -29,8 +31,10 @@ h6 {
 
 a {
   --uno: 'transition-color transition-100 underline underline-underline decoration-1.4px w-fit';
-  --uno: 'hover:(text-fg-subtle all:text-fg-subtle)';
+  --uno: 'hover:(bg-bg-muted underline-border)';
+  --uno: 'active:(bg-surface)';
 
+  /* Arrow after <a> link */
   &[href^='http']::after,
   &[href^='mailto']::after {
     --uno: 'content-empty i-tabler:arrow-up-right size-2.5 align-text-top';

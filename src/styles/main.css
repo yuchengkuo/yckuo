@@ -3,11 +3,11 @@
 @import './type.css';
 
 /* * {
-  --uno: 'outline-1 outline-blue outline-solid';
+  --uno: 'outline-0.2 outline-green/10 outline-solid';
 } */
 
 /* 
- * Base layout styles
+ * Base styles
  */
 
 html {
@@ -22,41 +22,18 @@ html {
 
 body {
   --uno: 'min-h-100vh';
-  --uno: 'text-fg-muted text-3.75 leading-6.5 font-sans';
+  --uno: 'text-fg text-3.75 leading-6.5 font-sans';
   --uno: 'p-3 md:p-4';
 
   /* Main grid layouts */
-  --uno: 'grid grid-cols-8 gap-x-4 items-baseline';
+  --uno: 'grid grid-cols-12 gap-x-4 items-baseline';
 
-  /* header, main, footer */
-  grid-template-rows: min-content min-content 1fr;
+  /* Avoid stretching of header and main when not over 100vh */
+  grid-template-rows: min-content min-content;
 
   word-spacing: -0.02em;
   letter-spacing: -0.005em;
   text-rendering: optimizeLegibility;
-}
-
-body > header {
-  --uno: 'col-span-full mb-6 md:mb-12';
-
-  /* Subgrid */
-  &,
-  nav {
-    --uno: 'grid grid-cols-subgrid';
-  }
-
-  nav {
-    --uno: 'col-start-3 col-end--1';
-  }
-
-  ul {
-    --uno: 'col-span-full flex gap-3 md:gap-6';
-  }
-
-  a {
-    --uno: 'first-of-type:col-span-2'; /* Home link */
-    --uno: 'decoration-none text-fg';
-  }
 }
 
 main {
@@ -64,31 +41,23 @@ main {
   --uno: 'col-span-full md:(grid grid-cols-subgrid) mb-20 md:mb-30';
 
   > :not(article) {
-    --uno: 'col-start-3';
+    --uno: 'col-start-4 col-span-4';
   }
 
   /* Subgrid */
   > article {
     --uno: 'col-span-full md:(grid grid-cols-subgrid items-baseline)';
-    --uno: 'md:children:(col-start-3 col-span-5)';
-    --uno: 'lg:children:(col-start-3 col-span-3)';
-  }
-}
-
-footer {
-  --uno: 'text-xs text-fg-subtle';
-  --uno: 'col-start-1 col-span-full self-end';
-
-  /* Subgrid */
-  --uno: 'grid grid-cols-subgrid';
-
-  .mod {
-    --uno: 'col-start-2';
-    --uno: 'md:col-start-3 col-span-3';
+    --uno: 'md:children:(col-start-4 col-span-5)';
+    --uno: 'lg:children:(col-start-4 col-span-4)';
   }
 
-  :last-child {
-    --uno: 'col-span-4 md:col-span-3 justify-self-end';
+  /* If only heading precedes */
+  > :is(h1) + article {
+    --uno: 'row-start-1';
+  }
+
+  > h1 {
+    --uno: 'font-serif italic text-lg lt-md:mb-8 md:(col-start-1 col-span-3 row-start-1 z-2)';
   }
 }
 
@@ -111,27 +80,35 @@ kbd {
 }
 
 hr {
-  --uno: 'border-t border-border border-dashed my-12';
+  --uno: 'border-t border-border border-dashed my-16';
 }
 
 img {
   --uno: 'bg-surface';
 }
 
+button {
+  --uno: 'bg-transparent underline p-0 w-fit';
+  --uno: 'hover:(bg-bg-muted underline-border)';
+}
+
+/* Top and bottom decorative layer */
 div[data-layer] {
-  --uno: 'fixed inset-0 pointer-events-none select-none z-0 no-js:hidden';
+  --uno: 'fixed inset-0 pointer-events-none select-none z-5';
   animation: 1000ms scale;
   background-image: linear-gradient(
-    oklch(var(--background)) 0%,
-    transparent 1rem,
+    to bottom,
+    oklch(var(--background)),
+    transparent 3rem,
     transparent calc(100% - 1rem),
     oklch(var(--background)) 100%
   );
 
+  /* Blur effect */
   &::before {
-    --uno: 'content-empty fixed inset-0 h-6 bg-black/1 backdrop-blur-md';
-    mask: linear-gradient(black, transparent);
-    -webkit-mask: linear-gradient(black, transparent);
+    --uno: 'content-empty fixed inset-0 h-28 bg-black/1 backdrop-blur-sm filter-brightness-110 dark:filter-brightness-80';
+    mask: linear-gradient(to bottom, black 40%, transparent);
+    -webkit-mask: linear-gradient(to bottom, black 40%, transparent);
   }
 }
 
@@ -168,11 +145,5 @@ div[data-layer] {
   }
   100% {
     opacity: 100%;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  main {
-    animation: fade 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) both;
   }
 }

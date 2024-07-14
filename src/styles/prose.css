@@ -1,22 +1,23 @@
 /*
  * Prose
+ * Add to <article> and .prose
  */
 
 main {
-  article {
-    h1 {
-      --uno: 'font-serif lt-md:mb-6 md:(col-start-1 col-span-2)';
-    }
-
-    :is(h1) ~ :nth-child(2) {
+  article,
+  .prose {
+    *:first-child {
       --uno: 'mt-0';
     }
 
+    /* Paragraph */
     p {
-      --uno: 'mt-4 lt-sm:mt-3 first:mt-0';
+      --uno: 'mt-4 lt-sm:mt-3';
     }
 
+    /* Heading */
     h1 {
+      --uno: 'font-serif font-450 lt-md:mb-6 md:(col-start-1 col-span-2)';
       --uno: 'not-first:(mt-20 lt-sm:mt-8)';
     }
 
@@ -37,6 +38,11 @@ main {
       --uno: 'mt-6 lt-sm:mt-4';
     }
 
+    :is(h1, h2, h3, h4, h5, h6) + * {
+      --uno: 'mt-2';
+    }
+
+    /* List */
     ul,
     ol {
       --uno: 'mt-4';
@@ -44,6 +50,10 @@ main {
       li {
         --uno: 'pl-1 -ml-1';
         --uno: 'lt-sm:list-inside marker:(text-base text-fg-subtle)';
+
+        &::marker {
+          --uno: 'text-fg-muted';
+        }
       }
     }
 
@@ -55,25 +65,82 @@ main {
       list-style-type: decimal;
     }
 
-    :is(h1, h2, h3, h4, h5, h6) + * {
-      --uno: 'mt-2';
+    /* Definition List */
+    dl {
+      --uno: 'mt-4 grid grid-cols-4 md:grid-cols-subgrid gap-0 relative col-start-4 col-span-5';
+
+      dt {
+        --uno: 'col-start-1 border-border-muted text-fg-muted';
+      }
+
+      dd {
+        --uno: 'col-start-2 col-end--1 border-border-muted';
+      }
+
+      /* Definition followed by term */
+      & dd:has(+ dt) {
+        --uno: 'border-b pb-2';
+      }
+
+      /* In-between terms */
+      & dd + dt {
+        --uno: 'border-t pt-2';
+      }
+
+      /* First term */
+      & dt:first-of-type {
+        --uno: 'pt-2';
+      }
+
+      /* Definition following term */
+      & dt + dd {
+        --uno: 'pt-2';
+      }
     }
 
-    p:has(> img) {
-      --uno: 'my-6';
+    /* Image, Video */
+    figure,
+    videoplayer {
+      --uno: 'my-8 md:my-18';
+      --uno: 'md:(col-start-4 col-span-6)';
+
+      &:has(+ figure, + videoplayer) {
+        --uno: 'mb-0';
+      }
+
+      & + figure,
+      & + videoplayer {
+        --uno: 'mt-6';
+      }
+
+      &.narrow {
+        --uno: 'md:(col-start-4 col-span-4)';
+      }
 
       &.full {
-        --uno: 'md:(col-start-3 col-span-6)';
+        --uno: 'md:(col-start-1 col-span-full)';
       }
 
       &.grid {
-        --uno: 'md:(col-start-3 col-span-6 grid grid-cols-2 gap-4)';
+        --uno: 'md:(col-span-3 self-end mt-0 mb-6)';
+      }
+
+      /* Note: grid items need to be mulitple of three, todo: fix it */
+      *:not(.grid) + &.grid,
+      &:nth-child(3n + 1 of .grid) {
+        --uno: 'md:(col-start-4)';
+      }
+
+      *:not(.grid) + &.grid {
+        --uno: 'mt-8';
       }
     }
-  }
 
-  :is(hr) {
-    & + :is(p, h1, h2, h3, h4, h5, h6) {
+    hr {
+      --uno: 'md:(col-start-4 col-span-full)';
+    }
+
+    :is(hr) + :is(p, h1, h2, h3, h4, h5, h6) {
       --uno: 'mt-0';
     }
   }
