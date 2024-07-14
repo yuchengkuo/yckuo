@@ -53,7 +53,7 @@
     <p>
       {title}
     </p>
-    <dl class="col-span-full grid grid-cols-subgrid">
+    <dl>
       {#each arr as { key, label, url }}
         <dt class="text-fg-muted">{key}</dt>
         <dd class="col-start-2 col-end--1 mb-1.5">
@@ -82,8 +82,12 @@
   }
 
   nav {
-    --uno: 'h-fit grid md:(col-start-10 col-end--1 row-start-1 grid-cols-subgrid)';
     --uno: 'lt-md:(grid-cols-4 mb-10 p-4 bg-surface-muted rounded-4)';
+    --uno: 'h-fit grid md:(col-start-10 col-end--1 row-start-1 grid-cols-subgrid)';
+
+    & > dl {
+      --uno: 'md:(grid grid-cols-subgrid col-span-full)';
+    }
 
     & > p {
       --uno: 'col-span-full not-first:(mt-14 lt-sm:mt-6) mb-2 uppercase font-mono text-2.5 font-semibold';
