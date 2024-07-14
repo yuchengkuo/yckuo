@@ -28,7 +28,7 @@
       </h2>
       <div class="col-span-5 lt-sm:(mt-2 mb-1)">{@html work.description}</div>
       <time datetime={work.date} class="col-span-2 text-sm text-fg-muted"
-        >{formatDate(work.date || Date.now())}</time
+        >{formatDate(work.date || work.updated)}</time
       >
     </li>
   {/each}
@@ -44,7 +44,7 @@
   }
 
   li {
-    --uno: 'mb-8 col-span-full grid grid-cols-subgrid';
+    --uno: 'md:(grid grid-cols-subgrid col-span-full mb-8) ';
     --uno: 'lt-sm:(flex flex-col)';
   }
 </style>
