@@ -86,7 +86,7 @@
     --uno: 'h-fit grid md:(col-start-10 col-end--1 row-start-1 grid-cols-subgrid)';
 
     & > dl {
-      --uno: 'md:(grid grid-cols-subgrid col-span-full)';
+      --uno: 'grid grid-cols-subgrid col-span-full';
     }
 
     & > p {

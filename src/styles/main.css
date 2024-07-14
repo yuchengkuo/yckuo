@@ -106,7 +106,7 @@ div[data-layer] {
 
   /* Blur effect */
   &::before {
-    --uno: 'content-empty fixed inset-0 h-28 bg-black/1 backdrop-blur-sm filter-brightness-110 dark:filter-brightness-80';
+    --uno: 'content-empty fixed inset-0 lt-sm:h-20 h-28 bg-black/1 backdrop-blur-sm filter-brightness-110 dark:filter-brightness-80';
     mask: linear-gradient(to bottom, black 40%, transparent);
     -webkit-mask: linear-gradient(to bottom, black 40%, transparent);
   }
