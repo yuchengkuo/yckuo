@@ -1,17 +1,22 @@
+/*
+ * Theme
+ * Defined in oklch([definition])
+ */
+
 :root {
   --sans: AG, ui-sans-serif, sans-serif;
   --serif: Newsreader, Iowan Old Style, ui-serif, Charter, Georgia, serif;
   --mono: Azeret Mono, ui-monospace, monospace;
 
-  --background: 98% 0 0;
+  --background: 100% 0 0;
   --background-muted: 96% 0 0;
 
-  --foreground: 8% 0 0;
-  --foreground-muted: 48% 0 0;
-  --foreground-subtle: 68% 0 0;
+  --foreground: 2% 0 0;
+  --foreground-muted: 60% 0 0;
+  --foreground-subtle: 80% 0 0;
 
-  --surface: 99% 0 0;
-  --surface-muted: 98% 0 0;
+  --surface: 98.5% 0 0;
+  --surface-muted: 97.5% 0 0;
 
   --border: 85% 0 0;
   --border-muted: 94% 0 0;
@@ -28,15 +33,15 @@
   :root {
     color-scheme: dark;
 
-    --background: 18% 0 0;
-    --background-muted: 12% 0 0;
+    --background: 2% 0 0;
+    --background-muted: 24% 0 0;
 
     --foreground: 98% 0 0;
-    --foreground-muted: 80% 0 0;
+    --foreground-muted: 60% 0 0;
     --foreground-subtle: 56% 0 0;
 
-    --surface: 21% 0 0;
-    --surface-muted: 22% 0 0;
+    --surface: 18% 0 0;
+    --surface-muted: 16% 0 0;
 
     --border: 36% 0 0;
     --border-muted: 26% 0 0;
@@ -56,14 +61,6 @@
   font-style: normal italic;
   font-display: block;
   font-weight: 400;
-}
-
-@font-face {
-  font-family: 'Instrument';
-  src: url('/fonts/InstrumentSans[wdth,wght].woff2') format('woff2-variations');
-  font-style: normal italic;
-  font-display: block;
-  font-weight: 300 700;
 }
 
 @font-face {

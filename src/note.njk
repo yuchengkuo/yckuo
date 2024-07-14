@@ -1,9 +1,0 @@
----
-layout: layouts/list.njk
-
-title: Note
-hideLastUpdated: true
----
-
-{% set notes = search.pages('category=note', 'date=desc') %}
-{{ comp.list({ arr: notes }) | safe }}
