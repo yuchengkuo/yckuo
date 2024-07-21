@@ -3,10 +3,7 @@
 
   import { getAWebpProps, getImgProps } from './getImgProps'
 
-  import type {
-    TransformerOption,
-    TransformerVideoOption,
-  } from '@cld-apis/types'
+  import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
   export let id = ''
   let externalSrc = ''
@@ -17,7 +14,7 @@
   let sourceSizes = [
     '(max-width:1023px) 80vw',
     '(min-width:1024px) and (max-width:1620px) 80vw',
-    '1100px',
+    '1100px'
   ]
   export { sourceSizes as sizes }
   export let transformations: TransformerOption | TransformerVideoOption = {}
@@ -38,7 +35,7 @@
     ;({ src, srcset } = getImgProps({
       id,
       widths,
-      transformations: transformations as TransformerOption,
+      transformations: transformations as TransformerOption
     }))
   } else {
     src = externalSrc
@@ -49,7 +46,7 @@
     ;({ src } = getAWebpProps({
       id,
       width: 1200,
-      transformations: transformations as TransformerVideoOption,
+      transformations: transformations as TransformerVideoOption
     }))
     srcset = null
     sizes = null
@@ -81,15 +78,7 @@
     {/if}
 
     <!-- Actual img element -->
-    <img
-      bind:this={imgEl}
-      {src}
-      {alt}
-      {srcset}
-      {sizes}
-      loading="lazy"
-      class:opacity-0={!visible}
-    />
+    <img bind:this={imgEl} {src} {alt} {srcset} {sizes} loading="lazy" class:opacity-0={!visible} />
   </div>
 
   <noscript>

@@ -5,7 +5,7 @@ setConfig({ cloudName: 'yucheng' })
 
 export function getVideoProps({
   id,
-  transformations,
+  transformations
 }: {
   id: string
   transformations: TransformerOption
@@ -25,8 +25,8 @@ export function getVideoProps({
     src: buildVideoUrl(isRemote ? url.toString() : id, {
       transformations: { quality: 'auto', format: 'auto', ...transformations },
       cloud: {
-        storageType: isRemote ? 'fetch' : 'upload',
-      },
-    }),
+        storageType: isRemote ? 'fetch' : 'upload'
+      }
+    })
   }
 }

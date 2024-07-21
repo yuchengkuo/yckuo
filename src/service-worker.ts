@@ -11,7 +11,7 @@ const ASSETS = [
   '/og/default.png',
   '/favicons/favicon.svg',
   '/favicons/favicon.png',
-  '/favicons/favicon.ico',
+  '/favicons/favicon.ico'
 ]
 
 self.addEventListener('install', (event) => {

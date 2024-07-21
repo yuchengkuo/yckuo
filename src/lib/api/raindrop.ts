@@ -63,8 +63,8 @@ export async function getBookmarks(param: GetBookmarkParam): Promise<Raindrop[]>
 
   const { items } = await fetch(getFullUrl(url, query), {
     headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+      Authorization: `Bearer ${access_token}`
+    }
   }).then((res) => res.json())
 
   return await Promise.all(
@@ -80,7 +80,7 @@ export async function getBookmarks(param: GetBookmarkParam): Promise<Raindrop[]>
       blurDataUrl: await getBlurDataUrl(item.cover),
       aspectRatio: await getAspectRatio(item.cover),
       collectionId: item.collectionId,
-      created_at: item.created,
+      created_at: item.created
     }))
   )
 }
@@ -90,8 +90,8 @@ export async function getChildCollections(collection: string): Promise<Collectio
 
   const { items } = await fetch(url.toString(), {
     headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+      Authorization: `Bearer ${access_token}`
+    }
   }).then((res) => res.json())
 
   return items
@@ -101,6 +101,6 @@ export async function getChildCollections(collection: string): Promise<Collectio
       title: i.title,
       description: i.description,
       updated_at: i.lastAction,
-      count: i.count,
+      count: i.count
     }))
 }

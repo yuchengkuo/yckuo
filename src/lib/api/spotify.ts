@@ -29,12 +29,12 @@ async function getAccessToken() {
     method: 'POST',
     headers: {
       Authorization: `Basic ${basic}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: new URLSearchParams({
       grant_type: 'refresh_token',
-      refresh_token,
-    }).toString(),
+      refresh_token
+    }).toString()
   })
 
   return response.json()
@@ -45,8 +45,8 @@ export async function getNowPlaying() {
 
   return fetch(NOW_PLAYING_ENDPOINT, {
     headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+      Authorization: `Bearer ${access_token}`
+    }
   })
 }
 
@@ -60,8 +60,8 @@ export async function getTopTracks(limit = '30', offset = '0') {
 
   return fetch(url.toString(), {
     headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+      Authorization: `Bearer ${access_token}`
+    }
   })
 }
 
@@ -74,8 +74,8 @@ export async function getSavedAlbums(limit = '30', page = '1') {
 
   return fetch(url.toString(), {
     headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+      Authorization: `Bearer ${access_token}`
+    }
   })
 }
 
@@ -84,8 +84,8 @@ export async function getTopArtists() {
 
   return fetch(TOP_ARTISTS_ENDPOINT, {
     headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+      Authorization: `Bearer ${access_token}`
+    }
   })
 }
 
@@ -94,8 +94,8 @@ export async function getPlaylist(id: string) {
 
   return fetch(PLAYLIST_ENPOINT + '/' + id, {
     headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+      Authorization: `Bearer ${access_token}`
+    }
   })
 }
 
@@ -104,14 +104,14 @@ export async function getAlbumSearchResult(title: string, artist: string) {
 
   const query = new URLSearchParams({
     q: `${title} artist:${artist} album:${title}`,
-    type: 'album',
+    type: 'album'
   })
 
   const url = new URL(SEARCH_ENDPOINT)
 
   return fetch(getFullUrl(url, query), {
     headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+      Authorization: `Bearer ${access_token}`
+    }
   })
 }

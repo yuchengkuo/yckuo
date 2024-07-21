@@ -1,8 +1,4 @@
-import {
-  buildImageUrl,
-  buildVideoUrl,
-  setConfig,
-} from 'npm:cloudinary-build-url'
+import { buildImageUrl, buildVideoUrl, setConfig } from 'npm:cloudinary-build-url'
 import { blurDataCache } from './cache.js'
 
 import type { CldOptions } from 'npm:@cld-apis/types'
@@ -26,16 +22,14 @@ export async function getBlurDataUrl(id: string, isVideo = false, cld = true) {
       format: 'webp',
       effect: {
         name: 'blur',
-        value: '1000',
-      },
+        value: '1000'
+      }
     },
     cloud: {
-      storageType: isRemote ? 'fetch' : 'upload',
-    },
+      storageType: isRemote ? 'fetch' : 'upload'
+    }
   }
-  const imageURL = isVideo
-    ? buildVideoUrl(id, options)
-    : buildImageUrl(id, options)
+  const imageURL = isVideo ? buildVideoUrl(id, options) : buildImageUrl(id, options)
 
   return await getDataUrlForImage(cld ? imageURL : id)
 }

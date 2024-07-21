@@ -16,8 +16,8 @@
 
   <p>
     <span class="text-primary"
-      >Open to new opportunities. Seeking roles that combine UI/UX design and
-      front-end development skills.</span
+      >Open to new opportunities. Seeking roles that combine UI/UX design and front-end development
+      skills.</span
     >
     <a href="mailto:hey@yuchengkuo.com" class="ml-2">email</a>
   </p>

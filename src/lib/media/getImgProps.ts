@@ -7,7 +7,7 @@ setConfig({ cloudName: 'yucheng' })
 export function getImgProps({
   id,
   widths,
-  transformations,
+  transformations
 }: {
   id: string
   widths: Array<number>
@@ -31,11 +31,11 @@ export function getImgProps({
         quality: 'auto',
         format: 'auto',
         ...transformations,
-        resize: { width: averageSize, ...transformations?.resize },
+        resize: { width: averageSize, ...transformations?.resize }
       },
       cloud: {
-        storageType: isRemote ? 'fetch' : 'upload',
-      },
+        storageType: isRemote ? 'fetch' : 'upload'
+      }
     }),
     srcset: widths
       .map((width) =>
@@ -45,23 +45,23 @@ export function getImgProps({
               quality: 'auto',
               format: 'auto',
               ...transformations,
-              resize: { width: width, ...transformations?.resize },
+              resize: { width: width, ...transformations?.resize }
             },
             cloud: {
-              storageType: isRemote ? 'fetch' : 'upload',
-            },
+              storageType: isRemote ? 'fetch' : 'upload'
+            }
           }),
-          `${width}w`,
+          `${width}w`
         ].join(' ')
       )
-      .join(', '),
+      .join(', ')
   }
 }
 
 export function getAWebpProps({
   id,
   width,
-  transformations,
+  transformations
 }: {
   id: string
   width: number
@@ -74,19 +74,19 @@ export function getAWebpProps({
         format: 'webp',
         resize: {
           type: 'scale',
-          width,
+          width
         },
         // bug in `cloudinary-build-url`
         flags: 'animated.awebp' as 'awebp',
         effect: {
           name: 'loop',
-          ...transformations?.effect,
-        },
+          ...transformations?.effect
+        }
       },
       cloud: {
         resourceType: 'video',
-        storageType: 'upload',
-      },
-    }),
+        storageType: 'upload'
+      }
+    })
   }
 }

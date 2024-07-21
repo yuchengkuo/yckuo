@@ -18,18 +18,12 @@
   <meta property="og:title" content={$page.data.title} />
   <meta property="og:description" content={$page.data.description} />
   <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="https://yuchengkuo.com{$page.url.pathname}"
-  />
+  <meta property="og:url" content="https://yuchengkuo.com{$page.url.pathname}" />
   <meta property="og:image" content="https://yuchengkuo.com/og/default.png" />
 
   <meta name="twitter:title" content={$page.data.title} />
   <meta name="twitter:description" content={$page.data.description} />
-  <meta
-    name="twitter:url"
-    content="https://yuchengkuo.com{$page.url.pathname}"
-  />
+  <meta name="twitter:url" content="https://yuchengkuo.com{$page.url.pathname}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://yuchengkuo.com/og/default.png" />
 
@@ -56,8 +50,7 @@
       <a
         href={nav.url}
         class:current={$page.url.pathname.startsWith(nav.url) ||
-          nav.include?.some((l) => $page.url.pathname.startsWith(l))}
-        >{nav.label}</a
+          nav.include?.some((l) => $page.url.pathname.startsWith(l))}>{nav.label}</a
       >
     {/each}
   </nav>

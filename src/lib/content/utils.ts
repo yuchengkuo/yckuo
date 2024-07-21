@@ -23,7 +23,7 @@ export async function getAllContentMeta<T extends Record<string, unknown>>(
     return Promise.all(
       files.map(async (f) => ({
         ...(await parseFrontmatter<T>(readFileSync(`${contentPath}/${folder}/${f.name}`, 'utf-8'))),
-        slug: f.name.replace(/\.md/, ''),
+        slug: f.name.replace(/\.md/, '')
       }))
     )
   }
@@ -78,7 +78,7 @@ export async function parseContent<T extends Record<string, unknown>>(raw: strin
   return {
     content: instanceToPlain(content) as RenderableTreeNode,
     readingTime: readingTime(raw),
-    ...frontmatter,
+    ...frontmatter
   }
 }
 

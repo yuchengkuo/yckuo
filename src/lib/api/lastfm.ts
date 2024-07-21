@@ -14,7 +14,7 @@ export async function getTopAlbums(limit = '12') {
     method,
     period,
     limit,
-    ...sharedParams,
+    ...sharedParams
   })
   const url = new URL(LASTFM_ENDPOINT)
   return fetch(getFullUrl(url, query))
@@ -24,7 +24,7 @@ export async function getRecentTracks() {
   const method = `user.getRecentTracks`
   const query = new URLSearchParams({
     method,
-    ...sharedParams,
+    ...sharedParams
   })
   const url = new URL(LASTFM_ENDPOINT)
   return fetch(getFullUrl(url, query))
@@ -36,7 +36,7 @@ export async function getWeeklyTracks() {
   const query = new URLSearchParams({
     method,
     from,
-    ...sharedParams,
+    ...sharedParams
   })
   const url = new URL(LASTFM_ENDPOINT)
   return fetch(getFullUrl(url, query))
@@ -48,7 +48,7 @@ export async function getWeeklyArtists() {
   const query = new URLSearchParams({
     method,
     from,
-    ...sharedParams,
+    ...sharedParams
   })
   const url = new URL(LASTFM_ENDPOINT)
   return fetch(getFullUrl(url, query))
@@ -60,7 +60,7 @@ export async function getWeeklyAlbums() {
   const query = new URLSearchParams({
     method,
     from,
-    ...sharedParams,
+    ...sharedParams
   })
   const url = new URL(LASTFM_ENDPOINT)
   return fetch(getFullUrl(url, query))

@@ -15,7 +15,7 @@ export default function tooltip(element: HTMLElement, options: Options): SvelteA
     content,
     offset = 12,
     placement = 'top',
-    alignment = 'center',
+    alignment = 'center'
   } = options
   let Tooltip: SvelteComponent
 
@@ -23,7 +23,7 @@ export default function tooltip(element: HTMLElement, options: Options): SvelteA
     if (!Tooltip) {
       Tooltip = new Component({
         target: document.body,
-        props: { content, trigger: element, offset, placement, alignment },
+        props: { content, trigger: element, offset, placement, alignment }
       })
     }
   }
@@ -58,6 +58,6 @@ export default function tooltip(element: HTMLElement, options: Options): SvelteA
         Tooltip.$destroy()
         Tooltip = null
       }
-    },
+    }
   }
 }

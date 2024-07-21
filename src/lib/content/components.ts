@@ -7,5 +7,5 @@ export const components = {
   Image,
   Shortcut,
   Video,
-  Widget,
+  Widget
 }

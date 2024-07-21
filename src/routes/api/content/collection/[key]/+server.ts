@@ -18,9 +18,7 @@ export async function GET({ params }) {
     return json(collection)
   }
 
-  const data = (
-    collection as unknown as Page[]
-  ) /* filter out drafts in production */
+  const data = (collection as unknown as Page[]) /* filter out drafts in production */
     .filter((page) => !page.draft || dev)
 
   return json(data)

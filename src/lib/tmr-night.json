@@ -52,11 +52,7 @@
     },
     {
       "name": "Foreground",
-      "scope": [
-        "keyword.operator.class",
-        "constant.other",
-        "source.php.embedded.line"
-      ],
+      "scope": ["keyword.operator.class", "constant.other", "source.php.embedded.line"],
       "settings": {
         "fontStyle": "",
         "foreground": "#CED1CF"
@@ -95,12 +91,7 @@
     },
     {
       "name": "Class, Support",
-      "scope": [
-        "entity.name.class",
-        "entity.name.type.class",
-        "support.type",
-        "support.class"
-      ],
+      "scope": ["entity.name.class", "entity.name.type.class", "support.type", "support.class"],
       "settings": {
         "fontStyle": "",
         "foreground": "#F0C674"

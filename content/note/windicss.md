@@ -16,16 +16,12 @@ Variants in utility classes are often used multiple times each time, being able 
 
 ```html
 <!-- without variant groups -->
-<button
-  class="bg-black text-white hover:bg-white hover:rounded hover:text-black"
->
+<button class="bg-black text-white hover:bg-white hover:rounded hover:text-black">
   Next Step ->
 </button>
 
 <!-- with variant groups -->
-<button class="bg-black text-white hover:(bg-white rounded text-black)">
-  Next Step ->
-</button>
+<button class="bg-black text-white hover:(bg-white rounded text-black)">Next Step -></button>
 ```
 
 ## Value Auto-infer

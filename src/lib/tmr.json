@@ -52,11 +52,7 @@
     },
     {
       "name": "Foreground",
-      "scope": [
-        "keyword.operator.class",
-        "constant.other",
-        "source.php.embedded.line"
-      ],
+      "scope": ["keyword.operator.class", "constant.other", "source.php.embedded.line"],
       "settings": {
         "fontStyle": "",
         "foreground": "#666969"
@@ -95,12 +91,7 @@
     },
     {
       "name": "Class, Support",
-      "scope": [
-        "entity.name.class",
-        "entity.name.type.class",
-        "support.type",
-        "support.class"
-      ],
+      "scope": ["entity.name.class", "entity.name.type.class", "support.type", "support.class"],
       "settings": {
         "fontStyle": "",
         "foreground": "#C99E00"
@@ -142,12 +133,7 @@
     },
     {
       "name": "Keyword, Storage",
-      "scope": [
-        "keyword",
-        "storage",
-        "storage.type",
-        "entity.other.attribute-name"
-      ],
+      "scope": ["keyword", "storage", "storage.type", "entity.other.attribute-name"],
       "settings": {
         "foreground": "#8959A8"
       }

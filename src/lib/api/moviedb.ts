@@ -24,7 +24,7 @@ type SortBy =
 export async function getTMDBList({
   page = '1',
   list_id = 8210272,
-  sort_by = 'release_date.desc',
+  sort_by = 'release_date.desc'
 }: {
   page?: string
   list_id?: number
@@ -34,27 +34,27 @@ export async function getTMDBList({
   const query = new URLSearchParams({
     page: page,
     api_key,
-    sort_by,
+    sort_by
   })
 
   return fetch(getFullUrl(url, query), {
     headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+      Authorization: `Bearer ${access_token}`
+    }
   })
 }
 
 export async function getFavoriteTV(page = 1) {
   const url = new URL(FAVTV_ENDPOINT, BASE_ENDPOINT)
   const query = new URLSearchParams({
-    page: page.toString(),
+    page: page.toString()
   })
   query.forEach((value, key) => url.searchParams.append(key, value))
 
   return fetch(url.toString(), {
     headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+      Authorization: `Bearer ${access_token}`
+    }
   })
 }
 
@@ -86,7 +86,7 @@ export async function getShowDetail(id: number) {
       status,
       last_air_date: lastAir,
       number_of_episodes: episodes,
-      number_of_seasons: seasons,
+      number_of_seasons: seasons
     } = await res.json()
     return { genres, status, episodes, seasons, lastAir }
   } catch (e) {

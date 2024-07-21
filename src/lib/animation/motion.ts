@@ -2,7 +2,7 @@ import {
   createMotionState,
   createStyleString,
   type Options,
-  type VariantDefinition,
+  type VariantDefinition
 } from '@motionone/dom'
 
 export function motion(
@@ -24,6 +24,6 @@ export function motion(
     update: (newOptions: Options & { exit?: VariantDefinition } = {}) => {
       state.update(newOptions)
     },
-    destroy,
+    destroy
   }
 }

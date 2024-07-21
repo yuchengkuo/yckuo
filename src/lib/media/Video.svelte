@@ -2,10 +2,7 @@
   import { getVideoProps } from './getVideoProps'
   import { beforeUpdate, tick } from 'svelte'
 
-  import type {
-    TransformerOption,
-    TransformerVideoOption,
-  } from '@cld-apis/types'
+  import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
   export let autoplay = true
   export let muted = true
@@ -28,7 +25,7 @@
   if (!externalSrc) {
     ;({ src } = getVideoProps({
       id,
-      transformations: transformations as TransformerOption,
+      transformations: transformations as TransformerOption
     }))
   }
 
@@ -50,11 +47,7 @@
   })
 </script>
 
-<videoplayer
-  class={className}
-  style="aspect-ratio: {aspectRatio}"
-  {...$$restProps}
->
+<videoplayer class={className} style="aspect-ratio: {aspectRatio}" {...$$restProps}>
   <div>
     <video
       bind:this={videoEl}

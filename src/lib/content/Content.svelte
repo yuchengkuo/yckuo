@@ -13,7 +13,7 @@
   const shared: Record<string, any> = {
     img: Image,
     vid: Video,
-    Expand,
+    Expand
   }
 </script>
 

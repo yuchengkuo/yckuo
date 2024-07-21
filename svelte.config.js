@@ -12,11 +12,11 @@ const config = {
     alias: {
       $components: 'src/components',
       $utils: 'src/utils',
-      $content: '.velite',
+      $content: '.velite'
     },
 
-    prerender: { concurrency: 3 },
-  },
+    prerender: { concurrency: 3 }
+  }
 }
 
 export default config

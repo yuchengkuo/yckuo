@@ -26,7 +26,7 @@ export const fence: Schema = {
   attributes: {
     content: { type: String, render: false },
     language: { type: String },
-    process: { type: Boolean, render: false },
+    process: { type: Boolean, render: false }
   },
   async transform(node, config) {
     const attributes = node.transformAttributes(config)
@@ -35,9 +35,7 @@ export const fence: Schema = {
     const highlighter = await shiki.getHighlighter({ theme: 'nord' })
 
     const lang = attributes.language || 'text'
-    const code =
-      (typeof children[0] === 'string' && children[0]) ||
-      node.attributes.content
+    const code = (typeof children[0] === 'string' && children[0]) || node.attributes.content
 
     const tokens = highlighter.codeToThemedTokens(code, lang)
 
@@ -47,11 +45,11 @@ export const fence: Schema = {
     const attr = {
       ...attributes,
       class: 'shiki',
-      style: `background-color: ${bg};`,
+      style: `background-color: ${bg};`
     }
 
     return new Tag('pre', attr, [tree])
-  },
+  }
 }
 
 function getRenderableTree(tokens: IThemedToken[][]) {
@@ -69,14 +67,9 @@ function getRenderableTree(tokens: IThemedToken[][]) {
           const { color, content, fontStyle } = token
           const text = `color: ${color}`
           const bold = fontStyle === FontStyle['Bold'] && 'font-weight: bold;'
-          const italic =
-            fontStyle === FontStyle['Italic'] && 'font-style: italic;'
-          const underline =
-            fontStyle === FontStyle['Underline'] &&
-            'text-decoration: underline;'
-          const style = [text, bold, italic, underline]
-            .filter((i) => i)
-            .join(' ')
+          const italic = fontStyle === FontStyle['Italic'] && 'font-style: italic;'
+          const underline = fontStyle === FontStyle['Underline'] && 'text-decoration: underline;'
+          const style = [text, bold, italic, underline].filter((i) => i).join(' ')
           return new Tag('span', { style }, [content])
         })
       )
