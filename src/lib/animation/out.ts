@@ -2,7 +2,7 @@ import { mountedStates, type Options } from '@motionone/dom'
 
 const defaults = {
   delay: 0,
-  duration: 0.3,
+  duration: 0.3
 }
 
 export function intro(element: HTMLElement): SvelteTransitionReturnType {
@@ -13,7 +13,7 @@ export function intro(element: HTMLElement): SvelteTransitionReturnType {
   state.setActive('exit', false)
 
   return {
-    duration: 0,
+    duration: 0
   }
 }
 
@@ -25,7 +25,7 @@ export function outro(element: HTMLElement): SvelteTransitionReturnType {
   state.setActive('exit', true)
 
   return {
-    duration: calcDuration(state.getOptions()),
+    duration: calcDuration(state.getOptions())
   }
 }
 

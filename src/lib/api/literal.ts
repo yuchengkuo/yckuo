@@ -64,7 +64,7 @@ export async function getBooksByReadingState({
   limit = 8,
   offset = 0,
   profileId = PROFILE_ID,
-  readingStatus = 'IS_READING',
+  readingStatus = 'IS_READING'
 }: {
   limit?: number
   offset?: number
@@ -75,7 +75,7 @@ export async function getBooksByReadingState({
     method: 'POST',
     headers: {
       Authorization: `Bearer ${access_token}`,
-      'content-type': 'application/json',
+      'content-type': 'application/json'
     },
     body: JSON.stringify({
       query: `
@@ -114,12 +114,12 @@ export async function getBooksByReadingState({
         limit,
         offset,
         readingStatus,
-        profileId,
-      },
-    }),
+        profileId
+      }
+    })
   })
   const {
-    data: { booksByReadingStateAndProfile: books },
+    data: { booksByReadingStateAndProfile: books }
   }: { data: { booksByReadingStateAndProfile: LiteralBook[] } } = await res.json()
 
   return books
@@ -130,7 +130,7 @@ export function getCurrentlyReading(limit = 8, offset = 0, profileId = PROFILE_I
     limit,
     offset,
     profileId,
-    readingStatus: 'IS_READING',
+    readingStatus: 'IS_READING'
   })
 }
 
@@ -139,7 +139,7 @@ export async function getReadingProgress(bookIds: string[]) {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${access_token}`,
-      'content-type': 'application/json',
+      'content-type': 'application/json'
     },
     body: JSON.stringify({
       query: `
@@ -159,12 +159,12 @@ export async function getReadingProgress(bookIds: string[]) {
           completed
         }`,
       variables: {
-        bookIds,
-      },
-    }),
+        bookIds
+      }
+    })
   })
   const {
-    data: { readingProgresses: progress },
+    data: { readingProgresses: progress }
   }: { data: { readingProgresses: ReadingProgress[] } } = await res.json()
 
   return progress
@@ -175,7 +175,7 @@ export async function getReadingGoals(handle = 'yuchengkuo', limit = 20, offset 
     method: 'POST',
     headers: {
       Authorization: `Bearer ${access_token}`,
-      'content-type': 'application/json',
+      'content-type': 'application/json'
     },
     body: JSON.stringify({
       query: `
@@ -225,12 +225,12 @@ export async function getReadingGoals(handle = 'yuchengkuo', limit = 20, offset 
         handle,
         earliestEndDate: new Date(Date.now()).toISOString(),
         limit,
-        offset,
-      },
-    }),
+        offset
+      }
+    })
   })
   const {
-    data: { goalParticipations: goals },
+    data: { goalParticipations: goals }
   }: { data: { goalParticipations: ReadingGoal[] } } = await res.json()
 
   return goals
@@ -241,7 +241,7 @@ export async function getBooksInGoal(participantId: string, limit = 50, offset =
     method: 'POST',
     headers: {
       Authorization: `Bearer ${access_token}`,
-      'content-type': 'application/json',
+      'content-type': 'application/json'
     },
     body: JSON.stringify({
       query: `
@@ -287,12 +287,12 @@ export async function getBooksInGoal(participantId: string, limit = 50, offset =
       variables: {
         participantId,
         limit,
-        offset,
-      },
-    }),
+        offset
+      }
+    })
   })
   const {
-    data: { booksInGoal },
+    data: { booksInGoal }
   }: { data: { booksInGoal: BookInGoal[] } } = await res.json()
 
   return booksInGoal

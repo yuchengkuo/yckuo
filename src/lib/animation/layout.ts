@@ -22,7 +22,7 @@ export function layout(
     x: from.left + (from.width * originX) / to.width - (to.left + originX - currentX),
     y: from.top + (from.height * originY) / to.height - (to.top + originY - currentY),
     scaleX: from.width / to.width,
-    scaleY: from.height / to.height,
+    scaleY: from.height / to.height
   }
 
   const { duration = 0.3 } = transition
@@ -33,12 +33,12 @@ export function layout(
       x: [delta.x, 0],
       y: [delta.y, 0],
       scaleX: [delta.scaleX, 1],
-      scaleY: [delta.scaleY, 1],
+      scaleY: [delta.scaleY, 1]
     },
     transition
   )
 
   return {
-    duration: duration * 1000,
+    duration: duration * 1000
   }
 }

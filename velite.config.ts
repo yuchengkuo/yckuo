@@ -8,30 +8,25 @@ import markdocConfig from './markdoc.config'
 const markdoc = function () {
   return s
     .custom<string>()
-    .transform<RenderableTreeNode>(
-      async (value, { meta: { records, content }, addIssue }) => {
-        value = value ?? content
-        if (value == null) {
-          addIssue({ code: 'custom', message: 'No content found' })
-          return null as never
-        }
-        try {
-          const errors = Markdoc.validate(Markdoc.parse(value), markdocConfig)
-          if (errors)
-            errors.forEach((e) =>
-              addIssue({ code: 'custom', message: e.error.message })
-            )
-          const output = Markdoc.transform(Markdoc.parse(value), {
-            ...markdocConfig,
-            variables: { ...(records as object), ...markdocConfig.variables },
-          })
-          return output
-        } catch (err: any) {
-          addIssue({ code: 'custom', message: err.message })
-          return null as never
-        }
+    .transform<RenderableTreeNode>(async (value, { meta: { records, content }, addIssue }) => {
+      value = value ?? content
+      if (value == null) {
+        addIssue({ code: 'custom', message: 'No content found' })
+        return null as never
       }
-    )
+      try {
+        const errors = Markdoc.validate(Markdoc.parse(value), markdocConfig)
+        if (errors) errors.forEach((e) => addIssue({ code: 'custom', message: e.error.message }))
+        const output = Markdoc.transform(Markdoc.parse(value), {
+          ...markdocConfig,
+          variables: { ...(records as object), ...markdocConfig.variables }
+        })
+        return output
+      } catch (err: any) {
+        addIssue({ code: 'custom', message: err.message })
+        return null as never
+      }
+    })
 }
 
 const sharedSchema = s.object({
@@ -41,7 +36,7 @@ const sharedSchema = s.object({
   date: s.isodate().optional(),
   published: s.isodate().optional(),
   updated: s.isodate(),
-  draft: s.boolean().default(false),
+  draft: s.boolean().default(false)
 })
 
 const navigation = defineCollection({
@@ -55,11 +50,11 @@ const navigation = defineCollection({
           key: s.string(),
           label: s.string(),
           url: s.string(),
-          include: s.array(s.string()).optional(),
+          include: s.array(s.string()).optional()
         })
-      ),
+      )
     })
-    .merge(sharedSchema),
+    .merge(sharedSchema)
 })
 
 const pages = defineCollection({
@@ -67,9 +62,9 @@ const pages = defineCollection({
   pattern: '*.md',
   schema: s
     .object({
-      content: markdoc(),
+      content: markdoc()
     })
-    .merge(sharedSchema),
+    .merge(sharedSchema)
 })
 
 /* todo: find better way */
@@ -85,7 +80,7 @@ const about = defineCollection({
           time: s.string(),
           url: s.string().url(),
           area: s.string(),
-          description: s.markdown(),
+          description: s.markdown()
         })
       ),
       connect: s.record(
@@ -95,14 +90,14 @@ const about = defineCollection({
             key: s.string(),
             label: s.string(),
             url: s.string().url().optional(),
-            hiiden: s.boolean().default(false),
+            hidden: s.boolean().default(false)
           })
         )
       ),
       content: markdoc(),
-      expand: markdoc(),
+      expand: markdoc()
     })
-    .merge(sharedSchema),
+    .merge(sharedSchema)
 })
 
 const works = defineCollection({
@@ -113,16 +108,13 @@ const works = defineCollection({
       content: markdoc(),
       cover: s.string(),
       meta: s
-        .record(
-          s.string(),
-          s.union([s.string(), s.array(s.string()), s.string().url()])
-        )
+        .record(s.string(), s.union([s.string(), s.array(s.string()), s.string().url()]))
         .optional(),
       toc: s.toc(),
       tagline: s.string(),
-      summary: s.record(s.string(), s.markdown()),
+      summary: s.record(s.string(), s.markdown())
     })
-    .merge(sharedSchema),
+    .merge(sharedSchema)
 })
 
 const projects = defineCollection({
@@ -132,9 +124,9 @@ const projects = defineCollection({
     .object({
       content: markdoc(),
       cover: s.string().optional(),
-      tags: s.array(s.string()).optional(),
+      tags: s.array(s.string()).optional()
     })
-    .merge(sharedSchema),
+    .merge(sharedSchema)
 })
 
 const notes = defineCollection({
@@ -143,9 +135,9 @@ const notes = defineCollection({
   schema: s
     .object({
       content: markdoc(),
-      tags: s.array(s.string()).optional(),
+      tags: s.array(s.string()).optional()
     })
-    .merge(sharedSchema),
+    .merge(sharedSchema)
 })
 
 const posts = defineCollection({
@@ -155,9 +147,9 @@ const posts = defineCollection({
     .object({
       metadata: s.metadata(),
       excerpt: s.excerpt(),
-      content: markdoc(),
+      content: markdoc()
     })
-    .merge(sharedSchema),
+    .merge(sharedSchema)
 })
 
 export default defineConfig({
@@ -169,6 +161,6 @@ export default defineConfig({
     works,
     projects,
     posts,
-    notes,
-  },
+    notes
+  }
 })

@@ -32,9 +32,9 @@
     images: [
       {
         url: `${baseUrl}/og/default.png`,
-        alt: 'YuCheng Kuo',
-      },
-    ],
+        alt: 'YuCheng Kuo'
+      }
+    ]
   }
 
   openGraph = {
@@ -43,8 +43,8 @@
     url: openGraph?.url ? `${baseUrl}/${openGraph.url}` : defaultOpenGraph.url,
     images:
       openGraph?.images?.map((images) => ({
-        url: `${baseUrl}/og/${images.url}`,
-      })) || defaultOpenGraph.images,
+        url: `${baseUrl}/og/${images.url}`
+      })) || defaultOpenGraph.images
   }
 </script>
 

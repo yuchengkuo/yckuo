@@ -1,9 +1,5 @@
 import type { CldOptions } from 'npm:@cld-apis/types'
-import {
-  buildImageUrl,
-  buildVideoUrl,
-  setConfig,
-} from 'npm:cloudinary-build-url'
+import { buildImageUrl, buildVideoUrl, setConfig } from 'npm:cloudinary-build-url'
 import { ratioCache } from './cache.js'
 
 setConfig({ cloudName: 'yucheng' })
@@ -23,22 +19,18 @@ export async function getAspectRatio(id: string, isVideo = false) {
       resize: { width: 50 },
       quality: 'auto',
       format: 'webp',
-      flags: 'getinfo',
+      flags: 'getinfo'
     },
     cloud: {
-      storageType: isRemote ? 'fetch' : 'upload',
-    },
+      storageType: isRemote ? 'fetch' : 'upload'
+    }
   }
-  const imageURL = isVideo
-    ? buildVideoUrl(id, options)
-    : buildImageUrl(id, options)
+  const imageURL = isVideo ? buildVideoUrl(id, options) : buildImageUrl(id, options)
 
   return await getAspectRatioForImage(imageURL)
 }
 
-export async function getAspectRatioForImage(
-  imageUrl: string
-): Promise<string> {
+export async function getAspectRatioForImage(imageUrl: string): Promise<string> {
   const aspectRatio = ratioCache.get(imageUrl)
   if (aspectRatio) return aspectRatio
 

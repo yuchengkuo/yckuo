@@ -5,16 +5,20 @@
   import { formatDate } from '$lib/util.js'
 
   export let data
+
+  $: metaEntries = Object.entries(data.meta ?? {})
+  $: summaryEntries = Object.entries(data.summary ?? {})
 </script>
 
 <header
   class="col-start-1 row-start-1 col-span-3 grid grid-cols-subgrid content-start"
+  aria-label="Work details"
 >
   <h1>{data.title}</h1>
 
   <!-- Meta -->
   <dl class="meta">
-    {#each Object.entries(data.meta ?? {}) as [key, value]}
+    {#each metaEntries as [key, value]}
       <dt>{key}</dt>
       {#if typeof value !== 'string'}
         {#each value as v}
@@ -23,7 +27,8 @@
       {:else}
         <dd>
           {#if value.startsWith('http')}
-            <a href={value}>{value.replace(/^(https?):\/\//, '')}</a>
+            {@const label = value.replace(/^(https?):\/\//, '')}
+            <a href={value} aria-label="key link: {label}">{label}</a>
           {:else}
             {value}
           {/if}
@@ -43,8 +48,8 @@
 </div>
 
 <!-- Summary -->
-{#if Object.entries(data.summary).length}
-  <dl class="sum">
+{#if summaryEntries.length}
+  <dl class="sum" aria-label="Work summary">
     {#each Object.entries(data.summary) as [key, value]}
       <div>
         <dt>{key}</dt>

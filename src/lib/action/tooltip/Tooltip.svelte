@@ -20,7 +20,7 @@
         use:motion={{
           initial: { transform: 'translateY(2px) rotateX(1deg)', filter: 'blur(1px)', opacity: 0 },
           animate: { transform: 'none', opacity: 1, filter: 'none' },
-          transition: { delay: 0.05, duration: 0.3, allowWebkitAcceleration: true },
+          transition: { delay: 0.05, duration: 0.3, allowWebkitAcceleration: true }
         }}
       >
         {content}

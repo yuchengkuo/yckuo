@@ -81,8 +81,7 @@
 
 @font-face {
   font-family: 'Azeret Mono';
-  src: url('/fonts/AzeretMono-VariableFont_wght.woff2')
-    format('woff2-variations');
+  src: url('/fonts/AzeretMono-VariableFont_wght.woff2') format('woff2-variations');
   font-style: normal;
   font-display: block;
   font-weight: 100 900;
@@ -90,8 +89,7 @@
 
 @font-face {
   font-family: 'Azeret Mono';
-  src: url('/fonts/AzeretMono-Italic-VariableFont_wght.woff2')
-    format('woff2-variations');
+  src: url('/fonts/AzeretMono-Italic-VariableFont_wght.woff2') format('woff2-variations');
   font-style: italic;
   font-display: block;
   font-weight: 100 900;

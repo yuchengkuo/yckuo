@@ -23,6 +23,6 @@ export default function portal(
   update(target)
   return {
     update,
-    destroy,
+    destroy
   }
 }

@@ -24,7 +24,7 @@ const tagClasses = [
   'tag-tomato',
   'tag-brown',
   'tag-crimson',
-  'tag-violet',
+  'tag-violet'
 ]
 ```
 

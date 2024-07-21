@@ -8,7 +8,7 @@ export async function getItunesAlbum(title: string, artist: string) {
     media: 'music',
     entity: 'album',
     attribute: 'albumTerm',
-    limit: '5',
+    limit: '5'
   })
 
   const url = new URL(SEARCH_ENDPOINT)
@@ -21,7 +21,7 @@ export async function getItunesTrack(title: string, artist: string) {
     term: `${title} ${artist}`,
     media: 'music',
     entity: 'musicTrack',
-    limit: '5',
+    limit: '5'
   })
 
   const url = new URL(SEARCH_ENDPOINT)

@@ -33,7 +33,7 @@ export default function placePopover(
   return {
     update(newOptions: Options) {
       updatePosition(element, newOptions)
-    },
+    }
   }
 }
 
@@ -59,7 +59,7 @@ function updatePosition(element: HTMLElement, options: Options) {
       trigger,
       placement = DEFAULT_PLACEMENT,
       alignment = DEFAULT_ALIGNMENT,
-      offset = DEFAULT_OFFSET,
+      offset = DEFAULT_OFFSET
     } = options
 
     if (trigger) {

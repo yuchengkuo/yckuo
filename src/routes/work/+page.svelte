@@ -18,7 +18,7 @@
           id={work.cover}
           transformations={{
             resize: { height: 192, type: 'fill' },
-            gravity: 'auto',
+            gravity: 'auto'
           }}
         />
       </a>

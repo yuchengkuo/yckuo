@@ -31,7 +31,7 @@ export const document: Schema = {
     }
 
     return new Tag(this.render, attributes, children)
-  },
+  }
 }
 ```
 
@@ -65,11 +65,7 @@ export function visit(
  * Check whether node is Scalar
  */
 function isScalar(node: RenderableTreeNode): node is Scalar {
-  return (
-    typeof node === 'boolean' ||
-    typeof node === 'number' ||
-    typeof node === 'string'
-  )
+  return typeof node === 'boolean' || typeof node === 'number' || typeof node === 'string'
 }
 
 /**
@@ -86,10 +82,7 @@ export function sectionize(node: Tag, parent: Tag[]) {
   //look for next heading from start node
   let index = startIndex
   while (++index < parent.length) {
-    if (
-      parent[index].name.match(/h\d/) &&
-      parent[index].attributes.level <= depth
-    ) {
+    if (parent[index].name.match(/h\d/) && parent[index].attributes.level <= depth) {
       end = parent[index]
       break
     }
@@ -99,11 +92,7 @@ export function sectionize(node: Tag, parent: Tag[]) {
 
   const between = parent.slice(startIndex, endIndex > 0 ? endIndex : undefined)
 
-  const section = new Tag(
-    'section',
-    { id: `${start.attributes.id}-section` },
-    between
-  )
+  const section = new Tag('section', { id: `${start.attributes.id}-section` }, between)
 
   parent.splice(startIndex, between.length, section)
 }

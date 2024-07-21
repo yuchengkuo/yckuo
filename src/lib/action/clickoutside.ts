@@ -14,6 +14,6 @@ export default function clickOutside(element: Element, callback: (evnet?: Event)
     },
     destroy() {
       doc.removeEventListener('mousedown', onClick)
-    },
+    }
   }
 }
