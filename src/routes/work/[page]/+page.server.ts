@@ -4,10 +4,9 @@ import type { Work } from '$content'
 
 export async function load({ params, fetch }) {
   const { page: slug } = params
-  const data = (await fetch(`/api/content/entry/${encodeURIComponent(`work/${slug}`)}`).then(
-    (res) => res.json()
-  )) as Work
 
-  if (!data) error(404)
-  return data
+  const res = await fetch(`/api/content/entry/${encodeURIComponent(`work/${slug}`)}`)
+  if (!res.ok) error(404, 'Work not found or removed.')
+
+  return (await res.json()) as Work
 }

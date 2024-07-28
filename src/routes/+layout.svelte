@@ -46,13 +46,19 @@
   </div>
 
   <nav>
-    {#each data.navigation as nav}
-      <a
-        href={nav.url}
-        class:current={$page.url.pathname.startsWith(nav.url) ||
-          nav.include?.some((l) => $page.url.pathname.startsWith(l))}>{nav.label}</a
-      >
-    {/each}
+    <ul>
+      {#each data.navigation as nav}
+        <li>
+          <a
+            href={nav.url}
+            class:current={$page.url.pathname.startsWith(nav.url) ||
+              nav.include?.some((l) => $page.url.pathname.startsWith(l))}
+          >
+            {nav.label}
+          </a>
+        </li>
+      {/each}
+    </ul>
   </nav>
 </header>
 
@@ -75,10 +81,13 @@
 
     & nav {
       --uno: 'col-start-4 col-end--1';
-      --uno: 'flex gap-x-3';
 
-      &:has(> a.current) a:not(.current) {
-        --uno: 'text-fg-muted';
+      & ul {
+        --uno: 'flex gap-x-3';
+
+        &:has(a.current) a:not(.current) {
+          --uno: 'text-fg-muted';
+        }
       }
     }
 
