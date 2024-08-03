@@ -1,5 +1,5 @@
-import type { CldOptions } from 'npm:@cld-apis/types'
-import { buildImageUrl, buildVideoUrl, setConfig } from 'npm:cloudinary-build-url'
+import type { CldOptions } from '@cld-apis/types'
+import { buildImageUrl, buildVideoUrl, setConfig } from 'cloudinary-build-url'
 import { ratioCache } from './cache.js'
 
 setConfig({ cloudName: 'yucheng' })
@@ -47,5 +47,6 @@ export async function getAspectRatioForImage(imageUrl: string): Promise<string> 
     return `${width}/${height}`
   } catch (e) {
     console.error(`Error while getting aspect ratio for ${imageUrl}: ${e}`)
+    return ''
   }
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { beforeUpdate, tick } from 'svelte'
+  import { beforeUpdate } from 'svelte'
 
   import { getAWebpProps, getImgProps } from './getImgProps'
 
@@ -92,7 +92,7 @@
 
 <style>
   figure {
-    --uno: 'overflow-hidden block isolate all:isolate';
+    --uno: 'overflow-hidden block isolate all:isolate bg-surface';
   }
   /* Wrapper */
   figure > div {

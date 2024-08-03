@@ -42,7 +42,7 @@
 
 <!-- Image -->
 <div class="row-start-1 col-end--1">
-  <Image id={data.cover} />
+  <Image id={data.cover} aspectRatio="16/10" />
 
   <p class="tagline">{data.tagline}</p>
 </div>
