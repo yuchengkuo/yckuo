@@ -19,4 +19,6 @@ navigation:
     url: /colophon
   - key: More
     label: More
-    url: /more
+    url: /note
+    include:
+      - /note
