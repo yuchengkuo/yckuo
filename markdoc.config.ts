@@ -1,4 +1,8 @@
 import Markdoc, { type ConfigType, type RenderableTreeNode } from '@markdoc/markdoc'
+import { getSingletonHighlighter } from 'shiki'
+import { transformerNotationHighlight } from '@shikijs/transformers'
+
+import grammar from './src/lib/markdoc.tmLanguage.json'
 
 /*
  * Markdoc configuration pass into velite
@@ -69,6 +73,46 @@ const markdocConfig: ConfigType = {
           node.transformAttributes(config),
           node.transformChildren(config)
         )
+      }
+    },
+    /* Code Block */
+    fence: {
+      children: ['inline', 'text'],
+      attributes: {
+        content: { type: String, render: false },
+        language: { type: String },
+        process: { type: Boolean, render: false },
+        highlight: { type: Array }
+      },
+      async transform(node, config) {
+        const attributes = node.transformAttributes(config)
+        const children = node.transformChildren(config)
+
+        const markdoc = {
+          id: 'Markdoc',
+          scopeName: 'text.html.markdoc',
+          grammar,
+          aliases: ['markdoc']
+        }
+
+        const lang = attributes.language || 'text'
+        const code = (typeof children[0] === 'string' && children[0]) || node.attributes.content
+
+        const highlighter = await getSingletonHighlighter({
+          themes: [],
+          langs: [lang, markdoc]
+        })
+
+        const shikiCode = highlighter.codeToHtml(code, {
+          lang,
+          themes: {
+            light: await import('./src/lib/tmr.json'),
+            dark: await import('./src/lib/tmr-night.json')
+          },
+          transformers: [transformerNotationHighlight()]
+        })
+
+        return new Markdoc.Tag('CodeBlock', { ...attributes, code: shikiCode }, [])
       }
     }
   },

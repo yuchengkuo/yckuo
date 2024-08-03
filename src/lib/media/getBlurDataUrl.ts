@@ -1,7 +1,7 @@
-import { buildImageUrl, buildVideoUrl, setConfig } from 'npm:cloudinary-build-url'
+import { buildImageUrl, buildVideoUrl, setConfig } from 'cloudinary-build-url'
 import { blurDataCache } from './cache.js'
 
-import type { CldOptions } from 'npm:@cld-apis/types'
+import type { CldOptions } from '@cld-apis/types'
 
 setConfig({ cloudName: 'yucheng' })
 
@@ -51,4 +51,6 @@ async function getDataUrlForImage(imageUrl: string) {
   } catch (e) {
     console.error(`Error while getting blur data url for ${imageUrl}: ${e}`)
   }
+
+  return ''
 }

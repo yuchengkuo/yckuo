@@ -150,24 +150,18 @@ main {
  * Shiki
  */
 
-.shiki-light {
-  --uno: 'dark:hidden';
-}
+.shiki {
+  --uno: 'py-4 px-2 bg-surface rounded-2 border-1 border-border-muted mt-6 overflow-x-auto drop-shadow-sm';
+  --uno: 'col-start-4 col-span-5 relative';
 
-.shiki-dark {
-  --uno: 'hidden dark:block';
-}
-
-.shiki-container {
-  --uno: 'bg-surface rounded-2 border-1 border-border-muted mt-6 overflow-x-auto drop-shadow-sm';
   counter-reset: line;
 
-  pre {
-    --uno: 'py-4 px-2 min-w-full w-fit text-base leading-5';
+  code {
+    --uno: 'block w-fit';
   }
 
   .line {
-    --uno: 'last:hidden';
+    --uno: 'last:hidden leading-5';
   }
 
   .line::before {
@@ -177,6 +171,18 @@ main {
   }
 
   .highlighted {
-    --uno: 'px-4 -mx-4';
+    width: calc(100% + 1rem);
+    --uno: '-mx-2 px-2 right-0 inline-block bg-bg-muted bg-opacity-60';
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
   }
 }

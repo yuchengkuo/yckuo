@@ -82,7 +82,7 @@ function getRenderableTree(tokens: IThemedToken[][]) {
 
 Generate two different trees for each light and dark theme, and use the appended class to determine which Shiki code block to show,
 
-```ts{16-54}
+```ts {16-54}
 // fence.markdoc.ts
 import { Tag, type Schema } from '@markdoc/markdoc'
 import shiki, { FontStyle } from 'shiki'
@@ -92,26 +92,25 @@ export const fence: Schema = {
   attributes: {
     content: { type: String, render: false },
     language: { type: String },
-    process: { type: Boolean, render: false },
+    process: { type: Boolean, render: false }
   },
   async transform(node, config) {
     const attributes = node.transformAttributes(config)
     const children = node.transformChildren(config)
 
+    // [!code highlight:30]
     const theme = {
       light: 'min-light',
-      dark: 'min-dark',
+      dark: 'min-dark'
     }
 
     const highlighter = await shiki.getHighlighter({
       theme: theme.light,
-      themes: [theme.dark],
+      themes: [theme.dark]
     })
 
     const lang = attributes.language || 'text'
-    const code =
-      (typeof children[0] === 'string' && children[0]) ||
-      node.attributes.content
+    const code = (typeof children[0] === 'string' && children[0]) || node.attributes.content
 
     const tokens = highlighter.codeToThemedTokens(code, lang)
     const darkTokens = highlighter.codeToThemedTokens(code, lang, theme.dark)
@@ -124,20 +123,20 @@ export const fence: Schema = {
     const lightAttr = {
       ...attributes,
       class: 'shiki shiki-light',
-      style: `background-color: ${lightBG};`,
+      style: `background-color: ${lightBG};`
     }
     const darkAttr = {
       ...attributes,
       class: 'shiki shiki-dark',
-      style: `background-color: ${darkBG};`,
+      style: `background-color: ${darkBG};`
     }
 
     // Render two trees for each theme
     return new Tag('div', { ...attributes, class: 'shiki-container' }, [
       new Tag('pre', lightAttr, [lightTree]),
-      new Tag('pre', darkAttr, [darkTree]),
+      new Tag('pre', darkAttr, [darkTree])
     ])
-  },
+  }
 }
 
 function getRenderableTree(tokens: IThemedToken[][]) {
@@ -152,14 +151,9 @@ function getRenderableTree(tokens: IThemedToken[][]) {
           const { color, content, fontStyle } = token
           const text = `color: ${color}`
           const bold = fontStyle === FontStyle['Bold'] && 'font-weight: bold;'
-          const italic =
-            fontStyle === FontStyle['Italic'] && 'font-style: italic;'
-          const underline =
-            fontStyle === FontStyle['Underline'] &&
-            'text-decoration: underline;'
-          const style = [text, bold, italic, underline]
-            .filter((i) => i)
-            .join(' ')
+          const italic = fontStyle === FontStyle['Italic'] && 'font-style: italic;'
+          const underline = fontStyle === FontStyle['Underline'] && 'text-decoration: underline;'
+          const style = [text, bold, italic, underline].filter((i) => i).join(' ')
           return new Tag('span', { style }, [content])
         })
       )
@@ -194,7 +188,7 @@ With the help of Markdoc [attributes](https://markdoc.dev/docs/attributes), we c
 
 Update `fence` tag attributes to add `.hightlight` class for highlighted code inside Markdoc schema,
 
-```ts{11,29,34,35,57-64,69-79,82}
+```ts {11,29,34,35,57-64,69-79,82}
 // fence.markdoc.ts
 import { Tag, type Schema } from '@markdoc/markdoc'
 import shiki, { FontStyle } from 'shiki'
@@ -205,7 +199,7 @@ export const fence: Schema = {
     content: { type: String, render: false },
     language: { type: String },
     process: { type: Boolean, render: false },
-    highlight: { type: Array },
+    highlight: { type: Array }
   },
   async transform(node, config) {
     const attributes = node.transformAttributes(config)
@@ -213,18 +207,16 @@ export const fence: Schema = {
 
     const theme = {
       light: 'slack-ochin',
-      dark: 'slack-dark',
+      dark: 'slack-dark'
     }
 
     const highlighter = await shiki.getHighlighter({
       theme: theme.light,
-      themes: [theme.dark],
+      themes: [theme.dark]
     })
 
     const lang = attributes.language || 'text'
-    const code =
-      (typeof children[0] === 'string' && children[0]) ||
-      node.attributes.content
+    const code = (typeof children[0] === 'string' && children[0]) || node.attributes.content
     const highlight = attributes.highlight as Array<number | Array<number>>
 
     const tokens = highlighter.codeToThemedTokens(code, lang)
@@ -238,31 +230,25 @@ export const fence: Schema = {
     const lightAttr = {
       ...attributes,
       class: 'shiki shiki-light',
-      style: `background-color: ${lightBG};`,
+      style: `background-color: ${lightBG};`
     }
     const darkAttr = {
       ...attributes,
       class: 'shiki shiki-dark',
-      style: `background-color: ${darkBG};`,
+      style: `background-color: ${darkBG};`
     }
 
     return new Tag('div', { ...attributes, class: 'shiki-container' }, [
       new Tag('pre', lightAttr, [lightTree]),
-      new Tag('pre', darkAttr, [darkTree]),
+      new Tag('pre', darkAttr, [darkTree])
     ])
-  },
+  }
 }
 
-function getRenderableTree(
-  tokens: IThemedToken[][],
-  highlights?: (number | number[])[]
-) {
+function getRenderableTree(tokens: IThemedToken[][], highlights?: (number | number[])[]) {
   const lines = highlights?.filter((h) => !Array.isArray(h)) as number[]
-  const ranges = (
-    highlights?.filter((h) => Array.isArray(h)) as number[][]
-  )?.map((h) => {
-    if (h.length !== 2)
-      throw Error('Highlight range must be in ["start", "end"] format')
+  const ranges = (highlights?.filter((h) => Array.isArray(h)) as number[][])?.map((h) => {
+    if (h.length !== 2) throw Error('Highlight range must be in ["start", "end"] format')
     const start = Math.min(h[0], h[1])
     const end = Math.max(h[0], h[1])
     return [start, end]
@@ -274,19 +260,14 @@ function getRenderableTree(
     tokens.map((tokenArr, index) => {
       const target = index + 1
       const highlight =
-        lines?.includes(target) ||
-        ranges?.some((range) => target >= range[0] && target <= range[1])
+        lines?.includes(target) || ranges?.some((range) => target >= range[0] && target <= range[1])
           ? 'highlight'
           : highlights?.length
-          ? 'no-highlight'
-          : ''
+            ? 'no-highlight'
+            : ''
 
-      const rangeStart = ranges?.some((range) => target === range[0])
-        ? 'highlight-start'
-        : ''
-      const rangeEnd = ranges?.some((range) => target === range[1])
-        ? 'highlight-end'
-        : ''
+      const rangeStart = ranges?.some((range) => target === range[0]) ? 'highlight-start' : ''
+      const rangeEnd = ranges?.some((range) => target === range[1]) ? 'highlight-end' : ''
       return new Tag(
         'div',
         { class: ['line', highlight, rangeStart, rangeEnd].join(' ') },
@@ -294,14 +275,9 @@ function getRenderableTree(
           const { color, content, fontStyle } = token
           const text = `color: ${color}`
           const bold = fontStyle === FontStyle['Bold'] && 'font-weight: bold;'
-          const italic =
-            fontStyle === FontStyle['Italic'] && 'font-style: italic;'
-          const underline =
-            fontStyle === FontStyle['Underline'] &&
-            'text-decoration: underline;'
-          const style = [text, bold, italic, underline]
-            .filter((i) => i)
-            .join(' ')
+          const italic = fontStyle === FontStyle['Italic'] && 'font-style: italic;'
+          const underline = fontStyle === FontStyle['Underline'] && 'text-decoration: underline;'
+          const style = [text, bold, italic, underline].filter((i) => i).join(' ')
           return new Tag('span', { style }, [content])
         })
       )

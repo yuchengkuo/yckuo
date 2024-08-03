@@ -16,6 +16,7 @@
       >
         <Image
           id={work.cover}
+          class="lg:min-h-24 md:min-h-18"
           transformations={{
             resize: { height: 192, type: 'fill' },
             gravity: 'auto'
