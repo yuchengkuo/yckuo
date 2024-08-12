@@ -31,8 +31,8 @@ body {
   /* Avoid stretching of header and main when not over 100vh */
   grid-template-rows: min-content min-content;
 
-  word-spacing: -0.02em;
-  letter-spacing: -0.005em;
+  word-spacing: -0.01em;
+  letter-spacing: -0.02em;
   text-rendering: optimizeLegibility;
 }
 
