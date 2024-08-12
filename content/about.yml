@@ -1,5 +1,5 @@
 title: About
-updated: 2024-07-08
+updated: 2024-08-12
 
 description: |
   :wave: Hi, 嗨.
@@ -31,7 +31,26 @@ connect:
     - key: Github
       label: /yuchengkuo
       url: https://github.com/yuchengkuo
-      # todo: Add more links using <Expand />
+    - key: Read.cv
+      label: /yuchengkuo
+      url: https://read.cv/yuchengkuo
+      hidden: true
+    - key: LinkedIn
+      label: /in/yucheng-kuo
+      url: https://linkedin.com/in/yucheng-kuo
+      hidden: true
+    - key: Bento
+      label: /yuchengkuo
+      url: https://bento.me/yuchengkuo
+      hidden: true
+    - key: Are.na
+      label: /yucheng-kuo
+      url: https://www.are.na/yucheng-kuo
+      hidden: true
+    - key: Savee
+      label: /yuchengkuo
+      url: https://savee.it/yuchengkuo/
+      hidden: true
 
 content: |
   ## My Journey

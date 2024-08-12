@@ -3,6 +3,7 @@
   import Expand from '$lib/content/Expand.svelte'
   import { formatDate } from '$lib/util.js'
   import { onMount } from 'svelte'
+  import Conditional from './Conditional.svelte'
 
   export let data
 
@@ -54,15 +55,25 @@
       {title}
     </p>
     <dl>
-      {#each arr as { key, label, url }}
-        <dt class="text-fg-muted">{key}</dt>
-        <dd class="col-start-2 col-end--1 mb-1.5">
-          {#if url}
-            <a href={url}>{label}</a>
-          {:else}
-            {label.replace('%NOW%', now)}
-          {/if}
-        </dd>
+      {#each Object.entries(arr) as [hidden, items]}
+        <Conditional
+          condition={Boolean(hidden === 'hidden' && items.length)}
+          wrapper={Expand}
+          class="contents"
+        >
+          <div class="grid col-span-full grid-cols-subgrid">
+            {#each items as { key, url, label }}
+              <dt class="text-fg-muted">{key}</dt>
+              <dd>
+                {#if url}
+                  <a href={url}>{label}</a>
+                {:else}
+                  {label.replace('%NOW%', now)}
+                {/if}
+              </dd>
+            {/each}
+          </div>
+        </Conditional>
       {/each}
     </dl>
   {/each}
@@ -77,20 +88,20 @@
 </div>
 
 <style>
-  h1 {
-    --uno: 'font-serif italic text-lg col-start-1 row-start-1';
-  }
-
   nav {
     --uno: 'lt-md:(grid-cols-4 mb-10 p-4 bg-surface-muted rounded-4)';
     --uno: 'h-fit grid md:(col-start-10 col-end--1 row-start-1 grid-cols-subgrid)';
+  }
 
-    & > dl {
-      --uno: 'grid grid-cols-subgrid col-span-full';
-    }
+  nav > dl {
+    --uno: 'grid grid-cols-subgrid col-span-full';
+  }
 
-    & > p {
-      --uno: 'col-span-full not-first:(mt-14 lt-sm:mt-6) mb-2 uppercase font-mono text-2.5 font-semibold';
-    }
+  nav > dl dd {
+    --uno: 'col-start-2 col-end--1 mb-1.5';
+  }
+
+  nav > p {
+    --uno: 'col-span-full not-first:(mt-14 lt-sm:mt-6) mb-2 uppercase font-mono text-2.5 font-semibold';
   }
 </style>
