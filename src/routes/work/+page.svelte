@@ -46,6 +46,6 @@
 
   li {
     --uno: 'lt-sm:(flex flex-col)';
-    --uno: 'md:(grid grid-cols-subgrid col-span-full mb-8) ';
+    --uno: 'md:(grid grid-cols-subgrid col-span-full) mb-8';
   }
 </style>
