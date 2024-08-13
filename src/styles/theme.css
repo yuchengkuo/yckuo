@@ -4,7 +4,7 @@
  */
 
 :root {
-  --sans: AG, ui-sans-serif, sans-serif;
+  --sans: Brockmann, ui-sans-serif, sans-serif;
   --serif: Newsreader, Iowan Old Style, ui-serif, Charter, Georgia, serif;
   --mono: Azeret Mono, ui-monospace, monospace;
 
@@ -56,11 +56,67 @@
 }
 
 @font-face {
-  font-family: 'AG';
-  src: url('/fonts/AG57-Regular.woff2') format('woff2');
-  font-style: normal italic;
+  font-family: 'Brockmann';
+  src: url('/fonts/brockmann-regular.woff2') format('woff2');
+  font-style: normal;
   font-display: block;
   font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Brockmann';
+  src: url('/fonts/brockmann-regularitalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Brockmann';
+  src: url('/fonts/brockmann-medium.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Brockmann';
+  src: url('/fonts/brockmann-mediumitalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Brockmann';
+  src: url('/fonts/brockmann-semibold.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Brockmann';
+  src: url('/fonts/brockmann-semibolditalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Brockmann';
+  src: url('/fonts/brockmann-bold.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Brockmann';
+  src: url('/fonts/brockmann-bolditalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 700;
 }
 
 @font-face {

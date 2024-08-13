@@ -1,7 +1,7 @@
 ---
 title: Colophon
 description: Behind the scene.
-updated: 2024-07-12
+updated: 2024-08-12
 ---
 
 Behind the scene.
@@ -12,7 +12,7 @@ This website is built with framework [SvelteKit](https://kit.svelte.dev), stylin
 
 Previously, this site was built with [Next.js](https://nextjs.org) and [Radix UI](https://www.radix-ui.com). Later entered the [Svelte](https://svelte.dev) world using [SvelteKit](https://kit.svelte.dev) and atomic CSS. Switched to [Lume](https://lume.land) for a short period of time, hoping back to SvelteKit afterwards.
 
-Types used on this site are [AG57](https://github.com/neueneue/AG57) in sans, [Newsreader](https://www.productiontype.com/family/newsreader) in serif, and [Azeret Mono](https://azeret.displaay.net) in monospaced.
+Types used on this site are [Brockmann](https://www.atipofoundry.com/fonts/brockmann) in sans, [Newsreader](https://www.productiontype.com/family/newsreader) in serif, and [Azeret Mono](https://azeret.displaay.net) in monospaced.
 
 Inspirations and beyond,
 

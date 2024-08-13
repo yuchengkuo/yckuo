@@ -22,20 +22,20 @@ main {
     }
 
     h2 {
-      --uno: 'mt-16 lt-sm:mt-10';
+      --uno: 'font-medium mt-16 lt-sm:mt-10';
     }
 
     h3 {
-      --uno: 'mt-8 lt-sm:mt-8';
+      --uno: 'font-medium mt-8 lt-sm:mt-8';
     }
 
     h4 {
-      --uno: 'mt-8 lt-sm:mt-6';
+      --uno: 'font-medium mt-8 lt-sm:mt-6';
     }
 
     h5,
     h6 {
-      --uno: 'mt-6 lt-sm:mt-4';
+      --uno: 'font-medium mt-6 lt-sm:mt-4';
     }
 
     :is(h1, h2, h3, h4, h5, h6) + * {

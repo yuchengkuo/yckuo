@@ -67,6 +67,10 @@ const pages = defineCollection({
     .merge(sharedSchema)
 })
 
+type Connect = Record<
+  string,
+  Record<'visible' | 'hidden', Array<{ key: string; label: string; url?: string }>>
+>
 /* todo: find better way */
 const about = defineCollection({
   name: 'About',
@@ -83,17 +87,27 @@ const about = defineCollection({
           description: s.markdown()
         })
       ),
-      connect: s.record(
-        s.string(),
-        s.array(
-          s.object({
-            key: s.string(),
-            label: s.string(),
-            url: s.string().url().optional(),
-            hidden: s.boolean().default(false)
-          })
+      connect: s
+        .record(
+          s.string(),
+          s.array(
+            s.object({
+              key: s.string(),
+              label: s.string(),
+              url: s.string().url().optional(),
+              hidden: s.boolean().default(false)
+            })
+          )
         )
-      ),
+        .transform<Connect>((connect) => {
+          return Object.fromEntries(
+            Object.entries(connect).map(([category, items]) => {
+              const visible = items.filter((item) => !item.hidden)
+              const hidden = items.filter((item) => item.hidden)
+              return [category, { visible, hidden }]
+            })
+          )
+        }),
       content: markdoc(),
       expand: markdoc()
     })
