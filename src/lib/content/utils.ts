@@ -46,7 +46,7 @@ export async function getContentBySlug<T extends Record<string, unknown>>(
       variables
     )
   }
-  throw error(404, `File ${params}.md does not exist`)
+  error(404, `File ${params}.md does not exist`)
 }
 
 /**

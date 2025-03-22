@@ -1,28 +1,45 @@
 <script lang="ts">
   import { getVideoProps } from './getVideoProps'
-  import { beforeUpdate, tick } from 'svelte'
 
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
-  export let autoplay = true
-  export let muted = true
-  export let loop = true
-  export let playsinline = true
+  interface Props {
+    id?: string
+    src?: string
+    alt?: string
 
-  export let id = ''
-  let externalSrc = ''
-  export { externalSrc as src }
-  export let alt = ''
+    transformations?: TransformerOption | TransformerVideoOption
+    blurDataUrl?: string
+    aspectRatio?: string
+    showcap?: boolean
+    class?: string
 
-  export let transformations: TransformerOption | TransformerVideoOption = {}
-  export let blurDataUrl: string | null = null
-  export let aspectRatio: string | null = null
-  export let showcap = false
-  let className = ''
-  export { className as class }
+    autoplay?: boolean
+    muted?: boolean
+    loop?: boolean
+    playsinline?: boolean
+  }
 
-  let src = ''
-  if (!externalSrc) {
+  let {
+    id = '',
+    src = '',
+    alt = '',
+
+    transformations = {},
+    blurDataUrl,
+    aspectRatio,
+    showcap = false,
+    class: classname,
+
+    autoplay = true,
+    muted = true,
+    loop = true,
+    playsinline = true,
+
+    ...rest
+  }: Props = $props()
+
+  if (!src) {
     ;({ src } = getVideoProps({
       id,
       transformations: transformations as TransformerOption
@@ -30,13 +47,11 @@
   }
 
   let videoEl: HTMLVideoElement
-  let visible = false
+  let visible = $state(false)
 
-  beforeUpdate(async () => {
+  $effect.pre(() => {
     // 0 if no media is available yet
     if (videoEl?.videoWidth) visible = true
-
-    await tick()
 
     if (!videoEl) return
     if (videoEl.videoWidth) return
@@ -47,7 +62,7 @@
   })
 </script>
 
-<videoplayer class={className} style="aspect-ratio: {aspectRatio}" {...$$restProps}>
+<videoplayer class={classname} style="aspect-ratio: {aspectRatio}" {...rest}>
   <div>
     <video
       bind:this={videoEl}
@@ -60,12 +75,12 @@
     >
       <source {src} />
     </video>
-    <div role="presentation" class:opacity-0={visible} />
+    <div role="presentation" class:opacity-0={visible}></div>
   </div>
 
   {#if showcap}
     <small>
-      <i class="i-ri-arrow-right-double-line" />
+      <i class="i-ri-arrow-right-double-line"></i>
       {alt}
     </small>
   {/if}

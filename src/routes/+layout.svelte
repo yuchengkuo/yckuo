@@ -7,7 +7,7 @@
   import { fade } from 'svelte/transition'
   import { cubicOut } from 'svelte/easing'
 
-  export let data
+  let { data, children } = $props()
 </script>
 
 <svelte:head>
@@ -32,7 +32,7 @@
 
 <header>
   <div class="w-4.5">
-    <a href="/" title="Go to home page"
+    <a href="/" title="Go to home page" aria-label="Go to home page"
       ><svg viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"
         ><path
           d="M1.41578 12.1684C0.765321 13.4694 1.71131 15 3.16578 15V15C3.90687 15 4.58435 14.5813 4.91578 13.9184L10.9705 1.80902C11.3861 0.97789 10.7817 0 9.85246 0L6.66667 0H2.02254C1.09331 0 0.488945 0.97789 0.904508 1.80902L3.57162 7.14325C3.68391 7.36783 3.68391 7.63217 3.57163 7.85675L1.41578 12.1684Z"
@@ -64,11 +64,11 @@
 
 {#key $page.url}
   <main in:fade={{ duration: 800, easing: cubicOut }}>
-    <slot />
+    {@render children?.()}
   </main>
 {/key}
 
-<div data-layer role="presentation" />
+<div data-layer role="presentation"></div>
 
 <style>
   header {

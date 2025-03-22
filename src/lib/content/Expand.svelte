@@ -1,12 +1,16 @@
 <script lang="ts">
-  let classnames = ''
-  export { classnames as class }
+  interface Props {
+    class?: string
+    children?: import('svelte').Snippet
+  }
+
+  let { class: classnames = '', children }: Props = $props()
 </script>
 
 <details class={classnames}>
   <summary><span>Expand more +</span></summary>
 
-  <slot />
+  {@render children?.()}
 </details>
 
 <style>

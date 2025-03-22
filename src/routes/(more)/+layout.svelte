@@ -1,9 +1,9 @@
 <script lang="ts">
   import { page } from '$app/stores'
 
-  export let data
+  let { data, children } = $props()
 
-  $: ({ navigation } = data)
+  let { navigation } = $derived(data)
 </script>
 
 <h1>More</h1>
@@ -20,7 +20,7 @@
   </ul>
 </nav>
 
-<slot />
+{@render children?.()}
 
 <style>
   nav {

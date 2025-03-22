@@ -2,7 +2,7 @@
   import Content from '$lib/content/Content.svelte'
   import { formatDate } from '$lib/util'
 
-  export let data
+  let { data } = $props()
 </script>
 
 <svelte:head>

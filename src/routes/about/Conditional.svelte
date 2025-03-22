@@ -1,20 +1,27 @@
 <script lang="ts">
   import type { ComponentType } from 'svelte'
 
-  export let condition: boolean
-  export let wrapper: ComponentType | string
+  interface Props {
+    condition: boolean
+    wrapper: ComponentType | string
+    children?: import('svelte').Snippet
+    [key: string]: any
+  }
+
+  let { condition, wrapper, children, ...rest }: Props = $props()
 </script>
 
 {#if condition}
   {#if typeof wrapper === 'string'}
-    <svelte:element this={wrapper} {...$$restProps}>
-      <slot />
+    <svelte:element this={wrapper} {...rest}>
+      {@render children?.()}
     </svelte:element>
   {:else}
-    <svelte:component this={wrapper} {...$$restProps}>
-      <slot />
-    </svelte:component>
+    {@const SvelteComponent = wrapper}
+    <SvelteComponent {...rest}>
+      {@render children?.()}
+    </SvelteComponent>
   {/if}
 {:else}
-  <slot />
+  {@render children?.()}
 {/if}

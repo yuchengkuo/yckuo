@@ -5,9 +5,9 @@
   import { onMount } from 'svelte'
   import Conditional from './Conditional.svelte'
 
-  export let data
+  let { data } = $props()
 
-  let now: string = formatTime(Date.now())
+  let now: string = $state(formatTime(Date.now()))
   function formatTime(date: number) {
     return formatDate(date, { timeStyle: 'medium', hour12: false })
   }

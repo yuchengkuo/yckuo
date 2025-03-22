@@ -4,10 +4,10 @@
 
   import { formatDate } from '$lib/util.js'
 
-  export let data
+  let { data } = $props()
 
-  $: metaEntries = Object.entries(data.meta ?? {})
-  $: summaryEntries = Object.entries(data.summary ?? {})
+  let metaEntries = $derived(Object.entries(data.meta ?? {}))
+  let summaryEntries = $derived(Object.entries(data.summary ?? {}))
 </script>
 
 <header

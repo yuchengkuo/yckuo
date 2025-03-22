@@ -1,9 +1,9 @@
 <script lang="ts">
   import { formatDate } from '$lib/util.js'
 
-  export let data
+  let { data } = $props()
 
-  $: ({ notes } = data)
+  let { notes } = $derived(data)
 </script>
 
 <svelte:head>

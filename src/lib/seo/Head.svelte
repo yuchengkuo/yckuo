@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy'
+
   import SvelteSeo from 'svelte-seo'
   import { dev } from '$app/environment'
 
@@ -16,13 +18,27 @@
   const defaultDescription =
     'Personal website, portfolio and the corner on the internet of YuCheng Kuo, a design engineer from Taiwan.'
 
-  export let title = ''
-  export let description = ''
-  export let openGraph: SvelteSeoProps['openGraph'] = {}
+  interface Props {
+    title?: string
+    description?: string
+    openGraph?: SvelteSeoProps['openGraph']
+    children?: import('svelte').Snippet
+    [key: string]: any
+  }
+
+  let {
+    title = $bindable(''),
+    description = '',
+    openGraph = $bindable({}),
+    children,
+    ...rest
+  }: Props = $props()
 
   title = title ? title + ' – ' + defaultTitle : defaultTitle
 
-  $: console.log(title)
+  run(() => {
+    console.log(title)
+  })
 
   const defaultOpenGraph: SvelteSeoProps['openGraph'] = {
     type: 'website',
@@ -53,7 +69,7 @@
   description={description ?? defaultDescription}
   canonical="https://yuchengkuo.com/"
   {openGraph}
-  {...$$restProps}
+  {...rest}
 >
-  <slot />
+  {@render children?.()}
 </SvelteSeo>

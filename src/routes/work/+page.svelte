@@ -2,7 +2,7 @@
   import Image from '$lib/media/Image.svelte'
   import { formatDate } from '$lib/util'
 
-  export let data
+  let { data } = $props()
 </script>
 
 <h1>Work</h1>

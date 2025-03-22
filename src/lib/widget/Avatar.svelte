@@ -4,8 +4,8 @@
   import { spring } from 'svelte/motion'
   import { slide } from 'svelte/transition'
 
-  let isVisible = false
-  let textWidth = 0
+  let isVisible = $state(false)
+  let textWidth = $state(0)
   let width = spring(30, { damping: 1, stiffness: 0.1 })
 </script>
 
@@ -19,16 +19,16 @@
 
   <emoji
     role="presentation"
-    on:mouseenter={() => (isVisible = true)}
-    on:mouseleave={() => (isVisible = false)}
+    onmouseenter={() => (isVisible = true)}
+    onmouseleave={() => (isVisible = false)}
     style="width: {$width}px"
   >
     🍊{#if isVisible}<span
         aria-label="hidden"
         bind:clientWidth={textWidth}
         transition:slide|local={{ axis: 'x', duration: 400 }}
-        on:introstart={() => width.set(40 + textWidth)}
-        on:outrostart={() => width.set(30)}>Nice meeting you :)</span
+        onintrostart={() => width.set(40 + textWidth)}
+        onoutrostart={() => width.set(30)}>Nice meeting you :)</span
       >{/if}
   </emoji>
 </div>
