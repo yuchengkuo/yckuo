@@ -24,6 +24,6 @@
   }
 
   header p {
-    --uno: 'text-sm text-fg-subtle mt-2';
+    --uno: 'text-sm text-tertiary mt-2';
   }
 </style>

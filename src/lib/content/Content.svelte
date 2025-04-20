@@ -7,6 +7,7 @@
   import Expand from './Expand.svelte'
   import Video from '$lib/media/Video.svelte'
   import CodeBlock from './CodeBlock.svelte'
+  import Gallery from './Gallery.svelte'
 
   interface Props {
     content: RenderableTreeNodes
@@ -19,7 +20,8 @@
     img: Image,
     vid: Video,
     CodeBlock,
-    Expand
+    Expand,
+    Gallery
   }
 </script>
 

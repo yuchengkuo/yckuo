@@ -53,6 +53,7 @@ export default defineConfig({
       'bg-screen': 'bg-rx-sage-1',
       'bg-screen-hover': 'bg-rx-sage-2',
       'bg-surface': 'bg-rx-sage-3',
+      'bg-surface-hover': 'bg-rx-sage-4',
       'bg-selection': 'bg-rx-grass-3',
       'text-primary': 'text-rx-sage-12',
       'text-secondary': 'text-rx-sage-11',

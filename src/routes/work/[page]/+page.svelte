@@ -1,101 +1,71 @@
 <script lang="ts">
+  import { page } from '$app/state'
   import Content from '$lib/content/Content.svelte'
-  import Image from '$lib/media/Image.svelte'
-
-  import { formatDate } from '$lib/util.js'
 
   let { data } = $props()
 
   let metaEntries = $derived(Object.entries(data.meta ?? {}))
   let summaryEntries = $derived(Object.entries(data.summary ?? {}))
+  let nextProjectIndex =
+    1 + (page.data.works as (typeof data)[]).findIndex((p) => p.slug === data.slug)
+  /** Assign the first for the last projecy */
+  nextProjectIndex = nextProjectIndex === page.data.works.length ? 0 : nextProjectIndex
+  const nextProject = page.data.works[nextProjectIndex] as typeof data
 </script>
 
-<header
-  class="col-start-1 row-start-1 col-span-3 grid grid-cols-subgrid content-start"
-  aria-label="Work details"
->
-  <h1>{data.title}</h1>
+<p class="tagline">{data.tagline}</p>
 
-  <!-- Meta -->
-  <dl class="meta">
-    {#each metaEntries as [key, value]}
-      <dt>{key}</dt>
-      {#if typeof value !== 'string'}
-        {#each value as v}
-          <dd>{v}</dd>
-        {/each}
-      {:else}
-        <dd>
-          {#if value.startsWith('http')}
-            {@const label = value.replace(/^(https?):\/\//, '')}
-            <a href={value} aria-label="key link: {label}">{label}</a>
-          {:else}
-            {value}
-          {/if}
-        </dd>
-      {/if}
-    {/each}
-    <dt>Updated</dt>
-    <dd><time datetime={data.updated}>{formatDate(data.updated)}</time></dd>
-  </dl>
-</header>
+<!-- Intro -->
+{#if data.intro}
+  <div class="mb-12">
+    {@html data.intro}
+  </div>
+{/if}
 
-<!-- Image -->
-<div class="row-start-1 col-end--1">
-  <Image id={data.cover} aspectRatio="16/10" />
-
-  <p class="tagline">{data.tagline}</p>
-</div>
-
-<!-- Summary -->
-{#if summaryEntries.length}
-  <dl class="sum" aria-label="Work summary">
-    {#each Object.entries(data.summary) as [key, value]}
-      <div>
+<!-- Summary & Metadata -->
+{#if summaryEntries.length || metaEntries.length}
+  <div class="prose grid grid-cols-subgrid col-start-1 col-span-6 mb-40">
+    <dl aria-label="Work summary">
+      {#each summaryEntries as [key, value]}
         <dt>{key}</dt>
         <dd>{@html value}</dd>
-      </div>
-    {/each}
-  </dl>
+      {/each}
+
+      {#each metaEntries as [key, value]}
+        <dt>{key}</dt>
+        {#if typeof value !== 'string'}
+          {#each value as v}
+            <dd>{v}</dd>
+          {/each}
+        {:else}
+          <dd>
+            {#if value.startsWith('http')}
+              {@const label = value.replace(/^(https?):\/\//, '')}
+              <a href={value} aria-label="key link: {label}">{label}</a>
+            {:else}
+              {value}
+            {/if}
+          </dd>
+        {/if}
+      {/each}
+    </dl>
+  </div>
 {/if}
 
 <!-- Content -->
 <Content content={data.content} />
 
+<!-- Next -->
+<section class="mt-20">
+  <p class="text-xl">Next → <a href="/{nextProject.slug}">{nextProject.title}</a></p>
+</section>
+
 <style>
-  h1 {
-    --uno: 'font-serif italic font-450 text-lg';
-  }
-
-  dl.meta {
-    --uno: 'col-span-full mt-16 lt-sm:my-8 grid grid-cols-4 md:grid-cols-subgrid';
-
-    & dt {
-      --uno: 'col-start-1 text-fg-muted capitalize';
-    }
-
-    & dd {
-      --uno: 'col-start-2 col-span-full mb-2';
-    }
-
-    & dd:has(+ dd) {
-      --uno: 'mb-0';
-    }
-  }
-
   .tagline {
-    --uno: 'col-span-full my-16 lt-sm:my-12 text-xl indent';
+    --uno: 'col-start-1 col-span-7 mb-16 lt-sm:my-12 text-xl indent';
   }
 
-  dl.sum {
-    --uno: 'col-end--2 grid lt-sm:gap-8 grid-cols-2 md:grid-cols-subgrid mb-12';
-
-    & > div {
-      --uno: 'col-span-3 md:(even:col-start-5)';
-    }
-
-    & dt {
-      --uno: 'text-fg-muted capitalize';
-    }
+  dt {
+    --uno: 'capitalize';
   }
 </style>

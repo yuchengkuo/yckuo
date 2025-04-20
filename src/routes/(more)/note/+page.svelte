@@ -16,8 +16,8 @@
       <li>
         <a href={note.slug}>
           {note.title}
-          <time datetime={note.updated}>{formatDate(note.updated)}</time>
         </a>
+        <time datetime={note.updated}>{formatDate(note.updated)}</time>
       </li>
     {/each}
   </ul>
@@ -33,10 +33,10 @@
   }
 
   nav a {
-    --uno: 'text-fg no-underline';
+    --uno: 'text-fg';
   }
 
   time {
-    --uno: 'text-sm text-fg-subtle ml-2';
+    --uno: 'text-sm text-tertiary ml-2';
   }
 </style>

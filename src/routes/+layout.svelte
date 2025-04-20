@@ -1,29 +1,33 @@
 <script lang="ts">
   import '@unocss/reset/tailwind-compat.css'
-  import 'virtual:uno.css'
+  import 'uno.css'
   import '../styles/main.css'
 
-  import { page } from '$app/stores'
+  import Time from '$lib/view/Current/Time.svelte'
+  import Year from '$lib/view/Current/Year.svelte'
+
+  import { page } from '$app/state'
   import { fade } from 'svelte/transition'
   import { cubicOut } from 'svelte/easing'
+  import { formatDate } from '$lib/util'
 
   let { data, children } = $props()
 </script>
 
 <svelte:head>
-  <meta name="description" content={$page.data.description} />
+  <meta name="description" content={page.data.description} />
   <meta name="robots" content="index, follow" />
   <meta name="googlebot" content="index, follow" />
 
-  <meta property="og:title" content={$page.data.title} />
-  <meta property="og:description" content={$page.data.description} />
+  <meta property="og:title" content={page.data.title} />
+  <meta property="og:description" content={page.data.description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yuchengkuo.com{$page.url.pathname}" />
+  <meta property="og:url" content="https://yuchengkuo.com{page.url.pathname}" />
   <meta property="og:image" content="https://yuchengkuo.com/og/default.png" />
 
-  <meta name="twitter:title" content={$page.data.title} />
-  <meta name="twitter:description" content={$page.data.description} />
-  <meta name="twitter:url" content="https://yuchengkuo.com{$page.url.pathname}" />
+  <meta name="twitter:title" content={page.data.title} />
+  <meta name="twitter:description" content={page.data.description} />
+  <meta name="twitter:url" content="https://yuchengkuo.com{page.url.pathname}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://yuchengkuo.com/og/default.png" />
 
@@ -45,62 +49,56 @@
     >
   </div>
 
-  <nav>
-    <ul>
-      {#each data.navigation as nav}
-        <li>
-          <a
-            href={nav.url}
-            class:current={$page.url.pathname.startsWith(nav.url) ||
-              nav.include?.some((l) => $page.url.pathname.startsWith(l))}
-          >
-            {nav.label}
-          </a>
-        </li>
-      {/each}
-    </ul>
-  </nav>
+  <div>
+    <h1>{page.data.title}</h1>
+    <p>{page.data?.subtitle}</p>
+    <p>{page.data?.sidenote}</p>
+  </div>
+
+  <p class="text-sm text-tertiary">
+    Updated <time datetime={page.data.updated}>{formatDate(page.data.updated ?? null)}</time>
+  </p>
+
+  {#if page.url.pathname === '/'}
+    <nav>
+      <ul>
+        {#each data.navigation as nav}
+          <li>
+            <a
+              href={nav.url}
+              class:current={page.url.pathname.startsWith(nav.url) ||
+                nav.include?.some((l) => page.url.pathname.startsWith(l))}
+              class="inline-block"
+            >
+              {nav.label}
+            </a>
+          </li>
+        {/each}
+      </ul>
+    </nav>
+  {/if}
 </header>
 
-{#key $page.url}
+<!-- TODO: Outro animation -->
+{#key page.url}
   <main in:fade={{ duration: 800, easing: cubicOut }}>
     {@render children?.()}
   </main>
 {/key}
 
+<footer class="col-span-full mt-auto text-xs text-tertiary font-medium">
+  <p class="mb-0.5">GMT+8 <Time /></p>
+  <p><Year /> YuCheng Kuo</p>
+</footer>
+
 <div data-layer role="presentation"></div>
 
 <style>
   header {
-    --uno: 'col-span-full mb-18 lt-md:mb-8 items-center sticky top-2 z-10';
+    --uno: 'col-span-full flex flex-col gap-4 mb-14 lt-md:mb-8 z-10';
+  }
 
-    &,
-    & > nav {
-      --uno: 'grid grid-cols-subgrid';
-    }
-
-    & nav {
-      --uno: 'col-start-4 col-end--1';
-
-      & ul {
-        --uno: 'flex gap-x-3';
-
-        &:has(a.current) a:not(.current) {
-          --uno: 'text-fg-muted';
-        }
-      }
-    }
-
-    & a {
-      --uno: 'decoration-none';
-
-      & svg {
-        --uno: 'rotate-0 transition duration-500 ease-out';
-      }
-
-      &:hover svg {
-        --uno: 'rotate-180';
-      }
-    }
+  nav ul {
+    --uno: 'flex gap-4';
   }
 </style>

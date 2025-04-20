@@ -49,7 +49,7 @@
   let videoEl: HTMLVideoElement
   let visible = $state(false)
 
-  $effect.pre(() => {
+  $effect(() => {
     // 0 if no media is available yet
     if (videoEl?.videoWidth) visible = true
 
@@ -62,7 +62,7 @@
   })
 </script>
 
-<videoplayer class={classname} style="aspect-ratio: {aspectRatio}" {...rest}>
+<figure class={classname} style="aspect-ratio: {aspectRatio}" {...rest}>
   <div>
     <video
       bind:this={videoEl}
@@ -84,25 +84,25 @@
       {alt}
     </small>
   {/if}
-</videoplayer>
+</figure>
 
 <style>
-  videoplayer {
+  figure {
     --uno: 'block';
   }
   /* Wrapper */
-  videoplayer > div {
+  figure > div {
     --uno: 'relative overflow-hidden rounded';
   }
 
   video {
-    --uno: 'w-full bg-surface-muted';
+    --uno: 'w-full bg-surface';
   }
   div[role='presentation'] {
     --uno: 'absolute inset-0 transition-opacity ease-out duration-300 backdrop-filter backdrop-blur-xl select-none';
   }
 
   small {
-    --uno: 'block w-fit h-fit mt-2 font-550 text-sm text-fg-muted';
+    --uno: 'block w-fit h-fit mt-2 font-550 text-sm text-tertiary';
   }
 </style>

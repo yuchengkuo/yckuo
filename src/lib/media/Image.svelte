@@ -40,22 +40,25 @@
   if (Array.isArray(sizes)) sizes = sizes.join(', ')
 
   if (!src) {
-    ;({ src, srcset } = getImgProps({
+    const imgProps = getImgProps({
       id,
       widths,
       transformations: transformations as TransformerOption
-    }))
+    })
+    src = imgProps.src
+    srcset = imgProps.srcset
   } else {
     src = src
     srcset = null
   }
 
   if (isVideo) {
-    ;({ src } = getAWebpProps({
+    const webpProps = getAWebpProps({
       id,
       width: 1200,
       transformations: transformations as TransformerVideoOption
-    }))
+    })
+    src = webpProps.src
     srcset = null
     sizes = null
   }
@@ -100,11 +103,11 @@
 
 <style>
   figure {
-    --uno: 'overflow-hidden block isolate all:isolate bg-surface';
+    --uno: 'overflow-hidden block isolate all:isolate';
   }
   /* Wrapper */
   figure > div {
-    --uno: 'rounded bg-surface-muted relative overflow-hidden no-js:hidden';
+    --uno: 'rounded bg-surface relative overflow-hidden no-js:hidden';
   }
   /* Blurred overlay */
   div[role='presentation'] {
@@ -114,6 +117,6 @@
     --uno: 'w-full h-full object-cover object-center transition-opacity ease-out duration-300';
   }
   figcaption {
-    --uno: 'block w-fit h-fit mt-2 font-medium text-sm text-fg-muted';
+    --uno: 'block w-fit h-fit mt-2 font-medium text-sm text-tertiary';
   }
 </style>

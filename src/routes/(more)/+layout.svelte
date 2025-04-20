@@ -24,7 +24,7 @@
 
 <style>
   nav {
-    --uno: 'pb-4 mb-8 border-b border-border-muted';
+    --uno: 'pb-4 mb-8 border-b border-neutral';
   }
 
   nav a {

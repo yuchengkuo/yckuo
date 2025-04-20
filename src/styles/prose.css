@@ -106,17 +106,15 @@ main {
     }
 
     /* Image, Video */
-    figure,
-    videoplayer {
+    & > figure {
       --uno: 'my-8 md:my-18';
       --uno: 'md:(col-start-1 col-span-6)';
 
-      &:has(+ figure, + videoplayer) {
+      &:has(+ figure) {
         --uno: 'mb-0';
       }
 
-      & + figure,
-      & + videoplayer {
+      & + figure {
         --uno: 'mt-6';
       }
 

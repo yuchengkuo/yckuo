@@ -33,6 +33,8 @@ const sharedSchema = s.object({
   title: s.string(),
   description: s.markdown().optional(),
   slug: s.path(),
+  subtitle: s.string().optional(),
+  sidenote: s.string().optional(), //Tertiary Heading
   date: s.isodate().optional(),
   published: s.isodate().optional(),
   updated: s.isodate(),
@@ -67,66 +69,34 @@ const pages = defineCollection({
     .merge(sharedSchema)
 })
 
-type Connect = Record<
-  string,
-  Record<'visible' | 'hidden', Array<{ key: string; label: string; url?: string }>>
->
-/* todo: find better way */
-const about = defineCollection({
-  name: 'About',
-  pattern: 'about.yml',
-  single: true,
-  schema: s
-    .object({
-      works: s.array(
-        s.object({
-          title: s.string(),
-          time: s.string(),
-          url: s.string().url(),
-          area: s.string(),
-          description: s.markdown()
-        })
-      ),
-      connect: s
-        .record(
-          s.string(),
-          s.array(
-            s.object({
-              key: s.string(),
-              label: s.string(),
-              url: s.string().url().optional(),
-              hidden: s.boolean().default(false)
-            })
-          )
-        )
-        .transform<Connect>((connect) => {
-          return Object.fromEntries(
-            Object.entries(connect).map(([category, items]) => {
-              const visible = items.filter((item) => !item.hidden)
-              const hidden = items.filter((item) => item.hidden)
-              return [category, { visible, hidden }]
-            })
-          )
-        }),
-      content: markdoc(),
-      expand: markdoc()
-    })
-    .merge(sharedSchema)
-})
-
 const works = defineCollection({
   name: 'Work',
-  pattern: 'work/**/*.md',
+  pattern: 'work/*.md',
   schema: s
     .object({
       content: markdoc(),
-      cover: s.string(),
+      org: s.string(), // Reference to name in orgs collection
+      category: s.array(s.string().max(15)),
+      intro: s.markdown().optional(),
       meta: s
         .record(s.string(), s.union([s.string(), s.array(s.string()), s.string().url()]))
         .optional(),
-      toc: s.toc(),
-      tagline: s.string(),
-      summary: s.record(s.string(), s.markdown())
+      tagline: s.string().optional(),
+      summary: s.record(s.string(), s.markdown()).optional()
+    })
+    .merge(sharedSchema)
+    .transform((data) => ({ subtitle: 'Work', ...data }))
+})
+
+const orgs = defineCollection({
+  name: 'Org',
+  pattern: 'work/org/*.yml',
+  schema: s
+    .object({
+      name: s.string(),
+      description: s.markdown(),
+      duration: s.string(),
+      url: s.string().url()
     })
     .merge(sharedSchema)
 })
@@ -138,7 +108,8 @@ const projects = defineCollection({
     .object({
       content: markdoc(),
       cover: s.string().optional(),
-      tags: s.array(s.string()).optional()
+      tags: s.array(s.string()).optional(),
+      category: s.array(s.string().max(15))
     })
     .merge(sharedSchema)
 })
@@ -170,8 +141,8 @@ export default defineConfig({
   output: { assets: 'static' },
   collections: {
     navigation,
-    about,
     pages,
+    orgs,
     works,
     projects,
     posts,

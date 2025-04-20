@@ -1,34 +1,76 @@
 <script lang="ts">
   import Content from '$lib/content/Content.svelte'
-  import { formatDate } from '$lib/util'
+  import List from '$lib/view/List/List.svelte'
+  import ListGroupHeader from '$lib/view/List/ListGroupHeader.svelte'
+  import ListItem from '$lib/view/List/ListItem.svelte'
 
   let { data } = $props()
 </script>
 
 <svelte:head>
-  <title>{data.title} — Product Designer & Engineer</title>
+  <title>{data.title}</title>
 </svelte:head>
-
-<h1>{data.title}</h1>
 
 <div class="prose">
   <Content content={data.content} />
-
-  <p>
-    <span class="text-primary"
-      >Open to new opportunities. Seeking roles that combine UI/UX design and front-end development
-      skills.</span
-    >
-    <a href="mailto:hey@yuchengkuo.com" class="ml-2">email</a>
-  </p>
-
-  <p class="text-sm text-fg-subtle mt-8">
-    Updated on <time datetime={data.updated}>{formatDate(data.updated)}</time>
-  </p>
 </div>
 
+<section>
+  <h2>Work</h2>
+
+  {#each data.worksByOrg as org}
+    <ListGroupHeader>
+      <h3>
+        {org.name}
+        <span class="text-tertiary text-sm ml-2"
+          >(<a href={org.url}>{org.url.replace(/https:\/\//, '')}</a>)</span
+        >
+      </h3>
+
+      {#snippet trailing()}
+        <p class="text-tertiary">{org.duration}</p>
+      {/snippet}
+    </ListGroupHeader>
+    <List>
+      {#each org.works as work}
+        <ListItem>
+          <a href={work.slug}>{work.title}</a>
+
+          {#snippet trailing()}
+            <p class="text-tertiary">{work.category.join(', ')}</p>
+          {/snippet}
+        </ListItem>
+      {/each}
+    </List>
+  {/each}
+</section>
+
+<section>
+  <h2>Side</h2>
+
+  <List>
+    {#each data.projects as project}
+      <ListItem>
+        <a href={project.slug}>{project.title}</a>
+
+        {#snippet trailing()}
+          <p class="text-tertiary">{project.category}</p>
+        {/snippet}
+      </ListItem>
+    {/each}
+  </List>
+</section>
+
 <style>
-  h1 {
-    --uno: 'font-sans not-italic text-size-unset';
+  section {
+    --uno: 'mt-24 col-start-1 col-span-6';
+  }
+
+  h2 {
+    --uno: 'mb-4';
+  }
+
+  p {
+    --uno: 'text-tertiary';
   }
 </style>

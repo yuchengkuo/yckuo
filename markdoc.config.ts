@@ -142,6 +142,11 @@ const markdocConfig: ConfigType = {
         return new Markdoc.Tag('dl', node.transformAttributes(config), children)
       }
     },
+    /* Gallery */
+    gallery: {
+      render: 'Gallery',
+      children: ['paragraph']
+    },
     /* Content Accordion  */
     expand: { render: 'Expand' }
   }

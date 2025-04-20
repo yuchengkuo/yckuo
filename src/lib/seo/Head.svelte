@@ -1,13 +1,11 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy'
-
   import SvelteSeo from 'svelte-seo'
   import { dev } from '$app/environment'
 
   import type { ComponentProps } from 'svelte'
 
   type SvelteSeoProps = ComponentProps<SvelteSeo>
-  type $$Props = Omit<
+  type RestProps = Omit<
     SvelteSeoProps,
     'nofollow' | 'noindex' | 'nositelinkssearchbox' | 'notranslate'
   >
@@ -23,22 +21,13 @@
     description?: string
     openGraph?: SvelteSeoProps['openGraph']
     children?: import('svelte').Snippet
-    [key: string]: any
   }
 
-  let {
-    title = $bindable(''),
-    description = '',
-    openGraph = $bindable({}),
-    children,
-    ...rest
-  }: Props = $props()
+  let { title, description = '', openGraph, children, ...rest }: Props & RestProps = $props()
 
   title = title ? title + ' – ' + defaultTitle : defaultTitle
 
-  run(() => {
-    console.log(title)
-  })
+  $inspect(title)
 
   const defaultOpenGraph: SvelteSeoProps['openGraph'] = {
     type: 'website',
