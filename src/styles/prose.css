@@ -16,6 +16,10 @@ main {
       --uno: 'mt-4 lt-sm:mt-3';
     }
 
+    strong {
+      --uno: 'font-medium bg-selection';
+    }
+
     /* Heading */
     h1 {
       --uno: 'font-medium mt-20 lt-sm:mt-8';
@@ -85,7 +89,7 @@ main {
       @screen md {
         /* Definition followed by term */
         & dd:has(+ dt) {
-          --uno: 'border-b pb-3';
+          --uno: 'pb-3';
         }
 
         /* In-between terms */
@@ -100,7 +104,12 @@ main {
 
         /* Definition following term */
         & dt + dd {
-          --uno: 'pt-3';
+          --uno: 'border-t pt-3';
+        }
+
+        /* Remove first definition's border */
+        & dd:first-of-type {
+          --uno: 'border-none';
         }
       }
     }
