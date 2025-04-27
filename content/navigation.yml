@@ -1,24 +1,19 @@
 title: Navigation
-updated: 2024-06-21
+updated: 2025-03-23
 
 navigation:
-  - key: About
-    label: About
+  - key: Info
+    label: Info
     url: /about
-  - key: Work
-    label: Work
-    url: /work
-    include:
-      - /work
-      - /project
+
   - key: Now
     label: Now
     url: /now
+
   - key: Colophon
     label: Colophon
     url: /colophon
-  - key: More
-    label: More
-    url: /note
-    include:
-      - /note
+
+  - key: Contact
+    label: Contact
+    url: /contact

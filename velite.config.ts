@@ -85,7 +85,7 @@ const works = defineCollection({
       summary: s.record(s.string(), s.markdown()).optional()
     })
     .merge(sharedSchema)
-    .transform((data) => ({ subtitle: 'Work', ...data }))
+    .transform((data) => ({ subtitle: `Project at ${data.org}`, sidenote: 'Work', ...data })) // Adding common data
 })
 
 const orgs = defineCollection({

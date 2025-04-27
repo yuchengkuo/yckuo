@@ -5,18 +5,19 @@ tags:
   - Markdoc
   - Markdown
   - Svelte
-cover: project/xees0vxr2op9j2iwmmpm
 date: 2022-11
 updated: 2024-06-21
+category:
+  - Development
 ---
 
 A package to render Markdoc’s parsed content for Svelte application.
 
 {% deflist %}
 
-When
+Published
 
-- {% $date %}
+- Nov, 2022
 
 Visit
 

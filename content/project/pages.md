@@ -1,5 +1,5 @@
 ---
-title: Pages
+title: Pages - Figma plugin
 description: |
   _Page_ is a Figma plugin to make page organization in design files easier. It can group pages folder-alike, make pages more identifiable with emoji tagging. This is also a learning project for plugin API of Figma and Svelte language.
 tags:
@@ -7,17 +7,18 @@ tags:
   - Plugin
   - Svelte
 date: 2022-05
-cover: project/pages
 updated: 2024-06-21
+category:
+  - Product
 ---
 
 _Page_ is a Figma plugin to make page organization in design files easier. It can group pages folder-alike, make pages more identifiable with emoji tagging. This is also a learning project for plugin API of Figma and Svelte language.
 
 {% deflist %}
 
-When
+Online
 
-- {% $date %}
+- May, 2022
 
 Visit
 
@@ -25,7 +26,7 @@ Visit
 
 Stats
 
-- 3.7k+ users
+- 5k+ users
 - 600+ saves
 
 Uses
