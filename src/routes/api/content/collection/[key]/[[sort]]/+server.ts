@@ -4,9 +4,8 @@ import { error, json } from '@sveltejs/kit'
 import * as all from '$content'
 import type { Page } from '$content'
 
-export async function GET({ params, url }) {
-  const { key } = params
-  const sort = url.searchParams.get('sort')
+export async function GET({ params }) {
+  const { key, sort } = params
 
   const collection = Object.entries(all)
     .find(([k]) => k === key)
@@ -17,7 +16,7 @@ export async function GET({ params, url }) {
   let data = (collection as unknown as Page[]) /* filter out drafts in production */
     .filter((page) => !page.draft || dev)
 
-  /* Sort by update date or provided key */
+  /* Sort by update date or published date */
   if (sort) {
     const [sortKey, sortDirection] = sort.split(':')
     if (
