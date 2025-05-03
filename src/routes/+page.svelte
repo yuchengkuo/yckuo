@@ -4,7 +4,15 @@
   import ListGroupHeader from '$lib/view/List/ListGroupHeader.svelte'
   import ListItem from '$lib/view/List/ListItem.svelte'
 
+  import { scramble } from '$lib/action/scramble/scramble.svelte.js'
+  import { glitch } from '$lib/action/scramble/param.js'
+
   let { data } = $props()
+
+  let workAnchor: HTMLAnchorElement[] | null[] = $state([])
+  let workParagraph: HTMLParagraphElement[] | null[] = $state([])
+  let sideAnchor: HTMLAnchorElement[] | null[] = $state([])
+  let sideParagraph: HTMLParagraphElement[] | null[] = $state([])
 </script>
 
 <svelte:head>
@@ -32,12 +40,38 @@
       {/snippet}
     </ListGroupHeader>
     <List>
-      {#each org.works as work}
-        <ListItem>
-          <a href={work.slug}>{work.title}</a>
+      {#each org.works as work, i}
+        <ListItem
+          onmouseenter={() => {
+            setTimeout(() => workAnchor[i]?.scramble?.(), 10)
+            setTimeout(() => workParagraph[i]?.scramble?.(), 10)
+          }}
+        >
+          <a
+            bind:this={workAnchor[i]}
+            use:scramble={{
+              text: work.title,
+              step: work.title.length,
+              ...glitch,
+              autoplay: false
+            }}
+            href={work.slug}>{work.title}</a
+          >
 
           {#snippet trailing()}
-            <p class="text-tertiary">{work.category.join(', ')}</p>
+            {@const category = work.category.join(', ')}
+            <p
+              bind:this={workParagraph[i]}
+              use:scramble={{
+                text: category,
+                step: category.length,
+                ...glitch,
+                autoplay: false
+              }}
+              class="text-tertiary"
+            >
+              {category}
+            </p>
           {/snippet}
         </ListItem>
       {/each}
@@ -49,12 +83,38 @@
   <h2>Side</h2>
 
   <List>
-    {#each data.projects as project}
-      <ListItem>
-        <a href={project.slug}>{project.title}</a>
+    {#each data.projects as project, i}
+      <ListItem
+        onmouseenter={() => {
+          setTimeout(() => sideAnchor[i]?.scramble?.(), 10)
+          setTimeout(() => sideParagraph[i]?.scramble?.(), 10)
+        }}
+      >
+        <a
+          bind:this={sideAnchor[i]}
+          use:scramble={{
+            text: project.title,
+            step: project.title.length,
+            ...glitch,
+            autoplay: false
+          }}
+          href={project.slug}>{project.title}</a
+        >
 
         {#snippet trailing()}
-          <p class="text-tertiary">{project.category}</p>
+          {@const category = project.category.join(', ')}
+          <p
+            bind:this={sideParagraph[i]}
+            use:scramble={{
+              text: category,
+              step: category.length,
+              ...glitch,
+              autoplay: false
+            }}
+            class="text-tertiary"
+          >
+            {category}
+          </p>
         {/snippet}
       </ListItem>
     {/each}
@@ -68,9 +128,5 @@
 
   h2 {
     --uno: 'mb-4';
-  }
-
-  p {
-    --uno: 'text-tertiary';
   }
 </style>

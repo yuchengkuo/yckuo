@@ -1,19 +1,43 @@
 <script lang="ts">
   import { page } from '$app/state'
+  import { glitch } from '$lib/action/scramble/param'
+  import { scramble } from '$lib/action/scramble/scramble.svelte'
   import Content from '$lib/content/Content.svelte'
 
   let { data } = $props()
 
   let metaEntries = $derived(Object.entries(data.meta ?? {}))
   let summaryEntries = $derived(Object.entries(data.summary ?? {}))
+
   let nextProjectIndex =
     1 + (page.data.works as (typeof data)[]).findIndex((p) => p.slug === data.slug)
   /** Assign the first for the last projecy */
   nextProjectIndex = nextProjectIndex === page.data.works.length ? 0 : nextProjectIndex
   const nextProject = page.data.works[nextProjectIndex] as typeof data
+
+  let tagline: HTMLParagraphElement | null = $state(null)
+  let nextProjectElement: HTMLAnchorElement | null = $state(null)
+
+  $effect(() => {
+    setInterval(() => {
+      tagline?.scramble?.()
+    }, 4000)
+  })
 </script>
 
-<p class="tagline">{data.tagline}</p>
+<p
+  bind:this={tagline}
+  use:scramble={{
+    ...glitch,
+    text: data.tagline ?? '',
+    step: data.tagline?.length,
+    scramble: 1,
+    chance: 0.000001
+  }}
+  class="tagline"
+>
+  {data.tagline}
+</p>
 
 <!-- Intro -->
 {#if data.intro}
@@ -57,7 +81,21 @@
 
 <!-- Next -->
 <section class="mt-20">
-  <p class="text-xl">Next → <a href="/{nextProject.slug}">{nextProject.title}</a></p>
+  <p class="text-xl">
+    Next → <a
+      bind:this={nextProjectElement}
+      use:scramble={{
+        ...glitch,
+        text: nextProject.title,
+        step: nextProject.title.length,
+        scramble: 1
+      }}
+      onmouseenter={() => {
+        nextProjectElement?.scramble?.()
+      }}
+      href="/{nextProject.slug}">{nextProject.title}</a
+    >
+  </p>
 </section>
 
 <style>

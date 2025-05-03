@@ -10,8 +10,22 @@
   import { fade } from 'svelte/transition'
   import { cubicOut } from 'svelte/easing'
   import { formatDate } from '$lib/util'
+  import { scramble } from '$lib/action/scramble/scramble.svelte'
+  import { glitch } from '$lib/action/scramble/param'
 
   let { data, children } = $props()
+
+  let footerName: HTMLSpanElement | null = $state(null)
+
+  $effect(() => {
+    const timer = setInterval(() => {
+      setTimeout(() => {
+        footerName?.scramble?.()
+      }, Math.random() * 3000)
+    }, 3000)
+
+    return () => clearInterval(timer)
+  })
 </script>
 
 <svelte:head>
@@ -50,9 +64,25 @@
   </div>
 
   <div>
-    <h1>{page.data.title}</h1>
-    <p>{page.data?.subtitle}</p>
-    <p>{page.data?.sidenote}</p>
+    <h1
+      use:scramble={{
+        text: page.data.title,
+        step: page.data.title.length,
+        ...glitch
+      }}
+    >
+      {page.data.title}
+    </h1>
+    {#if page.data.subtitle}
+      <p use:scramble={{ text: page.data.subtitle, overdrive: true, speed: 0.5 }}>
+        {page.data.subtitle}
+      </p>
+    {/if}
+    {#if page.data.sidenote}
+      <p use:scramble={{ text: page.data.sidenote, overdrive: true, speed: 0.3 }}>
+        {page.data.sidenote}
+      </p>
+    {/if}
   </div>
 
   <p class="text-sm text-tertiary">
@@ -88,7 +118,17 @@
 
 <footer class="col-span-full mt-auto text-xs text-tertiary font-medium">
   <p class="mb-0.5">GMT+8 <Time /></p>
-  <p><Year /> YuCheng Kuo</p>
+  <p>
+    <Year />
+    <span
+      bind:this={footerName}
+      use:scramble={{
+        text: 'YuCheng Kuo',
+        step: 'YuCheng Kuo'.length,
+        ...glitch
+      }}>YuCheng Kuo</span
+    >
+  </p>
 </footer>
 
 <div data-layer role="presentation"></div>
