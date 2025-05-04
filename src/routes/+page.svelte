@@ -23,7 +23,7 @@
   <Content content={data.content} />
 </div>
 
-<section>
+<section id="work">
   <h2>Work</h2>
 
   {#each data.worksByOrg as org}
@@ -79,7 +79,7 @@
   {/each}
 </section>
 
-<section>
+<section id="side">
   <h2>Side</h2>
 
   <List>
