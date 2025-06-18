@@ -7,7 +7,7 @@
       "ENABLE_EXPERIMENTAL_FEATURES": "1"
     }
   },
-  "buildCommand": "pnpm install && git submodule update --init --recursive && pnpm build",
+  "buildCommand": "pnpm install && git config url.\"https://$GITHUB_TOKEN@github.com/\".insteadOf \"https://github.com/\" && git submodule update --init --recursive && pnpm build",
   "installCommand": "pnpm install",
   "rewrites": [
     { "source": "/bee.js", "destination": "https://cdn.splitbee.io/sb.js" },
