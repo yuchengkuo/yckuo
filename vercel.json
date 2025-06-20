@@ -2,13 +2,7 @@
   "github": {
     "silent": true
   },
-  "build": {
-    "env": {
-      "ENABLE_EXPERIMENTAL_FEATURES": "1"
-    }
-  },
-  "buildCommand": "pnpm build",
-  "installCommand": "git config url.\"https://$GITHUB_TOKEN@github.com/\".insteadOf \"https://github.com/\" && git submodule update --init --recursive && pnpm install",
+  "installCommand": "bash scripts/vercel-install.sh",
   "rewrites": [
     { "source": "/bee.js", "destination": "https://cdn.splitbee.io/sb.js" },
     {
