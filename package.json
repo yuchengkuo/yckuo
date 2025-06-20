@@ -4,7 +4,7 @@
   "authors": "YuCheng Kuo",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@7.17.1",
+  "packageManager": "pnpm@9.15.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/yuchengkuo/yckuo"
@@ -19,7 +19,8 @@
     "format": "prettier --write .",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "vercel-install": "bash scripts/vercel-install.sh"
   },
   "type": "module",
   "devDependencies": {
