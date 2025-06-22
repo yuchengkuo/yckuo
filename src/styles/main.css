@@ -21,14 +21,21 @@ html {
 /* Top and bottom decorative layer */
 div[data-layer] {
   --uno: 'fixed inset-0 pointer-events-none select-none z-5';
-  animation: 1000ms scale;
+  animation: scale 1000ms;
+
+  --gradient-color: white;
+
   background-image: linear-gradient(
     to bottom,
-    oklch(var(--background)),
+    var(--gradient-color),
     transparent 3rem,
-    transparent calc(100% - 1rem),
-    oklch(var(--background)) 100%
+    transparent calc(100% - 2rem),
+    var(--gradient-color) 100%
   );
+
+  @media (prefers-color-scheme: dark) {
+    --gradient-color: black;
+  }
 
   /* Blur effect */
   &::before {
@@ -42,6 +49,8 @@ body {
   --uno: 'min-h-100vh';
   --uno: 'text-primary text-3.75 leading-6.5 font-sans';
   --uno: 'p-6 md:(px-10 py-9)';
+  /* Intro animation */
+  animation: fade 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 
   /* Main grid layouts */
   --uno: 'grid grid-cols-6 lg:grid-cols-12 gap-x-4 items-baseline';

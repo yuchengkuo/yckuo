@@ -20,10 +20,6 @@ echo "GITHUB_TOKEN is available"
 echo "Configuring git authentication..."
 git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
 
-# Show current git config for debugging
-echo "Current git URL configuration:"
-git config --global --get-regexp url.*insteadof || echo "No URL rewrites configured"
-
 # Initialize and update submodules
 echo "Initializing git submodules..."
 if git submodule status | grep -q "^-"; then
