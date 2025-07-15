@@ -1,16 +1,20 @@
-<svelte:options accessors={true} />
-
 <script lang="ts">
   import { motion } from '$lib/animation/motion'
   import placePopover from '../placePopover'
 
-  export let content: string
-  export let trigger: HTMLElement
-  export let offset = 12
-  export let placement: 'top' | 'bottom' | 'left' | 'right' = 'top'
-  export let alignment: 'start' | 'end' | 'center' = 'center'
+  interface Props {
+    content: string
+    trigger: HTMLElement
+    offset?: number
+    placement?: 'top' | 'bottom' | 'left' | 'right'
+    alignment?: 'start' | 'end' | 'center'
+  }
 
-  let tooltip: HTMLElement
+  let { content, trigger, offset = 12, placement = 'top', alignment = 'center' }: Props = $props()
+
+  let tooltip: HTMLElement | undefined = $state()
+
+  export { content, trigger, offset, placement, alignment }
 </script>
 
 {#key content}

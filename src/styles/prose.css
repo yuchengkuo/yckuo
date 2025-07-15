@@ -6,6 +6,7 @@
 main {
   article,
   .prose {
+    /* Reset first child */
     *:first-child {
       --uno: 'mt-0';
     }
@@ -15,10 +16,13 @@ main {
       --uno: 'mt-4 lt-sm:mt-3';
     }
 
+    strong {
+      --uno: 'font-medium bg-selection';
+    }
+
     /* Heading */
     h1 {
-      --uno: 'font-serif font-450 lt-md:mb-6 md:(col-start-1 col-span-2)';
-      --uno: 'not-first:(mt-20 lt-sm:mt-8)';
+      --uno: 'font-medium mt-20 lt-sm:mt-8';
     }
 
     h2 {
@@ -48,73 +52,83 @@ main {
       --uno: 'mt-4';
 
       li {
-        --uno: 'pl-1 -ml-1';
-        --uno: 'lt-sm:list-inside marker:(text-base text-fg-subtle)';
+        --uno: 'ml-4';
+        --uno: 'list-outside';
 
         &::marker {
-          --uno: 'text-fg-muted';
+          --uno: 'text-secondary';
         }
       }
     }
 
     ul li {
-      list-style-type: '- ';
+      list-style-type: '-  ';
     }
 
     ol li {
       list-style-type: decimal;
     }
 
+    /* Table */
+    table {
+      --uno: 'col-start-1 col-span-6';
+    }
+
     /* Definition List */
     dl {
-      --uno: 'mt-4 grid grid-cols-4 md:grid-cols-subgrid gap-0 relative col-start-4 col-span-5';
+      --uno: 'mt-4 md:(grid grid-cols-subgrid gap-0) relative col-start-1 col-span-6';
 
       dt {
-        --uno: 'col-start-1 border-border-muted text-fg-muted';
+        --uno: 'lt-md:mb-1 col-start-1 border-neutral text-secondary';
       }
 
       dd {
-        --uno: 'col-start-2 col-end--1 border-border-muted';
+        --uno: 'lt-md:mb-4 col-start-2 col-end--1 border-neutral';
       }
 
-      /* Definition followed by term */
-      & dd:has(+ dt) {
-        --uno: 'border-b pb-2';
-      }
+      @screen md {
+        /* Definition followed by term */
+        & dd:has(+ dt) {
+          --uno: 'pb-3';
+        }
 
-      /* In-between terms */
-      & dd + dt {
-        --uno: 'border-t pt-2';
-      }
+        /* In-between terms */
+        & dd + dt {
+          --uno: 'border-t pt-3';
+        }
 
-      /* First term */
-      & dt:first-of-type {
-        --uno: 'pt-2';
-      }
+        /* First term */
+        & dt:first-of-type {
+          --uno: 'pt-3';
+        }
 
-      /* Definition following term */
-      & dt + dd {
-        --uno: 'pt-2';
+        /* Definition following term */
+        & dt + dd {
+          --uno: 'border-t pt-3';
+        }
+
+        /* Remove first definition's border */
+        & dd:first-of-type {
+          --uno: 'border-none';
+        }
       }
     }
 
     /* Image, Video */
-    figure,
-    videoplayer {
+    & > figure {
       --uno: 'my-8 md:my-18';
-      --uno: 'md:(col-start-4 col-span-6)';
+      --uno: 'md:(col-start-1 col-span-6)';
 
-      &:has(+ figure, + videoplayer) {
+      &:has(+ figure) {
         --uno: 'mb-0';
       }
 
-      & + figure,
-      & + videoplayer {
+      & + figure {
         --uno: 'mt-6';
       }
 
       &.narrow {
-        --uno: 'md:(col-start-4 col-span-4)';
+        --uno: 'md:(col-start-1 col-span-4)';
       }
 
       &.full {
@@ -127,8 +141,8 @@ main {
 
       /* Note: grid items need to be mulitple of three, todo: fix it */
       *:not(.grid) + &.grid,
-      &:nth-child(3n + 1 of .grid) {
-        --uno: 'md:(col-start-4)';
+      &:nth-child(4n of .grid) {
+        --uno: 'md:(col-start-1)';
       }
 
       *:not(.grid) + &.grid {
@@ -137,7 +151,7 @@ main {
     }
 
     hr {
-      --uno: 'md:(col-start-4 col-span-full)';
+      --uno: 'md:(col-start-1 col-span-full)';
     }
 
     :is(hr) + :is(p, h1, h2, h3, h4, h5, h6) {
@@ -151,8 +165,8 @@ main {
  */
 
 .shiki {
-  --uno: 'py-4 px-2 bg-surface rounded-2 border-1 border-border-muted mt-6 overflow-x-auto drop-shadow-sm';
-  --uno: 'col-start-4 col-span-5 relative';
+  --uno: 'py-4 px-2 bg-surface rounded-2 border-1 border-neutral mt-6 overflow-x-auto drop-shadow-sm';
+  --uno: 'col-start-1 col-span-6 relative';
 
   counter-reset: line;
 
@@ -167,7 +181,7 @@ main {
   .line::before {
     counter-increment: line;
     content: counter(line);
-    --uno: 'inline-block min-w-4 mr-4 text-fg-subtle text-right';
+    --uno: 'inline-block min-w-4 mr-4 text-tertiary text-right';
   }
 
   .highlighted {

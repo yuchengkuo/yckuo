@@ -16,13 +16,23 @@ export async function GET({ params }) {
   let data = (collection as unknown as Page[]) /* filter out drafts in production */
     .filter((page) => !page.draft || dev)
 
-  /* Sort by update date */
-  if (sort === 'asc' || sort === 'desc') {
-    data = data.sort((a, b) => {
-      const dateA = new Date(a.updated).getTime()
-      const dateB = new Date(b.updated).getTime()
-      return sort === 'asc' ? dateA - dateB : dateB - dateA
-    })
+  /* Sort by update date or published date */
+  if (sort) {
+    const [sortKey, sortDirection] = sort.split(':')
+    if (
+      (sortKey === 'updated' || sortKey === 'published') &&
+      (sortDirection === 'asc' || sortDirection === 'desc')
+    ) {
+      data = data.sort((a, b) => {
+        const dateA = new Date(
+          sortKey === 'updated' ? a.updated : (a.published ?? '2048-01')
+        ).getTime()
+        const dateB = new Date(
+          sortKey === 'updated' ? b.updated : (b.published ?? '2048-01')
+        ).getTime()
+        return sortDirection === 'asc' ? dateA - dateB : dateB - dateA
+      })
+    }
   }
 
   return json(data)

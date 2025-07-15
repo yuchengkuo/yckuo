@@ -8,5 +8,7 @@ export async function load({ params, fetch }) {
   const res = await fetch(`/api/content/entry/${encodeURIComponent(`work/${slug}`)}`)
   if (!res.ok) error(404, 'Work not found or removed.')
 
-  return (await res.json()) as Work
+  const work = (await res.json()) as Work
+
+  return work
 }

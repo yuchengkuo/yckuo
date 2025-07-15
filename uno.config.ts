@@ -1,6 +1,6 @@
 import {
   defineConfig,
-  presetUno,
+  presetWind4,
   presetIcons,
   presetAttributify,
   transformerDirectives,
@@ -16,7 +16,12 @@ export default defineConfig({
   transformers: [transformerDirectives(), transformerVariantGroup()],
   presets: [
     presetAttributify(),
-    presetUno({ dark: 'media' }),
+    presetWind4({
+      dark: 'media',
+      preflights: {
+        theme: 'on-demand'
+      }
+    }),
     presetIcons({
       collections: {
         custom: {
@@ -38,31 +43,7 @@ export default defineConfig({
       mono: 'var(--mono)'
     },
     colors: {
-      bg: {
-        DEFAULT: 'oklch(var(--background))',
-        muted: 'oklch(var(--background-muted))'
-      },
-      fg: {
-        DEFAULT: 'oklch(var(--foreground))',
-        muted: 'oklch(var(--foreground-muted))',
-        subtle: 'oklch(var(--foreground-subtle))'
-      },
-      border: {
-        DEFAULT: 'oklch(var(--border))',
-        muted: 'oklch(var(--border-muted))'
-      },
-      surface: {
-        DEFAULT: 'oklch(var(--surface))',
-        muted: 'oklch(var(--surface-muted))'
-      },
-      primary: {
-        DEFAULT: 'oklch(var(--primary))'
-      },
-      underline: {
-        DEFAULT: 'oklch(var(--underline))'
-      },
-      tag: 'oklch(var(--tag))',
-      ontag: 'oklch(var(--ontag))',
+      accent: '#44F440',
       radix: {
         ...transformRadixColors(radixThemes),
         dark: {
@@ -72,20 +53,40 @@ export default defineConfig({
     }
   },
   shortcuts: [
+    /* Semantic */
     {
-      'border-dash': 'border-b border-dashed border-border',
-      button: 'bg-transparent hover:(bg-fg-muted text-bg-muted) duration-100 active:bg-fg',
-      tag: 'w-fit text-xs leading-none font-medium p-1 rounded shadow-sm bg-tag text-ontag dark:(bg-ontag text-tag)'
+      'bg-screen': 'bg-rx-sage-1',
+      'bg-screen-hover': 'bg-rx-sage-2',
+      'bg-surface': 'bg-rx-sage-3',
+      'bg-surface-hover': 'bg-rx-sage-4',
+      'bg-selection': 'bg-rx-grass-3',
+      'text-primary': 'text-rx-sage-12',
+      'text-secondary': 'text-rx-sage-11',
+      'text-tertiary': 'text-rx-sage-9',
+      'text-selection': 'text-rx-grass-11',
+      'border-neutral': 'border-rx-sage-3',
+      'border-neutral-hover': 'border-rx-sage-4',
+      'underline-neutral': 'underline-rx-sage-5',
+      'underline-neutral-hover': 'underline-rx-sage-6',
+      'underline-dotted': 'underline-rx-sage-9',
+      'underline-dotted-hover': 'underline-rx-sage-10'
     },
+    /* Utility */
+    {
+      'border-dash': 'border-b border-dashed border-neutral',
+      button: 'bg-transparent'
+    },
+    /* Shortcut */
     [/^size-(.*)$/, ([, s]) => `w-${s} h-${s}`],
     [
       /^tag-(.*)$/,
       ([, c]) =>
-        `bg-rx-${c}-5 text-fg-muted w-fit text-xs leading-none font-medium p-1 rounded shadow-sm`
+        `bg-rx-${c}-5 text-rx-${c}-12 w-fit text-xs leading-none font-medium p-1 rounded shadow-sm`
     ],
     [/^bg-rx-(.*)$/, ([, r]) => `bg-radix-${r} dark:bg-radix-dark-${r}`],
     [/^text-rx-(.*)$/, ([, r]) => `text-radix-${r} dark:text-radix-dark-${r}`],
-    [/^border-rx-(.*)$/, ([, r]) => `border-radix-${r} dark:border-radix-dark-${r}`]
+    [/^border-rx-(.*)$/, ([, r]) => `border-radix-${r} dark:border-radix-dark-${r}`],
+    [/^underline-rx-(.*)$/, ([, r]) => `underline-radix-${r} dark:underline-radix-dark-${r}`]
   ],
   variants: [
     {
@@ -137,5 +138,5 @@ function transformRadixColors(radixThemes = {}) {
 }
 
 function removeRadixColorPrefix(radix = {}) {
-  return Object.fromEntries(Object.entries(radix).map(([k, v]) => [k.match(/\d+/), v]))
+  return Object.fromEntries(Object.entries(radix).map(([k, v]) => [k.match(/\d+/)?.[0] || k, v]))
 }

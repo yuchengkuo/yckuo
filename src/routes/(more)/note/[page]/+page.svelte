@@ -2,7 +2,7 @@
   import Content from '$lib/content/Content.svelte'
   import { formatDate } from '$lib/util.js'
 
-  export let data
+  let { data } = $props()
 </script>
 
 <svelte:head>
@@ -24,6 +24,6 @@
   }
 
   header p {
-    --uno: 'text-sm text-fg-subtle mt-2';
+    --uno: 'text-sm text-tertiary mt-2';
   }
 </style>

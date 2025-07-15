@@ -30,6 +30,7 @@ yarn-error.log*
 
 # content
 .velite
+.gitmodules
 
 # svelte
 /.svelte-kit

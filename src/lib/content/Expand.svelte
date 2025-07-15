@@ -1,12 +1,16 @@
 <script lang="ts">
-  let classnames = ''
-  export { classnames as class }
+  import type { HTMLDetailsAttributes } from 'svelte/elements'
+  interface Props {
+    children?: import('svelte').Snippet
+  }
+
+  let { children, ...rest }: HTMLDetailsAttributes & Props = $props()
 </script>
 
-<details class={classnames}>
+<details {...rest}>
   <summary><span>Expand more +</span></summary>
 
-  <slot />
+  {@render children?.()}
 </details>
 
 <style>

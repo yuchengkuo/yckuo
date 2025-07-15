@@ -7,15 +7,21 @@
   import Expand from './Expand.svelte'
   import Video from '$lib/media/Video.svelte'
   import CodeBlock from './CodeBlock.svelte'
+  import Gallery from './Gallery.svelte'
 
-  export let content: RenderableTreeNodes
-  export let components: Record<string, any> = {}
+  interface Props {
+    content: RenderableTreeNodes
+    components?: Record<string, any>
+  }
+
+  let { content, components = {} }: Props = $props()
 
   const shared: Record<string, any> = {
     img: Image,
     vid: Video,
     CodeBlock,
-    Expand
+    Expand,
+    Gallery
   }
 </script>
 

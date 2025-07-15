@@ -5,7 +5,7 @@
   import type { ComponentProps } from 'svelte'
 
   type SvelteSeoProps = ComponentProps<SvelteSeo>
-  type $$Props = Omit<
+  type RestProps = Omit<
     SvelteSeoProps,
     'nofollow' | 'noindex' | 'nositelinkssearchbox' | 'notranslate'
   >
@@ -16,13 +16,18 @@
   const defaultDescription =
     'Personal website, portfolio and the corner on the internet of YuCheng Kuo, a design engineer from Taiwan.'
 
-  export let title = ''
-  export let description = ''
-  export let openGraph: SvelteSeoProps['openGraph'] = {}
+  interface Props {
+    title?: string
+    description?: string
+    openGraph?: SvelteSeoProps['openGraph']
+    children?: import('svelte').Snippet
+  }
+
+  let { title, description = '', openGraph, children, ...rest }: Props & RestProps = $props()
 
   title = title ? title + ' – ' + defaultTitle : defaultTitle
 
-  $: console.log(title)
+  $inspect(title)
 
   const defaultOpenGraph: SvelteSeoProps['openGraph'] = {
     type: 'website',
@@ -53,7 +58,7 @@
   description={description ?? defaultDescription}
   canonical="https://yuchengkuo.com/"
   {openGraph}
-  {...$$restProps}
+  {...rest}
 >
-  <slot />
+  {@render children?.()}
 </SvelteSeo>

@@ -1,9 +1,14 @@
 <script lang="ts">
   import portal from './action'
 
-  export let target = 'body'
+  interface Props {
+    target?: string
+    children?: import('svelte').Snippet
+  }
+
+  let { target = 'body', children }: Props = $props()
 </script>
 
 <div use:portal={target} data-portal-hidden>
-  <slot />
+  {@render children?.()}
 </div>

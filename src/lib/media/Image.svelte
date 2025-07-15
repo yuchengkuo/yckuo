@@ -1,58 +1,69 @@
 <script lang="ts">
-  import { beforeUpdate } from 'svelte'
-
   import { getAWebpProps, getImgProps } from './getImgProps'
 
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
-  export let id = ''
-  let externalSrc = ''
-  export { externalSrc as src }
-  export let alt = ''
-  export let isVideo = false
-  export let widths = [280, 560, 840, 1100, 1650, 2100]
-  let sourceSizes = [
-    '(max-width:1023px) 80vw',
-    '(min-width:1024px) and (max-width:1620px) 80vw',
-    '1100px'
-  ]
-  export { sourceSizes as sizes }
-  export let transformations: TransformerOption | TransformerVideoOption = {}
-  export let blurDataUrl: string | null = null
-  export let aspectRatio: string | null = null
-  export let showcap = false
-  let className = ''
-  export { className as class }
+  interface Props {
+    id?: string
+    src?: string
+    alt?: string
+    isVideo?: boolean
+    widths?: number[]
+    sizes?: string[] | string | null
+    transformations?: TransformerOption | TransformerVideoOption
+    blurDataUrl?: string | null
+    aspectRatio?: string | null
+    showcap?: boolean
+    class?: string
+  }
+
+  let {
+    id = '',
+    src = '',
+    alt = '',
+    isVideo = false,
+    widths = [280, 560, 840, 1100, 1650, 2100],
+    sizes = ['(max-width:1023px) 80vw', '(min-width:1024px) and (max-width:1620px) 80vw', '1100px'],
+    transformations = {},
+    blurDataUrl,
+    aspectRatio,
+    showcap = false,
+    class: classname,
+    ...rest
+  }: Props = $props()
 
   let imgEl: HTMLImageElement
-  let visible = true
 
-  let src = ''
-  let srcset: string | null = ''
-  let sizes: string | null = sourceSizes.join(', ')
+  let visible = $state(true)
+  let srcset: string | null = $state('')
 
-  if (!externalSrc) {
-    ;({ src, srcset } = getImgProps({
+  if (Array.isArray(sizes)) sizes = sizes.join(', ')
+
+  if (!src) {
+    const imgProps = getImgProps({
       id,
       widths,
       transformations: transformations as TransformerOption
-    }))
+    })
+    src = imgProps.src
+    srcset = imgProps.srcset
   } else {
-    src = externalSrc
+    src = src
     srcset = null
   }
 
   if (isVideo) {
-    ;({ src } = getAWebpProps({
+    const webpProps = getAWebpProps({
       id,
       width: 1200,
       transformations: transformations as TransformerVideoOption
-    }))
+    })
+    src = webpProps.src
     srcset = null
     sizes = null
   }
 
-  beforeUpdate(() => {
+  $effect.pre(() => {
     if (imgEl?.complete) visible = true
 
     if (!imgEl) return
@@ -64,7 +75,7 @@
   })
 </script>
 
-<figure class={className} {...$$restProps}>
+<figure class={classname} {...rest}>
   <div style="aspect-ratio: {aspectRatio}">
     <!-- Blurred placeholder -->
     {#if blurDataUrl}
@@ -74,7 +85,7 @@
         class:opacity-0={visible}
         class="absolute inset-0 select-none"
       />
-      <div role="presentation" class:opacity-0={visible} />
+      <div role="presentation" class:opacity-0={visible}></div>
     {/if}
 
     <!-- Actual img element -->
@@ -86,17 +97,17 @@
   </noscript>
 
   {#if showcap}
-    <figcaption><i class="i-ri-arrow-right-double-line" /> {alt}</figcaption>
+    <figcaption><i class="i-ri-arrow-right-double-line"></i> {alt}</figcaption>
   {/if}
 </figure>
 
 <style>
   figure {
-    --uno: 'overflow-hidden block isolate all:isolate bg-surface';
+    --uno: 'overflow-hidden block isolate all:isolate';
   }
   /* Wrapper */
   figure > div {
-    --uno: 'rounded bg-surface-muted relative overflow-hidden no-js:hidden';
+    --uno: 'rounded bg-surface relative overflow-hidden no-js:hidden';
   }
   /* Blurred overlay */
   div[role='presentation'] {
@@ -106,6 +117,6 @@
     --uno: 'w-full h-full object-cover object-center transition-opacity ease-out duration-300';
   }
   figcaption {
-    --uno: 'block w-fit h-fit mt-2 font-medium text-sm text-fg-muted';
+    --uno: 'block w-fit h-fit mt-2 font-medium text-sm text-tertiary';
   }
 </style>
