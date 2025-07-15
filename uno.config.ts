@@ -1,6 +1,6 @@
 import {
   defineConfig,
-  presetUno,
+  presetWind4,
   presetIcons,
   presetAttributify,
   transformerDirectives,
@@ -16,7 +16,12 @@ export default defineConfig({
   transformers: [transformerDirectives(), transformerVariantGroup()],
   presets: [
     presetAttributify(),
-    presetUno({ dark: 'media' }),
+    presetWind4({
+      dark: 'media',
+      preflights: {
+        theme: 'on-demand'
+      }
+    }),
     presetIcons({
       collections: {
         custom: {
@@ -66,7 +71,7 @@ export default defineConfig({
       'underline-dotted': 'underline-rx-sage-9',
       'underline-dotted-hover': 'underline-rx-sage-10'
     },
-    /* Untility */
+    /* Utility */
     {
       'border-dash': 'border-b border-dashed border-neutral',
       button: 'bg-transparent'
@@ -133,5 +138,5 @@ function transformRadixColors(radixThemes = {}) {
 }
 
 function removeRadixColorPrefix(radix = {}) {
-  return Object.fromEntries(Object.entries(radix).map(([k, v]) => [k.match(/\d+/), v]))
+  return Object.fromEntries(Object.entries(radix).map(([k, v]) => [k.match(/\d+/)?.[0] || k, v]))
 }

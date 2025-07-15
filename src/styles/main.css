@@ -23,7 +23,7 @@ div[data-layer] {
   --uno: 'fixed inset-0 pointer-events-none select-none z-5';
   animation: scale 1000ms;
 
-  --gradient-color: white;
+  --gradient-color: var(--colors-radix-sage-1);
 
   background-image: linear-gradient(
     to bottom,
@@ -34,7 +34,7 @@ div[data-layer] {
   );
 
   @media (prefers-color-scheme: dark) {
-    --gradient-color: black;
+    --gradient-color: var(--colors-radix-dark-sage-1);
   }
 
   /* Blur effect */
@@ -196,7 +196,7 @@ blockquote {
 
 @keyframes scale {
   from {
-    transform: scaleY(120%);
+    transform: scaleY(200%);
   }
   to {
     transform: scaleY(100%);

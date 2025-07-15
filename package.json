@@ -43,12 +43,11 @@
     "svelte-seo": "^1.6.1",
     "tslib": "^2.8.1",
     "typescript": "^5.7.3",
-    "unocss": "^0.62.4",
-    "velite": "0.1.1",
+    "unocss": "^66.3.3",
+    "velite": "0.2.4",
     "vite": "^5.4.11"
   },
   "dependencies": {
-    "@unocss/reset": "^0.62.4",
     "cloudinary-build-url": "^0.2.4",
     "sveltejs-markdoc": "^0.2.0"
   }
