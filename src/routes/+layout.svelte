@@ -8,9 +8,13 @@
   import { page } from '$app/state'
   import { fade } from 'svelte/transition'
   import { cubicOut } from 'svelte/easing'
+  import { dev } from '$app/environment'
+  import { injectAnalytics } from '@vercel/analytics/sveltekit'
   import { formatDate } from '$lib/util'
   import { scramble } from '$lib/action/scramble/scramble.svelte'
   import { glitch } from '$lib/action/scramble/param'
+
+  injectAnalytics({ mode: dev ? 'development' : 'production' })
 
   let { data, children } = $props()
 
@@ -43,8 +47,6 @@
   <meta name="twitter:url" content="https://yuchengkuo.com{page.url.pathname}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://yuchengkuo.com/og/default.png" />
-
-  <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
 </svelte:head>
 
 <header>
