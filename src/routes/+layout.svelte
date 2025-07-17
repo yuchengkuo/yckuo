@@ -8,9 +8,13 @@
   import { page } from '$app/state'
   import { fade } from 'svelte/transition'
   import { cubicOut } from 'svelte/easing'
+  import { dev } from '$app/environment'
+  import { injectAnalytics } from '@vercel/analytics/sveltekit'
   import { formatDate } from '$lib/util'
   import { scramble } from '$lib/action/scramble/scramble.svelte'
   import { glitch } from '$lib/action/scramble/param'
+
+  injectAnalytics({ mode: dev ? 'development' : 'production' })
 
   let { data, children } = $props()
 
