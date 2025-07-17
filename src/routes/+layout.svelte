@@ -47,8 +47,6 @@
   <meta name="twitter:url" content="https://yuchengkuo.com{page.url.pathname}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://yuchengkuo.com/og/default.png" />
-
-  <script data-no-cookie async data-api="/_hive" src="/bee.js"></script>
 </svelte:head>
 
 <header>
