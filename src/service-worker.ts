@@ -10,15 +10,19 @@ const ASSETS = [
   '/fonts/Newsreader-Variable.woff2',
   '/og/default.png',
   '/favicons/favicon.svg',
-  '/favicons/favicon.png',
   '/favicons/favicon.ico'
 ]
 
 self.addEventListener('install', (event) => {
-  // Create a new cache and add all files to it
   async function addFilesToCache() {
     const cache = await caches.open(CACHE)
-    await cache.addAll(ASSETS)
+    const results = await Promise.allSettled(ASSETS.map(asset => cache.add(asset)))
+    
+    results.forEach((result, i) => {
+      if (result.status === 'rejected') {
+        console.warn(`Failed to cache: ${ASSETS[i]}`, result.reason)
+      }
+    })
   }
 
   event.waitUntil(addFilesToCache())
