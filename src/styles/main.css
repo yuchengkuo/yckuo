@@ -73,7 +73,7 @@ main {
 
   /* Subgrid */
   > article {
-    --uno: 'col-span-full md:(grid grid-cols-subgrid items-baseline)';
+    --uno: 'col-span-full md:(grid grid-cols-subgrid)';
     --uno: 'md:children:(col-start-1 col-span-5)';
     --uno: 'lg:children:(col-start-1 col-span-4)';
   }

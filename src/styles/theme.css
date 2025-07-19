@@ -3,9 +3,9 @@
  */
 
 :root {
-  --sans: Brockmann, ui-sans-serif, sans-serif;
-  --serif: Newsreader, Iowan Old Style, ui-serif, Charter, Georgia, serif;
-  --mono: Azeret Mono, ui-monospace, monospace;
+  --font-sans: Brockmann, ui-sans-serif, sans-serif;
+  --font-serif: Newsreader, Iowan Old Style, ui-serif, Charter, Georgia, serif;
+  --font-mono: Azeret Mono, ui-monospace, monospace;
 }
 
 @media (prefers-color-scheme: dark) {

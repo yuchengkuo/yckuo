@@ -19,6 +19,7 @@ export default defineConfig({
     presetWind4({
       dark: 'media',
       preflights: {
+        reset: true,
         theme: 'on-demand'
       }
     }),
@@ -37,11 +38,6 @@ export default defineConfig({
     })
   ],
   theme: {
-    fontFamily: {
-      sans: 'var(--sans)',
-      serif: 'var(--serif)',
-      mono: 'var(--mono)'
-    },
     colors: {
       accent: '#44F440',
       radix: {
