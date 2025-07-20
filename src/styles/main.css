@@ -39,7 +39,7 @@ div[data-layer] {
 
   /* Blur effect */
   &::before {
-    --uno: 'content-empty fixed inset-0 lt-sm:h-16 h-20 bg-rx-sage-1/10 backdrop-blur-xs filter-brightness-130 dark:filter-sepia-40';
+    --uno: 'content-empty fixed inset-0 lt-sm:h-16 h-20 bg-rx-sage-1/10 backdrop-blur-xs backdrop-brightness-130 dark:backdrop-sepia-40';
     mask: linear-gradient(to bottom, black 40%, transparent);
     -webkit-mask: linear-gradient(to bottom, black 40%, transparent);
   }
