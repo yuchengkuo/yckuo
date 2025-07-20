@@ -23,6 +23,6 @@
   }
 
   :global(.gallery img, .gallery video) {
-    --uno: 'max-h-80 w-auto';
+    --uno: 'max-h-80 w-auto h-fit';
   }
 </style>
