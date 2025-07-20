@@ -28,7 +28,7 @@ div[data-layer] {
   background-image: linear-gradient(
     to bottom,
     var(--gradient-color),
-    transparent 3rem,
+    transparent 2rem,
     transparent calc(100% - 2rem),
     var(--gradient-color) 100%
   );
@@ -39,7 +39,7 @@ div[data-layer] {
 
   /* Blur effect */
   &::before {
-    --uno: 'content-empty fixed inset-0 lt-sm:h-20 h-28 bg-black/1 backdrop-blur-sm filter-brightness-110 dark:filter-brightness-80';
+    --uno: 'content-empty fixed inset-0 lt-sm:h-16 h-20 bg-rx-sage-1/10 backdrop-blur-xs filter-brightness-130 dark:filter-sepia-40';
     mask: linear-gradient(to bottom, black 40%, transparent);
     -webkit-mask: linear-gradient(to bottom, black 40%, transparent);
   }
