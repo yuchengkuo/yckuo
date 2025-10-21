@@ -45,7 +45,7 @@
     "typescript": "^5.7.3",
     "unocss": "^66.3.3",
     "velite": "0.2.4",
-    "vite": "^5.4.19"
+    "vite": "^5.4.21"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
