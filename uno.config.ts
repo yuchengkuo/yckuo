@@ -2,7 +2,6 @@ import {
   defineConfig,
   presetWind4,
   presetIcons,
-  presetAttributify,
   transformerDirectives,
   transformerVariantGroup
 } from 'unocss'
@@ -13,9 +12,24 @@ const radixThemes = Object.fromEntries(Object.entries(Radix).filter(([k]) => !k.
 const radixThemesDark = Object.fromEntries(Object.entries(Radix).filter(([k]) => k.match(/Dark/)))
 
 export default defineConfig({
+  content: {
+    filesystem: ['content/**/*.md']
+  },
   transformers: [transformerDirectives(), transformerVariantGroup()],
+  extractors: [
+    {
+      name: 'MDC order',
+      order: 10,
+      async extract(ctx) {
+        if (!/\.(?:md|mdc|markdown)$/i.test(ctx.id ?? '')) return
+
+        ctx.code.match(/\.[\w:/\-]+/g)?.forEach((c) => {
+          ctx.extracted.add(c.slice(1))
+        })
+      }
+    }
+  ],
   presets: [
-    presetAttributify(),
     presetWind4({
       dark: 'media',
       preflights: {
@@ -49,24 +63,28 @@ export default defineConfig({
     }
   },
   shortcuts: [
-    /* Semantic */
+    /* Semantic colors */
     {
       'bg-screen': 'bg-rx-sage-1',
       'bg-screen-hover': 'bg-rx-sage-2',
       'bg-surface': 'bg-rx-sage-3',
       'bg-surface-hover': 'bg-rx-sage-4',
       'bg-selection': 'bg-rx-grass-3',
+      'bg-inverse': 'bg-rx-sage-12',
       'text-primary': 'text-rx-sage-12',
-      'text-secondary': 'text-rx-sage-11',
-      'text-tertiary': 'text-rx-sage-9',
+      'text-secondary': 'text-rx-sage-9',
+      'text-tertiary': 'text-rx-sage-7',
       'text-selection': 'text-rx-grass-11',
+      'text-on-color': 'text-rx-sage-1',
       'border-neutral': 'border-rx-sage-3',
       'border-neutral-hover': 'border-rx-sage-4',
       'underline-neutral': 'underline-rx-sage-5',
       'underline-neutral-hover': 'underline-rx-sage-6',
       'underline-dotted': 'underline-rx-sage-9',
-      'underline-dotted-hover': 'underline-rx-sage-10'
+      'underline-dotted-hover': 'underline-rx-sage-11'
     },
+    /* Semantic prose text styles */
+    {},
     /* Utility */
     {
       'border-dash': 'border-b border-dashed border-neutral',
@@ -82,7 +100,12 @@ export default defineConfig({
     [/^bg-rx-(.*)$/, ([, r]) => `bg-radix-${r} dark:bg-radix-dark-${r}`],
     [/^text-rx-(.*)$/, ([, r]) => `text-radix-${r} dark:text-radix-dark-${r}`],
     [/^border-rx-(.*)$/, ([, r]) => `border-radix-${r} dark:border-radix-dark-${r}`],
-    [/^underline-rx-(.*)$/, ([, r]) => `underline-radix-${r} dark:underline-radix-dark-${r}`]
+    [/^underline-rx-(.*)$/, ([, r]) => `underline-radix-${r} dark:underline-radix-dark-${r}`],
+    /* Grid specific shortcut */
+    { 'grid-subgrid': 'grid grid-cols-subgrid' },
+    [/^span-(.*)$/, ([, r]) => `col-span-${r}`],
+    [/^start-(.*)$/, ([, r]) => `col-start-${r}`],
+    [/^end-(.*)$/, ([, r]) => `col-end-${r}`]
   ],
   variants: [
     {

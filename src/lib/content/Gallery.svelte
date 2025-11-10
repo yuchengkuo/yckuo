@@ -12,7 +12,7 @@
 
 <style>
   .gallery {
-    --uno: 'col-span-full';
+    --uno: 'col-span-full mt-24 lt-md:mt-8';
     --uno: 'grid grid-cols-subgrid gap-y-4';
 
     --uno: 'children:(col-span-3 p-8 bg-surface rounded content-center)';

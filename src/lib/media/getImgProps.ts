@@ -30,6 +30,7 @@ export function getImgProps({
       transformations: {
         quality: 'auto',
         format: 'auto',
+        dpr: 'auto',
         ...transformations,
         resize: { width: averageSize, ...transformations?.resize }
       },
@@ -44,6 +45,7 @@ export function getImgProps({
             transformations: {
               quality: 'auto',
               format: 'auto',
+              dpr: 'auto',
               ...transformations,
               resize: { width: width, ...transformations?.resize }
             },

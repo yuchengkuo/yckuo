@@ -16,8 +16,8 @@ const ASSETS = [
 self.addEventListener('install', (event) => {
   async function addFilesToCache() {
     const cache = await caches.open(CACHE)
-    const results = await Promise.allSettled(ASSETS.map(asset => cache.add(asset)))
-    
+    const results = await Promise.allSettled(ASSETS.map((asset) => cache.add(asset)))
+
     results.forEach((result, i) => {
       if (result.status === 'rejected') {
         console.warn(`Failed to cache: ${ASSETS[i]}`, result.reason)

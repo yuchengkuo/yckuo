@@ -32,26 +32,29 @@ const markdocConfig: ConfigType = {
     paragraph: {
       attributes: {
         /* Attributes for Image */
-        image_caption: { type: Boolean },
         image_title: { type: String },
+        image_description: { type: String },
         image_isvideo: { type: Boolean }
       },
-      transform(node, config) {
+      async transform(node, config) {
         /* Unwrap image from paragraph, transform image nodes */
         const img = node.children[0].children[0]
         if (img.type === 'image') {
           /* Merge atrributes */
           img.attributes = { ...img.attributes, ...node.attributes }
 
+          let description = '',
+            aspectRatio = ''
+
           /* If src isn't a link, make it Cld id */
-          if (!img.attributes.src.startsWith('http')) {
+          if (!img.attributes.src.startsWith('http') && !img.attributes.src.startsWith('/')) {
             img.attributes.id = img.attributes.src
             delete img.attributes.src
           }
 
-          /* Caption, todo: seperate caption and alt text */
-          let showcap = false
-          if (img.attributes.image_caption) showcap = true
+          /* Passing the props */
+
+          if (img.attributes.image_description) description = img.attributes.image_description
 
           /* Video */
           if (img.attributes.image_isvideo)
@@ -63,7 +66,7 @@ const markdocConfig: ConfigType = {
 
           return new Markdoc.Tag(
             'img',
-            { ...img.transformAttributes(config), showcap },
+            { ...img.transformAttributes(config), description, aspectRatio },
             img.transformChildren(config)
           )
         }
@@ -148,7 +151,9 @@ const markdocConfig: ConfigType = {
       children: ['paragraph']
     },
     /* Content Accordion  */
-    expand: { render: 'Expand' }
+    expand: { render: 'Expand' },
+    /* Span */
+    span: { render: 'span' }
   }
 }
 

@@ -17,7 +17,8 @@ const markdoc = function () {
       try {
         const errors = Markdoc.validate(Markdoc.parse(value), markdocConfig)
         if (errors) errors.forEach((e) => addIssue({ code: 'custom', message: e.error.message }))
-        const output = Markdoc.transform(Markdoc.parse(value), {
+        const output = await Markdoc.transform(Markdoc.parse(value), {
+          //await for fetching aspect ratio in images
           ...markdocConfig,
           variables: { ...(records as object), ...markdocConfig.variables }
         })
@@ -54,6 +55,13 @@ const navigation = defineCollection({
           url: s.string(),
           include: s.array(s.string()).optional()
         })
+      ),
+      contact: s.array(
+        s.object({
+          key: s.string(),
+          label: s.string(),
+          url: s.string().url()
+        })
       )
     })
     .merge(sharedSchema)
@@ -75,14 +83,16 @@ const works = defineCollection({
   schema: s
     .object({
       content: markdoc(),
+      featured: s.boolean().default(false),
+      thumbnail: s.string().optional(),
       org: s.string(), // Reference to name in orgs collection
       category: s.array(s.string().max(15)),
-      intro: s.markdown().optional(),
+      emoji: s.string().emoji(),
       meta: s
         .record(s.string(), s.union([s.string(), s.array(s.string()), s.string().url()]))
         .optional(),
       tagline: s.string().optional(),
-      summary: s.record(s.string(), s.markdown()).optional()
+      summary: s.array(s.string()).optional()
     })
     .merge(sharedSchema)
     .transform((data) => ({ subtitle: `Project at ${data.org}`, sidenote: 'Work', ...data })) // Adding common data
@@ -109,7 +119,8 @@ const projects = defineCollection({
       content: markdoc(),
       cover: s.string().optional(),
       tags: s.array(s.string()).optional(),
-      category: s.array(s.string().max(15))
+      category: s.array(s.string().max(15)),
+      summary: s.string()
     })
     .merge(sharedSchema)
 })
