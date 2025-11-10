@@ -17,4 +17,4 @@
   })
 </script>
 
-<time datetime={now}>{now}</time>
+<time class="lining-nums tabular-nums text-secondary" datetime={now}>{now}</time>

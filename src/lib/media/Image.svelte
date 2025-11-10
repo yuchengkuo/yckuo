@@ -4,7 +4,7 @@
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
   interface Props {
-    id?: string
+    id?: string //Cloudinary ID
     src?: string
     alt?: string
     isVideo?: boolean
@@ -13,8 +13,10 @@
     transformations?: TransformerOption | TransformerVideoOption
     blurDataUrl?: string | null
     aspectRatio?: string | null
-    showcap?: boolean
+    title?: string
+    description?: string
     class?: string
+    loading?: 'lazy' | 'eager'
   }
 
   let {
@@ -22,13 +24,15 @@
     src = '',
     alt = '',
     isVideo = false,
-    widths = [280, 560, 840, 1100, 1650, 2100],
-    sizes = ['(max-width:1023px) 80vw', '(min-width:1024px) and (max-width:1620px) 80vw', '1100px'],
+    widths = [400, 840, 1100, 1650, 2100],
+    sizes = ['(max-width:896px) 100vw', '(max-width:1620px) 80vw', '1920px'],
     transformations = {},
     blurDataUrl,
     aspectRatio,
-    showcap = false,
+    title,
+    description,
     class: classname,
+    loading = 'lazy',
     ...rest
   }: Props = $props()
 
@@ -89,15 +93,20 @@
     {/if}
 
     <!-- Actual img element -->
-    <img bind:this={imgEl} {src} {alt} {srcset} {sizes} loading="lazy" class:opacity-0={!visible} />
+    <img bind:this={imgEl} {src} {alt} {srcset} {sizes} {loading} class:opacity-0={!visible} />
   </div>
 
   <noscript>
-    <img {src} {alt} {srcset} {sizes} loading="lazy" />
+    <img {src} {alt} {srcset} {sizes} {loading} />
   </noscript>
 
-  {#if showcap}
-    <figcaption><i class="i-ri-arrow-right-double-line"></i> {alt}</figcaption>
+  {#if title}
+    <figcaption>
+      {title}
+      {#if description}
+        <div class="text-tertiary"><i class="i-ri-arrow-right-double-line"></i> {description}</div>
+      {/if}
+    </figcaption>
   {/if}
 </figure>
 
@@ -111,12 +120,12 @@
   }
   /* Blurred overlay */
   div[role='presentation'] {
-    --uno: 'absolute inset-0 transition-opacity ease-out duration-300 backdrop-filter backdrop-blur-xl select-none';
+    --uno: 'absolute inset-0 transition-opacity ease-out duration-300 select-none';
   }
   img {
     --uno: 'w-full h-full object-cover object-center transition-opacity ease-out duration-300';
   }
   figcaption {
-    --uno: 'block w-fit h-fit mt-2 font-medium text-sm text-tertiary';
+    --uno: 'block w-fit h-fit mt-2 font-medium text-sm';
   }
 </style>

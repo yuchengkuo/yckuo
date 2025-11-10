@@ -3,160 +3,111 @@
  * Add to <article> and .prose
  */
 
-main {
-  article,
-  .prose {
-    /* Reset first child */
-    *:first-child {
-      --uno: 'mt-0';
-    }
+article,
+.prose {
+  /* Reset first child */
+  *:first-child {
+    --uno: 'mt-0';
+  }
 
-    /* Paragraph */
-    p {
-      --uno: 'mt-4 lt-sm:mt-3';
-    }
+  /* Paragraph */
+  p {
+    --uno: 'mt-6 lt-sm:mt-4';
+  }
 
-    strong {
-      --uno: 'font-medium bg-selection';
-    }
+  p.callout {
+    --uno: 'text-6 leading-8 lt-md:(text-5 leading-6)';
+  }
 
-    /* Heading */
-    h1 {
-      --uno: 'font-medium mt-20 lt-sm:mt-8';
-    }
+  p.base {
+    --uno: 'text-4 leading-6 lt-md:(text-3.5 leading-5.5)';
+  }
 
-    h2 {
-      --uno: 'font-medium mt-16 lt-sm:mt-10';
-    }
+  strong {
+    --uno: 'font-medium bg-selection';
+  }
 
-    h3 {
-      --uno: 'font-medium mt-8 lt-sm:mt-8';
-    }
+  /* Heading */
+  h1 {
+    --uno: 'font-medium mt-20 lt-sm:mt-8';
+  }
 
-    h4 {
-      --uno: 'font-medium mt-8 lt-sm:mt-6';
-    }
+  h2 {
+    --uno: 'text-secondary font-medium mt-16 lt-sm:mt-10';
+  }
 
-    h5,
-    h6 {
-      --uno: 'font-medium mt-6 lt-sm:mt-4';
-    }
+  h3 {
+    --uno: 'text-secondary font-medium mt-8 lt-sm:mt-8';
+  }
 
-    :is(h1, h2, h3, h4, h5, h6) + * {
-      --uno: 'mt-2';
-    }
+  h4 {
+    --uno: 'text-secondary font-medium mt-8 lt-sm:mt-6';
+  }
 
-    /* List */
-    ul,
-    ol {
-      --uno: 'mt-4';
+  h5,
+  h6 {
+    --uno: 'text-secondary font-medium mt-6 lt-sm:mt-4';
+  }
 
-      li {
-        --uno: 'ml-4';
-        --uno: 'list-outside';
+  /* List */
+  ul,
+  ol {
+    --uno: 'mt-4';
 
-        &::marker {
-          --uno: 'text-secondary';
-        }
+    li {
+      --uno: 'list-outside';
+
+      &::marker {
+        --uno: 'text-tertiary';
       }
     }
+  }
 
-    ul li {
-      list-style-type: '-  ';
+  ul li {
+    list-style-type: '– ';
+  }
+
+  ol li {
+    list-style-type: decimal;
+  }
+
+  /* Table */
+  table {
+    --uno: 'start-1 span-6';
+  }
+
+  /* Definition List */
+  dl {
+    --uno: 'mt-8 space-y-1 md:(grid-subgrid gap-0) relative start-1 span-6';
+
+    dt {
+      --uno: 'lt-md:mb-1 start-1 text-secondary';
     }
 
-    ol li {
-      list-style-type: decimal;
+    dd {
+      --uno: 'lt-md:mb-4 start-2 end--1';
     }
+  }
 
-    /* Table */
-    table {
-      --uno: 'col-start-1 col-span-6';
-    }
+  :is(h1, h2, h3, h4, h5, h6) + * {
+    --uno: 'mt-0';
+  }
 
-    /* Definition List */
-    dl {
-      --uno: 'mt-4 md:(grid grid-cols-subgrid gap-0) relative col-start-1 col-span-6';
+  /* Image, Video */
+  > :not(figure):has(+ figure) {
+    --uno: 'mb-10 md:mb-12';
+  }
 
-      dt {
-        --uno: 'lt-md:mb-1 col-start-1 border-neutral text-secondary';
-      }
+  > figure {
+    --uno: 'mt-4 md:mt-6';
+  }
 
-      dd {
-        --uno: 'lt-md:mb-4 col-start-2 col-end--1 border-neutral';
-      }
+  > figure + :not(figure) {
+    --uno: 'mt-10';
+  }
 
-      @screen md {
-        /* Definition followed by term */
-        & dd:has(+ dt) {
-          --uno: 'pb-3';
-        }
-
-        /* In-between terms */
-        & dd + dt {
-          --uno: 'border-t pt-3';
-        }
-
-        /* First term */
-        & dt:first-of-type {
-          --uno: 'pt-3';
-        }
-
-        /* Definition following term */
-        & dt + dd {
-          --uno: 'border-t pt-3';
-        }
-
-        /* Remove first definition's border */
-        & dd:first-of-type {
-          --uno: 'border-none';
-        }
-      }
-    }
-
-    /* Image, Video */
-    & > figure {
-      --uno: 'my-8 md:my-18';
-      --uno: 'md:(col-start-1 col-span-6)';
-
-      &:has(+ figure) {
-        --uno: 'mb-0';
-      }
-
-      & + figure {
-        --uno: 'mt-6';
-      }
-
-      &.narrow {
-        --uno: 'md:(col-start-1 col-span-4)';
-      }
-
-      &.full {
-        --uno: 'md:(col-start-1 col-span-full)';
-      }
-
-      &.grid {
-        --uno: 'md:(col-span-3 self-end mt-0 mb-6)';
-      }
-
-      /* Note: grid items need to be mulitple of three, todo: fix it */
-      *:not(.grid) + &.grid,
-      &:nth-child(4n of .grid) {
-        --uno: 'md:(col-start-1)';
-      }
-
-      *:not(.grid) + &.grid {
-        --uno: 'mt-8';
-      }
-    }
-
-    hr {
-      --uno: 'md:(col-start-1 col-span-full)';
-    }
-
-    :is(hr) + :is(p, h1, h2, h3, h4, h5, h6) {
-      --uno: 'mt-0';
-    }
+  hr {
+    --uno: 'start-1 span-full';
   }
 }
 
@@ -165,8 +116,8 @@ main {
  */
 
 .shiki {
-  --uno: 'py-4 px-2 bg-surface rounded-2 border-1 border-neutral mt-6 overflow-x-auto drop-shadow-sm';
-  --uno: 'col-start-1 col-span-6 relative';
+  --uno: 'py-2 px-1.5 bg-surface rounded-2 border-1 border-neutral mt-6 overflow-x-auto';
+  --uno: 'start-1 span-6 relative';
 
   counter-reset: line;
 
@@ -175,18 +126,18 @@ main {
   }
 
   .line {
-    --uno: 'last:hidden leading-5';
+    --uno: 'last:hidden';
   }
 
   .line::before {
     counter-increment: line;
     content: counter(line);
-    --uno: 'inline-block min-w-4 mr-4 text-tertiary text-right';
+    --uno: 'inline-block min-w-1em mr-2 text-tertiary text-2.5 text-right';
   }
 
   .highlighted {
     width: calc(100% + 1rem);
-    --uno: '-mx-2 px-2 right-0 inline-block bg-bg-muted bg-opacity-60';
+    --uno: '-mx-2 px-2 right-0 inline-block bg-selection bg-opacity-70';
   }
 }
 
