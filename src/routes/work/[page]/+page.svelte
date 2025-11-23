@@ -60,7 +60,7 @@
 
 <!-- Next -->
 <section class="mt-32 span-full">
-  <p>Next Project:</p>
+  <p class="text-secondary mb-1">Next Project:</p>
   <a class="text-4xl lt-md:text-2xl font-bold" href="/{nextProject.slug}">{nextProject.title}</a>
 </section>
 

@@ -78,7 +78,7 @@
 
 <!-- TODO: Outro animation -->
 {#key page.url}
-  <main in:fade={{ duration: 800, easing: cubicOut }}>
+  <main in:fade={{ duration: 1000, easing: cubicOut }}>
     {@render children?.()}
   </main>
 {/key}
