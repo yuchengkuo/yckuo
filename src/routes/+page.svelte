@@ -26,7 +26,7 @@
   <!-- Featured work -->
   {#each data.works.filter((w) => w.featured) as work}
     {@const year = formatDate(work.published ?? '', { year: 'numeric' })}
-    <div class="span-full space-y-1 mb-30 lt-md:mb-24 grid-subgrid">
+    <div class="span-full mb-30 lt-md:mb-24 grid-subgrid">
       <a
         class="span-full bg-surface hover:(brightness-90)"
         href={work.slug}
@@ -35,7 +35,7 @@
       >
         <Image id={work.thumbnail} loading="eager" />
       </a>
-      <h3 class="col-span-full font-medium capitalize">
+      <h3 class="col-span-full font-medium capitalize mt-1.5 mb-1">
         <a href={work.slug}>{work.title}</a> <span class="text-tertiary">({year})</span>
       </h3>
       <footer class="col-span-5">
@@ -66,13 +66,13 @@
 
   <div class="span-full grid-subgrid gap-y-24 lt-md:gap-y-10">
     {#each data.projects as project, i}
-      <div class:start-1={i % 2 === 0} class="span-3 space-y-1">
+      <div class:start-1={i % 2 === 0} class="span-3">
         {#if project.cover}
-          <a href={project.slug} class="block bg-surface hover:(brightness-90)">
+          <a href={project.slug} class="block bg-surface mb-1 hover:(brightness-90)">
             <Image id={project.cover} loading="eager" />
           </a>
         {/if}
-        <h3>
+        <h3 class="mb-1">
           <a href={project.slug}>{project.title}</a><span class="text-secondary ml-1">
             ({project.category[0]})</span
           >
