@@ -39,7 +39,7 @@
     "prettier": "^3.6.2",
     "prettier-plugin-svelte": "^3.4.0",
     "shiki": "^1.29.2",
-    "svelte": "^5.43.4",
+    "svelte": "^5.53.5",
     "svelte-check": "^4.3.3",
     "svelte-seo": "^1.7.1",
     "tslib": "^2.8.1",
