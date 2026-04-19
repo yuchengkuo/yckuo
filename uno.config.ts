@@ -80,8 +80,8 @@ export default defineConfig({
       'border-neutral-hover': 'border-rx-sage-4',
       'underline-neutral': 'underline-rx-sage-5',
       'underline-neutral-hover': 'underline-rx-sage-6',
-      'underline-dotted': 'underline-rx-sage-9',
-      'underline-dotted-hover': 'underline-rx-sage-11'
+      'underline-dotted': 'underline-rx-sage-8',
+      'underline-dotted-hover': 'underline-rx-sage-10'
     },
     /* Semantic prose text styles */
     {},
