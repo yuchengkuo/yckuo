@@ -39,12 +39,9 @@
     ...rest
   }: Props = $props()
 
-  if (!src) {
-    ;({ src } = getVideoProps({
-      id,
-      transformations: transformations as TransformerOption
-    }))
-  }
+  const resolvedSrc = $derived(
+    src || getVideoProps({ id, transformations: transformations as TransformerOption }).src
+  )
 
   let videoEl: HTMLVideoElement
   let visible = $state(false)
@@ -73,7 +70,7 @@
       disablepictureinpicture={false}
       poster={blurDataUrl}
     >
-      <source {src} />
+      <source src={resolvedSrc} />
     </video>
     <div role="presentation" class:opacity-0={visible}></div>
   </div>

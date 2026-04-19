@@ -39,33 +39,30 @@
   let imgEl: HTMLImageElement
 
   let visible = $state(true)
-  let srcset: string | null = $state('')
 
-  if (Array.isArray(sizes)) sizes = sizes.join(', ')
+  const resolvedSizes = $derived(
+    isVideo ? null : Array.isArray(sizes) ? sizes.join(', ') : sizes
+  )
 
-  if (!src) {
-    const imgProps = getImgProps({
-      id,
-      widths,
-      transformations: transformations as TransformerOption
-    })
-    src = imgProps.src
-    srcset = imgProps.srcset
-  } else {
-    src = src
-    srcset = null
-  }
-
-  if (isVideo) {
-    const webpProps = getAWebpProps({
-      id,
-      width: 1200,
-      transformations: transformations as TransformerVideoOption
-    })
-    src = webpProps.src
-    srcset = null
-    sizes = null
-  }
+  const imgData = $derived.by(() => {
+    if (isVideo) {
+      const webpProps = getAWebpProps({
+        id,
+        width: 1200,
+        transformations: transformations as TransformerVideoOption
+      })
+      return { src: webpProps.src, srcset: null }
+    }
+    if (!src) {
+      const imgProps = getImgProps({
+        id,
+        widths,
+        transformations: transformations as TransformerOption
+      })
+      return { src: imgProps.src, srcset: imgProps.srcset }
+    }
+    return { src, srcset: null }
+  })
 
   $effect.pre(() => {
     if (imgEl?.complete) visible = true
@@ -93,11 +90,11 @@
     {/if}
 
     <!-- Actual img element -->
-    <img bind:this={imgEl} {src} {alt} {srcset} {sizes} {loading} class:opacity-0={!visible} />
+    <img bind:this={imgEl} src={imgData.src} {alt} srcset={imgData.srcset} sizes={resolvedSizes} {loading} class:opacity-0={!visible} />
   </div>
 
   <noscript>
-    <img {src} {alt} {srcset} {sizes} {loading} />
+    <img src={imgData.src} {alt} srcset={imgData.srcset} sizes={resolvedSizes} {loading} />
   </noscript>
 
   {#if title}
