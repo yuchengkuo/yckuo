@@ -76,18 +76,18 @@
           ({project.category[0]})</span
         >
       </h3>
-      <p class="col-span-5 text-secondary">{project.summary}</p>
+      <p class="col-span-5 text-secondary">» {project.summary}</p>
     </div>
   {/each}
 
   {#each data.projects.filter((p) => !p.featured) as project}
-    <div class="span-full grid-subgrid mb-16 lt-md:mb-10">
-      <h3 class="span-full font-medium capitalize">
+    <div class="span-3 mb-16 lt-md:mb-10">
+      <h3 class="font-medium capitalize mb-1">
         <a href={project.slug}>{project.title}</a><span class="text-tertiary ml-1">
           ({project.category[0]})</span
         >
       </h3>
-      <p class="span-full text-secondary">» {project.summary}</p>
+      <p class="text-secondary">» {project.summary}</p>
     </div>
   {/each}
 </section>
