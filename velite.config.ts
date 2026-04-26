@@ -120,7 +120,8 @@ const projects = defineCollection({
       cover: s.string().optional(),
       tags: s.array(s.string()).optional(),
       category: s.array(s.string().max(15)),
-      summary: s.string()
+      summary: s.string(),
+      featured: s.boolean().default(false)
     })
     .merge(sharedSchema)
 })

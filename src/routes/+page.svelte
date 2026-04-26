@@ -64,23 +64,32 @@
 <section id="projects">
   <h2>Projects</h2>
 
-  <div class="span-full grid-subgrid gap-y-24 lt-md:gap-y-10">
-    {#each data.projects as project, i}
-      <div class:start-1={i % 2 === 0} class="span-3">
-        {#if project.cover}
-          <a href={project.slug} class="block bg-surface mb-1 hover:(brightness-90)">
-            <Image id={project.cover} loading="eager" />
-          </a>
-        {/if}
-        <h3 class="mb-1">
-          <a href={project.slug}>{project.title}</a><span class="text-secondary ml-1">
-            ({project.category[0]})</span
-          >
-        </h3>
-        <p class="text-secondary">{project.summary}</p>
-      </div>
-    {/each}
-  </div>
+  {#each data.projects.filter((p) => p.featured) as project}
+    <div class="span-full grid-subgrid mb-20 lt-md:mb-10">
+      {#if project.cover}
+        <a href={project.slug} class="span-full block bg-surface mb-1 hover:(brightness-90)">
+          <Image id={project.cover} loading="eager" />
+        </a>
+      {/if}
+      <h3 class="col-span-full font-medium capitalize mt-1.5 mb-1">
+        <a href={project.slug}>{project.title}</a><span class="text-tertiary ml-1">
+          ({project.category[0]})</span
+        >
+      </h3>
+      <p class="col-span-5 text-secondary">{project.summary}</p>
+    </div>
+  {/each}
+
+  {#each data.projects.filter((p) => !p.featured) as project}
+    <div class="span-full grid-subgrid mb-16 lt-md:mb-10">
+      <h3 class="span-full font-medium capitalize">
+        <a href={project.slug}>{project.title}</a><span class="text-tertiary ml-1">
+          ({project.category[0]})</span
+        >
+      </h3>
+      <p class="span-full text-secondary">» {project.summary}</p>
+    </div>
+  {/each}
 </section>
 
 <style>
