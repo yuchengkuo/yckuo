@@ -40,9 +40,7 @@
 
   let visible = $state(true)
 
-  const resolvedSizes = $derived(
-    isVideo ? null : Array.isArray(sizes) ? sizes.join(', ') : sizes
-  )
+  const resolvedSizes = $derived(isVideo ? null : Array.isArray(sizes) ? sizes.join(', ') : sizes)
 
   const imgData = $derived.by(() => {
     if (isVideo) {
@@ -90,7 +88,15 @@
     {/if}
 
     <!-- Actual img element -->
-    <img bind:this={imgEl} src={imgData.src} {alt} srcset={imgData.srcset} sizes={resolvedSizes} {loading} class:opacity-0={!visible} />
+    <img
+      bind:this={imgEl}
+      src={imgData.src}
+      {alt}
+      srcset={imgData.srcset}
+      sizes={resolvedSizes}
+      {loading}
+      class:opacity-0={!visible}
+    />
   </div>
 
   <noscript>
@@ -101,7 +107,10 @@
     <figcaption>
       {title}
       {#if description}
-        <div class="text-tertiary"><i class="i-ri-arrow-right-double-line"></i> {description}</div>
+        <div class="text-tertiary mt-1">
+          <i class="i-ri-arrow-right-double-line"></i>
+          {description}
+        </div>
       {/if}
     </figcaption>
   {/if}
@@ -113,7 +122,7 @@
   }
   /* Wrapper */
   figure > div {
-    --uno: 'rounded bg-surface relative overflow-hidden no-js:hidden';
+    --uno: 'rounded-0.5 bg-surface relative overflow-hidden no-js:hidden';
   }
   /* Blurred overlay */
   div[role='presentation'] {
@@ -123,6 +132,6 @@
     --uno: 'w-full h-full object-cover object-center transition-opacity ease-out duration-300';
   }
   figcaption {
-    --uno: 'block w-fit h-fit mt-2 font-medium text-sm';
+    --uno: 'block w-fit h-fit mt-2 font-mono font-medium text-xs';
   }
 </style>

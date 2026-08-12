@@ -6,8 +6,12 @@
 article,
 .prose {
   /* Reset first child */
-  *:first-child {
+  > *:first-child {
     --uno: 'mt-0';
+  }
+
+  > *:not([class*='lt-md:span-'], [class*='lt-md:start-'], [class*='lt-md:end-']) {
+    --uno: 'lt-md:layout-full';
   }
 
   /* Paragraph */
@@ -16,7 +20,8 @@ article,
   }
 
   p.callout {
-    --uno: 'text-6 leading-8 lt-md:(text-5 leading-6)';
+    /* The callout runs one column past the reading measure. */
+    --uno: 'text-5 leading-8 layout-measure md:end-9 lt-md:(text-5 leading-6)';
   }
 
   p.base {
@@ -49,22 +54,39 @@ article,
     --uno: 'text-secondary font-medium mt-6 lt-sm:mt-4';
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    --uno: 'capitalize';
+  }
+
   /* List */
   ul,
   ol {
-    --uno: 'mt-4';
+    --uno: 'mt-2 ml-2.5ch';
 
     li {
-      --uno: 'list-outside';
+      --uno: 'list-outside mb-1.5 font-mono text-xs';
 
       &::marker {
-        --uno: 'text-tertiary';
+        --uno: 'text-tertiary text-opacity-60 text-right';
       }
     }
   }
 
+  :is(h1, h2, h3, h4, h5, h6):has(+ ul, + ol) {
+    --uno: 'font-mono text-xs';
+  }
+
   ul li {
-    list-style-type: '– ';
+    list-style-type: '├ ';
+
+    &:last-of-type {
+      list-style-type: '└ ';
+    }
   }
 
   ol li {
@@ -73,24 +95,24 @@ article,
 
   /* Table */
   table {
-    --uno: 'start-1 span-6';
+    --uno: 'font-mono text-xs layout-content';
   }
 
   /* Definition List */
   dl {
-    --uno: 'mt-8 space-y-1 md:(grid-subgrid gap-0) relative start-1 span-6';
+    --uno: 'font-mono text-xs mt-8 space-y-3 layout-content grid-subgrid';
 
     dt {
-      --uno: 'lt-md:mb-1 start-1 text-secondary';
+      --uno: 'capitalize start-1 span-2 md:span-1 text-secondary relative after:(text-tertiary content-["/"] block absolute top-0 left-full)';
     }
 
     dd {
-      --uno: 'lt-md:mb-4 start-2 end--1';
+      --uno: 'start-3 md:start-2 end--1';
     }
   }
 
   :is(h1, h2, h3, h4, h5, h6) + * {
-    --uno: 'mt-0';
+    --uno: 'mt-3';
   }
 
   /* Image, Video */
@@ -107,7 +129,7 @@ article,
   }
 
   hr {
-    --uno: 'start-1 span-full';
+    --uno: 'layout-content';
   }
 }
 
@@ -117,7 +139,7 @@ article,
 
 .shiki {
   --uno: 'py-2 px-1.5 bg-surface rounded-2 border-1 border-neutral mt-6 overflow-x-auto';
-  --uno: 'start-1 span-6 relative';
+  --uno: 'layout-aside relative';
 
   counter-reset: line;
 
