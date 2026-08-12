@@ -3,9 +3,9 @@ const version = Date.now()
 const CACHE = `cache-${version}`
 
 const ASSETS = [
-  '/fonts/AG57-Regular.woff2',
-  '/fonts/AzeretMono-Italic-VariableFont_wght.woff2',
-  '/fonts/AzeretMono-VariableFont_wght.woff2',
+  '/fonts/brockmann-regular.woff2',
+  '/fonts/NKDuyMono-Regular.woff2',
+  '/fonts/NKDuyMono-Italic.woff2',
   '/fonts/Newsreader-Italic-Variable.woff2',
   '/fonts/Newsreader-Variable.woff2',
   '/og/default.png',
