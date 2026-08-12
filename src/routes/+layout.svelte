@@ -21,6 +21,7 @@
   let { data, children } = $props()
 
   let footerName: HTMLSpanElement | null = $state(null)
+  let homeLink: HTMLSpanElement | null = $state(null)
 
   $effect(() => {
     const timer = setInterval(() => {
@@ -59,20 +60,24 @@
   <meta name="twitter:image" content="https://yuchengkuo.com/og/default.png" />
 </svelte:head>
 
-<header class="span-full mb-14 lt-md:mb-8">
-  {#if page.url.pathname === '/'}
-    <h1>
-      <p class="fixed text-white mix-blend-exclusion z-99">YuCheng Kuo</p>
-      <span aria-hidden="true" role="presentation" class="opacity-0">YuCheng Kuo</span> is a Product
-      Designer based in Taiwan.
-    </h1>
-  {:else}
+<header class="span-full">
+  {#if page.url.pathname !== '/'}
     <a
+      onmouseenter={() => homeLink?.scramble?.()}
       aria-label="Homepage"
       href="/"
-      class="reset text-white mix-blend-exclusion fixed z-99 font-medium text-base hover:text-secondary"
-      >YuCheng Kuo</a
-    >
+      class="reset fixed text-tertiary font-mono text-sm z-99 font-medium hover:text-primary group"
+      >yuchengkuo.com <span
+        class="hidden group-hover:(inline) text-xs"
+        bind:this={homeLink}
+        use:scramble={{
+          text: '[BACK ←]',
+          step: '[BACK ←]'.length,
+          speed: 0.15,
+          scramble: 3
+        }}>[BACK ←]</span
+      >
+    </a>
   {/if}
 </header>
 
@@ -83,39 +88,45 @@
   </main>
 {/key}
 
-<footer class="span-full mt-40">
-  <p class="mb-30 text-tertiary" role="presentation">//</p>
+<footer class="layout-content mt-30 grid-subgrid">
+  <hr class="border-dash span-full" />
 
-  <ul class="flex flex-col gap-0.5 lt-md:gap-1">
+  <ul class="span-full md:span-3 flex flex-col gap-1.5 lt-md:gap-1">
     {#each data.navigation as nav}
       <li><a href={nav.url}>{nav.label}</a></li>
     {/each}
 
-    <li class="my-8"><a href="/resume">Resume</a> <span class="text-tertiary">(PDF)</span></li>
+    <li class="my-8">
+      <a href="/resume">Resume</a>
+      <span class="text-tertiary font-mono text-xs">[.pdf] [48kb]</span>
+    </li>
   </ul>
 
-  <ul class="flex flex-col gap-0.5 mb-8 lt-md:gap-1">
+  <ul class="span-full md:span-3 flex flex-col gap-1.5 mb-8 lt-md:gap-1">
     {#each data.contact as contact}
       <li>
         <a href={contact.url}>{contact.label}</a>
-        <span class="text-tertiary text-xs">{contact.key}</span>
+        <span class="text-tertiary font-mono text-xs ml-1">{contact.key}</span>
       </li>
     {/each}
   </ul>
 
-  <p class="font-medium">
-    <span
-      bind:this={footerName}
-      use:scramble={{
-        text: 'YuCheng Kuo',
-        step: 'YuCheng Kuo'.length,
-        ...glitch
-      }}>YuCheng Kuo</span
-    >
-  </p>
-  <div class="grid-subgrid">
-    <p class="text-tertiary">©<Year /></p>
-    <p class="start-11 text-right">GMT+8 <Time /></p>
+  <div class="span-full">
+    <p class="font-medium">
+      <span class="i-custom-logo size-3 align--2%" role="presentation"></span>
+      <span
+        bind:this={footerName}
+        use:scramble={{
+          text: 'YuCheng Kuo',
+          step: 'YuCheng Kuo'.length,
+          ...glitch
+        }}>YuCheng Kuo</span
+      >
+    </p>
+    <div class="flex justify-between font-mono text-xs mt-1">
+      <p class="text-tertiary">©<Year /></p>
+      <p class="text-right">GMT+8 <Time /></p>
+    </div>
   </div>
 </footer>
 
