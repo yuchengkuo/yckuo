@@ -69,28 +69,37 @@ export default defineConfig({
       'bg-screen-hover': 'bg-rx-sage-2',
       'bg-surface': 'bg-rx-sage-3',
       'bg-surface-hover': 'bg-rx-sage-4',
-      'bg-selection': 'bg-rx-grass-3',
+      'bg-selection': 'bg-rx-green-4',
+      'bg-button-primary': 'bg-rx-green-11',
+      'bg-button-primary-hover': 'bg-rx-gray-12',
+      'bg-button-secondary': 'bg-rx-sage-3',
+      'bg-button-secondary-hover': 'bg-rx-gray-12',
       'bg-inverse': 'bg-rx-sage-12',
+
       'text-primary': 'text-rx-sage-12',
-      'text-secondary': 'text-rx-sage-9',
-      'text-tertiary': 'text-rx-sage-7',
-      'text-selection': 'text-rx-grass-11',
+      'text-secondary': 'text-rx-sage-10',
+      'text-tertiary': 'text-rx-sage-8',
+      'text-selection': 'text-rx-green-12',
       'text-on-color': 'text-rx-sage-1',
-      'border-neutral': 'border-rx-sage-3',
-      'border-neutral-hover': 'border-rx-sage-4',
-      'underline-neutral': 'underline-rx-sage-5',
-      'underline-neutral-hover': 'underline-rx-sage-6',
+
+      'border-neutral': 'border-rx-sage-5',
+      'border-neutral-hover': 'border-rx-sage-6',
+      'border-button-primary': 'border-radix-sage-12',
+      'border-button-secondary': 'border-rx-sage-6',
+      'underline-neutral': 'underline-rx-sage-8',
+      'underline-neutral-hover': 'underline-rx-sage-10',
       'underline-dotted': 'underline-rx-sage-8',
       'underline-dotted-hover': 'underline-rx-sage-10'
     },
-    /* Semantic prose text styles */
-    {},
+    /* Text Style Overwrite */
+    { 'text-xs': 'font-size-3 leading-5' },
     /* Utility */
     {
       'border-dash': 'border-b border-dashed border-neutral',
       button: 'bg-transparent'
     },
     /* Shortcut */
+    { 'font-mono': 'font-mono slashed-zero' },
     [/^size-(.*)$/, ([, s]) => `w-${s} h-${s}`],
     [
       /^tag-(.*)$/,

@@ -114,9 +114,20 @@ img {
   --uno: 'bg-surface';
 }
 
-button {
-  --uno: 'bg-transparent underline p-0 w-fit';
-  --uno: 'hover:(bg-bg-muted underline-border)';
+button,
+.button-primary,
+.button-secondary {
+  --uno: 'cursor-pointer border-1 px-2.5 py-1 font-mono text-xs uppercase';
+}
+
+.button-primary {
+  --uno: 'bg-button-primary border-button-primary text-on-color';
+  --uno: 'hover:(bg-button-primary-hover border-transparent)';
+}
+
+.button-secondary {
+  --uno: 'bg-button-secondary border-button-secondary text-secondary';
+  --uno: 'hover:(bg-button-secondary-hover text-on-color border-transparent)';
 }
 
 /*
@@ -151,16 +162,16 @@ h6 {
 }
 
 /* Link */
-a:not(.reset) {
-  --uno: 'transition-color transition-200 ease-out underline underline-dotted decoration-dotted decoration-2 w-fit rounded-0.5';
-  --uno: 'hover:(bg-screen-hover text-primary underline-dotted-hover decoration-solid decoration-1px)';
-  --uno: 'focus:(bg-screen-hover text-primary underline-dotted-hover decoration-solid decoration-1px)';
-  --uno: 'active:(bg-surface)';
+a:not(.reset, .button-primary, .button-secondary) {
+  --uno: 'underline underline-neutral decoration-offset-2 decoration-1.5 w-fit';
+  --uno: 'hover:(underline-neutral-hover)';
+  --uno: 'focus:(underline-neutral-hover)';
+  --uno: 'active:(underline-neutral)';
 
   /* Arrow after external link */
   &[href^='http']::after,
   &[href^='mailto']::after {
-    --uno: 'content-empty i-tabler:arrow-up-right size-0.75em text-secondary align-text-top';
+    --uno: 'content-["[↗]"] text-tertiary text-xs inline-block underline-0 ml-1';
   }
 
   &[href^='http']:hover::after,
