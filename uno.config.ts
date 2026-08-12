@@ -105,7 +105,31 @@ export default defineConfig({
     { 'grid-subgrid': 'grid grid-cols-subgrid' },
     [/^span-(.*)$/, ([, r]) => `col-span-${r}`],
     [/^start-(.*)$/, ([, r]) => `col-start-${r}`],
-    [/^end-(.*)$/, ([, r]) => `col-end-${r}`]
+    [/^end-(.*)$/, ([, r]) => `col-end-${r}`],
+    /*
+     * Layout tokens — the single source of truth for column placement.
+     *
+     * The body is a 6-column grid on mobile and a 12-column grid from `md` up.
+     * Each token carries its own responsive behaviour, so a call site names a
+     * layout *intent* and never writes a breakpoint prefix or a raw column
+     * number. Below `md` all four resolve to a full span (full-bleed default);
+     * they diverge only above it. Multi-column behaviour on mobile is an
+     * explicit opt-in, never something inherited by accident.
+     *
+     * Deliberately not prefixed `col-`, which would collide with both the
+     * preset's native column utilities and the `span-`/`start-`/`end-`
+     * shortcuts above.
+     */
+    {
+      /* Edge to edge at every width. */
+      'layout-full': 'span-full',
+      /* The primary content column: columns 3–10 on desktop. */
+      'layout-content': 'span-full md:start-3 md:span-8',
+      /* The narrower reading measure: columns 3–7 on desktop. */
+      'layout-measure': 'span-full md:start-3 md:span-5',
+      /* The left-hand escape used by code blocks and asides: columns 1–6. */
+      'layout-aside': 'span-full md:start-1 md:span-6'
+    }
   ],
   variants: [
     {

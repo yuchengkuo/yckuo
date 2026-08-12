@@ -15,7 +15,9 @@
     --uno: 'col-span-full mt-24 lt-md:mt-8';
     --uno: 'grid grid-cols-subgrid gap-y-4';
 
-    --uno: 'children:(col-span-3 p-8 bg-surface rounded content-center)';
+    /* Cell sizing is the gallery's own business, not a page-level column
+       concept: four-up on desktop, one-up on mobile so each image is legible. */
+    --uno: 'children:(col-span-full md:col-span-3 p-8 bg-surface rounded content-center)';
   }
 
   :global(.gallery > figure > *) {

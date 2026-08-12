@@ -56,32 +56,31 @@ div[data-layer] {
 body {
   --uno: 'min-h-100vh';
   --uno: 'text-primary text-3.5 leading-5 font-sans opacity-100';
-  --uno: 'p-4 md:(px-10 py-9)';
+  --uno: 'p-4 md:(px-10 pt-10 pb-30)';
 
   /* Main grid layouts */
-  --uno: 'grid grid-cols-6 lg:grid-cols-12 gap-x-4 items-baseline';
+  --uno: 'grid grid-cols-6 md:grid-cols-12 gap-x-4 items-baseline';
 
-  /* Avoid stretching of header and main when page height is not over 100vh */
-  grid-template-rows: min-content min-content;
+  /* Avoid stretching children when page height is not over 100vh.
+     Expressed as content distribution so it holds for any number of children. */
+  --uno: 'content-start';
 
-  word-spacing: -0.01em;
-  letter-spacing: -0.02em;
   text-rendering: optimizeLegibility;
 }
 
 main {
-  /* Subgrid */
-  --uno: 'span-full md:(grid-subgrid)';
+  /* Subgrid at every breakpoint — gating this on `md` severs the chain and
+     makes every column placement below it inert on mobile. */
+  --uno: 'span-full grid-subgrid mt-20 md:mt-60';
 
   > :not(article) {
-    --uno: 'start-1 span-4';
+    --uno: 'layout-content';
   }
 
   /* Subgrid */
   > article {
-    --uno: 'span-full md:(grid-subgrid)';
-    --uno: 'md:children:(start-1 span-5)';
-    --uno: 'lg:children:(start-1 span-6)';
+    --uno: 'span-full grid-subgrid';
+    --uno: 'children:layout-measure';
   }
 }
 
