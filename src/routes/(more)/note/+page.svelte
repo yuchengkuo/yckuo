@@ -33,10 +33,10 @@
   }
 
   nav a {
-    --uno: 'text-fg';
+    --uno: 'text-primary';
   }
 
   time {
-    --uno: 'text-sm text-tertiary ml-2';
+    --uno: 'font-mono text-xs text-tertiary ml-2';
   }
 </style>

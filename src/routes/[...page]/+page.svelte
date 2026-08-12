@@ -10,12 +10,12 @@
 </svelte:head>
 
 <div class="mt-8 mb-16">
-  <h1 class="text-8 leading-9 font-bold">{data.title}</h1>
-  <p class="text-secondary">{data.subtitle}</p>
+  <h1 class="text-8 leading-10 font-medium">{data.title}</h1>
+  <p class="text-secondary font-mono text-xs mt-1">{data.subtitle}</p>
 </div>
 
 <Content content={data.content} />
 
-<p class="mt-6 text-tertiary">
+<p class="mt-20 text-tertiary font-mono text-xs">
   Updated at <time datetime={data.updated}>{formatDate(data.updated)}</time>
 </p>
