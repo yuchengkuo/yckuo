@@ -121,7 +121,8 @@ const projects = defineCollection({
       tags: s.array(s.string()).optional(),
       category: s.array(s.string().max(15)),
       summary: s.string(),
-      featured: s.boolean().default(false)
+      featured: s.boolean().default(false),
+      link: s.string().url().optional()
     })
     .merge(sharedSchema)
 })
