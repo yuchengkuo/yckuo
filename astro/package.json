@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "sync": "node scripts/sync-content.mjs",
+    "sync:control": "node scripts/sync-content.mjs --control --report"
   },
   "dependencies": {
     "@astrojs/markdoc": "2.0.6",

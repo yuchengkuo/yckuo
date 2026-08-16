@@ -30,9 +30,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 `node_modules` — Astro 7 needs Vite 8 and SvelteKit 2.57 is on Vite 5, so one manifest cannot hold
 both, and both must stay buildable at once for the parity run. Run its commands from inside
 `astro/` (`pnpm install`, `pnpm dev`, `pnpm build`); the root scripts above are SvelteKit's and are
-untouched by it. `astro/src/content/` is a **gitignored mirror** of the private submodule, not a
-source directory. The plan, the tickets and every ruling live in `.scratch/astro-migration/map.md`
+untouched by it. The plan, the tickets and every ruling live in `.scratch/astro-migration/map.md`
 — **read it before touching `astro/`**. The root SvelteKit tree is still what production serves.
+
+`astro/src/content/` is a **gitignored mirror** of the private submodule, not a source directory.
+Regenerate it with `pnpm sync` from inside `astro/` — `@astrojs/markdoc` reads only `.mdoc` while the
+root app needs `.md`, so the mirror holds 26 renamed files plus one leading `/` per Cloudinary image
+id. It is **not** wired to `predev`/`prebuild`, so a clone without submodule access still builds.
+`pnpm sync:control` runs every gate and writes nothing. `--in-place` is the cutover mode and rewrites
+the private submodule — do not run it outside ticket 17's window.
 
 ## Project Architecture
 
