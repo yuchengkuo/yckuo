@@ -64,7 +64,6 @@ This is a content-driven SvelteKit application using **Velite** as the content l
 - **Core**: SvelteKit 2.x, Svelte 5.x
 - **Content**: Velite, Markdoc, Shiki for syntax highlighting
 - **Styling**: UnoCSS, Radix UI colors
-- **Animations**: Motion (motion-dom)
 - **Package Manager**: pnpm 9.15.3
 
 ### Content Rendering Pipeline
