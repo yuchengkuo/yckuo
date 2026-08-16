@@ -1,0 +1,63 @@
+---
+/*
+ * `src/routes/(more)/note/[page]/+page.svelte` and its loader, ported.
+ *
+ * Unlike `work/[slug].astro`, `getStaticPaths()` here needs no `featured` filter: all six
+ * notes are reachable from `/note` and all six are prerendered today. The parameter is
+ * the tail of `entry.id` for the same reason it is there — velite's slug is
+ * `note/windicss`, and the route owns only the last segment.
+ *
+ * There is no "Updated at" trailer on a note; the date lives in the header instead, and
+ * reads "Updated on". That asymmetry with `[...page].astro` is the source's, not a slip.
+ */
+import { render, type CollectionEntry } from 'astro:content'
+import Base from '../../layouts/Base.astro'
+import More from '../../components/More.astro'
+import { getNotes } from '../../lib/collections'
+import { formatDate } from '../../lib/util'
+
+export async function getStaticPaths() {
+  return (await getNotes()).map((entry) => ({
+    params: { slug: entry.id.replace(/^note\//, '') },
+    props: { entry }
+  }))
+}
+
+interface Props {
+  entry: CollectionEntry<'notes'>
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+---
+
+<Base
+  title={`${entry.data.title} — YuCheng Kuo`}
+  ogTitle={entry.data.title}
+  description={entry.data.description}
+>
+  <More>
+    <header>
+      <h2>{entry.data.title}</h2>
+      <p>
+        Updated on <time datetime={entry.data.updated.toISOString()}
+          >{formatDate(entry.data.updated)}</time
+        >
+      </p>
+    </header>
+
+    {/* Frontmatter as Markdoc variables — see 15-1, in `[...page].astro`. */}
+    <Content {...entry.data} />
+  </More>
+</Base>
+
+<style>
+  /* `+page.svelte`'s scoped block, unchanged. */
+  header {
+    --uno: 'mb-6';
+  }
+
+  header p {
+    --uno: 'font-mono text-xs text-tertiary mt-2';
+  }
+</style>

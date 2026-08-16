@@ -43,3 +43,29 @@ export async function getWorks() {
 export async function getProjects() {
   return (await getCollection('projects', isVisible)).sort(byPublishedDesc)
 }
+
+/*
+ * The two reads below replace `/api/content/entry/<slug>` rather than the collection
+ * endpoint, so they carry the draft filter and NO sort — the entry endpoint had none.
+ *
+ * `getNotes()` is the surprise. `(more)/note/+page.server.ts` fetches
+ * `/api/content/collection/notes/desc`, which LOOKS like a descending sort and is not
+ * one: the endpoint does `sort.split(':')`, so `'desc'` yields sortKey `'desc'` and
+ * sortDirection `undefined`, both of which fail its guard, and the branch never runs.
+ * The list therefore renders in velite's own collection order — the glob's alphabetical
+ * order — and today's prerendered `/note` confirms it (figma-shortcut, markdoc-sectionize,
+ * markdoc-shiki, sveltekit-parent, unocss-scanning, windicss: not date order in either
+ * direction). Ported as the behaviour is, not as the URL reads; `getCollection` returns
+ * the same alphabetical order. Making the list actually sort by date is a content/design
+ * decision, not a port. (Finding 15-2.)
+ */
+
+/** `/api/content/entry/<page>` for the `pages` collection */
+export async function getPages() {
+  return await getCollection('pages', isVisible)
+}
+
+/** `/api/content/collection/notes/desc` — see above: unsorted, despite the name */
+export async function getNotes() {
+  return await getCollection('notes', isVisible)
+}

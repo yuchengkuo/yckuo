@@ -18,10 +18,10 @@
  * body its own subgrid, which is why `<Content />` is not wrapped in a `.prose` div the
  * way the homepage's intro is.
  *
- * `<meta property="og:type" content="article" />` from `work/+layout.svelte` is NOT here:
- * og/twitter meta is ticket 15's, which owns `Base.astro`'s head. The `<title>` and
- * description are, because they are the layout's only per-page head values and 15 would
- * otherwise have to reverse-engineer them.
+ * `<meta property="og:type" content="article" />` from `work/+layout.svelte` arrives with
+ * ticket 15, as the `ogType` prop below. SvelteKit emitted it *in addition to* the root
+ * layout's `og:type="website"`, so every work page carried two — here the prop replaces
+ * the default and the page carries one. Same for the duplicated `description`.
  */
 import { render, type CollectionEntry } from 'astro:content'
 import Base from '../../layouts/Base.astro'
@@ -55,7 +55,12 @@ const metaEntries = Object.entries(entry.data.meta ?? {})
 const summaryEntries = entry.data.summary ?? []
 ---
 
-<Base title={`${entry.data.title} — YuCheng Kuo`} description={entry.data.description}>
+<Base
+  title={`${entry.data.title} — YuCheng Kuo`}
+  ogTitle={entry.data.title}
+  ogType="article"
+  description={entry.data.description}
+>
   {/* Heading */}
   <div class="md:grid-subgrid layout-content">
     <h1 class="text-8 leading-10 lt-md:text-7 lt-md:leading-8 font-medium span-full">
@@ -110,8 +115,8 @@ const summaryEntries = entry.data.summary ?? []
     }
   </section>
 
-  {/* Content */}
-  <Content />
+  {/* Content — frontmatter as Markdoc variables, see 15-1 in `[...page].astro` */}
+  <Content {...entry.data} />
   <p class="mt-6 text-tertiary font-mono text-xs">
     Updated at <time datetime={entry.data.updated.toISOString()}
       >{formatDate(entry.data.updated)}</time

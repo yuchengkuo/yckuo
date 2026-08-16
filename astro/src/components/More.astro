@@ -1,0 +1,60 @@
+---
+/*
+ * `src/routes/(more)/+layout.svelte`, ported as a COMPONENT rather than a layout.
+ *
+ * Astro has no equivalent of SvelteKit's `(more)` route group, and does not need one:
+ * the group's whole job was to share this heading and sub-nav between `/note` and
+ * `/note/[page]` without appearing in either URL. That is a shared component, not a
+ * routing feature — the URLs are unaffected and no redirect is owed.
+ *
+ * It renders THREE top-level nodes and no wrapper: `<h1>`, `<nav>`, and the slot. An
+ * `.astro` component emits no element of its own, so the page's content stays a direct
+ * child of `<main>` and `main > :not(article)` keeps placing it (07-4).
+ *
+ * THE SUB-NAV IS EMPTY TODAY, and it is empty in production too. `navigation.yml`
+ * declares no `More` key, so `find(...)?.include ?? []` yields nothing and the `<ul>`
+ * renders bare — which today's `/note` prerender confirms (`<ul class="flex gap-4
+ * font-mono text-xs"></ul>`). Ported as written rather than as intended: adding the
+ * missing key is a content change.
+ */
+import { getNavigation } from '../lib/navigation'
+
+const { navigation } = await getNavigation()
+const subItems = navigation.find((item) => item.key === 'More')?.include ?? []
+
+/* `$page.url.pathname.startsWith(subItem)`, with Base.astro's trailing-slash strip. */
+const pathname = Astro.url.pathname.replace(/(.)\/$/, '$1')
+---
+
+<h1 class="text-8 leading-10 font-medium">More</h1>
+
+<nav>
+  <ul class="flex gap-4 font-mono text-xs">
+    {
+      subItems.map((subItem) => (
+        <li>
+          <a class:list={[pathname.startsWith(subItem) && 'current']} href={subItem}>
+            {subItem.slice(1).charAt(0).toUpperCase() + subItem.slice(2)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<slot />
+
+<style>
+  /* `+layout.svelte`'s scoped block, unchanged. */
+  nav {
+    --uno: 'pb-4 mt-4 mb-8 border-dash';
+  }
+
+  nav a {
+    --uno: 'decoration-none';
+  }
+
+  nav a:not(.current) {
+    --uno: 'text-tertiary';
+  }
+</style>

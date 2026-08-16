@@ -15,6 +15,7 @@
  * reset over prose.css and utilities silently stop applying (07-3b, ladder A5).
  */
 import { ClientRouter, fade } from 'astro:transitions'
+import Analytics from '@vercel/analytics/astro'
 import Header from '../components/Header.svelte'
 import Footer from '../components/Footer.svelte'
 import { getNavigation } from '../lib/navigation'
@@ -23,12 +24,35 @@ import '../styles/main.css'
 import '../styles/prose.css'
 
 interface Props {
+  /** The document `<title>`, verbatim. Each route builds its own suffix. */
   title: string
   description?: string
+  /*
+   * `page.data.title` — the og:/twitter: title, which is NOT the document title and
+   * cannot be derived from it. SvelteKit fed the two from different places: the root
+   * layout's `<svelte:head>` used the bare `page.data.title` while each route's own
+   * `<svelte:head>` appended ` — YuCheng Kuo`. `/note` is the case that proves they are
+   * independent — its title is `Notes — YuCheng Kuo` and its og:title is *absent*,
+   * because the note index route has no entry and so no `page.data.title`.
+   */
+  ogTitle?: string
+  ogType?: 'website' | 'article'
 }
 
-const { title, description = '' } = Astro.props
-const pathname = Astro.url.pathname
+const { title, description, ogTitle, ogType = 'website' } = Astro.props
+
+/*
+ * `page.url.pathname` under SvelteKit, which prerenders to `about.html` and so has no
+ * trailing slash to carry. Astro's default `build.format: 'directory'` gives
+ * `/about/`, and that slash would land in og:url and twitter:url where the SvelteKit
+ * prerender has none. Stripped here, once, rather than at each call site — and the
+ * root `/` is left alone, since `(.)` requires a character before the slash.
+ */
+const pathname = Astro.url.pathname.replace(/(.)\/$/, '$1')
+
+const SITE = 'https://yuchengkuo.com'
+const OG_IMAGE = `${SITE}/og/default.png`
+
 const { navigation, contact } = await getNavigation()
 ---
 
@@ -45,8 +69,61 @@ const { navigation, contact } = await getNavigation()
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 
     <title>{title}</title>
+
+    {/*
+      `+layout.svelte`'s `<svelte:head>` block, in its order. `content` is bound to a
+      possibly-undefined value on purpose: Astro drops the attribute entirely when the
+      value is `undefined`, which is what SvelteKit did too — today's `/note` prerender
+      carries a bare `<meta name="description"/>` and a bare `<meta property="og:title"/>`.
+
+      TWO DELIBERATE DIFFERENCES FROM THE PRERENDER, both recorded in the ticket:
+
+      1. The three description values no longer carry a `<p>` wrapper. Velite declared
+         `description: s.markdown()`, so every description meta in production today reads
+         `content="&lt;p>…&lt;/p>"` — HTML, escaped, inside a meta attribute. Ticket 13's
+         schema port dropped that transform (04 had recorded the field as rendered
+         nowhere, which was true of the *body* and not of the head). Reproducing the
+         wrapper would mean re-adding a markdown transform in order to emit broken
+         markup, so the port ships the plain string.
+      2. Work pages emit ONE og:type (`article`) and ONE description. SvelteKit emitted
+         both — `work/+layout.svelte` added its own `og:type` and `description` on top of
+         the root layout's, so every work page carries the pair twice with different
+         values. `ogType` is a prop here instead, so the later value wins once.
+    */}
     <meta name="description" content={description} />
-    {/* TODO(15): og/twitter/robots meta, analytics, service-worker registration. */}
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={`${SITE}${pathname}`} />
+    <meta property="og:image" content={OG_IMAGE} />
+
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:url" content={`${SITE}${pathname}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={OG_IMAGE} />
+
+    {/*
+      The service worker. `src/service-worker.ts` ports verbatim to `public/service-worker.js`
+      (it was already plain JS), but SvelteKit's convention — build it, and emit a
+      registration into the client entry — has no Astro counterpart, so the registration is
+      hand-written. This is the only genuinely NEW code ticket 15 adds.
+
+      Two departures from the generated SvelteKit version, both deliberate:
+      `/service-worker.js` is absolute where SvelteKit emitted a depth-relative
+      `./service-worker.js`, which is wrong the moment Astro's directory build format puts
+      a page at `/note/windicss/`; and the `trustedTypes` policy is dropped, since the URL
+      is a literal and there is no CSP requiring one. `is:inline` keeps it out of the module
+      graph — it must not become a bundled chunk that the router re-imports on every swap.
+    */}
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'))
+      }
+    </script>
 
     <ClientRouter />
   </head>
@@ -70,6 +147,21 @@ const { navigation, contact } = await getNavigation()
 
     <div data-layer role="presentation" transition:persist></div>
 
+    {/*
+      `injectAnalytics({ mode: dev ? 'development' : 'production' })` from
+      `@vercel/analytics/sveltekit`. The same package ships an `/astro` entry point: the
+      framework-agnostic `inject()` plus a `pageview()` call, both in the constructor of a
+      `<vercel-analytics>` custom element.
+
+      DELIBERATELY NOT `transition:persist`, and it was tried first. The router swaps the
+      body, so a non-persisted element is constructed once per navigation — which is the
+      only thing that reports the SPA pageview `inject({ disableAutoTrack: true })` has
+      switched off. Persisting it also leaks the directive's own
+      `data-astro-transition-persist` key into `data-props`, which the component JSON-parses
+      and forwards to `inject()` verbatim.
+    */}
+    <Analytics mode={import.meta.env.DEV ? 'development' : 'production'} />
+
     <script>
       // Criterion (iii): scroll continuity. `swapRootAttributes` replaces <html>'s
       // attributes on every swap, and lenis writes `class="lenis lenis-smooth"` there
@@ -88,6 +180,19 @@ const { navigation, contact } = await getNavigation()
     </script>
 
     <style is:global>
+      /*
+       * `body` is the 12-column grid (main.css:56), so anything rendered as a direct child
+       * of it becomes a GRID ITEM. `<vercel-analytics>` is an empty custom element with no
+       * default display rule, which would place a fourth in-flow item after the footer —
+       * zero-height today, and a structural change to a grid the whole layout hangs off.
+       * The other non-content children avoid this by other means: the two islands are
+       * `display: contents` and `div[data-layer]` is `fixed`. This is that means, for this
+       * one. The custom element still upgrades and its constructor still runs.
+       */
+      vercel-analytics {
+        display: none;
+      }
+
       main {
         /* Intro animation, verbatim from +layout.svelte:139-146 */
         transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);

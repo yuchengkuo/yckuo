@@ -67,14 +67,19 @@ const orderedProjects = [
 ]
 ---
 
-<Base title={page?.data.title ?? 'YuCheng Kuo'} description={page?.data.description}>
+<Base
+  title={page?.data.title ?? 'YuCheng Kuo'}
+  ogTitle={page?.data.title}
+  description={page?.data.description}
+>
   <h1 class="text-5 mb-10">YuCheng Kuo is a Product Designer based in Taiwan.</h1>
 
   {
     page && Intro && (
       <Fragment>
         <div class="prose layout-measure">
-          <Intro />
+          {/* Frontmatter as Markdoc variables — see 15-1, in `[...page].astro`. */}
+          <Intro {...page.data} />
         </div>
         <p class="text-tertiary mt-5 font-mono text-xs">
           Updated at <time datetime={page.data.updated.toISOString()}>
