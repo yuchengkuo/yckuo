@@ -41,7 +41,6 @@
     "shiki": "^1.29.2",
     "svelte": "^5.55.4",
     "svelte-check": "^4.4.6",
-    "svelte-seo": "^1.7.1",
     "tslib": "^2.8.1",
     "typescript": "^5.9.3",
     "unocss": "^66.6.8",
