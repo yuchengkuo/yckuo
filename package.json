@@ -19,8 +19,7 @@
     "format": "prettier --write .",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "vercel-install": "bash scripts/vercel-install.sh"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "type": "module",
   "devDependencies": {

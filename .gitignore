@@ -30,8 +30,11 @@ yarn-error.log*
 
 # content
 .velite
-.gitmodules
 
 # svelte
 /.svelte-kit
 .output
+
+# agent working files — issue tracker, prototypes and in-flight reviews stay local
+/.scratch
+/wip
