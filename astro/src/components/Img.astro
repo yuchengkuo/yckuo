@@ -27,6 +27,14 @@ import Video from '../lib/media/Video.svelte'
 // falls into its `...rest` and spreads onto the element: every one of the 16 video
 // figures renders `<figure ... description="">` where the SvelteKit prerender has no
 // such attribute. Inert, invisible, and a parity difference on all 16.
+//
+// FINDING (16-1). `<Image />` server-renders with NO `client:` directive; only `<Video />`
+// keeps one. 14-2 established the island was inert here — `visible` is initialised `true`
+// and `blurDataUrl` has had no producer since ticket 10 — and deliberately left this file
+// alone, recording the inconsistency rather than fixing it. 16 is where the deferred half
+// came due: `<astro-island>` is `display: contents`, so it generates no box, but CSS
+// SELECTORS match the DOM tree, not the box tree. Every `>`-combinator rule aimed at a
+// figure landed on the island instead, and the figure fell through to auto-placement.
 const { class: className, image_isvideo, description, ...rest } = Astro.props
 ---
 
@@ -34,6 +42,6 @@ const { class: className, image_isvideo, description, ...rest } = Astro.props
   image_isvideo ? (
     <Video client:visible class={className} {...rest} />
   ) : (
-    <Image client:visible class={className} description={description} {...rest} />
+    <Image class={className} description={description} {...rest} />
   )
 }

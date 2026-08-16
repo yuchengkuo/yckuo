@@ -42,6 +42,9 @@ astro/node_modules
 astro/dist
 astro/.astro
 astro/src/content
+# ticket 16's whole-corpus render harness builds here so it cannot disturb `dist/`,
+# which every other parity check reads.
+astro/dist-parity
 
 # agent working files — issue tracker, prototypes and in-flight reviews stay local
 /.scratch
