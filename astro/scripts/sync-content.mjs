@@ -60,13 +60,22 @@ const COLLECTIONS = [
 const VERBATIM = ['navigation.yml']
 
 /**
- * The recorded corpus. Asserted hard, because every figure this map inherited turned out
- * stale and the ladder's answer to that is a loud failure rather than a comment.
+ * The recorded corpus — PROVENANCE, not a gate by default. Measured at content `19ee03f`.
  *
- * If content legitimately grows, update these three numbers here and say so in the ticket.
- * `--allow-drift` downgrades the assertion to a report for a one-off run.
+ * It is not a hard assertion, and the reason is worth stating because the first version of
+ * this file got it wrong. **The site repo pins the submodule at `d862f74`**, which is a
+ * different corpus: `pages 7 · works 9` (it still has `oen.md`, and no `docs/CONTEXT.md` at
+ * all) and **144 image call sites, not 128**. A hard census gate therefore refused to write
+ * the mirror for anyone who cloned this branch and ran `git submodule update` — the tool
+ * bricked itself at the one moment a newcomer would use it.
+ *
+ * So the gates that must always hold are the STRUCTURAL ones — every site resolvable, the
+ * conversion a pure insertion, idempotent, only image lines moving. Those are true of any
+ * revision. The census is reported every run and warns loudly on drift; `--strict` promotes
+ * it to a failure, which is what 16's parity run and 17's cutover should use, since there
+ * "the corpus is not what we measured" is exactly the thing to stop for.
  */
-const CENSUS = { files: 26, images: 128, imageFiles: 15 }
+const CENSUS = { rev: '19ee03f', files: 26, images: 128, imageFiles: 15 }
 
 const argv = process.argv.slice(2)
 const has = (f) => argv.includes(f)
@@ -80,8 +89,8 @@ if (has('--help') || has('-h')) {
   node scripts/sync-content.mjs --in-place   ticket 17 step 2: convert the submodule itself
 
   --report        per-file image call-site counts
-  --dry-run       with --in-place: print the 26 renames and touch nothing
-  --allow-drift   downgrade the corpus census from a gate to a warning, for one run
+  --dry-run       with --in-place: print the renames and touch nothing
+  --strict        promote corpus-census drift from a warning to a failure (16, 17)
   --help          this`)
   process.exit(0)
 }
@@ -94,7 +103,7 @@ const MODE = has('--selftest')
       : 'mirror'
 const REPORT = has('--report')
 const DRY = has('--dry-run')
-const LOOSE = has('--allow-drift')
+const STRICT = has('--strict')
 
 const problems = []
 const fail = (msg) => problems.push(msg)
@@ -139,7 +148,29 @@ const TRAPS = [
     in: '![a](https://x.test/y)',
     out: '![a](https://x.test/y)'
   },
-  { why: 'an escaped opener is not an image', in: '\\![a](work/x)', out: '\\![a](work/x)' }
+  { why: 'an escaped opener is not an image', in: '\\![a](work/x)', out: '\\![a](work/x)' },
+  {
+    // Review finding: G2's original reconstruct-and-compare form failed this — it un-slashed
+    // the hand-slashed src too, so `restored !== raw` and a correct conversion was rejected.
+    // Today's corpus has no such file, so nothing caught it; at cutover it would have blocked
+    // `--in-place` over one character. The gate is symmetric now, and this pins it.
+    why: 'a hand-slashed src beside a relative one — must convert, not fail G2',
+    in: "![a](/work/keep 'k')\n\n![b](work/new 'n')\n",
+    out: "![a](/work/keep 'k')\n\n![b](/work/new 'n')\n"
+  }
+]
+
+/** The per-file gates, run over a fixture so the gates themselves are covered, not just the
+ * converter. `convert()` reports through `fail()`, so a fixture that trips a gate shows up as
+ * a normal gate failure naming the fixture. */
+const GATE_FIXTURES = [
+  {
+    why: 'G2 on a mixed hand-slashed / relative document',
+    text: "![a](/work/keep 'k')\n\n![b](work/new 'n')\n"
+  },
+  { why: 'G2 on an all-relative document', text: '![a](work/x)\n\n![b](work/y)\n' },
+  { why: 'G2 on a fully-converted document (nothing to do)', text: '![a](/work/x)\n' },
+  { why: 'a document with no images at all', text: '# Title\n\nprose {% .base %}\n' }
 ]
 
 function selftest() {
@@ -156,6 +187,15 @@ function selftest() {
     }
   }
   console.log(`selftest: ${pass}/${TRAPS.length} converter fixtures pass`)
+
+  // The gates over fixtures. `convert()` pushes into `problems`, so any gate that misfires on
+  // a document it should accept surfaces here rather than on real content months later.
+  const beforeGates = problems.length
+  for (const f of GATE_FIXTURES) convert(`fixture[${f.why}]`, f.text)
+  const misfired = problems.length - beforeGates
+  console.log(
+    `selftest: ${GATE_FIXTURES.length - misfired}/${GATE_FIXTURES.length} gate fixtures pass`
+  )
 }
 
 // --- collection walk --------------------------------------------------------------------
@@ -203,15 +243,24 @@ function convert(rel, raw) {
         unresolvable.map((s) => `L${s.line} ${s.src}`).join(', ')
     )
 
-  // G2 — round-trip purity. Strip every inserted '/' back out and the document must be
-  // byte-identical to the source. This is the proof that licenses a regenerable mirror.
-  // Longest src first, so `/work/x` can never be un-slashed inside `/work/xy`.
-  let restored = text
-  const slashed = after
-    .filter((x) => x.src.startsWith('/'))
-    .sort((a, b) => b.src.length - a.src.length)
-  for (const s of slashed) restored = restored.replace(`](${s.src}`, `](${s.src.slice(1)}`)
-  if (sites > 0 && restored !== raw) fail(`${rel}: round-trip differs — NOT a pure insertion`)
+  // G2 — round-trip purity, in two halves. This is the proof that licenses a regenerable
+  // mirror, so it has to hold for reasons rather than by luck on today's corpus.
+  //
+  // (a) Every site is either untouched or exactly one leading '/' longer. Positional, so
+  //     it cannot be fooled by two sites sharing a prefix.
+  for (let i = 0; i < Math.min(before.length, after.length); i++) {
+    const b = before[i].src
+    const a = after[i].src
+    if (a !== b && a !== `/${b}`)
+      fail(`${rel}: L${after[i].line} src changed by more than a leading slash: ${b} -> ${a}`)
+  }
+  // (b) Normalise `](/` to `](` on BOTH sides and the documents must be byte-identical.
+  //     Symmetric, so a source site that was ALREADY slashed cancels out instead of being
+  //     un-slashed only on one side — the earlier reconstruct-and-compare form failed a file
+  //     mixing a hand-slashed src with a relative one, which would have blocked `--in-place`
+  //     at cutover over a single character nobody would think to look for.
+  const bare = (t) => t.replaceAll('](/', '](')
+  if (bare(text) !== bare(raw)) fail(`${rel}: round-trip differs — NOT a pure insertion`)
 
   // G3 — tag balance untouched (03's trap 1).
   if (tagBalance(raw) !== tagBalance(text)) fail(`${rel}: markdoc tag count changed`)
@@ -228,8 +277,9 @@ function convert(rel, raw) {
   const changed = []
   for (let i = 0; i < Math.max(srcLines.length, outLines.length); i++)
     if (srcLines[i] !== outLines[i]) changed.push(i + 1)
-  const bare = changed.filter((ln) => !census(outLines[ln - 1] ?? '').length)
-  if (bare.length) fail(`${rel}: changed line(s) with no image call site: ${bare.join(', ')}`)
+  const imageless = changed.filter((ln) => !census(outLines[ln - 1] ?? '').length)
+  if (imageless.length)
+    fail(`${rel}: changed line(s) with no image call site: ${imageless.join(', ')}`)
   const slashedAny = sites > 0
   const movedAny = changed.length > 0
   if (slashedAny !== movedAny)
@@ -253,11 +303,16 @@ function assertCensus(corpus) {
   const drift =
     files !== CENSUS.files || totalSites !== CENSUS.images || touched !== CENSUS.imageFiles
   if (!drift) return
+
+  // Name the revision, or "drifted" is unactionable: the usual cause is a submodule checkout
+  // that is not the one the figures were measured at, not content anyone edited.
   const msg =
-    `corpus census drifted from the recorded ${CENSUS.files} files / ${CENSUS.imageFiles} image-bearing / ` +
-    `${CENSUS.images} sites. If content legitimately changed, update CENSUS in this file and record it in the ticket.`
-  if (LOOSE) console.warn(`WARN --allow-drift: ${msg}`)
-  else fail(msg)
+    `corpus census differs from the recorded ${CENSUS.rev} figures ` +
+    `(${CENSUS.files} files / ${CENSUS.imageFiles} image-bearing / ${CENSUS.images} sites). ` +
+    `Check which submodule commit is checked out — the site repo pins an older one. ` +
+    `If content legitimately changed, update CENSUS and record it in the ticket.`
+  if (STRICT) fail(`--strict: ${msg}`)
+  else console.warn(`\nWARN: ${msg}\n`)
 }
 
 // --- modes ------------------------------------------------------------------------------
@@ -317,10 +372,13 @@ function mirror(corpus) {
     fs.copyFileSync(from, dest)
   }
 
-  // A9's precondition, checked where the mirror is written rather than trusted downstream.
+  // Every collection file reached the mirror. Unlike the census this is revision-independent
+  // — it compares written against read, not against a recorded figure — so it stays hard.
   const written = walk(MIRROR).filter((r) => r.endsWith('.mdoc'))
-  if (written.length !== CENSUS.files && !LOOSE)
-    fail(`mirror holds ${written.length} .mdoc file(s), expected ${CENSUS.files}`)
+  if (written.length !== corpus.length)
+    fail(`mirror holds ${written.length} .mdoc file(s) for ${corpus.length} collection file(s)`)
+  if (written.length !== CENSUS.files && STRICT)
+    fail(`--strict: mirror holds ${written.length} .mdoc file(s), recorded ${CENSUS.files}`)
   console.log(
     `mirror: ${written.length} .mdoc + ${VERBATIM.length} verbatim -> ${path.relative(PKG, MIRROR)}/ (gitignored)`
   )

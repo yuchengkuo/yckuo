@@ -40,6 +40,11 @@ id. It is **not** wired to `predev`/`prebuild`, so a clone without submodule acc
 `pnpm sync:control` runs every gate and writes nothing. `--in-place` is the cutover mode and rewrites
 the private submodule — do not run it outside ticket 17's window.
 
+**A census warning from `pnpm sync` is expected, not a failure.** This repo pins the `content`
+submodule at an older commit than the migration's figures were measured against (144 image sites vs
+128), so the script reports the difference and writes the mirror anyway. `--strict` turns that into an
+error, which is what the parity run and the cutover use.
+
 ## Project Architecture
 
 ### Content Management System
