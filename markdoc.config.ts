@@ -2,8 +2,6 @@ import Markdoc, { type ConfigType, type RenderableTreeNode } from '@markdoc/mark
 import { getSingletonHighlighter } from 'shiki'
 import { transformerNotationHighlight } from '@shikijs/transformers'
 
-import grammar from './src/lib/markdoc.tmLanguage.json'
-
 /*
  * Markdoc configuration pass into velite
  */
@@ -91,19 +89,12 @@ const markdocConfig: ConfigType = {
         const attributes = node.transformAttributes(config)
         const children = node.transformChildren(config)
 
-        const markdoc = {
-          id: 'Markdoc',
-          scopeName: 'text.html.markdoc',
-          grammar,
-          aliases: ['markdoc']
-        }
-
         const lang = attributes.language || 'text'
         const code = (typeof children[0] === 'string' && children[0]) || node.attributes.content
 
         const highlighter = await getSingletonHighlighter({
           themes: [],
-          langs: [lang, markdoc]
+          langs: [lang]
         })
 
         const shikiCode = highlighter.codeToHtml(code, {

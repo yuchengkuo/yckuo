@@ -35,7 +35,6 @@ const sharedSchema = s.object({
   description: s.markdown().optional(),
   slug: s.path(),
   subtitle: s.string().optional(),
-  sidenote: s.string().optional(), //Tertiary Heading
   date: s.isodate().optional(),
   published: s.isodate().optional(),
   updated: s.isodate(),
@@ -95,7 +94,6 @@ const works = defineCollection({
       summary: s.array(s.string()).optional()
     })
     .merge(sharedSchema)
-    .transform((data) => ({ subtitle: `Project at ${data.org}`, sidenote: 'Work', ...data })) // Adding common data
 })
 
 const orgs = defineCollection({

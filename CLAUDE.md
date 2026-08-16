@@ -49,12 +49,8 @@ This is a content-driven SvelteKit application using **Velite** as the content l
 - **Typography**: Custom font stack with CSS variables (--sans, --serif, --mono)
 
 ### SvelteKit Configuration
-- **Aliases**: 
-  - `$components` → `src/components`
-  - `$utils` → `src/utils`
-  - `$content` → `.velite` (generated content)
+- **Aliases**: `$content` → `.velite` (generated content)
 - **Prerendering**: Enabled with concurrency of 3
-- **File extensions**: Supports both .svelte and .md files
 
 ### Routing Structure
 - **Route groups**: `(more)` group for secondary pages

@@ -14,9 +14,6 @@ importers:
       cloudinary-build-url:
         specifier: ^0.2.4
         version: 0.2.4
-      lenis:
-        specifier: ^1.3.23
-        version: 1.3.23(vue@3.5.17(typescript@5.9.3))
       motion:
         specifier: ^12.38.0
         version: 12.38.0
@@ -1570,20 +1567,6 @@ packages:
   kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
-
-  lenis@1.3.23:
-    resolution: {integrity: sha512-YxYq3TJqj9sJNv0V9SkyQHejt14xwyIwgDaaMK89Uf9SxQfIszu+gTQSSphh6BWlLTNVKvvXAGkg+Zf+oFIevg==}
-    peerDependencies:
-      '@nuxt/kit': '>=3.0.0'
-      react: '>=17.0.0'
-      vue: '>=3.0.0'
-    peerDependenciesMeta:
-      '@nuxt/kit':
-        optional: true
-      react:
-        optional: true
-      vue:
-        optional: true
 
   lightningcss-android-arm64@1.32.0:
     resolution: {integrity: sha512-YK7/ClTt4kAK0vo6w3X+Pnm0D2cf2vPHbhOXdoNti1Ga0al1P4TBZhwjATvjNwLEBCnKvjJc2jQgHXH0NEwlAg==}
@@ -3760,10 +3743,6 @@ snapshots:
   jsonpack@1.1.5: {}
 
   kleur@4.1.5: {}
-
-  lenis@1.3.23(vue@3.5.17(typescript@5.9.3)):
-    optionalDependencies:
-      vue: 3.5.17(typescript@5.9.3)
 
   lightningcss-android-arm64@1.32.0:
     optional: true
