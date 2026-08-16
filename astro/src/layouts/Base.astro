@@ -29,7 +29,7 @@ interface Props {
 
 const { title, description = '' } = Astro.props
 const pathname = Astro.url.pathname
-const { navigation, contact } = getNavigation()
+const { navigation, contact } = await getNavigation()
 ---
 
 <html lang="en">

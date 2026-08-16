@@ -1,0 +1,39 @@
+---
+/*
+ * The media wrapper. `Image.svelte` and `Video.svelte` are the SvelteKit files copied
+ * verbatim; this file is the whole cost of keeping them Svelte, because a markdoc
+ * `render:` cannot point at a `.svelte` file directly.
+ *
+ * It dispatches BOTH media components rather than there being an Img.astro and a
+ * Vid.astro, because of finding 07-1: `content-entry-type.js` builds the TAG component
+ * map from `getUsedTags(ast)` — only tags the document literally writes — while the NODE
+ * map is built unfiltered. Nothing writes `{% vid %}` (the paragraph transform
+ * synthesises it), so a marker on `tags.vid` is never resolved and Svelte receives the
+ * raw marker object: `TypeError: component is not a function`, after ~4 pages have built.
+ * So: one marker, on `nodes.image`, and the fork lives here. One fewer file than priced.
+ */
+import Image from '../lib/media/Image.svelte'
+import Video from '../lib/media/Video.svelte'
+
+// `class` is a reserved word in the destructuring position, hence the rename.
+//
+// `description` is split out because the two branches want different things, exactly as
+// SvelteKit's two branches did: its `img` Tag carried `{...attributes, description,
+// aspectRatio}` while its `vid` Tag carried the attributes alone. The Astro transform
+// cannot make that distinction — the fork moved here (07-1) — so it forwards
+// `description` unconditionally and this is where the video branch drops it again.
+//
+// It is not cosmetic. `Video.svelte` does not declare a `description` prop, so the value
+// falls into its `...rest` and spreads onto the element: every one of the 16 video
+// figures renders `<figure ... description="">` where the SvelteKit prerender has no
+// such attribute. Inert, invisible, and a parity difference on all 16.
+const { class: className, image_isvideo, description, ...rest } = Astro.props
+---
+
+{
+  image_isvideo ? (
+    <Video client:visible class={className} {...rest} />
+  ) : (
+    <Image client:visible class={className} description={description} {...rest} />
+  )
+}

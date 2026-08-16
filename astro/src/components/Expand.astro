@@ -1,0 +1,12 @@
+---
+/*
+ * The one genuine island among the tag components: `<details>` open/close state is
+ * client behaviour. 07 verified markdoc's block children survive the trip through this
+ * wrapper into a hydrated Svelte island.
+ *
+ * Expand.svelte is the SvelteKit file, copied verbatim.
+ */
+import Expand from '../lib/content/Expand.svelte'
+---
+
+<Expand client:load><slot /></Expand>

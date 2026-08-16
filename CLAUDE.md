@@ -40,6 +40,21 @@ id. It is **not** wired to `predev`/`prebuild`, so a clone without submodule acc
 `pnpm sync:control` runs every gate and writes nothing. `--in-place` is the cutover mode and rewrites
 the private submodule — do not run it outside ticket 17's window.
 
+`pnpm build` inside `astro/` is `astro build && node scripts/port-guard.mjs` — the build gate ticket
+13 shipped. Its seven assertions deliberately fail the build where the framework would otherwise
+succeed quietly (grid utilities missing from the generated CSS, `getHeadings()` silently zeroed by an
+async transform, an unlisted Shiki fence language, a missing UnoCSS entry, two `prose.css` rules, and
+a collection glob that resolves to nothing). `pnpm guard` runs it alone against an existing `dist/`.
+It needs **Node ≥ 22.18** — it imports `markdoc.config.mjs` and the TypeScript
+`src/lib/highlighter.ts` directly, so it relies on Node's type stripping.
+
+**It splits the same way `sync-content.mjs` does, and for the same reason.** Assertions are
+revision-independent and always hard — each derives its expectation from whatever corpus is present.
+The pinned corpus figures are **provenance**: reported every run, warning on drift, naming the
+revision they were measured at (`19ee03f`). A missing content mirror reports **skip**, not pass, so a
+clone without submodule access still builds. **`pnpm guard --strict` promotes both drift and skips to
+errors** — that is what the parity run and the cutover use.
+
 **A census warning from `pnpm sync` is expected, not a failure.** This repo pins the `content`
 submodule at an older commit than the migration's figures were measured against (144 image sites vs
 128), so the script reports the difference and writes the mirror anyway. `--strict` turns that into an

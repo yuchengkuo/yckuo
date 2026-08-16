@@ -1,0 +1,13 @@
+---
+/*
+ * Deliberately NO `client:` directive. `Gallery.svelte` has no client behaviour — it is
+ * a styled wrapper around its slot — so 07 measured it server-rendering correctly
+ * through this wrapper with slot children intact and zero hydration. That corrected
+ * ruling 9 downward: of the five tag components only `Expand` needs an island.
+ *
+ * Gallery.svelte is the SvelteKit file, copied verbatim.
+ */
+import Gallery from '../lib/content/Gallery.svelte'
+---
+
+<Gallery><slot /></Gallery>

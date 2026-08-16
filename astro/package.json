@@ -5,9 +5,13 @@
   "version": "1.0.0",
   "type": "module",
   "packageManager": "pnpm@9.15.3",
+  "engines": {
+    "node": ">=22.18"
+  },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/port-guard.mjs",
+    "guard": "node scripts/port-guard.mjs",
     "preview": "astro preview",
     "sync": "node scripts/sync-content.mjs",
     "sync:control": "node scripts/sync-content.mjs --control --report"
@@ -27,6 +31,7 @@
   },
   "devDependencies": {
     "@cld-apis/types": "^0.1.6",
+    "@iconify-json/ri": "^1.2.10",
     "@radix-ui/colors": "^3.0.0"
   },
   "pnpm": {
