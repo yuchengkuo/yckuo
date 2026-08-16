@@ -20,7 +20,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm check:watch` - Continuous type checking
 
 ### Deployment
-- `pnpm vercel-install` - Custom install script for Vercel deployment (handles submodule authentication)
+- `vercel.json` sets `installCommand` to `bash scripts/vercel-install.sh`, which authenticates with
+  `GITHUB_TOKEN`, clones the private `content/` submodule, then runs `pnpm install`. There is no
+  npm-script alias — the shell script is the only entry point.
 
 ## Project Architecture
 
@@ -86,8 +88,32 @@ Routes fetch content from the generated `.velite` collections at runtime:
 - When editing any content file (`content/**/*.md`), always update the `updated` field in its frontmatter to today's date (`YYYY-MM-DD` format).
 
 ### Development Notes
-- The `content/` directory is a **git submodule** — `pnpm vercel-install` handles submodule auth for deployment
+- The `content/` directory is a **private git submodule** — `scripts/vercel-install.sh` handles
+  submodule auth for deployment. A clone without access to it cannot build, and that is deliberate:
+  clone-and-run is not a goal (see `.scratch/codebase-coherence/issues/06-public-repo-private-content.md`)
 - Content is generated into `.velite` directory (aliased as `$content`)
 - The build process requires content compilation before Svelte compilation (`run-s build:*` ensures order)
 - No test suite is configured; use `pnpm check` for type checking
 - UnoCSS config includes custom Radix color transformations and semantic shortcuts
+
+## Agent skills
+
+### Issue tracker
+
+Issues live as markdown files under `.scratch/<feature-slug>/` in this repo. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical roles, each label string equal to its name. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context — `content/docs/CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
+`CONTEXT.md` lives inside the private `content` submodule, not at the repo root, so it isn't
+published with the public site repo. It sits under `content/docs/` rather than the content root
+because the `pages` collection pattern (`*.md`) would otherwise pick it up as a page.
+
+**Read `content/docs/CONTEXT.md` before writing or editing any content file.** It defines the
+audience, the field vocabulary (`tagline` vs `description` vs `summary`), the case study shape,
+and the voice rules.
