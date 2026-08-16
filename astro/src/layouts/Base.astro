@@ -1,0 +1,101 @@
+---
+/*
+ * The two-island split of `+layout.svelte`.
+ *
+ * Under SvelteKit one component owns header + <main> + footer. It cannot port as one:
+ * a persisted island's slot content would carry the old page's <main> across the swap.
+ * Here the chrome is two independent `client:load transition:persist` islands with a
+ * NON-persisted <main> between them, so the router replaces <main> and the fade plays
+ * on the new one while Header and Footer survive. 07 measured 20 navigations ->
+ * 1 Footer instantiation, 1 $effect setup, 0 cleanups, flat tick rate, and confirmed
+ * `transition:persist` does not freeze props (the header tracks `pathname` throughout).
+ *
+ * There is deliberately NO `import 'uno.css'` here. @unocss/astro injects it already
+ * (`injectEntry` defaults to true); shipping both puts a second copy of presetWind4's
+ * reset over prose.css and utilities silently stop applying (07-3b, ladder A5).
+ */
+import { ClientRouter, fade } from 'astro:transitions'
+import Header from '../components/Header.svelte'
+import Footer from '../components/Footer.svelte'
+import { getNavigation } from '../lib/navigation'
+import '../styles/theme.css'
+import '../styles/main.css'
+import '../styles/prose.css'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description = '' } = Astro.props
+const pathname = Astro.url.pathname
+const { navigation, contact } = getNavigation()
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicons/favicon.ico" sizes="any" />
+    <link rel="manifest" href="/favicons/manifest.json" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {/* TODO(15): og/twitter/robots meta, analytics, service-worker registration. */}
+
+    <ClientRouter />
+  </head>
+  <body>
+    <Header client:load transition:persist pathname={pathname} />
+
+    {/*
+      Criterion (i): the cross-route fade. SvelteKit does this with {#key page.url}
+      + in:fade over 1s cubicOut.
+
+      NOTHING may sit between <main> and the page's own output. `main > :not(article)`
+      in main.css is what applies `layout-content` to every direct child, and a wrapper
+      that is not itself `grid-subgrid` severs the subgrid chain — every `{% .span-N %}`
+      on an image then goes inert, with a green build and no warning (07-4, ladder A4).
+    */}
+    <main transition:animate={fade({ duration: '1s' })}>
+      <slot />
+    </main>
+
+    <Footer client:load transition:persist navigation={navigation} contact={contact} />
+
+    <div data-layer role="presentation" transition:persist></div>
+
+    <script>
+      // Criterion (iii): scroll continuity. `swapRootAttributes` replaces <html>'s
+      // attributes on every swap, and lenis writes `class="lenis lenis-smooth"` there
+      // — so without the astro:after-swap re-stamp below smooth scrolling silently
+      // dies after nav 1. 07's negative control: <html>'s class list is [] after the
+      // first navigation when this block is absent.
+      import Lenis from 'lenis'
+
+      if (!(window as any).__lenis) {
+        ;(window as any).__lenis = new Lenis({ autoRaf: true })
+
+        document.addEventListener('astro:after-swap', () => {
+          document.documentElement.classList.add('lenis', 'lenis-smooth')
+        })
+      }
+    </script>
+
+    <style is:global>
+      main {
+        /* Intro animation, verbatim from +layout.svelte:139-146 */
+        transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+        @starting-style {
+          opacity: 0;
+        }
+      }
+    </style>
+  </body>
+</html>

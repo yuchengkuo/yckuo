@@ -24,6 +24,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   `GITHUB_TOKEN`, clones the private `content/` submodule, then runs `pnpm install`. There is no
   npm-script alias — the shell script is the only entry point.
 
+## Two packages during the Astro migration
+
+`astro/` is a **second, independent package** with its own `package.json`, lockfile and
+`node_modules` — Astro 7 needs Vite 8 and SvelteKit 2.57 is on Vite 5, so one manifest cannot hold
+both, and both must stay buildable at once for the parity run. Run its commands from inside
+`astro/` (`pnpm install`, `pnpm dev`, `pnpm build`); the root scripts above are SvelteKit's and are
+untouched by it. `astro/src/content/` is a **gitignored mirror** of the private submodule, not a
+source directory. The plan, the tickets and every ruling live in `.scratch/astro-migration/map.md`
+— **read it before touching `astro/`**. The root SvelteKit tree is still what production serves.
+
 ## Project Architecture
 
 ### Content Management System

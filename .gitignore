@@ -35,6 +35,14 @@ yarn-error.log*
 /.svelte-kit
 .output
 
+# astro — the second package. The `/node_modules` rule above is anchored to the repo
+# root and does not reach here. `astro/src/content` is the generated content mirror
+# (ticket 12): private submodule content, regenerable, never committed.
+astro/node_modules
+astro/dist
+astro/.astro
+astro/src/content
+
 # agent working files — issue tracker, prototypes and in-flight reviews stay local
 /.scratch
 /wip
