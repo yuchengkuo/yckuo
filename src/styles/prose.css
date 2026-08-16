@@ -54,15 +54,6 @@ article,
     --uno: 'text-secondary font-medium mt-6 lt-sm:mt-4';
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    --uno: 'capitalize';
-  }
-
   /* List */
   ul,
   ol {

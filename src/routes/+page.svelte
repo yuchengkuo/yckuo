@@ -64,7 +64,7 @@
         {work.title} <span class="text-tertiary font-mono text-xs">[{year}]</span>
       </h3>
       {#each work.summary ?? [] as summary}
-        <p class="span-full text-secondary font-mono text-xs not-last:(mb-1 md:mb-2)">
+        <p class="span-full text-secondary font-mono text-xs not-last:(mb-1 md:mb-1.5)">
           > {summary}
         </p>
       {/each}

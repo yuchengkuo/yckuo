@@ -55,7 +55,7 @@ div[data-layer] {
 
 body {
   --uno: 'min-h-100vh';
-  --uno: 'text-primary text-3.5 leading-5 font-sans opacity-100';
+  --uno: 'text-primary text-3.5 leading-5.5 font-sans opacity-100';
   --uno: 'p-4 md:(px-10 pt-10 pb-30)';
 
   /* Main grid layouts */
