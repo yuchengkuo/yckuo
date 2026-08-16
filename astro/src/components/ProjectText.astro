@@ -1,0 +1,38 @@
+---
+/*
+ * `+page.svelte`'s `{#snippet projectText(project)}`, which has no direct Astro
+ * equivalent (the ticket's P2 was pre-authorised for exactly this and was not needed —
+ * the snippet ports as an ordinary component).
+ *
+ * It MUST emit its three elements with no wrapper. The snippet is called from two
+ * different parents — a `grid-subgrid` card for featured projects and a plain
+ * `md:span-4` block for the rest — and the `col-span-*` classes below are placed by
+ * whichever grid the caller is, so a wrapper element here would sever the subgrid chain
+ * exactly the way 07-4 describes. An `.astro` component renders as a fragment, so this
+ * holds by construction rather than by care.
+ *
+ * `p.span-5` is ported as authored, clamp included. See the note in `index.astro`.
+ */
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  project: CollectionEntry<'projects'>
+}
+
+const { project } = Astro.props
+const { title, category, summary, link } = project.data
+---
+
+<h3 class="col-span-full font-medium capitalize mb-2 md:mb-4">
+  <a href={project.id}>{title}</a><span class="text-tertiary font-mono text-xs ml-1">
+    ({category[0]})</span
+  >
+</h3>
+<p class="span-5 text-secondary font-mono text-xs mb-4">
+  > {summary}
+</p>
+
+<div class="span-full flex gap-3 children:inline-block">
+  {link && <a href={link} class="button-primary">View ↗</a>}
+  <a href={project.id} class="button-secondary">Read →</a>
+</div>

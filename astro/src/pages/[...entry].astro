@@ -12,6 +12,12 @@
  * own URLs while it exists, and both delete the part of it they replace — 15 removes the
  * file, since its `[...page].astro` is this route's successor.
  *
+ * 14 HAS DELETED ITS PART: `works` is gone from the list below. It was not optional
+ * housekeeping — this route builds a page per entry, so leaving `works` in would have
+ * emitted all TEN work pages beside `work/[slug].astro`'s four, against a prerendered set
+ * that is four today. `pages` still carries `index`, which this route builds at `/index/`
+ * and the real homepage serves at `/`; that duplicate is 15's to remove with the file.
+ *
  * `entry.id` is velite's `slug`, so `/${id}` is the URL for all four collections and the
  * path this route builds is the path the real routes will build.
  *
@@ -24,7 +30,7 @@ import Base from '../layouts/Base.astro'
 
 export async function getStaticPaths() {
   const collections = await Promise.all(
-    (['pages', 'works', 'projects', 'notes'] as const).map((name) => getCollection(name))
+    (['pages', 'projects', 'notes'] as const).map((name) => getCollection(name))
   )
   return collections.flat().map((entry) => ({ params: { entry: entry.id }, props: { entry } }))
 }
