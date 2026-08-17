@@ -44,7 +44,28 @@
   )
 
   let videoEl: HTMLVideoElement
-  let visible = $state(false)
+
+  /*
+   * PORT (18). `$state(true)`, aligning with `Image.svelte:41`. This is the one
+   * character by which the two media components ever differed, and the difference
+   * was accidental: both carry the same blurred-placeholder machinery, but Image
+   * gates its overlay on `blurDataUrl` and starts visible, while Video gates its
+   * overlay on nothing and starts hidden. `getBlurDataUrl.ts` was deleted by ticket
+   * 10 and nothing has produced a `blurDataUrl` since, so Image's overlay renders
+   * never and Video's renders always — same intent, opposite outcome.
+   *
+   * Starting `true` makes the $effect below inert exactly the way Image's is (it can
+   * only re-set `true`), which is what lets `Img.astro` render this without a
+   * `client:` directive. That matters beyond the JS: `<astro-island>` is
+   * `display: contents`, so it generates no box while still matching every
+   * `>`-combinator, and it was placing all 10 video figures at one subgrid track
+   * instead of four (16-1). The overlay element still renders, with `opacity-0`
+   * from the server, so the box tree is identical to the SvelteKit prerender.
+   *
+   * The cost is stated: video no longer blurs-in over 300ms on first frame. Image
+   * has not done so since ticket 10 either.
+   */
+  let visible = $state(true)
 
   $effect(() => {
     // 0 if no media is available yet

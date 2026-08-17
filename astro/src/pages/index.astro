@@ -116,7 +116,15 @@ const orderedProjects = [
               <Image id={work.data.thumbnail} loading="eager" />
             </a>
             <h3 class="col-span-full font-medium capitalize mt-3 mb-2 md:mt-6 md:mb-4">
-              <a href={work.id}>{work.data.title}</a>
+              {/*
+                `{' '}` is load-bearing. Inside an expression block an `.astro` template
+                follows JSX whitespace rules and drops the newline between these two
+                elements; `+page.svelte:45-46` is laid out identically and Svelte keeps
+                it as one space. Without it the year reads `Oen Design System[2025]`.
+                (18-2 — invisible to 14/15, which compared class attributes and
+                whitespace-stripped text, and worth 4px to 16's layout diff.)
+              */}
+              <a href={work.id}>{work.data.title}</a>{' '}
               <span class="text-tertiary font-mono text-xs">[{year}]</span>
             </h3>
             <footer class="col-span-5 font-mono text-xs">

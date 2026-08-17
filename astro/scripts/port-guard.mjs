@@ -14,14 +14,20 @@
  * because a scattered assertion gets deleted by whoever hits it at a bad moment while a
  * named gate is visible in the build log.
  *
- * Seven of the nine rungs are here. The other two are elsewhere by 08's cost rule — the
+ * Eight of the ten rungs are here. The other two are elsewhere by 08's cost rule — the
  * phase that introduces a risk pays for its assertion:
  *   A4 (the subgrid sever) rides `parity.mjs` in ticket 16; it needs a laid-out DOM.
  *   A6 (the converter's self-checks) is already live inside `slashify.mjs`.
  *
- * A1 and A5 read `dist/`, which is why the gate is post-build and could not have been
- * written earlier. A2, A3 and A9 read source and would run anywhere; they are here so
- * that there is one gate rather than two.
+ * A10 is ticket 18's, and it is the tenth because the ladder's ninth risk was discovered
+ * by a gate rather than planned: `<astro-island>` is `display: contents`, which defeats
+ * a `>`-combinator while leaving the HTML, the classes and the text correct. It sits
+ * here rather than beside A4 because the structure it asserts is legible in `dist/`,
+ * so the build can hold the line on every page rather than only where 16 looks.
+ *
+ * A1, A5 and A10 read `dist/`, which is why the gate is post-build and could not have
+ * been written earlier. A2, A3 and A9 read source and would run anywhere; they are here
+ * so that there is one gate rather than two.
  *
  * ---------------------------------------------------------------------------------
  * STRUCTURE IS HARD, PROVENANCE WARNS — ticket 12-5's ruling, applied here.
@@ -454,6 +460,69 @@ await check('A8', 'prose.css reads --shiki-light-font-style (Shiki 3 italics)', 
     'prose.css does not read `var(--shiki-light-font-style)` — Shiki 3 emits light-mode italics there, so every italic token loses its italics in light mode'
   )
   return 'present'
+})
+
+// --- A10 ---------------------------------------------------------------------------
+// Ticket 18's rung, and the reason 18 exists. `<astro-island>` and `<astro-slot>` are
+// `display: contents`: they generate no box — but CSS SELECTORS match the DOM tree, not
+// the box tree. So a `>`-combinator aimed at what they wrap lands on the wrapper, which
+// has no box to style, while the wrapped element becomes the grid item and falls
+// through to auto-placement. `/shots` rendered 39.7% short of the prerender that way,
+// with a green build, 7/7 assertions here, 0 differing characters of `<main>` text and 0
+// differing class attributes (16-1).
+//
+// It is 07-4's severed subgrid chain through a door 07-4 did not name. 07-4 tested a
+// probe `<div>` and ruled that no wrapper ELEMENT may sit between `<main>` and the
+// page's own output; A4 was written to that ruling and asserts that an ANNOTATED figure
+// computes a real track span. That is a true assertion of too narrow a property — A4
+// passed on `/shots` throughout, because it never looks at the figures a `>`-combinator
+// places. This rung asserts the structure instead, so it does not depend on which
+// figures happen to carry a `{% .span-N %}`.
+//
+// STATIC ON PURPOSE, unlike A4. The mechanism is `display: contents`, which only a
+// browser computes — but the only thing that *renders* as `display: contents` in this
+// tree is an Astro wrapper element, and those are visible in `dist/`. So the build can
+// hold the line on every page of every build, and A4's browser-side half in
+// `parity.mjs` generalises it to any cause.
+//
+// The corollary the map records: **adding a `client:` directive inside `<main>` is a
+// layout change.** This is where you find that out.
+await check('A10', 'no display:contents wrapper inside <main> (the subgrid sever)', () => {
+  const pages = distHtml()
+  assert(pages.length > 0, 'no HTML in dist/ — did astro build run?')
+
+  const WRAPPER = /<astro-(island|slot|static-slot)\b/g
+  let total = 0
+  const offenders = []
+  for (const page of pages) {
+    const html = fs.readFileSync(page, 'utf8')
+    total += [...html.matchAll(WRAPPER)].length
+
+    const i = html.indexOf('<main')
+    const j = html.indexOf('</main>', i)
+    if (i === -1 || j === -1) continue
+    const inside = [...html.slice(i, j).matchAll(WRAPPER)].map((m) => m[1])
+    if (inside.length)
+      offenders.push(
+        `${path.relative(DIST, page)}: ${inside.length} (${[...new Set(inside)].map((t) => `astro-${t}`).join(', ')})`
+      )
+  }
+
+  assert(
+    offenders.length === 0,
+    `${offenders.length} page(s) render an Astro wrapper element inside <main>: ` +
+      `${offenders.slice(0, 5).join('; ')}${offenders.length > 5 ? ` (+${offenders.length - 5} more)` : ''}. ` +
+      `These are display:contents — no box, but every \`>\`-combinator still matches them: ` +
+      `\`.gallery > *\`, \`main > article > *\` and prose's \`> figure\` / \`> figure + :not(figure)\` all read this way, ` +
+      `so the wrapped <figure> loses its utility AND becomes the grid item, landing on one track instead of four. ` +
+      `The HTML, the classes and the text all stay correct, which is why nothing else catches it. ` +
+      `If the component genuinely needs hydrating, the island must not sit between a grid container and its item.`
+  )
+
+  /* Reported so the rung cannot read as vacuous: islands DO exist on these pages — the
+     Header, the Footer and the analytics element are all hydrated. The invariant is
+     about where, not whether. */
+  return `${pages.length} pages · ${total} island wrappers, 0 inside <main>`
 })
 
 // --- A9 ----------------------------------------------------------------------------

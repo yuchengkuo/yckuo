@@ -1,12 +1,23 @@
 ---
 /*
- * The one genuine island among the tag components: `<details>` open/close state is
- * client behaviour. 07 verified markdoc's block children survive the trip through this
- * wrapper into a hydrated Svelte island.
+ * Deliberately NO `client:` directive — 18's re-examination of 07's ruling 9.
  *
- * Expand.svelte is the SvelteKit file, copied verbatim.
+ * 07 recorded this as "the one genuine island among the tag components", on the reading
+ * that `<details>` open/close is client behaviour. It is not: `<details>`/`<summary>`
+ * toggles natively, and everything the component adds on top is CSS — the "More ↓" /
+ * "Less ↑" swap is `details[open] summary`, not state. `Expand.svelte` declares no
+ * handler, no `$state` and no `$effect`; hydrating it changed nothing it rendered.
+ *
+ * What the island DID change was the layout, and only 16's computed-layout diff could
+ * see it (finding 16-1). `<astro-island>` is `display: contents`, so it generates no box
+ * — but CSS selectors match the DOM tree, so `article > *` landed on the island and
+ * `<details>` fell through to auto-placement: on /about it computed `x843 w99`, one
+ * column, in the row belonging to the paragraph above it, against `x269 w557`.
+ *
+ * Expand.svelte is the SvelteKit file, copied verbatim, and still is — it server-renders
+ * through this wrapper exactly the way Gallery.svelte does.
  */
 import Expand from '../lib/content/Expand.svelte'
 ---
 
-<Expand client:load><slot /></Expand>
+<Expand><slot /></Expand>

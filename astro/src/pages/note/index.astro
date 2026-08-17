@@ -34,7 +34,10 @@ const notes = await getNotes()
         {
           notes.map((note) => (
             <li>
-              <a href={`/${note.id}`}>{note.data.title}</a>
+              {/* `{' '}` is load-bearing — see index.astro (18-2). JSX whitespace rules
+                  drop this newline; `+page.svelte` keeps it as a space before `<time>`,
+                  whose own `ml-2` is a margin on top of it, not a replacement for it. */}
+              <a href={`/${note.id}`}>{note.data.title}</a>{' '}
               <time datetime={note.data.updated.toISOString()}>{formatDate(note.data.updated)}</time>
             </li>
           ))

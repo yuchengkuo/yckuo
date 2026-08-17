@@ -28,19 +28,30 @@ import Video from '../lib/media/Video.svelte'
 // figures renders `<figure ... description="">` where the SvelteKit prerender has no
 // such attribute. Inert, invisible, and a parity difference on all 16.
 //
-// FINDING (16-1). `<Image />` server-renders with NO `client:` directive; only `<Video />`
-// keeps one. 14-2 established the island was inert here — `visible` is initialised `true`
-// and `blurDataUrl` has had no producer since ticket 10 — and deliberately left this file
-// alone, recording the inconsistency rather than fixing it. 16 is where the deferred half
-// came due: `<astro-island>` is `display: contents`, so it generates no box, but CSS
+// FINDING (16-1). NEITHER branch takes a `client:` directive, and the reason is the same
+// for both: `<astro-island>` is `display: contents`, so it generates no box — but CSS
 // SELECTORS match the DOM tree, not the box tree. Every `>`-combinator rule aimed at a
 // figure landed on the island instead, and the figure fell through to auto-placement.
+// `.gallery > *`, `main > article > *` and prose's `> figure` rules all read this way.
+//
+// 14-2 removed the image island, having established it was inert (`visible` is
+// initialised `true`, and `blurDataUrl` has had no producer since ticket 10 deleted
+// `getBlurDataUrl.ts`), and deliberately left the video branch alone — recording the
+// inconsistency so it would not read as an oversight. Ticket 18 is where that came due,
+// and the answer was to remove the inconsistency at its source rather than route around
+// it: `Video.svelte` now initialises `visible` the way `Image.svelte` always has, which
+// makes ITS island inert too. See the comment at `Video.svelte`'s `$state`.
+//
+// Consequence worth stating plainly, since it is the invariant the layout depends on:
+// **no island renders inside `<main>` any more.** `port-guard.mjs`'s A10 asserts it on
+// every page of every build; A4's second half in `parity.mjs` generalises it to any
+// `display: contents` wrapper, whatever emitted it.
 const { class: className, image_isvideo, description, ...rest } = Astro.props
 ---
 
 {
   image_isvideo ? (
-    <Video client:visible class={className} {...rest} />
+    <Video class={className} {...rest} />
   ) : (
     <Image class={className} description={description} {...rest} />
   )
