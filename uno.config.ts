@@ -13,8 +13,25 @@ const radixThemesDark = Object.fromEntries(Object.entries(Radix).filter(([k]) =>
 
 export default defineConfig({
   /* `content: { filesystem }` lives in the `unocss()` integration call in
-     astro.config.mjs instead — the path it points at is the Astro-side mirror. */
-  transformers: [transformerDirectives(), transformerVariantGroup()],
+     astro.config.mjs instead, and points at the `content/` submodule. */
+  /*
+   * `enforce: 'pre'` is a DEV-ONLY fix, and it is not cosmetic. Astro's dev CSS plugin
+   * (`vite-plugin-css`, no `enforce`) snapshots each stylesheet's `code` into
+   * `cssContentCache` in its `transform` hook, and that snapshot is what gets inlined as
+   * `<style data-vite-dev-id>` during dev SSR. `transformerDirectives()` defaults to the
+   * same unenforced phase and is registered after Astro's own plugins, so the cache took
+   * the PRE-transform source: every dev page shipped the 77 `--uno: '…'` declarations of
+   * main.css + prose.css verbatim — inert custom properties. First paint was unstyled
+   * until Vite's client module (which does run the full chain) swapped the compiled CSS
+   * in. That is the dev FOUC on every navigation. `pre` puts the directive transform
+   * ahead of the snapshot.
+   *
+   * Production is unaffected either way. NOT byte-for-byte — the build is not
+   * order-deterministic, and two clean builds of identical config already differ in the
+   * emission order of `theme: 'on-demand'` variables. Verified the way that actually
+   * holds: same 1158 declarations, identical multiset, identical cascade winners.
+   */
+  transformers: [transformerDirectives({ enforce: 'pre' }), transformerVariantGroup()],
   extractors: [
     {
       name: 'MDC order',
