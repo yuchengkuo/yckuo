@@ -1,7 +1,6 @@
 # yuchengkuo.com
 
-- [SvelteKit](https://kit.svelte.dev)
-- [Velite](https://velite.js.org)
+- [Astro](https://astro.build)
 - [Markdoc](https://markdoc.dev)
 - [UnoCSS](https://unocss.dev/)
 - [Vercel](https://vercel.com)

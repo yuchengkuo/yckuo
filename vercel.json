@@ -3,6 +3,7 @@
     "silent": true
   },
   "installCommand": "bash scripts/vercel-install.sh",
+  "outputDirectory": "dist",
   "redirects": [
     { "source": "/work", "destination": "/#work", "statusCode": 307 },
     {

@@ -12,16 +12,21 @@ const radixThemes = Object.fromEntries(Object.entries(Radix).filter(([k]) => !k.
 const radixThemesDark = Object.fromEntries(Object.entries(Radix).filter(([k]) => k.match(/Dark/)))
 
 export default defineConfig({
-  content: {
-    filesystem: ['content/**/*.md']
-  },
+  /* `content: { filesystem }` lives in the `unocss()` integration call in
+     astro.config.mjs instead — the path it points at is the Astro-side mirror. */
   transformers: [transformerDirectives(), transformerVariantGroup()],
   extractors: [
     {
       name: 'MDC order',
       order: 10,
       async extract(ctx) {
-        if (!/\.(?:md|mdc|markdown)$/i.test(ctx.id ?? '')) return
+        // `.mdoc` MUST be in this list, and so must `mdoc` in the pipeline include
+        // in astro.config.mjs. The whole grid vocabulary — 68 `{% .span-* %}` /
+        // `{% .start-* %}` annotations — exists ONLY inside content, so when the
+        // extension changed the extractor stopped matching, Uno stopped generating
+        // `col-span-*`, and every image silently collapsed to one column. Green
+        // build, no warning. (Finding 07-3; ladder A1 asserts it in 13.)
+        if (!/\.(?:md|mdc|mdoc|markdown)$/i.test(ctx.id ?? '')) return
 
         ctx.code.match(/\.[\w:/\-]+/g)?.forEach((c) => {
           ctx.extracted.add(c.slice(1))
@@ -84,6 +89,9 @@ export default defineConfig({
 
       'border-neutral': 'border-rx-sage-5',
       'border-neutral-hover': 'border-rx-sage-6',
+      /* Intentionally NOT `border-rx-sage-12`: this one keeps the light palette's border
+         in both themes, unlike every token around it. Ported deliberately, and flagged by
+         review twice — it is a choice, not the missing `rx-` alias it looks like. */
       'border-button-primary': 'border-radix-sage-12',
       'border-button-secondary': 'border-rx-sage-6',
       'underline-neutral': 'underline-rx-sage-8',

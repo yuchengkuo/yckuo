@@ -29,22 +29,20 @@ yarn-error.log*
 .vercel
 
 # content
-.velite
-
-# svelte
-/.svelte-kit
-.output
-
-# astro — the second package. The `/node_modules` rule above is anchored to the repo
-# root and does not reach here. `astro/src/content` is the generated content mirror
-# (ticket 12): private submodule content, regenerable, never committed.
-astro/node_modules
-astro/dist
-astro/.astro
-astro/src/content
+# astro
+/dist
+/.astro
 # ticket 16's whole-corpus render harness builds here so it cannot disturb `dist/`,
 # which every other parity check reads.
-astro/dist-parity
+/dist-parity
+
+# The generated content mirror (ticket 12). It is SPENT — the submodule holds `.mdoc`
+# directly since the cutover and `content.config.ts` reads it there, so nothing writes
+# this path any more. The rule stays because the cost of the two states is asymmetric:
+# forgetting it once would put private content in a public repo, and it very nearly did
+# — `git mv astro/src src` carried the old mirror along while its `astro/`-prefixed rule
+# silently stopped matching.
+/src/content
 
 # agent working files — issue tracker, prototypes and in-flight reviews stay local
 /.scratch

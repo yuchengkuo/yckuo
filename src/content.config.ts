@@ -9,12 +9,28 @@
  *     kept below (it is authored data, present on all ten work files); the collection
  *     it pointed at is not.
  *
- * `entry.id` IS velite's `slug`. Every collection uses `base: './src/content'` rather
- * than its own subdirectory, so the glob loader's id carries the directory exactly as
- * `s.path()` did: `about`, `work/checkout-revamp`, `project/pages`, `note/windicss`.
- * That is not cosmetic — `+page.svelte` uses `href={work.slug}` and
- * `href="/{nextProject.slug}"` directly, so under this scheme `/${entry.id}` is the URL
- * for all four collections with no per-collection rule. Tickets 14 and 15 depend on it.
+ * `entry.id` IS velite's `slug`. Every collection uses ONE base rather than its own
+ * subdirectory, so the glob loader's id carries the directory exactly as `s.path()` did:
+ * `about`, `work/checkout-revamp`, `project/pages`, `note/windicss`. That is not
+ * cosmetic — `+page.svelte` uses `href={work.slug}` and `href="/{nextProject.slug}"`
+ * directly, so under this scheme `/${entry.id}` is the URL for all four collections with
+ * no per-collection rule. Tickets 14 and 15 depend on it.
+ *
+ * That base is `'./content'` — **the private submodule itself**, as of ticket 17 step 4.
+ * It was `'./src/content'` for the whole build, reading ticket 12's gitignored `.mdoc`
+ * mirror, because the submodule held `.md` and one checkout could not serve both apps.
+ * Content commit `33024b6` ends that: the submodule now holds the 26 `.mdoc` files, the
+ * mirror has nothing left to generate from, and the indirection it existed for is spent.
+ * `port-guard.mjs`'s A9 is what catches a mistyped base — it fails when any declared glob
+ * resolves to nothing, which is exactly what a base pointed at an unconverted checkout
+ * does.
+ *
+ * It passed through `'../content'` for about an hour and could not stay there. With the
+ * package still at `astro/`, a `.mdoc` file sat OUTSIDE the package root, and rolldown
+ * resolves `@astrojs/markdoc/components` from the importing file's own directory — which
+ * walked up into the SvelteKit `node_modules` and found nothing. That is the mechanical
+ * reason the ship-and-delete could not be deferred past the preview gate: it is not
+ * tidiness, the build does not resolve until the package and the content share a root.
  *
  * The patterns are velite's, with `.md` -> `.mdoc`. `pages` stays root-only (`*.mdoc`
  * does not cross `/`), which is what keeps `docs/CONTEXT.md` out of every collection —
@@ -69,13 +85,13 @@ const shared = {
 
 /* velite: pattern '*.md', root-only */
 const pages = defineCollection({
-  loader: glob({ pattern: '*.mdoc', base: './src/content' }),
+  loader: glob({ pattern: '*.mdoc', base: './content' }),
   schema: z.object({ ...shared })
 })
 
 /* velite: pattern 'work/*.md' */
 const works = defineCollection({
-  loader: glob({ pattern: 'work/*.mdoc', base: './src/content' }),
+  loader: glob({ pattern: 'work/*.mdoc', base: './content' }),
   schema: z.object({
     ...shared,
     featured: z.boolean().default(false),
@@ -95,7 +111,7 @@ const works = defineCollection({
 
 // velite: pattern 'project/**/*.md'
 const projects = defineCollection({
-  loader: glob({ pattern: 'project/**/*.mdoc', base: './src/content' }),
+  loader: glob({ pattern: 'project/**/*.mdoc', base: './content' }),
   schema: z.object({
     ...shared,
     cover: z.string().optional(),
@@ -109,7 +125,7 @@ const projects = defineCollection({
 
 // velite: pattern 'note/**/*.md'
 const notes = defineCollection({
-  loader: glob({ pattern: 'note/**/*.mdoc', base: './src/content' }),
+  loader: glob({ pattern: 'note/**/*.mdoc', base: './content' }),
   schema: z.object({
     ...shared,
     tags: z.array(z.string()).optional()
@@ -131,7 +147,7 @@ const notes = defineCollection({
  * file whose whole content is two lists.
  */
 const navigation = defineCollection({
-  loader: glob({ pattern: 'navigation.yml', base: './src/content' }),
+  loader: glob({ pattern: 'navigation.yml', base: './content' }),
   schema: z.object({
     title: z.string(),
     updated: z.coerce.date(),
