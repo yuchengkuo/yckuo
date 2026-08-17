@@ -139,6 +139,52 @@ const TRAPS = [
     out: '```md\n![alt](work/x)\n```'
   },
   {
+    // 13-R1, the defect this fixture exists for. `note/markdoc-shiki` demonstrates
+    // Markdoc syntax inside a FOUR-backtick fence holding a nested ```css one; the naive
+    // toggle read that nested opener as a closer, so the lines between the nested fences
+    // counted as live content. Measured at 19ee03f the divergence was 1 file / 3 lines /
+    // 0 image sites — latent, which is why nothing caught it, and why the fixture has to
+    // put an image where the corpus happens not to.
+    why: '13-R1: an image inside a NESTED fence is still code',
+    in: '````liquid {% process=false %}\n```css\n![alt](work/x)\n```\n````',
+    out: '````liquid {% process=false %}\n```css\n![alt](work/x)\n```\n````'
+  },
+  {
+    // The other half of the same rule: a shorter run cannot close a longer opener, and a
+    // fence closed by its own length must resume top-level scanning afterwards. Without
+    // this an over-strict scanner would swallow the rest of every document silently.
+    why: '13-R1: content after a nested fence closes is live again',
+    in: '````text\n```\n````\n\n![alt](work/x)',
+    out: '````text\n```\n````\n\n![alt](/work/x)'
+  },
+  {
+    // Tildes were handled by the naive toggle and must survive the lift; the corpus has
+    // none today, so only a fixture keeps that true.
+    why: 'a ~~~ fence is a fence, and ``` does not close it',
+    in: '~~~md\n```\n![alt](work/x)\n~~~\n\n![b](work/y)',
+    out: '~~~md\n```\n![alt](work/x)\n~~~\n\n![b](/work/y)'
+  },
+  {
+    // The two false-OPENER rules, from the step 1 review. Both cost the whole rest of the
+    // document rather than one line: they open a fence that can never close, so every
+    // later call site is read as code and left relative — with G1-G4 agreeing, because
+    // census() reads the same scanner. G5 now fails on the unterminated fence they leave
+    // behind; these fixtures pin the reason it should never get there.
+    why: 'four spaces of indent is a code block, not a fence opener',
+    in: '    ```\n    code\n\n![alt](work/x)',
+    out: '    ```\n    code\n\n![alt](/work/x)'
+  },
+  {
+    why: 'three spaces of indent IS a fence opener (the boundary, from the other side)',
+    in: '   ```\n![alt](work/x)\n   ```\n\n![b](work/y)',
+    out: '   ```\n![alt](work/x)\n   ```\n\n![b](/work/y)'
+  },
+  {
+    why: 'a backtick in the info string means inline code, not a fence',
+    in: '```js``` is inline\n\n![alt](work/x)',
+    out: '```js``` is inline\n\n![alt](/work/x)'
+  },
+  {
     why: 'an already-slashed site is left alone (idempotence)',
     in: '![a](/work/x)',
     out: '![a](/work/x)'
@@ -170,7 +216,24 @@ const GATE_FIXTURES = [
   },
   { why: 'G2 on an all-relative document', text: '![a](work/x)\n\n![b](work/y)\n' },
   { why: 'G2 on a fully-converted document (nothing to do)', text: '![a](/work/x)\n' },
-  { why: 'a document with no images at all', text: '# Title\n\nprose {% .base %}\n' }
+  { why: 'a document with no images at all', text: '# Title\n\nprose {% .base %}\n' },
+  {
+    // 13-R1 again, from the gates' side. G1 compares census-before against census-after
+    // and G2 diffs the documents, so both were blind while `census()` shared the bug —
+    // this fixture is only meaningful because the two now share the fixed rule instead.
+    why: 'G1–G4 over a nested fence holding an image, beside a live one',
+    text: '![a](work/live)\n\n````liquid\n```css\n![b](work/dead)\n```\n````\n'
+  }
+]
+
+/** Fixtures the gates must REJECT. A gate nothing can trip is not a gate, and G5 is the
+ * one whose absence left no other trace — the four before it all pass on the document it
+ * refuses. */
+const REJECT_FIXTURES = [
+  {
+    why: 'G5: an unterminated fence hides every call site after it',
+    text: '```ts\nconst x = 1\n\n![a](work/x)\n'
+  }
 ]
 
 function selftest() {
@@ -196,6 +259,22 @@ function selftest() {
   console.log(
     `selftest: ${GATE_FIXTURES.length - misfired}/${GATE_FIXTURES.length} gate fixtures pass`
   )
+
+  // The other direction: each of these must produce at least one problem. Their failures
+  // are the expected result, so the tally is truncated back afterwards — only a gate that
+  // stayed silent survives into `problems`.
+  const beforeReject = problems.length
+  let caught = 0
+  for (const f of REJECT_FIXTURES) {
+    const n = problems.length
+    convert(`fixture[${f.why}]`, f.text)
+    if (problems.length > n) caught++
+    else if (REPORT) console.log(`  MISS ${f.why}`)
+  }
+  problems.length = beforeReject
+  console.log(`selftest: ${caught}/${REJECT_FIXTURES.length} reject fixtures rejected`)
+  if (caught !== REJECT_FIXTURES.length)
+    fail(`selftest: ${REJECT_FIXTURES.length - caught} gate(s) that must fire did not`)
 }
 
 // --- collection walk --------------------------------------------------------------------
@@ -226,7 +305,14 @@ function collectionFiles(root) {
  * plus the numbers the corpus census is built from.
  */
 function convert(rel, raw) {
-  const { text, sites, skipped } = slashify(raw)
+  const { text, sites, skipped, closed } = slashify(raw)
+
+  // G5 — every fence terminates. Review finding on 17 step 1, and the one gate the other
+  // four cannot stand in for: an unterminated fence makes the rest of the document read
+  // as code, so the tail is silently left unconverted AND `census()` agrees, which is
+  // what G1–G4 compare. `port-guard.mjs` asserts the same property, but only over the
+  // mirror — `--in-place` writes the private repo without ever building.
+  if (!closed) fail(`${rel}: unterminated code fence — every image after it is invisible`)
 
   // G1 — census stability. Same number of image call sites before and after, and every
   // one of them now resolvable by `shouldOptimizeImage`.
@@ -335,6 +421,23 @@ function readCorpus() {
     process.exit(1)
   }
 
+  // 13-R2 — an EMPTY corpus is an error, not a small one. An uninitialised submodule is
+  // a present-but-empty directory, so it passes the existsSync above; the census only
+  // WARNS on drift by design (12-5), and `mirror()` used to reach its opening rmSync and
+  // destroy a good mirror before failing on the missing navigation.yml. A foreseeable
+  // error path must not eat a working artifact, so the read refuses first — which covers
+  // every mode, `--in-place` included.
+  if (matched.length === 0) {
+    console.error(`no collection files under ${CONTENT} (${all.length} file(s) present).`)
+    console.error(
+      all.length === 0
+        ? 'the submodule looks uninitialised: git submodule update --init --recursive'
+        : `nothing matched: ${COLLECTIONS.map((c) => c.pattern).join(', ')}`
+    )
+    console.error('refusing to continue — the existing mirror is left untouched.')
+    process.exit(1)
+  }
+
   const out = []
   for (const { rel, collection } of matched) {
     const raw = fs.readFileSync(path.join(CONTENT, rel), 'utf8')
@@ -353,7 +456,17 @@ function readCorpus() {
 }
 
 function mirror(corpus) {
-  // Wipe first: nothing else writes here, and a stale ghost from a renamed source would
+  // Every source this function reads is checked BEFORE the wipe below, per 13-R2: the
+  // old order destroyed a good mirror and only then discovered navigation.yml was
+  // missing. `corpus` is already non-empty — readCorpus() refuses otherwise.
+  const missing = VERBATIM.filter((rel) => !fs.existsSync(path.join(CONTENT, rel)))
+  if (missing.length) {
+    for (const rel of missing) fail(`${rel}: missing from content/ — a ported collection reads it`)
+    console.error('refusing to wipe the mirror for an incomplete source.')
+    return
+  }
+
+  // Wipe: nothing else writes here, and a stale ghost from a renamed source would
   // otherwise keep resolving as a 27th entry.
   fs.rmSync(MIRROR, { recursive: true, force: true })
   for (const f of corpus) {
@@ -362,14 +475,9 @@ function mirror(corpus) {
     fs.writeFileSync(dest, f.text)
   }
   for (const rel of VERBATIM) {
-    const from = path.join(CONTENT, rel)
-    if (!fs.existsSync(from)) {
-      fail(`${rel}: missing from content/ — a ported collection reads it`)
-      continue
-    }
     const dest = path.join(MIRROR, rel)
     fs.mkdirSync(path.dirname(dest), { recursive: true })
-    fs.copyFileSync(from, dest)
+    fs.copyFileSync(path.join(CONTENT, rel), dest)
   }
 
   // Every collection file reached the mirror. Unlike the census this is revision-independent

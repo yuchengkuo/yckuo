@@ -70,6 +70,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import Markdoc from '@markdoc/markdoc'
 import { createGetHeadings } from '@astrojs/markdoc/runtime'
+/* The fence rule lives in one file because it once lived in two and they disagreed —
+   `slashify.mjs` had the naive form, and 13-R1 is what that cost. */
+import { scanLines } from './fences.mjs'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const DIST = path.join(ROOT, 'dist')
@@ -194,36 +197,6 @@ function distHtml() {
 
 function distCss() {
   return walk(DIST).filter((f) => f.endsWith('.css'))
-}
-
-/**
- * Fence-aware line scan, shared by the fence census and A2's heading count.
- *
- * The naive version — toggle a boolean on any line starting with three backticks —
- * returns 18 fences and six languages, so it looks right. It is not:
- * `note/markdoc-shiki.mdoc` demonstrates Markdoc syntax inside a FOUR-backtick
- * ````liquid fence containing a nested ```css one, and the naive toggle treats the
- * nested opener as a CLOSER. 03 counted that nested fence as top-level and recorded
- * five languages, and the omission degraded a real fence to plain text with a green
- * build (07-5). A closer must be at least as long as its opener and carry no info string.
- */
-function scanLines(text, onTopLevelLine, onFenceOpen) {
-  let open = null
-  for (const raw of text.split('\n')) {
-    const m = /^(`{3,})(.*)$/.exec(raw.trim())
-    if (m) {
-      const [, ticks, info] = m
-      if (open === null) {
-        open = ticks.length
-        onFenceOpen?.(info.trim().split(/\s+/)[0] || 'text')
-      } else if (ticks.length >= open && info.trim() === '') {
-        open = null
-      }
-      continue
-    }
-    if (open === null) onTopLevelLine?.(raw)
-  }
-  return open === null
 }
 
 function fenceCensus(files) {
