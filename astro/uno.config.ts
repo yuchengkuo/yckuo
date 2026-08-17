@@ -89,6 +89,9 @@ export default defineConfig({
 
       'border-neutral': 'border-rx-sage-5',
       'border-neutral-hover': 'border-rx-sage-6',
+      /* Intentionally NOT `border-rx-sage-12`: this one keeps the light palette's border
+         in both themes, unlike every token around it. Ported deliberately, and flagged by
+         review twice — it is a choice, not the missing `rx-` alias it looks like. */
       'border-button-primary': 'border-radix-sage-12',
       'border-button-secondary': 'border-rx-sage-6',
       'underline-neutral': 'underline-rx-sage-8',

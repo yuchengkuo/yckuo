@@ -1,3 +1,9 @@
+/* KNOWN DEFECT, deferred to after the migration — ticket 19.
+   A service worker script re-runs on every worker STARTUP, not once per build, so this
+   is a new cache name each time: the install-time cache is never read again, the
+   accumulating ones are never deleted, and the fetch handler grows one more per restart.
+   Ported verbatim from `src/service-worker.ts` — live on production today, so the
+   cutover deliberately did not change it. `version` wants to be a build constant. */
 const version = Date.now()
 
 const CACHE = `cache-${version}`
