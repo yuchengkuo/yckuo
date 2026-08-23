@@ -90,7 +90,7 @@ h3,
 h4,
 h5,
 h6 {
-  --uno: 'font-sans text-sm';
+  --uno: 'font-sans text-sm font-medium';
 }
 
 h1 {
