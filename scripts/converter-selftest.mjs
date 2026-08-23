@@ -70,13 +70,12 @@ const TRAPS = [
     out: '```md\n![alt](work/x)\n```'
   },
   {
-    // 13-R1, the defect this fixture exists for. `note/markdoc-shiki` demonstrates
-    // Markdoc syntax inside a FOUR-backtick fence holding a nested ```css one; the naive
-    // toggle read that nested opener as a closer, so the lines between the nested fences
-    // counted as live content. Measured at 19ee03f the divergence was 1 file / 3 lines /
-    // 0 image sites — latent, which is why nothing caught it, and why the fixture has to
-    // put an image where the corpus happens not to.
-    why: '13-R1: an image inside a NESTED fence is still code',
+    // The nested-fence defect this fixture exists for. `note/markdoc-shiki` demonstrates
+    // Markdoc syntax inside a FOUR-backtick fence holding a nested ```css one; a naive
+    // toggle reads that nested opener as a closer, so the lines between the nested fences
+    // count as live content. The corpus happens to put no image there, so the divergence
+    // is LATENT — which is why nothing caught it, and why this fixture has to.
+    why: 'an image inside a NESTED fence is still code',
     in: '````liquid {% process=false %}\n```css\n![alt](work/x)\n```\n````',
     out: '````liquid {% process=false %}\n```css\n![alt](work/x)\n```\n````'
   },
@@ -84,7 +83,7 @@ const TRAPS = [
     // The other half of the same rule: a shorter run cannot close a longer opener, and a
     // fence closed by its own length must resume top-level scanning afterwards. Without
     // this an over-strict scanner would swallow the rest of every document silently.
-    why: '13-R1: content after a nested fence closes is live again',
+    why: 'content after a nested fence closes is live again',
     in: '````text\n```\n````\n\n![alt](work/x)',
     out: '````text\n```\n````\n\n![alt](/work/x)'
   },
@@ -148,7 +147,7 @@ const GATE_FIXTURES = [
   { why: 'G2 on a fully-converted document (nothing to do)', text: '![a](/work/x)\n' },
   { why: 'a document with no images at all', text: '# Title\n\nprose {% .base %}\n' },
   {
-    // 13-R1 again, from the gates' side. G1 compares census-before against census-after
+    // The nested-fence defect again, from the gates' side. G1 compares census-before against census-after
     // and G2 diffs the documents, so both were blind while `census()` shared the bug —
     // this fixture is only meaningful because the two now share the fixed rule instead.
     why: 'G1–G4 over a nested fence holding an image, beside a live one',
