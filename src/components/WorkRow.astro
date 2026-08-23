@@ -5,8 +5,9 @@
  * The design collapsed the old two-shape section (thumbnail card for featured work, bare
  * title+summary for the rest) into a single row: `[year]` and title on one line, summary
  * indented to the title's left edge, READ pinned to the right. Featured and additional
- * work are still separated — by the "Additional Works" label alone, not by row shape —
- * so both call sites render this component.
+ * work share that row shape exactly — the two subgrids, the placement, the stretched
+ * link. What separates them is the "Additional Works" label and the button's emphasis:
+ * primary on featured, secondary on the rest. Both call sites render this component.
  *
  * TWO nested subgrids, and both are load-bearing:
  *
@@ -59,13 +60,51 @@ const { work } = Astro.props
  * is `auto`, so it collapses to nothing and the title sits a 12px gap in from the margin.
  */
 const year = work.data.published ? formatDate(work.data.published, { year: 'numeric' }) : null
+
+/*
+ * The button's emphasis — the one thing that differs between a featured row and an
+ * additional one. Read off `work.data.featured` rather than taken as a prop: the two call
+ * sites in `index.astro` are `works.filter((w) => w.data.featured)` and its negation, so a
+ * `variant` prop would restate a fact the entry already carries AND could contradict the
+ * list it was rendered into. A third call site gets the right button with no argument.
+ *
+ * Every class is spelled out whole because the extractor reads raw file text: a
+ * `button-${variant}` template generates no CSS at all, with a green build and a class
+ * attribute that still reads correctly in the DOM. The variant groups are EXPANDED for
+ * the same reason `index.astro`'s header gives for expanding its own —
+ * `transformerVariantGroup` rewrites source text, and a frontmatter string literal is not
+ * where the hover state should be staked on it reaching.
+ *
+ * `group-hover:` and not the anchor's own `:hover` — the reason is at the anchor below.
+ * The mirrored declarations are NOT the same set for the two variants:
+ * `.button-secondary`'s `hover:()` flips the text to `text-on-color` as well, which
+ * `.button-primary`'s has no need to, carrying it already at rest. Hence one keyed pair
+ * per variant, so a class and its mirror are a single edit.
+ *
+ * Both hover states resolve to `bg-rx-gray-12` over a transparent border with on-color
+ * text, so the two variants are pixel-identical WHILE hovered and distinct only at rest.
+ * That is the button system's own answer, accepted here rather than forked: one row is
+ * hovered at a time, so the two are never seen side by side in that state.
+ */
+const button = work.data.featured
+  ? 'button-primary group-hover:bg-button-primary-hover group-hover:border-transparent'
+  : 'button-secondary group-hover:bg-button-secondary-hover group-hover:text-on-color group-hover:border-transparent'
 ---
 
-<div class="span-full grid-subgrid items-start mb-8">
-  <div class="span-full md:span-5 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5">
+<div class="span-full grid-subgrid items-start mb-8 relative group">
+  <div class="span-full md:span-5 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
     <h3 class="col-span-2 grid grid-cols-subgrid items-baseline font-medium">
       <span class="text-tertiary font-mono text-xs">{year && `[${year}]`}</span>
-      <a class="capitalize" href={work.id}>{work.data.title}</a>
+      {/*
+        The stretched link: `::after` covers the row's padding box (not its `mb-8`, which
+        is margin), so the whole row is the tap target while the DOM keeps ONE anchor.
+        A wrapping `<a class="contents">` cannot do this — `<a>` may not contain `<a>`,
+        and the parser's adoption agency algorithm answers one by closing the wrapper
+        into an empty sibling and cloning it down the tree. The row still renders, the
+        classes are all still correct, and the link is silently broken. Astro emits what
+        you wrote; the browser is what rewrites it, so only the DOM shows the damage.
+      */}
+      <a class="after:absolute after:inset-0 after:content-empty" href={work.id}>{work.data.title}</a>
     </h3>
     <p class="col-start-2 text-secondary font-mono text-xs">{work.data.summary}</p>
   </div>
@@ -79,9 +118,17 @@ const year = work.data.published ? formatDate(work.data.published, { year: 'nume
     violation on its own; paired with removal from the tab order it is the standard
     treatment for a redundant affordance, and the title link still reaches the page for
     both keyboard and AT. Labelling it instead would leave twenty links for ten works.
+
+    `group-hover:` and NOT the button's own `:hover`, which is dead here. The title
+    link's stretched `::after` is positioned, so it paints above this statically
+    positioned anchor and swallows its pointer events — neither `.button-primary:hover`
+    nor `.button-secondary:hover` in main.css can ever match once the overlay is in
+    place. Hovering the ROW is the only signal left, so those declarations are mirrored
+    onto the row's `group`. Keep both mirrors in sync with their rules in main.css —
+    they are not the same declarations for the two variants; see `button` above.
   */}
   <a
-    class="button-primary lt-md:hidden start-6 span-1 w-fit h-fit justify-self-end"
+    class={`${button} lt-md:hidden start-6 span-1 w-fit h-fit justify-self-end`}
     href={work.id}
     aria-hidden="true"
     tabindex="-1"
