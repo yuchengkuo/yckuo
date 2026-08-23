@@ -109,6 +109,27 @@ kills all 68 of them with a green build and no warning. A1 asserts it.
 Custom tags: `{% gallery %}`, `{% expand %}`, `{% deflist %}`, `{% span %}`. Full authoring rules
 live in `content/docs/CONTEXT.md`.
 
+### Media boxes
+
+Every media box is sized before its bytes arrive, from `aspect-ratios.json` at the root of the
+content submodule: Cloudinary id -> literal CSS ratio, one per line, sorted. The ratio is a
+**discovered fact about the asset, never an authored decision** — `scripts/aspect-ratios.mjs`
+fetches it once via Cloudinary's unauthenticated `fl_getinfo` flag and commits it. Generation is
+local (`pnpm dev`, `pnpm ratios`); a production build makes no network call, because the deploy
+filesystem is ephemeral and could never persist one back. `docs/adr/0001-committed-ratio-manifest.md`
+records that.
+
+**There is no default ratio and no fallback.** `aspectRatio()` in `src/lib/media/aspectRatio.ts`
+throws on an id the manifest lacks, and it is the single lookup for both body media (`Img.astro`)
+and frontmatter media (`work/[slug].astro`). A default would reserve the wrong box, still shift the
+page, and look deliberate.
+
+The declaration goes on the **wrapper inside the figure**, never on the figure — the figure also
+holds the caption, and a ratio there makes the caption eat the media's space. `aspectRatio` is a
+required prop on both media components. It was once declared and never assigned, and 124 boxes
+shipped `aspect-ratio: ` through two frameworks with a green build every time. A12 is what makes
+that unshippable now.
+
 `@markdoc/markdoc` is **patched** (`patches/`) for an unreported upstream bug: `.trim()` should be
 `.trimEnd()` in the block-tag rule, which otherwise mis-claims an inline tag as a block tag once the
 frontmatter is long enough. Without it, 3 of 26 files fail to parse.

@@ -13,6 +13,7 @@
  */
 import Image from '../lib/media/Image.svelte'
 import Video from '../lib/media/Video.svelte'
+import { aspectRatio } from '../lib/media/aspectRatio'
 
 // `class` is a reserved word in the destructuring position, hence the rename.
 //
@@ -27,13 +28,19 @@ import Video from '../lib/media/Video.svelte'
 // through to auto-placement: `.gallery > *`, `main > article > *` and prose's `> figure`
 // all read this way. A10 in `port-guard.mjs` asserts that no island renders inside
 // `<main>`, on every page of every build.
-const { class: className, image_isvideo, description, ...rest } = Astro.props
+//
+// The RATIO IS RESOLVED HERE, not in `markdoc.config.mjs` and not in a collection schema.
+// This is the one call site body media has, and it is an Astro component — server-only,
+// downstream of the gate's imports, and free to throw on an id the manifest never
+// recorded. A12 asserts that every box the build emits carries a real ratio.
+const { class: className, image_isvideo, description, id, ...rest } = Astro.props
+const ratio = aspectRatio(id)
 ---
 
 {
   image_isvideo ? (
-    <Video class={className} {...rest} />
+    <Video class={className} id={id} aspectRatio={ratio} {...rest} />
   ) : (
-    <Image class={className} description={description} {...rest} />
+    <Image class={className} id={id} description={description} aspectRatio={ratio} {...rest} />
   )
 }

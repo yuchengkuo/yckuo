@@ -112,6 +112,12 @@ export default defineMarkdocConfig({
     // it alone". The `!startsWith('http')` fallback below keeps a bare id rendering, so
     // an unslashed hand-authored file is a rendering bug rather than a broken build.
     //
+    // NO RATIO IS DECLARED HERE. It used to be, unassigned, and every media box shipped
+    // `aspect-ratio: ` for it. Resolution lives in `Img.astro`, which is downstream of
+    // this file and free to throw; this one is imported directly by `port-guard.mjs`, so a
+    // failure surface added here is a new way for the build gate itself to die. It reads
+    // no files.
+    //
     // It must stay SYNCHRONOUS — see rule 1 at the top of the file.
     paragraph: {
       attributes: {
@@ -126,8 +132,7 @@ export default defineMarkdocConfig({
           /* Merge attributes */
           img.attributes = { ...img.attributes, ...node.attributes }
 
-          let description = '',
-            aspectRatio = ''
+          let description = ''
 
           const src = img.attributes.src ?? ''
           if (src.startsWith('/')) {
@@ -149,7 +154,6 @@ export default defineMarkdocConfig({
             {
               ...img.transformAttributes(config),
               description,
-              aspectRatio,
               image_isvideo: Boolean(img.attributes.image_isvideo)
             },
             img.transformChildren(config)
