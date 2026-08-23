@@ -1,0 +1,91 @@
+---
+/*
+ * One row of the Selected Work list — Figma `Home / Frame 51` (node 6230:79941).
+ *
+ * The design collapsed the old two-shape section (thumbnail card for featured work, bare
+ * title+summary for the rest) into a single row: `[year]` and title on one line, summary
+ * indented to the title's left edge, READ pinned to the right. Featured and additional
+ * work are still separated — by the "Additional Works" label alone, not by row shape —
+ * so both call sites render this component.
+ *
+ * TWO nested subgrids, and both are load-bearing:
+ *
+ * 1. The outer `grid-subgrid` puts the text block on the section's columns 1–5 and the
+ *    button on column 6. Those are not approximations of the design — they are what the
+ *    design IS. At 1440 the body's 12 columns inside `px-10` with `gap-x-4` measure
+ *    98.67px, so `layout-content`'s 6 columns come to 672 and its first 5 to 557: Frame
+ *    51 is 672 wide, its text block is 557, and its button starts at 616, which is
+ *    672 − 56. The frame was drawn ON this grid. Naming the columns therefore reproduces
+ *    it exactly AND keeps it correct at every other width, which a transcribed 557px
+ *    would not.
+ *
+ *    Below `md` the button is `hidden` outright, by decision — the design has no mobile
+ *    frame, and a 56px button on a 6-column grid can only stack under the text, where it
+ *    duplicates a tap target the title already is. `start-6 span-1` therefore carries NO
+ *    `md:` prefix: the placement is unreachable below the breakpoint, so prefixing it
+ *    would emit two more rules that can never match. The text block keeps its `md:` on
+ *    `span-5`, because IT still renders at every width.
+ *
+ * 2. The h3's `grid-cols-subgrid` over the text block's own `[auto_1fr]` grid is what
+ *    indents the summary to the title rather than to the row. The design hard-codes it
+ *    as 54px of left padding (the `[2026]` measure, 42px, plus the 12px gap); deriving
+ *    it from the year's own column instead survives a four-digit year rendering wider or
+ *    narrower than the one that was measured. It also keeps the year INSIDE the heading,
+ *    where `+page.svelte` and the pre-redesign `index.astro` both had it — a screen
+ *    reader still gets one heading, not a stray paragraph ahead of one.
+ *
+ * No `client:` directive and no `<astro-island>`: the row is static, and A10 in the build
+ * gate is what would catch a later one.
+ */
+import type { CollectionEntry } from 'astro:content'
+import { formatDate } from '../lib/util'
+
+interface Props {
+  work: CollectionEntry<'works'>
+}
+
+const { work } = Astro.props
+/*
+ * NOT `formatDate(work.data.published ?? '')`, which `index.astro` used to carry.
+ * `published` is `z.coerce.date().optional()` and `collections.ts` documents the missing
+ * case as reachable (it sorts such an entry with `UNPUBLISHED = new Date('2048-01')`), so
+ * the `?? ''` was `new Date('')` -> Invalid Date -> `Intl.DateTimeFormat.format` throwing
+ * `RangeError: Invalid time value`. The build died on a stack in `util.ts` that named
+ * neither this component nor the offending `.mdoc`. Every work carries a `published`
+ * today; this is the only renderer of the year, so it is the only place left to notice.
+ *
+ * The empty span, rather than no span, is deliberate: it holds column 1 of the h3's
+ * subgrid open so a dateless row keeps the same two-column shape as the rest. The column
+ * is `auto`, so it collapses to nothing and the title sits a 12px gap in from the margin.
+ */
+const year = work.data.published ? formatDate(work.data.published, { year: 'numeric' }) : null
+---
+
+<div class="span-full grid-subgrid items-start mb-8">
+  <div class="span-full md:span-5 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5">
+    <h3 class="col-span-2 grid grid-cols-subgrid items-baseline font-medium">
+      <span class="text-tertiary font-mono text-xs">{year && `[${year}]`}</span>
+      <a class="capitalize" href={work.id}>{work.data.title}</a>
+    </h3>
+    <p class="col-start-2 text-secondary font-mono text-xs">{work.data.summary}</p>
+  </div>
+
+  {/*
+    `aria-hidden` + `tabindex="-1"`, together and never one without the other. Both call
+    sites render this component now, so the section emits TEN `READ →` anchors where it
+    used to emit five — and each one duplicates the destination of the title link three
+    lines above it. A screen reader's link list would read "READ →" ten times over with
+    nothing to tell them apart. Hiding a focusable element from the a11y tree is a
+    violation on its own; paired with removal from the tab order it is the standard
+    treatment for a redundant affordance, and the title link still reaches the page for
+    both keyboard and AT. Labelling it instead would leave twenty links for ten works.
+  */}
+  <a
+    class="button-primary lt-md:hidden start-6 span-1 w-fit h-fit justify-self-end"
+    href={work.id}
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    READ →
+  </a>
+</div>

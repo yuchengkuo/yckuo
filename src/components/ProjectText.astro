@@ -11,7 +11,15 @@
  * exactly the way 07-4 describes. An `.astro` component renders as a fragment, so this
  * holds by construction rather than by care.
  *
- * `p.span-5` is ported as authored, clamp included. See the note in `index.astro`.
+ * `p.span-5` is ported as authored, CLAMPED, and this is where the reason lives — the
+ * matching note in `index.astro` went with the featured-work card in the Frame 51
+ * redesign, and pointing back at it would point at nothing.
+ *
+ * The non-featured caller wraps this in `md:span-4`. A subgrid cannot create implicit
+ * tracks, so a 5-column span inside a 4-column parent clamps to 4 and the intended
+ * 5-of-8 measure is silently the block's full width. It is pre-existing and invisible
+ * today: "fixing" it changes a rendered width, which is a visual change, and this
+ * component was not what the redesign touched. Whether to fix it is the author's call.
  */
 import type { CollectionEntry } from 'astro:content'
 

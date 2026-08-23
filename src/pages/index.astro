@@ -19,23 +19,28 @@
  *    `Image.svelte`'s only client behaviour is the blur-placeholder fade, and `visible`
  *    is initialised `true` and can only ever be re-set to `true` — with `blurDataUrl`
  *    unset (its whole pipeline was deleted in ticket 10) hydration is a measurable no-op.
- *    Server-rendering it drops two islands from the homepage AND matches the SvelteKit
- *    DOM exactly, since an island would interpose an `<astro-island>` element. This is
- *    Gallery.astro's precedent, not a new rule. `Img.astro` is left alone — it is 13's
- *    and changing it is not 14's business.
+ *    Server-rendering it drops an island from the homepage, and an island here would
+ *    interpose an `<astro-island>` inside `<main>` — which is what A10 in the build gate
+ *    fails on. This is Gallery.astro's precedent, not a new rule. `Img.astro` is left
+ *    alone — it is 13's and changing it is not 14's business. Only the Projects section
+ *    still renders one; Selected Work dropped its thumbnails in the Frame 51 redesign.
  *
- * PORTED DEFECT, recorded rather than fixed (routed here by 12's review pass):
- * `footer.col-span-5` below sits inside the SMALL featured-work card, whose wrapper is
- * `md:span-4 grid-subgrid`. A subgrid cannot create implicit tracks, so the 5-column span
- * clamps to the card's 4 and the intended 5-of-8 measure is silently the card's full
- * width. `ProjectText.astro`'s `p.span-5` has the same shape. Both are pre-existing and
- * invisible today; "fixing" either changes a rendered width, which is a visual change
- * against the map's Redesign Out-of-scope bullet and against 16's parity bar. Ported as
- * authored, in both places, deliberately. Whether to fix them is the author's call.
+ * SELECTED WORK is no longer this file's markup. Figma `Home / Frame 51` (6230:79941)
+ * replaced the section's two shapes — a thumbnail card for featured work, a bare
+ * title+summary for the rest — with one row, so both halves now render `WorkRow.astro`
+ * and the split survives as the "Additional Works" label alone. The three things that
+ * went with the old markup, recorded so they are not re-derived from the git history:
+ * the featured thumbnail and its `hover:brightness-90` link, the `>` prefix on every
+ * summary, and the `{' '}` between title and year that JSX whitespace rules would
+ * otherwise have eaten (18-2 — the year is its own grid item now, so there is no
+ * inter-element space left to lose). `footer.col-span-5`'s clamp-to-4 defect went with
+ * them; `ProjectText.astro`'s `p.span-5` is the same defect and still stands, with the
+ * reasoning now recorded at that file's head rather than here.
  */
 import { getEntry, render } from 'astro:content'
 import Base from '../layouts/Base.astro'
 import ProjectText from '../components/ProjectText.astro'
+import WorkRow from '../components/WorkRow.astro'
 import Image from '../lib/media/Image.svelte'
 import { getProjects, getWorks } from '../lib/collections'
 import { formatDate } from '../lib/util'
@@ -91,77 +96,15 @@ const orderedProjects = [
   }
 
   <section id="work">
-    <h2>Work</h2>
+    <h2>Selected Work</h2>
 
     {/* Featured work */}
-    {
-      featuredWorks.map((work, i) => {
-        const year = formatDate(work.data.published ?? '', { year: 'numeric' })
-        /* The two-up/full-width alternation, verbatim: positions 2 and 3 of every run
-           of four are half-width, 1 and 4 are full. */
-        const small = (i % 4) + 1 === 2 || (i % 4) + 1 === 3
-        return (
-          <div
-            class:list={[
-              small ? 'span-full md:span-4' : 'span-full',
-              'mb-20 lt-md:mb-24 grid-subgrid content-start'
-            ]}
-          >
-            <a
-              class="span-full bg-surface hover:brightness-90"
-              href={work.id}
-              aria-label={work.data.title}
-              title={work.data.emoji}
-            >
-              <Image id={work.data.thumbnail} loading="eager" />
-            </a>
-            <h3 class="col-span-full font-medium capitalize mt-3 mb-2 md:mt-6 md:mb-4">
-              {/*
-                `{' '}` is load-bearing. Inside an expression block an `.astro` template
-                follows JSX whitespace rules and drops the newline between these two
-                elements; `+page.svelte:45-46` is laid out identically and Svelte keeps
-                it as one space. Without it the year reads `Oen Design System[2025]`.
-                (18-2 — invisible to 14/15, which compared class attributes and
-                whitespace-stripped text, and worth 4px to 16's layout diff.)
-              */}
-              <a href={work.id}>{work.data.title}</a>{' '}
-              <span class="text-tertiary font-mono text-xs">[{year}]</span>
-            </h3>
-            <footer class="col-span-5 font-mono text-xs">
-              <p class="text-secondary">> {work.data.tagline}</p>
-              {work.data.summary && <p class="text-xs mt-3">» {work.data.summary.at(0)}</p>}
-
-              <a class="inline-block mt-3 md:mt-5 button-primary" href={work.id}>
-                READ →
-              </a>
-            </footer>
-          </div>
-        )
-      })
-    }
+    {featuredWorks.map((work) => <WorkRow work={work} />)}
 
     {/* Additional work */}
-    <p class="span-full text-tertiary my-6 md:my-12">Additional Works</p>
+    <p class="span-full text-tertiary my-6 md:my-12 font-sans text-sm">Additional Works</p>
 
-    {
-      additionalWorks.map((work) => {
-        const year = formatDate(work.data.published ?? '', { year: 'numeric' })
-        return (
-          <div class="span-full grid-subgrid mb-16 lt-md:mb-10">
-            <h3 class="span-full font-medium capitalize mb-3">
-              {work.data.title} <span class="text-tertiary font-mono text-xs">[{year}]</span>
-            </h3>
-            {(work.data.summary ?? []).map((summary) => (
-              <p
-                class="span-full text-secondary font-mono text-xs not-last:mb-1 not-last:md:mb-1.5"
-              >
-                > {summary}
-              </p>
-            ))}
-          </div>
-        )
-      })
-    }
+    {additionalWorks.map((work) => <WorkRow work={work} />)}
   </section>
 
   {/* Projects */}
@@ -202,7 +145,7 @@ const orderedProjects = [
   }
 
   h2 {
-    --uno: 'text-4 leading-6 font-medium mb-6 md:mb-12';
+    --uno: 'text-4 leading-6 span-full font-medium mb-6 md:mb-12';
     /* Double-quoted so the `'/'` inside the utility survives verbatim; `+page.svelte`
        nested single quotes here, which Svelte tolerated and CSS does not. */
     --uno: "after:content-['/'] after:ml-2 after:font-mono after:text-xs after:text-tertiary";
