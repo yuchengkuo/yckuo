@@ -112,7 +112,7 @@ frontmatter is long enough. Without it, 3 of 26 files fail to parse.
 ### Styling
 
 UnoCSS with a custom Radix UI color integration. Semantic shortcuts (`bg-screen`, `text-primary`),
-custom variants (`no-js`, `child-first`, `child-last`), font stack on CSS variables (`--sans`,
+custom variants (`child-first`, `child-last`), font stack on CSS variables (`--sans`,
 `--serif`, `--mono`). The `rx-` prefix expands to a light/dark pair — a bare `radix-` token is
 single-theme and should be assumed deliberate only where a comment says so.
 

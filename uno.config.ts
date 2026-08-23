@@ -199,16 +199,6 @@ export default defineConfig({
   ],
   variants: [
     {
-      name: 'no-js',
-      match(matcher) {
-        if (!matcher.startsWith('no-js:')) return matcher
-        return {
-          matcher: matcher.slice(6),
-          selector: (s) => `.no-js ${s}`
-        }
-      }
-    },
-    {
       name: 'child-last',
       match(matcher) {
         if (!matcher.startsWith('child-last:')) return matcher

@@ -9,7 +9,6 @@
     alt?: string
 
     transformations?: TransformerOption | TransformerVideoOption
-    blurDataUrl?: string
     aspectRatio?: string
     showcap?: boolean
     class?: string
@@ -26,7 +25,6 @@
     alt = '',
 
     transformations = {},
-    blurDataUrl,
     aspectRatio,
     showcap = false,
     class: classname,
@@ -42,57 +40,13 @@
   const resolvedSrc = $derived(
     src || getVideoProps({ id, transformations: transformations as TransformerOption }).src
   )
-
-  let videoEl: HTMLVideoElement
-
-  /*
-   * `$state(true)`, aligning with `Image.svelte`. This is the one character by
-   * which the two media components ever differed, and the difference was accidental:
-   * both carry the same blurred-placeholder machinery, but Image gates its overlay on
-   * `blurDataUrl` and starts visible, while Video gated its overlay on nothing and
-   * started hidden. NOTHING PRODUCES A `blurDataUrl` any more, so Image's overlay
-   * renders never and Video's rendered always — same intent, opposite outcome.
-   *
-   * Starting `true` makes the $effect below inert exactly the way Image's is (it can
-   * only re-set `true`), which is what lets `Img.astro` render this without a
-   * `client:` directive. That matters beyond the JS: `<astro-island>` is
-   * `display: contents`, so it generates no box while still matching every
-   * `>`-combinator, and it was placing all 10 video figures at one subgrid track
-   * instead of four. The overlay element still renders, with `opacity-0` from the
-   * server, so the box tree is unchanged. A10 asserts the no-island invariant.
-   *
-   * The cost is stated: video no longer blurs-in over 300ms on first frame. Neither
-   * does Image, and has not for as long as `blurDataUrl` has had no producer.
-   */
-  let visible = $state(true)
-
-  $effect(() => {
-    // 0 if no media is available yet
-    if (videoEl?.videoWidth) visible = true
-
-    if (!videoEl) return
-    if (videoEl.videoWidth) return
-    videoEl.addEventListener('loadeddata', () => {
-      if (!videoEl) return
-      setTimeout(() => (visible = true), 0)
-    })
-  })
 </script>
 
 <figure class={classname} style="aspect-ratio: {aspectRatio}" {...rest}>
   <div>
-    <video
-      bind:this={videoEl}
-      {autoplay}
-      {muted}
-      {loop}
-      {playsinline}
-      disablepictureinpicture={false}
-      poster={blurDataUrl}
-    >
+    <video {autoplay} {muted} {loop} {playsinline} disablepictureinpicture={false}>
       <source src={resolvedSrc} />
     </video>
-    <div role="presentation" class:opacity-0={visible}></div>
   </div>
 
   {#if showcap}
@@ -109,14 +63,11 @@
   }
   /* Wrapper */
   figure > div {
-    --uno: 'relative overflow-hidden rounded';
+    --uno: 'overflow-hidden rounded';
   }
 
   video {
     --uno: 'w-full bg-surface';
-  }
-  div[role='presentation'] {
-    --uno: 'absolute inset-0 transition-opacity ease-out duration-300 backdrop-filter backdrop-blur-xl select-none';
   }
 
   small {
