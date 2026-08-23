@@ -153,7 +153,7 @@ article,
 
 .shiki {
   --uno: 'py-2 px-1.5 bg-surface rounded-2 border-1 border-neutral mt-6 overflow-x-auto';
-  --uno: 'layout-aside relative';
+  --uno: 'relative md:-mx-4';
 
   counter-reset: line;
 
