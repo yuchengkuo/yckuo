@@ -24,12 +24,13 @@ npm-script alias — the shell script is the only entry point. `outputDirectory`
 
 ## The build gate — `scripts/port-guard.mjs`
 
-Eight assertions that deliberately fail the build where the framework would otherwise **succeed
+Nine assertions that deliberately fail the build where the framework would otherwise **succeed
 quietly**: grid utilities missing from the generated CSS, `getHeadings()` silently zeroed by an async
 transform, an unlisted Shiki fence language, a missing UnoCSS entry, two `prose.css` rules, an
-`<astro-island>` inside `<main>`, and a collection glob that resolves to nothing. Every one of them
-was proven to bite by injection. It needs **Node ≥ 22.18** — it imports `markdoc.config.mjs` and the
-TypeScript `src/lib/highlighter.ts` directly, so it relies on Node's type stripping.
+`<astro-island>` inside `<main>`, a font family declared twice so the dev cascade picks the loser,
+and a collection glob that resolves to nothing. Every one of them was proven to bite by injection.
+It needs **Node ≥ 22.18** — it imports `markdoc.config.mjs` and the TypeScript
+`src/lib/highlighter.ts` directly, so it relies on Node's type stripping.
 
 **Structure is hard, provenance warns.** Assertions are revision-independent and always hard — each
 derives its expectation from whatever corpus is present. The pinned corpus figures are _provenance_:
