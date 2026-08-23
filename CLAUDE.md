@@ -28,12 +28,13 @@ npm-script alias — the shell script is the only entry point. `outputDirectory`
 
 ## The build gate — `scripts/port-guard.mjs`
 
-Nine assertions that deliberately fail the build where the framework would otherwise **succeed
+Ten assertions that deliberately fail the build where the framework would otherwise **succeed
 quietly**: grid utilities missing from the generated CSS, `getHeadings()` silently zeroed by an async
 transform, an unlisted Shiki fence language, a missing UnoCSS entry, two `prose.css` rules, an
-`<astro-island>` inside `<main>`, a font family declared twice so the dev cascade picks the loser,
-and a collection glob that resolves to nothing. Every one of them was proven to bite by injection.
-It needs **Node ≥ 22.18** — it imports `markdoc.config.mjs` and the TypeScript
+`<astro-island>` inside `<main>`, a font family declared twice so the dev cascade picks the loser, a
+media box whose `aspect-ratio` is not two positive integers or whose call site has stopped rendering
+it, and a collection glob that resolves to nothing. Every one of them was proven to bite by
+injection. It needs **Node ≥ 22.18** — it imports `markdoc.config.mjs` and the TypeScript
 `src/lib/highlighter.ts` directly, so it relies on Node's type stripping.
 
 **Structure is hard, provenance warns.** Assertions are revision-independent and always hard — each
@@ -128,7 +129,10 @@ The declaration goes on the **wrapper inside the figure**, never on the figure �
 holds the caption, and a ratio there makes the caption eat the media's space. `aspectRatio` is a
 required prop on both media components. It was once declared and never assigned, and 124 boxes
 shipped `aspect-ratio: ` through two frameworks with a green build every time. A12 is what makes
-that unshippable now.
+that unshippable now: it reads `dist/`, so it covers all three rendering surfaces at once, and its
+second half counts the boxes against what the corpus implies — which is what catches a call site
+that quietly stops rendering one. The projects `cover` field is excluded from that count, with the
+reason in the rung.
 
 `@markdoc/markdoc` is **patched** (`patches/`) for an unreported upstream bug: `.trim()` should be
 `.trimEnd()` in the block-tag rule, which otherwise mis-claims an inline tag as a block tag once the

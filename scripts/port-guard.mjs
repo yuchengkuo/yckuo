@@ -50,14 +50,7 @@ import { createGetHeadings } from '@astrojs/markdoc/runtime'
 /* The fence rule lives in one file because it once lived in two and they disagreed. The
    corpus readers are shared with the ratio generator for the same reason. */
 import { scanLines } from './fences.mjs'
-import {
-  ROOT,
-  walk,
-  globMatcher,
-  collectionGlobs,
-  collectionFiles,
-  mediaSites
-} from './corpus.mjs'
+import { ROOT, walk, globMatcher, collectionGlobs, collectionFiles, mediaSites } from './corpus.mjs'
 
 const DIST = path.join(ROOT, 'dist')
 
@@ -83,6 +76,10 @@ const CENSUS = {
   utilities: 12,
   fences: 17,
   fenceLanguages: { ts: 10, svelte: 2, css: 2, html: 1, tsx: 1, liquid: 1 },
+  /* A12. Measured against the WORKING TREE, not `rev` above: the content reorganisation
+     it reflects is not committed yet, so no revision names it. Say it is wrong when it is
+     wrong — the number is real, its provenance is not. */
+  mediaBoxes: 119,
   /* A2's probe. `note/markdoc-shiki` is chosen because it is heading-dense AND carries
      the ````liquid fence A3 needs, so one file exercises both paths. */
   headingProbe: { file: 'note/markdoc-shiki.mdoc', headings: 5 }
@@ -485,6 +482,85 @@ await check('A11', 'each font family is declared exactly once', async () => {
 
   const faces = (css.match(/@font-face/g) ?? []).length
   return `${families.length} families, 1 declaration each (${report.join(', ')}) · ${faces} @font-face rules`
+})
+
+// --- A12 ---------------------------------------------------------------------------
+// The rung the whole feature exists behind. Every media box on the site shipped
+// `aspect-ratio: ` — an empty declaration every browser silently drops — through two
+// frameworks, with a green build and no warning every time. The transform declared the
+// variable and never assigned it. This is the exact shape the gate is for: green build,
+// no warning, visible damage, and no fallback path to take when it fires.
+//
+// It reads `dist/`, which is what makes it cover the feature END TO END: body images,
+// body videos and the work thumbnail hero reach the page by different code paths, and
+// this sees them all at once without knowing which is which.
+//
+// HALF ONE, PARSE. Every declaration is two positive integers. That is what catches the
+// empty string, an `undefined` stringified into the attribute, and a zero — none of which
+// any other check can see, because the browser drops them without complaint.
+//
+// HALF TWO, COUNT. The number of boxes equals the number the corpus implies. That is what
+// catches a call site that quietly STOPS rendering a box, which has already happened once
+// here to a renderer nobody was watching. Deriving the figure from `mediaSites()` rather
+// than restating it keeps the rung revision-independent; the pinned figure rides along as
+// census.
+//
+// THE PROJECTS `cover` FIELD IS EXCLUDED, deliberately. Nothing has rendered it since it
+// was dropped from the project row: the field stays in the schema and its two ids stay in
+// the manifest, but it contributes zero boxes and counting it would fail this rung on
+// every build. If a cover renderer ever returns, that is the commit that adds it here —
+// and it reopens the authored-ratio question on its own terms, since a crop or a
+// fixed-ratio card is art direction rather than box reservation.
+await check('A12', 'every media box reserves a real aspect ratio', () => {
+  const sites = mediaSites()
+  if (sites.length === 0) return skip('no content — run `git submodule update --init`')
+
+  const pages = distHtml()
+  assert(pages.length > 0, 'no HTML in dist/ — did astro build run?')
+
+  /* Inline STYLE ATTRIBUTES only. Scanning the whole document would also sweep up any
+     `aspect-ratio` a stylesheet declares, and a utility class is not a reserved box. */
+  let boxes = 0
+  const bad = []
+  for (const page of pages) {
+    const html = fs.readFileSync(page, 'utf8')
+    for (const [, declarations] of html.matchAll(/style="([^"]*)"/g))
+      for (const [, value] of declarations.matchAll(/aspect-ratio:([^;]*)/g)) {
+        boxes++
+        const pair = /^(\d+)\s*\/\s*(\d+)$/.exec(value.trim())
+        if (!pair || Number(pair[1]) <= 0 || Number(pair[2]) <= 0)
+          bad.push(`${path.relative(DIST, page)}: ${JSON.stringify(value)}`)
+      }
+  }
+
+  assert(
+    bad.length === 0,
+    `${bad.length} of ${boxes} media box(es) carry an aspect-ratio that is not two positive integers: ` +
+      `${bad.slice(0, 5).join('; ')}${bad.length > 5 ? ` (+${bad.length - 5} more)` : ''}. ` +
+      `The browser DROPS an invalid declaration silently, so the box is never reserved and the page ` +
+      `shifts under the reader when the asset loads. Ratios come from \`aspect-ratios.json\` in the ` +
+      `content submodule — \`pnpm ratios\` records a missing one.`
+  )
+
+  /* A draft renders in `astro dev` and not in a build, so its boxes are not in dist. */
+  const rendered = sites.filter((s) => !s.draft && s.from !== 'cover')
+  const byOrigin = {}
+  for (const s of rendered) byOrigin[s.from] = (byOrigin[s.from] ?? 0) + 1
+
+  assert(
+    boxes === rendered.length,
+    `the build emits ${boxes} media box(es), but the corpus implies ${rendered.length} ` +
+      `(${Object.entries(byOrigin)
+        .map(([k, n]) => `${n} ${k}`)
+        .join(', ')}). ` +
+      `A call site has stopped rendering a box, or has started rendering one twice — either way the ` +
+      `HTML, the classes and the text all stay correct, which is why nothing else catches it.`
+  )
+
+  census('A12', 'media boxes', boxes, CENSUS.mediaBoxes)
+  return `${boxes} boxes (${Object.entries(byOrigin)
+    .map(([k, n]) => `${n} ${k}`)
+    .join(', ')}) · all two positive integers`
 })
 
 // --- A9 ----------------------------------------------------------------------------

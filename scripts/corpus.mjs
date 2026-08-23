@@ -84,7 +84,7 @@ const FRONTMATTER_MEDIA = ['thumbnail', 'cover']
 
 /**
  * Every Cloudinary asset the corpus references, as
- * `{ id, isVideo, from, file, line }`.
+ * `{ id, isVideo, draft, from, file, line }`.
  *
  * `id` is normalised the way the render path normalises it: **the leading `/` is a marker,
  * not a path**, and the paragraph transform strips it before the id reaches Cloudinary.
@@ -97,12 +97,18 @@ const FRONTMATTER_MEDIA = ['thumbnail', 'cover']
  *
  * Body sites come through `census()`, the same scanner the converter proof is built on,
  * so an image inside a fenced code block is code here too.
+ *
+ * `draft` is carried rather than filtered: a draft entry renders in `astro dev` and not in
+ * a build, so the ratio generator wants its ids and a rung counting BOXES IN `dist/` does
+ * not. Callers decide, because the two answers are both correct.
  */
 export function mediaSites() {
   const sites = []
   for (const file of collectionFiles()) {
     const raw = fs.readFileSync(file, 'utf8')
     const lines = raw.split('\n')
+    const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(raw)?.[1] ?? ''
+    const draft = /^draft:[ \t]*true[ \t]*$/m.test(frontmatter)
 
     for (const site of census(raw)) {
       const src = site.src
@@ -113,19 +119,20 @@ export function mediaSites() {
       sites.push({
         id: src.replace(/^\//, ''),
         isVideo: /image_isvideo\s*=\s*true/.test(lines[site.line - 1] ?? ''),
+        draft,
         from: 'body',
         file,
         line: site.line
       })
     }
 
-    const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(raw)?.[1] ?? ''
     for (const field of FRONTMATTER_MEDIA) {
       const m = new RegExp(`^${field}:[ \\t]*(\\S+)[ \\t]*$`, 'm').exec(frontmatter)
       if (!m) continue
       sites.push({
         id: m[1].replace(/^['"]|['"]$/g, '').replace(/^\//, ''),
         isVideo: false,
+        draft,
         from: field,
         file,
         line: 0
