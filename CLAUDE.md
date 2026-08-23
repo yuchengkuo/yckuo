@@ -12,6 +12,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm selftest` — the fixture proofs: `scripts/converter-selftest.mjs` behind `slashify()`, and
   `scripts/getinfo-selftest.mjs` behind `ratioFromGetInfo()`. Both run with no network and no
   content checkout
+- `pnpm ratios` — record the true dimensions of any Cloudinary id the ratio manifest lacks.
+  `--dry` reports what it would fetch. Runs automatically on `pnpm dev`, never on a build
 - `pnpm format` — Prettier
 
 There is **no type-check script**. `astro check` was evaluated and backed out:

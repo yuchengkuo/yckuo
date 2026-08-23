@@ -2,6 +2,9 @@ import { defineConfig } from 'astro/config'
 import markdoc from '@astrojs/markdoc'
 import svelte from '@astrojs/svelte'
 import unocss from 'unocss/astro'
+/* Named module, not an inline hook: this file already carries the integration-ordering
+   hazard below and should not grow a second concern. Dev-only — see the file. */
+import { aspectRatios } from './scripts/aspect-ratios.mjs'
 
 /*
  * DEV-ONLY. Keeps `__uno.css` to ONE stylesheet, and it is not cosmetic.
@@ -74,7 +77,8 @@ export default defineConfig({
       }
     }),
     markdoc(),
-    svelte()
+    svelte(),
+    aspectRatios()
   ],
   devToolbar: { enabled: false }
 })

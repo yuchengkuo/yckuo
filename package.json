@@ -19,6 +19,7 @@
     "guard": "node scripts/port-guard.mjs",
     "preview": "astro preview",
     "format": "prettier --write .",
+    "ratios": "node scripts/aspect-ratios.mjs",
     "selftest": "node scripts/converter-selftest.mjs && node scripts/getinfo-selftest.mjs"
   },
   "dependencies": {

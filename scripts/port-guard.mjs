@@ -43,16 +43,23 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath, pathToFileURL } from 'node:url'
+import { pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import Markdoc from '@markdoc/markdoc'
 import { createGetHeadings } from '@astrojs/markdoc/runtime'
-/* The fence rule lives in one file because it once lived in two and they disagreed. */
+/* The fence rule lives in one file because it once lived in two and they disagreed. The
+   corpus readers are shared with the ratio generator for the same reason. */
 import { scanLines } from './fences.mjs'
+import {
+  ROOT,
+  walk,
+  globMatcher,
+  collectionGlobs,
+  collectionFiles,
+  mediaSites
+} from './corpus.mjs'
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const DIST = path.join(ROOT, 'dist')
-const CONTENT_CONFIG = path.join(ROOT, 'src/content.config.ts')
 
 const STRICT = process.argv.includes('--strict')
 
@@ -107,65 +114,6 @@ const census = (id, label, actual, want) => {
 const skip = (why) => ({ skip: true, detail: why })
 
 // --- shared readers ----------------------------------------------------------------
-
-function walk(dir) {
-  if (!fs.existsSync(dir)) return []
-  return fs
-    .readdirSync(dir, { withFileTypes: true })
-    .flatMap((e) => (e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]))
-}
-
-/**
- * The collection globs, read out of `src/content.config.ts` rather than restated here.
- *
- * This is what makes A9 the one assertion that survives the cutover meaningfully: 17
- * step 3 repoints every `base` from `./src/content` (the gitignored mirror) to
- * `../content` (the private submodule, post-rename), and this reads whichever is
- * declared. Restating the path would turn A9 into a test of a constant.
- */
-function collectionGlobs() {
-  const src = fs.readFileSync(CONTENT_CONFIG, 'utf8')
-  const globs = [
-    ...src.matchAll(/glob\(\{\s*pattern:\s*'([^']+)'\s*,\s*base:\s*'([^']+)'\s*\}\)/g)
-  ].map(([, pattern, base]) => ({ pattern, base }))
-  assert(globs.length > 0, `no glob({pattern,base}) pairs found in ${CONTENT_CONFIG}`)
-  return globs
-}
-
-/** Every `.mdoc` the declared collection globs actually resolve to. */
-function collectionFiles() {
-  const seen = new Set()
-  for (const { pattern, base } of collectionGlobs()) {
-    if (!pattern.endsWith('.mdoc')) continue
-    const dir = path.resolve(ROOT, base)
-    if (!fs.existsSync(dir)) continue
-    const matches = globMatcher(pattern)
-    for (const abs of walk(dir)) if (matches(path.relative(dir, abs))) seen.add(abs)
-  }
-  return [...seen]
-}
-
-/**
- * A single star does not cross a path separator; a double star matches zero or more
- * directories.
- *
- * That distinction is load-bearing rather than pedantic: it is what keeps
- * `docs/CONTEXT.md` out of the corpus. `pages` is `*.mdoc`, root-only, so a file one
- * directory down is matched by no collection glob and stays documentation. Reproducing
- * the semantics here means A9 keeps deriving that result instead of restating it.
- */
-function globMatcher(pattern) {
-  const source = pattern
-    .split('/')
-    .map((seg, i, all) => {
-      if (seg === '**') return '(?:[^/]+/)*'
-      const escaped = seg.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '[^/]*')
-      return i === all.length - 1 ? escaped : `${escaped}/`
-    })
-    .join('')
-  const rx = new RegExp(`^${source}$`)
-  return (rel) => rx.test(rel.split(path.sep).join('/'))
-}
 
 function distHtml() {
   return walk(DIST).filter((f) => f.endsWith('.html'))
