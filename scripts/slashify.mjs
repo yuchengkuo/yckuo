@@ -1,48 +1,38 @@
 /**
- * slashify — the content conversion, per ticket 04's ruling.
+ * slashify — the leading-slash content conversion.
  *
- * Promoted from `.scratch/astro-migration/scripts/slashify.mjs`, where ticket 07 wrote
- * and proved it (128 sites across 15 files, self-check clean, round-trip proof). It is
- * tracked here because ticket 17 step 2 runs it against the private repo for real, and
- * a cutover must not depend on gitignored agent working files.
- *
- * `convert.mjs` (superseded) rewrote every `![alt](id)` into a `{% img %}` tag. 04 found
- * that was never forced: `@astrojs/markdoc`'s `shouldOptimizeImage` is
- * `!isValidUrl(src) && !src.startsWith('/')`, so a LEADING SLASH is enough and markdown
- * image syntax survives. The whole conversion is therefore:
+ * `@astrojs/markdoc`'s `shouldOptimizeImage` is `!isValidUrl(src) && !src.startsWith('/')`,
+ * so a LEADING SLASH is all it takes to keep markdown image syntax and still have Astro
+ * resolve a Cloudinary id. The whole conversion is:
  *
  *     ![alt](work/abc 'caption')   ->   ![alt](/work/abc 'caption')
  *
- * one character per call site, plus the `.md` -> `.mdoc` rename.
+ * one character per call site.
  *
- * Why this is hand-written rather than a regex one-liner: 03 found three silent mangle
- * traps in the tag rewrite, two of which are properties of the *source*, not of the
- * rewrite, and would bite any naive `!\[[^\]]*\]\(([^)\s]+)` pattern:
+ * Why this is hand-written rather than a regex one-liner: two properties of the SOURCE
+ * defeat any naive `!\[[^\]]*\]\(([^)\s]+)` pattern —
  *
- *   - nested [brackets] in alt text  (4 sites in the corpus)
- *   - single-quoted titles           (47 of 128 sites)
+ *   - nested [brackets] in alt text
+ *   - single-quoted titles
  *
  * So the alt text is bracket-matched, not `[^\]]*`-matched, and the src token is read as
  * "up to the first whitespace or `)`" so a quoted title is never touched. Fenced code
- * blocks are skipped outright — by `fences.mjs`, which is the shared rule and NOT a
- * local `inFence` toggle. That toggle was 13-R1: it read the corpus's nested ```css
- * fence as a closer, so three lines of a four-backtick block counted as live content and
- * an image written there would have been slashed into the private repo by `--in-place`.
+ * blocks are skipped by `fences.mjs`, the SHARED rule, and not by a local `inFence`
+ * toggle: a naive toggle reads the corpus's nested ```css block as a closer, so three
+ * lines of a four-backtick fence count as live content and an image written there gets
+ * slashed.
  *
- * This module has no CLI. Every gate lives in `sync-content.mjs`, at one site, visible in
- * one log — 08's rule that scattered assertions get deleted by whoever hits one at a bad
- * moment while a named gate survives.
+ * This module has no CLI. The gates that prove it live in `converter-selftest.mjs`.
  */
 import { scanLines } from './fences.mjs'
 
 /**
  * Rewrite one document. Returns { text, sites, skipped, closed }.
  *
- * `closed` is false when a fence never terminates, and `sync-content.mjs`'s G5 fails on
- * it. It has to be reported rather than absorbed: an unterminated fence makes every line
- * after it look like code, so the converter returns `sites: 0` for the tail and every
- * gate built on `census()` agrees with it — the same shared blindness as 13-R1, one
- * layer up.
+ * `closed` is false when a fence never terminates, and G5 in `converter-selftest.mjs`
+ * fails on it. It has to be REPORTED rather than absorbed: an unterminated fence makes
+ * every line after it look like code, so the converter returns `sites: 0` for the tail
+ * and every gate built on `census()` agrees with it.
  */
 export function slashify(text) {
   const lines = text.split('\n')
@@ -109,9 +99,8 @@ export function matchBrackets(s, start) {
  *
  * It shares `scanLines` with `slashify()` deliberately: G1 compares a census before
  * against a census after, so a scanner that disagreed with the converter's would report
- * a clean pass over lines the converter had wrongly rewritten. That shared blindness is
- * exactly why 13-R1 survived G1–G4 — sharing the CORRECT rule is the fix, not sharing
- * less.
+ * a clean pass over lines the converter had wrongly rewritten. Sharing the CORRECT rule
+ * is the fix for that blindness, not sharing less.
  */
 export function census(text) {
   const found = []
@@ -134,7 +123,7 @@ export function census(text) {
   return found
 }
 
-/** Markdoc tag-open/close count. 03's trap 1: a converter must not move this. */
+/** Markdoc tag-open/close count. A converter must not move this. */
 export function tagBalance(text) {
   return (text.match(/\{%\s*\/?\s*[a-z]/g) ?? []).length
 }

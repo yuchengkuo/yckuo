@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm guard` — the gate alone, against an existing `dist/`. `--strict` promotes census drift and
   skipped rungs to errors
 - `pnpm preview` — serve the built `dist/`
+- `pnpm selftest` — `scripts/converter-selftest.mjs`, the fixture proof behind `slashify()`
 - `pnpm format` — Prettier
 
 There is **no type-check script**. `astro check` was evaluated and backed out:
@@ -121,15 +122,17 @@ single-theme and should be assumed deliberate only where a comment says so.
 - **Read `content/docs/CONTEXT.md` first.** It defines the audience, the field vocabulary
   (`tagline` vs `description` vs `summary`), the case study shape, the markup, and the voice rules.
 
-### Migration tooling — spent, kept
+### The converter
 
-`scripts/sync-content.mjs` and `scripts/slashify.mjs` produced the one content commit the Astro
-cutover needed (26 renames, 128 image ids slashed). They are **done**: the submodule holds `.mdoc`
-directly, so every mode that reads the corpus now exits 1 with _"already converted."_ What survives
-is `--selftest`, which runs the round-trip proof and the fence fixtures without needing content at
-all. `scripts/fences.mjs` is not spent — it is the one fenced-code scanner, shared with the gate.
+`scripts/slashify.mjs` inserts the leading `/` a Cloudinary image id needs
+(`![alt](work/x)` -> `![alt](/work/x)`). It is a library with no CLI; the corpus is already
+converted, so nothing runs it in anger — but it is the record of a one-character edit to authored
+prose, and `pnpm selftest` (`scripts/converter-selftest.mjs`) is the proof that the edit is a pure
+insertion: same call sites, byte-identical once the slashes are normalised away, tag balance
+unchanged, idempotent. Fixture-driven, so it needs no content checkout.
 
-The migration's plan, tickets and rulings live in `.scratch/astro-migration/map.md`.
+`scripts/fences.mjs` is the one fenced-code scanner, shared with the build gate. Two copies of that
+rule once disagreed, which is why there is now one.
 
 ## Agent skills
 
