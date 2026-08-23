@@ -61,7 +61,7 @@
  * assertions exist for.
  * ---------------------------------------------------------------------------------
  */
-import { defineCollection, z } from 'astro:content'
+import { defineCollection, reference, z } from 'astro:content'
 import { glob } from 'astro/loaders'
 
 /*
@@ -89,6 +89,12 @@ const pages = defineCollection({
   schema: z.object({ ...shared })
 })
 
+/* velite: pattern 'work/team/*.yml', team data for work to reference */
+const teams = defineCollection({
+  loader: glob({ pattern: 'work/team/*.yml', base: './content' }),
+  schema: z.object({ ...shared })
+})
+
 /* velite: pattern 'work/*.md' */
 const works = defineCollection({
   loader: glob({ pattern: 'work/*.mdoc', base: './content' }),
@@ -98,14 +104,17 @@ const works = defineCollection({
     thumbnail: z.string().optional(),
     /* Kept required, as velite had it, though the `orgs` collection it referenced is
        not ported and no route renders it. All ten work files carry it. */
-    org: z.string(),
+    org: reference('teams'),
     category: z.array(z.string().max(15)),
     emoji: z.string().emoji(),
     /* velite's union had a third member, `s.string().url()`, which every `s.string()`
        already accepts. Dropped rather than ported. */
     meta: z.record(z.string(), z.union([z.string(), z.array(z.string())])).optional(),
-    tagline: z.string().optional(),
-    summary: z.array(z.string()).optional()
+    /* One field, one job, in works and projects alike — CONTEXT.md's `summary`. It was
+       velite's `s.array(s.string())` here and a bare string in projects; the doc closed
+       that gap, so the two collections now declare the field identically and the work
+       page and the homepage card render the same sentences. */
+    summary: z.string()
   })
 })
 
@@ -163,4 +172,4 @@ const navigation = defineCollection({
   })
 })
 
-export const collections = { pages, works, projects, notes, navigation }
+export const collections = { pages, teams, works, projects, notes, navigation }
