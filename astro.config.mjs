@@ -21,8 +21,9 @@ import unocss from 'unocss/astro'
  * `kbd`. Rules nested under `article`/`.prose` compile to (0,0,2) and are unaffected, which
  * is why prose headings looked correct and only the homepage h1 was wrong.
  *
- * The BUILD is correct and always was: dist emits a single stylesheet with the reset first.
- * `pnpm build` therefore cannot see this, the same blind spot the `--font-*` ruling above hit.
+ * The BUILD is correct and always was: dist emits a single stylesheet with the reset
+ * first. `pnpm build` therefore cannot see this — the same dev-only blind spot the
+ * `--font-*` note in `uno.config.ts` describes.
  *
  * Pinning the client back to the virtual id makes both passes agree, so Vite REPLACES the
  * inlined tag instead of appending one. Must sort before `unocss:astro` — both are
@@ -43,8 +44,8 @@ export default defineConfig({
   integrations: [
     /*
      * UnoCSS carries two edits the `.md -> .mdoc` rename makes mandatory. Either one
-     * alone kills all 68 `{% .span-* %}` / `{% .start-* %}` grid annotations with a
-     * green build and no warning. A1 in `port-guard.mjs` asserts it.
+     * alone kills every `{% .span-* %}` / `{% .start-* %}` grid annotation with a green
+     * build and no warning. A1 in `port-guard.mjs` asserts it.
      *
      * 1. `pipeline.include` below. The vite plugin runs every scanned file through
      *    `ctx.filter` first, whose default include is

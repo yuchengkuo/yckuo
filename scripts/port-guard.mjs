@@ -4,64 +4,41 @@
  *
  *     pnpm build   ==   astro build && node scripts/port-guard.mjs
  *     pnpm guard              the gate alone, against an existing dist/
- *     pnpm guard --strict     census drift becomes an error (tickets 16 and 17)
+ *     pnpm guard --strict     census drift and skipped rungs become errors
  *
- * Ticket 08 re-chartered the fallback ladder from a DECISION-risk register into an
- * EXECUTION-risk register, and found that eight of the nine risks 02/03/07 surfaced
- * share one shape: **green build, no warning, visible damage.** There is no alternative
- * path to fall back to — only a silence to break. So the instrument is an assertion, and
- * the assertions live in one named file rather than scattered through the source,
- * because a scattered assertion gets deleted by whoever hits it at a bad moment while a
- * named gate is visible in the build log.
+ * Every assertion here guards a failure of one shape: **green build, no warning, visible
+ * damage.** There is no fallback path to take when one fires — only a silence to break.
+ * They live in one named file rather than scattered through the source, because a
+ * scattered assertion gets deleted by whoever hits it at a bad moment, while a named gate
+ * is visible in the build log.
  *
- * Eight of the ten rungs are here. The other two are elsewhere by 08's cost rule — the
- * phase that introduces a risk pays for its assertion:
- *   A4 (the subgrid sever) rides `parity.mjs` in ticket 16; it needs a laid-out DOM.
- *   A6 (the converter's self-checks) is already live inside `slashify.mjs`.
- *
- * A10 is ticket 18's, and it is the tenth because the ladder's ninth risk was discovered
- * by a gate rather than planned: `<astro-island>` is `display: contents`, which defeats
- * a `>`-combinator while leaving the HTML, the classes and the text correct. It sits
- * here rather than beside A4 because the structure it asserts is legible in `dist/`,
- * so the build can hold the line on every page rather than only where 16 looks.
- *
- * A1, A5 and A10 read `dist/`, which is why the gate is post-build and could not have
- * been written earlier. A2, A3 and A9 read source and would run anywhere; they are here
- * so that there is one gate rather than two.
+ * A1, A5 and A10 read `dist/`, which is why the gate runs post-build. A2, A3 and A9 read
+ * source and would run anywhere; they are here so that there is one gate rather than two.
  *
  * ---------------------------------------------------------------------------------
- * STRUCTURE IS HARD, PROVENANCE WARNS — ticket 12-5's ruling, applied here.
+ * STRUCTURE IS HARD, PROVENANCE WARNS.
  *
- * The first version of this gate hard-coded every corpus figure and failed the build on
- * any drift. That is the landmine 12 had already found and defused in `sync-content.mjs`:
- * this repo pins `content` at `d862f74` while the migration's figures were measured at
- * `19ee03f`, and the two corpora differ — **60 grid-annotation blocks at the pinned
- * commit against 68 in the working tree.** A hard census therefore failed `pnpm build`
- * for anyone who cloned `dev` and ran `git submodule update`, which is the one moment a
- * newcomer meets it.
+ * A first version hard-coded every corpus figure and failed the build on any drift. That
+ * fails `pnpm build` for anyone who clones and runs `git submodule update` against a
+ * different content revision — which is the one moment a newcomer meets it. So the two
+ * split:
  *
- * So the two split, exactly as they do in `sync-content.mjs`:
- *
- *   - **Assertions are revision-INDEPENDENT and always hard.** Each one derives its
+ *   - **Assertions are revision-INDEPENDENT and always hard.** Each derives its
  *     expectation from whatever corpus is present and asserts a *relationship*: every
  *     grid utility the source implies is in the built CSS, every fence language the
  *     source uses is loaded, headings match their own source, each declared base
- *     resolves. They hold at both revisions and would hold at a third.
+ *     resolves. They hold at any revision.
  *   - **The census is provenance.** The pinned counts are reported every run, warn on
- *     drift, and name the revision they came from. `--strict` promotes them to errors —
- *     that is the flag 16 and 17 use, and it is where an unreproducible corpus must stop
- *     the line.
+ *     drift, and name the revision they came from. `--strict` promotes them to errors.
  *
- * The same split covers the absent mirror. `astro/src/content/` is gitignored and
- * arrives via `pnpm sync`, which a clone without submodule access cannot run; "the
- * package builds from a fresh clone" is ticket 11's exit condition. With no content the
- * corpus-dependent rungs report **skip**, not pass — and `--strict` fails on that too.
+ * The same split covers absent content: a clone without submodule access reports **skip**
+ * on the corpus-dependent rungs, not pass — and `--strict` fails on that too.
  * ---------------------------------------------------------------------------------
  *
  * NODE >= 22.18. A2 and A3 import `markdoc.config.mjs` and `src/lib/highlighter.ts`
  * directly — driving the real config rather than a description of it is the whole point
- * of those two rungs — and the highlighter is TypeScript, so the gate needs Node's
- * type stripping, on by default from 22.18. That is the only reason `engines` exists in
+ * of those two rungs — and the highlighter is TypeScript, so the gate needs Node's type
+ * stripping, on by default from 22.18. That is the only reason `engines` exists in
  * package.json. On an older Node the gate dies on a SyntaxError; it does not pass quietly.
  */
 import fs from 'node:fs'
@@ -70,8 +47,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import Markdoc from '@markdoc/markdoc'
 import { createGetHeadings } from '@astrojs/markdoc/runtime'
-/* The fence rule lives in one file because it once lived in two and they disagreed —
-   `slashify.mjs` had the naive form, and 13-R1 is what that cost. */
+/* The fence rule lives in one file because it once lived in two and they disagreed. */
 import { scanLines } from './fences.mjs'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -81,12 +57,12 @@ const CONTENT_CONFIG = path.join(ROOT, 'src/content.config.ts')
 const STRICT = process.argv.includes('--strict')
 
 /*
- * The recorded corpus — provenance, not a gate. Measured at content `19ee03f`; the repo
- * pins `d862f74`, where several of these differ. Drift warns and names the revision.
+ * The recorded corpus — provenance, not a gate. Drift warns and names the revision it was
+ * measured at.
  *
  * The `.span-full` line is the one worth reading twice: `.span-full` is NOT
- * `.span-<digits>`, so the obvious `\.span-[0-9]+` census counts 58 of the 68 and looks
- * entirely plausible doing it (12-3).
+ * `.span-<digits>`, so the obvious `\.span-[0-9]+` census silently misses every one of
+ * them and looks entirely plausible doing it.
  */
 const CENSUS = {
   rev: '19ee03f',
@@ -100,8 +76,8 @@ const CENSUS = {
   utilities: 12,
   fences: 17,
   fenceLanguages: { ts: 10, svelte: 2, css: 2, html: 1, tsx: 1, liquid: 1 },
-  /* A2's probe. `note/markdoc-shiki` is chosen because it is heading-dense AND is the
-     file whose ````liquid fence made 07-5 fire, so one file exercises both paths. */
+  /* A2's probe. `note/markdoc-shiki` is chosen because it is heading-dense AND carries
+     the ````liquid fence A3 needs, so one file exercises both paths. */
   headingProbe: { file: 'note/markdoc-shiki.mdoc', headings: 5 }
 }
 
@@ -173,10 +149,10 @@ function collectionFiles() {
  * A single star does not cross a path separator; a double star matches zero or more
  * directories.
  *
- * That distinction is load-bearing rather than pedantic: it is the whole of 03's
- * `docs/CONTEXT.md` ruling. `pages` is `*.mdoc`, root-only, so a file one directory down
- * is matched by no collection glob and stays documentation. Reproducing the semantics
- * here means A9 keeps deriving that result instead of restating it.
+ * That distinction is load-bearing rather than pedantic: it is what keeps
+ * `docs/CONTEXT.md` out of the corpus. `pages` is `*.mdoc`, root-only, so a file one
+ * directory down is matched by no collection glob and stays documentation. Reproducing
+ * the semantics here means A9 keeps deriving that result instead of restating it.
  */
 function globMatcher(pattern) {
   const source = pattern
@@ -211,16 +187,16 @@ function fenceCensus(files) {
 }
 
 // --- A1 ----------------------------------------------------------------------------
-// The grid annotations are the largest silent-failure surface in the port: they live
-// ONLY inside content, so the `.md -> .mdoc` rename disarmed both UnoCSS edits at once
-// (07-3) and every image collapsed to one column with a green build and no warning.
-// 11 proved the two edits are independently load-bearing with a negative control.
+// The grid annotations are the largest silent-failure surface in the repo: they live
+// ONLY inside content, so anything that stops UnoCSS reading `.mdoc` collapses every
+// image to one column with a green build and no warning. The two edits in
+// `uno.config.ts` and `astro.config.mjs` are independently load-bearing.
 //
 // The ASSERTION derives the expected utility set from whatever source is present, so it
 // holds at any content revision. The pinned counts ride alongside as census.
 await check('A1', 'grid annotations reach the generated CSS', () => {
   const files = collectionFiles()
-  if (files.length === 0) return skip('no content mirror — run `pnpm sync`')
+  if (files.length === 0) return skip('no content — run `git submodule update --init`')
   const sources = files.map((f) => fs.readFileSync(f, 'utf8'))
 
   const blocks = sources.flatMap((s) => [...s.matchAll(/\{%[^%]*\.(?:span|start|end)-[^%]*%\}/g)])
@@ -260,8 +236,8 @@ await check('A1', 'grid annotations reach the generated CSS', () => {
 })
 
 // --- A2 ----------------------------------------------------------------------------
-// 02's second side finding: ONE async transform anywhere makes getHeadings() return []
-// for EVERY document, not just near the async node. `createGetHeadings` calls
+// ONE async transform anywhere makes getHeadings() return [] for EVERY document, not
+// just near the async node. `createGetHeadings` calls
 // `Markdoc.transform` synchronously and then walks the result; an async config hands it
 // a Promise, `Tag.isTag(promise)` is false, and it returns [] without complaining.
 //
@@ -279,10 +255,8 @@ await check('A2', 'getHeadings() is alive (the async-transform tripwire)', async
   const raw = fs.readFileSync(probe, 'utf8')
 
   /* `empty-with-lines` replaces the frontmatter with an equal number of blank lines so
-     error line numbers stay honest — and it is also 02's entire trigger, because it
-     makes the document's leading whitespace equal to the frontmatter's line count.
-     Resolved through @astrojs/markdoc rather than reproduced, so the guard parses what
-     the build parses. */
+     error line numbers stay honest. Resolved through @astrojs/markdoc rather than
+     reproduced, so the guard parses what the build parses. */
   const fromMarkdoc = createRequire(
     createRequire(import.meta.url).resolve('@astrojs/markdoc/package.json')
   )
@@ -330,12 +304,12 @@ await check('A2', 'getHeadings() is alive (the async-transform tripwire)', async
 
 // --- A3 ----------------------------------------------------------------------------
 // Shiki's sync path takes a STATIC language list. An unlisted language degrades to plain
-// text with a green build and no warning — ladder entry (d), which fired for real on
-// `liquid` (07-5). `highlighter.ts` throws at build time on an unknown language; this
-// asserts the corpus side, that every language the content actually uses is covered.
+// text with a green build and no warning, and it has fired for real on `liquid`.
+// `highlighter.ts` throws at build time on an unknown language; this asserts the corpus
+// side, that every language the content actually uses is covered.
 await check('A3', 'every corpus fence language is in the static Shiki set', async () => {
   const files = collectionFiles()
-  if (files.length === 0) return skip('no content mirror — run `pnpm sync`')
+  if (files.length === 0) return skip('no content — run `git submodule update --init`')
 
   const { LOADED_LANGUAGES } = await import(
     pathToFileURL(path.join(ROOT, 'src/lib/highlighter.ts')).href
@@ -365,12 +339,11 @@ await check('A3', 'every corpus fence language is in the static Shiki set', asyn
 
 // --- A5 ----------------------------------------------------------------------------
 // @unocss/astro injects the uno entry itself (`injectEntry` defaults to true). The
-// ladder records the risk as a DOUBLE stylesheet — an `import 'uno.css'` in Base.astro
-// on top of the injected one, putting a second copy of presetWind4's reset after
-// prose.css (07-3b). 13 could not reproduce that: Vite dedupes the identical virtual
-// module id. What it DID reproduce is the other side of the same count — `injectEntry:
-// false` ships zero entries, a green build, and a site with no utilities at all. Hence a
-// two-sided assertion rather than an upper bound.
+// obvious risk is a DOUBLE stylesheet — an `import 'uno.css'` in `Base.astro` on top of
+// the injected one — but Vite dedupes the identical virtual module id, so that one does
+// not reproduce. The reproducible side is the other end of the same count:
+// `injectEntry: false` ships zero entries, a green build, and a site with no utilities
+// at all. Hence a two-sided assertion rather than an upper bound.
 await check('A5', 'exactly one UnoCSS entry stylesheet per page', () => {
   const pages = distHtml()
   assert(pages.length > 0, 'no HTML in dist/ — did astro build run?')
@@ -403,10 +376,10 @@ await check('A5', 'exactly one UnoCSS entry stylesheet per page', () => {
 })
 
 // --- A7 ----------------------------------------------------------------------------
-// 03(v) removed the anchor's literal '#' text child so it would stop appearing inside
-// getHeadings().text. The glyph is VISIBLE on the site today, so removing the text child
-// without the CSS deletes it from every heading — an unconditional fix that fails
-// silently if forgotten, which is why the assertion is the rung and not the fix (07-2).
+// `markdoc.config.mjs` deliberately emits no '#' text child, so it stays out of
+// getHeadings().text. The glyph is VISIBLE on the site, so the text child and the CSS
+// are one change in two files — and dropping the CSS half deletes the glyph from every
+// heading silently. Hence an assertion rather than trust.
 await check('A7', 'prose.css restores the anchor glyph (a[data-anchor]::after)', () => {
   const css = fs.readFileSync(path.join(ROOT, 'src/styles/prose.css'), 'utf8')
   assert(
@@ -436,30 +409,23 @@ await check('A8', 'prose.css reads --shiki-light-font-style (Shiki 3 italics)', 
 })
 
 // --- A10 ---------------------------------------------------------------------------
-// Ticket 18's rung, and the reason 18 exists. `<astro-island>` and `<astro-slot>` are
-// `display: contents`: they generate no box — but CSS SELECTORS match the DOM tree, not
-// the box tree. So a `>`-combinator aimed at what they wrap lands on the wrapper, which
-// has no box to style, while the wrapped element becomes the grid item and falls
-// through to auto-placement. `/shots` rendered 39.7% short of the prerender that way,
-// with a green build, 7/7 assertions here, 0 differing characters of `<main>` text and 0
-// differing class attributes (16-1).
+// `<astro-island>` and `<astro-slot>` are `display: contents`: they generate no box —
+// but CSS SELECTORS match the DOM tree, not the box tree. So a `>`-combinator aimed at
+// what they wrap lands on the wrapper, which has no box to style, while the wrapped
+// element becomes the grid item and falls through to auto-placement. `/shots` rendered
+// 39.7% short that way, with a green build, every other assertion passing, 0 differing
+// characters of `<main>` text and 0 differing class attributes.
 //
-// It is 07-4's severed subgrid chain through a door 07-4 did not name. 07-4 tested a
-// probe `<div>` and ruled that no wrapper ELEMENT may sit between `<main>` and the
-// page's own output; A4 was written to that ruling and asserts that an ANNOTATED figure
-// computes a real track span. That is a true assertion of too narrow a property — A4
-// passed on `/shots` throughout, because it never looks at the figures a `>`-combinator
-// places. This rung asserts the structure instead, so it does not depend on which
-// figures happen to carry a `{% .span-N %}`.
+// It asserts the STRUCTURE rather than any particular figure's computed span, so it does
+// not depend on which figures happen to carry a `{% .span-N %}`.
 //
-// STATIC ON PURPOSE, unlike A4. The mechanism is `display: contents`, which only a
-// browser computes — but the only thing that *renders* as `display: contents` in this
-// tree is an Astro wrapper element, and those are visible in `dist/`. So the build can
-// hold the line on every page of every build, and A4's browser-side half in
-// `parity.mjs` generalises it to any cause.
+// STATIC ON PURPOSE. The mechanism is `display: contents`, which only a browser
+// computes — but the only thing that *renders* as `display: contents` in this tree is an
+// Astro wrapper element, and those are visible in `dist/`. So the build can hold the line
+// on every page of every build.
 //
-// The corollary the map records: **adding a `client:` directive inside `<main>` is a
-// layout change.** This is where you find that out.
+// The corollary: **adding a `client:` directive inside `<main>` is a layout change.**
+// This is where you find that out.
 await check('A10', 'no display:contents wrapper inside <main> (the subgrid sever)', () => {
   const pages = distHtml()
   assert(pages.length > 0, 'no HTML in dist/ — did astro build run?')
@@ -574,16 +540,9 @@ await check('A11', 'each font family is declared exactly once', async () => {
 })
 
 // --- A9 ----------------------------------------------------------------------------
-// 09 added this one. It guards the SINGLE path that changes at cutover: ticket 17 step 3
-// repoints every collection `base` from `./src/content` (the gitignored mirror) to
-// `../content` (the private submodule, post-rename). That edit cannot be exercised
-// before the cutover window, so the assertion is the only thing standing between a
-// mistyped base and a site that builds green with no content in it.
-//
-// The ASSERTION is that every declared base resolves to at least one file — which is
-// what a wrong base breaks, and what holds at any revision. Pointing a base at
-// `../content` before the rename lands resolves 0 (`.md`, not `.mdoc`) and fails here.
-// The 26 rides alongside as census.
+// Every declared base must resolve to at least one file. A mistyped or stale `base` in
+// `content.config.ts` otherwise gives a site that builds green with no content in it —
+// the glob simply matches nothing and every collection comes back empty.
 await check('A9', 'every declared collection base resolves', () => {
   const globs = collectionGlobs()
   const mdoc = globs.filter((g) => g.pattern.endsWith('.mdoc'))
@@ -591,7 +550,7 @@ await check('A9', 'every declared collection base resolves', () => {
 
   const present = mdoc.filter((g) => fs.existsSync(path.resolve(ROOT, g.base)))
   if (present.length === 0)
-    return skip(`no collection base exists (${bases.join(', ')}) — run \`pnpm sync\``)
+    return skip(`no collection base exists (${bases.join(', ')}) — run \`git submodule update --init\``)
 
   const empty = present.filter((g) => {
     const dir = path.resolve(ROOT, g.base)
@@ -614,7 +573,7 @@ const failed = results.filter((r) => !r.ok)
 const skipped = results.filter((r) => r.skip)
 const width = Math.max(...results.map((r) => r.title.length))
 
-console.log(`\nport-guard — ticket 08’s assertion tier${STRICT ? ' (--strict)' : ''}\n`)
+console.log(`\nport-guard${STRICT ? ' (--strict)' : ''}\n`)
 for (const r of results)
   console.log(
     `  ${r.ok ? (r.skip ? '–' : '✓') : '✗'} ${r.id}  ${r.title.padEnd(width)}  ${r.detail}`
@@ -626,16 +585,16 @@ if (drift.length) {
   )
   for (const d of drift) console.log(`    ${d}`)
   console.log(
-    `    This repo pins \`content\` at an older commit than the migration was measured against, so a` +
-      `\n    difference here is provenance, not damage — every assertion above still passed. If content` +
-      `\n    legitimately changed, update CENSUS and record it in the ticket.`
+    `    The pinned figures were measured at a different content revision, so a difference here is` +
+      `\n    provenance, not damage — every assertion above still passed. If content` +
+      `\n    legitimately changed, update CENSUS above and the revision it names.`
   )
 }
 
 console.log(
   `\n  ${results.length - failed.length - skipped.length}/${results.length} assertions pass` +
     `${skipped.length ? `, ${skipped.length} skipped` : ''}` +
-    `  (A4 rides parity.mjs in ticket 16; A6 is live in slashify.mjs)\n`
+    `\n`
 )
 
 const strictFailure = STRICT && (drift.length > 0 || skipped.length > 0)

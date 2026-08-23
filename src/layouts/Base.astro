@@ -1,18 +1,16 @@
 ---
 /*
- * The two-island split of `+layout.svelte`.
+ * THE TWO-ISLAND SPLIT. The chrome cannot be one persisted island wrapping `<main>`:
+ * its slot content would carry the old page's `<main>` across the swap. So Header and
+ * Footer are two independent `client:load transition:persist` islands with a
+ * NON-persisted `<main>` between them — the router replaces `<main>` and the fade plays
+ * on the new one while the chrome survives. 20 navigations produce 1 Footer
+ * instantiation, 1 `$effect` setup, 0 cleanups, and a flat tick rate.
  *
- * Under SvelteKit one component owns header + <main> + footer. It cannot port as one:
- * a persisted island's slot content would carry the old page's <main> across the swap.
- * Here the chrome is two independent `client:load transition:persist` islands with a
- * NON-persisted <main> between them, so the router replaces <main> and the fade plays
- * on the new one while Header and Footer survive. 07 measured 20 navigations ->
- * 1 Footer instantiation, 1 $effect setup, 0 cleanups, flat tick rate, and confirmed
- * `transition:persist` does not freeze props (the header tracks `pathname` throughout).
- *
- * There is deliberately NO `import 'uno.css'` here. @unocss/astro injects it already
+ * There is deliberately NO `import 'uno.css'` here. `@unocss/astro` injects it already
  * (`injectEntry` defaults to true); shipping both puts a second copy of presetWind4's
- * reset over prose.css and utilities silently stop applying (07-3b, ladder A5).
+ * reset over `prose.css` and utilities silently stop applying. A5 asserts one entry
+ * stylesheet per page.
  */
 import Analytics from '@vercel/analytics/astro'
 import Header from '../components/Header.svelte'
@@ -28,12 +26,10 @@ interface Props {
   title: string
   description?: string
   /*
-   * `page.data.title` — the og:/twitter: title, which is NOT the document title and
-   * cannot be derived from it. SvelteKit fed the two from different places: the root
-   * layout's `<svelte:head>` used the bare `page.data.title` while each route's own
-   * `<svelte:head>` appended ` — YuCheng Kuo`. `/note` is the case that proves they are
-   * independent — its title is `Notes — YuCheng Kuo` and its og:title is *absent*,
-   * because the note index route has no entry and so no `page.data.title`.
+   * The og:/twitter: title, which is NOT the document title and cannot be derived from
+   * it. `/note` is the case that proves they are independent: its `<title>` is
+   * `Notes — YuCheng Kuo` while its og:title is *absent*, because that route has no
+   * content entry behind it.
    */
   ogTitle?: string
   ogType?: 'website' | 'article'
@@ -42,11 +38,9 @@ interface Props {
 const { title, description, ogTitle, ogType = 'website' } = Astro.props
 
 /*
- * `page.url.pathname` under SvelteKit, which prerenders to `about.html` and so has no
- * trailing slash to carry. Astro's default `build.format: 'directory'` gives
- * `/about/`, and that slash would land in og:url and twitter:url where the SvelteKit
- * prerender has none. Stripped here, once, rather than at each call site — and the
- * root `/` is left alone, since `(.)` requires a character before the slash.
+ * Astro's default `build.format: 'directory'` gives `/about/`, and that trailing slash
+ * would land in og:url and twitter:url. Stripped here, once, rather than at each call
+ * site — and the root `/` is left alone, since `(.)` requires a character before it.
  */
 const pathname = Astro.url.pathname.replace(/(.)\/$/, '$1')
 
@@ -71,22 +65,13 @@ const { navigation, contact } = await getNavigation()
     <title>{title}</title>
 
     {/*
-      `+layout.svelte`'s `<svelte:head>` block, in its order. `content` is bound to a
-      possibly-undefined value on purpose: Astro drops the attribute entirely when the
-      value is `undefined`, which is what SvelteKit did too — today's `/note` prerender
-      carries a bare `<meta name="description"/>` and a bare `<meta property="og:title"/>`.
+      `content` is bound to a possibly-undefined value on purpose: Astro drops the
+      attribute entirely when the value is `undefined`, which is how `/note` gets a bare
+      `<meta name="description"/>` and no og:title at all.
 
-      TWO DELIBERATE DIFFERENCES FROM THE PRERENDER:
-
-      1. The three description values no longer carry a `<p>` wrapper. Velite declared
-         `description: s.markdown()`, so every description meta in production today reads
-         `content="&lt;p>…&lt;/p>"` — HTML, escaped, inside a meta attribute. The schema
-         here ships a plain string instead: reproducing the wrapper would mean re-adding
-         a markdown transform in order to emit broken markup.
-      2. Work pages emit ONE og:type (`article`) and ONE description. SvelteKit emitted
-         both — `work/+layout.svelte` added its own `og:type` and `description` on top of
-         the root layout's, so every work page carries the pair twice with different
-         values. `ogType` is a prop here instead, so the later value wins once.
+      `description` is a PLAIN STRING, not markdown. It renders inside a `content="…"`
+      attribute, so running it through a markdown transform would emit escaped `<p>`
+      tags into the head.
     */}
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
@@ -105,17 +90,12 @@ const { navigation, contact } = await getNavigation()
     <meta name="twitter:image" content={OG_IMAGE} />
 
     {/*
-      The service worker. `src/service-worker.ts` ports verbatim to `public/service-worker.js`
-      (it was already plain JS), but SvelteKit's convention — build it, and emit a
-      registration into the client entry — has no Astro counterpart, so the registration is
-      hand-written. It is the only code here with no counterpart in the prerender.
+      The service worker registration, hand-written — Astro has no convention for it.
 
-      Two departures from the generated SvelteKit version, both deliberate:
-      `/service-worker.js` is absolute where SvelteKit emitted a depth-relative
-      `./service-worker.js`, which is wrong the moment Astro's directory build format puts
-      a page at `/note/windicss/`; and the `trustedTypes` policy is dropped, since the URL
-      is a literal and there is no CSP requiring one. `is:inline` keeps it out of the module
-      graph — it must not become a bundled chunk that the router re-imports on every swap.
+      The path MUST be absolute. A depth-relative `./service-worker.js` is wrong the
+      moment the directory build format puts a page at `/note/windicss/`. And `is:inline`
+      is load-bearing: it keeps this out of the module graph, so it cannot become a
+      bundled chunk that the router re-imports on every swap.
     */}
     <script is:inline>
       if ('serviceWorker' in navigator) {
@@ -128,9 +108,6 @@ const { navigation, contact } = await getNavigation()
     <Header client:load transition:persist pathname={pathname} />
 
     {/*
-      Criterion (i): the cross-route fade. SvelteKit does this with {#key page.url}
-      + in:fade over 1s cubicOut.
-
       NOTHING may sit between <main> and the page's own output. `main > :not(article)`
       in main.css is what applies `layout-content` to every direct child, and a wrapper
       that is not itself `grid-subgrid` severs the subgrid chain — every `{% .span-N %}`

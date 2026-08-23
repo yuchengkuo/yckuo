@@ -1,24 +1,20 @@
 /*
- * The Markdoc layer. A port of the SvelteKit `markdoc.config.ts` that Velite drove,
- * carrying every correction tickets 02, 03, 04 and 07 made to it.
+ * The Markdoc layer. TWO HARD RULES run through the whole file:
  *
- * Two hard rules run through the whole file:
+ *   1. EVERY TRANSFORM IS SYNCHRONOUS. One `async transform` anywhere makes
+ *      `getHeadings()` return `[]` for every document site-wide, not just near the async
+ *      node. Nothing consumes headings today, which is exactly why A2 asserts it rather
+ *      than trusting a reading.
  *
- *   02 — EVERY TRANSFORM IS SYNCHRONOUS. One `async transform` anywhere makes
- *        `getHeadings()` return `[]` for every document site-wide, not just near the
- *        async node. Nothing consumes headings today, which is exactly why
- *        port-guard.mjs A2 asserts it rather than trusting a reading.
+ *   2. `component()` MARKERS ARE ONLY COLLECTED FROM A `render:` FIELD, never from
+ *      inside a transform. A transform that calls `component()` builds ~22 pages and
+ *      then dies on a misleading `NoMatchingRenderer`. So the markers are declared on
+ *      `render:` and the transforms read them back out of the resolved config.
  *
- *   03 — `component()` MARKERS ONLY GET COLLECTED FROM A `render:` FIELD, never from
- *        inside a transform. A transform that calls `component()` builds ~22 pages and
- *        then dies on a misleading `NoMatchingRenderer`. So the markers are declared on
- *        `render:` and the transforms read them back out of the resolved config.
- *
- * The syntax this config is written against is ticket 04's ruling, and it is permanent:
+ * The image syntax this config is written against:
  *   ![alt](/cloudinary-id 'caption') {% .span-N %}
- * — markdown image syntax, one leading `/` per id. `emitOptimizedImages` rejects
- * RELATIVE ids, not markdown image syntax, so the tag rewrite the map once assumed was
- * forced never was.
+ * — markdown image syntax, one LEADING `/` per id. `emitOptimizedImages` rejects
+ * relative ids, which is what the slash is for.
  */
 import Markdoc from '@markdoc/markdoc'
 import { defineMarkdocConfig, component } from '@astrojs/markdoc/config'
@@ -27,27 +23,21 @@ import { highlight } from './src/lib/highlighter.ts'
 export default defineMarkdocConfig({
   nodes: {
     // --- heading -------------------------------------------------------------------
-    // The attributes are `{ ...attributes, id }` and nothing more, which is byte-for-byte
-    // what the SvelteKit config emitted.
+    // The attributes are `{ ...attributes, id }` and NOTHING MORE.
     //
-    // 03's port carried `__collectHeading: true` and `level` as well, copied from
-    // Astro's own heading extension. **They do not belong on a STRING render, and Astro
-    // says so at `heading-ids.js:31`** — its own code adds the pair only when
-    // `typeof render !== 'string'`, commented *"Avoid accidentally rendering `level` as
-    // an HTML attribute otherwise!"*. A string tag's attributes pass straight through to
-    // HTML, so carrying them shipped `<h2 level="2" link="true" id="…"
-    // __collectHeading="true">` on every heading on the site. They also buy nothing:
-    // `collectHeadings` matches `node.name === 'h' + level` for string tags, which is
-    // this branch. (`level` and `link` still appear — they are in `transformAttributes`
-    // and the SvelteKit build emits them too, so removing them would be a parity change
-    // rather than a fix. `__collectHeading` was ours alone.)
+    // Do not add `__collectHeading: true` or `level` here, however much Astro's own
+    // heading extension looks like a model. **They do not belong on a STRING render, and
+    // Astro says so** — its code adds the pair only when `typeof render !== 'string'`,
+    // commented *"Avoid accidentally rendering `level` as an HTML attribute otherwise!"*.
+    // A string tag's attributes pass straight through to HTML, so carrying them ships
+    // `<h2 level="2" link="true" id="…" __collectHeading="true">` on every heading. They
+    // also buy nothing: `collectHeadings` matches `node.name === 'h' + level` for string
+    // tags, which is this branch.
     //
-    // Two edits against the SvelteKit version, both from 03:
-    //   - the anchor's child `'#'` is dropped. It was the glyph in `getHeadings().text`,
-    //     which put a stray '#' in every TOC entry. The glyph is restored in CSS by
-    //     `prose.css`'s `a[data-anchor]::after` — which is visible today, so dropping the
-    //     text child without the CSS silently deletes it (ladder A7 asserts the rule).
-    //   - hence the `data-anchor` attribute, which is what that CSS selects on.
+    // The anchor has NO `'#'` text child — the glyph is drawn in CSS by `prose.css`'s
+    // `a[data-anchor]::after`, which is what `data-anchor` below exists for. A real text
+    // child lands in `getHeadings().text`, putting a stray '#' in every TOC entry. A7
+    // asserts the CSS half, so dropping one without the other is caught.
     heading: {
       children: ['inline'],
       attributes: {
@@ -78,7 +68,7 @@ export default defineMarkdocConfig({
     },
 
     // --- image ---------------------------------------------------------------------
-    // Carries the ONLY component() marker the paragraph transform can use (07-1).
+    // Carries the ONLY component() marker the paragraph transform can use.
     //
     // The default schema is spread back in: the paragraph transform below leans on the
     // default `src`/`alt`/`title` attributes surviving transformAttributes(), and
@@ -90,7 +80,7 @@ export default defineMarkdocConfig({
 
     // --- fence ---------------------------------------------------------------------
     // Synchronous Shiki. `config.nodes.fence.render` reads the marker declared above it
-    // rather than calling component() here — see rule 03 at the top of the file.
+    // rather than calling component() here — see rule 2 at the top of the file.
     fence: {
       render: component('./src/components/CodeBlock.astro'),
       children: ['inline', 'text'],
@@ -114,19 +104,15 @@ export default defineMarkdocConfig({
     },
 
     // --- paragraph -----------------------------------------------------------------
-    // KEPT, not deleted (04). The map's phase sketch had conversion move this transform's
-    // job into the content; 04's ruling keeps markdown image syntax, so the transform
-    // keeps its job. Two edits against the SvelteKit version:
+    // This is what turns an image-only paragraph into a figure, which is why markdown
+    // image syntax works at all.
     //
-    //   1. `async transform` -> `transform`. 09 verified the keyword was vestigial: it
-    //      awaited nothing, having been left behind by an aspect-ratio fetch that no
-    //      longer exists. Only `fence` genuinely awaited, and Shiki now runs sync.
-    //   2. the src branch inverts. Was `if (!startsWith('http') && !startsWith('/'))` —
-    //      i.e. a leading '/' meant "this is a real URL, leave it alone". Every call site
-    //      now carries the leading '/' Astro demands, so '/' is the Cloudinary-id branch:
-    //      STRIP AND TREAT AS ID. The `!startsWith('http')` fallback below keeps a
-    //      bare id working, so a hand-authored file is a rendering bug rather than a
-    //      broken build — sync-content.mjs's G-gates are what keep the corpus slashed.
+    // A LEADING '/' MEANS "Cloudinary id" — strip it and treat the rest as the id. That
+    // is the inverse of the intuitive reading, where '/' would mean "a real URL, leave
+    // it alone". The `!startsWith('http')` fallback below keeps a bare id rendering, so
+    // an unslashed hand-authored file is a rendering bug rather than a broken build.
+    //
+    // It must stay SYNCHRONOUS — see rule 1 at the top of the file.
     paragraph: {
       attributes: {
         image_title: { type: String },
@@ -154,11 +140,10 @@ export default defineMarkdocConfig({
 
           if (img.attributes.image_description) description = img.attributes.image_description
 
-          /* Video. SvelteKit branched to a DIFFERENT component here (`new Tag('vid')`);
-             under Astro the branch has to move into the wrapper (07-1), so the flag is
-             forwarded EXPLICITLY. It would not survive transformAttributes() on its own —
-             it is neither a Markdoc global attribute nor part of the image node's schema,
-             and losing it turns all 16 videos into broken <img>s with a green build. */
+          /* Video. The branch lives in `Img.astro`, not here, so the flag is forwarded
+             EXPLICITLY. It would not survive transformAttributes() on its own — it is
+             neither a Markdoc global attribute nor part of the image node's schema, and
+             losing it turns every video into a broken <img> with a green build. */
           return new Markdoc.Tag(
             config.nodes.image.render,
             {
@@ -182,7 +167,7 @@ export default defineMarkdocConfig({
 
   tags: {
     // --- deflist -------------------------------------------------------------------
-    // Verbatim port — already synchronous. 5 in the corpus.
+    // 5 in the corpus.
     deflist: {
       render: 'dl',
       children: ['paragraph', 'list'],
@@ -202,9 +187,8 @@ export default defineMarkdocConfig({
     },
 
     // --- gallery -------------------------------------------------------------------
-    // `children: ['paragraph']` UNCHANGED. 03 had to widen this to ['paragraph','tag']
-    // only because its throwaway converter turned gallery members into {% img %} tags;
-    // under 04's ruling they stay paragraphs, so the declaration ports byte-for-byte.
+    // `children: ['paragraph']` and not `['paragraph','tag']`: gallery members are
+    // written as markdown images, so they arrive as paragraphs.
     gallery: {
       render: component('./src/components/Gallery.astro'),
       children: ['paragraph']

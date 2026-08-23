@@ -1,29 +1,18 @@
 /*
- * The seam that replaces `/api/content/collection/<key>/published:desc`.
- *
- * SvelteKit's routes fetched their collections over HTTP from
- * `src/routes/api/content/collection/[key]/[[sort]]/+server.ts`, which did exactly two
- * things beyond handing back the array: filtered drafts out in production, and sorted.
- * `getCollection()` replaces the transport; these two functions replace the two things.
- *
- * Both are ported behaviours, not new ones:
+ * Collection access: draft filtering and sorting, in one place.
  *
  *   - The draft filter is `!page.draft || dev` — drafts stay visible in `astro dev` and
- *     disappear from the build, which is what the endpoint did with `$app/environment`'s
- *     `dev`. No entry in today's corpus sets `draft`, so this is parity insurance.
- *   - The sort key is the endpoint's, including its fallback: an entry with no
- *     `published` sorted as `2048-01`, i.e. ahead of everything real under `desc`.
- *     Kept rather than tidied — `published` is optional in the schema, so the fallback
- *     is reachable, and changing it would reorder the homepage the first time someone
- *     omits the field.
+ *     disappear from the build. No entry in today's corpus sets `draft`.
+ *   - An entry with no `published` sorts as `2048-01`, i.e. ahead of everything real
+ *     under `desc`. `published` is optional in the schema, so that branch is REACHABLE
+ *     — `WorkRow.astro` depends on it being handled rather than tidied away.
  *
  * `Array.prototype.sort` is stable, so entries sharing a `published` value keep the
- * loader's order, which is the glob's alphabetical order — the same tie-break velite's
- * generated JSON gave the endpoint.
+ * loader's order, which is the glob's alphabetical order.
  */
 import { getCollection } from 'astro:content'
 
-/** The endpoint's `a.published ?? '2048-01'`, as a timestamp. */
+/** The no-`published` fallback, as a timestamp: ahead of everything real. */
 const UNPUBLISHED = new Date('2048-01').getTime()
 
 type Dated = { data: { published?: Date } }
@@ -34,38 +23,32 @@ const byPublishedDesc = (a: Dated, b: Dated) => publishedTime(b) - publishedTime
 
 const isVisible = ({ data }: { data: { draft: boolean } }) => !data.draft || import.meta.env.DEV
 
-/** `/api/content/collection/works/published:desc` */
+/** Works, newest first. */
 export async function getWorks() {
   return (await getCollection('works', isVisible)).sort(byPublishedDesc)
 }
 
-/** `/api/content/collection/projects/published:desc` */
+/** Projects, newest first. */
 export async function getProjects() {
   return (await getCollection('projects', isVisible)).sort(byPublishedDesc)
 }
 
 /*
- * The two reads below replace `/api/content/entry/<slug>` rather than the collection
- * endpoint, so they carry the draft filter and NO sort — the entry endpoint had none.
+ * The two reads below carry the draft filter and NO sort.
  *
- * `getNotes()` is the surprise. `(more)/note/+page.server.ts` fetches
- * `/api/content/collection/notes/desc`, which LOOKS like a descending sort and is not
- * one: the endpoint does `sort.split(':')`, so `'desc'` yields sortKey `'desc'` and
- * sortDirection `undefined`, both of which fail its guard, and the branch never runs.
- * The list therefore renders in velite's own collection order — the glob's alphabetical
- * order — and today's prerendered `/note` confirms it (figma-shortcut, markdoc-sectionize,
- * markdoc-shiki, sveltekit-parent, unocss-scanning, windicss: not date order in either
- * direction). Ported as the behaviour is, not as the URL reads; `getCollection` returns
- * the same alphabetical order. Making the list actually sort by date is a content/design
- * decision, not a port.
+ * `getNotes()` is the surprise: `/note` has ALWAYS listed in alphabetical filename order
+ * (figma-shortcut, markdoc-sectionize, markdoc-shiki, sveltekit-parent, unocss-scanning,
+ * windicss), never by date, and this reproduces that. It looks like an oversight and is
+ * not one — sorting the list by date is a design decision about the section, and would
+ * silently reorder it.
  */
 
-/** `/api/content/entry/<page>` for the `pages` collection */
+/** The `pages` collection, drafts filtered. */
 export async function getPages() {
   return await getCollection('pages', isVisible)
 }
 
-/** `/api/content/collection/notes/desc` — see above: unsorted, despite the name */
+/** Notes, in alphabetical filename order — unsorted on purpose; see above. */
 export async function getNotes() {
   return await getCollection('notes', isVisible)
 }

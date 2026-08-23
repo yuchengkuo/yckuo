@@ -1,41 +1,21 @@
 ---
 /*
- * The homepage — `src/routes/+page.svelte` and its loader, ported.
+ * The homepage. Three things here are load-bearing and easy to undo by accident:
  *
- * The loader made three HTTP calls into `/api/content/*`; those endpoints are not ported
- * (they die with SvelteKit), so the three become `getEntry()` plus the two helpers in
- * `lib/collections.ts`, which carry the endpoint's draft filter and `published:desc` sort.
+ * 1. NOTHING may wrap this page's output. `main > :not(article)` in `main.css` is what
+ *    applies `layout-content` to every direct child, and a non-subgrid wrapper severs
+ *    the chain. Every element below is a direct child of `<Base>`'s slot.
+ * 2. Variant groups are written EXPANDED — `hover:brightness-90`, not
+ *    `hover:(brightness-90)`. `transformerVariantGroup` does run over `.astro`, so both
+ *    spellings work today; the expanded one does not depend on that staying true.
+ * 3. `<Image />` carries NO `client:` directive. Its only client behaviour is the
+ *    blur-placeholder fade, and `visible` is initialised `true` and can only be re-set
+ *    to `true` — with nothing producing a `blurDataUrl`, hydration is a measurable
+ *    no-op. An island here would also put an `<astro-island>` inside `<main>`, which is
+ *    what A10 in the build gate fails on.
  *
- * Three things here are load-bearing and easy to undo by accident:
- *
- * 1. NOTHING may wrap this page's output. `main > :not(article)` in main.css is what
- *    applies `layout-content` to every direct child, and a non-subgrid wrapper severs the
- *    chain (07-4). Every element below is therefore a direct child of `<Base>`'s slot.
- * 2. Variant groups are written EXPANDED — `hover:brightness-90`, not `hover:(brightness-90)`.
- *    `transformerVariantGroup` does run over `.astro` (the pipeline include covers it), so
- *    both spellings work today; the expanded one is also what the SvelteKit prerender
- *    emits, which keeps 16's class-attribute comparison honest.
- * 3. `<Image />` carries NO `client:` directive, unlike `Img.astro`'s content images.
- *    `Image.svelte`'s only client behaviour is the blur-placeholder fade, and `visible`
- *    is initialised `true` and can only ever be re-set to `true` — with `blurDataUrl`
- *    unset (its whole pipeline was deleted in ticket 10) hydration is a measurable no-op.
- *    Server-rendering it drops an island from the homepage, and an island here would
- *    interpose an `<astro-island>` inside `<main>` — which is what A10 in the build gate
- *    fails on. This is Gallery.astro's precedent, not a new rule. `Img.astro` is left
- *    alone — it is 13's and changing it is not 14's business. Only the Projects section
- *    still renders one; Selected Work dropped its thumbnails in the Frame 51 redesign.
- *
- * SELECTED WORK is no longer this file's markup. Figma `Home / Frame 51` (6230:79941)
- * replaced the section's two shapes — a thumbnail card for featured work, a bare
- * title+summary for the rest — with one row, so both halves now render `WorkRow.astro`
- * and the split survives as the "Additional Works" label alone. The three things that
- * went with the old markup, recorded so they are not re-derived from the git history:
- * the featured thumbnail and its `hover:brightness-90` link, the `>` prefix on every
- * summary, and the `{' '}` between title and year that JSX whitespace rules would
- * otherwise have eaten (18-2 — the year is its own grid item now, so there is no
- * inter-element space left to lose). `footer.col-span-5`'s clamp-to-4 defect went with
- * them; `ProjectText.astro`'s `p.span-5` is the same defect and still stands, with the
- * reasoning now recorded at that file's head rather than here.
+ * Selected Work is not this file's markup — both halves render `WorkRow.astro`, and what
+ * separates featured from additional work is the "Additional Works" label alone.
  */
 import { getEntry, render } from 'astro:content'
 import Base from '../layouts/Base.astro'
@@ -46,15 +26,13 @@ import { getProjects, getWorks } from '../lib/collections'
 import { formatDate } from '../lib/util'
 
 /*
- * `content/index.mdoc`, the page whose body is the intro. Velite's `slug` is `entry.id`
- * (13-3), so the id is the bare `index`.
+ * `content/index.mdoc`, whose body is the intro. `entry.id` is the bare `index`.
  *
- * The absent-entry fallback is `navigation.ts`'s, for `navigation.ts`'s reason: the mirror
- * arrives through `pnpm sync`, which a clone without submodule access cannot run, and
- * "the package builds from a fresh clone" is ticket 11's exit condition. Throwing here
- * would take that away — this route is the first one that reads a NAMED entry rather than
- * a whole collection, so it is the first that can miss. With no content the page renders
- * its own markup and no intro, which is the same bare-but-building shape the footer takes.
+ * The absent-entry fallback exists for the same reason `navigation.ts`'s does: the
+ * content submodule may not be checked out, and a clone must still build. Throwing here
+ * would take that away — this is the first route that reads a NAMED entry rather than a
+ * whole collection, so it is the first that can miss. With no content the page renders
+ * its own markup and no intro.
  */
 const page = await getEntry('pages', 'index')
 const Intro = page ? (await render(page)).Content : null
@@ -137,17 +115,16 @@ const orderedProjects = [
 </Base>
 
 <style>
-  /* `+page.svelte`'s scoped block, unchanged. Astro scopes the same way Svelte did —
-     both selectors gain a generated class — so the two `--uno:` declarations keep
-     applying to exactly these two elements and nothing else on the page. */
+  /* Scoped: both selectors gain a generated class, so these `--uno:` declarations
+     apply to exactly these two elements and nothing else on the page. */
   section {
     --uno: 'mt-60 lt-md:mt-40 grid-subgrid layout-content';
   }
 
   h2 {
     --uno: 'text-4 leading-6 span-full font-medium mb-6 md:mb-12';
-    /* Double-quoted so the `'/'` inside the utility survives verbatim; `+page.svelte`
-       nested single quotes here, which Svelte tolerated and CSS does not. */
+    /* Double-quoted so the `'/'` inside the utility survives. Nested single quotes
+       here are invalid CSS, whatever the template language tolerates. */
     --uno: "after:content-['/'] after:ml-2 after:font-mono after:text-xs after:text-tertiary";
   }
 </style>

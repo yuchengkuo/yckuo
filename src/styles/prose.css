@@ -28,11 +28,9 @@ article,
     --uno: 'font-medium bg-selection';
   }
 
-  /* PORT (A7). The `#` after every heading used to be a text CHILD of the anchor.
-     03 had to remove that child — Astro's collectHeadings() runs getTextContent()
-     over the whole heading subtree, so the glyph landed inside every getHeadings()
-     entry ("Context#"). Drawing it from CSS keeps getHeadings() clean AND keeps the
-     rendered page identical, which the map's parity bar requires. */
+  /* A7. The `#` MUST be drawn from CSS, not written as a text child of the anchor.
+     Astro's collectHeadings() runs getTextContent() over the whole heading subtree, so
+     a real `#` child lands inside every getHeadings() entry ("Context#"). */
   :is(h1, h2, h3, h4, h5, h6) a[data-anchor]::after {
     content: '#';
   }
@@ -178,11 +176,10 @@ article,
     --uno: '-mx-2 px-2 right-0 inline-block bg-selection bg-opacity-70';
   }
 
-  /* PORT (A8). Shiki 1 -> 3 (forced: createHighlighterCoreSync and the JS regex
-     engine are what the sync path requires) moved LIGHT-mode italics from an
-     inline `font-style:italic` to a `--shiki-light-font-style` custom property. The
-     dark branch below already reads its equivalent; without this every italic token
-     in every code block silently loses its italics in light mode. */
+  /* A8. Shiki 3 moved LIGHT-mode italics from an inline `font-style:italic` to a
+     `--shiki-light-font-style` custom property. The dark branch below already reads its
+     equivalent; without this every italic token in every code block silently loses its
+     italics in light mode. */
   span {
     font-style: var(--shiki-light-font-style);
     font-weight: var(--shiki-light-font-weight);

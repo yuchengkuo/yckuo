@@ -14,8 +14,7 @@
  * fell through to auto-placement: on /about it computed `x843 w99`, one column, in the
  * row belonging to the paragraph above it, against `x269 w557`.
  *
- * Expand.svelte is the SvelteKit file, copied verbatim, and still is — it server-renders
- * through this wrapper exactly the way Gallery.svelte does.
+ * A10 in `port-guard.mjs` asserts that no island renders inside `<main>`.
  */
 import Expand from '../lib/content/Expand.svelte'
 ---

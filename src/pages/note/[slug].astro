@@ -1,14 +1,11 @@
 ---
 /*
- * `src/routes/(more)/note/[page]/+page.svelte` and its loader, ported.
+ * Unlike `work/[slug].astro`, `getStaticPaths()` here needs no `featured` filter: every
+ * note is reachable from `/note` and every one is built. `entry.id` is `note/<slug>`, so
+ * the route parameter is its tail.
  *
- * Unlike `work/[slug].astro`, `getStaticPaths()` here needs no `featured` filter: all six
- * notes are reachable from `/note` and all six are prerendered today. The parameter is
- * the tail of `entry.id` for the same reason it is there — velite's slug is
- * `note/windicss`, and the route owns only the last segment.
- *
- * There is no "Updated at" trailer on a note; the date lives in the header instead, and
- * reads "Updated on". That asymmetry with `[...page].astro` is the source's, not a slip.
+ * There is no "Updated at" trailer on a note; the date sits in the header instead and
+ * reads "Updated on". The asymmetry with `[...page].astro` is deliberate.
  */
 import { render, type CollectionEntry } from 'astro:content'
 import Base from '../../layouts/Base.astro'
@@ -52,7 +49,6 @@ const { Content } = await render(entry)
 </Base>
 
 <style>
-  /* `+page.svelte`'s scoped block, unchanged. */
   header {
     --uno: 'mb-6';
   }

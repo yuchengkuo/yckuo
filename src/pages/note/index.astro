@@ -1,23 +1,14 @@
 ---
 /*
- * `src/routes/(more)/note/+page.svelte` and its loader, ported.
+ * THE LIST IS NOT SORTED — see the note over `getNotes()` in `lib/collections.ts`.
  *
- * THE LIST IS NOT SORTED, despite the loader fetching `.../collection/notes/desc`. The
- * endpoint parses its sort parameter as `key:direction`, so a bare `desc` fails both
- * halves of its guard and the sort never runs — see the note over `getNotes()` in
- * `lib/collections.ts`, and today's prerendered `/note`, whose six links are in
- * alphabetical filename order rather than any date order. Ported as it behaves.
+ * THE HREFS MUST BE ABSOLUTE. Astro's directory build format writes `note/index.html`,
+ * which a host may serve at `/note/`, and a relative `href="note/windicss"` resolves
+ * from there to `/note/note/windicss`. One character, and the link surface of the
+ * whole section.
  *
- * The hrefs are ABSOLUTE where SvelteKit's were relative (`href="note/windicss"`).
- * SvelteKit prerendered this page to `note.html`, served at `/note`, where a relative
- * href resolves correctly; Astro's default directory build format writes
- * `note/index.html`, which a host may serve at `/note/` — and from there the same
- * relative href resolves to `/note/note/windicss`. One character, and the link surface
- * of the section.
- *
- * og:title and og:description are absent on this page, matching the prerender: it is the
- * one route with no content entry behind it, so SvelteKit's `page.data.title` was
- * undefined and the attributes were omitted. Passing nothing reproduces that exactly.
+ * og:title and og:description are absent by design: this is the one route with no
+ * content entry behind it, so there is nothing to put in them.
  */
 import Base from '../../layouts/Base.astro'
 import More from '../../components/More.astro'
@@ -34,9 +25,8 @@ const notes = await getNotes()
         {
           notes.map((note) => (
             <li>
-              {/* `{' '}` is load-bearing — see `index.astro`. JSX whitespace rules
-                  drop this newline; `+page.svelte` keeps it as a space before `<time>`,
-                  whose own `ml-2` is a margin on top of it, not a replacement for it. */}
+              {/* `{' '}` is load-bearing. JSX drops the newline, and `<time>`'s own
+                  `ml-2` is a margin on top of that space, not a replacement for it. */}
               <a href={`/${note.id}`}>{note.data.title}</a>{' '}
               <time datetime={note.data.updated.toISOString()}>{formatDate(note.data.updated)}</time>
             </li>
@@ -48,7 +38,6 @@ const notes = await getNotes()
 </Base>
 
 <style>
-  /* `+page.svelte`'s scoped block, unchanged. */
   nav ul {
     --uno: 'list-none p-0 m-0';
   }

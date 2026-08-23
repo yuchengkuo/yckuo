@@ -1,9 +1,7 @@
 <script lang="ts">
-  // Island 1 of the two-island split. Markup verbatim from +layout.svelte:63-84.
-  // The only addition is the `pathname` prop: SvelteKit reads `page.url.pathname`
-  // from a store that has no Astro equivalent inside an island. 07 confirmed
-  // `transition:persist` does not freeze it — the header tracked pathname across
-  // all 20 navigations at mounts: 1.
+  // Island 1 of the two-island split. `pathname` is a prop because an island has no
+  // access to the current route — and `transition:persist` does not freeze it: the
+  // header tracks pathname across navigations while mounting only once.
 
   let { pathname }: { pathname: string } = $props()
 </script>

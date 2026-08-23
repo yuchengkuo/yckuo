@@ -1,8 +1,5 @@
 ---
 /*
- * `+page.svelte`'s `{#snippet projectText(project)}`, ported as an ordinary component —
- * Astro has no snippet equivalent.
- *
  * It MUST emit its three elements with no wrapper. The snippet is called from two
  * different parents — a `grid-subgrid` card for featured projects and a plain
  * `md:span-4` block for the rest — and the `col-span-*` classes below are placed by
@@ -10,15 +7,10 @@
  * An `.astro` component renders as a fragment, so this holds by construction rather than
  * by care.
  *
- * `p.span-5` is ported as authored, CLAMPED, and this is where the reason lives — the
- * matching note in `index.astro` went with the featured-work card in the Frame 51
- * redesign, and pointing back at it would point at nothing.
- *
- * The non-featured caller wraps this in `md:span-4`. A subgrid cannot create implicit
- * tracks, so a 5-column span inside a 4-column parent clamps to 4 and the intended
- * 5-of-8 measure is silently the block's full width. It is pre-existing and invisible
- * today: "fixing" it changes a rendered width, which is a visual change, and this
- * component was not what the redesign touched. Whether to fix it is the author's call.
+ * `p.span-5` IS CLAMPED, knowingly. The non-featured caller wraps this in `md:span-4`,
+ * and a subgrid cannot create implicit tracks — so a 5-column span inside a 4-column
+ * parent clamps to 4 and the intended 5-of-8 measure is silently the block's full width.
+ * Unfixed because fixing it changes a rendered width, which is a visual decision.
  */
 import type { CollectionEntry } from 'astro:content'
 

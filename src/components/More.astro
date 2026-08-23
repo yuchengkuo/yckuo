@@ -1,28 +1,21 @@
 ---
 /*
- * `src/routes/(more)/+layout.svelte`, ported as a COMPONENT rather than a layout.
- *
- * Astro has no equivalent of SvelteKit's `(more)` route group, and does not need one:
- * the group's whole job was to share this heading and sub-nav between `/note` and
- * `/note/[page]` without appearing in either URL. That is a shared component, not a
- * routing feature — the URLs are unaffected and no redirect is owed.
+ * The shared heading and sub-nav for `/note` and `/note/[slug]`.
  *
  * It renders THREE top-level nodes and no wrapper: `<h1>`, `<nav>`, and the slot. An
  * `.astro` component emits no element of its own, so the page's content stays a direct
  * child of `<main>` and `main > :not(article)` keeps placing it.
  *
- * THE SUB-NAV IS EMPTY TODAY, and it is empty in production too. `navigation.yml`
- * declares no `More` key, so `find(...)?.include ?? []` yields nothing and the `<ul>`
- * renders bare — which today's `/note` prerender confirms (`<ul class="flex gap-4
- * font-mono text-xs"></ul>`). Ported as written rather than as intended: adding the
- * missing key is a content change.
+ * THE SUB-NAV IS EMPTY, deliberately left so. `navigation.yml` declares no `More` key,
+ * so `find(...)?.include ?? []` yields nothing and the `<ul>` renders bare. Adding the
+ * missing key is a content change, not a code one.
  */
 import { getNavigation } from '../lib/navigation'
 
 const { navigation } = await getNavigation()
 const subItems = navigation.find((item) => item.key === 'More')?.include ?? []
 
-/* `$page.url.pathname.startsWith(subItem)`, with Base.astro's trailing-slash strip. */
+/* `Base.astro` strips the trailing slash; match against the stripped form. */
 const pathname = Astro.url.pathname.replace(/(.)\/$/, '$1')
 ---
 
@@ -45,7 +38,6 @@ const pathname = Astro.url.pathname.replace(/(.)\/$/, '$1')
 <slot />
 
 <style>
-  /* `+layout.svelte`'s scoped block, unchanged. */
   nav {
     --uno: 'pb-4 mt-4 mb-8 border-dash';
   }

@@ -1,25 +1,20 @@
 ---
 /*
- * `src/routes/work/[page]/+page.svelte`, its loader and `work/+layout.svelte`, ported.
+ * THE BUILT SET IS FOUR PAGES, NOT TEN. Only featured work is linked from the homepage,
+ * and only featured work has ever been built or served — the `featured` filter below is
+ * what states that, since `getStaticPaths()` has no crawler to infer it.
  *
- * THE PRERENDERED SET IS FOUR PAGES, NOT TEN — and that is a ported behaviour, not a
- * shortcut. SvelteKit's `work/+layout.server.ts` said `prerender = true`, which prerenders
- * the routes the crawler can REACH; the homepage links featured work only, so the six
- * additional works have never been built or served. `getStaticPaths()` has no crawler, so
- * the reachability has to be stated: it is the `featured` filter below.
- *
- * The next-project wraparound needs the whole featured collection, which `getStaticPaths()`
- * already holds — so `next` is resolved once here and handed to each page as a prop,
- * rather than each page re-reading the collection to find its own successor.
+ * The next-project wraparound needs the whole featured collection, which
+ * `getStaticPaths()` already holds — so `next` is resolved once here and handed to each
+ * page as a prop, rather than each page re-reading the collection to find its successor.
  *
  * `<Content />` and every element around it are direct children of `<Base>`'s slot: no
- * wrapper may sit between `<main>` and page output. `main > article` gives the
- * body its own subgrid, which is why `<Content />` is not wrapped in a `.prose` div the
- * way the homepage's intro is.
+ * wrapper may sit between `<main>` and page output. `main > article` gives the body its
+ * own subgrid, which is why `<Content />` is not wrapped in a `.prose` div the way the
+ * homepage's intro is.
  *
- * `og:type="article"` arrives as the `ogType` prop below. SvelteKit emitted it *in
- * addition to* the root layout's `og:type="website"`, so every work page carried two —
- * here the prop replaces the default and the page carries one. Same for `description`.
+ * `ogType` below REPLACES the layout default rather than adding to it, so a work page
+ * carries one `og:type` and one `description`, not two of each.
  */
 import { render, type CollectionEntry } from 'astro:content'
 import Base from '../../layouts/Base.astro'
@@ -35,7 +30,7 @@ export async function getStaticPaths() {
     params: { slug: entry.id.replace(/^work\//, '') },
     props: {
       entry,
-      /* `+page.svelte`'s `nextProject`: the next featured work, wrapping at the end. */
+      /* The next featured work, wrapping at the end. */
       next: featured[index + 1 === featured.length ? 0 : index + 1]
     }
   }))

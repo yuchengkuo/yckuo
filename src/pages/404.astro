@@ -1,11 +1,8 @@
 ---
 /*
- * `src/routes/+error.svelte`, ported. Its four lines of markup are verbatim; everything
- * else here is the head, which SvelteKit's error page never set — `+error.svelte` has no
- * `<svelte:head>`, so a 404 inherited whatever title the last route had rendered. Astro
- * builds this page standalone, so the title has to be stated; `404 — YuCheng Kuo` follows
- * the suffix every other route uses. og:title is left absent, matching the note index:
- * there is no content entry behind this page either.
+ * The title is stated here because there is no content entry behind this page to
+ * supply one; `404 — YuCheng Kuo` follows the suffix every other route uses. og:title is
+ * deliberately absent for the same reason, matching the note index.
  */
 import Base from '../layouts/Base.astro'
 ---

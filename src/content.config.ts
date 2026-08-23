@@ -1,77 +1,45 @@
 /*
- * The collection schemas — Velite's `velite.config.ts` ported to Astro.
+ * The collection schemas.
  *
- * FIVE collections, not seven (09's correction, re-verified here against the corpus):
- *   - `posts` is NOT ported. `content/post/` does not exist, so `s.metadata()` and
- *     `s.excerpt()` — the only two velite helpers with no zod equivalent — die with it.
- *   - `orgs` is NOT ported. Zero consumers: nothing reads `work/org/*.yml`, and the
- *     `org` field on `works` that referenced it is rendered by no route. The field is
- *     kept below (it is authored data, present on all ten work files); the collection
- *     it pointed at is not.
+ * FIVE collections plus `teams`. `entry.id` IS the slug, and every collection uses ONE
+ * base — `'./content'`, the private submodule itself — rather than its own subdirectory,
+ * so the glob loader's id carries the directory: `about`, `work/checkout-revamp`,
+ * `project/pages`, `note/windicss`. That is not cosmetic: under this scheme
+ * `/${entry.id}` is the URL for all four content collections with no per-collection
+ * rule, and the routes depend on it.
  *
- * `entry.id` IS velite's `slug`. Every collection uses ONE base rather than its own
- * subdirectory, so the glob loader's id carries the directory exactly as `s.path()` did:
- * `about`, `work/checkout-revamp`, `project/pages`, `note/windicss`. That is not
- * cosmetic — `+page.svelte` uses `href={work.slug}` and `href="/{nextProject.slug}"`
- * directly, so under this scheme `/${entry.id}` is the URL for all four collections with
- * no per-collection rule. Tickets 14 and 15 depend on it.
+ * A9 in `port-guard.mjs` is what catches a mistyped base — it fails when any declared
+ * glob resolves to nothing, which is exactly what a base pointed at a bad checkout does.
  *
- * That base is `'./content'` — **the private submodule itself**, as of ticket 17 step 4.
- * It was `'./src/content'` for the whole build, reading ticket 12's gitignored `.mdoc`
- * mirror, because the submodule held `.md` and one checkout could not serve both apps.
- * Content commit `33024b6` ends that: the submodule now holds the 26 `.mdoc` files, the
- * mirror has nothing left to generate from, and the indirection it existed for is spent.
- * `port-guard.mjs`'s A9 is what catches a mistyped base — it fails when any declared glob
- * resolves to nothing, which is exactly what a base pointed at an unconverted checkout
- * does.
- *
- * It passed through `'../content'` for about an hour and could not stay there. With the
- * package still at `astro/`, a `.mdoc` file sat OUTSIDE the package root, and rolldown
- * resolves `@astrojs/markdoc/components` from the importing file's own directory — which
- * walked up into the SvelteKit `node_modules` and found nothing. That is the mechanical
- * reason the ship-and-delete could not be deferred past the preview gate: it is not
- * tidiness, the build does not resolve until the package and the content share a root.
- *
- * The patterns are velite's, with `.md` -> `.mdoc`. `pages` stays root-only (`*.mdoc`
- * does not cross `/`), which is what keeps `docs/CONTEXT.md` out of every collection —
- * 03's ruling, reproduced by the glob rather than restated as a rule.
+ * `pages` stays root-only (`*.mdoc` does not cross `/`), which is what keeps
+ * `docs/CONTEXT.md` out of every collection.
  *
  * ---------------------------------------------------------------------------------
- * RULING: unknown frontmatter keys are STRIPPED, exactly as today.
+ * RULING: unknown frontmatter keys are STRIPPED, never rejected.
  *
- * The ticket asked for a decision on `content/index.mdoc`'s stale `sidenote: Kaohsiung,
- * Taiwan` — 06 dropped the field from `sharedSchema` and velite's zod object has been
- * silently stripping it since. Astro's schemas could reject it instead
- * (`.strict()`). They do not, for three reasons:
+ * Astro's schemas could reject them with `.strict()`. They must not, because **a schema
+ * must never be able to demand a content edit** — content is the fixed point. Two files
+ * carry keys no schema declares: `index.mdoc` has a stale `sidenote`, and
+ * `project/formula-student` an `info:` block of authored prose. Rejecting would fail
+ * both, and deciding what to do about them is a content question, not a schema one.
  *
- *   1. P3 is pre-authorised in the other direction: "never edit content to satisfy a
- *      schema. Content is the fixed point." Rejecting unknown keys is that rule
- *      inverted — it makes a schema able to demand a content edit.
- *   2. `sidenote` is not alone, which the ticket did not know. `project/formula-student`
- *      carries an `info:` block (year / role / context / collaborators) that velite's
- *      `projects` schema never declared either. Rejecting would fail two files and one
- *      of them holds real authored prose, so "reject and clean the key" is a content
- *      decision on someone's writing, not a tidy-up.
- *   3. Redesign is Out of scope, and deleting authored frontmatter is a content change
- *      riding a port.
- *
- * Both keys stay in the files, stay invisible, and stay recorded here. Making them
- * visible is a post-migration content question. `port-guard.mjs` does not assert on
- * them: an unknown key is inert, not silently damaging, which is the shape ladder
- * assertions exist for.
+ * They stay in the files, stay invisible, and stay recorded here. The gate deliberately
+ * does not assert on them: an unknown key is inert, not silently damaging, which is the
+ * shape an assertion exists for.
  * ---------------------------------------------------------------------------------
  */
 import { defineCollection, reference, z } from 'astro:content'
 import { glob } from 'astro/loaders'
 
 /*
- * velite's `sharedSchema`, minus `slug` (which is `entry.id`, above) and minus
- * `description: s.markdown()` — 04 verified that field is rendered nowhere, so the
- * markdown transform on it was dead. It ports as a plain string.
+ * The fields every collection shares.
  *
- * `s.isodate()` -> `z.coerce.date()`. Both `published: 2022-10-08` (which the YAML
- * parser hands over as a Date) and `published: 2019-08` (which it does not, being an
- * incomplete timestamp) land as Dates through coercion.
+ * `description` is a PLAIN STRING, not markdown — it is only ever rendered into a
+ * `content="…"` meta attribute, where a `<p>` wrapper would arrive escaped.
+ *
+ * `z.coerce.date()` is what lets both `published: 2022-10-08` (which the YAML parser
+ * hands over as a Date) and `published: 2019-08` (which it does not, being an incomplete
+ * timestamp) land as Dates.
  */
 const shared = {
   title: z.string(),
@@ -83,42 +51,35 @@ const shared = {
   draft: z.boolean().default(false)
 }
 
-/* velite: pattern '*.md', root-only */
 const pages = defineCollection({
   loader: glob({ pattern: '*.mdoc', base: './content' }),
   schema: z.object({ ...shared })
 })
 
-/* velite: pattern 'work/team/*.yml', team data for work to reference */
+/* Team data for `works` to reference. */
 const teams = defineCollection({
   loader: glob({ pattern: 'work/team/*.yml', base: './content' }),
   schema: z.object({ ...shared })
 })
 
-/* velite: pattern 'work/*.md' */
 const works = defineCollection({
   loader: glob({ pattern: 'work/*.mdoc', base: './content' }),
   schema: z.object({
     ...shared,
     featured: z.boolean().default(false),
     thumbnail: z.string().optional(),
-    /* Kept required, as velite had it, though the `orgs` collection it referenced is
-       not ported and no route renders it. All ten work files carry it. */
+    /* Required, though no route renders it. All ten work files carry it. */
     org: reference('teams'),
     category: z.array(z.string().max(15)),
     emoji: z.string().emoji(),
-    /* velite's union had a third member, `s.string().url()`, which every `s.string()`
-       already accepts. Dropped rather than ported. */
     meta: z.record(z.string(), z.union([z.string(), z.array(z.string())])).optional(),
-    /* One field, one job, in works and projects alike — CONTEXT.md's `summary`. It was
-       velite's `s.array(s.string())` here and a bare string in projects; the doc closed
-       that gap, so the two collections now declare the field identically and the work
-       page and the homepage card render the same sentences. */
+    /* Declared identically in `works` and `projects` on purpose — see CONTEXT.md's
+       field vocabulary — so the work page and the homepage card render the same
+       sentences. */
     summary: z.string()
   })
 })
 
-// velite: pattern 'project/**/*.md'
 const projects = defineCollection({
   loader: glob({ pattern: 'project/**/*.mdoc', base: './content' }),
   schema: z.object({
@@ -132,7 +93,6 @@ const projects = defineCollection({
   })
 })
 
-// velite: pattern 'note/**/*.md'
 const notes = defineCollection({
   loader: glob({ pattern: 'note/**/*.mdoc', base: './content' }),
   schema: z.object({
@@ -142,18 +102,14 @@ const notes = defineCollection({
 })
 
 /*
- * velite's `single: true` collection.
+ * ONE entry, not many — and `glob()` is what gives that, counter-intuitively.
+ * `file()` splits a single file into MANY entries (it wants an array, or an object whose
+ * keys are ids), so pointed at `navigation.yml` it would yield four entries called
+ * `title`, `updated`, `navigation` and `contact`. `glob()` treats a data file as one
+ * entry keyed by its filename: `getEntry('navigation', 'navigation')`.
  *
- * `glob()` rather than `file()`, which is the counter-intuitive choice of the two.
- * `file()` splits one file into MANY entries — it wants an array, or an object whose
- * keys are ids — so pointed at `navigation.yml` it would yield four entries called
- * `title`, `updated`, `navigation` and `contact`. `glob()` treats a data file as ONE
- * entry keyed by its filename, which is velite's `single: true` exactly:
- * `getEntry('navigation', 'navigation')`.
- *
- * `title` and `updated` are in the file (velite merged `sharedSchema` in) and are read
- * by nothing; they are declared so the strip rule above does not quietly apply to a
- * file whose whole content is two lists.
+ * `title` and `updated` are in the file and read by nothing. They are declared anyway so
+ * the strip rule above does not quietly apply to a file whose whole content is two lists.
  */
 const navigation = defineCollection({
   loader: glob({ pattern: 'navigation.yml', base: './content' }),

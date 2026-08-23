@@ -1,51 +1,32 @@
 ---
 /*
- * The media wrapper. `Image.svelte` and `Video.svelte` are the SvelteKit files copied
- * verbatim; this file is the whole cost of keeping them Svelte, because a markdoc
- * `render:` cannot point at a `.svelte` file directly.
+ * The media wrapper, and the whole cost of keeping `Image.svelte` / `Video.svelte` in
+ * Svelte: a markdoc `render:` cannot point at a `.svelte` file directly.
  *
- * It dispatches BOTH media components rather than there being an Img.astro and a
- * Vid.astro, because of finding 07-1: `content-entry-type.js` builds the TAG component
- * map from `getUsedTags(ast)` — only tags the document literally writes — while the NODE
- * map is built unfiltered. Nothing writes `{% vid %}` (the paragraph transform
- * synthesises it), so a marker on `tags.vid` is never resolved and Svelte receives the
- * raw marker object: `TypeError: component is not a function`, after ~4 pages have built.
- * So: one marker, on `nodes.image`, and the fork lives here. One fewer file than priced.
+ * ONE component dispatching both, rather than an Img and a Vid, because
+ * `@astrojs/markdoc` builds its TAG component map from `getUsedTags(ast)` — only tags a
+ * document literally writes — while the NODE map is built unfiltered. Nothing writes
+ * `{% vid %}` (the paragraph transform synthesises it), so a marker on `tags.vid` is
+ * never resolved and Svelte receives the raw marker object: `TypeError: component is not
+ * a function`, several pages into the build. So: one marker, on `nodes.image`, and the
+ * fork lives here.
  */
 import Image from '../lib/media/Image.svelte'
 import Video from '../lib/media/Video.svelte'
 
 // `class` is a reserved word in the destructuring position, hence the rename.
 //
-// `description` is split out because the two branches want different things, exactly as
-// SvelteKit's two branches did: its `img` Tag carried `{...attributes, description,
-// aspectRatio}` while its `vid` Tag carried the attributes alone. The Astro transform
-// cannot make that distinction — the fork moved here (07-1) — so it forwards
-// `description` unconditionally and this is where the video branch drops it again.
+// `description` is split out because the two branches want different things. The
+// transform forwards it unconditionally, and `Video.svelte` does not declare it as a
+// prop — so left in, it falls into `...rest` and spreads onto the element, giving every
+// video figure an inert `description=""` attribute. This is where it is dropped again.
 //
-// It is not cosmetic. `Video.svelte` does not declare a `description` prop, so the value
-// falls into its `...rest` and spreads onto the element: every one of the 16 video
-// figures renders `<figure ... description="">` where the SvelteKit prerender has no
-// such attribute. Inert, invisible, and a parity difference on all 16.
-//
-// FINDING (16-1). NEITHER branch takes a `client:` directive, and the reason is the same
-// for both: `<astro-island>` is `display: contents`, so it generates no box — but CSS
-// SELECTORS match the DOM tree, not the box tree. Every `>`-combinator rule aimed at a
-// figure landed on the island instead, and the figure fell through to auto-placement.
-// `.gallery > *`, `main > article > *` and prose's `> figure` rules all read this way.
-//
-// 14-2 removed the image island, having established it was inert (`visible` is
-// initialised `true`, and `blurDataUrl` has had no producer since ticket 10 deleted
-// `getBlurDataUrl.ts`), and deliberately left the video branch alone — recording the
-// inconsistency so it would not read as an oversight. Ticket 18 is where that came due,
-// and the answer was to remove the inconsistency at its source rather than route around
-// it: `Video.svelte` now initialises `visible` the way `Image.svelte` always has, which
-// makes ITS island inert too. See the comment at `Video.svelte`'s `$state`.
-//
-// Consequence worth stating plainly, since it is the invariant the layout depends on:
-// **no island renders inside `<main>` any more.** `port-guard.mjs`'s A10 asserts it on
-// every page of every build; A4's second half in `parity.mjs` generalises it to any
-// `display: contents` wrapper, whatever emitted it.
+// NEITHER BRANCH TAKES A `client:` DIRECTIVE. `<astro-island>` is `display: contents`,
+// so it generates no box — but CSS SELECTORS match the DOM tree, not the box tree. Every
+// `>`-combinator rule aimed at a figure lands on the island instead and the figure falls
+// through to auto-placement: `.gallery > *`, `main > article > *` and prose's `> figure`
+// all read this way. A10 in `port-guard.mjs` asserts that no island renders inside
+// `<main>`, on every page of every build.
 const { class: className, image_isvideo, description, ...rest } = Astro.props
 ---
 

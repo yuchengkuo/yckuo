@@ -1,21 +1,17 @@
 ---
 /*
- * ONE ROUTE, TWO COLLECTIONS — because velite's slug is the path. `pages` is root-only
- * (`about`, `colophon`, `contact`, `now`, `shots`) and `projects` lives under
- * `project/`, and `s.path()` gave the latter the id `project/pages`, which the homepage
- * links bare. The SvelteKit catch-all served both off one `/api/content/entry/<slug>`
- * lookup for exactly that reason; `entry.id` is that slug, so a rest parameter
- * reproduces it with no per-collection rule.
+ * ONE ROUTE, TWO COLLECTIONS — because `entry.id` carries the directory. `pages` is
+ * root-only (`about`, `colophon`, `contact`, `now`, `shots`) and `projects` lives under
+ * `project/`, so the latter's id is `project/pages`, which the homepage links bare. A
+ * rest parameter serves both with no per-collection rule.
  *
- * `index` IS EXCLUDED, and that is a ported behaviour rather than a tidy-up. SvelteKit's
- * catch-all would have served `/index` on request, but `prerender = true` builds only
- * what the crawler reaches and nothing links `/index`, so it has never been built or
- * served — `/index` 404s in production today. Leaving it in would
- * also emit `content/index.mdoc` twice, once here and once as the homepage.
+ * `index` IS EXCLUDED. `/index` has never been built or served — it 404s in production
+ * — and leaving it in would also emit `content/index.mdoc` twice, once here and once as
+ * the homepage.
  *
- * No wrapper element sits between `<main>` and this output: the `<div>` below is
- * the page's own first child, exactly as `+page.svelte` had it, and `<Content />` is a
- * direct sibling.
+ * No wrapper element sits between `<main>` and this output: the `<div>` below is the
+ * page's own first child and `<Content />` is a direct sibling. A wrapper that is not
+ * itself `grid-subgrid` severs the subgrid chain.
  */
 import { render, type CollectionEntry } from 'astro:content'
 import Base from '../layouts/Base.astro'
@@ -50,12 +46,10 @@ const { Content } = await render(entry)
   </div>
 
   {/*
-    THE SPREAD IS LOAD-BEARING. `@astrojs/markdoc` turns every prop on
-    `<Content />` into a Markdoc VARIABLE (`runtime.js:163`, `mergeConfig(userConfig,
-    { variables: props })`), which is how velite's
-    `variables: { ...records, ...markdocConfig.variables }` ports. `content/now.mdoc`
-    opens its body with `{% $description %}` — one file, one variable, and without this
-    the paragraph renders empty with a green build and 7/7 assertions.
+    THE SPREAD IS LOAD-BEARING. `@astrojs/markdoc` turns every prop on `<Content />`
+    into a Markdoc VARIABLE, which is how frontmatter reaches the body.
+    `content/now.mdoc` opens with `{% $description %}` — one file, one variable, and
+    without this spread that paragraph renders empty with a green build.
   */}
   <Content {...entry.data} />
 

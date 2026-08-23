@@ -2,12 +2,11 @@
 /*
  * One row of the Selected Work list — Figma `Home / Frame 51` (node 6230:79941).
  *
- * The design collapsed the old two-shape section (thumbnail card for featured work, bare
- * title+summary for the rest) into a single row: `[year]` and title on one line, summary
- * indented to the title's left edge, READ pinned to the right. Featured and additional
- * work share that row shape exactly — the two subgrids, the placement, the stretched
- * link. What separates them is the "Additional Works" label and the button's emphasis:
- * primary on featured, secondary on the rest. Both call sites render this component.
+ * `[year]` and title on one line, summary indented to the title's left edge, READ
+ * pinned to the right. Featured and additional work share that row shape exactly — the
+ * two subgrids, the placement, the stretched link. What separates them is the
+ * "Additional Works" label and the button's emphasis: primary on featured, secondary on
+ * the rest. Both call sites render this component.
  *
  * TWO nested subgrids, and both are load-bearing:
  *
@@ -32,8 +31,8 @@
  *    as 54px of left padding (the `[2026]` measure, 42px, plus the 12px gap); deriving
  *    it from the year's own column instead survives a four-digit year rendering wider or
  *    narrower than the one that was measured. It also keeps the year INSIDE the heading,
- *    where `+page.svelte` and the pre-redesign `index.astro` both had it — a screen
- *    reader still gets one heading, not a stray paragraph ahead of one.
+ *    which is what keeps a screen reader hearing one heading rather than a stray
+ *    paragraph ahead of one.
  *
  * No `client:` directive and no `<astro-island>`: the row is static, and A10 in the build
  * gate is what would catch a later one.
@@ -47,13 +46,10 @@ interface Props {
 
 const { work } = Astro.props
 /*
- * NOT `formatDate(work.data.published ?? '')`, which `index.astro` used to carry.
- * `published` is `z.coerce.date().optional()` and `collections.ts` documents the missing
- * case as reachable (it sorts such an entry with `UNPUBLISHED = new Date('2048-01')`), so
- * the `?? ''` was `new Date('')` -> Invalid Date -> `Intl.DateTimeFormat.format` throwing
- * `RangeError: Invalid time value`. The build died on a stack in `util.ts` that named
- * neither this component nor the offending `.mdoc`. Every work carries a `published`
- * today; this is the only renderer of the year, so it is the only place left to notice.
+ * NOT `work.data.published ?? ''`. `published` is optional and `collections.ts` treats
+ * the missing case as reachable, and `formatDate(new Date(''))` throws `RangeError:
+ * Invalid time value` from a stack that names neither this file nor the offending
+ * `.mdoc`. This is the only renderer of the year, so it is the only place to catch it.
  *
  * The empty span, rather than no span, is deliberate: it holds column 1 of the h3's
  * subgrid open so a dateless row keeps the same two-column shape as the rest. The column
