@@ -17,8 +17,8 @@ This is a **single-context** repo:
 /
 ├── CONTEXT.md
 ├── docs/adr/
-│   ├── 0001-velite-as-content-layer.md
-│   └── 0002-markdoc-over-mdx.md
+│   ├── 0001-markdoc-over-mdx.md
+│   └── 0002-private-content-submodule.md
 └── src/
 ```
 

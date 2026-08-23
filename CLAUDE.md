@@ -88,7 +88,7 @@ Five collections, all sharing one `base: './content'` so that `entry.id` carries
 - `works` — `work/*.mdoc`
 - `projects` — `project/**/*.mdoc`
 - `notes` — `note/**/*.mdoc`
-- `navigation` — `navigation.yml`, velite's `single: true` via `glob()`
+- `navigation` — `navigation.yml`, one entry via `glob()` (not `file()` — see the note there)
 
 Unknown frontmatter keys are **stripped, not rejected** — a schema must never be able to demand a
 content edit. The reasoning is recorded in `src/content.config.ts`.
