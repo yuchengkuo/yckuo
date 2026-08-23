@@ -21,6 +21,7 @@ import Base from '../../layouts/Base.astro'
 import { getWorks } from '../../lib/collections'
 import { formatDate } from '../../lib/util'
 import ImageAstroComponent from '$lib/media/Image.svelte'
+import { aspectRatio } from '$lib/media/aspectRatio'
 
 export async function getStaticPaths() {
   const featured = await getWorks()
@@ -71,7 +72,20 @@ const metaEntries = Object.entries(entry.data.meta ?? {})
     </p>
   </div>
 
-  <ImageAstroComponent id={entry.data.thumbnail} class="-mx-4 mb-12 rounded" />
+  {
+    /* The one image that shifts before the reader has started reading at all: it sits above
+       the fold, so the title and summary move as the page settles. It resolves through the
+       SAME lookup as body media — frontmatter media differs in where the id comes from and
+       in nothing else. `thumbnail` is optional and some work files carry none, so this
+       renders no box rather than an unsized one. */
+    entry.data.thumbnail && (
+      <ImageAstroComponent
+        id={entry.data.thumbnail}
+        aspectRatio={aspectRatio(entry.data.thumbnail)}
+        class="-mx-4 mb-12 rounded"
+      />
+    )
+  }
 
   {/* Metadata */}
   <section class="grid-subgrid layout-full mb-16 prose">
