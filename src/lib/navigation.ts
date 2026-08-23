@@ -1,17 +1,10 @@
 /**
  * The footer's link data.
  *
- * Ticket 11 stood this up as a stub returning empty lists, so that `astro/` stayed
- * buildable from a fresh clone with no submodule access. Ticket 13 fills it in, and the
- * seam it was built as holds: `Base.astro` calls `getNavigation()` and still does not
- * care where the data comes from — only the body of this file changed, plus the `await`
- * the collection API forces.
- *
- * The empty-list fallback survives on purpose. `navigation.yml` reaches
- * `astro/src/content/` through `pnpm sync`, which a clone without submodule access
- * cannot run; without the fallback the footer would throw rather than render bare, and
- * "clone builds without the private content" is ticket 11's exit condition, not a
- * convenience.
+ * The empty-list fallback is load-bearing, not defensive. `navigation.yml` lives in the
+ * private `content` submodule, which a clone without access cannot check out; without
+ * the fallback the footer throws instead of rendering bare, and a clone builds without
+ * the private content by design.
  */
 import { getEntry } from 'astro:content'
 

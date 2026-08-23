@@ -76,15 +76,13 @@ const { navigation, contact } = await getNavigation()
       value is `undefined`, which is what SvelteKit did too — today's `/note` prerender
       carries a bare `<meta name="description"/>` and a bare `<meta property="og:title"/>`.
 
-      TWO DELIBERATE DIFFERENCES FROM THE PRERENDER, both recorded in the ticket:
+      TWO DELIBERATE DIFFERENCES FROM THE PRERENDER:
 
       1. The three description values no longer carry a `<p>` wrapper. Velite declared
          `description: s.markdown()`, so every description meta in production today reads
-         `content="&lt;p>…&lt;/p>"` — HTML, escaped, inside a meta attribute. Ticket 13's
-         schema port dropped that transform (04 had recorded the field as rendered
-         nowhere, which was true of the *body* and not of the head). Reproducing the
-         wrapper would mean re-adding a markdown transform in order to emit broken
-         markup, so the port ships the plain string.
+         `content="&lt;p>…&lt;/p>"` — HTML, escaped, inside a meta attribute. The schema
+         here ships a plain string instead: reproducing the wrapper would mean re-adding
+         a markdown transform in order to emit broken markup.
       2. Work pages emit ONE og:type (`article`) and ONE description. SvelteKit emitted
          both — `work/+layout.svelte` added its own `og:type` and `description` on top of
          the root layout's, so every work page carries the pair twice with different
@@ -110,7 +108,7 @@ const { navigation, contact } = await getNavigation()
       The service worker. `src/service-worker.ts` ports verbatim to `public/service-worker.js`
       (it was already plain JS), but SvelteKit's convention — build it, and emit a
       registration into the client entry — has no Astro counterpart, so the registration is
-      hand-written. This is the only genuinely NEW code ticket 15 adds.
+      hand-written. It is the only code here with no counterpart in the prerender.
 
       Two departures from the generated SvelteKit version, both deliberate:
       `/service-worker.js` is absolute where SvelteKit emitted a depth-relative
@@ -136,7 +134,7 @@ const { navigation, contact } = await getNavigation()
       NOTHING may sit between <main> and the page's own output. `main > :not(article)`
       in main.css is what applies `layout-content` to every direct child, and a wrapper
       that is not itself `grid-subgrid` severs the subgrid chain — every `{% .span-N %}`
-      on an image then goes inert, with a green build and no warning (07-4, ladder A4).
+      on an image then goes inert, with a green build and no warning. A10 asserts it.
     */}
     <main>
       <slot />
@@ -165,8 +163,8 @@ const { navigation, contact } = await getNavigation()
       // Criterion (iii): scroll continuity. `swapRootAttributes` replaces <html>'s
       // attributes on every swap, and lenis writes `class="lenis lenis-smooth"` there
       // — so without the astro:after-swap re-stamp below smooth scrolling silently
-      // dies after nav 1. 07's negative control: <html>'s class list is [] after the
-      // first navigation when this block is absent.
+      // dies after nav 1. Negative control: <html>'s class list is [] after the first
+      // navigation when this block is absent.
       import Lenis from 'lenis'
 
       if (!(window as any).__lenis) {

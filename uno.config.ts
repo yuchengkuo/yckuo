@@ -42,7 +42,7 @@ export default defineConfig({
         // `{% .start-* %}` annotations — exists ONLY inside content, so when the
         // extension changed the extractor stopped matching, Uno stopped generating
         // `col-span-*`, and every image silently collapsed to one column. Green
-        // build, no warning. (Finding 07-3; ladder A1 asserts it in 13.)
+        // build, no warning. A1 in `port-guard.mjs` asserts it.
         if (!/\.(?:md|mdc|mdoc|markdown)$/i.test(ctx.id ?? '')) return
 
         ctx.code.match(/\.[\w:/\-]+/g)?.forEach((c) => {

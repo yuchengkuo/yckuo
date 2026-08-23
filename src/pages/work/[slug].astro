@@ -3,25 +3,23 @@
  * `src/routes/work/[page]/+page.svelte`, its loader and `work/+layout.svelte`, ported.
  *
  * THE PRERENDERED SET IS FOUR PAGES, NOT TEN — and that is a ported behaviour, not a
- * shortcut. SvelteKit's `work/+layout.server.ts` says `prerender = true`, which prerenders
- * the routes the crawler can REACH; the homepage links featured work only (04), so the
- * six additional works have never been built or served. `getStaticPaths()` has no crawler,
- * so the reachability has to be stated: it is the `featured` filter below. 16's page-set
- * comparison expects four.
+ * shortcut. SvelteKit's `work/+layout.server.ts` said `prerender = true`, which prerenders
+ * the routes the crawler can REACH; the homepage links featured work only, so the six
+ * additional works have never been built or served. `getStaticPaths()` has no crawler, so
+ * the reachability has to be stated: it is the `featured` filter below.
  *
  * The next-project wraparound needs the whole featured collection, which `getStaticPaths()`
  * already holds — so `next` is resolved once here and handed to each page as a prop,
  * rather than each page re-reading the collection to find its own successor.
  *
  * `<Content />` and every element around it are direct children of `<Base>`'s slot: no
- * wrapper may sit between `<main>` and page output (07-4). `main > article` gives the
+ * wrapper may sit between `<main>` and page output. `main > article` gives the
  * body its own subgrid, which is why `<Content />` is not wrapped in a `.prose` div the
  * way the homepage's intro is.
  *
- * `<meta property="og:type" content="article" />` from `work/+layout.svelte` arrives with
- * ticket 15, as the `ogType` prop below. SvelteKit emitted it *in addition to* the root
- * layout's `og:type="website"`, so every work page carried two — here the prop replaces
- * the default and the page carries one. Same for the duplicated `description`.
+ * `og:type="article"` arrives as the `ogType` prop below. SvelteKit emitted it *in
+ * addition to* the root layout's `og:type="website"`, so every work page carried two —
+ * here the prop replaces the default and the page carries one. Same for `description`.
  */
 import { render, type CollectionEntry } from 'astro:content'
 import Base from '../../layouts/Base.astro'
@@ -33,8 +31,7 @@ export async function getStaticPaths() {
   const featured = (await getWorks())
 
   return featured.map((entry, index) => ({
-    /* velite's `slug` is `entry.id` (13-3), so the id is `work/<slug>` and the route
-       parameter is its tail. */
+    /* `entry.id` is `work/<slug>`, so the route parameter is its tail. */
     params: { slug: entry.id.replace(/^work\//, '') },
     props: {
       entry,
@@ -112,7 +109,7 @@ const metaEntries = Object.entries(entry.data.meta ?? {})
     }
   </section>
 
-  {/* Content — frontmatter as Markdoc variables, see 15-1 in `[...page].astro` */}
+  {/* Content — frontmatter as Markdoc variables, see `[...page].astro` */}
   <Content {...entry.data} />
   <p class="mt-6 text-tertiary font-mono text-xs">
     Updated at <time datetime={entry.data.updated.toISOString()}

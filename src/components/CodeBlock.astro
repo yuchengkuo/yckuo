@@ -1,8 +1,7 @@
 ---
 /*
- * `CodeBlock.svelte` was one line — `{@html code}` — so the port drops the island
- * entirely rather than wrapping it. `code` is Shiki-highlighted HTML, produced
- * synchronously at transform time (see src/lib/highlighter.ts).
+ * `code` is Shiki-highlighted HTML, produced synchronously at transform time — see
+ * `src/lib/highlighter.ts`. No island: there is nothing here to hydrate.
  */
 const { code } = Astro.props
 ---

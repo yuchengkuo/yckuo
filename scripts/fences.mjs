@@ -1,17 +1,17 @@
 /**
  * fences.mjs — the one fenced-code scanner.
  *
- * Lifted out of `port-guard.mjs` by ticket 17 step 1, closing 13-R1. The rule was written
- * correctly there and naively in `slashify.mjs`, and two copies of a rule is how they came
- * to disagree — so there is now one copy and both import it.
+ * One copy, imported by both `port-guard.mjs` and `slashify.mjs`. It was written
+ * correctly in one and naively in the other, and two copies of a rule is how they came to
+ * disagree.
  *
  * The naive version — toggle a boolean on any line starting with three backticks —
  * returns 18 fences and six languages on this corpus, so it looks right. It is not:
  * `note/markdoc-shiki` demonstrates Markdoc syntax inside a FOUR-backtick ````liquid
  * fence containing a nested ```css one, and the naive toggle treats the nested opener as
- * a CLOSER. 03 counted that nested fence as top-level and recorded five languages, and
- * the omission degraded a real fence to plain text with a green build (07-5). Under the
- * converter the same misreading is worse: the lines between the nested fences read as
+ * a CLOSER. Counting that nested fence as top-level records five languages instead of
+ * six, and the omitted language degrades a real fence to plain text with a green build.
+ * Under the converter the same misreading is worse: the lines between the nested fences read as
  * live content, so an `![alt](id)` written there is silently slashed — and `--in-place`
  * writes that into the private repo.
  *

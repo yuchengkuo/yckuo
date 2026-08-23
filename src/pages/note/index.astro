@@ -13,7 +13,7 @@
  * href resolves correctly; Astro's default directory build format writes
  * `note/index.html`, which a host may serve at `/note/` — and from there the same
  * relative href resolves to `/note/note/windicss`. One character, and the link surface
- * of the section. (Finding 15-3.)
+ * of the section.
  *
  * og:title and og:description are absent on this page, matching the prerender: it is the
  * one route with no content entry behind it, so SvelteKit's `page.data.title` was
@@ -34,7 +34,7 @@ const notes = await getNotes()
         {
           notes.map((note) => (
             <li>
-              {/* `{' '}` is load-bearing — see index.astro (18-2). JSX whitespace rules
+              {/* `{' '}` is load-bearing — see `index.astro`. JSX whitespace rules
                   drop this newline; `+page.svelte` keeps it as a space before `<time>`,
                   whose own `ml-2` is a margin on top of it, not a replacement for it. */}
               <a href={`/${note.id}`}>{note.data.title}</a>{' '}

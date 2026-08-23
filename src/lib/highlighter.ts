@@ -1,21 +1,19 @@
 /**
  * A SYNCHRONOUS Shiki highlighter.
  *
- * Promoted from ticket 07's slice, which promoted it from 03's sweep.
- *
- * This file exists because of ticket 02's second side finding: any `async transform`
- * anywhere in the Markdoc config makes `getHeadings()` return `[]` for every document,
- * whether or not the heading is near the async node. The SvelteKit `fence` transform is
- * `async` (it awaits `getSingletonHighlighter` and two dynamic theme imports), so a
- * straight port of `markdoc.config.ts` would silently zero `getHeadings()` site-wide.
+ * This file exists because **any `async transform` anywhere in the Markdoc config makes
+ * `getHeadings()` return `[]` for every document**, whether or not the heading is near
+ * the async node. The obvious `fence` transform is async — it awaits
+ * `getSingletonHighlighter` and two dynamic theme imports — and would silently zero
+ * `getHeadings()` site-wide. A2 in `port-guard.mjs` catches a regression.
  *
  * Shiki's sync path needs three things the async path does for itself:
  *   - `createHighlighterCoreSync` instead of `getSingletonHighlighter`
  *   - the JavaScript regex engine (the default WASM Oniguruma engine is async-init)
  *   - every language and theme imported STATICALLY and passed up front
  *
- * That forces Shiki 1 -> 3. 07 measured the output byte-identical except that v3 moves
- * light-mode italics to `--shiki-light-font-style`; `prose.css` reads it (ladder A8).
+ * That forces Shiki 1 -> 3. The output is byte-identical except that v3 moves
+ * light-mode italics to `--shiki-light-font-style`; `prose.css` reads it (A8).
  *
  * CORPUS CENSUS (asserted by port-guard.mjs A3, so this comment is not the record —
  * it is the explanation of the record): 17 top-level fences in 6 languages —
@@ -34,15 +32,14 @@ import css from 'shiki/langs/css.mjs'
 import html from 'shiki/langs/html.mjs'
 import svelte from 'shiki/langs/svelte.mjs'
 import json from 'shiki/langs/json.mjs'
-// FINDING (07-5): `liquid` is a SIXTH fence language. 03 recorded five and counted a
-// nested ```css as top-level; the outer fence is ````liquid, and without this import it
-// degraded to plain text with a green build. Ladder entry (d) fired for real.
+// `liquid` is easy to miss: the corpus fence that needs it is a ````liquid wrapping a
+// nested ```css, so a scan that reads the inner fence records the wrong language. Without
+// this import that block degrades to plain text with a green build.
 import liquid from 'shiki/langs/liquid.mjs'
 
 // The repo's own TMR themes, not github-light/dark. They are plain TextMate theme JSON,
-// so a static import satisfies the sync path — the SvelteKit config's
-// `await import('./src/lib/tmr.json')` INSIDE the fence transform is exactly what 02's
-// rule forbids, and this is its replacement.
+// so a static import satisfies the sync path. An `await import()` of these INSIDE the
+// fence transform is exactly the async-transform trap described above.
 import light from './tmr.json' with { type: 'json' }
 import dark from './tmr-night.json' with { type: 'json' }
 
@@ -57,9 +54,8 @@ export const LOADED_LANGUAGES = highlighter.getLoadedLanguages()
 const LOADED = new Set(LOADED_LANGUAGES)
 
 /**
- * Ticket 08 asked for an ASSERTION here rather than a fallback, and the slice is why: an
- * unloaded language degrades to plain text with a green build and no warning, and it
- * happened on a real file the moment the corpus met the static language list.
+ * An ASSERTION rather than a fallback, deliberately: an unloaded language degrades to
+ * plain text with a green build and no warning, and that has happened on a real file.
  */
 export function highlight(code: string, lang: string) {
   if (lang !== 'text' && !LOADED.has(lang))

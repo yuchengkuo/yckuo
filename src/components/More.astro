@@ -9,7 +9,7 @@
  *
  * It renders THREE top-level nodes and no wrapper: `<h1>`, `<nav>`, and the slot. An
  * `.astro` component emits no element of its own, so the page's content stays a direct
- * child of `<main>` and `main > :not(article)` keeps placing it (07-4).
+ * child of `<main>` and `main > :not(article)` keeps placing it.
  *
  * THE SUB-NAV IS EMPTY TODAY, and it is empty in production too. `navigation.yml`
  * declares no `More` key, so `find(...)?.include ?? []` yields nothing and the `<ul>`

@@ -57,7 +57,7 @@ export async function getProjects() {
  * markdoc-shiki, sveltekit-parent, unocss-scanning, windicss: not date order in either
  * direction). Ported as the behaviour is, not as the URL reads; `getCollection` returns
  * the same alphabetical order. Making the list actually sort by date is a content/design
- * decision, not a port. (Finding 15-2.)
+ * decision, not a port.
  */
 
 /** `/api/content/entry/<page>` for the `pages` collection */

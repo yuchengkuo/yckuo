@@ -1,22 +1,19 @@
 ---
 /*
- * `src/routes/[...page]/+page.svelte` and its loader, ported. Successor to ticket 13's
- * `[...entry].astro` harness, which this file replaces and 15 deletes.
- *
  * ONE ROUTE, TWO COLLECTIONS — because velite's slug is the path. `pages` is root-only
  * (`about`, `colophon`, `contact`, `now`, `shots`) and `projects` lives under
  * `project/`, and `s.path()` gave the latter the id `project/pages`, which the homepage
  * links bare. The SvelteKit catch-all served both off one `/api/content/entry/<slug>`
- * lookup for exactly that reason; `entry.id` is that slug (13-3), so a rest parameter
+ * lookup for exactly that reason; `entry.id` is that slug, so a rest parameter
  * reproduces it with no per-collection rule.
  *
  * `index` IS EXCLUDED, and that is a ported behaviour rather than a tidy-up. SvelteKit's
  * catch-all would have served `/index` on request, but `prerender = true` builds only
  * what the crawler reaches and nothing links `/index`, so it has never been built or
- * served — `/index` 404s in production today. Same shape as 14-1. Leaving it in would
+ * served — `/index` 404s in production today. Leaving it in would
  * also emit `content/index.mdoc` twice, once here and once as the homepage.
  *
- * No wrapper element sits between `<main>` and this output (07-4): the `<div>` below is
+ * No wrapper element sits between `<main>` and this output: the `<div>` below is
  * the page's own first child, exactly as `+page.svelte` had it, and `<Content />` is a
  * direct sibling.
  */
@@ -53,7 +50,7 @@ const { Content } = await render(entry)
   </div>
 
   {/*
-    THE SPREAD IS LOAD-BEARING (finding 15-1). `@astrojs/markdoc` turns every prop on
+    THE SPREAD IS LOAD-BEARING. `@astrojs/markdoc` turns every prop on
     `<Content />` into a Markdoc VARIABLE (`runtime.js:163`, `mergeConfig(userConfig,
     { variables: props })`), which is how velite's
     `variables: { ...records, ...markdocConfig.variables }` ports. `content/now.mdoc`
