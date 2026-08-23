@@ -10,8 +10,8 @@ const CACHE = `cache-${version}`
 
 const ASSETS = [
   '/fonts/brockmann-regular.woff2',
-  '/fonts/NKDuyMono-Regular.woff2',
-  '/fonts/NKDuyMono-Italic.woff2',
+  '/fonts/GeistMono[wght].woff2',
+  '/fonts/GeistMono-Italic[wght].woff2',
   '/fonts/Newsreader-Italic-Variable.woff2',
   '/fonts/Newsreader-Variable.woff2',
   '/og/default.png',

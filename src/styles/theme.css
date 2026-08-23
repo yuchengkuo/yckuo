@@ -95,6 +95,22 @@
 }
 
 @font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono[wght].woff2') format('woff2-variations');
+  font-style: normal;
+  font-display: block;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Italic[wght].woff2') format('woff2-variations');
+  font-style: italic;
+  font-display: block;
+  font-weight: 100 900;
+}
+
+@font-face {
   font-family: 'NKDuy Mono';
   src: url('/fonts/NKDuyMono-Thin.woff2') format('woff2');
   font-style: normal;
