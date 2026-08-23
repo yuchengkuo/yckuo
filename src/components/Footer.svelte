@@ -24,7 +24,7 @@
   })
 </script>
 
-<footer class="layout-content mt-30 grid-subgrid">
+<footer class="layout-content mt-30 grid-subgrid font-sans text-sm">
   <hr class="border-dash span-full" />
 
   <ul class="span-full md:span-3 flex flex-col gap-1.5 lt-md:gap-1">

@@ -47,16 +47,16 @@ div[data-layer] {
     will-change: backdrop-filter;
 
     /* Exluding webkit */
-    @supports (backdrop-filter: blur(1px)) {
+    /* @supports (backdrop-filter: blur(1px)) {
       --un-backdrop-brightness: brightness(130%);
-    }
+    } */
   }
 }
 
 body {
   --uno: 'min-h-100vh';
-  --uno: 'text-primary text-3.5 leading-5.5 font-sans opacity-100';
-  --uno: 'p-4 md:(px-10 pt-10 pb-30)';
+  --uno: 'text-primary text-xs font-mono opacity-100';
+  --uno: 'p-4 md:(px-10 pt-10 pb-20)';
 
   /* Main grid layouts */
   --uno: 'grid grid-cols-6 md:grid-cols-12 gap-x-4 items-baseline';
@@ -71,7 +71,7 @@ body {
 main {
   /* Subgrid at every breakpoint — gating this on `md` severs the chain and
      makes every column placement below it inert on mobile. */
-  --uno: 'span-full grid-subgrid mt-20 md:mt-60';
+  --uno: 'span-full grid-subgrid mt-20 md:mt-40';
 
   > :not(article) {
     --uno: 'layout-content';
@@ -82,6 +82,15 @@ main {
     --uno: 'span-full grid-subgrid';
     --uno: 'children:layout-measure';
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  --uno: 'font-sans text-sm';
 }
 
 h1 {
@@ -117,7 +126,12 @@ img {
 button,
 .button-primary,
 .button-secondary {
-  --uno: 'cursor-pointer border-1 px-2.5 py-1 font-mono text-xs uppercase';
+  --uno: 'cursor-pointer border-1 px-1.5 font-mono text-xs uppercase';
+}
+
+.button-primary-large,
+.button-secondary-large {
+  --uno: 'px-2 py-0.5';
 }
 
 .button-primary {
@@ -185,7 +199,7 @@ strong {
 }
 
 code {
-  --uno: 'font-mono text-0.75em font-medium';
+  --uno: 'font-mono font-450';
 }
 
 :not(pre) > code {

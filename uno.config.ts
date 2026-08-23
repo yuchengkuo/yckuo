@@ -124,7 +124,7 @@ export default defineConfig({
       'bg-screen-hover': 'bg-rx-sage-2',
       'bg-surface': 'bg-rx-sage-3',
       'bg-surface-hover': 'bg-rx-sage-4',
-      'bg-selection': 'bg-rx-green-4',
+      'bg-selection': 'bg-rx-sage-4',
       'bg-button-primary': 'bg-rx-green-11',
       'bg-button-primary-hover': 'bg-rx-gray-12',
       'bg-button-secondary': 'bg-rx-sage-3',
@@ -191,9 +191,9 @@ export default defineConfig({
       /* Edge to edge at every width. */
       'layout-full': 'span-full',
       /* The primary content column: columns 3–10 on desktop. */
-      'layout-content': 'span-full md:start-3 md:span-8',
+      'layout-content': 'span-full md:start-4 md:span-6',
       /* The narrower reading measure: columns 3–7 on desktop. */
-      'layout-measure': 'span-full md:start-3 md:span-5',
+      'layout-measure': 'span-full md:start-4 md:span-5',
       /* The left-hand escape used by code blocks and asides: columns 1–6. */
       'layout-aside': 'span-full md:start-1 md:span-6'
     }

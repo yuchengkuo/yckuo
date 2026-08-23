@@ -16,16 +16,12 @@ article,
 
   /* Paragraph */
   p {
-    --uno: 'mt-6 lt-sm:mt-4';
+    --uno: 'mt-4 lt-sm:mt-4';
   }
 
   p.callout {
     /* The callout runs one column past the reading measure. */
-    --uno: 'text-5 leading-8 layout-measure md:end-9 lt-md:(text-5 leading-6)';
-  }
-
-  p.base {
-    --uno: 'text-4 leading-6 lt-md:(text-3.5 leading-5.5)';
+    --uno: 'text-base font-sans';
   }
 
   strong {
@@ -69,16 +65,12 @@ article,
     --uno: 'mt-2 ml-2.5ch';
 
     li {
-      --uno: 'list-outside mb-1.5 font-mono text-xs';
+      --uno: 'list-outside mb-1.5';
 
       &::marker {
-        --uno: 'text-tertiary text-opacity-60 text-right';
+        --uno: 'text-tertiary text-opacity-60 text-right font-mono text-xs';
       }
     }
-  }
-
-  :is(h1, h2, h3, h4, h5, h6):has(+ ul, + ol) {
-    --uno: 'font-mono text-xs';
   }
 
   ul li {
