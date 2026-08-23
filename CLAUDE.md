@@ -9,7 +9,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm guard` — the gate alone, against an existing `dist/`. `--strict` promotes census drift and
   skipped rungs to errors
 - `pnpm preview` — serve the built `dist/`
-- `pnpm selftest` — `scripts/converter-selftest.mjs`, the fixture proof behind `slashify()`
+- `pnpm selftest` — the fixture proofs: `scripts/converter-selftest.mjs` behind `slashify()`, and
+  `scripts/getinfo-selftest.mjs` behind `ratioFromGetInfo()`. Both run with no network and no
+  content checkout
 - `pnpm format` — Prettier
 
 There is **no type-check script**. `astro check` was evaluated and backed out:

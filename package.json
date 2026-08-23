@@ -19,7 +19,7 @@
     "guard": "node scripts/port-guard.mjs",
     "preview": "astro preview",
     "format": "prettier --write .",
-    "selftest": "node scripts/converter-selftest.mjs"
+    "selftest": "node scripts/converter-selftest.mjs && node scripts/getinfo-selftest.mjs"
   },
   "dependencies": {
     "@astrojs/markdoc": "2.0.6",
