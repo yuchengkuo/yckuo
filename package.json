@@ -40,7 +40,9 @@
     "@cld-apis/types": "^0.1.6",
     "@iconify-json/ri": "^1.2.10",
     "@radix-ui/colors": "^3.0.0",
-    "prettier": "^3.8.3"
+    "prettier": "^3.8.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-svelte": "^4.1.1"
   },
   "pnpm": {
     "patchedDependencies": {

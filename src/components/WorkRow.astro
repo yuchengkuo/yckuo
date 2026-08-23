@@ -95,7 +95,8 @@ const button = work.data.featured
   <div class="span-full md:span-5 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
     <h3 class="col-span-2 grid grid-cols-subgrid items-baseline font-medium">
       <span class="text-tertiary font-mono text-xs">{year && `[${year}]`}</span>
-      {/*
+      {
+        /*
         The stretched link: `::after` covers the row's padding box (not its `mb-8`, which
         is margin), so the whole row is the tap target while the DOM keeps ONE anchor.
         A wrapping `<a class="contents">` cannot do this — `<a>` may not contain `<a>`,
@@ -103,13 +104,17 @@ const button = work.data.featured
         into an empty sibling and cloning it down the tree. The row still renders, the
         classes are all still correct, and the link is silently broken. Astro emits what
         you wrote; the browser is what rewrites it, so only the DOM shows the damage.
-      */}
-      <a class="after:absolute after:inset-0 after:content-empty" href={work.id}>{work.data.title}</a>
+      */
+      }
+      <a class="after:absolute after:inset-0 after:content-empty" href={work.id}
+        >{work.data.title}</a
+      >
     </h3>
     <p class="col-start-2 text-secondary font-mono text-xs">{work.data.summary}</p>
   </div>
 
-  {/*
+  {
+    /*
     `aria-hidden` + `tabindex="-1"`, together and never one without the other. Both call
     sites render this component now, so the section emits TEN `READ →` anchors where it
     used to emit five — and each one duplicates the destination of the title link three
@@ -126,7 +131,8 @@ const button = work.data.featured
     place. Hovering the ROW is the only signal left, so those declarations are mirrored
     onto the row's `group`. Keep both mirrors in sync with their rules in main.css —
     they are not the same declarations for the two variants; see `button` above.
-  */}
+  */
+  }
   <a
     class={`${button} lt-md:hidden start-6 span-1 w-fit h-fit justify-self-end`}
     href={work.id}
