@@ -2,11 +2,12 @@
  * Theme
  */
 
-:root {
-  --font-sans: Brockmann, ui-sans-serif, sans-serif;
-  --font-serif: Newsreader, Iowan Old Style, ui-serif, Charter, Georgia, serif;
-  --font-mono: NKDuy Mono, ui-monospace, monospace;
-}
+/*
+ * The three font stacks are NOT declared here. They are theme keys in uno.config.ts,
+ * because presetWind4 emits its own `--font-*` into the preflight `:root,:host` and a
+ * second `:root` here only races it — a race dev loses, silently. See the note there.
+ * The @font-face rules below stay: they are what the stacks name.
+ */
 
 @media (prefers-color-scheme: dark) {
   :root {

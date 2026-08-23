@@ -74,6 +74,39 @@ export default defineConfig({
     })
   ],
   theme: {
+    /*
+     * The font stacks live HERE, not in theme.css, and that is load-bearing.
+     *
+     * presetWind4 emits its own `--font-sans` / `--font-serif` / `--font-mono` into the
+     * preflight `:root,:host` block for every family a utility actually uses. A second
+     * `:root` declaring them in theme.css does not replace that one — it races it, and
+     * the winner is whichever stylesheet the browser sees last.
+     *
+     * DEV sees Uno last. `@unocss/astro` rewrites the resolved virtual id `/__uno.css`
+     * to an absolute `<root>/__uno.css` in its own `resolveId`, so the client-injected
+     * copy carries a different `data-vite-dev-id` than the SSR-inlined one. Vite dedupes
+     * dev styles on that id, so it appends a second copy instead of replacing the first,
+     * and the appended copy lands after theme.css. Every family fell back to the system
+     * default — with a clean build, no console error, and all 26 `@font-face` rules
+     * correctly registered. The BUILD was unaffected: dist happened to order theme.css
+     * last, so `pnpm build` could never see it.
+     *
+     * Declaring them as theme keys collapses two declarations into one, so there is no
+     * order left to get wrong. The @font-face rules stay in theme.css — they are what
+     * these stacks name. A11 in the gate asserts the single declaration.
+     */
+    /*
+     * Strings, NOT arrays. presetWind4 declares its own defaults as arrays, but a
+     * user-config `font` value only reaches the preflight as a string: an array here
+     * emits NO `--font-*` declaration at all, and the `font-sans` utility still
+     * resolves to `var(--font-sans)` — so the page renders the reset fallback with a
+     * clean build and no warning. Measured: arrays -> 0 declarations, strings -> 3.
+     */
+    font: {
+      sans: 'Brockmann, ui-sans-serif, sans-serif',
+      serif: 'Newsreader, Iowan Old Style, ui-serif, Charter, Georgia, serif',
+      mono: 'Geist Mono, ui-monospace, monospace'
+    },
     colors: {
       accent: '#44F440',
       radix: {
@@ -197,6 +230,20 @@ export default defineConfig({
       }
     }
   ],
+  /*
+   * The three font utilities are safelisted because `preflights.theme: 'on-demand'`
+   * only emits a `--font-*` declaration for a family something was seen to use, and
+   * only `sans` and `mono` are guaranteed a user: wind4's own reset references them
+   * through `--default-font-family` / `--default-monoFont-family`. Nothing references
+   * serif. Its one caller is `em:not(:has(> code))` in main.css, written as a `--uno:`
+   * directive — which the build scans but DEV extracts lazily, so a dev page that had
+   * not yet pulled in a serif token shipped `font-family: var(--font-serif)` with the
+   * variable never declared, and every <em> fell back to the inherited sans.
+   *
+   * Safelisting costs three unused class rules and makes the emission independent of
+   * when the scanner happens to reach a caller.
+   */
+  safelist: ['font-sans', 'font-serif', 'font-mono'],
   rules: [['max-w-9xl', { 'max-width': '96rem' }]],
   layers: {
     default: 1,

@@ -498,6 +498,81 @@ await check('A10', 'no display:contents wrapper inside <main> (the subgrid sever
   return `${pages.length} pages · ${total} island wrappers, 0 inside <main>`
 })
 
+// --- A11 ---------------------------------------------------------------------------
+// 19 added this one, and it is the rung A5 was one count short of.
+//
+// A5 asserts ONE uno entry per page and records that the double-stylesheet risk could not
+// be reproduced, because Vite dedupes an identical virtual module id. That holds for the
+// id Base.astro would have imported. It does NOT hold in dev: `@unocss/astro`'s own
+// `resolveId` rewrites the resolved `/__uno.css` to an absolute `<root>/__uno.css`, so
+// the client-injected copy and the SSR-inlined one carry DIFFERENT `data-vite-dev-id`s,
+// Vite dedupes on that id, and the second copy is appended after theme.css instead of
+// replacing the first. Uno's preflight `:root,:host` then lands last and wins.
+//
+// What that cost: every font on the site fell back to the system default in dev, with a
+// clean build, no console error, all 26 @font-face rules registered and `fonts.check()`
+// true for all three families. Nothing referenced them. The build was untouched — dist
+// happened to emit theme.css last — so `pnpm build` could not see it.
+//
+// The assertion is therefore not about order, which is what dev gets wrong and dist gets
+// right by luck. It is that each family is declared EXACTLY ONCE, so no order exists to
+// get wrong. Two declarations is the defect whichever one currently wins. The expected
+// stacks are derived from uno.config.ts, so this stays a test of the invariant and not of
+// a constant, and a fourth family added there is covered without touching the gate.
+await check('A11', 'each font family is declared exactly once', async () => {
+  const { default: unoConfig } = await import(pathToFileURL(path.join(ROOT, 'uno.config.ts')))
+  const families = Object.entries(unoConfig.theme?.font ?? {})
+  assert(
+    families.length > 0,
+    'uno.config.ts declares no theme.font — the stacks moved back out of the Uno theme, which is what lets presetWind4 emit its OWN --font-* and race them'
+  )
+
+  const css = distCss()
+    .map((f) => fs.readFileSync(f, 'utf8'))
+    .join('\n')
+  assert(css.length > 0, 'no CSS in dist/ — did astro build run?')
+
+  const report = []
+  for (const [slot, stack] of families) {
+    const decls = [...css.matchAll(new RegExp(`--font-${slot}\\s*:\\s*([^;}]+)`, 'g'))].map((m) =>
+      m[1].trim()
+    )
+    assert(
+      decls.length !== 0,
+      `--font-${slot} is never declared, but a utility still resolves var(--font-${slot}). ` +
+        `preflights.theme is 'on-demand': it emits a family only for one something was seen to use, and only sans and mono are guaranteed a user by wind4's reset. That is what the font safelist in uno.config.ts is for.`
+    )
+    assert(
+      decls.length === 1,
+      `--font-${slot} is declared ${decls.length} times (${decls.map((d) => JSON.stringify(d.slice(0, 40))).join(' then ')}). ` +
+        `Whichever wins here, DEV loads Uno's copy last and takes the other one — the site renders the fallback stack with a green build. Declare the stack ONCE, as a theme key in uno.config.ts.`
+    )
+
+    const expected = Array.isArray(stack) ? stack.join(',') : String(stack)
+    const norm = (v) =>
+      v
+        .replace(/["']/g, '')
+        .replace(/\s*,\s*/g, ',')
+        .trim()
+    assert(
+      norm(decls[0]) === norm(expected),
+      `--font-${slot} is declared as ${JSON.stringify(decls[0])}, but uno.config.ts asks for ${JSON.stringify(expected)}`
+    )
+
+    /* The first name is the only one the site actually ships; the rest are the OS
+       fallbacks. It must have a face to load, or the stack silently degrades to them. */
+    const primary = norm(expected).split(',')[0]
+    assert(
+      new RegExp(`font-family:\\s*["']?${primary}["']?`, 'i').test(css),
+      `--font-${slot} names '${primary}' first, but no @font-face declares it — every glyph comes from the fallback stack instead`
+    )
+    report.push(`${slot}=${primary}`)
+  }
+
+  const faces = (css.match(/@font-face/g) ?? []).length
+  return `${families.length} families, 1 declaration each (${report.join(', ')}) · ${faces} @font-face rules`
+})
+
 // --- A9 ----------------------------------------------------------------------------
 // 09 added this one. It guards the SINGLE path that changes at cutover: ticket 17 step 3
 // repoints every collection `base` from `./src/content` (the gitignored mirror) to
