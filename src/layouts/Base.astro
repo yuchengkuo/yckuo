@@ -14,7 +14,6 @@
  * (`injectEntry` defaults to true); shipping both puts a second copy of presetWind4's
  * reset over prose.css and utilities silently stop applying (07-3b, ladder A5).
  */
-import { ClientRouter, fade } from 'astro:transitions'
 import Analytics from '@vercel/analytics/astro'
 import Header from '../components/Header.svelte'
 import Footer from '../components/Footer.svelte'
@@ -22,6 +21,7 @@ import { getNavigation } from '../lib/navigation'
 import '../styles/theme.css'
 import '../styles/main.css'
 import '../styles/prose.css'
+import 'lenis/dist/lenis.css'
 
 interface Props {
   /** The document `<title>`, verbatim. Each route builds its own suffix. */
@@ -125,7 +125,6 @@ const { navigation, contact } = await getNavigation()
       }
     </script>
 
-    <ClientRouter />
   </head>
   <body>
     <Header client:load transition:persist pathname={pathname} />
@@ -139,7 +138,7 @@ const { navigation, contact } = await getNavigation()
       that is not itself `grid-subgrid` severs the subgrid chain — every `{% .span-N %}`
       on an image then goes inert, with a green build and no warning (07-4, ladder A4).
     */}
-    <main transition:animate={fade({ duration: '1s' })}>
+    <main>
       <slot />
     </main>
 
@@ -171,7 +170,7 @@ const { navigation, contact } = await getNavigation()
       import Lenis from 'lenis'
 
       if (!(window as any).__lenis) {
-        ;(window as any).__lenis = new Lenis({ autoRaf: true })
+        ;(window as any).__lenis = new Lenis({ autoRaf: true, lerp: 0.3 })
 
         document.addEventListener('astro:after-swap', () => {
           document.documentElement.classList.add('lenis', 'lenis-smooth')
@@ -191,15 +190,6 @@ const { navigation, contact } = await getNavigation()
        */
       vercel-analytics {
         display: none;
-      }
-
-      main {
-        /* Intro animation, verbatim from +layout.svelte:139-146 */
-        transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-        @starting-style {
-          opacity: 0;
-        }
       }
     </style>
   </body>
