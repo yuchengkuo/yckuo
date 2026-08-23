@@ -45,12 +45,14 @@ const { Content } = await render(entry)
     <p class="text-secondary font-mono text-xs mt-1">{entry.data.subtitle}</p>
   </div>
 
-  {/*
+  {
+    /*
     THE SPREAD IS LOAD-BEARING. `@astrojs/markdoc` turns every prop on `<Content />`
     into a Markdoc VARIABLE, which is how frontmatter reaches the body.
     `content/now.mdoc` opens with `{% $description %}` — one file, one variable, and
     without this spread that paragraph renders empty with a green build.
-  */}
+  */
+  }
   <Content {...entry.data} />
 
   <p class="mt-20 text-tertiary font-mono text-xs">

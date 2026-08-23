@@ -550,7 +550,9 @@ await check('A9', 'every declared collection base resolves', () => {
 
   const present = mdoc.filter((g) => fs.existsSync(path.resolve(ROOT, g.base)))
   if (present.length === 0)
-    return skip(`no collection base exists (${bases.join(', ')}) — run \`git submodule update --init\``)
+    return skip(
+      `no collection base exists (${bases.join(', ')}) — run \`git submodule update --init\``
+    )
 
   const empty = present.filter((g) => {
     const dir = path.resolve(ROOT, g.base)

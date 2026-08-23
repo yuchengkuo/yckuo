@@ -65,9 +65,8 @@ const orderedProjects = [
           <Intro {...page.data} />
         </div>
         <p class="text-tertiary mt-5 font-mono text-xs">
-          Updated at <time datetime={page.data.updated.toISOString()}>
-            {formatDate(page.data.updated)}
-          </time>
+          Updated at{' '}
+          <time datetime={page.data.updated.toISOString()}>{formatDate(page.data.updated)}</time>
         </p>
       </Fragment>
     )

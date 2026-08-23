@@ -64,7 +64,8 @@ const { navigation, contact } = await getNavigation()
 
     <title>{title}</title>
 
-    {/*
+    {
+      /*
       `content` is bound to a possibly-undefined value on purpose: Astro drops the
       attribute entirely when the value is `undefined`, which is how `/note` gets a bare
       `<meta name="description"/>` and no og:title at all.
@@ -72,7 +73,8 @@ const { navigation, contact } = await getNavigation()
       `description` is a PLAIN STRING, not markdown. It renders inside a `content="…"`
       attribute, so running it through a markdown transform would emit escaped `<p>`
       tags into the head.
-    */}
+    */
+    }
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
@@ -89,30 +91,33 @@ const { navigation, contact } = await getNavigation()
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={OG_IMAGE} />
 
-    {/*
+    {
+      /*
       The service worker registration, hand-written — Astro has no convention for it.
 
       The path MUST be absolute. A depth-relative `./service-worker.js` is wrong the
       moment the directory build format puts a page at `/note/windicss/`. And `is:inline`
       is load-bearing: it keeps this out of the module graph, so it cannot become a
       bundled chunk that the router re-imports on every swap.
-    */}
+    */
+    }
     <script is:inline>
       if ('serviceWorker' in navigator) {
         addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'))
       }
     </script>
-
   </head>
   <body>
     <Header client:load transition:persist pathname={pathname} />
 
-    {/*
+    {
+      /*
       NOTHING may sit between <main> and the page's own output. `main > :not(article)`
       in main.css is what applies `layout-content` to every direct child, and a wrapper
       that is not itself `grid-subgrid` severs the subgrid chain — every `{% .span-N %}`
       on an image then goes inert, with a green build and no warning. A10 asserts it.
-    */}
+    */
+    }
     <main>
       <slot />
     </main>
@@ -121,7 +126,8 @@ const { navigation, contact } = await getNavigation()
 
     <div data-layer role="presentation" transition:persist></div>
 
-    {/*
+    {
+      /*
       `injectAnalytics({ mode: dev ? 'development' : 'production' })` from
       `@vercel/analytics/sveltekit`. The same package ships an `/astro` entry point: the
       framework-agnostic `inject()` plus a `pageview()` call, both in the constructor of a
@@ -133,7 +139,8 @@ const { navigation, contact } = await getNavigation()
       switched off. Persisting it also leaks the directive's own
       `data-astro-transition-persist` key into `data-props`, which the component JSON-parses
       and forwards to `inject()` verbatim.
-    */}
+    */
+    }
     <Analytics mode={import.meta.env.DEV ? 'development' : 'production'} />
 
     <script>

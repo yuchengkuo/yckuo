@@ -23,7 +23,7 @@ import { formatDate } from '../../lib/util'
 import ImageAstroComponent from '$lib/media/Image.svelte'
 
 export async function getStaticPaths() {
-  const featured = (await getWorks())
+  const featured = await getWorks()
 
   return featured.map((entry, index) => ({
     /* `entry.id` is `work/<slug>`, so the route parameter is its tail. */
@@ -58,18 +58,20 @@ const metaEntries = Object.entries(entry.data.meta ?? {})
     <h1 class="text-6 leading-8 font-medium span-full">
       {entry.data.title}
     </h1>
-    {/*
+    {
+      /*
       `summary`, in what was `tagline`'s slot. CONTEXT.md gives the field one job in works
       and projects alike and puts it "directly under the heading on the page, and on the
       homepage card" — so it sits here, and the standalone Summary list that used to run
       under the metadata is gone rather than duplicating it.
-    */}
+    */
+    }
     <p class="span-4 mb-8 mt-1 lt-md:mt-1 font-mono text-secondary text-xs leading-5">
       {entry.data.summary}
     </p>
   </div>
 
-  <ImageAstroComponent id={entry.data.thumbnail} class='-mx-4 mb-12 rounded' />
+  <ImageAstroComponent id={entry.data.thumbnail} class="-mx-4 mb-12 rounded" />
 
   {/* Metadata */}
   <section class="grid-subgrid layout-full mb-16 prose">
