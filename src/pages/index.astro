@@ -1,6 +1,6 @@
 ---
 /*
- * The homepage. Three things here are load-bearing and easy to undo by accident:
+ * The homepage. Two things here are load-bearing and easy to undo by accident:
  *
  * 1. NOTHING may wrap this page's output. `main > :not(article)` in `main.css` is what
  *    applies `layout-content` to every direct child, and a non-subgrid wrapper severs
@@ -8,11 +8,6 @@
  * 2. Variant groups are written EXPANDED — `hover:brightness-90`, not
  *    `hover:(brightness-90)`. `transformerVariantGroup` does run over `.astro`, so both
  *    spellings work today; the expanded one does not depend on that staying true.
- * 3. `<Image />` carries NO `client:` directive. Its only client behaviour is the
- *    blur-placeholder fade, and `visible` is initialised `true` and can only be re-set
- *    to `true` — with nothing producing a `blurDataUrl`, hydration is a measurable
- *    no-op. An island here would also put an `<astro-island>` inside `<main>`, which is
- *    what A10 in the build gate fails on.
  *
  * Selected Work is not this file's markup — both halves render `WorkRow.astro`, and what
  * separates featured from additional work is the "Additional Works" label alone.
@@ -21,7 +16,6 @@ import { getEntry, render } from 'astro:content'
 import Base from '../layouts/Base.astro'
 import ProjectText from '../components/ProjectText.astro'
 import WorkRow from '../components/WorkRow.astro'
-import Image from '../lib/media/Image.svelte'
 import { getProjects, getWorks } from '../lib/collections'
 import { formatDate } from '../lib/util'
 
@@ -88,28 +82,7 @@ const orderedProjects = [
   <section id="projects">
     <h2>Projects</h2>
 
-    {
-      orderedProjects.map((project) =>
-        project.data.featured ? (
-          <div class="span-full grid-subgrid md:mb-20 mb-24">
-            {project.data.cover && (
-              <a
-                href={project.id}
-                class="span-full block bg-surface mb-3 md:mb-6 hover:brightness-90"
-              >
-                <Image id={project.data.cover} loading="eager" />
-              </a>
-            )}
-
-            <ProjectText project={project} />
-          </div>
-        ) : (
-          <div class="span-full md:span-4 mb-16">
-            <ProjectText project={project} />
-          </div>
-        )
-      )
-    }
+    {orderedProjects.map((project) => <ProjectText project={project} />)}
   </section>
 </Base>
 
