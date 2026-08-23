@@ -100,7 +100,31 @@ article,
 
   /* Definition List */
   dl {
-    --uno: 'font-mono text-xs mt-8 space-y-3 layout-content grid-subgrid';
+    --uno: 'font-mono text-xs mt-8 layout-content grid-subgrid';
+
+    /*
+     * `space-y-3` used to sit in the directive above, and it could not stay. presetWind4
+     * compiles it to `:where(& > :not(:last-child)) { margin-block-end: … }`, and
+     * `:where()` zeroes the specificity of everything inside it — so the rule lands at
+     * 0-0-0. The reset it has to beat, `*, ::before, ::after { margin: 0 }`, is ALSO
+     * 0-0-0. A perfect tie, broken only by source order.
+     *
+     * Dev loses that tie. `@unocss/astro` serves a SECOND copy of `/__uno.css` on a full
+     * page load — the dev-id mismatch already documented in `Base.astro` — appended after
+     * prose.css, so the reset wins and every dt/dd gap collapses to 0. A ClientRouter
+     * navigation rebuilds the head with one copy, ahead of prose.css, so the identical
+     * page renders correctly when reached by a link and wrongly when reloaded. That split
+     * is the whole symptom. The BUILD passes only by luck: dist happens to emit the reset
+     * first, so nothing here was ever load-bearing on purpose.
+     *
+     * Writing the child selector out drops the `:where()` wrapper, so the rule carries the
+     * specificity of its own selector and beats the reset whatever order the sheets land
+     * in. `mb-3` is what `space-y-3` resolved to anyway: `--un-space-y-reverse` is 0, which
+     * zeroes its `margin-block-start` and leaves `margin-block-end` at `--spacing * 3`.
+     */
+    > :not(:last-child) {
+      --uno: 'mb-1.5';
+    }
 
     dt {
       --uno: 'capitalize start-1 span-2 md:span-1 text-secondary relative after:(text-tertiary content-["/"] block absolute top-0 left-full)';
