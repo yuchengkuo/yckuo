@@ -41,6 +41,34 @@ generates no box but still sits in the DOM — and the corpus is placed almost e
 chain while leaving the HTML, the classes and the text correct. **A10 is where a new directive finds
 out.** No island renders inside `<main>`.
 
+## Comments
+
+Comments here are a decision log, not narration. Write for **an agent reading the file cold** —
+`CLAUDE.md` and the file, nothing else. Two tests, both must pass:
+
+1. Would a reader who never saw this repo's history **edit the code differently** because of this
+   sentence?
+2. Does it **stay true when the code around it changes**?
+
+Keep, most durable first — **external constraints** (upstream bugs, CSS and browser semantics,
+framework behaviour), **invariants a gate assertion backs**, then **rationale for a non-obvious
+choice**. Drop narration of the code below it: the code already says that, and it rots on every
+refactor.
+
+Prefer the asserted class. Where a comment states an invariant `port-guard.mjs` already checks,
+**name the assertion** (`A7`, `A10`) — a comment the build can falsify cannot rot silently. An
+invariant nothing asserts is either not load-bearing or wants a rung.
+
+- **No project archaeology.** No ticket numbers, no finding ids, no comparisons to the deleted
+  SvelteKit tree. Those citations point at `.scratch/`, which is gitignored — dangling for every
+  reader but the author, on the machine that wrote them. State the conclusion, drop the provenance.
+- **Cross-references are file-level only.** Naming a file survives most edits; "the comment at
+  `X.svelte`'s `$state`" is a link with no checker. Never reference a path under `.scratch/`.
+  Assertion names are the exception — `port-guard.mjs` is tracked and they are stable identifiers.
+- **Section labels are not comments.** `/* Heading */` in a stylesheet is structure. It stays.
+- **Say it is wrong when it is wrong.** A comment whose only honest form records an inconsistency
+  should record it, not be tidied into sounding deliberate.
+
 ## Project Architecture
 
 Astro 7 + Markdoc, prerendered, deployed on Vercel. Svelte 5 is present for the few components that
