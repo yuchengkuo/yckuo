@@ -127,9 +127,8 @@ page, and look deliberate.
 
 The declaration goes on the **wrapper inside the figure**, never on the figure — the figure also
 holds the caption, and a ratio there makes the caption eat the media's space. `aspectRatio` is a
-required prop on both media components. It was once declared and never assigned, and 124 boxes
-shipped `aspect-ratio: ` through two frameworks with a green build every time. A12 is what makes
-that unshippable now: it reads `dist/`, so it covers all three rendering surfaces at once, and its
+required prop on both media components. It was once declared and never assigned, so every box
+shipped `aspect-ratio: ` with a green build every time. A12 is what makes that unshippable now: it reads `dist/`, so it covers all three rendering surfaces at once, and its
 second half counts the boxes against what the corpus implies — which is what catches a call site
 that quietly stops rendering one. The projects `cover` field is excluded from that count, with the
 reason in the rung.

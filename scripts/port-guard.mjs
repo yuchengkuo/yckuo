@@ -12,8 +12,9 @@
  * scattered assertion gets deleted by whoever hits it at a bad moment, while a named gate
  * is visible in the build log.
  *
- * A1, A5 and A10 read `dist/`, which is why the gate runs post-build. A2, A3 and A9 read
- * source and would run anywhere; they are here so that there is one gate rather than two.
+ * A1, A5, A10, A11 and A12 read `dist/`, which is why the gate runs post-build. A2, A3,
+ * A7, A8 and A9 read source and would run anywhere; they are here so that there is one
+ * gate rather than two.
  *
  * ---------------------------------------------------------------------------------
  * STRUCTURE IS HARD, PROVENANCE WARNS.
@@ -76,9 +77,8 @@ const CENSUS = {
   utilities: 12,
   fences: 17,
   fenceLanguages: { ts: 10, svelte: 2, css: 2, html: 1, tsx: 1, liquid: 1 },
-  /* A12. Measured against the WORKING TREE, not `rev` above: the content reorganisation
-     it reflects is not committed yet, so no revision names it. Say it is wrong when it is
-     wrong — the number is real, its provenance is not. */
+  /* A12. Measured against a working tree, NOT against `rev` above — the count is real and
+     its provenance is not. Re-measure it with the rest of this block when `rev` moves. */
   mediaBoxes: 119,
   /* A2's probe. `note/markdoc-shiki` is chosen because it is heading-dense AND carries
      the ````liquid fence A3 needs, so one file exercises both paths. */
@@ -485,11 +485,11 @@ await check('A11', 'each font family is declared exactly once', async () => {
 })
 
 // --- A12 ---------------------------------------------------------------------------
-// The rung the whole feature exists behind. Every media box on the site shipped
-// `aspect-ratio: ` — an empty declaration every browser silently drops — through two
-// frameworks, with a green build and no warning every time. The transform declared the
-// variable and never assigned it. This is the exact shape the gate is for: green build,
-// no warning, visible damage, and no fallback path to take when it fires.
+// The rung the whole feature exists behind. Every media box on the site once shipped
+// `aspect-ratio: ` — an empty declaration every browser silently drops — because the
+// transform declared the variable and never assigned it. This is the exact shape the gate
+// is for: green build, no warning, visible damage, and no fallback path to take when it
+// fires.
 //
 // It reads `dist/`, which is what makes it cover the feature END TO END: body images,
 // body videos and the work thumbnail hero reach the page by different code paths, and
@@ -546,21 +546,20 @@ await check('A12', 'every media box reserves a real aspect ratio', () => {
   const rendered = sites.filter((s) => !s.draft && s.from !== 'cover')
   const byOrigin = {}
   for (const s of rendered) byOrigin[s.from] = (byOrigin[s.from] ?? 0) + 1
+  const breakdown = Object.entries(byOrigin)
+    .map(([from, n]) => `${n} ${from}`)
+    .join(', ')
 
   assert(
     boxes === rendered.length,
     `the build emits ${boxes} media box(es), but the corpus implies ${rendered.length} ` +
-      `(${Object.entries(byOrigin)
-        .map(([k, n]) => `${n} ${k}`)
-        .join(', ')}). ` +
+      `(${breakdown}). ` +
       `A call site has stopped rendering a box, or has started rendering one twice — either way the ` +
       `HTML, the classes and the text all stay correct, which is why nothing else catches it.`
   )
 
   census('A12', 'media boxes', boxes, CENSUS.mediaBoxes)
-  return `${boxes} boxes (${Object.entries(byOrigin)
-    .map(([k, n]) => `${n} ${k}`)
-    .join(', ')}) · all two positive integers`
+  return `${boxes} boxes (${breakdown}) · all two positive integers`
 })
 
 // --- A9 ----------------------------------------------------------------------------

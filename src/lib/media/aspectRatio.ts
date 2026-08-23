@@ -19,10 +19,9 @@ const RATIOS: Record<string, string> = ratios
 /**
  * The CSS ratio for a Cloudinary id, e.g. `'3840/3112'`.
  *
- * THROWS on anything it cannot resolve, and that is the feature. There is no default
- * ratio: a default reserves the wrong box, still shifts the page, and looks deliberate —
- * strictly worse than a build that stops and names the id. `pnpm ratios` records a
- * missing one; `pnpm dev` does it unprompted.
+ * THROWS on anything it cannot resolve, and that is the feature: there is no default
+ * ratio, for the reason `docs/adr/0001-committed-ratio-manifest.md` records. `pnpm ratios`
+ * records a missing one; `pnpm dev` does it unprompted.
  */
 export function aspectRatio(id: string | undefined): string {
   if (!id)

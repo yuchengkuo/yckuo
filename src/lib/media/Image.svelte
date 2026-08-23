@@ -11,10 +11,10 @@
     widths?: number[]
     sizes?: string[] | string | null
     transformations?: TransformerOption | TransformerVideoOption
-    /* REQUIRED. The original bug was a component rendering a box it could not size —
-       the transform declared this and never assigned it, so 124 boxes shipped
-       `aspect-ratio: ` and every browser dropped it, silently, through two frameworks.
-       There is no default, and A12 fails the build on any box that reaches dist unsized. */
+    /* REQUIRED. The original bug was a component rendering a box it could not size: the
+       transform declared this and never assigned it, so every box shipped `aspect-ratio: `
+       and every browser dropped it in silence. There is no default — the reasoning is in
+       `src/lib/media/aspectRatio.ts` — and A12 fails the build on any unsized box. */
     aspectRatio: string
     title?: string
     description?: string

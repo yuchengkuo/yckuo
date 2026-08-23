@@ -12,7 +12,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { census } from './slashify.mjs'
+/* `census()` there means image CALL SITES; `census()` in `port-guard.mjs` means recorded
+   provenance. Renamed at the import so one file never carries both meanings. */
+import { census as imageCallSites } from './slashify.mjs'
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const CONTENT_CONFIG = path.join(ROOT, 'src/content.config.ts')
@@ -71,12 +73,22 @@ export function collectionFiles() {
 }
 
 /**
- * The content root — every collection declares the same `base`, which is the submodule
- * itself, so anything that lives BESIDE the content (the ratio manifest, `navigation.yml`)
- * is resolved from here rather than from a second hard-coded path.
+ * The content root — the submodule itself. Anything living BESIDE the content (the ratio
+ * manifest, `navigation.yml`) resolves from here rather than from a second hard-coded path
+ * that could drift away from the one `content.config.ts` declares.
+ *
+ * That has one answer only while every collection shares one `base`, which is a property of
+ * `content.config.ts` and not of this file — so it is CHECKED, not assumed. A single
+ * divergent base would otherwise relocate the manifest silently.
  */
 export function contentRoot() {
-  return path.resolve(ROOT, collectionGlobs()[0].base)
+  const bases = [...new Set(collectionGlobs().map((g) => g.base))]
+  if (bases.length !== 1)
+    throw new Error(
+      `content.config.ts declares ${bases.length} different collection bases (${bases.join(', ')}), ` +
+        `so there is no single content root for the ratio manifest to sit beside.`
+    )
+  return path.resolve(ROOT, bases[0])
 }
 
 /** Frontmatter fields that name a Cloudinary id. Both are optional in their schema. */
@@ -110,11 +122,13 @@ export function mediaSites() {
     const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(raw)?.[1] ?? ''
     const draft = /^draft:[ \t]*true[ \t]*$/m.test(frontmatter)
 
-    for (const site of census(raw)) {
+    for (const site of imageCallSites(raw)) {
       const src = site.src
-      /* An absolute URL is somebody else's asset: it has no Cloudinary id and no
-         recordable dimensions. None in the corpus today; the branch is what keeps that
-         from becoming a build failure the day one appears. */
+      /* An absolute URL is somebody else's asset: no Cloudinary id, so nothing to key a
+         manifest entry on and nothing `fl_getinfo` can answer. Skipping it keeps the
+         generator from asking — it does NOT soften the outcome. `Img.astro` resolves a
+         ratio for every box it renders and throws when it cannot, so the first absolute
+         URL written into the corpus fails the build. None today. */
       if (/^[a-z][a-z0-9+.-]*:/i.test(src) || src === '') continue
       sites.push({
         id: src.replace(/^\//, ''),
