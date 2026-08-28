@@ -100,3 +100,93 @@ const orderedProjects = [
     --uno: "after:content-['/'] after:ml-2 after:font-mono after:text-xs after:text-tertiary";
   }
 </style>
+
+<style is:global>
+  /*
+   * The homepage intro stagger. `is:global` (not scoped) because Markdoc's rendered
+   * output carries no `data-astro-cid-*` attribute — a scoped block reaches `.prose`
+   * itself but never the paragraphs Markdoc renders inside it, and half the ladder
+   * below would silently stop matching. Page-local comes from this being defined on
+   * the homepage route at all: Astro bundles CSS per page, so nothing here ships on
+   * any other route.
+   *
+   * Ladder is coupled to the homepage's top-level child order (h1, .prose, p,
+   * section, section) — a new top-level section needs its own rung here, or it
+   * arrives at delay 0 alongside the heading.
+   */
+  main {
+    --intro-step: 50ms;
+  }
+
+  main > h1,
+  main > .prose > article > *,
+  main > p,
+  main > section {
+    animation: intro-arrive 500ms ease both;
+  }
+
+  /* Excluded: this container's own opacity would multiply against its animating
+     children below it, producing a compounded double-fade. */
+  main > .prose {
+    animation: none;
+  }
+
+  main > h1 {
+    animation-delay: 0ms;
+  }
+
+  /* Three named beats plus a clamp: a fourth paragraph gets its own rung, a fifth
+     and beyond share the fourth's, and removing a paragraph leaves no gap. */
+  main > .prose > article > :nth-child(1) {
+    animation-delay: calc(var(--intro-step) * 1);
+  }
+
+  main > .prose > article > :nth-child(2) {
+    animation-delay: calc(var(--intro-step) * 2);
+  }
+
+  main > .prose > article > :nth-child(3) {
+    animation-delay: calc(var(--intro-step) * 3);
+  }
+
+  main > .prose > article > :nth-child(n + 4) {
+    animation-delay: calc(var(--intro-step) * 4);
+  }
+
+  main > p {
+    animation-delay: calc(var(--intro-step) * 5);
+  }
+
+  main > section:nth-of-type(1) {
+    animation-delay: calc(var(--intro-step) * 6);
+  }
+
+  main > section:nth-of-type(2) {
+    animation-delay: calc(var(--intro-step) * 7);
+  }
+
+  @keyframes intro-arrive {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* A `@keyframes` redefined inside a conditional group rule wins wherever that
+     rule applies, so this replaces the lift-bearing keyframe above without
+     touching any delay, duration or easing declared against its name. */
+  @media (prefers-reduced-motion: reduce) {
+    @keyframes intro-arrive {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+</style>
