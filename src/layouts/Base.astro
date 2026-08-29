@@ -1,19 +1,10 @@
 ---
 /*
- * THE TWO-ISLAND SPLIT. The chrome cannot be one persisted island wrapping `<main>`:
- * its slot content would carry the old page's `<main>` across the swap. So Header and
- * Footer are two independent `client:load transition:persist` islands with a
- * NON-persisted `<main>` between them — the router replaces `<main>` and the fade plays
- * on the new one while the chrome survives. 20 navigations produce 1 Footer
- * instantiation, 1 `$effect` setup, 0 cleanups, and a flat tick rate.
- *
  * There is deliberately NO `import 'uno.css'` here. `@unocss/astro` injects it already
  * (`injectEntry` defaults to true); shipping both puts a second copy of presetWind4's
  * reset over `prose.css` and utilities silently stop applying. A5 asserts one entry
  * stylesheet per page.
  */
-import type { TransitionDirectionalAnimations } from 'astro'
-import { ClientRouter } from 'astro:transitions'
 import Analytics from '@vercel/analytics/astro'
 import Header from '../components/Header.svelte'
 import Footer from '../components/Footer.svelte'
@@ -22,33 +13,6 @@ import '../styles/theme.css'
 import '../styles/main.css'
 import '../styles/prose.css'
 import 'lenis/dist/lenis.css'
-
-/*
- * The one place this animation is defined. Duration and easing live here, next to the
- * `page-arrive` keyframe below that carries the scale and blur values — tuning either
- * side is one edit in this file.
- *
- * SYMMETRIC ON PURPOSE: `forwards` and `backwards` are the same pair, because Astro
- * keys them on history direction, not information architecture, and a directional cue
- * would read as a hierarchy between pages that do not have one. ONE KEYFRAME: the
- * outgoing side is `new` with `direction: 'reverse'` — the incoming half played
- * backwards — so there is one shape to keep in agreement, not two.
- */
-const pageArrive = {
-  old: { name: 'page-arrive', duration: 300, easing: 'ease-out', direction: 'reverse', fillMode: 'both' },
-  new: { name: 'page-arrive', duration: 300, easing: 'ease-out', fillMode: 'both' }
-}
-const PAGE_ARRIVE: TransitionDirectionalAnimations = { forwards: pageArrive, backwards: pageArrive }
-
-/*
- * `transition:animate="none"` on the root `<html>` element below disables the DEFAULT
- * root-level crossfade. Without it, the root group still animates every pixel not given
- * its own `view-transition-name` — which includes the persisted Header and Footer, since
- * `transition:persist` alone assigns none. `<main>`'s own `transition:animate` gives it
- * that name, which is what makes the root's opt-out necessary rather than redundant:
- * remove it and the chrome starts blurring and scaling with the page again, silently,
- * because nothing else guards it.
- */
 
 interface Props {
   /** The document `<title>`, verbatim. Each route builds its own suffix. */
@@ -79,12 +43,10 @@ const OG_IMAGE = `${SITE}/og/default.png`
 const { navigation, contact } = await getNavigation()
 ---
 
-<html lang="en" transition:animate="none">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <ClientRouter fallback="animate" />
 
     <!-- Favicons -->
     <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml" />
@@ -127,9 +89,7 @@ const { navigation, contact } = await getNavigation()
       The service worker registration, hand-written — Astro has no convention for it.
 
       The path MUST be absolute. A depth-relative `./service-worker.js` is wrong the
-      moment the directory build format puts a page at `/note/windicss/`. And `is:inline`
-      is load-bearing: it keeps this out of the module graph, so it cannot become a
-      bundled chunk that the router re-imports on every swap.
+      moment the directory build format puts a page at `/note/windicss/`.
     */
     }
     <script is:inline>
@@ -139,7 +99,7 @@ const { navigation, contact } = await getNavigation()
     </script>
   </head>
   <body>
-    <Header client:load transition:persist pathname={pathname} />
+    <Header client:load pathname={pathname} />
 
     {
       /*
@@ -149,13 +109,13 @@ const { navigation, contact } = await getNavigation()
       on an image then goes inert, with a green build and no warning. A10 asserts it.
     */
     }
-    <main transition:animate={PAGE_ARRIVE}>
+    <main>
       <slot />
     </main>
 
-    <Footer client:load transition:persist navigation={navigation} contact={contact} />
+    <Footer client:load navigation={navigation} contact={contact} />
 
-    <div data-layer role="presentation" transition:persist></div>
+    <div data-layer role="presentation"></div>
 
     {
       /*
@@ -163,70 +123,14 @@ const { navigation, contact } = await getNavigation()
       `@vercel/analytics/sveltekit`. The same package ships an `/astro` entry point: the
       framework-agnostic `inject()` plus a `pageview()` call, both in the constructor of a
       `<vercel-analytics>` custom element.
-
-      DELIBERATELY NOT `transition:persist`, and it was tried first. The router swaps the
-      body, so a non-persisted element is constructed once per navigation — which is the
-      only thing that reports the SPA pageview `inject({ disableAutoTrack: true })` has
-      switched off. Persisting it also leaks the directive's own
-      `data-astro-transition-persist` key into `data-props`, which the component JSON-parses
-      and forwards to `inject()` verbatim.
     */
     }
     <Analytics mode={import.meta.env.DEV ? 'development' : 'production'} />
 
     <script>
-      // Criterion (iii): scroll continuity. `swapRootAttributes` replaces <html>'s
-      // attributes on every swap, and lenis writes `class="lenis lenis-smooth"` there
-      // — so without the astro:after-swap re-stamp below smooth scrolling silently
-      // dies after nav 1. Negative control: <html>'s class list is [] after the first
-      // navigation when this block is absent.
       import Lenis from 'lenis'
-
-      if (!(window as any).__lenis) {
-        ;(window as any).__lenis = new Lenis({ autoRaf: true, lerp: 0.3 })
-
-        document.addEventListener('astro:after-swap', () => {
-          document.documentElement.classList.add('lenis', 'lenis-smooth')
-        })
-      }
+      new Lenis({ autoRaf: true, lerp: 0.3 })
     </script>
-
-    <style is:global>
-      /*
-       * `page-arrive`. GLOBAL, not scoped: `::view-transition-old()`/`::view-transition-new()`
-       * render in the UA's top-layer, outside the component-scoped `[data-astro-cid-*]`
-       * tree entirely — a scoped `<style>` here would compile a selector that can never
-       * match. `pageArrive` in the frontmatter above supplies duration and easing; this
-       * keyframe supplies scale and blur, so tuning either is one edit in this one file.
-       */
-      @keyframes page-arrive {
-        from {
-          opacity: 0;
-          scale: 0.99;
-          filter: blur(4px);
-        }
-        to {
-          opacity: 1;
-          scale: 1;
-          filter: blur(0);
-        }
-      }
-
-      /* Same technique the homepage intro stagger uses (index.astro): a `@keyframes`
-         redefined inside a conditional group rule wins wherever that rule applies, so
-         this drops scale and blur without touching the duration, easing or direction
-         declared against the name above. */
-      @media (prefers-reduced-motion: reduce) {
-        @keyframes page-arrive {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-      }
-    </style>
 
     <style is:global>
       /*

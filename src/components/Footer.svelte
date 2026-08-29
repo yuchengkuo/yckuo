@@ -1,7 +1,4 @@
 <script lang="ts">
-  // Island 2 of the two-island split. It is an island for one reason: the scramble
-  // interval must survive navigation, which `transition:persist` gives it — 20
-  // navigations produce 1 mount, 1 setup, 0 cleanups. Link data arrives as props.
   import Time from '$lib/view/Current/Time.svelte'
   import Year from '$lib/view/Current/Year.svelte'
   import { scramble } from '$lib/action/scramble/scramble.svelte'

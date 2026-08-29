@@ -28,13 +28,13 @@ npm-script alias — the shell script is the only entry point. `outputDirectory`
 
 ## The build gate — `scripts/port-guard.mjs`
 
-Eleven assertions that deliberately fail the build where the framework would otherwise **succeed
+Ten assertions that deliberately fail the build where the framework would otherwise **succeed
 quietly**: grid utilities missing from the generated CSS, `getHeadings()` silently zeroed by an async
 transform, an unlisted Shiki fence language, a missing UnoCSS entry, two `prose.css` rules, an
 `<astro-island>` inside `<main>`, a font family declared twice so the dev cascade picks the loser, a
 media box whose `aspect-ratio` is not two positive integers or whose call site has stopped rendering
-it, a collection glob that resolves to nothing, and `dist/` shipping without `ClientRouter`'s swap
-script. Every one of them was proven to bite by injection. It needs **Node ≥ 22.18** — it imports
+it, and a collection glob that resolves to nothing. Every one of them was proven to bite by injection.
+It needs **Node ≥ 22.18** — it imports
 `markdoc.config.mjs` and the TypeScript `src/lib/highlighter.ts` directly, so it relies on Node's
 type stripping.
 

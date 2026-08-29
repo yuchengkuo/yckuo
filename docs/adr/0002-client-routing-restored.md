@@ -1,6 +1,6 @@
 # 0002 — Client-side routing is restored, and the zero-JavaScript navigation path is given up
 
-Status: accepted
+Status: superseded by [0003](0003-client-routing-removed.md)
 Date: 2026-08-29
 
 ## Context
