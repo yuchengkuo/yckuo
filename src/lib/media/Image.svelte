@@ -85,7 +85,7 @@
   }
   /* Wrapper */
   figure > div {
-    --uno: 'rounded-0.5 bg-surface overflow-hidden';
+    --uno: 'rounded-0.5 bg-surface overflow-hidden border border-neutral';
   }
   img {
     --uno: 'w-full h-full object-cover object-center';

@@ -66,7 +66,7 @@
   }
   /* Wrapper */
   figure > div {
-    --uno: 'overflow-hidden rounded';
+    --uno: 'overflow-hidden rounded-0.5 border border-neutral';
   }
 
   video {
