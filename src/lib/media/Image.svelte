@@ -68,12 +68,12 @@
 
   {#if title}
     <figcaption>
-      {title}
-      {#if description}
-        <div class="text-tertiary mt-1">
-          <i class="i-ri-arrow-right-double-line"></i>
+      <span role="presentation" class="text-tertiary select-none w-fit">[→]</span><span
+        class="start-2">{title}</span
+      >{#if description}
+        <span class="block text-tertiary start-2">
           {description}
-        </div>
+        </span>
       {/if}
     </figcaption>
   {/if}
@@ -91,6 +91,6 @@
     --uno: 'w-full h-full object-cover object-center';
   }
   figcaption {
-    --uno: 'block w-fit h-fit mt-2 font-mono font-medium text-xs';
+    --uno: 'grid gap-x-1.5 w-fit h-fit mt-2.5';
   }
 </style>
