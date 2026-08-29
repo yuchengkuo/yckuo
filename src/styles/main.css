@@ -54,7 +54,7 @@ div[data-layer] {
 }
 
 body {
-  --uno: 'min-h-100vh';
+  --uno: 'min-h-100vh max-w-400 mx-auto';
   --uno: 'text-primary text-xs font-mono opacity-100';
   --uno: 'p-4 md:(px-10 pt-10 pb-20)';
 
