@@ -43,7 +43,7 @@ const readHover =
 ---
 
 <div class="grid-subgrid span-full mb-8 relative group">
-  <div class="md:span-4">
+  <div class="span-full md:span-4">
     <h3 class="mb-1.5">
       {
         /*
@@ -66,7 +66,9 @@ const readHover =
     </p>
   </div>
 
-  <div class="flex gap-2 children:inline-block start-5 span-2 w-fit h-fit justify-self-end">
+  <div
+    class="flex gap-2 children:inline-block start-5 span-2 w-fit h-fit justify-self-end lt-sm:hidden"
+  >
     {
       /*
       `relative` is what keeps this anchor clickable. The title's stretched `::after` is
