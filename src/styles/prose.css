@@ -104,8 +104,11 @@ article,
      * prose.css, so the reset wins and every dt/dd gap collapses to 0. A ClientRouter
      * navigation rebuilds the head with one copy, ahead of prose.css, so the identical
      * page renders correctly when reached by a link and wrongly when reloaded. That split
-     * is the whole symptom. The BUILD passes only by luck: dist happens to emit the reset
-     * first, so nothing here was ever load-bearing on purpose.
+     * is LIVE AGAIN now that `Base.astro` carries a `ClientRouter` — it was dead for a
+     * stretch when the router had gone missing, and describing it as an active hazard
+     * would have been false during that stretch. The BUILD passes only by luck either
+     * way: dist happens to emit the reset first, so nothing here was ever load-bearing
+     * on purpose.
      *
      * Writing the child selector out drops the `:where()` wrapper, so the rule carries the
      * specificity of its own selector and beats the reset whatever order the sheets land

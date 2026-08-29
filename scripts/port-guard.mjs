@@ -12,8 +12,8 @@
  * scattered assertion gets deleted by whoever hits it at a bad moment, while a named gate
  * is visible in the build log.
  *
- * A1, A5, A10, A11 and A12 read `dist/`, which is why the gate runs post-build. A2, A3,
- * A7, A8 and A9 read source and would run anywhere; they are here so that there is one
+ * A1, A5, A10, A11, A12 and A13 read `dist/`, which is why the gate runs post-build. A2,
+ * A3, A7, A8 and A9 read source and would run anywhere; they are here so that there is one
  * gate rather than two.
  *
  * ---------------------------------------------------------------------------------
@@ -560,6 +560,42 @@ await check('A12', 'every media box reserves a real aspect ratio', () => {
 
   census('A12', 'media boxes', boxes, CENSUS.mediaBoxes)
   return `${boxes} boxes (${breakdown}) · all two positive integers`
+})
+
+// --- A13 ---------------------------------------------------------------------------
+// The regression this rung exists for already happened once, silently: `ClientRouter`
+// went missing from `Base.astro`, every `transition:persist` went inert, four comment
+// blocks describing router behaviour went false, and `pnpm build` stayed green through
+// all of it — nothing else in this file reads the head. It took a grilling session on an
+// unrelated feature to notice.
+//
+// The marker is the `<meta name="astro-view-transitions-enabled">` tag `ClientRouter.astro`
+// itself renders — a stable part of its output contract — rather than the swap `<script>`'s
+// `src`, which carries a build hash and would make this rung fail on every rebuild for a
+// reason that has nothing to do with the router's presence.
+//
+// WHAT THIS DOES NOT ASSERT, ON PURPOSE: the keyframes, the scale/blur/duration values, or
+// any `::view-transition-*` rule. Those are tuned by eye (`Base.astro`), and a rung that
+// fails when someone adjusts a blur radius is a rung that gets deleted.
+await check('A13', 'every page ships ClientRouter (the router-goes-missing tripwire)', () => {
+  const pages = distHtml()
+  assert(pages.length > 0, 'no HTML in dist/ — did astro build run?')
+
+  const MARKER = /<meta\s+name="astro-view-transitions-enabled"\s+content="true"\s*\/?>/
+  const offenders = pages.filter((p) => !MARKER.test(fs.readFileSync(p, 'utf8')))
+
+  assert(
+    offenders.length === 0,
+    `${offenders.length} of ${pages.length} page(s) ship without ClientRouter's ` +
+      `<meta name="astro-view-transitions-enabled">: ` +
+      `${offenders.slice(0, 5).map((p) => path.relative(DIST, p)).join(', ')}` +
+      `${offenders.length > 5 ? ` (+${offenders.length - 5} more)` : ''}. ` +
+      `Every \`transition:persist\` directive and the \`astro:after-swap\` listener in ` +
+      `Base.astro go inert without it, with no build error — check the \`ClientRouter\` ` +
+      `import and <ClientRouter /> element are both still there.`
+  )
+
+  return `${pages.length} pages · ClientRouter present on all`
 })
 
 // --- A9 ----------------------------------------------------------------------------
