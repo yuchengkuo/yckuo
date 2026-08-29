@@ -1,12 +1,15 @@
 ---
 /*
- * THE BUILT SET IS FOUR PAGES, NOT TEN. Only featured work is linked from the homepage,
- * and only featured work has ever been built or served — the `featured` filter below is
- * what states that, since `getStaticPaths()` has no crawler to infer it.
+ * Every work is built, not just featured ones — `WorkRow.astro` links both halves of the
+ * homepage's list (featured and "Additional Works") to its own page here.
  *
- * The next-project wraparound needs the whole featured collection, which
- * `getStaticPaths()` already holds — so `next` is resolved once here and handed to each
- * page as a prop, rather than each page re-reading the collection to find its successor.
+ * The next-project wraparound needs the whole collection in the SAME order the homepage
+ * renders it: featured works first, then additional, each block by `published:desc` —
+ * `featuredFirst()` is what makes that order, since `getWorks()` alone returns one
+ * date-merged list that interleaves the two blocks and desyncs the "Next" link from what
+ * the homepage actually shows next. `getStaticPaths()` already holds the ordered list, so
+ * `next` is resolved once here and handed to each page as a prop, rather than each page
+ * re-reading the collection to find its successor.
  *
  * `<Content />` and every element around it are direct children of `<Base>`'s slot: no
  * wrapper may sit between `<main>` and page output. `main > article` gives the body its
@@ -19,20 +22,20 @@
 import { render, type CollectionEntry } from 'astro:content'
 import Base from '../../layouts/Base.astro'
 import { getWorks } from '../../lib/collections'
-import { formatDate } from '../../lib/util'
+import { formatDate, featuredFirst } from '../../lib/util'
 import ImageAstroComponent from '$lib/media/Image.svelte'
 import { aspectRatio } from '$lib/media/aspectRatio'
 
 export async function getStaticPaths() {
-  const featured = await getWorks()
+  const works = featuredFirst(await getWorks())
 
-  return featured.map((entry, index) => ({
+  return works.map((entry, index) => ({
     /* `entry.id` is `work/<slug>`, so the route parameter is its tail. */
     params: { slug: entry.id.replace(/^work\//, '') },
     props: {
       entry,
-      /* The next featured work, wrapping at the end. */
-      next: featured[index + 1 === featured.length ? 0 : index + 1]
+      /* The next work in homepage order, wrapping at the end. */
+      next: works[index + 1 === works.length ? 0 : index + 1]
     }
   }))
 }
@@ -122,6 +125,9 @@ const metaEntries = Object.entries(entry.data.meta ?? {})
 
   {/* Content — frontmatter as Markdoc variables, see `[...page].astro` */}
   <Content {...entry.data} />
+
+  <p role="presentation" class="mt-10 text-tertiary">//</p>
+
   <p class="mt-6 text-tertiary font-mono text-xs">
     Updated at <time datetime={entry.data.updated.toISOString()}
       >{formatDate(entry.data.updated)}</time

@@ -17,7 +17,7 @@ import Base from '../layouts/Base.astro'
 import ProjectText from '../components/ProjectText.astro'
 import WorkRow from '../components/WorkRow.astro'
 import { getProjects, getWorks } from '../lib/collections'
-import { formatDate } from '../lib/util'
+import { formatDate, featuredFirst } from '../lib/util'
 
 /*
  * `content/index.mdoc`, whose body is the intro. `entry.id` is the bare `index`.
@@ -38,10 +38,7 @@ const featuredWorks = works.filter((work) => work.data.featured)
 const additionalWorks = works.filter((work) => !work.data.featured)
 
 /* Featured first, then the rest — each half already in `published:desc`. */
-const orderedProjects = [
-  ...projects.filter((project) => project.data.featured),
-  ...projects.filter((project) => !project.data.featured)
-]
+const orderedProjects = featuredFirst(projects)
 ---
 
 <Base

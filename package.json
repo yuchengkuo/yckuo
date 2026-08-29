@@ -20,7 +20,7 @@
     "preview": "astro preview",
     "format": "prettier --write .",
     "ratios": "node scripts/aspect-ratios.mjs",
-    "selftest": "node scripts/converter-selftest.mjs && node scripts/getinfo-selftest.mjs"
+    "selftest": "node scripts/converter-selftest.mjs && node scripts/getinfo-selftest.mjs && node scripts/order-selftest.mjs"
   },
   "dependencies": {
     "@astrojs/markdoc": "2.0.6",
