@@ -28,8 +28,9 @@
  * shape an assertion exists for.
  * ---------------------------------------------------------------------------------
  */
-import { defineCollection, reference, z } from 'astro:content'
+import { defineCollection, reference } from 'astro:content'
 import { glob } from 'astro/loaders'
+import { z } from 'astro/zod'
 
 /*
  * The fields every collection shares.
@@ -56,9 +57,18 @@ const pages = defineCollection({
   schema: z.object({ ...shared })
 })
 
-/* Team data for `works` to reference. */
+/*
+ * Team data for `works` to reference. `generateId` strips the `work/team/` directory that
+ * `glob()` would otherwise bake into the id — `teams` is reference data, not a routed
+ * collection, so its ids should match what `org:` frontmatter naturally writes (`oen`), not
+ * the directory-carrying scheme `pages`/`works`/`projects`/`notes` use for their URLs.
+ */
 const teams = defineCollection({
-  loader: glob({ pattern: 'work/team/*.yml', base: './content' }),
+  loader: glob({
+    pattern: 'work/team/*.yml',
+    base: './content',
+    generateId: ({ entry }) => entry.replace(/^work\/team\//, '').replace(/\.yml$/, '')
+  }),
   schema: z.object({ ...shared })
 })
 
