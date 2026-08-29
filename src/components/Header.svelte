@@ -7,11 +7,11 @@
 </script>
 
 {#if pathname !== '/'}
-  <header class="fixed">
+  <header class="fixed z-50">
     <a
       aria-label="Homepage"
       href="/"
-      class="reset -translate-y-full text-secondary hover:text-primary"
+      class="reset text-secondary hover:text-primary"
       >↩ index
     </a>
   </header>
