@@ -12,8 +12,8 @@
  * scattered assertion gets deleted by whoever hits it at a bad moment, while a named gate
  * is visible in the build log.
  *
- * A1, A5, A10, A11 and A12 read `dist/`, which is why the gate runs post-build. A2, A3, A7,
- * A8 and A9 read source and would run anywhere; they are here so that there is one gate
+ * A1, A5, A10, A11, A12 and A14 read `dist/`, which is why the gate runs post-build. A2, A3,
+ * A7, A8 and A9 read source and would run anywhere; they are here so that there is one gate
  * rather than two.
  *
  * ---------------------------------------------------------------------------------
@@ -80,6 +80,9 @@ const CENSUS = {
   /* A12. Measured against a working tree, NOT against `rev` above — the count is real and
      its provenance is not. Re-measure it with the rest of this block when `rev` moves. */
   mediaBoxes: 119,
+  /* A14. Same caveat as A12's mediaBoxes: measured against a working tree, not `rev`. */
+  grids: 6,
+  derivedBoxes: 55,
   /* A2's probe. `note/markdoc-shiki` is chosen because it is heading-dense AND carries
      the ````liquid fence A3 needs, so one file exercises both paths. */
   headingProbe: { file: 'note/markdoc-shiki.mdoc', headings: 5 }
@@ -569,6 +572,101 @@ await check('A12', 'every media box reserves a real aspect ratio', () => {
 
   census('A12', 'media boxes', boxes, CENSUS.mediaBoxes)
   return `${boxes} boxes (${breakdown}) · all two positive integers`
+})
+
+// --- A14 ---------------------------------------------------------------------------
+// A13 stays retired (docs/adr/0003-client-routing-removed.md) and is not reused.
+//
+// Pairs `gridSpan.ts`'s table with `Grid.astro`'s stylesheet — two lists of span numbers
+// that have to agree, the same shape as A12 pairing `Img.astro` with `aspect-ratios.json`.
+// A `data-span` value with no matching `[data-span='N']` rule falls to span 1 with correct
+// HTML, correct classes, correct text and a green build; nothing else can see it.
+//
+// A SECOND, unrelated invariant shares this rung because it shares the read: a grid's
+// eight columns are not the page's twelve (docs/adr/0004-derived-grid-spans.md), so a
+// `.span-N` above 8 authored on a direct child of a grid asks for more tracks than the
+// subgrid has. CSS grids clamp an overrun span to whatever's left in silence rather than
+// erroring, which is the same failure shape as the first half with a different cause.
+//
+// Reads `dist/`, so it covers every grid on every rendering surface at once, same as A12.
+await check('A14', 'data-span matches Grid.astro CSS; no grid child spans past 8', () => {
+  const pages = distHtml()
+  assert(pages.length > 0, 'no HTML in dist/ — did astro build run?')
+
+  const GRID_OPEN = '<div class="media-grid"'
+  const NESTED_DIV = /<div\b|<\/div>/g
+
+  let grids = 0
+  let derivedBoxes = 0
+  const spanValues = new Set()
+  const overspan = []
+
+  for (const page of pages) {
+    const html = fs.readFileSync(page, 'utf8')
+
+    /* Grid blocks nest a `<div>` per media wrapper, so a naive "next `</div>`" (A10's
+       approach for `<main>`, which never nests) would truncate on the first one. This
+       counts depth instead. */
+    let from = 0
+    for (let start; (start = html.indexOf(GRID_OPEN, from)) !== -1;) {
+      grids++
+      const bodyStart = html.indexOf('>', start) + 1
+      NESTED_DIV.lastIndex = bodyStart
+      let depth = 1
+      let end = html.length
+      for (let m; (m = NESTED_DIV.exec(html));) {
+        depth += m[0] === '</div>' ? -1 : 1
+        if (depth === 0) {
+          end = m.index + m[0].length
+          break
+        }
+      }
+      const block = html.slice(start, end)
+      from = end
+
+      for (const [, value] of block.matchAll(/data-span="(\d+)"/g)) {
+        derivedBoxes++
+        spanValues.add(value)
+      }
+
+      /* Only a figure's OWN class list carries a placement token — the nested
+         aspect-ratio wrapper never does — but the check doesn't depend on that: nothing
+         else inside a grid block has a `span-*` token to false-positive on. */
+      for (const [, classList] of block.matchAll(/<figure\b[^>]*\bclass="([^"]*)"/g))
+        for (const token of classList.split(/\s+/)) {
+          const span = /^span-(\d+)$/.exec(token)
+          if (span && Number(span[1]) > 8) overspan.push(`${path.relative(DIST, page)}: .${token}`)
+        }
+    }
+  }
+
+  assert(
+    overspan.length === 0,
+    `${overspan.length} grid child(ren) carry a .span-* above 8: ${overspan.slice(0, 5).join('; ')}` +
+      `${overspan.length > 5 ? ` (+${overspan.length - 5} more)` : ''}. ` +
+      `A grid's eight columns are not the page's twelve — .span-9 through .span-12 ask for more ` +
+      `tracks than the subgrid has, and CSS clamps the overrun in silence rather than erroring.`
+  )
+
+  /* Grid.astro's scoped <style> has no client directive, so Astro inlines it per-page in
+     <head> rather than emitting it to a shared file in distCss() — the rule text lives in
+     the PAGE, not the stylesheet. Searching both is what makes this hold regardless of
+     which way a future build config emits it. */
+  const styleText = [...distCss(), ...pages].map((f) => fs.readFileSync(f, 'utf8')).join('\n')
+  const missing = [...spanValues].filter(
+    (v) => !new RegExp(`\\[data-span=["']?${v}["']?\\]`).test(styleText)
+  )
+  assert(
+    missing.length === 0,
+    `data-span value(s) ${missing.join(', ')} appear in dist/ with no matching rule in Grid.astro's ` +
+      `stylesheet — an unmatched value falls to span 1 with correct HTML, correct classes and a ` +
+      `green build. gridSpan.ts's table and Grid.astro's [data-span] rules have drifted apart.`
+  )
+
+  census('A14', 'grids', grids, CENSUS.grids)
+  census('A14', 'derived boxes', derivedBoxes, CENSUS.derivedBoxes)
+
+  return `${grids} grids · ${derivedBoxes} derived boxes · data-span {${[...spanValues].sort().join(',')}} all matched · none above span-8`
 })
 
 // --- A9 ----------------------------------------------------------------------------
