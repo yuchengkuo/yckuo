@@ -45,7 +45,7 @@ drift and skips to errors.
 
 **Adding a `client:` directive is a layout change.** `<astro-island>` is `display: contents`, which
 generates no box but still sits in the DOM — and the corpus is placed almost entirely by
-`>`-combinators (`main > article`, `> figure`, `.gallery > *`), so one island severs the subgrid
+`>`-combinators (`main > article`, `> figure`, `.media-grid > *`), so one island severs the subgrid
 chain while leaving the HTML, the classes and the text correct. **A10 is where a new directive finds
 out.** No island renders inside `<main>`.
 
@@ -108,7 +108,7 @@ required** — Astro reads a bare id as a local file and the build fails. Grid a
 `astro.config.mjs`'s `pipeline.include` and `uno.config.ts`'s extractor regex: either one alone
 kills all 68 of them with a green build and no warning. A1 asserts it.
 
-Custom tags: `{% gallery %}`, `{% expand %}`, `{% deflist %}`, `{% span %}`. Full authoring rules
+Custom tags: `{% grid %}`, `{% expand %}`, `{% deflist %}`, `{% span %}`. Full authoring rules
 live in `content/docs/CONTEXT.md`.
 
 ### Media boxes

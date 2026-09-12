@@ -1,0 +1,60 @@
+---
+/*
+ * `{% grid %}`. Replaces the old `Gallery.astro`-wrapping-`Gallery.svelte` pair with one
+ * component: nothing inside has client behaviour, so a Svelte layer bought only scoped
+ * CSS, and Astro's own `<style>` does that natively. Deliberately NO `client:` directive
+ * — A10 in `port-guard.mjs` asserts that no island renders inside `<main>`.
+ *
+ * `docs/adr/0004-derived-grid-spans.md` has the layout rationale.
+ */
+---
+
+<div class="media-grid">
+  <slot />
+</div>
+
+<style>
+  /*
+   * Eight columns, inset two on each side of the page's twelve — `start-3 span-8` is
+   * lines 3 to 11, leaving tracks 1-2 and 11-12 clear. `align-items: start` so a
+   * shorter item in a row doesn't stretch to its tallest neighbour.
+   *
+   * `md:start-3 md:span-8`, NOT bare `start-3 span-8` — the same `layout-content` /
+   * `layout-measure` idiom `main.css` uses, and not a cosmetic match. Astro's scoped
+   * style adds an attribute selector to this rule, so an unprefixed `start-3 span-8`
+   * would carry TWO selectors' worth of specificity (0-2-0) against prose's blanket
+   * `> *:not(...) { lt-md:layout-full }` fallback (0-1-1, one element + one
+   * attribute-in-:not()) — high enough to win the property outright and pin the
+   * desktop placement underneath it even inside prose's own mobile media query. Two
+   * non-overlapping media conditions (`span-full` below `md`, `md:start-3 md:span-8`
+   * at and above it) can't tie no matter how the specificity math comes out.
+   */
+  .media-grid {
+    --uno: 'grid-subgrid span-full md:start-3 md:span-8 items-start mt-24 lt-md:mt-8';
+    --uno: 'gap-y-4';
+  }
+
+  /* Scoped to `[data-span]`, not `> *`: `Img.astro` omits the attribute entirely on an
+     annotated image, so these rules never see one and never need to out-specificity its
+     own `.span-*`/`.start-*`/`.end-*` classes. One-up below `md`; `data-span`'s value
+     sizes it above. */
+  :global(.media-grid > [data-span]) {
+    --uno: 'span-full';
+  }
+
+  :global(.media-grid > [data-span='1']) {
+    --uno: 'md:span-1';
+  }
+
+  :global(.media-grid > [data-span='2']) {
+    --uno: 'md:span-2';
+  }
+
+  :global(.media-grid > [data-span='3']) {
+    --uno: 'md:span-3';
+  }
+
+  :global(.media-grid > [data-span='4']) {
+    --uno: 'md:span-4';
+  }
+</style>

@@ -190,11 +190,12 @@ export default defineMarkdocConfig({
       }
     },
 
-    // --- gallery -------------------------------------------------------------------
-    // `children: ['paragraph']` and not `['paragraph','tag']`: gallery members are
-    // written as markdown images, so they arrive as paragraphs.
-    gallery: {
-      render: component('./src/components/Gallery.astro'),
+    // --- grid ----------------------------------------------------------------------
+    // `children: ['paragraph']` and not `['paragraph','tag']`: grid members are
+    // written as markdown images, so they arrive as paragraphs. Renamed from `gallery`
+    // rather than aliased — `docs/adr/0004-derived-grid-spans.md` records why.
+    grid: {
+      render: component('./src/components/Grid.astro'),
       children: ['paragraph']
     },
 

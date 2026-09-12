@@ -14,6 +14,8 @@
 import Image from '../lib/media/Image.svelte'
 import Video from '../lib/media/Video.svelte'
 import { aspectRatio } from '../lib/media/aspectRatio'
+import { spanFromRatio } from '../lib/media/gridSpan'
+import { PLACEMENT_PREFIXES } from '../lib/media/placementTokens'
 
 // `class` is a reserved word in the destructuring position, hence the rename.
 //
@@ -25,7 +27,7 @@ import { aspectRatio } from '../lib/media/aspectRatio'
 // NEITHER BRANCH TAKES A `client:` DIRECTIVE. `<astro-island>` is `display: contents`,
 // so it generates no box — but CSS SELECTORS match the DOM tree, not the box tree. Every
 // `>`-combinator rule aimed at a figure lands on the island instead and the figure falls
-// through to auto-placement: `.gallery > *`, `main > article > *` and prose's `> figure`
+// through to auto-placement: `.media-grid > *`, `main > article > *` and prose's `> figure`
 // all read this way. A10 in `port-guard.mjs` asserts that no island renders inside
 // `<main>`, on every page of every build.
 //
@@ -35,12 +37,33 @@ import { aspectRatio } from '../lib/media/aspectRatio'
 // recorded. A12 asserts that every box the build emits carries a real ratio.
 const { class: className, image_isvideo, description, id, ...rest } = Astro.props
 const ratio = aspectRatio(id)
+
+/*
+ * `data-span` is read only inside `{% grid %}` — outside one, nothing looks at it, so
+ * no marker needs threading down from the tag transform. Every figure gets one unless
+ * the incoming class list already carries a bare span, start, or end annotation, which
+ * means the author placed this image themselves and the derived size steps aside
+ * entirely. An `lt-md:`-prefixed token doesn't count: it's a mobile-only placement, not
+ * the desktop override this is checking for, so anchoring the regex at the token start
+ * already excludes it without needing to strip the variant prefix first.
+ */
+const placementPattern = new RegExp(`^(?:${PLACEMENT_PREFIXES.join('|')})-`)
+const isPlaced = (className ?? '').split(/\s+/).some((token) => placementPattern.test(token))
+const [width, height] = ratio.split('/').map(Number)
+const dataSpan = isPlaced ? undefined : spanFromRatio(width / height)
 ---
 
 {
   image_isvideo ? (
-    <Video class={className} id={id} aspectRatio={ratio} {...rest} />
+    <Video class={className} id={id} aspectRatio={ratio} data-span={dataSpan} {...rest} />
   ) : (
-    <Image class={className} id={id} description={description} aspectRatio={ratio} {...rest} />
+    <Image
+      class={className}
+      id={id}
+      description={description}
+      aspectRatio={ratio}
+      data-span={dataSpan}
+      {...rest}
+    />
   )
 }

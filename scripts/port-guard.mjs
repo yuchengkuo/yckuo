@@ -139,15 +139,24 @@ function fenceCensus(files) {
 //
 // The ASSERTION derives the expected utility set from whatever source is present, so it
 // holds at any content revision. The pinned counts ride alongside as census.
-await check('A1', 'grid annotations reach the generated CSS', () => {
+await check('A1', 'grid annotations reach the generated CSS', async () => {
+  const { PLACEMENT_PREFIXES } = await import(
+    pathToFileURL(path.join(ROOT, 'src/lib/media/placementTokens.ts')).href
+  )
+  const prefixes = PLACEMENT_PREFIXES.join('|')
+
   const files = collectionFiles()
   if (files.length === 0) return skip('no content — run `git submodule update --init`')
   const sources = files.map((f) => fs.readFileSync(f, 'utf8'))
 
-  const blocks = sources.flatMap((s) => [...s.matchAll(/\{%[^%]*\.(?:span|start|end)-[^%]*%\}/g)])
-  const tokens = sources.flatMap((s) => [...s.matchAll(/\.(span|start|end)-([a-zA-Z0-9]+)/g)])
+  const blocks = sources.flatMap((s) => [
+    ...s.matchAll(new RegExp(`\\{%[^%]*\\.(?:${prefixes})-[^%]*%\\}`, 'g'))
+  ])
+  const tokens = sources.flatMap((s) => [
+    ...s.matchAll(new RegExp(`\\.(${prefixes})-([a-zA-Z0-9]+)`, 'g'))
+  ])
   const utilities = [...new Set(tokens.map((t) => `${t[1]}-${t[2]}`))].sort()
-  const gridFiles = sources.filter((s) => /\{%[^%]*\.(?:span|start|end)-/.test(s))
+  const gridFiles = sources.filter((s) => new RegExp(`\\{%[^%]*\\.(?:${prefixes})-`).test(s))
 
   census('A1', 'annotation blocks', blocks.length, CENSUS.gridBlocks)
   census('A1', '.span-* tokens', tokens.filter((t) => t[1] === 'span').length, CENSUS.spanTokens)
@@ -397,7 +406,7 @@ await check('A10', 'no display:contents wrapper inside <main> (the subgrid sever
     `${offenders.length} page(s) render an Astro wrapper element inside <main>: ` +
       `${offenders.slice(0, 5).join('; ')}${offenders.length > 5 ? ` (+${offenders.length - 5} more)` : ''}. ` +
       `These are display:contents — no box, but every \`>\`-combinator still matches them: ` +
-      `\`.gallery > *\`, \`main > article > *\` and prose's \`> figure\` / \`> figure + :not(figure)\` all read this way, ` +
+      `\`.media-grid > *\`, \`main > article > *\` and prose's \`> figure\` / \`> figure + :not(figure)\` all read this way, ` +
       `so the wrapped <figure> loses its utility AND becomes the grid item, landing on one track instead of four. ` +
       `The HTML, the classes and the text all stay correct, which is why nothing else catches it. ` +
       `If the component genuinely needs hydrating, the island must not sit between a grid container and its item.`
