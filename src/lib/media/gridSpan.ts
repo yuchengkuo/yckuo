@@ -1,9 +1,9 @@
 /*
  * Buckets an aspect ratio (width / height, as a plain number) into a `{% grid %}` column
- * span of 1-4 out of the grid's own eight columns. The table is tuned against the real
+ * span of 1-4 out of the grid's own ten columns. The table is tuned against the real
  * corpus, not derived from first principles — `docs/adr/0004-derived-grid-spans.md` records
- * the measurements (12.1% of cells wasted, 17 of 29 rows filled exactly, tallest row held to
- * 6.2 column-units) that fixed these four thresholds:
+ * the measurements (12.1% of cells wasted at eight columns, 21.5% at ten, 17 of 29 rows
+ * filled exactly, tallest row held to 6.2 column-units) that fixed these four thresholds:
  *
  *   ratio        span
  *   >= 0.8       4

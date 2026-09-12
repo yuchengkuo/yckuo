@@ -15,22 +15,22 @@
 
 <style>
   /*
-   * Eight columns, inset two on each side of the page's twelve — `start-3 span-8` is
-   * lines 3 to 11, leaving tracks 1-2 and 11-12 clear. `align-items: start` so a
+   * Ten columns, inset one on each side of the page's twelve — `start-2 span-10` is
+   * lines 2 to 12, leaving tracks 1 and 12 clear. `align-items: start` so a
    * shorter item in a row doesn't stretch to its tallest neighbour.
    *
-   * `md:start-3 md:span-8`, NOT bare `start-3 span-8` — the same `layout-content` /
+   * `md:start-2 md:span-10`, NOT bare `start-2 span-10` — the same `layout-content` /
    * `layout-measure` idiom `main.css` uses, and not a cosmetic match. Astro's scoped
-   * style adds an attribute selector to this rule, so an unprefixed `start-3 span-8`
+   * style adds an attribute selector to this rule, so an unprefixed `start-2 span-10`
    * would carry TWO selectors' worth of specificity (0-2-0) against prose's blanket
    * `> *:not(...) { lt-md:layout-full }` fallback (0-1-1, one element + one
    * attribute-in-:not()) — high enough to win the property outright and pin the
    * desktop placement underneath it even inside prose's own mobile media query. Two
-   * non-overlapping media conditions (`span-full` below `md`, `md:start-3 md:span-8`
+   * non-overlapping media conditions (`span-full` below `md`, `md:start-2 md:span-10`
    * at and above it) can't tie no matter how the specificity math comes out.
    */
   .media-grid {
-    --uno: 'grid-subgrid span-full md:start-3 md:span-8 items-start mt-24 lt-md:mt-8';
+    --uno: 'grid-subgrid span-full md:start-2 md:span-10 items-start mt-24 lt-md:mt-8';
     --uno: 'gap-y-4';
   }
 

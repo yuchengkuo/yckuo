@@ -583,13 +583,13 @@ await check('A12', 'every media box reserves a real aspect ratio', () => {
 // HTML, correct classes, correct text and a green build; nothing else can see it.
 //
 // A SECOND, unrelated invariant shares this rung because it shares the read: a grid's
-// eight columns are not the page's twelve (docs/adr/0004-derived-grid-spans.md), so a
-// `.span-N` above 8 authored on a direct child of a grid asks for more tracks than the
+// ten columns are not the page's twelve (docs/adr/0004-derived-grid-spans.md), so a
+// `.span-N` above 10 authored on a direct child of a grid asks for more tracks than the
 // subgrid has. CSS grids clamp an overrun span to whatever's left in silence rather than
 // erroring, which is the same failure shape as the first half with a different cause.
 //
 // Reads `dist/`, so it covers every grid on every rendering surface at once, same as A12.
-await check('A14', 'data-span matches Grid.astro CSS; no grid child spans past 8', () => {
+await check('A14', 'data-span matches Grid.astro CSS; no grid child spans past 10', () => {
   const pages = distHtml()
   assert(pages.length > 0, 'no HTML in dist/ — did astro build run?')
 
@@ -635,16 +635,16 @@ await check('A14', 'data-span matches Grid.astro CSS; no grid child spans past 8
       for (const [, classList] of block.matchAll(/<figure\b[^>]*\bclass="([^"]*)"/g))
         for (const token of classList.split(/\s+/)) {
           const span = /^span-(\d+)$/.exec(token)
-          if (span && Number(span[1]) > 8) overspan.push(`${path.relative(DIST, page)}: .${token}`)
+          if (span && Number(span[1]) > 10) overspan.push(`${path.relative(DIST, page)}: .${token}`)
         }
     }
   }
 
   assert(
     overspan.length === 0,
-    `${overspan.length} grid child(ren) carry a .span-* above 8: ${overspan.slice(0, 5).join('; ')}` +
+    `${overspan.length} grid child(ren) carry a .span-* above 10: ${overspan.slice(0, 5).join('; ')}` +
       `${overspan.length > 5 ? ` (+${overspan.length - 5} more)` : ''}. ` +
-      `A grid's eight columns are not the page's twelve — .span-9 through .span-12 ask for more ` +
+      `A grid's ten columns are not the page's twelve — .span-11 and .span-12 ask for more ` +
       `tracks than the subgrid has, and CSS clamps the overrun in silence rather than erroring.`
   )
 
@@ -666,7 +666,7 @@ await check('A14', 'data-span matches Grid.astro CSS; no grid child spans past 8
   census('A14', 'grids', grids, CENSUS.grids)
   census('A14', 'derived boxes', derivedBoxes, CENSUS.derivedBoxes)
 
-  return `${grids} grids · ${derivedBoxes} derived boxes · data-span {${[...spanValues].sort().join(',')}} all matched · none above span-8`
+  return `${grids} grids · ${derivedBoxes} derived boxes · data-span {${[...spanValues].sort().join(',')}} all matched · none above span-10`
 })
 
 // --- A9 ----------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 # 0004 — Column spans inside `{% grid %}` are derived from the ratio manifest, not authored
 
-Status: accepted
+Status: accepted — width superseded by [0005](0005-grid-widened-to-ten-columns.md)
 Date: 2026-09-01
 
 ## Context
