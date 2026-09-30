@@ -15,21 +15,10 @@ export default defineConfig({
   /* `content: { filesystem }` lives in the `unocss()` integration call in
      astro.config.mjs instead, and points at the `content/` submodule. */
   /*
-   * `enforce: 'pre'` is a DEV-ONLY fix, and it is not cosmetic. Astro's dev CSS plugin
-   * (`vite-plugin-css`, no `enforce`) snapshots each stylesheet's `code` into
-   * `cssContentCache` in its `transform` hook, and that snapshot is what gets inlined as
-   * `<style data-vite-dev-id>` during dev SSR. `transformerDirectives()` defaults to the
-   * same unenforced phase and is registered after Astro's own plugins, so the cache took
-   * the PRE-transform source: every dev page shipped the 77 `--uno: '…'` declarations of
-   * main.css + prose.css verbatim — inert custom properties. First paint was unstyled
-   * until Vite's client module (which does run the full chain) swapped the compiled CSS
-   * in. That is the dev FOUC on every navigation. `pre` puts the directive transform
-   * ahead of the snapshot.
-   *
-   * Production is unaffected either way. NOT byte-for-byte — the build is not
-   * order-deterministic, and two clean builds of identical config already differ in the
-   * emission order of `theme: 'on-demand'` variables. Verified the way that actually
-   * holds: same 1158 declarations, identical multiset, identical cascade winners.
+   * `enforce: 'pre'`, for dev: Astro's dev CSS plugin snapshots each stylesheet in its
+   * `transform` hook for SSR inlining, and an unenforced directive transform runs after
+   * it — first paint ships raw `--uno:` declarations and is unstyled. The build is
+   * unaffected.
    */
   transformers: [transformerDirectives({ enforce: 'pre' }), transformerVariantGroup()],
   extractors: [
@@ -37,11 +26,7 @@ export default defineConfig({
       name: 'MDC order',
       order: 10,
       async extract(ctx) {
-        // `.mdoc` MUST be in this list, and so must `mdoc` in the pipeline include
-        // in `astro.config.mjs`. The whole grid vocabulary — every `{% .span-* %}` and
-        // `{% .start-* %}` annotation — exists ONLY inside content, so if the extractor
-        // stops matching, Uno stops generating `col-span-*` and every image collapses to
-        // one column. Green build, no warning. A1 asserts it.
+        // `mdoc` must stay here and in `astro.config.mjs`'s `pipeline.include` — A1.
         if (!/\.(?:md|mdc|mdoc|markdown)$/i.test(ctx.id ?? '')) return
 
         ctx.code.match(/\.[\w:/\-]+/g)?.forEach((c) => {
@@ -74,32 +59,11 @@ export default defineConfig({
   ],
   theme: {
     /*
-     * The font stacks live HERE, not in theme.css, and that is load-bearing.
+     * Declared here and nowhere else: presetWind4 emits its own `--font-*`, so a second
+     * `:root` in theme.css races it, and dev's appended `__uno.css` (see
+     * `astro.config.mjs`) wins. A11 asserts the single declaration.
      *
-     * presetWind4 emits its own `--font-sans` / `--font-serif` / `--font-mono` into the
-     * preflight `:root,:host` block for every family a utility actually uses. A second
-     * `:root` declaring them in theme.css does not replace that one — it races it, and
-     * the winner is whichever stylesheet the browser sees last.
-     *
-     * DEV sees Uno last. `@unocss/astro` rewrites the resolved virtual id `/__uno.css`
-     * to an absolute `<root>/__uno.css` in its own `resolveId`, so the client-injected
-     * copy carries a different `data-vite-dev-id` than the SSR-inlined one. Vite dedupes
-     * dev styles on that id, so it appends a second copy instead of replacing the first,
-     * and the appended copy lands after theme.css. Every family fell back to the system
-     * default — with a clean build, no console error, and all 26 `@font-face` rules
-     * correctly registered. The BUILD was unaffected: dist happened to order theme.css
-     * last, so `pnpm build` could never see it.
-     *
-     * Declaring them as theme keys collapses two declarations into one, so there is no
-     * order left to get wrong. The @font-face rules stay in theme.css — they are what
-     * these stacks name. A11 in the gate asserts the single declaration.
-     */
-    /*
-     * Strings, NOT arrays. presetWind4 declares its own defaults as arrays, but a
-     * user-config `font` value only reaches the preflight as a string: an array here
-     * emits NO `--font-*` declaration at all, and the `font-sans` utility still
-     * resolves to `var(--font-sans)` — so the page renders the reset fallback with a
-     * clean build and no warning. Measured: arrays -> 0 declarations, strings -> 3.
+     * Strings, not arrays: an array emits no `--font-*` declaration at all, silently.
      */
     font: {
       sans: 'Brockmann, ui-sans-serif, sans-serif',
@@ -173,27 +137,17 @@ export default defineConfig({
     [/^start-(.*)$/, ([, r]) => `col-start-${r}`],
     [/^end-(.*)$/, ([, r]) => `col-end-${r}`],
     /*
-     * Layout tokens — the single source of truth for column placement.
-     *
-     * The body is a 6-column grid on mobile and a 12-column grid from `md` up.
-     * Each token carries its own responsive behaviour, so a call site names a
-     * layout *intent* and never writes a breakpoint prefix or a raw column
-     * number. Below `md` all four resolve to a full span (full-bleed default);
-     * they diverge only above it. Multi-column behaviour on mobile is an
-     * explicit opt-in, never something inherited by accident.
-     *
-     * Deliberately not prefixed `col-`, which would collide with both the
-     * preset's native column utilities and the `span-`/`start-`/`end-`
-     * shortcuts above.
+     * Layout tokens: a call site names an intent, never a breakpoint or column number. All
+     * four are full-width below `md`. Not prefixed `col-`, which collides with the preset's
+     * column utilities.
      */
     {
-      /* Edge to edge at every width. */
       'layout-full': 'span-full',
-      /* The primary content column: columns 3–10 on desktop. */
+      /* Columns 4–9 of 12. */
       'layout-content': 'span-full md:start-4 md:span-6',
-      /* The narrower reading measure: columns 3–7 on desktop. */
+      /* Columns 4–8 of 12. */
       'layout-measure': 'span-full md:start-4 md:span-5',
-      /* The left-hand escape used by code blocks and asides: columns 1–6. */
+      /* Columns 1–6 of 12. */
       'layout-aside': 'span-full md:start-1 md:span-6'
     }
   ],
@@ -220,17 +174,9 @@ export default defineConfig({
     }
   ],
   /*
-   * The three font utilities are safelisted because `preflights.theme: 'on-demand'`
-   * only emits a `--font-*` declaration for a family something was seen to use, and
-   * only `sans` and `mono` are guaranteed a user: wind4's own reset references them
-   * through `--default-font-family` / `--default-monoFont-family`. Nothing references
-   * serif. Its one caller is `em:not(:has(> code))` in main.css, written as a `--uno:`
-   * directive — which the build scans but DEV extracts lazily, so a dev page that had
-   * not yet pulled in a serif token shipped `font-family: var(--font-serif)` with the
-   * variable never declared, and every <em> fell back to the inherited sans.
-   *
-   * Safelisting costs three unused class rules and makes the emission independent of
-   * when the scanner happens to reach a caller.
+   * `theme: 'on-demand'` emits a `--font-*` only for a family something uses, and dev
+   * extracts lazily — so `font-serif`, used only by main.css's `em` rule, could be missing
+   * on a dev page.
    */
   safelist: ['font-sans', 'font-serif', 'font-mono'],
   rules: [['max-w-9xl', { 'max-width': '96rem' }]],

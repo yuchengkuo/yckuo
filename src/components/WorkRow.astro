@@ -1,41 +1,14 @@
 ---
 /*
- * One row of the Selected Work list — Figma `Home / Frame 51` (node 6230:79941).
+ * Figma `Home / Frame 51` (node 6230:79941).
  *
- * `[year]` and title on one line, summary indented to the title's left edge, READ
- * pinned to the right. Featured and additional work share that row shape exactly — the
- * two subgrids, the placement, the stretched link. What separates them is the
- * "Additional Works" label and the button's emphasis: primary on featured, secondary on
- * the rest. Both call sites render this component.
+ * The outer subgrid places text on `layout-content` columns 1–5 and the button on 6: the
+ * frame was drawn on this grid (557 and 672px at 1440), so naming columns reproduces it at
+ * every width where a transcribed 557px would not. The button is hidden below `md` by
+ * decision, so `start-6 span-1` needs no `md:` prefix.
  *
- * TWO nested subgrids, and both are load-bearing:
- *
- * 1. The outer `grid-subgrid` puts the text block on the section's columns 1–5 and the
- *    button on column 6. Those are not approximations of the design — they are what the
- *    design IS. At 1440 the body's 12 columns inside `px-10` with `gap-x-4` measure
- *    98.67px, so `layout-content`'s 6 columns come to 672 and its first 5 to 557: Frame
- *    51 is 672 wide, its text block is 557, and its button starts at 616, which is
- *    672 − 56. The frame was drawn ON this grid. Naming the columns therefore reproduces
- *    it exactly AND keeps it correct at every other width, which a transcribed 557px
- *    would not.
- *
- *    Below `md` the button is `hidden` outright, by decision — the design has no mobile
- *    frame, and a 56px button on a 6-column grid can only stack under the text, where it
- *    duplicates a tap target the title already is. `start-6 span-1` therefore carries NO
- *    `md:` prefix: the placement is unreachable below the breakpoint, so prefixing it
- *    would emit two more rules that can never match. The text block keeps its `md:` on
- *    `span-5`, because IT still renders at every width.
- *
- * 2. The h3's `grid-cols-subgrid` over the text block's own `[auto_1fr]` grid is what
- *    indents the summary to the title rather than to the row. The design hard-codes it
- *    as 54px of left padding (the `[2026]` measure, 42px, plus the 12px gap); deriving
- *    it from the year's own column instead survives a four-digit year rendering wider or
- *    narrower than the one that was measured. It also keeps the year INSIDE the heading,
- *    which is what keeps a screen reader hearing one heading rather than a stray
- *    paragraph ahead of one.
- *
- * No `client:` directive and no `<astro-island>`: the row is static, and A10 in the build
- * gate is what would catch a later one.
+ * The h3's `grid-cols-subgrid` indents the summary to the title by the year's own column
+ * rather than the design's hard-coded 54px, and keeps the year inside the heading.
  */
 import type { CollectionEntry } from 'astro:content'
 import { formatDate } from '../lib/util'
@@ -46,41 +19,19 @@ interface Props {
 
 const { work } = Astro.props
 /*
- * NOT `work.data.published ?? ''`. `published` is optional and `collections.ts` treats
- * the missing case as reachable, and `formatDate(new Date(''))` throws `RangeError:
- * Invalid time value` from a stack that names neither this file nor the offending
- * `.mdoc`. This is the only renderer of the year, so it is the only place to catch it.
- *
- * The empty span, rather than no span, is deliberate: it holds column 1 of the h3's
- * subgrid open so a dateless row keeps the same two-column shape as the rest. The column
- * is `auto`, so it collapses to nothing and the title sits a 12px gap in from the margin.
+ * Not `published ?? ''`: `published` is optional, and `formatDate('')` throws a RangeError
+ * that names neither this file nor the `.mdoc`. The span still renders empty, holding the
+ * h3's first column so a dateless row keeps its shape.
  */
 const year = work.data.published ? formatDate(work.data.published, { year: 'numeric' }) : null
 
 /*
- * The button's emphasis — the one thing that differs between a featured row and an
- * additional one. Read off `work.data.featured` rather than taken as a prop: the two call
- * sites in `index.astro` are `works.filter((w) => w.data.featured)` and its negation, so a
- * `variant` prop would restate a fact the entry already carries AND could contradict the
- * list it was rendered into. A third call site gets the right button with no argument.
+ * Read off `featured` rather than a prop, which could contradict the list the row was
+ * rendered into.
  *
- * Every class is spelled out whole because the extractor reads raw file text: a
- * `button-${variant}` template generates no CSS at all, with a green build and a class
- * attribute that still reads correctly in the DOM. The variant groups are EXPANDED for
- * the same reason `index.astro`'s header gives for expanding its own —
- * `transformerVariantGroup` rewrites source text, and a frontmatter string literal is not
- * where the hover state should be staked on it reaching.
- *
- * `group-hover:` and not the anchor's own `:hover` — the reason is at the anchor below.
- * The mirrored declarations are NOT the same set for the two variants:
- * `.button-secondary`'s `hover:()` flips the text to `text-on-color` as well, which
- * `.button-primary`'s has no need to, carrying it already at rest. Hence one keyed pair
- * per variant, so a class and its mirror are a single edit.
- *
- * Both hover states resolve to `bg-rx-gray-12` over a transparent border with on-color
- * text, so the two variants are pixel-identical WHILE hovered and distinct only at rest.
- * That is the button system's own answer, accepted here rather than forked: one row is
- * hovered at a time, so the two are never seen side by side in that state.
+ * Mirrors each variant's `:hover` from main.css onto `group-hover:` — see the anchor below.
+ * Keep in sync; the secondary variant also flips the text colour. Spelled out whole: the
+ * extractor reads raw file text, so a template literal generates no CSS.
  */
 const button = work.data.featured
   ? 'button-primary group-hover:bg-button-primary-hover group-hover:border-transparent'
@@ -93,13 +44,8 @@ const button = work.data.featured
       <span class="text-tertiary font-mono text-xs">{year && `[${year}]`}</span>
       {
         /*
-        The stretched link: `::after` covers the row's padding box (not its `mb-8`, which
-        is margin), so the whole row is the tap target while the DOM keeps ONE anchor.
-        A wrapping `<a class="contents">` cannot do this — `<a>` may not contain `<a>`,
-        and the parser's adoption agency algorithm answers one by closing the wrapper
-        into an empty sibling and cloning it down the tree. The row still renders, the
-        classes are all still correct, and the link is silently broken. Astro emits what
-        you wrote; the browser is what rewrites it, so only the DOM shows the damage.
+        A stretched `::after` rather than a wrapping `<a>`: the row holds another link, and
+        the HTML parser splits nested anchors apart, silently breaking the wrapper.
       */
       }
       <a class="after:absolute after:inset-0 after:content-empty" href={work.id}
@@ -111,22 +57,11 @@ const button = work.data.featured
 
   {
     /*
-    `aria-hidden` + `tabindex="-1"`, together and never one without the other. Both call
-    sites render this component now, so the section emits TEN `READ →` anchors where it
-    used to emit five — and each one duplicates the destination of the title link three
-    lines above it. A screen reader's link list would read "READ →" ten times over with
-    nothing to tell them apart. Hiding a focusable element from the a11y tree is a
-    violation on its own; paired with removal from the tab order it is the standard
-    treatment for a redundant affordance, and the title link still reaches the page for
-    both keyboard and AT. Labelling it instead would leave twenty links for ten works.
+    `aria-hidden` and `tabindex="-1"` go together, never one alone: this duplicates the
+    title link, and a focusable element hidden from the a11y tree is a violation.
 
-    `group-hover:` and NOT the button's own `:hover`, which is dead here. The title
-    link's stretched `::after` is positioned, so it paints above this statically
-    positioned anchor and swallows its pointer events — neither `.button-primary:hover`
-    nor `.button-secondary:hover` in main.css can ever match once the overlay is in
-    place. Hovering the ROW is the only signal left, so those declarations are mirrored
-    onto the row's `group`. Keep both mirrors in sync with their rules in main.css —
-    they are not the same declarations for the two variants; see `button` above.
+    Its own `:hover` never fires — the title's stretched `::after` covers it — so the row's
+    `group-hover:` stands in.
   */
   }
   <a

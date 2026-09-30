@@ -1,23 +1,11 @@
 ---
 /*
- * Every work is built, not just featured ones — `WorkRow.astro` links both halves of the
- * homepage's list (featured and "Additional Works") to its own page here.
+ * Every work is built, featured or not — the homepage links both.
  *
- * The next-project wraparound needs the whole collection in the SAME order the homepage
- * renders it: featured works first, then additional, each block by `published:desc` —
- * `featuredFirst()` is what makes that order, since `getWorks()` alone returns one
- * date-merged list that interleaves the two blocks and desyncs the "Next" link from what
- * the homepage actually shows next. `getStaticPaths()` already holds the ordered list, so
- * `next` is resolved once here and handed to each page as a prop, rather than each page
- * re-reading the collection to find its successor.
+ * `featuredFirst()` so "Next" follows the homepage's order, not the date order.
  *
- * `<Content />` and every element around it are direct children of `<Base>`'s slot: no
- * wrapper may sit between `<main>` and page output. `main > article` gives the body its
- * own subgrid, which is why `<Content />` is not wrapped in a `.prose` div the way the
- * homepage's intro is.
- *
- * `ogType` below REPLACES the layout default rather than adding to it, so a work page
- * carries one `og:type` and one `description`, not two of each.
+ * No wrapper between `<main>` and this output; `main > article` gives the body its own
+ * subgrid, so `<Content />` needs no `.prose` div.
  */
 import { render, type CollectionEntry } from 'astro:content'
 import Base from '../../layouts/Base.astro'
@@ -30,11 +18,9 @@ export async function getStaticPaths() {
   const works = featuredFirst(await getWorks())
 
   return works.map((entry, index) => ({
-    /* `entry.id` is `work/<slug>`, so the route parameter is its tail. */
     params: { slug: entry.id.replace(/^work\//, '') },
     props: {
       entry,
-      /* The next work in homepage order, wrapping at the end. */
       next: works[index + 1 === works.length ? 0 : index + 1]
     }
   }))
@@ -62,25 +48,12 @@ const metaEntries = Object.entries(entry.data.meta ?? {})
     <h1 class="text-6 leading-8 font-medium span-full">
       {entry.data.title}
     </h1>
-    {
-      /*
-      `summary`, in what was `tagline`'s slot. CONTEXT.md gives the field one job in works
-      and projects alike and puts it "directly under the heading on the page, and on the
-      homepage card" — so it sits here, and the standalone Summary list that used to run
-      under the metadata is gone rather than duplicating it.
-    */
-    }
     <p class="span-4 mb-8 mt-1 lt-md:mt-1 font-mono text-secondary text-xs leading-5">
       {entry.data.summary}
     </p>
   </div>
 
   {
-    /* The one image that shifts before the reader has started reading at all: it sits above
-       the fold, so the title and summary move as the page settles. It resolves through the
-       SAME lookup as body media — frontmatter media differs in where the id comes from and
-       in nothing else. `thumbnail` is optional and some work files carry none, so this
-       renders no box rather than an unsized one. */
     entry.data.thumbnail && (
       <ImageAstroComponent
         id={entry.data.thumbnail}
@@ -96,8 +69,6 @@ const metaEntries = Object.entries(entry.data.meta ?? {})
       metaEntries.length > 0 && (
         <dl aria-label="Project metadata">
           {metaEntries.map(([key, value]) => {
-            /* A meta value is a string or a list of strings; a string that looks like a
-               URL becomes a link labelled with its bare host and path. */
             const label = typeof value === 'string' ? value.replace(/^(https?):\/\//, '') : ''
             return (
               <Fragment>

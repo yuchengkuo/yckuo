@@ -1,46 +1,23 @@
 /*
- * The collection schemas.
+ * Every collection shares one base, the submodule itself, so `entry.id` carries the
+ * directory and `/${entry.id}` is the URL with no per-collection rule. The routes depend on
+ * it. A9 catches a mistyped base.
  *
- * FIVE collections plus `teams`. `entry.id` IS the slug, and every collection uses ONE
- * base — `'./content'`, the private submodule itself — rather than its own subdirectory,
- * so the glob loader's id carries the directory: `about`, `work/checkout-revamp`,
- * `project/pages`, `note/windicss`. That is not cosmetic: under this scheme
- * `/${entry.id}` is the URL for all four content collections with no per-collection
- * rule, and the routes depend on it.
+ * `pages` stays root-only (`*.mdoc` does not cross `/`), which keeps `docs/CONTEXT.md` out.
  *
- * A9 in `port-guard.mjs` is what catches a mistyped base — it fails when any declared
- * glob resolves to nothing, which is exactly what a base pointed at a bad checkout does.
- *
- * `pages` stays root-only (`*.mdoc` does not cross `/`), which is what keeps
- * `docs/CONTEXT.md` out of every collection.
- *
- * ---------------------------------------------------------------------------------
- * RULING: unknown frontmatter keys are STRIPPED, never rejected.
- *
- * Astro's schemas could reject them with `.strict()`. They must not, because **a schema
- * must never be able to demand a content edit** — content is the fixed point. Two files
- * carry keys no schema declares: `index.mdoc` has a stale `sidenote`, and
- * `project/formula-student` an `info:` block of authored prose. Rejecting would fail
- * both, and deciding what to do about them is a content question, not a schema one.
- *
- * They stay in the files, stay invisible, and stay recorded here. The gate deliberately
- * does not assert on them: an unknown key is inert, not silently damaging, which is the
- * shape an assertion exists for.
- * ---------------------------------------------------------------------------------
+ * Unknown frontmatter keys are stripped, never rejected with `.strict()`: a schema must
+ * never be able to demand a content edit. Some files do carry undeclared keys. The gate
+ * doesn't assert on them either — an unknown key is inert.
  */
 import { defineCollection, reference } from 'astro:content'
 import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
 
 /*
- * The fields every collection shares.
+ * `description` is plain text, not markdown: it only renders into a meta `content="…"`.
  *
- * `description` is a PLAIN STRING, not markdown — it is only ever rendered into a
- * `content="…"` meta attribute, where a `<p>` wrapper would arrive escaped.
- *
- * `z.coerce.date()` is what lets both `published: 2022-10-08` (which the YAML parser
- * hands over as a Date) and `published: 2019-08` (which it does not, being an incomplete
- * timestamp) land as Dates.
+ * `z.coerce.date()` because YAML hands `2022-10-08` over as a Date but `2019-08` as a
+ * string.
  */
 const shared = {
   title: z.string(),
@@ -57,12 +34,7 @@ const pages = defineCollection({
   schema: z.object({ ...shared })
 })
 
-/*
- * Team data for `works` to reference. `generateId` strips the `work/team/` directory that
- * `glob()` would otherwise bake into the id — `teams` is reference data, not a routed
- * collection, so its ids should match what `org:` frontmatter naturally writes (`oen`), not
- * the directory-carrying scheme `pages`/`works`/`projects`/`notes` use for their URLs.
- */
+/* Not routed, so ids drop the directory to match what `org:` writes (`oen`). */
 const teams = defineCollection({
   loader: glob({
     pattern: 'work/team/*.yml',
@@ -78,7 +50,7 @@ const works = defineCollection({
     ...shared,
     featured: z.boolean().default(false),
     thumbnail: z.string().optional(),
-    /* Required, though no route renders it. All ten work files carry it. */
+    /* Required, though no route renders it. */
     org: reference('teams'),
     category: z.array(z.string().max(15)),
     emoji: z.string().emoji(),
@@ -112,14 +84,11 @@ const notes = defineCollection({
 })
 
 /*
- * ONE entry, not many — and `glob()` is what gives that, counter-intuitively.
- * `file()` splits a single file into MANY entries (it wants an array, or an object whose
- * keys are ids), so pointed at `navigation.yml` it would yield four entries called
- * `title`, `updated`, `navigation` and `contact`. `glob()` treats a data file as one
- * entry keyed by its filename: `getEntry('navigation', 'navigation')`.
+ * `glob()`, not `file()`: `file()` makes each top-level key its own entry, while `glob()`
+ * gives one entry keyed by filename.
  *
- * `title` and `updated` are in the file and read by nothing. They are declared anyway so
- * the strip rule above does not quietly apply to a file whose whole content is two lists.
+ * `title` and `updated` are read by nothing, but declared so the strip rule doesn't
+ * silently apply to this file.
  */
 const navigation = defineCollection({
   loader: glob({ pattern: 'navigation.yml', base: './content' }),

@@ -20,7 +20,6 @@ article,
   }
 
   p.callout {
-    /* The callout runs one column past the reading measure. */
     --uno: 'text-base font-sans';
   }
 
@@ -28,9 +27,7 @@ article,
     --uno: 'font-medium bg-selection';
   }
 
-  /* A7. The `#` MUST be drawn from CSS, not written as a text child of the anchor.
-     Astro's collectHeadings() runs getTextContent() over the whole heading subtree, so
-     a real `#` child lands inside every getHeadings() entry ("Context#"). */
+  /* A7. Drawn in CSS: a real `#` child would land in every `getHeadings()` entry. */
   :is(h1, h2, h3, h4, h5, h6) a[data-anchor]::after {
     content: '#';
   }
@@ -93,26 +90,8 @@ article,
     --uno: 'font-mono text-xs mt-8 layout-content grid-subgrid';
 
     /*
-     * `space-y-3` used to sit in the directive above, and it could not stay. presetWind4
-     * compiles it to `:where(& > :not(:last-child)) { margin-block-end: … }`, and
-     * `:where()` zeroes the specificity of everything inside it — so the rule lands at
-     * 0-0-0. The reset it has to beat, `*, ::before, ::after { margin: 0 }`, is ALSO
-     * 0-0-0. A perfect tie, broken only by source order.
-     *
-     * Dev loses that tie. `@unocss/astro` serves a SECOND copy of `/__uno.css` on every
-     * page load — the dev-id mismatch documented in `astro.config.mjs` — appended after
-     * prose.css, so the reset wins and every dt/dd gap collapses to 0. This used to be
-     * intermittent: a `ClientRouter` navigation rebuilt the head with one copy ahead of
-     * prose.css, so the same page rendered correctly when reached by a link and wrongly
-     * on reload. `Base.astro` carries no `ClientRouter` now — every navigation is a full
-     * page load, so the hazard is uniform rather than split by navigation type. The BUILD
-     * passes only by luck either way: dist happens to emit the reset first, so nothing
-     * here was ever load-bearing on purpose.
-     *
-     * Writing the child selector out drops the `:where()` wrapper, so the rule carries the
-     * specificity of its own selector and beats the reset whatever order the sheets land
-     * in. `mb-3` is what `space-y-3` resolved to anyway: `--un-space-y-reverse` is 0, which
-     * zeroes its `margin-block-start` and leaves `margin-block-end` at `--spacing * 3`.
+     * Not `space-y-*`: presetWind4 wraps it in `:where()`, which ties the reset at 0-0-0,
+     * and in dev the duplicated `__uno.css` (see `astro.config.mjs`) wins that tie.
      */
     > :not(:last-child) {
       --uno: 'mb-1.5';
@@ -178,10 +157,7 @@ article,
     --uno: '-mx-2 px-2 right-0 inline-block bg-selection bg-opacity-70';
   }
 
-  /* A8. Shiki 3 moved LIGHT-mode italics from an inline `font-style:italic` to a
-     `--shiki-light-font-style` custom property. The dark branch below already reads its
-     equivalent; without this every italic token in every code block silently loses its
-     italics in light mode. */
+  /* A8. Shiki emits light-mode font styles as custom properties, not inline styles. */
   span {
     font-style: var(--shiki-light-font-style);
     font-weight: var(--shiki-light-font-weight);

@@ -35,10 +35,8 @@ yarn-error.log*
 # The whole-corpus render harness builds here so it cannot disturb `dist/`.
 /dist-parity
 
-# A generated content mirror once lived here. Nothing writes it any more — the submodule
-# holds `.mdoc` directly and `content.config.ts` reads it there — but the rule STAYS,
-# because the two failure modes are not symmetric: forgetting it once puts private
-# content in a public repo, and that has very nearly happened.
+# Nothing writes here now, but keep the rule: private content under `src/` would land in
+# this public repo.
 /src/content
 
 # agent working files — issue tracker, prototypes and in-flight reviews stay local

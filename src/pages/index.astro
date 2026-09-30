@@ -1,17 +1,5 @@
 ---
-/*
- * The homepage. Two things here are load-bearing and easy to undo by accident:
- *
- * 1. NOTHING may wrap this page's output. `main > :not(article)` in `main.css` is what
- *    applies `layout-content` to every direct child, and a non-subgrid wrapper severs
- *    the chain. Every element below is a direct child of `<Base>`'s slot.
- * 2. Variant groups are written EXPANDED — `hover:brightness-90`, not
- *    `hover:(brightness-90)`. `transformerVariantGroup` does run over `.astro`, so both
- *    spellings work today; the expanded one does not depend on that staying true.
- *
- * Selected Work is not this file's markup — both halves render `WorkRow.astro`, and what
- * separates featured from additional work is the "Additional Works" label alone.
- */
+/* Nothing may wrap this page's output — see `Base.astro`. */
 import { getEntry, render } from 'astro:content'
 import Base from '../layouts/Base.astro'
 import ProjectText from '../components/ProjectText.astro'
@@ -19,15 +7,6 @@ import WorkRow from '../components/WorkRow.astro'
 import { getProjects, getWorks } from '../lib/collections'
 import { formatDate, featuredFirst } from '../lib/util'
 
-/*
- * `content/index.mdoc`, whose body is the intro. `entry.id` is the bare `index`.
- *
- * The absent-entry fallback exists for the same reason `navigation.ts`'s does: the
- * content submodule may not be checked out, and a clone must still build. Throwing here
- * would take that away — this is the first route that reads a NAMED entry rather than a
- * whole collection, so it is the first that can miss. With no content the page renders
- * its own markup and no intro.
- */
 const page = await getEntry('pages', 'index')
 const Intro = page ? (await render(page)).Content : null
 
@@ -37,7 +16,6 @@ const projects = await getProjects()
 const featuredWorks = works.filter((work) => work.data.featured)
 const additionalWorks = works.filter((work) => !work.data.featured)
 
-/* Featured first, then the rest — each half already in `published:desc`. */
 const orderedProjects = featuredFirst(projects)
 ---
 
@@ -84,32 +62,24 @@ const orderedProjects = featuredFirst(projects)
 </Base>
 
 <style>
-  /* Scoped: both selectors gain a generated class, so these `--uno:` declarations
-     apply to exactly these two elements and nothing else on the page. */
   section {
     --uno: 'mt-60 lt-md:mt-40 grid-subgrid layout-content';
   }
 
   h2 {
     --uno: 'text-4 leading-6 span-full font-medium mb-6 md:mb-12';
-    /* Double-quoted so the `'/'` inside the utility survives. Nested single quotes
-       here are invalid CSS, whatever the template language tolerates. */
+    /* Double-quoted: the utility contains single quotes. */
     --uno: "after:content-['/'] after:ml-2 after:font-mono after:text-xs after:text-tertiary";
   }
 </style>
 
 <style is:global>
   /*
-   * The homepage intro stagger. `is:global` (not scoped) because Markdoc's rendered
-   * output carries no `data-astro-cid-*` attribute — a scoped block reaches `.prose`
-   * itself but never the paragraphs Markdoc renders inside it, and half the ladder
-   * below would silently stop matching. Page-local comes from this being defined on
-   * the homepage route at all: Astro bundles CSS per page, so nothing here ships on
-   * any other route.
+   * `is:global` because Markdoc output carries no scoping attribute. It still ships only on
+   * this route, since Astro bundles CSS per page.
    *
-   * Ladder is coupled to the homepage's top-level child order (h1, .prose, p,
-   * section, section) — a new top-level section needs its own rung here, or it
-   * arrives at delay 0 alongside the heading.
+   * Coupled to the top-level child order: a new section needs its own rung, or it arrives
+   * at delay 0 with the heading.
    */
   main {
     --intro-step: 50ms;
@@ -122,8 +92,7 @@ const orderedProjects = featuredFirst(projects)
     animation: intro-arrive 500ms ease both;
   }
 
-  /* Excluded: this container's own opacity would multiply against its animating
-     children below it, producing a compounded double-fade. */
+  /* Its opacity would compound with its animating children's. */
   main > .prose {
     animation: none;
   }
@@ -132,8 +101,7 @@ const orderedProjects = featuredFirst(projects)
     animation-delay: 0ms;
   }
 
-  /* Three named beats plus a clamp: a fourth paragraph gets its own rung, a fifth
-     and beyond share the fourth's, and removing a paragraph leaves no gap. */
+  /* Paragraphs past the fourth share its delay. */
   main > .prose > article > :nth-child(1) {
     animation-delay: calc(var(--intro-step) * 1);
   }
@@ -173,9 +141,8 @@ const orderedProjects = featuredFirst(projects)
     }
   }
 
-  /* A `@keyframes` redefined inside a conditional group rule wins wherever that
-     rule applies, so this replaces the lift-bearing keyframe above without
-     touching any delay, duration or easing declared against its name. */
+  /* A `@keyframes` redefined in a matching conditional rule replaces the one above, keeping
+     every delay and duration declared against its name. */
   @media (prefers-reduced-motion: reduce) {
     @keyframes intro-arrive {
       from {

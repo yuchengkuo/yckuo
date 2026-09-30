@@ -1,11 +1,3 @@
-/**
- * The footer's link data.
- *
- * The empty-list fallback is load-bearing, not defensive. `navigation.yml` lives in the
- * private `content` submodule, which a clone without access cannot check out; without
- * the fallback the footer throws instead of rendering bare, and a clone builds without
- * the private content by design.
- */
 import { getEntry } from 'astro:content'
 
 export type NavLink = { key: string; label: string; url: string; include?: string[] }

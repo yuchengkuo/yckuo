@@ -6,41 +6,21 @@
  *     pnpm guard              the gate alone, against an existing dist/
  *     pnpm guard --strict     census drift and skipped rungs become errors
  *
- * Every assertion here guards a failure of one shape: **green build, no warning, visible
- * damage.** There is no fallback path to take when one fires — only a silence to break.
- * They live in one named file rather than scattered through the source, because a
- * scattered assertion gets deleted by whoever hits it at a bad moment, while a named gate
- * is visible in the build log.
+ * Every assertion guards one failure shape: green build, no warning, visible damage. They
+ * live in one named file so that one firing is visible in the build log rather than
+ * deleted in place.
  *
  * A1, A5, A10, A11, A12 and A14 read `dist/`, which is why the gate runs post-build. A2, A3,
- * A7, A8 and A9 read source and would run anywhere; they are here so that there is one gate
- * rather than two.
+ * A7, A8 and A9 read source; they are here so there is one gate rather than two.
  *
- * ---------------------------------------------------------------------------------
- * STRUCTURE IS HARD, PROVENANCE WARNS.
+ * Structure is hard, provenance warns. Assertions derive their expectation from whatever
+ * corpus is present, so they hold at any content revision. The pinned census only warns on
+ * drift, so a clone at another revision still builds. Absent content reports skip, not
+ * pass. `--strict` fails on both.
  *
- * A first version hard-coded every corpus figure and failed the build on any drift. That
- * fails `pnpm build` for anyone who clones and runs `git submodule update` against a
- * different content revision — which is the one moment a newcomer meets it. So the two
- * split:
- *
- *   - **Assertions are revision-INDEPENDENT and always hard.** Each derives its
- *     expectation from whatever corpus is present and asserts a *relationship*: every
- *     grid utility the source implies is in the built CSS, every fence language the
- *     source uses is loaded, headings match their own source, each declared base
- *     resolves. They hold at any revision.
- *   - **The census is provenance.** The pinned counts are reported every run, warn on
- *     drift, and name the revision they came from. `--strict` promotes them to errors.
- *
- * The same split covers absent content: a clone without submodule access reports **skip**
- * on the corpus-dependent rungs, not pass — and `--strict` fails on that too.
- * ---------------------------------------------------------------------------------
- *
- * NODE >= 22.18. A2 and A3 import `markdoc.config.mjs` and `src/lib/highlighter.ts`
- * directly — driving the real config rather than a description of it is the whole point
- * of those two rungs — and the highlighter is TypeScript, so the gate needs Node's type
- * stripping, on by default from 22.18. That is the only reason `engines` exists in
- * package.json. On an older Node the gate dies on a SyntaxError; it does not pass quietly.
+ * Node >= 22.18: A2 and A3 import the real `markdoc.config.mjs` and the TypeScript
+ * `src/lib/highlighter.ts`, which needs Node's default type stripping. That is the only
+ * reason `engines` exists in package.json. An older Node dies on a SyntaxError.
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -48,8 +28,7 @@ import { pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import Markdoc from '@markdoc/markdoc'
 import { createGetHeadings } from '@astrojs/markdoc/runtime'
-/* The fence rule lives in one file because it once lived in two and they disagreed. The
-   corpus readers are shared with the ratio generator for the same reason. */
+/* Shared with the converter and the ratio generator: one copy of each rule. */
 import { scanLines } from './fences.mjs'
 import { ROOT, walk, globMatcher, collectionGlobs, collectionFiles, mediaSites } from './corpus.mjs'
 
@@ -135,13 +114,9 @@ function fenceCensus(files) {
 }
 
 // --- A1 ----------------------------------------------------------------------------
-// The grid annotations are the largest silent-failure surface in the repo: they live
-// ONLY inside content, so anything that stops UnoCSS reading `.mdoc` collapses every
-// image to one column with a green build and no warning. The two edits in
-// `uno.config.ts` and `astro.config.mjs` are independently load-bearing.
-//
-// The ASSERTION derives the expected utility set from whatever source is present, so it
-// holds at any content revision. The pinned counts ride alongside as census.
+// Grid annotations live only inside content, so anything that stops UnoCSS reading
+// `.mdoc` collapses every image to one column. The `mdoc` entries in `uno.config.ts` and
+// `astro.config.mjs` are each load-bearing alone.
 await check('A1', 'grid annotations reach the generated CSS', async () => {
   const { PLACEMENT_PREFIXES } = await import(
     pathToFileURL(path.join(ROOT, 'src/lib/media/placementTokens.ts')).href
@@ -179,9 +154,7 @@ await check('A1', 'grid annotations reach the generated CSS', async () => {
     .join('\n')
   assert(css.length > 0, 'no CSS in dist/ — did astro build run?')
 
-  /* `.span-full` is generated as `span-full`, not `col-span-full`: uno emits the rule
-     under the SHORTCUT's own name. Deriving the expected set from source rather than
-     listing it is also what keeps the `.span-[0-9]+` trap from reappearing here. */
+  /* Uno emits a shortcut under its own name: `.span-full`, not `.col-span-full`. */
   const missing = utilities.filter((u) => !new RegExp(`\\.${u}(?![a-zA-Z0-9_-])`).test(css))
   assert(
     missing.length === 0,
@@ -193,17 +166,12 @@ await check('A1', 'grid annotations reach the generated CSS', async () => {
 })
 
 // --- A2 ----------------------------------------------------------------------------
-// ONE async transform anywhere makes getHeadings() return [] for EVERY document, not
-// just near the async node. `createGetHeadings` calls
-// `Markdoc.transform` synchronously and then walks the result; an async config hands it
-// a Promise, `Tag.isTag(promise)` is false, and it returns [] without complaining.
+// One async transform anywhere makes getHeadings() return [] for every document:
+// `createGetHeadings` calls `Markdoc.transform` synchronously, gets a Promise,
+// `Tag.isTag(promise)` is false, and it returns [] without complaint.
 //
-// It is still LATENT — nothing in the site consumes headings today — which is exactly
-// why it needs asserting rather than observing. A latent regression has no symptom.
-//
-// This drives Astro's OWN `createGetHeadings`, exported from `@astrojs/markdoc/runtime`,
-// over an AST parsed the way `content-entry-type.js` parses one. It is not a
-// re-implementation of the collector; it is the collector.
+// Drives Astro's own `createGetHeadings` over an AST parsed the way
+// `content-entry-type.js` parses one — the collector itself, not a re-implementation.
 await check('A2', 'getHeadings() is alive (the async-transform tripwire)', async () => {
   const probe = collectionFiles().find((f) => f.endsWith(CENSUS.headingProbe.file))
   if (!probe) return skip(`${CENSUS.headingProbe.file} not in the corpus`)
@@ -226,8 +194,7 @@ await check('A2', 'getHeadings() is alive (the async-transform tripwire)', async
 
   const headings = createGetHeadings(JSON.stringify(ast), config, {})()
 
-  /* Headings inside a fence are prose, not structure. The fence-aware scan is why —
-     a bare `!/^```/` test on a `## ` line can never be false and excludes nothing. */
+  /* Headings inside a fence are code, not structure. */
   let sourceCount = 0
   scanLines(parsed.content, (line) => {
     if (/^#{1,6}\s+\S/.test(line)) sourceCount++
@@ -241,9 +208,7 @@ await check('A2', 'getHeadings() is alive (the async-transform tripwire)', async
     headings.length === sourceCount,
     `getHeadings() returned ${headings.length} for ${CENSUS.headingProbe.file}, source has ${sourceCount} heading(s) outside code fences`
   )
-  /* 03(v): the anchor used to carry a literal '#' text child, which landed inside
-     getHeadings().text. The glyph is CSS now (A7); if it comes back as a text child it
-     comes back in every TOC entry. */
+  /* A `#` text child on the anchor would land in every entry's text; the glyph is CSS (A7). */
   const withHash = headings.filter((h) => h.text.includes('#'))
   assert(
     withHash.length === 0,
@@ -260,10 +225,8 @@ await check('A2', 'getHeadings() is alive (the async-transform tripwire)', async
 })
 
 // --- A3 ----------------------------------------------------------------------------
-// Shiki's sync path takes a STATIC language list. An unlisted language degrades to plain
-// text with a green build and no warning, and it has fired for real on `liquid`.
-// `highlighter.ts` throws at build time on an unknown language; this asserts the corpus
-// side, that every language the content actually uses is covered.
+// Shiki's sync path takes a static language list. `highlighter.ts` throws on an unknown
+// language at render time; this asserts the corpus side, over every fence.
 await check('A3', 'every corpus fence language is in the static Shiki set', async () => {
   const files = collectionFiles()
   if (files.length === 0) return skip('no content — run `git submodule update --init`')
@@ -295,12 +258,8 @@ await check('A3', 'every corpus fence language is in the static Shiki set', asyn
 })
 
 // --- A5 ----------------------------------------------------------------------------
-// @unocss/astro injects the uno entry itself (`injectEntry` defaults to true). The
-// obvious risk is a DOUBLE stylesheet — an `import 'uno.css'` in `Base.astro` on top of
-// the injected one — but Vite dedupes the identical virtual module id, so that one does
-// not reproduce. The reproducible side is the other end of the same count:
-// `injectEntry: false` ships zero entries, a green build, and a site with no utilities
-// at all. Hence a two-sided assertion rather than an upper bound.
+// Two-sided: `injectEntry: false` ships zero entries and a site with no utilities. A
+// duplicate `import 'uno.css'` is deduped by Vite in the build (not in dev — see A11).
 await check('A5', 'exactly one UnoCSS entry stylesheet per page', () => {
   const pages = distHtml()
   assert(pages.length > 0, 'no HTML in dist/ — did astro build run?')
@@ -333,10 +292,8 @@ await check('A5', 'exactly one UnoCSS entry stylesheet per page', () => {
 })
 
 // --- A7 ----------------------------------------------------------------------------
-// `markdoc.config.mjs` deliberately emits no '#' text child, so it stays out of
-// getHeadings().text. The glyph is VISIBLE on the site, so the text child and the CSS
-// are one change in two files — and dropping the CSS half deletes the glyph from every
-// heading silently. Hence an assertion rather than trust.
+// `markdoc.config.mjs` emits no `#` text child, so the visible glyph depends on this rule
+// in another file.
 await check('A7', 'prose.css restores the anchor glyph (a[data-anchor]::after)', () => {
   const css = fs.readFileSync(path.join(ROOT, 'src/styles/prose.css'), 'utf8')
   assert(
@@ -347,17 +304,12 @@ await check('A7', 'prose.css restores the anchor glyph (a[data-anchor]::after)',
 })
 
 // --- A8 ----------------------------------------------------------------------------
-// The sync-Shiki rule forces Shiki 1 -> 3, and v3 moves light-mode italics from an
-// inline `font-style` to a `--shiki-light-font-style` custom property. Same shape as A7:
-// an unconditional 3-line fix whose omission is invisible except that every italic token
-// quietly stops being italic in light mode.
+// Shiki emits light-mode italics as `--shiki-light-font-style`, not inline; without the
+// read, every italic token loses its italics in light mode.
 await check('A8', 'prose.css reads --shiki-light-font-style (Shiki 3 italics)', () => {
   const css = fs.readFileSync(path.join(ROOT, 'src/styles/prose.css'), 'utf8')
-  /* `var(...)`, not a bare substring. The first version of this rung tested
-     `css.includes('--shiki-light-font-style')`, and it PASSED when the injection renamed
-     the property to `--shiki-light-font-style-renamed` — the rename satisfies the
-     substring by prefix, so the rung was asserting a property nothing reads. Asserting
-     the READ is the whole point. */
+  /* `var(...)`, not a substring: `--shiki-light-font-style-renamed` contains the name by
+     prefix and reads nothing. */
   assert(
     /var\(\s*--shiki-light-font-style\s*[,)]/.test(css),
     'prose.css does not read `var(--shiki-light-font-style)` — Shiki 3 emits light-mode italics there, so every italic token loses its italics in light mode'
@@ -366,23 +318,15 @@ await check('A8', 'prose.css reads --shiki-light-font-style (Shiki 3 italics)', 
 })
 
 // --- A10 ---------------------------------------------------------------------------
-// `<astro-island>` and `<astro-slot>` are `display: contents`: they generate no box —
-// but CSS SELECTORS match the DOM tree, not the box tree. So a `>`-combinator aimed at
-// what they wrap lands on the wrapper, which has no box to style, while the wrapped
-// element becomes the grid item and falls through to auto-placement. `/shots` rendered
-// 39.7% short that way, with a green build, every other assertion passing, 0 differing
-// characters of `<main>` text and 0 differing class attributes.
+// `<astro-island>` and `<astro-slot>` are `display: contents`: no box, but selectors match
+// the DOM tree, so a `>`-combinator aimed at what they wrap lands on the wrapper and the
+// wrapped element falls through to auto-placement.
 //
-// It asserts the STRUCTURE rather than any particular figure's computed span, so it does
-// not depend on which figures happen to carry a `{% .span-N %}`.
+// Static on purpose: only a browser computes `display: contents`, but the only elements
+// here that render that way are Astro wrappers, and those are visible in `dist/`.
 //
-// STATIC ON PURPOSE. The mechanism is `display: contents`, which only a browser
-// computes — but the only thing that *renders* as `display: contents` in this tree is an
-// Astro wrapper element, and those are visible in `dist/`. So the build can hold the line
-// on every page of every build.
-//
-// The corollary: **adding a `client:` directive inside `<main>` is a layout change.**
-// This is where you find that out.
+// Adding a `client:` directive inside `<main>` is a layout change. This is where you find
+// that out.
 await check('A10', 'no display:contents wrapper inside <main> (the subgrid sever)', () => {
   const pages = distHtml()
   assert(pages.length > 0, 'no HTML in dist/ — did astro build run?')
@@ -422,26 +366,10 @@ await check('A10', 'no display:contents wrapper inside <main> (the subgrid sever
 })
 
 // --- A11 ---------------------------------------------------------------------------
-// 19 added this one, and it is the rung A5 was one count short of.
-//
-// A5 asserts ONE uno entry per page and records that the double-stylesheet risk could not
-// be reproduced, because Vite dedupes an identical virtual module id. That holds for the
-// id Base.astro would have imported. It does NOT hold in dev: `@unocss/astro`'s own
-// `resolveId` rewrites the resolved `/__uno.css` to an absolute `<root>/__uno.css`, so
-// the client-injected copy and the SSR-inlined one carry DIFFERENT `data-vite-dev-id`s,
-// Vite dedupes on that id, and the second copy is appended after theme.css instead of
-// replacing the first. Uno's preflight `:root,:host` then lands last and wins.
-//
-// What that cost: every font on the site fell back to the system default in dev, with a
-// clean build, no console error, all 26 @font-face rules registered and `fonts.check()`
-// true for all three families. Nothing referenced them. The build was untouched — dist
-// happened to emit theme.css last — so `pnpm build` could not see it.
-//
-// The assertion is therefore not about order, which is what dev gets wrong and dist gets
-// right by luck. It is that each family is declared EXACTLY ONCE, so no order exists to
-// get wrong. Two declarations is the defect whichever one currently wins. The expected
-// stacks are derived from uno.config.ts, so this stays a test of the invariant and not of
-// a constant, and a fourth family added there is covered without touching the gate.
+// Dev appends a second `__uno.css` after theme.css (see `astro.config.mjs`), so a font
+// stack declared in two places renders the fallback in dev while the build looks right.
+// The assertion is not about order, which the build cannot observe: each family must be
+// declared exactly once. Expected stacks come from uno.config.ts.
 await check('A11', 'each font family is declared exactly once', async () => {
   const { default: unoConfig } = await import(pathToFileURL(path.join(ROOT, 'uno.config.ts')))
   const families = Object.entries(unoConfig.theme?.font ?? {})
@@ -482,8 +410,7 @@ await check('A11', 'each font family is declared exactly once', async () => {
       `--font-${slot} is declared as ${JSON.stringify(decls[0])}, but uno.config.ts asks for ${JSON.stringify(expected)}`
     )
 
-    /* The first name is the only one the site actually ships; the rest are the OS
-       fallbacks. It must have a face to load, or the stack silently degrades to them. */
+    /* The first name is the only one the site ships a face for; the rest are OS fallbacks. */
     const primary = norm(expected).split(',')[0]
     assert(
       new RegExp(`font-family:\\s*["']?${primary}["']?`, 'i').test(css),
@@ -497,32 +424,19 @@ await check('A11', 'each font family is declared exactly once', async () => {
 })
 
 // --- A12 ---------------------------------------------------------------------------
-// The rung the whole feature exists behind. Every media box on the site once shipped
-// `aspect-ratio: ` — an empty declaration every browser silently drops — because the
-// transform declared the variable and never assigned it. This is the exact shape the gate
-// is for: green build, no warning, visible damage, and no fallback path to take when it
-// fires.
+// Reads `dist/`, so body images, body videos and the work thumbnail are covered at once,
+// whatever code path each takes.
 //
-// It reads `dist/`, which is what makes it cover the feature END TO END: body images,
-// body videos and the work thumbnail hero reach the page by different code paths, and
-// this sees them all at once without knowing which is which.
+// Parse: every declaration is two positive integers. The browser silently drops an empty
+// value, a stringified `undefined`, or a zero.
 //
-// HALF ONE, PARSE. Every declaration is two positive integers. That is what catches the
-// empty string, an `undefined` stringified into the attribute, and a zero — none of which
-// any other check can see, because the browser drops them without complaint.
+// Count: boxes equal what `mediaSites()` implies, which catches a call site that stops
+// rendering one.
 //
-// HALF TWO, COUNT. The number of boxes equals the number the corpus implies. That is what
-// catches a call site that quietly STOPS rendering a box, which has already happened once
-// here to a renderer nobody was watching. Deriving the figure from `mediaSites()` rather
-// than restating it keeps the rung revision-independent; the pinned figure rides along as
-// census.
-//
-// THE PROJECTS `cover` FIELD IS EXCLUDED, deliberately. Nothing has rendered it since it
-// was dropped from the project row: the field stays in the schema and its two ids stay in
-// the manifest, but it contributes zero boxes and counting it would fail this rung on
-// every build. If a cover renderer ever returns, that is the commit that adds it here —
-// and it reopens the authored-ratio question on its own terms, since a crop or a
-// fixed-ratio card is art direction rather than box reservation.
+// The projects `cover` field is excluded: nothing renders it, though it stays in the
+// schema and the manifest. A cover renderer that returns must be added here — and a crop
+// or fixed-ratio card is art direction, not box reservation, so it reopens the
+// authored-ratio question.
 await check('A12', 'every media box reserves a real aspect ratio', () => {
   const sites = mediaSites()
   if (sites.length === 0) return skip('no content — run `git submodule update --init`')
@@ -577,18 +491,11 @@ await check('A12', 'every media box reserves a real aspect ratio', () => {
 // --- A14 ---------------------------------------------------------------------------
 // A13 stays retired (docs/adr/0003-client-routing-removed.md) and is not reused.
 //
-// Pairs `gridSpan.ts`'s table with `Grid.astro`'s stylesheet — two lists of span numbers
-// that have to agree, the same shape as A12 pairing `Img.astro` with `aspect-ratios.json`.
-// A `data-span` value with no matching `[data-span='N']` rule falls to span 1 with correct
-// HTML, correct classes, correct text and a green build; nothing else can see it.
+// Pairs `gridSpan.ts`'s table with `Grid.astro`'s stylesheet: a `data-span` value with no
+// matching `[data-span='N']` rule falls to span 1 silently.
 //
-// A SECOND, unrelated invariant shares this rung because it shares the read: a grid's
-// ten columns are not the page's twelve (docs/adr/0004-derived-grid-spans.md), so a
-// `.span-N` above 10 authored on a direct child of a grid asks for more tracks than the
-// subgrid has. CSS grids clamp an overrun span to whatever's left in silence rather than
-// erroring, which is the same failure shape as the first half with a different cause.
-//
-// Reads `dist/`, so it covers every grid on every rendering surface at once, same as A12.
+// Shares the read with an unrelated invariant: a grid has ten columns, not the page's
+// twelve, and CSS clamps an overrun `.span-11`/`.span-12` on a grid child without error.
 await check('A14', 'data-span matches Grid.astro CSS; no grid child spans past 10', () => {
   const pages = distHtml()
   assert(pages.length > 0, 'no HTML in dist/ — did astro build run?')
@@ -629,9 +536,6 @@ await check('A14', 'data-span matches Grid.astro CSS; no grid child spans past 1
         spanValues.add(value)
       }
 
-      /* Only a figure's OWN class list carries a placement token — the nested
-         aspect-ratio wrapper never does — but the check doesn't depend on that: nothing
-         else inside a grid block has a `span-*` token to false-positive on. */
       for (const [, classList] of block.matchAll(/<figure\b[^>]*\bclass="([^"]*)"/g))
         for (const token of classList.split(/\s+/)) {
           const span = /^span-(\d+)$/.exec(token)
@@ -648,10 +552,8 @@ await check('A14', 'data-span matches Grid.astro CSS; no grid child spans past 1
       `tracks than the subgrid has, and CSS clamps the overrun in silence rather than erroring.`
   )
 
-  /* Grid.astro's scoped <style> has no client directive, so Astro inlines it per-page in
-     <head> rather than emitting it to a shared file in distCss() — the rule text lives in
-     the PAGE, not the stylesheet. Searching both is what makes this hold regardless of
-     which way a future build config emits it. */
+  /* Astro may inline Grid.astro's scoped style into each page or emit it to a CSS file;
+     search both. */
   const styleText = [...distCss(), ...pages].map((f) => fs.readFileSync(f, 'utf8')).join('\n')
   const missing = [...spanValues].filter(
     (v) => !new RegExp(`\\[data-span=["']?${v}["']?\\]`).test(styleText)

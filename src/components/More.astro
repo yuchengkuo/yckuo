@@ -1,14 +1,10 @@
 ---
 /*
- * The shared heading and sub-nav for `/note` and `/note/[slug]`.
+ * No wrapper element: the slot must stay a direct child of `<main>` for
+ * `main > :not(article)` to place it.
  *
- * It renders THREE top-level nodes and no wrapper: `<h1>`, `<nav>`, and the slot. An
- * `.astro` component emits no element of its own, so the page's content stays a direct
- * child of `<main>` and `main > :not(article)` keeps placing it.
- *
- * THE SUB-NAV IS EMPTY, deliberately left so. `navigation.yml` declares no `More` key,
- * so `find(...)?.include ?? []` yields nothing and the `<ul>` renders bare. Adding the
- * missing key is a content change, not a code one.
+ * The sub-nav renders empty because `navigation.yml` has no `More` key. Filling it is a
+ * content change, not a code one.
  */
 import { getNavigation } from '../lib/navigation'
 

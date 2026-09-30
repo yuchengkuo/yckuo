@@ -9,7 +9,7 @@
     alt?: string
 
     transformations?: TransformerOption | TransformerVideoOption
-    /* REQUIRED, as in `Image.svelte`, and for the same reason. */
+    /* Required — see `Image.svelte`. */
     aspectRatio: string
     showcap?: boolean
     class?: string
@@ -44,8 +44,8 @@
 </script>
 
 <figure class={classname} {...rest}>
-  <!-- The box goes on the WRAPPER, not the figure: the figure also holds the caption, and
-       a ratio there makes the caption eat into the space reserved for the video. -->
+  <!-- The ratio goes on the wrapper, not the figure: on the figure, the caption would eat
+       the video's reserved space. -->
   <div style="aspect-ratio: {aspectRatio}">
     <video {autoplay} {muted} {loop} {playsinline} disablepictureinpicture={false}>
       <source src={resolvedSrc} />

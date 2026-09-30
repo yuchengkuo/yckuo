@@ -1,5 +1,4 @@
-/* scramble.svelte.ts */
-/* Rewrite for Svelte from https://github.com/tol-is/use-scramble */
+/* Svelte port of https://github.com/tol-is/use-scramble */
 import type { Action } from 'svelte/action'
 
 /**
@@ -11,9 +10,6 @@ type RangeOrCharCodes = {
 } & Array<number>
 
 export type ScrambleOptions = {
-  /**
-   * Text to scramble
-   */
   text: string
   /**
    * 0-1 range that determines the scramble speed. A speed of 1 will redraw 60 times a second. A speed of 0 will pause the animation
@@ -72,7 +68,6 @@ export type ScrambleOptions = {
   autoplay?: boolean
 }
 
-// Custom events for the scramble action
 export type ScrambleEvents = {
   scramblestart: CustomEvent<void>
   scrambleend: CustomEvent<void>
@@ -104,7 +99,6 @@ export const scramble: Action<HTMLElement, ScrambleOptions, ScrambleEvents> = (
   node,
   options = { text: '' }
 ) => {
-  // Default options
   const config = {
     speed: 1,
     tick: 1,
@@ -120,13 +114,11 @@ export const scramble: Action<HTMLElement, ScrambleOptions, ScrambleEvents> = (
     ...options
   }
 
-  // Check for reduced motion preference
   const prefersReducedMotion =
     typeof window !== 'undefined'
       ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
       : false
 
-  // Animation state
   let rafId: number | null = null
   let elapsedTime = 0
   let stepCount = 0
@@ -137,16 +129,13 @@ export const scramble: Action<HTMLElement, ScrambleOptions, ScrambleEvents> = (
   let currentText = config.text
   let isPlaying = false
 
-  // Adjusted values for reduced motion preference
   const effectiveStep = prefersReducedMotion ? currentText.length : config.step
   const effectiveChance = prefersReducedMotion ? 0 : config.chance
   const effectiveOverdrive = prefersReducedMotion ? false : config.overdrive
 
-  // Utility functions for the animation
   const setIfNotIgnored = (value: string | number | null, replace: string | number | null) =>
     config.ignore.includes(`${value}`) ? value : replace
 
-  // Animation logic
   function seedForward() {
     if (scrambleIndex === currentText.length) return
 
@@ -217,27 +206,27 @@ export const scramble: Action<HTMLElement, ScrambleOptions, ScrambleEvents> = (
       const controlValue = control[i]
 
       switch (true) {
-        // A positive integer value, get a random character
+        // n > 0: n more random characters before this one settles
         case typeof controlValue === 'number' && controlValue > 0:
           outputText += getRandomChar(config.range)
 
           if (i <= scrambleIndex) {
-            // Reduce scramble index only if it's past the scrambleIndex
+            // Counts down only behind the cursor
             control[i] = (control[i] as number) - 1
           }
           break
 
-        // A string from the previous text
+        // A character of the previous text, not yet reached
         case typeof controlValue === 'string' && (i >= currentText.length || i >= scrambleIndex):
           outputText += controlValue
           break
 
-        // Before scramble index, and equal to the string
+        // Settled
         case controlValue === currentText[i] && i < scrambleIndex:
           outputText += currentText[i]
           break
 
-        // Scramble has finished
+        // Just finished scrambling
         case controlValue === 0 && i < currentText.length:
           outputText += currentText[i]
           control[i] = currentText[i]
@@ -248,11 +237,9 @@ export const scramble: Action<HTMLElement, ScrambleOptions, ScrambleEvents> = (
       }
     }
 
-    // Set text
     resultText = outputText
     node.textContent = resultText
 
-    // Dispatch frame event
     node.dispatchEvent(
       new CustomEvent('scrambleframe', {
         detail: { text: resultText },
@@ -260,11 +247,9 @@ export const scramble: Action<HTMLElement, ScrambleOptions, ScrambleEvents> = (
       })
     )
 
-    // Check if animation is complete
     if (resultText === currentText) {
       control = control.slice(0, currentText.length)
 
-      // Dispatch end event
       node.dispatchEvent(new CustomEvent('scrambleend', { bubbles: true }))
 
       if (rafId !== null) {
@@ -323,10 +308,7 @@ export const scramble: Action<HTMLElement, ScrambleOptions, ScrambleEvents> = (
     reset()
 
     if (!config.overflow) {
-      // When overflow is false, we need to reset scrambleIndex to 0
-      // so animation will work through the text
       scrambleIndex = 0
-      // Also reset characters to be scrambled
       for (let i = 0; i < control.length; i++) {
         const shouldScramble = getRandomInt(0, 10) >= (1 - effectiveChance) * 10
         if (shouldScramble) {
@@ -335,7 +317,6 @@ export const scramble: Action<HTMLElement, ScrambleOptions, ScrambleEvents> = (
       }
     }
 
-    // Dispatch start event
     node.dispatchEvent(new CustomEvent('scramblestart', { bubbles: true }))
 
     rafId = requestAnimationFrame(animate)
@@ -351,31 +332,24 @@ export const scramble: Action<HTMLElement, ScrambleOptions, ScrambleEvents> = (
   }
 
   function update(newOptions: Partial<ScrambleOptions> = {}) {
-    // Update config
     Object.assign(config, newOptions)
 
-    // Handle text change specially
     if (newOptions.text !== undefined && newOptions.text !== currentText) {
       currentText = newOptions.text
       reset()
 
-      // Always restart animation when text changes
       stop()
       play()
     }
   }
 
-  // Set up the scramble action
   $effect(() => {
-    // Initial setup
     if (config.autoplay) {
       play()
     } else {
-      // Just set the text without animation
       node.textContent = config.text
     }
 
-    // Cleanup function
     return () => {
       if (rafId !== null) {
         cancelAnimationFrame(rafId)
@@ -384,21 +358,18 @@ export const scramble: Action<HTMLElement, ScrambleOptions, ScrambleEvents> = (
     }
   })
 
-  // Expose methods to be called from component
   node.scramble = play
   node.stop = stop
   node.reset = reset
   node.update = update
 
   return {
-    // Called when options change
     update(newOptions: ScrambleOptions) {
       update(newOptions)
     }
   }
 }
 
-// Add type definitions for the extended HTMLElement
 declare global {
   interface HTMLElement {
     scramble?: () => void

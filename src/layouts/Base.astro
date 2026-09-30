@@ -1,9 +1,7 @@
 ---
 /*
- * There is deliberately NO `import 'uno.css'` here. `@unocss/astro` injects it already
- * (`injectEntry` defaults to true); shipping both puts a second copy of presetWind4's
- * reset over `prose.css` and utilities silently stop applying. A5 asserts one entry
- * stylesheet per page.
+ * No `import 'uno.css'`: `@unocss/astro` injects it already, and a second copy puts the
+ * reset back over `prose.css`. A5 asserts one entry stylesheet per page.
  */
 import Analytics from '@vercel/analytics/astro'
 import Header from '../components/Header.svelte'
@@ -15,26 +13,17 @@ import '../styles/prose.css'
 import 'lenis/dist/lenis.css'
 
 interface Props {
-  /** The document `<title>`, verbatim. Each route builds its own suffix. */
+  /** Verbatim; each route builds its own suffix. */
   title: string
   description?: string
-  /*
-   * The og:/twitter: title, which is NOT the document title and cannot be derived from
-   * it. `/note` is the case that proves they are independent: its `<title>` is
-   * `Notes — YuCheng Kuo` while its og:title is *absent*, because that route has no
-   * content entry behind it.
-   */
+  /* Not derivable from `title`: a route with no content entry has a title but no og:title. */
   ogTitle?: string
   ogType?: 'website' | 'article'
 }
 
 const { title, description, ogTitle, ogType = 'website' } = Astro.props
 
-/*
- * Astro's default `build.format: 'directory'` gives `/about/`, and that trailing slash
- * would land in og:url and twitter:url. Stripped here, once, rather than at each call
- * site — and the root `/` is left alone, since `(.)` requires a character before it.
- */
+/* `build.format: 'directory'` gives `/about/`; strip the slash for og:url, sparing `/`. */
 const pathname = Astro.url.pathname.replace(/(.)\/$/, '$1')
 
 const SITE = 'https://yuchengkuo.com'
@@ -57,17 +46,7 @@ const { navigation, contact } = await getNavigation()
 
     <title>{title}</title>
 
-    {
-      /*
-      `content` is bound to a possibly-undefined value on purpose: Astro drops the
-      attribute entirely when the value is `undefined`, which is how `/note` gets a bare
-      `<meta name="description"/>` and no og:title at all.
-
-      `description` is a PLAIN STRING, not markdown. It renders inside a `content="…"`
-      attribute, so running it through a markdown transform would emit escaped `<p>`
-      tags into the head.
-    */
-    }
+    {/* Astro drops an attribute bound to `undefined`, so a missing value emits no content. */}
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
@@ -84,14 +63,7 @@ const { navigation, contact } = await getNavigation()
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={OG_IMAGE} />
 
-    {
-      /*
-      The service worker registration, hand-written — Astro has no convention for it.
-
-      The path MUST be absolute. A depth-relative `./service-worker.js` is wrong the
-      moment the directory build format puts a page at `/note/windicss/`.
-    */
-    }
+    {/* Absolute path: a relative one breaks on nested routes like `/note/windicss/`. */}
     <script is:inline>
       if ('serviceWorker' in navigator) {
         addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'))
@@ -103,10 +75,9 @@ const { navigation, contact } = await getNavigation()
 
     {
       /*
-      NOTHING may sit between <main> and the page's own output. `main > :not(article)`
-      in main.css is what applies `layout-content` to every direct child, and a wrapper
-      that is not itself `grid-subgrid` severs the subgrid chain — every `{% .span-N %}`
-      on an image then goes inert, with a green build and no warning. A10 asserts it.
+      Nothing may wrap the slot: main.css places every direct child of <main>, and a
+      wrapper that is not itself `grid-subgrid` severs the subgrid chain with a green
+      build. A10 covers the island case.
     */
     }
     <main>
@@ -117,14 +88,6 @@ const { navigation, contact } = await getNavigation()
 
     <div data-layer role="presentation"></div>
 
-    {
-      /*
-      `injectAnalytics({ mode: dev ? 'development' : 'production' })` from
-      `@vercel/analytics/sveltekit`. The same package ships an `/astro` entry point: the
-      framework-agnostic `inject()` plus a `pageview()` call, both in the constructor of a
-      `<vercel-analytics>` custom element.
-    */
-    }
     <Analytics mode={import.meta.env.DEV ? 'development' : 'production'} />
 
     <script>
@@ -134,13 +97,8 @@ const { navigation, contact } = await getNavigation()
 
     <style is:global>
       /*
-       * `body` is the 12-column grid (main.css:56), so anything rendered as a direct child
-       * of it becomes a GRID ITEM. `<vercel-analytics>` is an empty custom element with no
-       * default display rule, which would place a fourth in-flow item after the footer —
-       * zero-height today, and a structural change to a grid the whole layout hangs off.
-       * The other non-content children avoid this by other means: the two islands are
-       * `display: contents` and `div[data-layer]` is `fixed`. This is that means, for this
-       * one. The custom element still upgrades and its constructor still runs.
+       * `body` is the page grid, so this empty custom element would be an in-flow grid
+       * item. Hiding it doesn't stop its constructor running.
        */
       vercel-analytics {
         display: none;

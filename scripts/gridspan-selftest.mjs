@@ -5,18 +5,11 @@
  *     node scripts/gridspan-selftest.mjs             run every fixture
  *     node scripts/gridspan-selftest.mjs --report    name each fixture as it passes
  *
- * `spanFromRatio()` is the table `docs/adr/0004-derived-grid-spans.md` tuned against the
- * real corpus. This proof pins each threshold from both sides — a boundary shifted by a
- * refactor changes which images get which span with no type error and no visual diff tool
- * catching it before a reader does — plus the corpus extremes at time of writing (0.24, the
- * one sub-0.25 image; 2.17, near the widest landscape screenshot) and totality across a
- * spread of positive finite ratios. Reject fixtures cover zero, negative, and non-finite
- * input, in both directions following `getinfo-selftest.mjs`: accept fixtures must pass,
- * reject fixtures must each throw, so a check that has quietly stopped firing is caught as
- * surely as one that misbuckets.
+ * Pins each threshold from both sides — a shifted boundary changes spans with no type
+ * error — and checks totality. Reject fixtures must each throw, so a check that stopped
+ * firing is caught as surely as one that misbuckets.
  *
- * Runs with no network, no content checkout: `spanFromRatio()` lives in `src/lib/media/`
- * precisely so it is importable with plain Node's native TypeScript support.
+ * `gridSpan.ts` must stay importable by plain Node, free of `astro:*` imports.
  */
 import { pathToFileURL } from 'node:url'
 import path from 'node:path'
@@ -44,7 +37,6 @@ const fail = (msg) => problems.push(msg)
 
 // --- fixtures -----------------------------------------------------------------------
 
-/** Ratio -> the span the table means it to bucket to. */
 const ACCEPT_FIXTURES = [
   { why: 'just under the 0.8 threshold', ratio: 0.79, want: 3 },
   { why: 'exactly the 0.8 threshold — inclusive at the lower end', ratio: 0.8, want: 4 },
@@ -58,7 +50,6 @@ const ACCEPT_FIXTURES = [
   { why: 'a huge ratio, well above every threshold', ratio: 50, want: 4 }
 ]
 
-/** Input the function must REFUSE rather than bucket. */
 const REJECT_FIXTURES = [
   { why: 'zero', ratio: 0 },
   { why: 'a negative ratio', ratio: -0.8 },
@@ -100,8 +91,7 @@ for (const f of REJECT_FIXTURES) {
 }
 console.log(`gridspan: ${rejected}/${REJECT_FIXTURES.length} reject fixtures refused`)
 
-// Totality: every span returned for a spread of positive finite ratios must be an integer
-// in {1,2,3,4}. This is what catches a threshold rewritten to fall through to `undefined`.
+// Totality: catches a threshold rewritten to fall through to `undefined`.
 const SPREAD = [
   0.001, 0.01, 0.1, 0.2, 0.24, 0.25, 0.3, 0.4, 0.49, 0.5, 0.6, 0.79, 0.8, 0.9, 1, 1.45, 2.17, 5, 10,
   100, 1e6

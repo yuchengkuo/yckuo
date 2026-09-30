@@ -1,19 +1,11 @@
 /**
- * corpus.mjs — what the content corpus contains, read once.
- *
  * The collection globs are read out of `src/content.config.ts` rather than restated, so
- * every caller derives its expectation from whatever is DECLARED. That is what keeps the
- * build gate's corpus rungs revision-independent, and it is why a mistyped `base` shows
- * up as an empty result everywhere at once instead of in one place.
- *
- * One copy, imported by the gate and by the ratio generator. The fenced-code rule already
- * proved the alternative: two copies of a scan is how they came to disagree.
+ * the gate's corpus rungs derive their expectation from whatever is declared.
  */
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-/* `census()` there means image CALL SITES; `census()` in `port-guard.mjs` means recorded
-   provenance. Renamed at the import so one file never carries both meanings. */
+/* Renamed: `census()` in `port-guard.mjs` means recorded provenance. */
 import { census as imageCallSites } from './slashify.mjs'
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -26,15 +18,7 @@ export function walk(dir) {
     .flatMap((e) => (e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]))
 }
 
-/**
- * A single star does not cross a path separator; a double star matches zero or more
- * directories.
- *
- * That distinction is load-bearing rather than pedantic: it is what keeps
- * `docs/CONTEXT.md` out of the corpus. `pages` is `*.mdoc`, root-only, so a file one
- * directory down is matched by no collection glob and stays documentation. Reproducing
- * the semantics here means the callers keep deriving that result instead of restating it.
- */
+/* `*` must not cross a `/`: that is what keeps `docs/CONTEXT.md` out of root-only `pages`. */
 export function globMatcher(pattern) {
   const source = pattern
     .split('/')
@@ -72,15 +56,7 @@ export function collectionFiles() {
   return [...seen]
 }
 
-/**
- * The content root — the submodule itself. Anything living BESIDE the content (the ratio
- * manifest, `navigation.yml`) resolves from here rather than from a second hard-coded path
- * that could drift away from the one `content.config.ts` declares.
- *
- * That has one answer only while every collection shares one `base`, which is a property of
- * `content.config.ts` and not of this file — so it is CHECKED, not assumed. A single
- * divergent base would otherwise relocate the manifest silently.
- */
+/** Throws unless every collection shares one `base`; otherwise the manifest has no home. */
 export function contentRoot() {
   const bases = [...new Set(collectionGlobs().map((g) => g.base))]
   if (bases.length !== 1)
@@ -91,28 +67,15 @@ export function contentRoot() {
   return path.resolve(ROOT, bases[0])
 }
 
-/** Frontmatter fields that name a Cloudinary id. Both are optional in their schema. */
 const FRONTMATTER_MEDIA = ['thumbnail', 'cover']
 
 /**
- * Every Cloudinary asset the corpus references, as
- * `{ id, isVideo, draft, from, file, line }`.
+ * Every Cloudinary asset the corpus references, as `{ id, isVideo, draft, from, file, line }`.
  *
- * `id` is normalised the way the render path normalises it: **the leading `/` is a marker,
- * not a path**, and the paragraph transform strips it before the id reaches Cloudinary.
- * The frontmatter fields are written WITHOUT one, which is why normalising here rather
- * than at each call site is what lets body media and frontmatter media share a manifest.
- *
- * `isVideo` comes from the `image_isvideo` annotation, which is the corpus's only record
- * of an asset's resource type — and the resource type decides which `fl_getinfo` URL
- * shape can answer at all.
- *
- * Body sites come through `census()`, the same scanner the converter proof is built on,
- * so an image inside a fenced code block is code here too.
- *
- * `draft` is carried rather than filtered: a draft entry renders in `astro dev` and not in
- * a build, so the ratio generator wants its ids and a rung counting BOXES IN `dist/` does
- * not. Callers decide, because the two answers are both correct.
+ * `id` has its leading `/` stripped, as the render path does; frontmatter ids have none.
+ * `isVideo` comes from `image_isvideo`, the corpus's only record of resource type.
+ * `draft` is carried, not filtered: the ratio generator wants draft ids, a rung counting
+ * boxes in `dist/` does not.
  */
 export function mediaSites() {
   const sites = []
@@ -124,11 +87,8 @@ export function mediaSites() {
 
     for (const site of imageCallSites(raw)) {
       const src = site.src
-      /* An absolute URL is somebody else's asset: no Cloudinary id, so nothing to key a
-         manifest entry on and nothing `fl_getinfo` can answer. Skipping it keeps the
-         generator from asking — it does NOT soften the outcome. `Img.astro` resolves a
-         ratio for every box it renders and throws when it cannot, so the first absolute
-         URL written into the corpus fails the build. None today. */
+      /* An absolute URL has no Cloudinary id to record. Skipping it doesn't soften anything:
+         `aspectRatio()` still throws when it renders. */
       if (/^[a-z][a-z0-9+.-]*:/i.test(src) || src === '') continue
       sites.push({
         id: src.replace(/^\//, ''),

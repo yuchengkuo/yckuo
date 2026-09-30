@@ -4,17 +4,15 @@
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
   interface Props {
-    id?: string //Cloudinary ID
+    id?: string // Cloudinary id
     src?: string
     alt?: string
     isVideo?: boolean
     widths?: number[]
     sizes?: string[] | string | null
     transformations?: TransformerOption | TransformerVideoOption
-    /* REQUIRED. The original bug was a component rendering a box it could not size: the
-       transform declared this and never assigned it, so every box shipped `aspect-ratio: `
-       and every browser dropped it in silence. There is no default — the reasoning is in
-       `src/lib/media/aspectRatio.ts` — and A12 fails the build on any unsized box. */
+    /* Required, with no default — see `aspectRatio.ts`. A12 fails the build on an unsized
+       box. */
     aspectRatio: string
     title?: string
     description?: string

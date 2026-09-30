@@ -5,20 +5,12 @@
  *     node scripts/getinfo-selftest.mjs             run every fixture
  *     node scripts/getinfo-selftest.mjs --report    name each fixture as it passes
  *
- * This proof exists for one thing the build gate CANNOT see: a ratio that is valid but
- * wrong. A12 checks that every emitted `aspect-ratio` parses as two positive integers and
- * that the boxes are all there — a parser reading `output` instead of `input` satisfies
- * both while reserving the wrong box on every transformed asset. Only a recorded payload
- * where the two blocks DISAGREE can tell the two parsers apart, which is what the two
- * transformed accept fixtures below are for. The untransformed responses cannot: their
- * `input` and `output` are identical, so they pass either way.
+ * Catches what A12 cannot: a ratio that is valid but wrong. A parser reading `output`
+ * instead of `input` passes A12; only the transformed fixtures, where the two blocks
+ * disagree, tell them apart.
  *
- * Every fixture is a body recorded verbatim from `res.cloudinary.com`, so the proof runs
- * with no network and no content checkout.
- *
- * THE GATES RUN IN BOTH DIRECTIONS, following the converter proof: accept fixtures must
- * pass, and reject fixtures must EACH throw. A parser that has quietly stopped refusing
- * is as bad as one that misreads, and only the reverse direction catches it.
+ * Every body is recorded verbatim from `res.cloudinary.com`. Reject fixtures must each
+ * throw — a parser that stopped refusing is as bad as one that misreads.
  */
 import { ratioFromGetInfo } from './getinfo.mjs'
 
@@ -41,7 +33,6 @@ const fail = (msg) => problems.push(msg)
 
 // --- fixtures -----------------------------------------------------------------------
 
-/** Bodies the parser must read, and the ratio each one means. */
 const ACCEPT_FIXTURES = [
   {
     why: 'image resource type, untransformed',
@@ -49,8 +40,7 @@ const ACCEPT_FIXTURES = [
     want: '3840/3112'
   },
   {
-    // The fixture the whole proof turns on. `output` is 400x324 here; anything that
-    // returns it is reading the transformation, not the asset.
+    // `output` is 400x324 here; returning it means reading the transformation.
     why: 'image resource type, TRANSFORMED — input and output disagree',
     body: '{"input":{"width":3840,"height":3112,"bytes":1979016},"resize":[{"x_factor":0.10416666666666667,"y_factor":0.10411311053984576}],"output":{"format":"png","bytes":38530,"width":400,"height":324}}',
     want: '3840/3112'
@@ -67,12 +57,6 @@ const ACCEPT_FIXTURES = [
   }
 ]
 
-/**
- * Bodies the parser must REFUSE. The first three are the real traps; the fourth is what
- * Cloudinary actually returns when a video id is asked of the image resource type, and it
- * is here because a 404 with an empty body is the one failure that looks like nothing at
- * all.
- */
 const REJECT_FIXTURES = [
   {
     why: 'an empty object — what the video resource type answers on a plain URL',

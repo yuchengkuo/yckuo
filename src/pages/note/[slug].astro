@@ -1,11 +1,9 @@
 ---
 /*
- * Unlike `work/[slug].astro`, `getStaticPaths()` here needs no `featured` filter: every
- * note is reachable from `/note` and every one is built. `entry.id` is `note/<slug>`, so
- * the route parameter is its tail.
+ * No `featured` filter, unlike `work/[slug].astro`: every note is linked from `/note`.
  *
- * There is no "Updated at" trailer on a note; the date sits in the header instead and
- * reads "Updated on". The asymmetry with `[...page].astro` is deliberate.
+ * The date sits in the header rather than an "Updated at" trailer. The asymmetry with
+ * `[...page].astro` is deliberate.
  */
 import { render, type CollectionEntry } from 'astro:content'
 import Base from '../../layouts/Base.astro'

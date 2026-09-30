@@ -1,16 +1,10 @@
 ---
 /*
- * It MUST emit its three elements with no wrapper. The snippet is called from two
- * different parents — a `grid-subgrid` card for featured projects and a plain
- * `md:span-4` block for the rest — and the `col-span-*` classes below are placed by
- * whichever grid the caller is, so a wrapper element here would sever the subgrid chain.
- * An `.astro` component renders as a fragment, so this holds by construction rather than
- * by care.
+ * No wrapper element: the span classes below are placed by whichever grid the caller is.
  *
- * `p.span-5` IS CLAMPED, knowingly. The non-featured caller wraps this in `md:span-4`,
- * and a subgrid cannot create implicit tracks — so a 5-column span inside a 4-column
- * parent clamps to 4 and the intended 5-of-8 measure is silently the block's full width.
- * Unfixed because fixing it changes a rendered width, which is a visual decision.
+ * `p.span-5` is clamped: inside the non-featured caller's `md:span-4` a subgrid cannot
+ * create tracks, so it renders at 4. Left unfixed because fixing it changes a rendered
+ * width, which is a visual decision.
  */
 import type { CollectionEntry } from 'astro:content'
 
@@ -22,21 +16,14 @@ const { project } = Astro.props
 const { title, category, summary, link } = project.data
 
 /*
- * The Read button's hover state, mirrored off `.button-secondary:hover` in main.css
- * because that rule is dead here: the button sits under the title link's stretched
- * `::after`, which is positioned and swallows every pointer event aimed at it.
+ * Mirrors `.button-secondary:hover` from main.css, which never fires here: the button sits
+ * under the title link's stretched `::after`. Keep the two in sync.
  *
- * Keyed on `.stretch-link:hover` and NOT on the row's `group:hover`. The overlay IS the
- * title link, so the title link is hovered exactly when the pointer is over the row and
- * NOT over the View button — View escapes the overlay via `relative` below, and a
- * `group-hover:` would fire there too, lighting a button the pointer is nowhere near.
- * The same signal already drives the title's own underline, so the two stay in step.
+ * Keyed on `.stretch-link:hover`, not `group-hover:` — the row's hover also fires over the
+ * View button, which escapes the overlay.
  *
- * Every class is spelled out whole because the extractor reads raw file text: a
- * template literal generates no CSS at all, with a green build and a class attribute
- * that still reads correctly in the DOM. Keep these three in sync with
- * `.button-secondary`'s `hover:()` — the secondary variant flips `text-on-color` too,
- * which the primary carries at rest.
+ * Spelled out whole: the extractor reads raw file text, so a template literal generates no
+ * CSS.
  */
 const readHover =
   '[.group:has(.stretch-link:hover)_&]:bg-button-secondary-hover [.group:has(.stretch-link:hover)_&]:text-on-color [.group:has(.stretch-link:hover)_&]:border-transparent'
@@ -47,14 +34,8 @@ const readHover =
     <h3 class="mb-1">
       {
         /*
-        The stretched link: `::after` covers the row's padding box (not its `mb-8`, which
-        is margin), so the whole row is the tap target while the DOM keeps ONE anchor to
-        the project page. A wrapping `<a class="contents">` cannot do this — `<a>` may not
-        contain `<a>`, and the parser's adoption agency algorithm answers one by closing
-        the wrapper into an empty sibling and cloning it down the tree. The row still
-        renders, the classes are all still correct, and the link is silently broken. Astro
-        emits what you wrote; the browser is what rewrites it, so only the DOM shows the
-        damage.
+        A stretched `::after` rather than a wrapping `<a>`: the row holds another link, and
+        the HTML parser splits nested anchors apart, silently breaking the wrapper.
       */
       }
       <a class="stretch-link after:absolute after:inset-0 after:content-empty" href={project.id}
@@ -71,12 +52,8 @@ const readHover =
   >
     {
       /*
-      `relative` is what keeps this anchor clickable. The title's stretched `::after` is
-      positioned and therefore paints above every statically positioned sibling; giving
-      this one a position of its own puts it back on top, since it comes later in the DOM
-      and both have `z-index: auto`. Its own `:hover` then still matches, so the
-      `.button-primary` hover rule in main.css needs no mirror. Remove `relative` and the
-      external link becomes unreachable while the markup still reads correctly.
+      `relative` lifts this above the title's positioned `::after` (later in the DOM, both
+      `z-index: auto`). Without it the link is unreachable.
     */
       link && (
         <a href={link} class="button-primary relative">
@@ -87,16 +64,8 @@ const readHover =
 
     {
       /*
-    `aria-hidden` + `tabindex="-1"`, together and never one without the other: this
-    duplicates the destination of the title link above it, so a screen reader's link list
-    would name every project twice with nothing to tell the two apart. Hiding a focusable
-    element from the a11y tree is a violation on its own; paired with removal from the tab
-    order it is the standard treatment for a redundant affordance, and the title link still
-    reaches the page for both keyboard and AT.
-
-    Its own `:hover` is dead — unlike View above, this anchor sits under the title's
-    stretched overlay and never receives a pointer event. `readHover` above is the
-    mirror, and carries the reason it is keyed on the overlay rather than on the row.
+    `aria-hidden` and `tabindex="-1"` go together, never one alone: this duplicates the
+    title link, and a focusable element hidden from the a11y tree is a violation.
   */
     }
     <a class={`button-secondary ${readHover}`} href={project.id} aria-hidden="true" tabindex="-1"

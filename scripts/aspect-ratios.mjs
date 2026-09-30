@@ -1,24 +1,10 @@
 #!/usr/bin/env node
 /**
- * aspect-ratios.mjs — the ratio manifest and its generator.
- *
  *     pnpm ratios          fetch every id the manifest lacks, write it, report
  *     pnpm ratios --dry    say what it would fetch, touch nothing
  *
- * Every media box on the site is sized from `aspect-ratios.json`, a committed file at the
- * root of the private content submodule. The ratio is a **discovered fact about the
- * asset**, never an authored decision: nobody types one, and no content file changes when
- * one is recorded.
- *
- * GENERATION IS LOCAL-AND-COMMITTED; CI ONLY READS. The dev hook below is gated on the
- * `dev` command, so a production build makes no network call and writes nothing. That is
- * not a preference — Vercel's build filesystem is ephemeral, so a manifest generated
- * there could never persist back, and a build that fetches gets to fail because
- * Cloudinary is briefly unreachable. `docs/adr/0001-committed-ratio-manifest.md` records
- * the reasoning.
- *
- * Steady state is zero network calls: the generator diffs the corpus against the manifest
- * and fetches only what is missing, so adding one image costs exactly one request.
+ * Never runs on a build: Vercel's filesystem is ephemeral, so a manifest generated there
+ * could not persist. `docs/adr/0001-committed-ratio-manifest.md` records the reasoning.
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -26,7 +12,6 @@ import { pathToFileURL } from 'node:url'
 import { ROOT, contentRoot, mediaSites } from './corpus.mjs'
 import { getInfoUrl, ratioFromGetInfo } from './getinfo.mjs'
 
-/** Named for what it holds. It sits beside `navigation.yml`, inside the submodule. */
 export const MANIFEST_FILE = 'aspect-ratios.json'
 
 export function manifestPath() {
@@ -39,11 +24,7 @@ export function readManifest() {
   return JSON.parse(fs.readFileSync(file, 'utf8'))
 }
 
-/**
- * Sorted, one id per line, trailing newline. Sorting is what makes recording a new asset
- * an INSERTION rather than a reflow — a hundred-line diff for one added image is a diff
- * nobody reads.
- */
+/* Sorted, so recording an asset is a one-line insertion in the diff. */
 function writeManifest(ratios) {
   const sorted = Object.fromEntries(
     Object.keys(ratios)
@@ -54,12 +35,8 @@ function writeManifest(ratios) {
 }
 
 /**
- * Every id the corpus references, mapped to its resource type.
- *
- * Cloudinary namespaces ids by resource type, so an image and a video could in principle
- * share one. There are zero collisions today, and this THROWS if one ever appears rather
- * than pre-building a keying scheme for a case that does not exist — the flat map is
- * correct until it is loudly not.
+ * Throws if an id is referenced as both image and video: Cloudinary namespaces ids by
+ * resource type, and the flat manifest cannot hold two assets under one key.
  */
 export function corpusIds() {
   const byId = new Map()
@@ -84,9 +61,8 @@ const describe = (site) =>
   `${path.relative(ROOT, site.file)}${site.line ? `:${site.line}` : ` (${site.from})`}`
 
 /**
- * Fetch and record every id the manifest lacks. Returns a report; never throws for a
- * single unreadable asset — that id simply stays unrecorded, and the build says so by
- * name when something tries to render it.
+ * Returns a report; never throws for an unreadable asset — that id stays unrecorded, and
+ * the build names it when something renders it.
  */
 export async function generateRatios({
   log = consoleLog,
@@ -130,11 +106,6 @@ export async function generateRatios({
   }
 }
 
-/**
- * The dev-only hook. It lives here rather than inline in `astro.config.mjs` because that
- * config already carries an integration-ordering hazard and should not grow a second
- * concern.
- */
 export function aspectRatios() {
   return {
     name: 'aspect-ratios',

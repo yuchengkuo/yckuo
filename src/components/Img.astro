@@ -1,15 +1,12 @@
 ---
 /*
- * The media wrapper, and the whole cost of keeping `Image.svelte` / `Video.svelte` in
- * Svelte: a markdoc `render:` cannot point at a `.svelte` file directly.
+ * Exists because a Markdoc `render:` cannot point at a `.svelte` file.
  *
- * ONE component dispatching both, rather than an Img and a Vid, because
- * `@astrojs/markdoc` builds its TAG component map from `getUsedTags(ast)` — only tags a
- * document literally writes — while the NODE map is built unfiltered. Nothing writes
- * `{% vid %}` (the paragraph transform synthesises it), so a marker on `tags.vid` is
- * never resolved and Svelte receives the raw marker object: `TypeError: component is not
- * a function`, several pages into the build. So: one marker, on `nodes.image`, and the
- * fork lives here.
+ * One component for image and video: `@astrojs/markdoc` resolves tag components only for
+ * tags a document literally writes, and nothing writes `{% vid %}` (the paragraph
+ * transform synthesises it), so a `tags.vid` render reaches Svelte unresolved — `TypeError:
+ * component is not a function`. The node map is unfiltered, so the fork sits behind
+ * `nodes.image`.
  */
 import Image from '../lib/media/Image.svelte'
 import Video from '../lib/media/Video.svelte'
@@ -17,35 +14,20 @@ import { aspectRatio } from '../lib/media/aspectRatio'
 import { spanFromRatio } from '../lib/media/gridSpan'
 import { PLACEMENT_PREFIXES } from '../lib/media/placementTokens'
 
-// `class` is a reserved word in the destructuring position, hence the rename.
+// `description` goes to `Image.svelte` only: `Video.svelte` doesn't declare it, so in
+// `...rest` it would land on the figure as an inert attribute.
 //
-// `description` is split out because the two branches want different things. The
-// transform forwards it unconditionally, and `Video.svelte` does not declare it as a
-// prop — so left in, it falls into `...rest` and spreads onto the element, giving every
-// video figure an inert `description=""` attribute. This is where it is dropped again.
+// No `client:` directive on either branch — A10.
 //
-// NEITHER BRANCH TAKES A `client:` DIRECTIVE. `<astro-island>` is `display: contents`,
-// so it generates no box — but CSS SELECTORS match the DOM tree, not the box tree. Every
-// `>`-combinator rule aimed at a figure lands on the island instead and the figure falls
-// through to auto-placement: `.media-grid > *`, `main > article > *` and prose's `> figure`
-// all read this way. A10 in `port-guard.mjs` asserts that no island renders inside
-// `<main>`, on every page of every build.
-//
-// The RATIO IS RESOLVED HERE, not in `markdoc.config.mjs` and not in a collection schema.
-// This is the one call site body media has, and it is an Astro component — server-only,
-// downstream of the gate's imports, and free to throw on an id the manifest never
-// recorded. A12 asserts that every box the build emits carries a real ratio.
+// The ratio resolves here rather than in `markdoc.config.mjs` or a schema; see
+// `aspectRatio.ts`. A12 asserts every emitted box carries one.
 const { class: className, image_isvideo, description, id, ...rest } = Astro.props
 const ratio = aspectRatio(id)
 
 /*
- * `data-span` is read only inside `{% grid %}` — outside one, nothing looks at it, so
- * no marker needs threading down from the tag transform. Every figure gets one unless
- * the incoming class list already carries a bare span, start, or end annotation, which
- * means the author placed this image themselves and the derived size steps aside
- * entirely. An `lt-md:`-prefixed token doesn't count: it's a mobile-only placement, not
- * the desktop override this is checking for, so anchoring the regex at the token start
- * already excludes it without needing to strip the variant prefix first.
+ * `data-span` is read only inside `{% grid %}`, so every figure gets one; nothing needs to
+ * know whether it is in a grid. An author-placed image gets none. An `lt-md:` token is a
+ * mobile-only placement and doesn't count — the anchored regex already skips it.
  */
 const placementPattern = new RegExp(`^(?:${PLACEMENT_PREFIXES.join('|')})-`)
 const isPlaced = (className ?? '').split(/\s+/).some((token) => placementPattern.test(token))

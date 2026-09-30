@@ -1,27 +1,15 @@
 /*
- * The one ratio lookup. Body media and frontmatter media resolve through it identically —
- * they differ in where the id comes from and in nothing else, and two resolution paths of
- * differing strength is the shape this whole mechanism exists to remove.
- *
- * The manifest is a STATIC IMPORT, not a filesystem read, and it is imported here rather
- * than anywhere upstream. Neither `markdoc.config.mjs` (which `port-guard.mjs` imports
- * directly, so a new failure surface there is a new way for the gate itself to die) nor
- * the collection schemas (where a throw on a missing ratio would be a schema demanding a
- * content edit — the one thing `content.config.ts` rules out) may learn about ratios.
- *
- * The file lives inside the private content submodule, so a clone without content has
- * neither the images nor their dimensions and cannot reach this code at all.
+ * Imported here and nowhere upstream. `markdoc.config.mjs` is imported by `port-guard.mjs`,
+ * so a throw there kills the gate itself; a throw in a collection schema would be a schema
+ * demanding a content edit, which `content.config.ts` rules out.
  */
 import ratios from '../../../content/aspect-ratios.json'
 
 const RATIOS: Record<string, string> = ratios
 
 /**
- * The CSS ratio for a Cloudinary id, e.g. `'3840/3112'`.
- *
- * THROWS on anything it cannot resolve, and that is the feature: there is no default
- * ratio, for the reason `docs/adr/0001-committed-ratio-manifest.md` records. `pnpm ratios`
- * records a missing one; `pnpm dev` does it unprompted.
+ * Returns a CSS ratio, e.g. `'3840/3112'`. Throws on a missing id or one the manifest lacks
+ * — there is no default, per `docs/adr/0001-committed-ratio-manifest.md`.
  */
 export function aspectRatio(id: string | undefined): string {
   if (!id)

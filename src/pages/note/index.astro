@@ -1,14 +1,11 @@
 ---
 /*
- * THE LIST IS NOT SORTED, on purpose — see `lib/collections.ts`.
+ * Unsorted on purpose — see `lib/collections.ts`.
  *
- * THE HREFS MUST BE ABSOLUTE. Astro's directory build format writes `note/index.html`,
- * which a host may serve at `/note/`, and a relative `href="note/windicss"` resolves
- * from there to `/note/note/windicss`. One character, and the link surface of the
- * whole section.
+ * The hrefs must be absolute: a host may serve `note/index.html` at `/note/`, where a
+ * relative `note/windicss` resolves to `/note/note/windicss`.
  *
- * og:title and og:description are absent by design: this is the one route with no
- * content entry behind it, so there is nothing to put in them.
+ * No og:title or og:description — there is no content entry behind this route.
  */
 import Base from '../../layouts/Base.astro'
 import More from '../../components/More.astro'

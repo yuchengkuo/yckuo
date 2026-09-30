@@ -1,20 +1,15 @@
 /*
- * The Markdoc layer. TWO HARD RULES run through the whole file:
+ * Two rules for the whole file:
  *
- *   1. EVERY TRANSFORM IS SYNCHRONOUS. One `async transform` anywhere makes
- *      `getHeadings()` return `[]` for every document site-wide, not just near the async
- *      node. Nothing consumes headings today, which is exactly why A2 asserts it rather
- *      than trusting a reading.
+ *   1. Every transform is synchronous. One `async transform` anywhere makes
+ *      `getHeadings()` return `[]` for every document. A2 asserts it.
  *
- *   2. `component()` MARKERS ARE ONLY COLLECTED FROM A `render:` FIELD, never from
- *      inside a transform. A transform that calls `component()` builds ~22 pages and
- *      then dies on a misleading `NoMatchingRenderer`. So the markers are declared on
- *      `render:` and the transforms read them back out of the resolved config.
+ *   2. `component()` markers are collected only from a `render:` field. A transform that
+ *      calls `component()` dies partway through the build on a misleading
+ *      `NoMatchingRenderer`, so transforms read the markers back from `config.nodes`.
  *
- * The image syntax this config is written against:
- *   ![alt](/cloudinary-id 'caption') {% .span-N %}
- * — markdown image syntax, one LEADING `/` per id. `emitOptimizedImages` rejects
- * relative ids, which is what the slash is for.
+ * `port-guard.mjs` imports this file directly: anything that can throw here takes the gate
+ * down with it.
  */
 import Markdoc from '@markdoc/markdoc'
 import { defineMarkdocConfig, component } from '@astrojs/markdoc/config'
@@ -23,21 +18,11 @@ import { highlight } from './src/lib/highlighter.ts'
 export default defineMarkdocConfig({
   nodes: {
     // --- heading -------------------------------------------------------------------
-    // The attributes are `{ ...attributes, id }` and NOTHING MORE.
+    // No `__collectHeading` or `level` attribute, despite Astro's own heading extension:
+    // Astro adds them only for non-string renders, and on a string tag they ship as HTML
+    // attributes. `collectHeadings` finds string `h1`–`h6` tags without them.
     //
-    // Do not add `__collectHeading: true` or `level` here, however much Astro's own
-    // heading extension looks like a model. **They do not belong on a STRING render, and
-    // Astro says so** — its code adds the pair only when `typeof render !== 'string'`,
-    // commented *"Avoid accidentally rendering `level` as an HTML attribute otherwise!"*.
-    // A string tag's attributes pass straight through to HTML, so carrying them ships
-    // `<h2 level="2" link="true" id="…" __collectHeading="true">` on every heading. They
-    // also buy nothing: `collectHeadings` matches `node.name === 'h' + level` for string
-    // tags, which is this branch.
-    //
-    // The anchor has NO `'#'` text child — the glyph is drawn in CSS by `prose.css`'s
-    // `a[data-anchor]::after`, which is what `data-anchor` below exists for. A real text
-    // child lands in `getHeadings().text`, putting a stray '#' in every TOC entry. A7
-    // asserts the CSS half, so dropping one without the other is caught.
+    // The anchor has no `#` text child; `prose.css` draws it from `data-anchor` — A7.
     heading: {
       children: ['inline'],
       attributes: {
@@ -68,19 +53,14 @@ export default defineMarkdocConfig({
     },
 
     // --- image ---------------------------------------------------------------------
-    // Carries the ONLY component() marker the paragraph transform can use.
-    //
-    // The default schema is spread back in: the paragraph transform below leans on the
-    // default `src`/`alt`/`title` attributes surviving transformAttributes(), and
-    // redeclaring the node without them would silently drop every caption.
+    // The default schema is spread back in: without its `src`/`alt`/`title`, the
+    // paragraph transform silently drops every caption.
     image: {
       ...Markdoc.nodes.image,
       render: component('./src/components/Img.astro')
     },
 
     // --- fence ---------------------------------------------------------------------
-    // Synchronous Shiki. `config.nodes.fence.render` reads the marker declared above it
-    // rather than calling component() here — see rule 2 at the top of the file.
     fence: {
       render: component('./src/components/CodeBlock.astro'),
       children: ['inline', 'text'],
@@ -104,21 +84,12 @@ export default defineMarkdocConfig({
     },
 
     // --- paragraph -----------------------------------------------------------------
-    // This is what turns an image-only paragraph into a figure, which is why markdown
-    // image syntax works at all.
+    // Turns an image-only paragraph into a figure.
     //
-    // A LEADING '/' MEANS "Cloudinary id" — strip it and treat the rest as the id. That
-    // is the inverse of the intuitive reading, where '/' would mean "a real URL, leave
-    // it alone". The `!startsWith('http')` fallback below keeps a bare id rendering, so
-    // an unslashed hand-authored file is a rendering bug rather than a broken build.
+    // A leading `/` marks a Cloudinary id, not a root-relative URL; `slashify.mjs` says
+    // why it is there. A bare id is still accepted.
     //
-    // NO RATIO IS DECLARED HERE. It used to be, unassigned, and every media box shipped
-    // `aspect-ratio: ` for it. Resolution lives in `Img.astro`, which is downstream of
-    // this file and free to throw; this one is imported directly by `port-guard.mjs`, so a
-    // failure surface added here is a new way for the build gate itself to die. It reads
-    // no files.
-    //
-    // It must stay SYNCHRONOUS — see rule 1 at the top of the file.
+    // No ratio here: `Img.astro` resolves it, where a throw cannot take down the gate.
     paragraph: {
       attributes: {
         image_title: { type: String },
@@ -126,10 +97,8 @@ export default defineMarkdocConfig({
         image_isvideo: { type: Boolean }
       },
       transform(node, config) {
-        /* Unwrap image from paragraph, transform image nodes */
         const img = node.children[0]?.children[0]
         if (img?.type === 'image') {
-          /* Merge attributes */
           img.attributes = { ...img.attributes, ...node.attributes }
 
           let description = ''
@@ -145,10 +114,8 @@ export default defineMarkdocConfig({
 
           if (img.attributes.image_description) description = img.attributes.image_description
 
-          /* Video. The branch lives in `Img.astro`, not here, so the flag is forwarded
-             EXPLICITLY. It would not survive transformAttributes() on its own — it is
-             neither a Markdoc global attribute nor part of the image node's schema, and
-             losing it turns every video into a broken <img> with a green build. */
+          /* `image_isvideo` is forwarded explicitly: outside the image schema,
+             `transformAttributes()` drops it, and every video becomes a broken <img>. */
           return new Markdoc.Tag(
             config.nodes.image.render,
             {
@@ -171,7 +138,6 @@ export default defineMarkdocConfig({
 
   tags: {
     // --- deflist -------------------------------------------------------------------
-    // 5 in the corpus.
     deflist: {
       render: 'dl',
       children: ['paragraph', 'list'],
@@ -191,9 +157,8 @@ export default defineMarkdocConfig({
     },
 
     // --- grid ----------------------------------------------------------------------
-    // `children: ['paragraph']` and not `['paragraph','tag']`: grid members are
-    // written as markdown images, so they arrive as paragraphs. Renamed from `gallery`
-    // rather than aliased — `docs/adr/0004-derived-grid-spans.md` records why.
+    // Members are markdown images, so they arrive as paragraphs. No `gallery` alias —
+    // `docs/adr/0004-derived-grid-spans.md` records why.
     grid: {
       render: component('./src/components/Grid.astro'),
       children: ['paragraph']
@@ -204,9 +169,8 @@ export default defineMarkdocConfig({
       attributes: { title: { type: String } }
     },
 
-    // No attributes schema, deliberately: the `.text-secondary` shorthand yields a Class
-    // OBJECT rather than a string, and `class` is a Markdoc global attribute anyway.
-    // 45 in the corpus, all of them carrying exactly that shorthand.
+    // No attributes schema: the `.class` shorthand yields a Class object, not a string,
+    // and `class` is a Markdoc global attribute anyway.
     span: { render: 'span' }
   }
 })

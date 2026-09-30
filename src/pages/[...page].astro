@@ -1,17 +1,12 @@
 ---
 /*
- * ONE ROUTE, TWO COLLECTIONS — because `entry.id` carries the directory. `pages` is
- * root-only (`about`, `colophon`, `contact`, `now`, `shots`) and `projects` lives under
- * `project/`, so the latter's id is `project/pages`, which the homepage links bare. A
- * rest parameter serves both with no per-collection rule.
+ * One route for `pages` and `projects`: `entry.id` carries the directory, so a rest
+ * parameter needs no per-collection rule.
  *
- * `index` IS EXCLUDED. `/index` has never been built or served — it 404s in production
- * — and leaving it in would also emit `content/index.mdoc` twice, once here and once as
- * the homepage.
+ * `index` is excluded — it is the homepage, and would otherwise be emitted twice.
  *
- * No wrapper element sits between `<main>` and this output: the `<div>` below is the
- * page's own first child and `<Content />` is a direct sibling. A wrapper that is not
- * itself `grid-subgrid` severs the subgrid chain.
+ * No wrapper between `<main>` and this output: one that is not itself `grid-subgrid`
+ * severs the subgrid chain.
  */
 import { render, type CollectionEntry } from 'astro:content'
 import Base from '../layouts/Base.astro'
@@ -47,10 +42,8 @@ const { Content } = await render(entry)
 
   {
     /*
-    THE SPREAD IS LOAD-BEARING. `@astrojs/markdoc` turns every prop on `<Content />`
-    into a Markdoc VARIABLE, which is how frontmatter reaches the body.
-    `content/now.mdoc` opens with `{% $description %}` — one file, one variable, and
-    without this spread that paragraph renders empty with a green build.
+    `@astrojs/markdoc` turns every prop on `<Content />` into a Markdoc variable. Without
+    the spread, `{% $description %}` in `content/now.mdoc` renders empty with a green build.
   */
   }
   <Content {...entry.data} />

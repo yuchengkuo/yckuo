@@ -78,7 +78,7 @@ export function getAWebpProps({
           type: 'scale',
           width
         },
-        // bug in `cloudinary-build-url`
+        // The flag type has no dot-joined form, which Cloudinary accepts.
         flags: 'animated.awebp' as 'awebp',
         effect: {
           name: 'loop',
