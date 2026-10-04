@@ -1,7 +1,3 @@
-# The private content submodule. `prettier --write .` reaches into it otherwise, which
-# dirties a repository this one only pins — and did, once, on top of a pushed commit.
-content/
-
 # generated
 dist/
 dist-parity/

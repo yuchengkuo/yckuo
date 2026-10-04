@@ -1,5 +1,10 @@
 {
   "files.associations": {
     "*.mdoc": "markdoc"
+  },
+  "prettier.documentSelectors": ["**/*.mdoc"],
+  "[markdoc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   }
 }

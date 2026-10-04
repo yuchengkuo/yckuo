@@ -18,7 +18,7 @@
     "build": "astro build && node scripts/port-guard.mjs",
     "guard": "node scripts/port-guard.mjs",
     "preview": "astro preview",
-    "format": "prettier --write .",
+    "format": "prettier --write . '!content/**'",
     "ratios": "node scripts/aspect-ratios.mjs",
     "selftest": "node scripts/converter-selftest.mjs && node scripts/getinfo-selftest.mjs && node scripts/order-selftest.mjs && node scripts/gridspan-selftest.mjs"
   },
