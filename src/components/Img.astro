@@ -14,14 +14,11 @@ import { aspectRatio } from '../lib/media/aspectRatio'
 import { spanFromRatio } from '../lib/media/gridSpan'
 import { PLACEMENT_PREFIXES } from '../lib/media/placementTokens'
 
-// `description` goes to `Image.svelte` only: `Video.svelte` doesn't declare it, so in
-// `...rest` it would land on the figure as an inert attribute.
-//
 // No `client:` directive on either branch — A10.
 //
 // The ratio resolves here rather than in `markdoc.config.mjs` or a schema; see
 // `aspectRatio.ts`. A12 asserts every emitted box carries one.
-const { class: className, image_isvideo, description, id, ...rest } = Astro.props
+const { class: className, image_isvideo, id, ...rest } = Astro.props
 const ratio = aspectRatio(id)
 
 /*
@@ -39,13 +36,6 @@ const dataSpan = isPlaced ? undefined : spanFromRatio(width / height)
   image_isvideo ? (
     <Video class={className} id={id} aspectRatio={ratio} data-span={dataSpan} {...rest} />
   ) : (
-    <Image
-      class={className}
-      id={id}
-      description={description}
-      aspectRatio={ratio}
-      data-span={dataSpan}
-      {...rest}
-    />
+    <Image class={className} id={id} aspectRatio={ratio} data-span={dataSpan} {...rest} />
   )
 }

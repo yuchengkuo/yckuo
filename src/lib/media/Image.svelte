@@ -89,6 +89,6 @@
     --uno: 'w-full h-full object-cover object-center';
   }
   figcaption {
-    --uno: 'grid gap-x-1.5 w-fit h-fit mt-2.5';
+    --uno: 'grid gap-x-1.5 w-fit h-fit mt-2.5 lt-sm:mt-1.5';
   }
 </style>
