@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getAWebpProps, getImgProps } from './getImgProps'
+  import { DEFAULT_WIDTHS, getAWebpProps, getImgProps } from './getImgProps'
 
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
@@ -25,7 +25,7 @@
     src = '',
     alt = '',
     isVideo = false,
-    widths = [400, 840, 1100, 1650, 2100],
+    widths = DEFAULT_WIDTHS,
     sizes = ['(max-width:896px) 100vw', '(max-width:1620px) 80vw', '1920px'],
     transformations = {},
     aspectRatio,

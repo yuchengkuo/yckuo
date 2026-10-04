@@ -40,8 +40,11 @@
     ...rest
   }: Props = $props()
 
-  const resolvedSrc = $derived(
-    src || getVideoProps({ id, transformations: transformations as TransformerOption }).src
+  /* No poster for an explicit `src`: it names an asset Cloudinary cannot cut a still from. */
+  const videoProps = $derived(
+    src
+      ? { src, poster: undefined }
+      : getVideoProps({ id, transformations: transformations as TransformerOption })
   )
 </script>
 
@@ -55,9 +58,10 @@
       {loop}
       {playsinline}
       disablepictureinpicture={false}
+      poster={videoProps.poster}
       aria-label={alt || undefined}
     >
-      <source src={resolvedSrc} />
+      <source src={videoProps.src} />
     </video>
   </div>
 
