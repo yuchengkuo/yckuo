@@ -49,8 +49,8 @@ const { Content } = await render(entry)
   <Content {...entry.data} />
 
   <p class="mt-20 text-tertiary font-mono text-xs">
-    Updated at <time datetime={entry.data.updated.toISOString()}
+    / Updated at <time datetime={entry.data.updated.toISOString()}
       >{formatDate(entry.data.updated)}</time
-    >
+    > /
   </p>
 </Base>

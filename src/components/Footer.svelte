@@ -30,7 +30,7 @@
 
     <li class="my-8">
       <a href="/resume">Resume</a>
-      <span class="text-tertiary font-mono text-xs">[.pdf] [48kb]</span>
+      <span class="text-tertiary font-mono text-xs">[.pdf]</span>
     </li>
   </ul>
 
