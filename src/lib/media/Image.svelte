@@ -18,6 +18,10 @@
     description?: string
     class?: string
     loading?: 'lazy' | 'eager'
+    /* Exempts this image from the reveal gate: it ships already carrying `data-loaded`, so
+       it is never at `opacity: 0` and stays eligible to be the LCP. Pass it only on an
+       above-the-fold image — it also fetches eagerly at high priority. */
+    priority?: boolean
   }
 
   let {
@@ -33,6 +37,7 @@
     description,
     class: classname,
     loading = 'lazy',
+    priority = false,
     ...rest
   }: Props = $props()
 
@@ -61,7 +66,15 @@
 
 <figure class={classname} {...rest}>
   <div style="aspect-ratio: {aspectRatio}">
-    <img src={imgData.src} {alt} srcset={imgData.srcset} sizes={resolvedSizes} {loading} />
+    <img
+      src={imgData.src}
+      {alt}
+      srcset={imgData.srcset}
+      sizes={resolvedSizes}
+      loading={priority ? 'eager' : loading}
+      fetchpriority={priority ? 'high' : undefined}
+      data-loaded={priority ? '' : undefined}
+    />
   </div>
 
   {#if title}
@@ -85,8 +98,33 @@
   figure > div {
     --uno: 'rounded-0.5 bg-surface overflow-hidden border border-neutral';
   }
+  /*
+   * Two layers, deliberately independent. `color: transparent` hides the alt string the
+   * browser paints into an imageless box, leaving the attribute itself intact for assistive
+   * technology. The opacity gate hides the top-to-bottom wipe — every URL is `f_auto`, and
+   * WebP has no progressive mode to paint.
+   *
+   * Only the gate needs the script, so a script that never runs costs the fade and keeps
+   * the alt-text fix. `Base.astro` carries the opener and the no-JS override.
+   */
   img {
     --uno: 'w-full h-full object-cover object-center';
+    opacity: 0;
+    color: transparent;
+  }
+  /* On the revealed state, not the hidden one: a transition is governed by its destination,
+     so a duration written above would govern only a reverse that never happens. */
+  img[data-loaded] {
+    opacity: 1;
+    color: inherit;
+    transition: opacity 200ms ease-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* Collapse the duration rather than skip the reveal — the preference removes the
+       animation, not the content. */
+    img[data-loaded] {
+      transition-duration: 0s;
+    }
   }
   figcaption {
     --uno: 'grid gap-x-1.5 w-fit h-fit mt-2.5 lt-sm:mt-1.5';

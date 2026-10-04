@@ -55,9 +55,12 @@ const metaEntries = Object.entries(entry.data.meta ?? {})
 
   {
     entry.data.thumbnail && (
+      /* The only `priority` on the site: this is the largest element above the fold and so
+         the LCP, and a zero-opacity element is not eligible to be it. */
       <ImageAstroComponent
         id={entry.data.thumbnail}
         aspectRatio={aspectRatio(entry.data.thumbnail)}
+        priority
         class="-mx-4 mb-12 rounded"
       />
     )

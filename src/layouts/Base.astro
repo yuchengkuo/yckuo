@@ -63,6 +63,20 @@ const { navigation, contact } = await getNavigation()
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={OG_IMAGE} />
 
+    {
+      /*
+      The rule beats `img { opacity: 0 }` in Image.svelte, which Svelte scopes to
+      img.svelte-<hash> — a hash that changes on every edit, so it cannot be named from
+      here. Opacity only: color:transparent stays, keeping the alt-text fix.
+
+      A string, not markup: prettier-plugin-astro mis-parses a <noscript> holding an element
+      and emits </head></html> ahead of <body>. <head> is also the only place the HTML
+      content model allows a <style> inside a <noscript>, and it keeps the element out of
+      the `body` grid, where with scripting off it would be an in-flow item.
+    */
+    }
+    <Fragment set:html={`<noscript><style>img{opacity:1!important}</style></noscript>`} />
+
     {/* Absolute path: a relative one breaks on nested routes like `/note/windicss/`. */}
     <script is:inline>
       if ('serviceWorker' in navigator) {
@@ -89,6 +103,31 @@ const { navigation, contact } = await getNavigation()
     <div data-layer role="presentation"></div>
 
     <Analytics mode={import.meta.env.DEV ? 'development' : 'production'} />
+
+    <script>
+      /*
+       * Opens the opacity gate in `Image.svelte`.
+       *
+       * Deferred, so a cached image can have fired `load` before this runs — `complete` is
+       * the only reliable test. `error` too: one that fails after this runs never fires
+       * `load`, and a broken image must reveal so its alt text can say so.
+       *
+       * Never `img.decode()`. On an image whose load has not started it *starts* it, which
+       * would defeat `loading="lazy"` across the whole corpus with the attribute still in
+       * the HTML and nothing to warn anyone. Any future use must chain after `load`.
+       *
+       * `:not([data-loaded])` is what skips the LCP-exempt hero — see `priority` in
+       * `Image.svelte`.
+       */
+      for (const img of document.querySelectorAll<HTMLImageElement>('img:not([data-loaded])')) {
+        const reveal = () => (img.dataset.loaded = '')
+        if (img.complete) reveal()
+        else {
+          img.addEventListener('load', reveal, { once: true })
+          img.addEventListener('error', reveal, { once: true })
+        }
+      }
+    </script>
 
     <script>
       import Lenis from 'lenis'
