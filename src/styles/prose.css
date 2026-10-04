@@ -115,8 +115,10 @@ article,
     --uno: 'mb-10 md:mb-12';
   }
 
+  /* `>` is what keeps `.media-grid` children out: a negative margin there would overlap the
+     neighbouring cell. */
   > figure {
-    --uno: 'mt-4 md:mt-6';
+    --uno: 'mt-4 md:mt-6 -mx-4';
   }
 
   > figure + :not(figure) {
