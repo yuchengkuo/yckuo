@@ -65,9 +65,9 @@ const { navigation, contact } = await getNavigation()
 
     {
       /*
-      The rule beats `img { opacity: 0 }` in Image.svelte, which Svelte scopes to
-      img.svelte-<hash> — a hash that changes on every edit, so it cannot be named from
-      here. Opacity only: color:transparent stays, keeping the alt-text fix.
+      The rule beats the `opacity: 0` in Image.svelte and Video.svelte, which Svelte scopes
+      to img/video.svelte-<hash> — a hash that changes on every edit, so it cannot be named
+      from here. Opacity only: color:transparent stays, keeping the alt-text fix.
 
       A string, not markup: prettier-plugin-astro mis-parses a <noscript> holding an element
       and emits </head></html> ahead of <body>. <head> is also the only place the HTML
@@ -75,7 +75,7 @@ const { navigation, contact } = await getNavigation()
       the `body` grid, where with scripting off it would be an in-flow item.
     */
     }
-    <Fragment set:html={`<noscript><style>img{opacity:1!important}</style></noscript>`} />
+    <Fragment set:html={`<noscript><style>img,video{opacity:1!important}</style></noscript>`} />
 
     {/* Absolute path: a relative one breaks on nested routes like `/note/windicss/`. */}
     <script is:inline>
@@ -106,7 +106,7 @@ const { navigation, contact } = await getNavigation()
 
     <script>
       /*
-       * Opens the opacity gate in `Image.svelte`.
+       * Opens the opacity gate in `Image.svelte` and `Video.svelte`.
        *
        * Deferred, so a cached image can have fired `load` before this runs — `complete` is
        * the only reliable test. `error` too: one that fails after this runs never fires
@@ -125,6 +125,31 @@ const { navigation, contact } = await getNavigation()
         else {
           img.addEventListener('load', reveal, { once: true })
           img.addEventListener('error', reveal, { once: true })
+        }
+      }
+
+      /*
+       * A video reveals on whichever of its poster and its first frame lands first.
+       * `Video.svelte` carries why the poster rather than `loadeddata` alone; the poster
+       * normally wins, and loses only where Cloudinary derives the still cold — there,
+       * revealing on real frames is no worse than on the frame they stand in for.
+       *
+       * That race is also the fallback, which is why neither branch guards the other: a
+       * video with no poster, or one whose poster fails, still reveals. `readyState` is the
+       * deferred-script test, as `complete` is above.
+       *
+       * No listener for a failed source: a revealed broken video and a hidden one both
+       * render the wrapper's surface tone.
+       */
+      for (const video of document.querySelectorAll<HTMLVideoElement>('video')) {
+        const reveal = () => (video.dataset.loaded = '')
+        if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) reveal()
+        else video.addEventListener('loadeddata', reveal, { once: true })
+
+        if (video.poster) {
+          const poster = new Image()
+          poster.addEventListener('load', reveal, { once: true })
+          poster.src = video.poster
         }
       }
     </script>

@@ -84,11 +84,39 @@
   }
   /* Wrapper */
   figure > div {
-    --uno: 'overflow-hidden rounded-0.5 border border-neutral';
+    /* The surface tone is the placeholder, so it belongs here and not on the `video`: the
+       gate takes that element to `opacity: 0`, and a tone on it would go too. */
+    --uno: 'overflow-hidden rounded-0.5 bg-surface border border-neutral';
   }
 
+  /*
+   * The same gate as `Image.svelte`, opened by the script in `Base.astro` — but on the
+   * poster, not on `loadeddata`. The poster paints *inside* the element, so `opacity: 0`
+   * hides it too, and `loadeddata` fires at the moment the poster would stop being shown:
+   * gating there would leave the box blank until video bytes arrive.
+   *
+   * No `color: transparent` to match: a video paints no alt string, and the label is on
+   * `aria-label`.
+   */
   video {
-    --uno: 'w-full h-full object-cover bg-surface';
+    --uno: 'w-full h-full object-cover';
+    opacity: 0;
+  }
+  /*
+   * `:global` on the attribute only, which still compiles to `video.svelte-<hash>[…]` and
+   * stays scoped. Without it Svelte prunes both rules: nothing in this markup carries
+   * `data-loaded`, the script adds it at runtime, and the build stays green with every
+   * video invisible for good. `Image.svelte` is spared only because its own markup writes
+   * the attribute.
+   */
+  video:global([data-loaded]) {
+    opacity: 1;
+    transition: opacity 200ms ease-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    video:global([data-loaded]) {
+      transition-duration: 0s;
+    }
   }
 
   figcaption {
