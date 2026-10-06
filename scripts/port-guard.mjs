@@ -30,7 +30,7 @@ import Markdoc from '@markdoc/markdoc'
 import { createGetHeadings } from '@astrojs/markdoc/runtime'
 /* Shared with the converter and the ratio generator: one copy of each rule. */
 import { scanLines } from './fences.mjs'
-import { ROOT, walk, globMatcher, collectionGlobs, collectionFiles, mediaSites } from './corpus.mjs'
+import { ROOT, walk, globMatcher, collectionGlobs, collectionFiles, mediaSites, stripSites } from './corpus.mjs'
 
 const DIST = path.join(ROOT, 'dist')
 
@@ -58,7 +58,7 @@ const CENSUS = {
   fenceLanguages: { ts: 10, svelte: 2, css: 2, html: 1, tsx: 1, liquid: 1 },
   /* A12. Measured against a working tree, NOT against `rev` above — the count is real and
      its provenance is not. Re-measure it with the rest of this block when `rev` moves. */
-  mediaBoxes: 119,
+  mediaBoxes: 199,
   /* A14. Same caveat as A12's mediaBoxes: measured against a working tree, not `rev`. */
   grids: 6,
   derivedBoxes: 55,
@@ -424,14 +424,15 @@ await check('A11', 'each font family is declared exactly once', async () => {
 })
 
 // --- A12 ---------------------------------------------------------------------------
-// Reads `dist/`, so body images, body videos and the work thumbnail are covered at once,
-// whatever code path each takes.
+// Reads `dist/`, so body images, body videos, the work thumbnail and the homepage strip are
+// covered at once, whatever code path each takes.
 //
 // Parse: every declaration is two positive integers. The browser silently drops an empty
 // value, a stringified `undefined`, or a zero.
 //
-// Count: boxes equal what `mediaSites()` implies, which catches a call site that stops
-// rendering one.
+// Count: boxes equal what `mediaSites()` and `stripSites()` imply, which catches a call site
+// that stops rendering one. The strip shows ids the body already lists, so its boxes are
+// counted as a second origin rather than deduplicated away.
 //
 // The projects `cover` field is excluded: nothing renders it, though it stays in the
 // schema and the manifest. A cover renderer that returns must be added here — and a crop
@@ -469,7 +470,7 @@ await check('A12', 'every media box reserves a real aspect ratio', () => {
   )
 
   /* A draft renders in `astro dev` and not in a build, so its boxes are not in dist. */
-  const rendered = sites.filter((s) => !s.draft && s.from !== 'cover')
+  const rendered = [...sites.filter((s) => !s.draft && s.from !== 'cover'), ...stripSites()]
   const byOrigin = {}
   for (const s of rendered) byOrigin[s.from] = (byOrigin[s.from] ?? 0) + 1
   const breakdown = Object.entries(byOrigin)

@@ -11,6 +11,8 @@
  * rather than the design's hard-coded 54px, and keeps the year inside the heading.
  */
 import type { CollectionEntry } from 'astro:content'
+import Strip from './Strip.astro'
+import { strip } from '../lib/media/strip'
 import { formatDate } from '../lib/util'
 
 interface Props {
@@ -23,6 +25,8 @@ const { work } = Astro.props
  * that names neither this file nor the `.mdoc`. The span still renders empty, holding the
  * h3's first column so a dateless row keeps its shape.
  */
+const items = strip(work.body ?? '', work.data.thumbnail)
+
 const year = work.data.published ? formatDate(work.data.published, { year: 'numeric' }) : null
 
 /*
@@ -41,7 +45,7 @@ const button = work.data.featured
 <div class="span-full grid-subgrid items-start mb-8 relative group">
   <div class="span-full md:span-5 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
     <h3 class="col-span-2 grid grid-cols-subgrid items-baseline font-medium">
-      <span class="text-tertiary font-mono text-xs">{year && `[${year}]`}</span>
+      <span class="text-tertiary font-mono text-xs w-[6ch]">{year && `[${year}]`}</span>
       {
         /*
         A stretched `::after` rather than a wrapping `<a>`: the row holds another link, and
@@ -72,4 +76,17 @@ const button = work.data.featured
   >
     READ →
   </a>
+
+  {
+    /*
+    Scrolls from the year's edge but starts at the title's: `6ch` is `[YYYY]` in the year's
+    own font, which is why the padding is written in that font too, and `1rem` is the h3's
+    `gap-x-4`. The year's `w-[6ch]` fixes the column so a dateless row aligns the same way.
+  */
+  }
+  <Strip
+    items={items}
+    href={work.id}
+    class="span-full mt-1.5 font-mono text-xs pl-[calc(6ch+1rem)]"
+  />
 </div>

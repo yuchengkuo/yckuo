@@ -9,10 +9,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm guard` — the gate alone, against an existing `dist/`. `--strict` promotes census drift and
   skipped rungs to errors
 - `pnpm preview` — serve the built `dist/`
-- `pnpm selftest` — the five fixture proofs: `converter-selftest.mjs` behind `slashify()`,
+- `pnpm selftest` — the six fixture proofs: `converter-selftest.mjs` behind `slashify()`,
   `getinfo-selftest.mjs` behind `ratioFromGetInfo()`, `order-selftest.mjs` behind `featuredFirst()`,
-  `gridspan-selftest.mjs` behind `spanFromRatio()`, and `mediaurl-selftest.mjs` behind the media URL
-  builders. All five run with no network and no content checkout
+  `gridspan-selftest.mjs` behind `spanFromRatio()`, `mediaurl-selftest.mjs` behind the media URL
+  builders, and `strip-selftest.mjs` behind `strip()`. All six run with no network and no content
+  checkout
 - `pnpm ratios` — record the true dimensions of any Cloudinary id the ratio manifest lacks.
   `--dry` reports what it would fetch. Runs automatically on `pnpm dev`, never on a build
 - `pnpm format` — Prettier
@@ -132,7 +133,8 @@ holds the caption, and a ratio there makes the caption eat the media's space. `a
 required prop on both media components. It was once declared and never assigned, so every box
 shipped `aspect-ratio: ` with a green build every time. A12 is what makes that unshippable now: it reads `dist/`, so it covers all three rendering surfaces at once, and its
 second half counts the boxes against what the corpus implies — which is what catches a call site
-that quietly stops rendering one. The projects `cover` field is excluded from that count, with the
+that quietly stops rendering one. The homepage strip (`Strip.astro`) is a second box for media the
+body already shows, counted as its own origin through the same `strip()` that renders it. The projects `cover` field is excluded from that count, with the
 reason in the rung.
 
 `@markdoc/markdoc` is **patched** (`patches/`) for an unreported upstream bug: `.trim()` should be

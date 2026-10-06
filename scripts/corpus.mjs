@@ -5,8 +5,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-/* Renamed: `census()` in `port-guard.mjs` means recorded provenance. */
-import { census as imageCallSites } from './slashify.mjs'
+import { bodyMedia, strip } from '../src/lib/media/strip.ts'
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const CONTENT_CONFIG = path.join(ROOT, 'src/content.config.ts')
@@ -81,24 +80,11 @@ export function mediaSites() {
   const sites = []
   for (const file of collectionFiles()) {
     const raw = fs.readFileSync(file, 'utf8')
-    const lines = raw.split('\n')
     const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(raw)?.[1] ?? ''
     const draft = /^draft:[ \t]*true[ \t]*$/m.test(frontmatter)
 
-    for (const site of imageCallSites(raw)) {
-      const src = site.src
-      /* An absolute URL has no Cloudinary id to record. Skipping it doesn't soften anything:
-         `aspectRatio()` still throws when it renders. */
-      if (/^[a-z][a-z0-9+.-]*:/i.test(src) || src === '') continue
-      sites.push({
-        id: src.replace(/^\//, ''),
-        isVideo: /image_isvideo\s*=\s*true/.test(lines[site.line - 1] ?? ''),
-        draft,
-        from: 'body',
-        file,
-        line: site.line
-      })
-    }
+    for (const { id, isVideo, line } of bodyMedia(raw))
+      sites.push({ id, isVideo, draft, from: 'body', file, line })
 
     for (const field of FRONTMATTER_MEDIA) {
       const m = new RegExp(`^${field}:[ \\t]*(\\S+)[ \\t]*$`, 'm').exec(frontmatter)
@@ -112,6 +98,39 @@ export function mediaSites() {
         line: 0
       })
     }
+  }
+  return sites
+}
+
+/**
+ * One site per strip item on the homepage: every non-draft work, through the same `strip()`
+ * `WorkRow.astro` renders. Kept out of `mediaSites()` — these are second boxes for ids it
+ * already lists, which the ratio generator has no use for.
+ */
+export function stripSites() {
+  const src = fs.readFileSync(CONTENT_CONFIG, 'utf8')
+  const m =
+    /const works = defineCollection\(\{\s*loader:\s*glob\(\{\s*pattern:\s*'([^']+)'\s*,\s*base:\s*'([^']+)'/.exec(
+      src
+    )
+  if (!m) throw new Error(`no glob({pattern,base}) for the works collection in ${CONTENT_CONFIG}`)
+  const [, pattern, base] = m
+  const dir = path.resolve(ROOT, base)
+  const matches = globMatcher(pattern)
+
+  const sites = []
+  for (const file of walk(dir)) {
+    if (!matches(path.relative(dir, file))) continue
+    const raw = fs.readFileSync(file, 'utf8')
+    const fm = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(raw)
+    const frontmatter = fm?.[1] ?? ''
+    if (/^draft:[ \t]*true[ \t]*$/m.test(frontmatter)) continue
+    const thumbnail = /^thumbnail:[ \t]*(\S+)[ \t]*$/m
+      .exec(frontmatter)?.[1]
+      .replace(/^['"]|['"]$/g, '')
+    const body = fm ? raw.slice(fm[0].length) : raw
+    for (const { id, isVideo } of strip(body, thumbnail))
+      sites.push({ id, isVideo, draft: false, from: 'strip', file, line: 0 })
   }
   return sites
 }
