@@ -56,7 +56,7 @@
       >
     </p>
     <div class="flex justify-between font-mono text-xs mt-1">
-      <p class="text-tertiary">©<Year /></p>
+      <p class="text-tertiary">©<Year /> v5</p>
       <p class="text-right">GMT+8 <Time /></p>
     </div>
   </div>
