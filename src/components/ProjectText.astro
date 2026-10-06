@@ -1,0 +1,75 @@
+---
+/*
+ * No wrapper element: the span classes below are placed by whichever grid the caller is.
+ *
+ * `p.span-5` is clamped: inside the non-featured caller's `md:span-4` a subgrid cannot
+ * create tracks, so it renders at 4. Left unfixed because fixing it changes a rendered
+ * width, which is a visual decision.
+ */
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  project: CollectionEntry<'projects'>
+}
+
+const { project } = Astro.props
+const { title, category, summary, link } = project.data
+
+/*
+ * Mirrors `.button-secondary:hover` from main.css, which never fires here: the button sits
+ * under the title link's stretched `::after`. Keep the two in sync.
+ *
+ * Keyed on `.stretch-link:hover`, not `group-hover:` — the row's hover also fires over the
+ * View button, which escapes the overlay.
+ *
+ * Spelled out whole: the extractor reads raw file text, so a template literal generates no
+ * CSS.
+ */
+const readHover =
+  '[.group:has(.stretch-link:hover)_&]:bg-button-secondary-hover [.group:has(.stretch-link:hover)_&]:text-on-color [.group:has(.stretch-link:hover)_&]:border-transparent'
+---
+
+<div class="grid-subgrid span-full mb-6 relative group">
+  <div class="span-full md:span-4">
+    <h3 class="mb-1">
+      {
+        /*
+        A stretched `::after` rather than a wrapping `<a>`: the row holds another link, and
+        the HTML parser splits nested anchors apart, silently breaking the wrapper.
+      */
+      }
+      <a class="stretch-link after:absolute after:inset-0 after:content-empty" href={project.id}
+        >{title}</a
+      ><span class="text-tertiary font-mono text-xs ml-1"> ({category[0]})</span>
+    </h3>
+    <p class="span-5 text-secondary font-mono text-xs mb-4">
+      {summary}
+    </p>
+  </div>
+
+  <div
+    class="flex gap-2 children:inline-block start-5 span-2 w-fit h-fit justify-self-end lt-sm:hidden"
+  >
+    {
+      /*
+      `relative` lifts this above the title's positioned `::after` (later in the DOM, both
+      `z-index: auto`). Without it the link is unreachable.
+    */
+      link && (
+        <a href={link} class="button-primary relative">
+          View ↗
+        </a>
+      )
+    }
+
+    {
+      /*
+    `aria-hidden` and `tabindex="-1"` go together, never one alone: this duplicates the
+    title link, and a focusable element hidden from the a11y tree is a violation.
+  */
+    }
+    <a class={`button-secondary ${readHover}`} href={project.id} aria-hidden="true" tabindex="-1"
+      >Read →</a
+    >
+  </div>
+</div>

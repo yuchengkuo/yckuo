@@ -47,42 +47,50 @@ div[data-layer] {
     will-change: backdrop-filter;
 
     /* Exluding webkit */
-    @supports (backdrop-filter: blur(1px)) {
+    /* @supports (backdrop-filter: blur(1px)) {
       --un-backdrop-brightness: brightness(130%);
-    }
+    } */
   }
 }
 
 body {
-  --uno: 'min-h-100vh';
-  --uno: 'text-primary text-3.5 leading-5 font-sans opacity-100';
-  --uno: 'p-4 md:(px-10 py-9)';
+  --uno: 'min-h-100vh max-w-400 mx-auto';
+  --uno: 'text-primary text-xs font-mono opacity-100';
+  --uno: 'p-4 md:(px-10 pt-10 pb-20)';
 
   /* Main grid layouts */
-  --uno: 'grid grid-cols-6 lg:grid-cols-12 gap-x-4 items-baseline';
+  --uno: 'grid grid-cols-6 md:grid-cols-12 gap-x-4 items-baseline';
 
-  /* Avoid stretching of header and main when page height is not over 100vh */
-  grid-template-rows: min-content min-content;
+  /* Avoid stretching children when page height is not over 100vh.
+     Expressed as content distribution so it holds for any number of children. */
+  --uno: 'content-start';
 
-  word-spacing: -0.01em;
-  letter-spacing: -0.02em;
   text-rendering: optimizeLegibility;
 }
 
 main {
-  /* Subgrid */
-  --uno: 'span-full md:(grid-subgrid)';
+  /* Subgrid at every breakpoint — gating this on `md` severs the chain and
+     makes every column placement below it inert on mobile. */
+  --uno: 'span-full grid-subgrid mt-20 md:mt-40';
 
   > :not(article) {
-    --uno: 'start-1 span-4';
+    --uno: 'layout-content';
   }
 
   /* Subgrid */
   > article {
-    --uno: 'span-full md:(grid-subgrid)';
-    --uno: 'md:children:(start-1 span-5)';
-    --uno: 'lg:children:(start-1 span-6)';
+    --uno: 'span-full grid-subgrid';
+    --uno: 'children:layout-measure';
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  --uno: 'font-sans text-sm font-medium';
 }
 
 h1 {
@@ -115,9 +123,25 @@ img {
   --uno: 'bg-surface';
 }
 
-button {
-  --uno: 'bg-transparent underline p-0 w-fit';
-  --uno: 'hover:(bg-bg-muted underline-border)';
+button,
+.button-primary,
+.button-secondary {
+  --uno: 'cursor-pointer border-1 px-1.5 font-mono text-xs uppercase';
+}
+
+.button-primary-large,
+.button-secondary-large {
+  --uno: 'px-2 py-0.5';
+}
+
+.button-primary {
+  --uno: 'bg-button-primary border-button-primary text-on-color';
+  --uno: 'hover:(bg-button-primary-hover border-transparent)';
+}
+
+.button-secondary {
+  --uno: 'bg-button-secondary border-button-secondary text-secondary';
+  --uno: 'hover:(bg-button-secondary-hover text-on-color border-transparent)';
 }
 
 /*
@@ -152,16 +176,16 @@ h6 {
 }
 
 /* Link */
-a:not(.reset) {
-  --uno: 'transition-color transition-200 ease-out underline underline-dotted decoration-dotted decoration-2 w-fit rounded-0.5';
-  --uno: 'hover:(bg-screen-hover text-primary underline-dotted-hover decoration-solid decoration-1px)';
-  --uno: 'focus:(bg-screen-hover text-primary underline-dotted-hover decoration-solid decoration-1px)';
-  --uno: 'active:(bg-surface)';
+a:not(.reset, .button-primary, .button-secondary) {
+  --uno: 'underline underline-neutral decoration-offset-2 decoration-1.5 w-fit';
+  --uno: 'hover:(underline-neutral-hover)';
+  --uno: 'focus:(underline-neutral-hover)';
+  --uno: 'active:(underline-neutral)';
 
   /* Arrow after external link */
   &[href^='http']::after,
   &[href^='mailto']::after {
-    --uno: 'content-empty i-tabler:arrow-up-right size-0.75em text-secondary align-text-top';
+    --uno: 'content-["[↗]"] text-tertiary text-xs inline-block underline-0 ml-1';
   }
 
   &[href^='http']:hover::after,
@@ -175,7 +199,7 @@ strong {
 }
 
 code {
-  --uno: 'font-mono text-0.75em font-medium';
+  --uno: 'font-mono font-450';
 }
 
 :not(pre) > code {
@@ -194,40 +218,4 @@ em:not(:has(> code)) {
 
 blockquote {
   --uno: 'italic border-neutral border-l-2 pl-4 py-1 my-8';
-}
-
-/* 
- *
- *** Animation
- *
- */
-
-@keyframes scale {
-  from {
-    transform: scaleY(200%);
-  }
-  to {
-    transform: scaleY(100%);
-  }
-}
-
-@keyframes slide {
-  0% {
-    opacity: 0%;
-    transform: translateY(10px);
-  }
-
-  100% {
-    opacity: 100%;
-    transform: none;
-  }
-}
-
-@keyframes fade {
-  0% {
-    opacity: 0%;
-  }
-  100% {
-    opacity: 100%;
-  }
 }

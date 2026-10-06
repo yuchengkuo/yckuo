@@ -1,0 +1,95 @@
+/* KNOWN DEFECT, deferred.
+   A service worker script re-runs on every worker STARTUP, not once per build, so this
+   is a new cache name each time: the install-time cache is never read again, the
+   accumulating ones are never deleted, and the fetch handler grows one more per restart.
+   Live on production in exactly this form, which is why it has not been touched.
+   `version` wants to be a build constant. */
+const version = Date.now()
+
+const CACHE = `cache-${version}`
+
+const ASSETS = [
+  '/fonts/brockmann-regular.woff2',
+  '/fonts/GeistMono[wght].woff2',
+  '/fonts/GeistMono-Italic[wght].woff2',
+  '/fonts/Newsreader-Italic-Variable.woff2',
+  '/fonts/Newsreader-Variable.woff2',
+  '/og/default.png',
+  '/favicons/favicon.svg',
+  '/favicons/favicon.ico'
+]
+
+self.addEventListener('install', (event) => {
+  async function addFilesToCache() {
+    const cache = await caches.open(CACHE)
+    const results = await Promise.allSettled(ASSETS.map((asset) => cache.add(asset)))
+
+    results.forEach((result, i) => {
+      if (result.status === 'rejected') {
+        console.warn(`Failed to cache: ${ASSETS[i]}`, result.reason)
+      }
+    })
+  }
+
+  event.waitUntil(addFilesToCache())
+})
+
+self.addEventListener('activate', (event) => {
+  // Remove previous cached data from disk
+  async function deleteOldCaches() {
+    for (const key of await caches.keys()) {
+      if (key !== CACHE) await caches.delete(key)
+    }
+  }
+
+  event.waitUntil(deleteOldCaches())
+})
+
+self.addEventListener('fetch', (event) => {
+  // ignore POST requests etc
+  if (event.request.method !== 'GET') return
+
+  async function respond() {
+    const url = new URL(event.request.url)
+    const cache = await caches.open(CACHE)
+
+    // `build`/`files` can always be served from the cache
+    if (ASSETS.includes(url.pathname)) {
+      const response = await cache.match(url.pathname)
+
+      if (response) {
+        return response
+      }
+    }
+
+    // for everything else, try the network first, but
+    // fall back to the cache if we're offline
+    try {
+      const response = await fetch(event.request)
+
+      // if we're offline, fetch can return a value that is not a Response
+      // instead of throwing - and we can't pass this non-Response to respondWith
+      if (!(response instanceof Response)) {
+        throw new Error('invalid response from fetch')
+      }
+
+      if (response.status === 200) {
+        cache.put(event.request, response.clone())
+      }
+
+      return response
+    } catch (err) {
+      const response = await cache.match(event.request)
+
+      if (response) {
+        return response
+      }
+
+      // if there's no cache, then just error out
+      // as there is nothing we can do to respond to this request
+      throw err
+    }
+  }
+
+  event.respondWith(respond())
+})

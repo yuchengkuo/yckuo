@@ -8,7 +8,7 @@
 </script>
 
 <details {...rest}>
-  <summary><span>Expand more +</span></summary>
+  <summary class="button-secondary"><span>More ↓</span></summary>
 
   {@render children?.()}
 </details>
@@ -19,20 +19,16 @@
   }
 
   summary {
-    --uno: 'hover:(bg-bg-muted underline-border)';
-    --uno: 'active:(bg-surface)';
-    --uno: 'w-fit cursor-pointer underline mb-4';
+    --uno: 'w-fit';
   }
 
   details[open] summary {
-    --uno: 'bg-bg-muted';
-
     & span {
       display: none;
     }
 
     &::after {
-      content: 'Show less –';
+      content: 'Less ↑';
     }
   }
 

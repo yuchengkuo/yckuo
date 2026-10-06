@@ -1,0 +1,9 @@
+# generated
+dist/
+dist-parity/
+.astro/
+pnpm-lock.yaml
+
+# agent working files
+.scratch/
+wip/

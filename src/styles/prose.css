@@ -6,25 +6,30 @@
 article,
 .prose {
   /* Reset first child */
-  *:first-child {
+  > *:first-child {
     --uno: 'mt-0';
+  }
+
+  > *:not([class*='lt-md:span-'], [class*='lt-md:start-'], [class*='lt-md:end-']) {
+    --uno: 'lt-md:layout-full';
   }
 
   /* Paragraph */
   p {
-    --uno: 'mt-6 lt-sm:mt-4';
+    --uno: 'mt-4 lt-sm:mt-4';
   }
 
   p.callout {
-    --uno: 'text-6 leading-8 lt-md:(text-5 leading-6)';
-  }
-
-  p.base {
-    --uno: 'text-4 leading-6 lt-md:(text-3.5 leading-5.5)';
+    --uno: 'text-base font-sans';
   }
 
   strong {
     --uno: 'font-medium bg-selection';
+  }
+
+  /* A7. Drawn in CSS: a real `#` child would land in every `getHeadings()` entry. */
+  :is(h1, h2, h3, h4, h5, h6) a[data-anchor]::after {
+    content: '#';
   }
 
   /* Heading */
@@ -52,19 +57,23 @@ article,
   /* List */
   ul,
   ol {
-    --uno: 'mt-4';
+    --uno: 'mt-2 ml-2.5ch';
 
     li {
-      --uno: 'list-outside';
+      --uno: 'list-outside mb-1.5';
 
       &::marker {
-        --uno: 'text-tertiary';
+        --uno: 'text-tertiary text-opacity-60 text-right font-mono text-xs';
       }
     }
   }
 
   ul li {
-    list-style-type: '– ';
+    list-style-type: '├ ';
+
+    &:last-of-type {
+      list-style-type: '└ ';
+    }
   }
 
   ol li {
@@ -73,24 +82,32 @@ article,
 
   /* Table */
   table {
-    --uno: 'start-1 span-6';
+    --uno: 'font-mono text-xs layout-content';
   }
 
   /* Definition List */
   dl {
-    --uno: 'mt-8 space-y-1 md:(grid-subgrid gap-0) relative start-1 span-6';
+    --uno: 'font-mono text-xs mt-8 layout-content grid-subgrid';
+
+    /*
+     * Not `space-y-*`: presetWind4 wraps it in `:where()`, which ties the reset at 0-0-0,
+     * and in dev the duplicated `__uno.css` (see `astro.config.mjs`) wins that tie.
+     */
+    > :not(:last-child) {
+      --uno: 'mb-1.5';
+    }
 
     dt {
-      --uno: 'lt-md:mb-1 start-1 text-secondary';
+      --uno: 'capitalize start-1 span-2 md:span-1 text-secondary relative after:(text-tertiary content-["/"] block absolute top-0 left-full)';
     }
 
     dd {
-      --uno: 'lt-md:mb-4 start-2 end--1';
+      --uno: 'start-3 md:start-2 end--1';
     }
   }
 
   :is(h1, h2, h3, h4, h5, h6) + * {
-    --uno: 'mt-0';
+    --uno: 'mt-3';
   }
 
   /* Image, Video */
@@ -98,8 +115,10 @@ article,
     --uno: 'mb-10 md:mb-12';
   }
 
+  /* `>` is what keeps `.media-grid` children out: a negative margin there would overlap the
+     neighbouring cell. */
   > figure {
-    --uno: 'mt-4 md:mt-6';
+    --uno: 'mt-4 md:mt-6 -mx-4';
   }
 
   > figure + :not(figure) {
@@ -107,7 +126,7 @@ article,
   }
 
   hr {
-    --uno: 'start-1 span-full';
+    --uno: 'layout-content';
   }
 }
 
@@ -117,7 +136,7 @@ article,
 
 .shiki {
   --uno: 'py-2 px-1.5 bg-surface rounded-2 border-1 border-neutral mt-6 overflow-x-auto';
-  --uno: 'start-1 span-6 relative';
+  --uno: 'relative md:-mx-4';
 
   counter-reset: line;
 
@@ -138,6 +157,13 @@ article,
   .highlighted {
     width: calc(100% + 1rem);
     --uno: '-mx-2 px-2 right-0 inline-block bg-selection bg-opacity-70';
+  }
+
+  /* A8. Shiki emits light-mode font styles as custom properties, not inline styles. */
+  span {
+    font-style: var(--shiki-light-font-style);
+    font-weight: var(--shiki-light-font-weight);
+    text-decoration: var(--shiki-light-text-decoration);
   }
 }
 

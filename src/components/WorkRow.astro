@@ -1,0 +1,92 @@
+---
+/*
+ * Figma `Home / Frame 51` (node 6230:79941).
+ *
+ * The outer subgrid places text on `layout-content` columns 1–5 and the button on 6: the
+ * frame was drawn on this grid (557 and 672px at 1440), so naming columns reproduces it at
+ * every width where a transcribed 557px would not. The button is hidden below `md` by
+ * decision, so `start-6 span-1` needs no `md:` prefix.
+ *
+ * The h3's `grid-cols-subgrid` indents the summary to the title by the year's own column
+ * rather than the design's hard-coded 54px, and keeps the year inside the heading.
+ */
+import type { CollectionEntry } from 'astro:content'
+import Strip from './Strip.astro'
+import { strip } from '../lib/media/strip'
+import { formatDate } from '../lib/util'
+
+interface Props {
+  work: CollectionEntry<'works'>
+}
+
+const { work } = Astro.props
+/*
+ * Not `published ?? ''`: `published` is optional, and `formatDate('')` throws a RangeError
+ * that names neither this file nor the `.mdoc`. The span still renders empty, holding the
+ * h3's first column so a dateless row keeps its shape.
+ */
+const items = strip(work.body ?? '', work.data.thumbnail)
+
+const year = work.data.published ? formatDate(work.data.published, { year: 'numeric' }) : null
+
+/*
+ * Read off `featured` rather than a prop, which could contradict the list the row was
+ * rendered into.
+ *
+ * Mirrors each variant's `:hover` from main.css onto `group-hover:` — see the anchor below.
+ * Keep in sync; the secondary variant also flips the text colour. Spelled out whole: the
+ * extractor reads raw file text, so a template literal generates no CSS.
+ */
+const button = work.data.featured
+  ? 'button-primary group-hover:bg-button-primary-hover group-hover:border-transparent'
+  : 'button-secondary group-hover:bg-button-secondary-hover group-hover:text-on-color group-hover:border-transparent'
+---
+
+<div class="span-full grid-subgrid items-start mb-8 relative group">
+  <div class="span-full md:span-5 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
+    <h3 class="col-span-2 grid grid-cols-subgrid items-baseline font-medium">
+      <span class="text-tertiary font-mono text-xs w-[6ch]">{year && `[${year}]`}</span>
+      {
+        /*
+        A stretched `::after` rather than a wrapping `<a>`: the row holds another link, and
+        the HTML parser splits nested anchors apart, silently breaking the wrapper.
+      */
+      }
+      <a class="after:absolute after:inset-0 after:content-empty" href={work.id}
+        >{work.data.title}</a
+      >
+    </h3>
+    <p class="col-start-2 text-secondary font-mono text-xs">{work.data.summary}</p>
+  </div>
+
+  {
+    /*
+    `aria-hidden` and `tabindex="-1"` go together, never one alone: this duplicates the
+    title link, and a focusable element hidden from the a11y tree is a violation.
+
+    Its own `:hover` never fires — the title's stretched `::after` covers it — so the row's
+    `group-hover:` stands in.
+  */
+  }
+  <a
+    class={`${button} lt-md:hidden start-6 span-1 w-fit h-fit justify-self-end`}
+    href={work.id}
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    READ →
+  </a>
+
+  {
+    /*
+    Scrolls from the year's edge but starts at the title's: `6ch` is `[YYYY]` in the year's
+    own font, which is why the padding is written in that font too, and `1rem` is the h3's
+    `gap-x-4`. The year's `w-[6ch]` fixes the column so a dateless row aligns the same way.
+  */
+  }
+  <Strip
+    items={items}
+    href={work.id}
+    class="span-full mt-1.5 font-mono text-xs pl-[calc(6ch+1rem)]"
+  />
+</div>

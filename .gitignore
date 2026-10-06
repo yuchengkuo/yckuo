@@ -29,9 +29,16 @@ yarn-error.log*
 .vercel
 
 # content
-.velite
-.gitmodules
+# astro
+/dist
+/.astro
+# The whole-corpus render harness builds here so it cannot disturb `dist/`.
+/dist-parity
 
-# svelte
-/.svelte-kit
-.output
+# Nothing writes here now, but keep the rule: private content under `src/` would land in
+# this public repo.
+/src/content
+
+# agent working files — issue tracker, prototypes and in-flight reviews stay local
+/.scratch
+/wip

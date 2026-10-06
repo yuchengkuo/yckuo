@@ -1,0 +1,116 @@
+---
+/*
+ * Every work is built, featured or not — the homepage links both.
+ *
+ * `featuredFirst()` so "Next" follows the homepage's order, not the date order.
+ *
+ * No wrapper between `<main>` and this output; `main > article` gives the body its own
+ * subgrid, so `<Content />` needs no `.prose` div.
+ */
+import { render, type CollectionEntry } from 'astro:content'
+import Base from '../../layouts/Base.astro'
+import { getWorks } from '../../lib/collections'
+import { formatDate, featuredFirst } from '../../lib/util'
+import ImageAstroComponent from '$lib/media/Image.svelte'
+import { aspectRatio } from '$lib/media/aspectRatio'
+
+export async function getStaticPaths() {
+  const works = featuredFirst(await getWorks())
+
+  return works.map((entry, index) => ({
+    params: { slug: entry.id.replace(/^work\//, '') },
+    props: {
+      entry,
+      next: works[index + 1 === works.length ? 0 : index + 1]
+    }
+  }))
+}
+
+interface Props {
+  entry: CollectionEntry<'works'>
+  next: CollectionEntry<'works'>
+}
+
+const { entry, next } = Astro.props
+const { Content } = await render(entry)
+
+const metaEntries = Object.entries(entry.data.meta ?? {})
+---
+
+<Base
+  title={`${entry.data.title} — YuCheng Kuo`}
+  ogTitle={entry.data.title}
+  ogType="article"
+  description={entry.data.description}
+>
+  {/* Heading */}
+  <div class="md:grid-subgrid layout-content">
+    <h1 class="text-6 leading-8 font-medium span-full">
+      {entry.data.title}
+    </h1>
+    <p class="span-4 mb-8 mt-1 lt-md:mt-1 font-mono text-secondary text-xs leading-5">
+      {entry.data.summary}
+    </p>
+  </div>
+
+  {
+    entry.data.thumbnail && (
+      /* The only `priority` on the site: this is the largest element above the fold and so
+         the LCP, and a zero-opacity element is not eligible to be it. */
+      <ImageAstroComponent
+        id={entry.data.thumbnail}
+        aspectRatio={aspectRatio(entry.data.thumbnail)}
+        priority
+        class="-mx-4 mb-12 rounded"
+      />
+    )
+  }
+
+  {/* Metadata */}
+  <section class="grid-subgrid layout-full mb-16 prose">
+    {
+      metaEntries.length > 0 && (
+        <dl aria-label="Project metadata">
+          {metaEntries.map(([key, value]) => {
+            const label = typeof value === 'string' ? value.replace(/^(https?):\/\//, '') : ''
+            return (
+              <Fragment>
+                <dt>{key}</dt>
+                {typeof value !== 'string' ? (
+                  value.map((v) => <dd>{v}</dd>)
+                ) : (
+                  <dd>
+                    {value.startsWith('http') ? (
+                      <a href={value} aria-label={`key link: ${label}`}>
+                        {label}
+                      </a>
+                    ) : (
+                      value
+                    )}
+                  </dd>
+                )}
+              </Fragment>
+            )
+          })}
+        </dl>
+      )
+    }
+  </section>
+
+  {/* Content — frontmatter as Markdoc variables, see `[...page].astro` */}
+  <Content {...entry.data} />
+
+  <p class="mt-16 text-tertiary font-mono text-xs">
+    / Updated at <time datetime={entry.data.updated.toISOString()}
+      >{formatDate(entry.data.updated)}</time
+    > /
+  </p>
+
+  {/* Next */}
+  <section class="mt-32 layout-content flex justify-between">
+    <p class="text-6 leading-8 font-sans font-medium span-full">
+      {next.data.title}
+    </p>
+    <a href={`/${next.id}`} class="button-primary inline-block mb-4">Next →</a>
+  </section>
+</Base>

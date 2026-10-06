@@ -1,0 +1,41 @@
+---
+/*
+ * Exists because a Markdoc `render:` cannot point at a `.svelte` file.
+ *
+ * One component for image and video: `@astrojs/markdoc` resolves tag components only for
+ * tags a document literally writes, and nothing writes `{% vid %}` (the paragraph
+ * transform synthesises it), so a `tags.vid` render reaches Svelte unresolved — `TypeError:
+ * component is not a function`. The node map is unfiltered, so the fork sits behind
+ * `nodes.image`.
+ */
+import Image from '../lib/media/Image.svelte'
+import Video from '../lib/media/Video.svelte'
+import { aspectRatio } from '../lib/media/aspectRatio'
+import { spanFromRatio } from '../lib/media/gridSpan'
+import { PLACEMENT_PREFIXES } from '../lib/media/placementTokens'
+
+// No `client:` directive on either branch — A10.
+//
+// The ratio resolves here rather than in `markdoc.config.mjs` or a schema; see
+// `aspectRatio.ts`. A12 asserts every emitted box carries one.
+const { class: className, image_isvideo, id, ...rest } = Astro.props
+const ratio = aspectRatio(id)
+
+/*
+ * `data-span` is read only inside `{% grid %}`, so every figure gets one; nothing needs to
+ * know whether it is in a grid. An author-placed image gets none. An `lt-md:` token is a
+ * mobile-only placement and doesn't count — the anchored regex already skips it.
+ */
+const placementPattern = new RegExp(`^(?:${PLACEMENT_PREFIXES.join('|')})-`)
+const isPlaced = (className ?? '').split(/\s+/).some((token) => placementPattern.test(token))
+const [width, height] = ratio.split('/').map(Number)
+const dataSpan = isPlaced ? undefined : spanFromRatio(width / height)
+---
+
+{
+  image_isvideo ? (
+    <Video class={className} id={id} aspectRatio={ratio} data-span={dataSpan} {...rest} />
+  ) : (
+    <Image class={className} id={id} aspectRatio={ratio} data-span={dataSpan} {...rest} />
+  )
+}

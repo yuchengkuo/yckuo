@@ -1,0 +1,57 @@
+---
+/*
+ * No `featured` filter, unlike `work/[slug].astro`: every note is linked from `/note`.
+ *
+ * The date sits in the header rather than an "Updated at" trailer. The asymmetry with
+ * `[...page].astro` is deliberate.
+ */
+import { render, type CollectionEntry } from 'astro:content'
+import Base from '../../layouts/Base.astro'
+import More from '../../components/More.astro'
+import { getNotes } from '../../lib/collections'
+import { formatDate } from '../../lib/util'
+
+export async function getStaticPaths() {
+  return (await getNotes()).map((entry) => ({
+    params: { slug: entry.id.replace(/^note\//, '') },
+    props: { entry }
+  }))
+}
+
+interface Props {
+  entry: CollectionEntry<'notes'>
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+---
+
+<Base
+  title={`${entry.data.title} — YuCheng Kuo`}
+  ogTitle={entry.data.title}
+  description={entry.data.description}
+>
+  <More>
+    <header>
+      <h2>{entry.data.title}</h2>
+      <p>
+        Updated on <time datetime={entry.data.updated.toISOString()}
+          >{formatDate(entry.data.updated)}</time
+        >
+      </p>
+    </header>
+
+    {/* Frontmatter as Markdoc variables — see `[...page].astro`. */}
+    <Content {...entry.data} />
+  </More>
+</Base>
+
+<style>
+  header {
+    --uno: 'mb-6';
+  }
+
+  header p {
+    --uno: 'font-mono text-xs text-tertiary mt-2';
+  }
+</style>

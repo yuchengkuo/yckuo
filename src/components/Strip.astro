@@ -1,0 +1,78 @@
+---
+/*
+ * A work's strip — see CONTEXT.md's *Strip*. A12 counts each box here against
+ * `stripSites()`, which reads the same `strip()` the caller passes in.
+ *
+ * Its own `<a>`, raised above the row's stretched link rather than under it: the overlay
+ * would swallow the swipe, and a tap still has to open the case study. `aria-hidden` and
+ * `tabindex="-1"` for the same reason as the row's READ button — it duplicates the title.
+ *
+ * No `client:` directive on either component — A10.
+ *
+ * `data-lenis-prevent-horizontal`: Lenis smooths only `deltaY`, but it `preventDefault()`s
+ * any wheel event carrying some, and a sideways trackpad swipe always carries a little — so
+ * the strip's native scroll stalls while the page drifts. The attribute hands it every
+ * mostly-horizontal gesture; mostly-vertical ones still scroll the page through Lenis.
+ */
+import Image from '../lib/media/Image.svelte'
+import Video from '../lib/media/Video.svelte'
+import { aspectRatio } from '../lib/media/aspectRatio'
+import type { Media } from '../lib/media/strip'
+
+interface Props {
+  items: Media[]
+  href: string
+  class?: string
+}
+
+const { items, href, class: className } = Astro.props
+
+/* Pairs with `h-24` below. Fetched at 2x. */
+const HEIGHT = 96
+---
+
+<a
+  class:list={['strip', className]}
+  href={href}
+  aria-hidden="true"
+  tabindex="-1"
+  data-lenis-prevent-horizontal
+>
+  {
+    items.map(({ id, isVideo }) => {
+      const ratio = aspectRatio(id)
+      const [w, h] = ratio.split('/').map(Number)
+      const width = Math.ceil((HEIGHT * w) / h)
+      return isVideo ? (
+        <Video id={id} aspectRatio={ratio} transformations={{ resize: { height: HEIGHT * 2 } }} />
+      ) : (
+        <Image id={id} aspectRatio={ratio} widths={[width, width * 2]} sizes={`${width}px`} />
+      )
+    })
+  }
+</a>
+
+<style>
+  /* `w-full` is load-bearing. Without it Chrome sizes this grid item to its content — every
+     item laid end to end — instead of stretching it to its area, `min-w-0` or not, and it
+     never scrolls. Measured, not explained: the cause is not pinned down. */
+  .strip {
+    --uno: 'relative z-1 flex gap-2 overflow-x-auto w-full';
+    scrollbar-width: none;
+    /* Horizontal swipes are native here (`data-lenis-prevent-horizontal`), so one that runs
+       past either end would otherwise chain to the page and fire history back/forward. */
+    overscroll-behavior-x: contain;
+  }
+  .strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Height fixed, width from the wrapper's own `aspect-ratio`: `h-full` on the wrapper is
+     what turns its ratio into a width. */
+  .strip > :global(figure) {
+    --uno: 'h-24 flex-none';
+  }
+  .strip > :global(figure > div) {
+    --uno: 'h-full';
+  }
+</style>

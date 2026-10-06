@@ -2,11 +2,7 @@
  * Theme
  */
 
-:root {
-  --font-sans: Brockmann, ui-sans-serif, sans-serif;
-  --font-serif: Newsreader, Iowan Old Style, ui-serif, Charter, Georgia, serif;
-  --font-mono: Azeret Mono, ui-monospace, monospace;
-}
+/* The font stacks are declared in `uno.config.ts`, not here — A11. */
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -95,17 +91,145 @@
 }
 
 @font-face {
-  font-family: 'Azeret Mono';
-  src: url('/fonts/AzeretMono-VariableFont_wght.woff2') format('woff2-variations');
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono[wght].woff2') format('woff2-variations');
   font-style: normal;
   font-display: block;
   font-weight: 100 900;
 }
 
 @font-face {
-  font-family: 'Azeret Mono';
-  src: url('/fonts/AzeretMono-Italic-VariableFont_wght.woff2') format('woff2-variations');
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Italic[wght].woff2') format('woff2-variations');
   font-style: italic;
   font-display: block;
   font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-Thin.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-ThinItalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-ExtraLight.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-ExtraLightItalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-Light.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-LightItalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-Regular.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-Italic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-Medium.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-MediumItalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-SemiBold.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-SemiBoldItalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-Bold.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-BoldItalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-ExtraBold.woff2') format('woff2');
+  font-style: normal;
+  font-display: block;
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'NKDuy Mono';
+  src: url('/fonts/NKDuyMono-ExtraBoldItalic.woff2') format('woff2');
+  font-style: italic;
+  font-display: block;
+  font-weight: 800;
 }

@@ -1,0 +1,56 @@
+---
+/*
+ * One route for `pages` and `projects`: `entry.id` carries the directory, so a rest
+ * parameter needs no per-collection rule.
+ *
+ * `index` is excluded — it is the homepage, and would otherwise be emitted twice.
+ *
+ * No wrapper between `<main>` and this output: one that is not itself `grid-subgrid`
+ * severs the subgrid chain.
+ */
+import { render, type CollectionEntry } from 'astro:content'
+import Base from '../layouts/Base.astro'
+import { getPages, getProjects } from '../lib/collections'
+import { formatDate } from '../lib/util'
+
+export async function getStaticPaths() {
+  const [pages, projects] = await Promise.all([getPages(), getProjects()])
+
+  return [...pages.filter((entry) => entry.id !== 'index'), ...projects].map((entry) => ({
+    params: { page: entry.id },
+    props: { entry }
+  }))
+}
+
+interface Props {
+  entry: CollectionEntry<'pages'> | CollectionEntry<'projects'>
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+---
+
+<Base
+  title={`${entry.data.title} — YuCheng Kuo`}
+  ogTitle={entry.data.title}
+  description={entry.data.description}
+>
+  <div class="mt-8 mb-16">
+    <h1 class="text-6 leading-8">{entry.data.title}</h1>
+    <p class="text-secondary font-mono text-xs mt-1">{entry.data.subtitle}</p>
+  </div>
+
+  {
+    /*
+    `@astrojs/markdoc` turns every prop on `<Content />` into a Markdoc variable. Without
+    the spread, `{% $description %}` in `content/now.mdoc` renders empty with a green build.
+  */
+  }
+  <Content {...entry.data} />
+
+  <p class="mt-20 text-tertiary font-mono text-xs">
+    / Updated at <time datetime={entry.data.updated.toISOString()}
+      >{formatDate(entry.data.updated)}</time
+    > /
+  </p>
+</Base>

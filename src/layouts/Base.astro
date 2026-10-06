@@ -1,0 +1,172 @@
+---
+/*
+ * No `import 'uno.css'`: `@unocss/astro` injects it already, and a second copy puts the
+ * reset back over `prose.css`. A5 asserts one entry stylesheet per page.
+ */
+import Analytics from '@vercel/analytics/astro'
+import Header from '../components/Header.svelte'
+import Footer from '../components/Footer.svelte'
+import { getNavigation } from '../lib/navigation'
+import '../styles/theme.css'
+import '../styles/main.css'
+import '../styles/prose.css'
+import 'lenis/dist/lenis.css'
+
+interface Props {
+  /** Verbatim; each route builds its own suffix. */
+  title: string
+  description?: string
+  /* Not derivable from `title`: a route with no content entry has a title but no og:title. */
+  ogTitle?: string
+  ogType?: 'website' | 'article'
+}
+
+const { title, description, ogTitle, ogType = 'website' } = Astro.props
+
+/* `build.format: 'directory'` gives `/about/`; strip the slash for og:url, sparing `/`. */
+const pathname = Astro.url.pathname.replace(/(.)\/$/, '$1')
+
+const SITE = 'https://yuchengkuo.com'
+const OG_IMAGE = `${SITE}/og/default.png`
+
+const { navigation, contact } = await getNavigation()
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicons/favicon.ico" sizes="any" />
+    <link rel="manifest" href="/favicons/manifest.json" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+    <title>{title}</title>
+
+    {/* Astro drops an attribute bound to `undefined`, so a missing value emits no content. */}
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={`${SITE}${pathname}`} />
+    <meta property="og:image" content={OG_IMAGE} />
+
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:url" content={`${SITE}${pathname}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={OG_IMAGE} />
+
+    {
+      /*
+      The rule beats the `opacity: 0` in Image.svelte and Video.svelte, which Svelte scopes
+      to img/video.svelte-<hash> — a hash that changes on every edit, so it cannot be named
+      from here. Opacity only: color:transparent stays, keeping the alt-text fix.
+
+      A string, not markup: prettier-plugin-astro mis-parses a <noscript> holding an element
+      and emits </head></html> ahead of <body>. <head> is also the only place the HTML
+      content model allows a <style> inside a <noscript>, and it keeps the element out of
+      the `body` grid, where with scripting off it would be an in-flow item.
+    */
+    }
+    <Fragment set:html={`<noscript><style>img,video{opacity:1!important}</style></noscript>`} />
+
+    {/* Absolute path: a relative one breaks on nested routes like `/note/windicss/`. */}
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'))
+      }
+    </script>
+  </head>
+  <body>
+    <Header client:load pathname={pathname} />
+
+    {
+      /*
+      Nothing may wrap the slot: main.css places every direct child of <main>, and a
+      wrapper that is not itself `grid-subgrid` severs the subgrid chain with a green
+      build. A10 covers the island case.
+    */
+    }
+    <main>
+      <slot />
+    </main>
+
+    <Footer client:load navigation={navigation} contact={contact} />
+
+    <div data-layer role="presentation"></div>
+
+    <Analytics mode={import.meta.env.DEV ? 'development' : 'production'} />
+
+    <script>
+      /*
+       * Opens the opacity gate in `Image.svelte` and `Video.svelte`.
+       *
+       * Deferred, so a cached image can have fired `load` before this runs — `complete` is
+       * the only reliable test. `error` too: one that fails after this runs never fires
+       * `load`, and a broken image must reveal so its alt text can say so.
+       *
+       * Never `img.decode()`. On an image whose load has not started it *starts* it, which
+       * would defeat `loading="lazy"` across the whole corpus with the attribute still in
+       * the HTML and nothing to warn anyone. Any future use must chain after `load`.
+       *
+       * `:not([data-loaded])` is what skips the LCP-exempt hero — see `priority` in
+       * `Image.svelte`.
+       */
+      for (const img of document.querySelectorAll<HTMLImageElement>('img:not([data-loaded])')) {
+        const reveal = () => (img.dataset.loaded = '')
+        if (img.complete) reveal()
+        else {
+          img.addEventListener('load', reveal, { once: true })
+          img.addEventListener('error', reveal, { once: true })
+        }
+      }
+
+      /*
+       * A video reveals on whichever of its poster and its first frame lands first.
+       * `Video.svelte` carries why the poster rather than `loadeddata` alone; the poster
+       * normally wins, and loses only where Cloudinary derives the still cold — there,
+       * revealing on real frames is no worse than on the frame they stand in for.
+       *
+       * That race is also the fallback, which is why neither branch guards the other: a
+       * video with no poster, or one whose poster fails, still reveals. `readyState` is the
+       * deferred-script test, as `complete` is above.
+       *
+       * No listener for a failed source: a revealed broken video and a hidden one both
+       * render the wrapper's surface tone.
+       */
+      for (const video of document.querySelectorAll<HTMLVideoElement>('video')) {
+        const reveal = () => (video.dataset.loaded = '')
+        if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) reveal()
+        else video.addEventListener('loadeddata', reveal, { once: true })
+
+        if (video.poster) {
+          const poster = new Image()
+          poster.addEventListener('load', reveal, { once: true })
+          poster.src = video.poster
+        }
+      }
+    </script>
+
+    <script>
+      import Lenis from 'lenis'
+      new Lenis({ autoRaf: true, lerp: 0.3 })
+    </script>
+
+    <style is:global>
+      /*
+       * `body` is the page grid, so this empty custom element would be an in-flow grid
+       * item. Hiding it doesn't stop its constructor running.
+       */
+      vercel-analytics {
+        display: none;
+      }
+    </style>
+  </body>
+</html>

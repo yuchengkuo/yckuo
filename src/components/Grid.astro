@@ -1,0 +1,45 @@
+---
+/*
+ * No `client:` directive — A10 asserts no island renders inside `<main>`.
+ * `docs/adr/0004-derived-grid-spans.md` has the layout rationale.
+ */
+---
+
+<div class="media-grid">
+  <slot />
+</div>
+
+<style>
+  /*
+   * `md:`-prefixed, not bare `start-2 span-10`: Astro's scoping attribute lifts a bare rule
+   * to 0-2-0, over prose's mobile `lt-md:layout-full` fallback at 0-1-1, and the desktop
+   * placement would win on mobile. Non-overlapping media conditions can't collide.
+   */
+  .media-grid {
+    --uno: 'grid-subgrid span-full md:start-2 md:span-10 items-start mt-24 lt-md:mt-8';
+    --uno: 'gap-y-4';
+    --uno: 'lt-md:children:span-full';
+  }
+
+  /* `[data-span]`, not `> *`: `Img.astro` omits the attribute on an author-placed image, so
+     these never contest its placement classes. A14 pairs these values with `gridSpan.ts`. */
+  :global(.media-grid > [data-span]) {
+    --uno: 'span-full';
+  }
+
+  :global(.media-grid > [data-span='1']) {
+    --uno: 'md:span-1';
+  }
+
+  :global(.media-grid > [data-span='2']) {
+    --uno: 'md:span-2';
+  }
+
+  :global(.media-grid > [data-span='3']) {
+    --uno: 'md:span-3';
+  }
+
+  :global(.media-grid > [data-span='4']) {
+    --uno: 'md:span-4';
+  }
+</style>

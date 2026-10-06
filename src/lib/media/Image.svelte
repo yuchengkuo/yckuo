@@ -1,22 +1,27 @@
 <script lang="ts">
-  import { getAWebpProps, getImgProps } from './getImgProps'
+  import { DEFAULT_WIDTHS, getAWebpProps, getImgProps } from './getImgProps'
 
   import type { TransformerOption, TransformerVideoOption } from '@cld-apis/types'
 
   interface Props {
-    id?: string //Cloudinary ID
+    id?: string // Cloudinary id
     src?: string
     alt?: string
     isVideo?: boolean
     widths?: number[]
     sizes?: string[] | string | null
     transformations?: TransformerOption | TransformerVideoOption
-    blurDataUrl?: string | null
-    aspectRatio?: string | null
+    /* Required, with no default — see `aspectRatio.ts`. A12 fails the build on an unsized
+       box. */
+    aspectRatio: string
     title?: string
     description?: string
     class?: string
     loading?: 'lazy' | 'eager'
+    /* Exempts this image from the reveal gate: it ships already carrying `data-loaded`, so
+       it is never at `opacity: 0` and stays eligible to be the LCP. Pass it only on an
+       above-the-fold image — it also fetches eagerly at high priority. */
+    priority?: boolean
   }
 
   let {
@@ -24,25 +29,19 @@
     src = '',
     alt = '',
     isVideo = false,
-    widths = [400, 840, 1100, 1650, 2100],
+    widths = DEFAULT_WIDTHS,
     sizes = ['(max-width:896px) 100vw', '(max-width:1620px) 80vw', '1920px'],
     transformations = {},
-    blurDataUrl,
     aspectRatio,
     title,
     description,
     class: classname,
     loading = 'lazy',
+    priority = false,
     ...rest
   }: Props = $props()
 
-  let imgEl: HTMLImageElement
-
-  let visible = $state(true)
-
-  const resolvedSizes = $derived(
-    isVideo ? null : Array.isArray(sizes) ? sizes.join(', ') : sizes
-  )
+  const resolvedSizes = $derived(isVideo ? null : Array.isArray(sizes) ? sizes.join(', ') : sizes)
 
   const imgData = $derived.by(() => {
     if (isVideo) {
@@ -63,45 +62,29 @@
     }
     return { src, srcset: null }
   })
-
-  $effect.pre(() => {
-    if (imgEl?.complete) visible = true
-
-    if (!imgEl) return
-    if (imgEl.complete) return
-    imgEl.addEventListener('load', () => {
-      if (!imgEl) return
-      setTimeout(() => (visible = true), 0)
-    })
-  })
 </script>
 
 <figure class={classname} {...rest}>
   <div style="aspect-ratio: {aspectRatio}">
-    <!-- Blurred placeholder -->
-    {#if blurDataUrl}
-      <img
-        src={blurDataUrl}
-        alt=""
-        class:opacity-0={visible}
-        class="absolute inset-0 select-none"
-      />
-      <div role="presentation" class:opacity-0={visible}></div>
-    {/if}
-
-    <!-- Actual img element -->
-    <img bind:this={imgEl} src={imgData.src} {alt} srcset={imgData.srcset} sizes={resolvedSizes} {loading} class:opacity-0={!visible} />
+    <img
+      src={imgData.src}
+      {alt}
+      srcset={imgData.srcset}
+      sizes={resolvedSizes}
+      loading={priority ? 'eager' : loading}
+      fetchpriority={priority ? 'high' : undefined}
+      data-loaded={priority ? '' : undefined}
+    />
   </div>
-
-  <noscript>
-    <img src={imgData.src} {alt} srcset={imgData.srcset} sizes={resolvedSizes} {loading} />
-  </noscript>
 
   {#if title}
     <figcaption>
-      {title}
-      {#if description}
-        <div class="text-tertiary"><i class="i-ri-arrow-right-double-line"></i> {description}</div>
+      <span role="presentation" class="text-tertiary select-none w-fit">[→]</span><span
+        class="start-2">{title}</span
+      >{#if description}
+        <span class="block text-tertiary start-2">
+          {description}
+        </span>
       {/if}
     </figcaption>
   {/if}
@@ -113,16 +96,37 @@
   }
   /* Wrapper */
   figure > div {
-    --uno: 'rounded bg-surface relative overflow-hidden no-js:hidden';
+    --uno: 'rounded-0.5 bg-surface overflow-hidden border border-neutral';
   }
-  /* Blurred overlay */
-  div[role='presentation'] {
-    --uno: 'absolute inset-0 transition-opacity ease-out duration-300 select-none';
-  }
+  /*
+   * Two layers, deliberately independent. `color: transparent` hides the alt string the
+   * browser paints into an imageless box, leaving the attribute itself intact for assistive
+   * technology. The opacity gate hides the top-to-bottom wipe — every URL is `f_auto`, and
+   * WebP has no progressive mode to paint.
+   *
+   * Only the gate needs the script, so a script that never runs costs the fade and keeps
+   * the alt-text fix. `Base.astro` carries the opener and the no-JS override.
+   */
   img {
-    --uno: 'w-full h-full object-cover object-center transition-opacity ease-out duration-300';
+    --uno: 'w-full h-full object-cover object-center';
+    opacity: 0;
+    color: transparent;
+  }
+  /* On the revealed state, not the hidden one: a transition is governed by its destination,
+     so a duration written above would govern only a reverse that never happens. */
+  img[data-loaded] {
+    opacity: 1;
+    color: inherit;
+    transition: opacity 200ms ease-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* Collapse the duration rather than skip the reveal — the preference removes the
+       animation, not the content. */
+    img[data-loaded] {
+      transition-duration: 0s;
+    }
   }
   figcaption {
-    --uno: 'block w-fit h-fit mt-2 font-medium text-sm';
+    --uno: 'grid gap-x-1.5 w-fit h-fit mt-2.5 lt-sm:mt-1.5';
   }
 </style>

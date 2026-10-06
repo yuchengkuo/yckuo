@@ -1,0 +1,10 @@
+---
+/*
+ * No `client:` directive: `<details>` toggles natively and the More/Less swap is CSS, so
+ * hydration adds nothing — while the island wrapper would take `article > *`'s placement
+ * away from `<details>`. A10 asserts no island renders inside `<main>`.
+ */
+import Expand from '../lib/content/Expand.svelte'
+---
+
+<Expand><slot /></Expand>

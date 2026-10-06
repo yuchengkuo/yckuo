@@ -4,95 +4,183 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-### Content Development
-- `pnpm dev` - Start development server with parallel content and Svelte compilation
-- `pnpm dev:content` - Watch and rebuild content with Velite only
-- `pnpm dev:svelte` - Start Vite dev server only
+- `pnpm dev` — Astro dev server
+- `pnpm build` — `astro build && node scripts/port-guard.mjs` (the build gate; see below)
+- `pnpm guard` — the gate alone, against an existing `dist/`. `--strict` promotes census drift and
+  skipped rungs to errors
+- `pnpm preview` — serve the built `dist/`
+- `pnpm selftest` — the six fixture proofs: `converter-selftest.mjs` behind `slashify()`,
+  `getinfo-selftest.mjs` behind `ratioFromGetInfo()`, `order-selftest.mjs` behind `featuredFirst()`,
+  `gridspan-selftest.mjs` behind `spanFromRatio()`, `mediaurl-selftest.mjs` behind the media URL
+  builders, and `strip-selftest.mjs` behind `strip()`. All six run with no network and no content
+  checkout
+- `pnpm ratios` — record the true dimensions of any Cloudinary id the ratio manifest lacks.
+  `--dry` reports what it would fetch. Runs automatically on `pnpm dev`, never on a build
+- `pnpm format` — Prettier
 
-### Build Process
-- `pnpm build` - Full production build (runs content build then Svelte build)
-- `pnpm build:content` - Build content collections with Velite
-- `pnpm build:svelte` - Build Svelte application with Vite
-
-### Code Quality
-- `pnpm format` - Format code with Prettier
-- `pnpm check` - Type check with svelte-check
-- `pnpm check:watch` - Continuous type checking
+There is **no type-check script**. `astro check` was evaluated and backed out:
+`@astrojs/language-server` asserts the TypeScript _programmatic_ API, which TypeScript 7's native
+compiler dropped. Taking it means pinning `typescript@^6` — a decision, not a chore.
 
 ### Deployment
-- `pnpm vercel-install` - Custom install script for Vercel deployment (handles submodule authentication)
+
+`vercel.json` sets `installCommand` to `bash scripts/vercel-install.sh`, which authenticates with
+`GITHUB_TOKEN`, clones the private `content/` submodule, then runs `pnpm install`. There is no
+npm-script alias — the shell script is the only entry point. `outputDirectory` is `dist`.
+
+## The build gate — `scripts/port-guard.mjs`
+
+Ten assertions that deliberately fail the build where the framework would otherwise **succeed
+quietly**: grid utilities missing from the generated CSS, `getHeadings()` silently zeroed by an async
+transform, an unlisted Shiki fence language, a missing UnoCSS entry, two `prose.css` rules, an
+`<astro-island>` inside `<main>`, a font family declared twice so the dev cascade picks the loser, a
+media box whose `aspect-ratio` is not two positive integers or whose call site has stopped rendering
+it, and a collection glob that resolves to nothing. Every one of them was proven to bite by injection.
+It needs **Node ≥ 22.18** — it imports
+`markdoc.config.mjs` and the TypeScript `src/lib/highlighter.ts` directly, so it relies on Node's
+type stripping.
+
+**Structure is hard, provenance warns.** Assertions are revision-independent and always hard — each
+derives its expectation from whatever corpus is present. The pinned corpus figures are _provenance_:
+reported every run, warning on drift, naming the revision they were measured at. `--strict` promotes
+drift and skips to errors.
+
+**Adding a `client:` directive is a layout change.** `<astro-island>` is `display: contents`, which
+generates no box but still sits in the DOM — and the corpus is placed almost entirely by
+`>`-combinators (`main > article`, `> figure`, `.media-grid > *`), so one island severs the subgrid
+chain while leaving the HTML, the classes and the text correct. **A10 is where a new directive finds
+out.** No island renders inside `<main>`.
+
+## Comments
+
+Comments here are a decision log, not narration. Write for **an agent reading the file cold** —
+`CLAUDE.md` and the file, nothing else. Two tests, both must pass:
+
+1. Would a reader who never saw this repo's history **edit the code differently** because of this
+   sentence?
+2. Does it **stay true when the code around it changes**?
+
+Keep, most durable first — **external constraints** (upstream bugs, CSS and browser semantics,
+framework behaviour), **invariants a gate assertion backs**, then **rationale for a non-obvious
+choice**. Drop narration of the code below it: the code already says that, and it rots on every
+refactor.
+
+Prefer the asserted class. Where a comment states an invariant `port-guard.mjs` already checks,
+**name the assertion** (`A7`, `A10`) — a comment the build can falsify cannot rot silently. An
+invariant nothing asserts is either not load-bearing or wants a rung.
+
+- **No project archaeology.** No ticket numbers, no finding ids, no comparisons to the deleted
+  SvelteKit tree. Those citations point at `.scratch/`, which is gitignored — dangling for every
+  reader but the author, on the machine that wrote them. State the conclusion, drop the provenance.
+- **Cross-references are file-level only.** Naming a file survives most edits; "the comment at
+  `X.svelte`'s `$state`" is a link with no checker. Never reference a path under `.scratch/`.
+  Assertion names are the exception — `port-guard.mjs` is tracked and they are stable identifiers.
+- **Section labels are not comments.** `/* Heading */` in a stylesheet is structure. It stays.
+- **Say it is wrong when it is wrong.** A comment whose only honest form records an inconsistency
+  should record it, not be tidied into sounding deliberate.
 
 ## Project Architecture
 
-### Content Management System
-This is a content-driven SvelteKit application using **Velite** as the content layer:
+Astro 7 + Markdoc, prerendered, deployed on Vercel. Svelte 5 is present for the few components that
+need interactivity — it is not the rendering path.
 
-- **Content Collections**: Defined in `velite.config.ts` with strict schemas
-  - `pages` - Static pages (*.md files)
-  - `works` - Portfolio work items (work/*.md)
-  - `projects` - Personal projects (project/**/*.md)
-  - `notes` - Blog-style notes (note/**/*.md)
-  - `posts` - Long-form posts (post/**/*.md)
-  - `orgs` - Organization data (work/org/*.yml)
-  - `navigation` - Site navigation (navigation.yml)
+### Content
 
-- **Content Processing**: Uses Markdoc for rich content transformation
-  - Custom nodes for headings with auto-generated IDs and anchor links
-  - Image processing with Cloudinary integration (supports videos via `image_isvideo` attribute)
-  - Code syntax highlighting with Shiki using custom TMR themes
-  - Custom tags: `{% gallery %}`, `{% expand %}`, `{% deflist %}`, `{% span %}`
+`content/` is a **private git submodule** of `.mdoc` files, read directly by
+`src/content.config.ts`. A clone without access to it cannot build, and that is deliberate:
+clone-and-run is not a goal.
 
-### Styling System
-- **UnoCSS** with custom Radix UI color system integration
-- **Design tokens**: Semantic color shortcuts (bg-screen, text-primary, etc.)
-- **Custom variants**: no-js, child-first, child-last
-- **Typography**: Custom font stack with CSS variables (--sans, --serif, --mono)
+Five collections, all sharing one `base: './content'` so that `entry.id` carries the directory and
+`/${entry.id}` is the URL with no per-collection rule:
 
-### SvelteKit Configuration
-- **Aliases**: 
-  - `$components` → `src/components`
-  - `$utils` → `src/utils`
-  - `$content` → `.velite` (generated content)
-- **Prerendering**: Enabled with concurrency of 3
-- **File extensions**: Supports both .svelte and .md files
+- `pages` — `*.mdoc`, root-only (which is what keeps `docs/CONTEXT.md` out of every collection)
+- `works` — `work/*.mdoc`
+- `projects` — `project/**/*.mdoc`
+- `notes` — `note/**/*.mdoc`
+- `navigation` — `navigation.yml`, one entry via `glob()` (not `file()` — see the note there)
 
-### Routing Structure
-- **Route groups**: `(more)` group for secondary pages
-- **Dynamic routes**: 
-  - `[...page]` - Catch-all for content pages
-  - `work/[page]` - Individual work pages
-  - `note/[page]` - Individual note pages
-- **API routes**: Content API at `/api/content/` for collections and entries
+Unknown frontmatter keys are **stripped, not rejected** — a schema must never be able to demand a
+content edit. The reasoning is recorded in `src/content.config.ts`.
 
-### Key Dependencies
-- **Core**: SvelteKit 2.x, Svelte 5.x
-- **Content**: Velite, Markdoc, Shiki for syntax highlighting
-- **Styling**: UnoCSS, Radix UI colors
-- **Animations**: Motion (motion-dom)
-- **Package Manager**: pnpm 9.15.3
+### Content markup
 
-### Content Rendering Pipeline
-Content flows through: Markdown files → Velite (with Markdoc transforms in `markdoc.config.ts`) → JSON AST in `.velite/` → `Content.svelte` renders AST via `sveltejs-markdoc` with component mapping:
-- `img` → `$lib/media/Image.svelte` (Cloudinary integration)
-- `vid` → `$lib/media/Video.svelte`
-- `CodeBlock` → `$lib/content/CodeBlock.svelte` (Shiki-highlighted at build time)
-- `Expand` → `$lib/content/Expand.svelte`
-- `Gallery` → `$lib/content/Gallery.svelte`
+Images are `![alt](/cloudinary-id 'caption') {% .start-1 .span-8 %}`. **The leading `/` is
+required** — Astro reads a bare id as a local file and the build fails. Grid annotations
+(`{% .span-N %}`) live only inside content, which is why `mdoc` must stay in both
+`astro.config.mjs`'s `pipeline.include` and `uno.config.ts`'s extractor regex: either one alone
+kills all 68 of them with a green build and no warning. A1 asserts it.
 
-Additional components can be passed to `Content.svelte` via the `components` prop.
+Custom tags: `{% grid %}`, `{% expand %}`, `{% deflist %}`, `{% span %}`. Full authoring rules
+live in `content/docs/CONTEXT.md`.
 
-### Content API
-Routes fetch content from the generated `.velite` collections at runtime:
-- `GET /api/content/entry/[slug]` — Single entry by slug (matches across all collections)
-- `GET /api/content/collection/[key]/[[sort]]` — Full collection, optional sort like `updated:desc` or `published:asc`
-- Drafts are filtered out in production, visible in dev
+### Media boxes
+
+Every media box is sized before its bytes arrive, from `aspect-ratios.json` at the root of the
+content submodule: Cloudinary id -> literal CSS ratio, one per line, sorted. The ratio is a
+**discovered fact about the asset, never an authored decision** — `scripts/aspect-ratios.mjs`
+fetches it once via Cloudinary's unauthenticated `fl_getinfo` flag and commits it. Generation is
+local (`pnpm dev`, `pnpm ratios`); a production build makes no network call, because the deploy
+filesystem is ephemeral and could never persist one back. `docs/adr/0001-committed-ratio-manifest.md`
+records that.
+
+**There is no default ratio and no fallback.** `aspectRatio()` in `src/lib/media/aspectRatio.ts`
+throws on an id the manifest lacks, and it is the single lookup for both body media (`Img.astro`)
+and frontmatter media (`work/[slug].astro`). A default would reserve the wrong box, still shift the
+page, and look deliberate.
+
+The declaration goes on the **wrapper inside the figure**, never on the figure — the figure also
+holds the caption, and a ratio there makes the caption eat the media's space. `aspectRatio` is a
+required prop on both media components. It was once declared and never assigned, so every box
+shipped `aspect-ratio: ` with a green build every time. A12 is what makes that unshippable now: it reads `dist/`, so it covers all three rendering surfaces at once, and its
+second half counts the boxes against what the corpus implies — which is what catches a call site
+that quietly stops rendering one. The homepage strip (`Strip.astro`) is a second box for media the
+body already shows, counted as its own origin through the same `strip()` that renders it. The projects `cover` field is excluded from that count, with the
+reason in the rung.
+
+`@markdoc/markdoc` is **patched** (`patches/`) for an unreported upstream bug: `.trim()` should be
+`.trimEnd()` in the block-tag rule, which otherwise mis-claims an inline tag as a block tag once the
+frontmatter is long enough. Without it, 3 of 26 files fail to parse.
+
+### Styling
+
+UnoCSS with a custom Radix UI color integration. Semantic shortcuts (`bg-screen`, `text-primary`),
+custom variants (`child-first`, `child-last`), font stack on CSS variables (`--sans`,
+`--serif`, `--mono`). The `rx-` prefix expands to a light/dark pair — a bare `radix-` token is
+single-theme and should be assumed deliberate only where a comment says so.
 
 ### Content Editing Rules
-- When editing any content file (`content/**/*.md`), always update the `updated` field in its frontmatter to today's date (`YYYY-MM-DD` format).
 
-### Development Notes
-- The `content/` directory is a **git submodule** — `pnpm vercel-install` handles submodule auth for deployment
-- Content is generated into `.velite` directory (aliased as `$content`)
-- The build process requires content compilation before Svelte compilation (`run-s build:*` ensures order)
-- No test suite is configured; use `pnpm check` for type checking
-- UnoCSS config includes custom Radix color transformations and semantic shortcuts
+- When editing any content file (`content/**/*.mdoc`), always update the `updated` field in its
+  frontmatter to today's date (`YYYY-MM-DD` format).
+- **Read `content/docs/CONTEXT.md` first.** It defines the audience, the field vocabulary
+  (`tagline` vs `description` vs `summary`), the case study shape, the markup, and the voice rules.
+
+### The converter
+
+`scripts/slashify.mjs` inserts the leading `/` a Cloudinary image id needs
+(`![alt](work/x)` -> `![alt](/work/x)`). It is a library with no CLI; the corpus is already
+converted, so nothing runs it in anger — but it is the record of a one-character edit to authored
+prose, and `pnpm selftest` (`scripts/converter-selftest.mjs`) is the proof that the edit is a pure
+insertion: same call sites, byte-identical once the slashes are normalised away, tag balance
+unchanged, idempotent. Fixture-driven, so it needs no content checkout.
+
+`scripts/fences.mjs` is the one fenced-code scanner, shared with the build gate. Two copies of that
+rule once disagreed, which is why there is now one.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live as markdown files under `.scratch/<feature-slug>/` in this repo. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical roles, each label string equal to its name. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context — `content/docs/CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
+`CONTEXT.md` lives inside the private `content` submodule, not at the repo root, so it isn't
+published with the public site repo. It sits under `content/docs/` rather than the content root
+because the `pages` collection pattern (`*.mdoc`) would otherwise pick it up as a page.

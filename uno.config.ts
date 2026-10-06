@@ -12,16 +12,22 @@ const radixThemes = Object.fromEntries(Object.entries(Radix).filter(([k]) => !k.
 const radixThemesDark = Object.fromEntries(Object.entries(Radix).filter(([k]) => k.match(/Dark/)))
 
 export default defineConfig({
-  content: {
-    filesystem: ['content/**/*.md']
-  },
-  transformers: [transformerDirectives(), transformerVariantGroup()],
+  /* `content: { filesystem }` lives in the `unocss()` integration call in
+     astro.config.mjs instead, and points at the `content/` submodule. */
+  /*
+   * `enforce: 'pre'`, for dev: Astro's dev CSS plugin snapshots each stylesheet in its
+   * `transform` hook for SSR inlining, and an unenforced directive transform runs after
+   * it — first paint ships raw `--uno:` declarations and is unstyled. The build is
+   * unaffected.
+   */
+  transformers: [transformerDirectives({ enforce: 'pre' }), transformerVariantGroup()],
   extractors: [
     {
       name: 'MDC order',
       order: 10,
       async extract(ctx) {
-        if (!/\.(?:md|mdc|markdown)$/i.test(ctx.id ?? '')) return
+        // `mdoc` must stay here and in `astro.config.mjs`'s `pipeline.include` — A1.
+        if (!/\.(?:md|mdc|mdoc|markdown)$/i.test(ctx.id ?? '')) return
 
         ctx.code.match(/\.[\w:/\-]+/g)?.forEach((c) => {
           ctx.extracted.add(c.slice(1))
@@ -52,6 +58,18 @@ export default defineConfig({
     })
   ],
   theme: {
+    /*
+     * Declared here and nowhere else: presetWind4 emits its own `--font-*`, so a second
+     * `:root` in theme.css races it, and dev's appended `__uno.css` (see
+     * `astro.config.mjs`) wins. A11 asserts the single declaration.
+     *
+     * Strings, not arrays: an array emits no `--font-*` declaration at all, silently.
+     */
+    font: {
+      sans: 'Brockmann, ui-sans-serif, sans-serif',
+      serif: 'Newsreader, Iowan Old Style, ui-serif, Charter, Georgia, serif',
+      mono: 'Geist Mono, ui-monospace, monospace'
+    },
     colors: {
       accent: '#44F440',
       radix: {
@@ -69,28 +87,40 @@ export default defineConfig({
       'bg-screen-hover': 'bg-rx-sage-2',
       'bg-surface': 'bg-rx-sage-3',
       'bg-surface-hover': 'bg-rx-sage-4',
-      'bg-selection': 'bg-rx-grass-3',
+      'bg-selection': 'bg-rx-sage-4',
+      'bg-button-primary': 'bg-rx-green-11',
+      'bg-button-primary-hover': 'bg-rx-gray-12',
+      'bg-button-secondary': 'bg-rx-sage-3',
+      'bg-button-secondary-hover': 'bg-rx-gray-12',
       'bg-inverse': 'bg-rx-sage-12',
+
       'text-primary': 'text-rx-sage-12',
-      'text-secondary': 'text-rx-sage-9',
-      'text-tertiary': 'text-rx-sage-7',
-      'text-selection': 'text-rx-grass-11',
+      'text-secondary': 'text-rx-sage-10',
+      'text-tertiary': 'text-rx-sage-8',
+      'text-selection': 'text-rx-green-12',
       'text-on-color': 'text-rx-sage-1',
-      'border-neutral': 'border-rx-sage-3',
-      'border-neutral-hover': 'border-rx-sage-4',
-      'underline-neutral': 'underline-rx-sage-5',
-      'underline-neutral-hover': 'underline-rx-sage-6',
+
+      'border-neutral': 'border-rx-sage-5',
+      'border-neutral-hover': 'border-rx-sage-6',
+      /* Intentionally NOT `border-rx-sage-12`: this one keeps the light palette's border
+         in both themes, unlike every token around it. A choice, not the missing `rx-`
+         alias it looks like. */
+      'border-button-primary': 'border-radix-sage-12',
+      'border-button-secondary': 'border-rx-sage-6',
+      'underline-neutral': 'underline-rx-sage-8',
+      'underline-neutral-hover': 'underline-rx-sage-10',
       'underline-dotted': 'underline-rx-sage-8',
       'underline-dotted-hover': 'underline-rx-sage-10'
     },
-    /* Semantic prose text styles */
-    {},
+    /* Text Style Overwrite */
+    { 'text-xs': 'font-size-3 leading-5' },
     /* Utility */
     {
       'border-dash': 'border-b border-dashed border-neutral',
       button: 'bg-transparent'
     },
     /* Shortcut */
+    { 'font-mono': 'font-mono slashed-zero' },
     [/^size-(.*)$/, ([, s]) => `w-${s} h-${s}`],
     [
       /^tag-(.*)$/,
@@ -105,19 +135,23 @@ export default defineConfig({
     { 'grid-subgrid': 'grid grid-cols-subgrid' },
     [/^span-(.*)$/, ([, r]) => `col-span-${r}`],
     [/^start-(.*)$/, ([, r]) => `col-start-${r}`],
-    [/^end-(.*)$/, ([, r]) => `col-end-${r}`]
+    [/^end-(.*)$/, ([, r]) => `col-end-${r}`],
+    /*
+     * Layout tokens: a call site names an intent, never a breakpoint or column number. All
+     * four are full-width below `md`. Not prefixed `col-`, which collides with the preset's
+     * column utilities.
+     */
+    {
+      'layout-full': 'span-full',
+      /* Columns 4–9 of 12. */
+      'layout-content': 'span-full md:start-4 md:span-6',
+      /* Columns 4–8 of 12. */
+      'layout-measure': 'span-full md:start-4 md:span-5',
+      /* Columns 1–6 of 12. */
+      'layout-aside': 'span-full md:start-1 md:span-6'
+    }
   ],
   variants: [
-    {
-      name: 'no-js',
-      match(matcher) {
-        if (!matcher.startsWith('no-js:')) return matcher
-        return {
-          matcher: matcher.slice(6),
-          selector: (s) => `.no-js ${s}`
-        }
-      }
-    },
     {
       name: 'child-last',
       match(matcher) {
@@ -139,6 +173,12 @@ export default defineConfig({
       }
     }
   ],
+  /*
+   * `theme: 'on-demand'` emits a `--font-*` only for a family something uses, and dev
+   * extracts lazily — so `font-serif`, used only by main.css's `em` rule, could be missing
+   * on a dev page.
+   */
+  safelist: ['font-sans', 'font-serif', 'font-mono'],
   rules: [['max-w-9xl', { 'max-width': '96rem' }]],
   layers: {
     default: 1,

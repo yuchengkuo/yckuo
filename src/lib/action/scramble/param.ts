@@ -2,7 +2,7 @@ import type { ScrambleOptions } from './scramble.svelte'
 
 type ScrambleOptionsNoText = Omit<ScrambleOptions, 'text'>
 
-/* Glith effect with technical symbols like ⌘, ⌥, ⇧ */
+/* U+2300–U+238B, Miscellaneous Technical: ⌘, ⌥, ⇧ */
 export const glitch: ScrambleOptionsNoText = {
   overflow: false,
   scramble: 3,

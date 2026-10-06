@@ -2,5 +2,14 @@
   "github": {
     "silent": true
   },
-  "installCommand": "bash scripts/vercel-install.sh"
+  "installCommand": "bash scripts/vercel-install.sh",
+  "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/work", "destination": "/#work", "statusCode": 307 },
+    {
+      "source": "/resume",
+      "destination": "https://drive.google.com/file/d/1p6Jcg1tic0ko-h1QEgvMb9cUSpnDXeim",
+      "statusCode": 307
+    }
+  ]
 }

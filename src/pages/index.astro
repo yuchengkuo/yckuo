@@ -1,0 +1,156 @@
+---
+/* Nothing may wrap this page's output — see `Base.astro`. */
+import { getEntry, render } from 'astro:content'
+import Base from '../layouts/Base.astro'
+import ProjectText from '../components/ProjectText.astro'
+import WorkRow from '../components/WorkRow.astro'
+import { getProjects, getWorks } from '../lib/collections'
+import { formatDate, featuredFirst } from '../lib/util'
+
+const page = await getEntry('pages', 'index')
+const Intro = page ? (await render(page)).Content : null
+
+const works = await getWorks()
+const projects = await getProjects()
+
+const featuredWorks = works.filter((work) => work.data.featured)
+const additionalWorks = works.filter((work) => !work.data.featured)
+
+const orderedProjects = featuredFirst(projects)
+---
+
+<Base
+  title={page?.data.title ?? 'YuCheng Kuo'}
+  ogTitle={page?.data.title}
+  description={page?.data.description}
+>
+  <h1 class="text-5 mb-10">YuCheng Kuo is a Product Designer based in Taiwan.</h1>
+
+  {
+    page && Intro && (
+      <Fragment>
+        <div class="prose layout-measure">
+          {/* Frontmatter as Markdoc variables — see `[...page].astro`. */}
+          <Intro {...page.data} />
+        </div>
+        <p class="text-tertiary mt-5 font-mono text-xs">
+          / Updated at{' '}
+          <time datetime={page.data.updated.toISOString()}>{formatDate(page.data.updated)}</time> /
+        </p>
+      </Fragment>
+    )
+  }
+
+  <section id="work">
+    <h2>Selected Work</h2>
+
+    {/* Featured work */}
+    {featuredWorks.map((work) => <WorkRow work={work} />)}
+
+    {/* Additional work */}
+    <p class="span-full text-tertiary my-6 md:(mt-32 mb-12) font-sans text-sm">Additional Works</p>
+
+    {additionalWorks.map((work) => <WorkRow work={work} />)}
+  </section>
+
+  {/* Projects */}
+  <section id="projects">
+    <h2>Projects</h2>
+
+    {orderedProjects.map((project) => <ProjectText project={project} />)}
+  </section>
+</Base>
+
+<style>
+  section {
+    --uno: 'mt-60 lt-md:mt-40 grid-subgrid layout-content';
+  }
+
+  h2 {
+    --uno: 'text-4 leading-6 span-full font-medium mb-6 md:mb-12';
+    /* Double-quoted: the utility contains single quotes. */
+    --uno: "after:content-['/'] after:ml-2 after:font-mono after:text-xs after:text-tertiary";
+  }
+</style>
+
+<style is:global>
+  /*
+   * `is:global` because Markdoc output carries no scoping attribute. It still ships only on
+   * this route, since Astro bundles CSS per page.
+   *
+   * Coupled to the top-level child order: a new section needs its own rung, or it arrives
+   * at delay 0 with the heading.
+   */
+  main {
+    --intro-step: 50ms;
+  }
+
+  main > h1,
+  main > .prose > article > *,
+  main > p,
+  main > section {
+    animation: intro-arrive 500ms ease both;
+  }
+
+  /* Its opacity would compound with its animating children's. */
+  main > .prose {
+    animation: none;
+  }
+
+  main > h1 {
+    animation-delay: 0ms;
+  }
+
+  /* Paragraphs past the fourth share its delay. */
+  main > .prose > article > :nth-child(1) {
+    animation-delay: calc(var(--intro-step) * 1);
+  }
+
+  main > .prose > article > :nth-child(2) {
+    animation-delay: calc(var(--intro-step) * 2);
+  }
+
+  main > .prose > article > :nth-child(3) {
+    animation-delay: calc(var(--intro-step) * 3);
+  }
+
+  main > .prose > article > :nth-child(n + 4) {
+    animation-delay: calc(var(--intro-step) * 4);
+  }
+
+  main > p {
+    animation-delay: calc(var(--intro-step) * 5);
+  }
+
+  main > section:nth-of-type(1) {
+    animation-delay: calc(var(--intro-step) * 6);
+  }
+
+  main > section:nth-of-type(2) {
+    animation-delay: calc(var(--intro-step) * 7);
+  }
+
+  @keyframes intro-arrive {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* A `@keyframes` redefined in a matching conditional rule replaces the one above, keeping
+     every delay and duration declared against its name. */
+  @media (prefers-reduced-motion: reduce) {
+    @keyframes intro-arrive {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+</style>

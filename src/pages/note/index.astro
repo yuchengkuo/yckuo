@@ -1,0 +1,55 @@
+---
+/*
+ * Unsorted on purpose — see `lib/collections.ts`.
+ *
+ * The hrefs must be absolute: a host may serve `note/index.html` at `/note/`, where a
+ * relative `note/windicss` resolves to `/note/note/windicss`.
+ *
+ * No og:title or og:description — there is no content entry behind this route.
+ */
+import Base from '../../layouts/Base.astro'
+import More from '../../components/More.astro'
+import { getNotes } from '../../lib/collections'
+import { formatDate } from '../../lib/util'
+
+const notes = await getNotes()
+---
+
+<Base title="Notes — YuCheng Kuo">
+  <More>
+    <nav>
+      <ul>
+        {
+          notes.map((note) => (
+            <li>
+              {/* `{' '}` is load-bearing. JSX drops the newline, and `<time>`'s own
+                  `ml-2` is a margin on top of that space, not a replacement for it. */}
+              <a href={`/${note.id}`}>{note.data.title}</a>{' '}
+              <time datetime={note.data.updated.toISOString()}>
+                {formatDate(note.data.updated)}
+              </time>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </More>
+</Base>
+
+<style>
+  nav ul {
+    --uno: 'list-none p-0 m-0';
+  }
+
+  nav li {
+    --uno: 'mb-4';
+  }
+
+  nav a {
+    --uno: 'text-primary';
+  }
+
+  time {
+    --uno: 'font-mono text-xs text-tertiary ml-2';
+  }
+</style>

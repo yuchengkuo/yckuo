@@ -1,0 +1,26 @@
+diff --git a/dist/index.js b/dist/index.js
+index 32d7e87f902e0984830389dc19506bf8819f12eb..9634d6cde1a2d947e1f9e1886f49bc2f92cd9d2a 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -8332,7 +8332,7 @@ function block(state, startLine, endLine, silent) {
+   const finish = state.eMarks[startLine];
+   if (!state.src.startsWith(OPEN, start)) return false;
+   const tagEnd = findTagEnd(state.src, start);
+-  const lastPossible = state.src.slice(0, finish).trim().length;
++  const lastPossible = state.src.slice(0, finish).trimEnd().length;
+   if (!tagEnd || tagEnd < lastPossible - CLOSE.length) return false;
+   const contentStart = start + OPEN.length;
+   const content = state.src.slice(contentStart, tagEnd).trim();
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 88acade53fac813f375e52fdf7481c83d4215cb0..cba630d2f0308966cb310a3e41ef82ee02c71fd6 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -8303,7 +8303,7 @@ function block(state, startLine, endLine, silent) {
+   const finish = state.eMarks[startLine];
+   if (!state.src.startsWith(OPEN, start)) return false;
+   const tagEnd = findTagEnd(state.src, start);
+-  const lastPossible = state.src.slice(0, finish).trim().length;
++  const lastPossible = state.src.slice(0, finish).trimEnd().length;
+   if (!tagEnd || tagEnd < lastPossible - CLOSE.length) return false;
+   const contentStart = start + OPEN.length;
+   const content = state.src.slice(contentStart, tagEnd).trim();
