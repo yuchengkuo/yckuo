@@ -1,23 +1,40 @@
-/* KNOWN DEFECT, deferred.
-   A service worker script re-runs on every worker STARTUP, not once per build, so this
-   is a new cache name each time: the install-time cache is never read again, the
-   accumulating ones are never deleted, and the fetch handler grows one more per restart.
-   Live on production in exactly this form, which is why it has not been touched.
-   `version` wants to be a build constant. */
-const version = Date.now()
-
-const CACHE = `cache-${version}`
+/*
+ * Generated at build, not shipped from `public/`, so the cache name is a build constant. A
+ * worker script re-runs on every worker startup (idle workers stop after ~30s), so a name
+ * computed there — `Date.now()` — orphans the precache on the first restart. The name
+ * hashes the precached bytes; a new name is what makes `activate` drop the old cache.
+ *
+ * `ASSETS` entries are matched against the percent-encoded `URL.pathname`: bracketed
+ * names are written encoded, as their preloads in `Base.astro` are, or never match.
+ */
+import { createHash } from 'node:crypto'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import type { APIRoute } from 'astro'
 
 const ASSETS = [
   '/fonts/brockmann-regular.woff2',
-  '/fonts/GeistMono[wght].woff2',
-  '/fonts/GeistMono-Italic[wght].woff2',
+  '/fonts/GeistMono%5Bwght%5D.woff2',
+  '/fonts/GeistMono-Italic%5Bwght%5D.woff2',
   '/fonts/Newsreader-Italic-Variable.woff2',
   '/fonts/Newsreader-Variable.woff2',
   '/og/default.png',
   '/favicons/favicon.svg',
   '/favicons/favicon.ico'
 ]
+
+/* `process.cwd()`: the build runs this file from a bundle elsewhere, so `import.meta.url`
+   is wrong. A missing asset fails the build here rather than the install. */
+const hash = createHash('sha256')
+for (const asset of ASSETS) {
+  hash.update(readFileSync(join(process.cwd(), 'public', decodeURIComponent(asset))))
+}
+const CACHE = `cache-${hash.digest('hex').slice(0, 12)}`
+
+const worker = /* js */ `
+const CACHE = ${JSON.stringify(CACHE)}
+
+const ASSETS = ${JSON.stringify(ASSETS)}
 
 self.addEventListener('install', (event) => {
   async function addFilesToCache() {
@@ -26,7 +43,7 @@ self.addEventListener('install', (event) => {
 
     results.forEach((result, i) => {
       if (result.status === 'rejected') {
-        console.warn(`Failed to cache: ${ASSETS[i]}`, result.reason)
+        console.warn('Failed to cache:', ASSETS[i], result.reason)
       }
     })
   }
@@ -35,7 +52,6 @@ self.addEventListener('install', (event) => {
 })
 
 self.addEventListener('activate', (event) => {
-  // Remove previous cached data from disk
   async function deleteOldCaches() {
     for (const key of await caches.keys()) {
       if (key !== CACHE) await caches.delete(key)
@@ -46,15 +62,13 @@ self.addEventListener('activate', (event) => {
 })
 
 self.addEventListener('fetch', (event) => {
-  // ignore POST requests etc
   if (event.request.method !== 'GET') return
 
   async function respond() {
     const url = new URL(event.request.url)
     const cache = await caches.open(CACHE)
 
-    // `build`/`files` can always be served from the cache
-    if (ASSETS.includes(url.pathname)) {
+    if (url.origin === location.origin && ASSETS.includes(url.pathname)) {
       const response = await cache.match(url.pathname)
 
       if (response) {
@@ -62,8 +76,6 @@ self.addEventListener('fetch', (event) => {
       }
     }
 
-    // for everything else, try the network first, but
-    // fall back to the cache if we're offline
     try {
       const response = await fetch(event.request)
 
@@ -85,11 +97,13 @@ self.addEventListener('fetch', (event) => {
         return response
       }
 
-      // if there's no cache, then just error out
-      // as there is nothing we can do to respond to this request
       throw err
     }
   }
 
   event.respondWith(respond())
 })
+`
+
+export const GET: APIRoute = () =>
+  new Response(worker, { headers: { 'Content-Type': 'text/javascript' } })
