@@ -1,0 +1,22 @@
+---
+interface Props {
+  pathname: string
+}
+
+const { pathname } = Astro.props
+
+/* Notes are the only items whose list is not on the homepage. */
+const parent = pathname.startsWith('/note/')
+  ? { href: '/note', label: 'notes' }
+  : { href: '/', label: 'index' }
+---
+
+{
+  pathname !== '/' && (
+    <header class="fixed z-50">
+      <a href={parent.href} class="reset text-secondary hover:text-primary">
+        ↩ {parent.label}
+      </a>
+    </header>
+  )
+}

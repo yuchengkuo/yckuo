@@ -4,7 +4,7 @@
  * reset back over `prose.css`. A5 asserts one entry stylesheet per page.
  */
 import Analytics from '@vercel/analytics/astro'
-import Header from '../components/Header.svelte'
+import Header from '../components/Header.astro'
 import Footer from '../components/Footer.svelte'
 import { getNavigation } from '../lib/navigation'
 import '../styles/theme.css'
@@ -142,7 +142,7 @@ const { navigation, contact } = await getNavigation()
     </script>
   </head>
   <body>
-    <Header client:load pathname={pathname} />
+    <Header pathname={pathname} />
 
     {
       /*
