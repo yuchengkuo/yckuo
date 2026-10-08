@@ -360,8 +360,8 @@ await check('A10', 'no display:contents wrapper inside <main> (the subgrid sever
   )
 
   /* Reported so the rung cannot read as vacuous: islands DO exist on these pages — the
-     Header, the Footer and the analytics element are all hydrated. The invariant is
-     about where, not whether. */
+     Footer and the analytics element are hydrated. The invariant is about where, not
+     whether. */
   return `${pages.length} pages · ${total} island wrappers, 0 inside <main>`
 })
 

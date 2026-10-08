@@ -4,7 +4,7 @@
  * reset back over `prose.css`. A5 asserts one entry stylesheet per page.
  */
 import Analytics from '@vercel/analytics/astro'
-import Header from '../components/Header.svelte'
+import Header from '../components/Header.astro'
 import Footer from '../components/Footer.svelte'
 import { getNavigation } from '../lib/navigation'
 import '../styles/theme.css'
@@ -44,6 +44,39 @@ const { navigation, contact } = await getNavigation()
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 
+    {
+      /*
+      Unpreloaded, fonts are found only after CSS layout and lose the bandwidth race to the
+      work strips' media — under `font-display: block`, seconds of invisible text.
+
+      Only faces every page uses: an unused preload is a wasted fetch. `href` must match the
+      built CSS's URL byte for byte, or the face downloads twice — the minifier
+      percent-encodes brackets, so `theme.css`'s spelling is wrong here. `crossorigin` is
+      required even same-origin; without it the preload is never reused.
+    */
+    }
+    <link
+      rel="preload"
+      href="/fonts/brockmann-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/brockmann-medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/GeistMono%5Bwght%5D.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
     <title>{title}</title>
 
     {/* Astro drops an attribute bound to `undefined`, so a missing value emits no content. */}
@@ -77,6 +110,30 @@ const { navigation, contact } = await getNavigation()
     }
     <Fragment set:html={`<noscript><style>img,video{opacity:1!important}</style></noscript>`} />
 
+    {
+      /*
+      Holds the homepage intro (index.astro) while `font-display: block` hides text: a CSS
+      animation's clock runs from style resolution, so a slow font lets it play unseen.
+
+      Inline in <head>: the attribute must exist before <main> is first styled. The forced
+      layout starts the used faces loading — before it, `fonts.ready` resolves on nothing.
+      3s is the block period, after which the fallback paints anyway. Without scripting the
+      intro plays unheld.
+    */
+    }
+    <script is:inline>
+      {
+        const root = document.documentElement
+        const release = () => delete root.dataset.fontsPending
+        root.dataset.fontsPending = ''
+        setTimeout(release, 3000)
+        addEventListener('DOMContentLoaded', () => {
+          void document.body.offsetWidth
+          document.fonts.ready.then(release)
+        })
+      }
+    </script>
+
     {/* Absolute path: a relative one breaks on nested routes like `/note/windicss/`. */}
     <script is:inline>
       if ('serviceWorker' in navigator) {
@@ -85,7 +142,7 @@ const { navigation, contact } = await getNavigation()
     </script>
   </head>
   <body>
-    <Header client:load pathname={pathname} />
+    <Header pathname={pathname} />
 
     {
       /*

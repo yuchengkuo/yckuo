@@ -28,8 +28,6 @@ export async function getPages() {
   return await getCollection('pages', isVisible)
 }
 
-/* Unsorted on purpose: `/note` lists in filename order, and sorting it by date is a design
-   decision about the section, not a fix. */
 export async function getNotes() {
-  return await getCollection('notes', isVisible)
+  return (await getCollection('notes', isVisible)).sort(byPublishedDesc)
 }

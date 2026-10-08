@@ -1,0 +1,50 @@
+---
+/*
+ * Columns mirror `WorkRow.astro`; change them together.
+ *
+ * The href must be absolute: a host may serve `note/index.html` at `/note/`, where a relative
+ * `note/windicss` resolves to `/note/note/windicss`.
+ */
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  note: CollectionEntry<'notes'>
+}
+
+const { note } = Astro.props
+const href = `/${note.id}`
+---
+
+<li class="span-full grid-subgrid items-baseline mb-6 relative group">
+  <h2 class="span-full md:span-5 grid grid-cols-[auto_1fr] gap-x-4 items-baseline">
+    {/* Fixed width, so an undated row keeps the title column. */}
+    <span class="text-tertiary font-mono text-xs font-normal w-22">
+      {
+        note.data.published && (
+          <time datetime={note.data.published.toISOString()}>
+            {/* The authored day: dates parse as UTC midnight. */}
+            {note.data.published.toISOString().slice(0, 10)}
+          </time>
+        )
+      }
+    </span>
+    {/* A stretched `::after`, not a wrapping `<a>`, for the reason given in `WorkRow.astro`. */}
+    <a class="after:absolute after:inset-0 after:content-empty" href={href}>{note.data.title}</a>
+  </h2>
+
+  {
+    /*
+    `aria-hidden` and `tabindex="-1"` together, never one alone: it duplicates the title link.
+    The stretched `::after` covers its `:hover`, so `group-hover:` mirrors
+    `.button-secondary:hover` in main.css. Keep in sync.
+  */
+  }
+  <a
+    class="button-secondary group-hover:bg-button-secondary-hover group-hover:text-on-color group-hover:border-transparent lt-md:hidden start-6 span-1 w-fit h-fit justify-self-end"
+    href={href}
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    READ →
+  </a>
+</li>
