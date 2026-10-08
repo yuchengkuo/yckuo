@@ -68,8 +68,9 @@ const CENSUS = {
 }
 
 /* presetWind4's reset. Its presence in a linked stylesheet is what identifies that
-   sheet as a UnoCSS ENTRY rather than a component's scoped chunk (A5). */
-const UNO_PREFLIGHT = '*,:after,:before,::backdrop{box-sizing:border-box'
+   sheet as a UnoCSS ENTRY rather than a component's scoped chunk (A5). The minifier may
+   merge sibling selectors (`::file-selector-button`) onto the list, so match its head only. */
+const UNO_PREFLIGHT = /\*,:after,:before,::backdrop[^{]*\{box-sizing:border-box/
 
 const results = []
 const drift = []
@@ -277,7 +278,7 @@ await check('A5', 'exactly one UnoCSS entry stylesheet per page', () => {
         const file = path.join(DIST, href.replace(/^\//, ''))
         isUnoEntry.set(
           href,
-          fs.existsSync(file) && fs.readFileSync(file, 'utf8').includes(UNO_PREFLIGHT)
+          fs.existsSync(file) && UNO_PREFLIGHT.test(fs.readFileSync(file, 'utf8'))
         )
       }
       if (isUnoEntry.get(href)) count++
