@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 /**
- *     pnpm ratios          fetch every id the manifest lacks, write it, report
- *     pnpm ratios --dry    say what it would fetch, touch nothing
+ *     pnpm ratios          fetch every id the manifest lacks, drop every id the corpus no
+ *                          longer references, write it, report
+ *     pnpm ratios --dry    say what it would fetch and drop, touch nothing
+ *
+ * The dev hook only ever adds: an image cut and pasted back mid-edit must not cost a refetch,
+ * and a half-saved file must not be able to drop an entry. Pruning is a deliberate act.
  *
  * Never runs on a build: Vercel's filesystem is ephemeral, so a manifest generated there
  * could not persist. `docs/adr/0001-committed-ratio-manifest.md` records the reasoning.
@@ -67,6 +71,7 @@ const describe = (site) =>
 export async function generateRatios({
   log = consoleLog,
   dry = false,
+  prune = false,
   fetch = globalThis.fetch
 } = {}) {
   const ids = corpusIds()
@@ -75,6 +80,12 @@ export async function generateRatios({
   const ratios = readManifest()
   const missing = [...ids.keys()].filter((id) => !(id in ratios))
   const unreferenced = Object.keys(ratios).filter((id) => !ids.has(id))
+
+  if (prune)
+    for (const id of unreferenced) {
+      log.info(`  ${dry ? 'would drop' : 'dropped'} ${id}`)
+      if (!dry) delete ratios[id]
+    }
 
   const failures = []
   for (const id of missing) {
@@ -92,30 +103,69 @@ export async function generateRatios({
     }
   }
 
-  /* No write when nothing was added: regenerating an up-to-date manifest must produce no
+  const added = dry ? 0 : missing.length - failures.length
+  const dropped = dry || !prune ? 0 : unreferenced.length
+
+  /* No write when nothing changed: regenerating an up-to-date manifest must produce no
      diff at all, not an identical file with a new mtime. */
-  if (!dry && missing.length > failures.length) writeManifest(ratios)
+  if (added || dropped) writeManifest(ratios)
 
   return {
     total: ids.size,
     recorded: Object.keys(ratios).length,
-    added: dry ? 0 : missing.length - failures.length,
+    added,
+    dropped,
     missing: missing.length,
-    unreferenced: unreferenced.length,
+    unreferenced: unreferenced.length - dropped,
     failures
   }
 }
 
+/**
+ * Dev only. Runs once at startup for ids added while the server was off, then on every
+ * `.mdoc` save for ids added while it is up. Runs never overlap — two would each read the
+ * manifest and the second write would lose the first's entries — and saves landing during a
+ * run collapse into one rerun. Failures are not remembered: a typo'd id is retried on every
+ * save until it is fixed.
+ */
 export function aspectRatios() {
-  return {
-    name: 'aspect-ratios',
-    hooks: {
-      'astro:config:setup': async ({ command, logger }) => {
-        if (command !== 'dev') return
+  let logger
+  let running = null
+  let again = false
+
+  async function refresh() {
+    if (running) return void (again = true)
+    running = (async () => {
+      do {
+        again = false
         const report = await generateRatios({ log: logger })
         if (report.skipped) return
         if (report.added) logger.info(`recorded ${report.added} new aspect ratio(s)`)
         for (const f of report.failures) logger.error(f)
+      } while (again)
+    })()
+    try {
+      await running
+    } finally {
+      running = null
+    }
+  }
+
+  return {
+    name: 'aspect-ratios',
+    hooks: {
+      'astro:config:setup': async ({ command, logger: l }) => {
+        if (command !== 'dev') return
+        logger = l
+        await refresh()
+      },
+      'astro:server:setup': ({ server }) => {
+        const root = contentRoot() + path.sep
+        const onFile = (file) => {
+          if (file.startsWith(root) && file.endsWith('.mdoc')) refresh()
+        }
+        server.watcher.on('add', onFile)
+        server.watcher.on('change', onFile)
       }
     }
   }
@@ -125,14 +175,14 @@ const consoleLog = { info: console.log, warn: console.warn, error: console.error
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   const dry = process.argv.includes('--dry')
-  const report = await generateRatios({ dry })
+  const report = await generateRatios({ dry, prune: true })
   if (report.skipped) {
     console.log(`aspect-ratios: skipped — ${report.skipped}`)
     process.exit(0)
   }
   console.log(
     `aspect-ratios: ${report.recorded} recorded for ${report.total} corpus id(s)` +
-      `, ${report.added} added` +
+      `, ${report.added} added, ${report.dropped} dropped` +
       (report.unreferenced ? `, ${report.unreferenced} no longer referenced` : '')
   )
   for (const f of report.failures) console.error(`  refused ${f}`)

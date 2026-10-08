@@ -14,8 +14,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   `gridspan-selftest.mjs` behind `spanFromRatio()`, `mediaurl-selftest.mjs` behind the media URL
   builders, and `strip-selftest.mjs` behind `strip()`. All six run with no network and no content
   checkout
-- `pnpm ratios` — record the true dimensions of any Cloudinary id the ratio manifest lacks.
-  `--dry` reports what it would fetch. Runs automatically on `pnpm dev`, never on a build
+- `pnpm ratios` — record the true dimensions of any Cloudinary id the ratio manifest lacks, and
+  drop every id the corpus no longer references. `--dry` reports what it would fetch and drop.
+  `pnpm dev` runs the add half only — at startup and on every `.mdoc` save — and never prunes;
+  a build never runs either
 - `pnpm format` — Prettier
 
 There is **no type-check script**. `astro check` was evaluated and backed out:
