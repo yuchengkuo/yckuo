@@ -99,8 +99,7 @@ const navigation = defineCollection({
       z.object({
         key: z.string(),
         label: z.string(),
-        url: z.string(),
-        include: z.array(z.string()).optional()
+        url: z.string()
       })
     ),
     contact: z.array(z.object({ key: z.string(), label: z.string(), url: z.url() }))

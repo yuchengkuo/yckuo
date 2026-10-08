@@ -7,7 +7,6 @@
  */
 import { render, type CollectionEntry } from 'astro:content'
 import Base from '../../layouts/Base.astro'
-import More from '../../components/More.astro'
 import { getNotes } from '../../lib/collections'
 import { formatDate } from '../../lib/util'
 
@@ -31,27 +30,27 @@ const { Content } = await render(entry)
   ogTitle={entry.data.title}
   description={entry.data.description}
 >
-  <More>
-    <header>
-      <h2>{entry.data.title}</h2>
-      <p>
-        Updated on <time datetime={entry.data.updated.toISOString()}
-          >{formatDate(entry.data.updated)}</time
-        >
-      </p>
-    </header>
+  <div class="mt-8 mb-16">
+    <h1 class="text-6 leading-8">{entry.data.title}</h1>
+    <p class="text-secondary font-mono text-xs mt-1">
+      /{' '}
+      {
+        entry.data.published && (
+          <Fragment>
+            Published{' '}
+            <time datetime={entry.data.published.toISOString()}>
+              {formatDate(entry.data.published)}
+            </time>
+            {' / '}
+          </Fragment>
+        )
+      }
+      Updated <time datetime={entry.data.updated.toISOString()}
+        >{formatDate(entry.data.updated)}</time
+      >{' '}/
+    </p>
+  </div>
 
-    {/* Frontmatter as Markdoc variables — see `[...page].astro`. */}
-    <Content {...entry.data} />
-  </More>
+  {/* Frontmatter as Markdoc variables — see `[...page].astro`. */}
+  <Content {...entry.data} />
 </Base>
-
-<style>
-  header {
-    --uno: 'mb-6';
-  }
-
-  header p {
-    --uno: 'font-mono text-xs text-tertiary mt-2';
-  }
-</style>
