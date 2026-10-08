@@ -85,11 +85,17 @@ const orderedProjects = featuredFirst(projects)
     --intro-step: 50ms;
   }
 
+  /* Set while `Base.astro` holds the intro; pausing holds the delays too. */
+  :root[data-fonts-pending] main {
+    --intro-play-state: paused;
+  }
+
   main > h1,
   main > .prose > article > *,
   main > p,
   main > section {
     animation: intro-arrive 500ms ease both;
+    animation-play-state: var(--intro-play-state, running);
   }
 
   /* Its opacity would compound with its animating children's. */
