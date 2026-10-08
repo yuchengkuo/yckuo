@@ -50,6 +50,14 @@ export function highlight(code: string, lang: string) {
   return highlighter.codeToHtml(code, {
     lang: language,
     themes: { light: light.name!, dark: dark.name! },
-    transformers: [transformerNotationHighlight()]
+    transformers: [
+      transformerNotationHighlight(),
+      // A wide block scrolls sideways; Lenis would stall it, for the reason in `Strip.astro`.
+      {
+        pre(node) {
+          node.properties['data-lenis-prevent-horizontal'] = ''
+        }
+      }
+    ]
   })
 }
