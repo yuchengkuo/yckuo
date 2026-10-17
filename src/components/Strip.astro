@@ -3,9 +3,11 @@
  * A work's strip — see CONTEXT.md's *Strip*. A12 counts each box here against
  * `stripSites()`, which reads the same `strip()` the caller passes in.
  *
- * Its own `<a>`, raised above the row's stretched link rather than under it: the overlay
- * would swallow the swipe, and a tap still has to open the case study. `aria-hidden` and
- * `tabindex="-1"` for the same reason as the row's READ button — it duplicates the title.
+ * Its own `<a>`, in a wrapper raised above the row's stretched link rather than under it:
+ * the overlay would swallow the swipe, and a tap still has to open the case study. The edges
+ * share that raised layer; `pointer-events-none` on them lets the tap through to the `<a>`.
+ * `aria-hidden` and `tabindex="-1"` for the same reason as the row's READ button — it
+ * duplicates the title.
  *
  * No `client:` directive on either component — A10.
  *
@@ -22,57 +24,142 @@ import type { Media } from '../lib/media/strip'
 interface Props {
   items: Media[]
   href: string
+  /* Grid placement, on the wrapper. */
   class?: string
+  /* On the scroller itself, for anything that must scroll with the media or size by its font. */
+  scrollClass?: string
 }
 
-const { items, href, class: className } = Astro.props
+const { items, href, class: className, scrollClass } = Astro.props
 
 /* Pairs with `h-24` below. Fetched at 2x. */
 const HEIGHT = 96
 ---
 
-<a
-  class:list={['strip', className]}
-  href={href}
-  aria-hidden="true"
-  tabindex="-1"
-  data-lenis-prevent-horizontal
->
-  {
-    items.map(({ id, isVideo }) => {
-      const ratio = aspectRatio(id)
-      const [w, h] = ratio.split('/').map(Number)
-      const width = Math.ceil((HEIGHT * w) / h)
-      return isVideo ? (
-        <Video id={id} aspectRatio={ratio} transformations={{ resize: { height: HEIGHT * 2 } }} />
-      ) : (
-        <Image id={id} aspectRatio={ratio} widths={[width, width * 2]} sizes={`${width}px`} />
-      )
-    })
-  }
-</a>
+<div class:list={['strip', className]}>
+  <a
+    class:list={['strip-scroll', scrollClass]}
+    href={href}
+    aria-hidden="true"
+    tabindex="-1"
+    data-lenis-prevent-horizontal
+  >
+    {
+      items.map(({ id, isVideo }) => {
+        const ratio = aspectRatio(id)
+        const [w, h] = ratio.split('/').map(Number)
+        const width = Math.ceil((HEIGHT * w) / h)
+        return isVideo ? (
+          <Video id={id} aspectRatio={ratio} transformations={{ resize: { height: HEIGHT * 2 } }} />
+        ) : (
+          <Image id={id} aspectRatio={ratio} widths={[width, width * 2]} sizes={`${width}px`} />
+        )
+      })
+    }
+  </a>
+</div>
 
 <style>
-  /* `w-full` is load-bearing. Without it Chrome sizes this grid item to its content — every
-     item laid end to end — instead of stretching it to its area, `min-w-0` or not, and it
-     never scrolls. Measured, not explained: the cause is not pinned down. */
   .strip {
-    --uno: 'relative z-1 flex gap-2 overflow-x-auto w-full';
+    --uno: 'relative z-1';
+    /* Lets the edges below read the scroller's timeline; a named timeline is otherwise
+       visible only to the scroller's own descendants. */
+    timeline-scope: --strip;
+  }
+
+  /* `w-full` is load-bearing. Without it Chrome sizes the scroller to its content — every
+     item laid end to end — instead of to the wrapper, and it never scrolls. Measured, not
+     explained: the cause is not pinned down. */
+  .strip-scroll {
+    --uno: 'flex gap-2 overflow-x-auto w-full';
+    scroll-timeline: --strip inline;
     scrollbar-width: none;
     /* Horizontal swipes are native here (`data-lenis-prevent-horizontal`), so one that runs
        past either end would otherwise chain to the page and fire history back/forward. */
     overscroll-behavior-x: contain;
   }
-  .strip::-webkit-scrollbar {
+  .strip-scroll::-webkit-scrollbar {
     display: none;
   }
 
   /* Height fixed, width from the wrapper's own `aspect-ratio`: `h-full` on the wrapper is
      what turns its ratio into a width. */
-  .strip > :global(figure) {
+  .strip-scroll > :global(figure) {
     --uno: 'h-24 flex-none';
   }
-  .strip > :global(figure > div) {
+  .strip-scroll > :global(figure > div) {
     --uno: 'h-full';
+  }
+
+  /* Edges: `div[data-layer]` in main.css, turned sideways — mostly blur, with the colour
+     only at the outer edge to blend into the page. On a sibling of the scroller rather than
+     inside it, because `backdrop-filter` on anything that scrolls with the media blurs the
+     wrong pixels. */
+  .strip {
+    /* Per edge, one width for the band and for the scroll distance over which it appears. */
+    --edge-start: 2rem;
+    --edge-end: 2rem;
+    --edge-color: var(--colors-radix-sage-1);
+
+    @media (prefers-color-scheme: dark) {
+      --edge-color: var(--colors-radix-dark-sage-1);
+    }
+  }
+  .strip::before,
+  .strip::after {
+    --uno: 'content-empty absolute inset-y-0 pointer-events-none backdrop-blur-xs';
+    /* Explicit, not tree order: `::before` precedes the media, and any media carrying its own
+       stacking context — a fading `<video>`'s opacity — would otherwise paint over it. */
+    --uno: 'z-1';
+  }
+  /* The mask fades the blur across the band; the colour clears while the mask is still near
+     opaque, so the two fades stay apart. The two sides' stops are tuned by eye, not derived. */
+  .strip::before {
+    --uno: 'left-0';
+    width: var(--edge-start);
+    background-image: linear-gradient(to right, var(--edge-color) 0.1rem, transparent 0.6rem);
+    mask: linear-gradient(to right, black 60%, transparent);
+  }
+  .strip::after {
+    --uno: 'right-0';
+    width: var(--edge-end);
+    background-image: linear-gradient(to left, var(--edge-color), transparent 0.4rem);
+    mask: linear-gradient(to left, black 10%, transparent);
+  }
+
+  /* Each edge shows only while there is more to scroll its way, and a strip with no overflow
+     has an inactive timeline, so neither shows. Without timeline support both edges stay on:
+     the start edge then sits over the empty padding at rest, and the end edge softens the last
+     image a little — cheaper than a script. The animation must stay inside the gate: without
+     timeline support `both` fills a 0s time-based animation to its last keyframe, so the end
+     edge would vanish permanently. */
+  @supports (animation-timeline: scroll()) {
+    .strip::before,
+    .strip::after {
+      opacity: 0;
+      /* Longhands, never the shorthand: the build's minifier folds a following
+         `animation-timeline` into `animation`, which cannot carry one, and the whole
+         declaration is dropped as invalid. */
+      animation-name: strip-edge;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --strip;
+    }
+    .strip::before {
+      animation-range: 0 var(--edge-start);
+    }
+    .strip::after {
+      animation-direction: reverse;
+      animation-range: calc(100% - var(--edge-end)) 100%;
+    }
+  }
+
+  @keyframes strip-edge {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 </style>
