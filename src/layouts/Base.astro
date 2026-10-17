@@ -6,6 +6,7 @@
 import Analytics from '@vercel/analytics/astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.svelte'
+import Lightbox from '../components/Lightbox.astro'
 import { getNavigation } from '../lib/navigation'
 import '../styles/theme.css'
 import '../styles/main.css'
@@ -19,9 +20,11 @@ interface Props {
   /* Not derivable from `title`: a route with no content entry has a title but no og:title. */
   ogTitle?: string
   ogType?: 'website' | 'article'
+  /* Entry pages only — see CONTEXT.md's *Lightbox*. */
+  lightbox?: boolean
 }
 
-const { title, description, ogTitle, ogType = 'website' } = Astro.props
+const { title, description, ogTitle, ogType = 'website', lightbox = false } = Astro.props
 
 /* `build.format: 'directory'` gives `/about/`; strip the slash for og:url, sparing `/`. */
 const pathname = Astro.url.pathname.replace(/(.)\/$/, '$1')
@@ -157,6 +160,8 @@ const { navigation, contact } = await getNavigation()
 
     <Footer client:load navigation={navigation} contact={contact} />
 
+    {lightbox && <Lightbox title={ogTitle} />}
+
     <div data-layer role="presentation"></div>
 
     <Analytics mode={import.meta.env.DEV ? 'development' : 'production'} />
@@ -212,8 +217,7 @@ const { navigation, contact } = await getNavigation()
     </script>
 
     <script>
-      import Lenis from 'lenis'
-      new Lenis({ autoRaf: true, lerp: 0.3 })
+      import '../lib/lenis'
     </script>
 
     <style is:global>
