@@ -63,6 +63,12 @@ const { title } = Astro.props
     let index = 0
     const preloaded = new Set<number>()
 
+    /* The page's gate is scoped to `Image.svelte` and `Video.svelte` and opened once at load
+       by `Base.astro`, so media built here needs its own. `@starting-style` fades media that
+       is already loaded when inserted. */
+    const revealOn = (el: HTMLElement, event: string, source: EventTarget = el) =>
+      source.addEventListener(event, () => (el.dataset.loaded = ''), { once: true })
+
     /* `100vw`, not the box width: the srcset tops out at 2100, and a smaller pick goes soft
        on a wide screen. */
     const media = (item: LightboxItem) => {
@@ -72,6 +78,12 @@ const { title } = Astro.props
         if (item.poster) video.poster = item.poster
         if (item.alt) video.setAttribute('aria-label', item.alt)
         video.src = item.src
+        revealOn(video, 'loadeddata')
+        if (item.poster) {
+          const poster = new Image()
+          revealOn(video, 'load', poster)
+          poster.src = item.poster
+        }
         return video
       }
       const img = new Image()
@@ -79,6 +91,8 @@ const { title } = Astro.props
       img.sizes = '100vw'
       if (item.srcset) img.srcset = item.srcset
       img.src = item.src
+      revealOn(img, 'load')
+      revealOn(img, 'error')
       return img
     }
 
@@ -214,6 +228,23 @@ const { title } = Astro.props
   .slot > :global(img),
   .slot > :global(video) {
     --uno: 'block w-full h-full object-cover';
+    opacity: 0;
+    color: transparent;
+  }
+  .slot > :global([data-loaded]) {
+    opacity: 1;
+    color: inherit;
+    transition: opacity 200ms ease-out;
+  }
+  @starting-style {
+    .slot > :global([data-loaded]) {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .slot > :global([data-loaded]) {
+      transition-duration: 0s;
+    }
   }
 
   /* The built-in single-direction arrows; CSS has no next/previous cursor. */
